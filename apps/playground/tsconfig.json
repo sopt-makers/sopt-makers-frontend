@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@/public/*": ["./public/*"]
+    },
+    "types": ["jest"],
+    "skipLibCheck": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "incremental": true,
+    "jsx": "preserve",
+    "jsxImportSource": "@emotion/react"
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "jest.setup.ts", "src/components/mySoptReport/ReportCard/CardHeader"],
+  "exclude": ["node_modules", "functions/**/*", "worker/**/*"]
+}
