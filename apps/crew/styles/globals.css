@@ -1,0 +1,583 @@
+/* 반응형 적용은 문의에 대한 답변 들은 뒤에!
+@import url('ui/desktop-variables.css') screen;
+@import url('ui/mobile-variables.css') screen and (max-width: 768px); 
+
+@import url('@sopt-makers/ui/desktop-variable.css') screen;
+@import url('@sopt-makers/ui/mobile-variables.css') screen and (max-width: 768px);
+*/
+
+@font-face {
+  font-family: 'SUIT';
+  font-weight: 900;
+  src: url('../public/assets/fonts/SUIT-Heavy.woff2') format('woff2');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SUIT';
+  font-weight: 800;
+  src: url('../public/assets/fonts/SUIT-ExtraBold.woff2') format('woff2');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SUIT';
+  font-weight: 700;
+  src: url('../public/assets/fonts/SUIT-Bold.woff2') format('woff2');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SUIT';
+  font-weight: 600;
+  src: url('../public/assets/fonts/SUIT-SemiBold.woff2') format('woff2');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SUIT';
+  font-weight: 500;
+  src: url('../public/assets/fonts/SUIT-Medium.woff2') format('woff2');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SUIT';
+  font-weight: 400;
+  src: url('../public/assets/fonts/SUIT-Regular.woff2') format('woff2');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SUIT';
+  font-weight: 300;
+  src: url('../public/assets/fonts/SUIT-Light.woff2') format('woff2');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SUIT';
+  font-weight: 200;
+  src: url('../public/assets/fonts/SUIT-ExtraLight.woff2') format('woff2');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SUIT';
+  font-weight: 100;
+  src: url('../public/assets/fonts/SUIT-Thin.woff2') format('woff2');
+  font-display: swap;
+}
+
+html,
+body,
+button,
+input,
+textarea {
+  font-family: 'SUIT', sans-serif;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  background-color: var(--colors-gray950);
+
+  .react-calendar {
+    width: 100%;
+    height: 100%;
+    font-family: SUIT;
+    color: var(--colors-gray400);
+    background: var(--colors-gray700);
+    border: none;
+    padding: 5px 10px 10px 10px;
+  }
+
+  @media (max-width: 768px) {
+    .react-calendar {
+      background: var(--colors-gray800);
+    }
+    .react-calendar__navigation {
+      padding: 0px 20px;
+    }
+  }
+
+  .react-calendar__navigation {
+    gap: 15px;
+    margin-bottom: 0;
+
+    .react-calendar__navigation__label {
+      cursor: auto;
+    }
+    .react-calendar__navigation__label > span {
+      color: var(--colors-gray10);
+      font-family: SUIT;
+      font-size: 16px;
+      cursor: auto;
+      font-style: normal;
+      font-weight: 700;
+      order: 1;
+    }
+
+    .react-calendar__navigation__arrow {
+      color: var(--colors-gray10);
+      order: 2;
+      align-items: center;
+      cursor: pointer;
+      font-size: 30px;
+      background: none;
+      width: 20px;
+
+      &:enabled {
+        background: none;
+      }
+
+      &:enabled:hover {
+        background: none;
+      }
+
+      &:disabled {
+        background: none;
+      }
+
+      &:disabled:hover {
+        background: none;
+      }
+
+      &:enabled:focus {
+        background: none;
+      }
+    }
+  }
+
+  .react-calendar__navigation button {
+    min-width: fit-content;
+    width: 30px;
+
+    &:disabled {
+      background: none;
+    }
+  }
+
+  .react-calendar button {
+    margin-bottom: 10px;
+  }
+
+
+
+  .react-calendar__tile {
+    display: flex;
+    font-family: SUIT;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    color: var(--colors-gray10);
+    height: 38px;
+    text-align: center;
+    max-height: 38px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+
+    &:hover {
+      background: none;
+    }
+
+    &:enabled:hover {
+      background: none;
+    }
+    &:enabled:focus {
+      background: none;
+    }
+    &:disabled {
+      background: none;
+    }
+
+    abbr {
+      &:hover {
+        width: 30px;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: var(--colors-gray10);
+        color: var(--colors-gray800);
+        border-radius: 100%;
+      }
+      &:enabled:hover {
+        background: var(--colors-gray10);
+      }
+      &:enabled:focus {
+        background: var(--colors-gray10);
+      }
+    }
+  }
+
+  .react-calendar__tile--now {
+    background: none;
+    justify-content: center;
+
+    &:hover {
+      background: none;
+    }
+    abbr {
+      &:hover {
+        width: 30px;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: var(--colors-gray10);
+        color: var(--colors-gray800);
+        border-radius: 100%;
+      }
+    }
+  }
+
+
+
+
+  .react-calendar__tile--active {
+    background: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+
+    &:hover {
+      background: none;
+    }
+
+    abbr {
+      width: 30px;
+      height: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: var(--colors-gray10);
+      color: var(--colors-gray800);
+      border-radius: 50%;
+
+      &:hover {
+        background: var(--colors-gray10);
+      }
+    }
+  }
+
+  .react-calendar__tile--range{
+    border-radius: 0;
+    background: var(--colors-gray500);
+
+
+    &:hover {
+      background: var(--colors-gray500);
+    }
+
+    abbr {
+      background: var(--colors-gray500);
+      border-radius: 0;
+      width: 40px;
+      height: 40px;
+      padding: 10px 0 10px 0;
+      color: var(--colors-gray10);
+    }
+  }
+
+
+  .react-calendar__tile--hasActive{
+    background: none;
+    &:hover {
+      background: var(--colors-gray500);
+    }
+    abbr {
+      background-color: var(--colors-gray10);
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      color: var(--colors-gray800);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  .react-calendar__tile--rangeEnd  {
+    background-color: var(--colors-gray500);
+    border-radius: 0 47% 47% 0;
+    margin: 10px 0 ;
+    padding: 0;
+    width: 40px;
+    height: 38px !important;
+    @media (max-width: 768px) {
+      border-radius: 0 19px 19px 0;
+    }
+    abbr {
+      background-color: var(--colors-gray10);
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      color: var(--colors-gray800);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+    }
+  }
+
+  .react-calendar__tile.react-calendar__tile--range {
+    &:hover {
+      background: var(--colors-gray500);
+    }
+
+    &:enabled:hover {
+      background: var(--colors-gray500);
+    }
+    &:enabled:focus {
+      background: var(--colors-gray500);
+    }
+
+  }
+
+
+  .react-calendar__tile--rangeStart {
+    background-color: var(--colors-gray500);
+    border-radius: 47% 0 0 47%;
+    padding: 0;
+    width: 40px;
+    height: 38px !important;
+    @media (max-width: 768px) {
+      border-radius: 19px 0 0 19px;
+    }
+    abbr {
+      background-color: var(--colors-gray10);
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      color: var(--colors-gray800);
+    }
+  }
+
+  .react-calendar__tile--hover{
+    background-color: var(--colors-gray500) !important;
+  }
+
+  .react-calendar__tile--hoverStart{
+    background-color: var(--colors-gray500) !important;
+    border-radius: 47% 0 0 47%;
+
+  }
+
+  .react-calendar__tile--hoverEnd{
+    background-color: var(--colors-gray500) !important;
+    border-radius: 0 47% 47% 0;
+
+  }
+
+  .react-calendar__tile--range.single-select-mode {
+    background: unset !important;
+  }
+
+}
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font-weight: inherit;
+  letter-spacing: -0.005em;
+  vertical-align: baseline;
+  text-decoration: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+
+ol,
+ul,
+li {
+  list-style: none;
+}
+
+blockquote,
+q {
+  quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: '';
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+a {
+  color: inherit;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+*:focus {
+  outline: none;
+}
+
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  transition: background-color 5000s ease-in-out 0s;
+  -webkit-text-fill-color: var(--colors-white) !important;
+}
+
+input,
+button {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  -webkit-appearance: inherit;
+  -moz-appearance: inherit;
+  background: inherit;
+  font-size: inherit;
+  text-align: left;
+}
+
+button {
+  background: transparent;
+  border-radius: 0;
+  cursor: pointer;
+}
+
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+.mobile-only {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .pc-only {
+    display: none;
+  }
+  .mobile-only {
+    display: block;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}

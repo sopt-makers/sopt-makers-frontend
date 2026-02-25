@@ -1,0 +1,179 @@
+import { ampli } from '@/ampli';
+import LocalStorage from '@/store/localStorage/LocalStorage';
+import LocalStorageKey from '@/store/localStorage/LocalStorageKey';
+import { usePostMeetingMutation } from '@api/meeting/mutation';
+import useDraftCreateMeeting from '@domain/meeting/DraftCreateMeetingModal';
+import useThrottle from '@hook/useThrottle';
+import { zodResolver } from '@hookform/resolvers/zod';
+import Presentation from '@shared/form/Presentation';
+import TableOfContents from '@shared/form/TableOfContents';
+import { colors } from '@sopt-makers/colors';
+import { fontsObject } from '@sopt-makers/fonts';
+import { FormType, schema } from '@type/form';
+import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
+import { useEffect, useRef, useState } from 'react';
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+import { styled } from 'stitches.config';
+
+const DevTool = dynamic(() => import('@hookform/devtools').then(module => module.DevTool), {
+  ssr: false,
+});
+
+const MakePage = () => {
+  const router = useRouter();
+  const { draftFormValues, removeDraftCreateMeeting } = useDraftCreateMeeting();
+  const formMethods = useForm<FormType>({
+    mode: 'onChange',
+    reValidateMode: 'onChange',
+    resolver: zodResolver(schema),
+    defaultValues: {
+      detail: {
+        coLeader: [],
+      },
+    },
+  });
+  const { isValid, errors, isDirty } = formMethods.formState;
+  const { watch } = formMethods;
+  const { mutate: mutateCreateMeeting, isPending: isSubmitting } = usePostMeetingMutation();
+  const submittedRef = useRef(false);
+  const [hasDraftLoaded, setHasDraftLoaded] = useState(false);
+
+  const handleChangeImage = (index: number, url: string) => {
+    const files = formMethods.getValues().files.slice();
+    files.splice(index, 1, url);
+    formMethods.setValue('files', files);
+  };
+
+  const handleDeleteImage = (index: number) => {
+    const files = formMethods.getValues().files.slice();
+    files.splice(index, 1);
+    formMethods.setValue('files', files);
+  };
+
+  const onSubmit: SubmitHandler<FormType> = async formData => {
+    mutateCreateMeeting(formData, {
+      onSuccess: data => {
+        ampli.completedMakeGroup({ from_resume: false });
+        submittedRef.current = true;
+        removeDraftCreateMeeting();
+        alert('모임을 개설했습니다.');
+        router.push(`/detail?id=${data.meetingId}`);
+      },
+    });
+  };
+
+  const throttledPersistDraft = useThrottle(() => {
+    if (submittedRef.current || !formMethods.formState.isDirty) return;
+
+    LocalStorage.setItem(LocalStorageKey.DraftCreateMeeting, {
+      dateTime: Date.now(),
+      formValues: formMethods.getValues(),
+    });
+  }, 1000);
+
+  useEffect(() => {
+    const subscription = watch(() => {
+      throttledPersistDraft();
+    });
+
+    return () => subscription.unsubscribe();
+  }, [watch, throttledPersistDraft]);
+
+  useEffect(() => {
+    const persistDraft = () => {
+      if (isDirty && !submittedRef.current) {
+        LocalStorage.setItem(LocalStorageKey.DraftCreateMeeting, {
+          dateTime: Date.now(),
+          formValues: formMethods.getValues(),
+        });
+      }
+    };
+
+    window.addEventListener('beforeunload', persistDraft);
+    window.addEventListener('pagehide', persistDraft);
+
+    return () => {
+      window.removeEventListener('beforeunload', persistDraft);
+      window.removeEventListener('pagehide', persistDraft);
+      persistDraft();
+    };
+  }, [formMethods, isDirty]);
+
+  useEffect(() => {
+    if (draftFormValues) {
+      formMethods.reset(draftFormValues);
+      setHasDraftLoaded(true);
+    }
+  }, [draftFormValues, formMethods]);
+
+  const handleSubmit = formMethods.handleSubmit(onSubmit);
+  const isSubmitDisabled = isSubmitting || !isValid || Object.keys(errors).length > 0 || (!isDirty && !hasDraftLoaded);
+
+  return (
+    <FormProvider {...formMethods}>
+      <SContainer>
+        <SFormContainer>
+          <SFormName>모임 정보입력</SFormName>
+          <SFormCaution>모임 개설에 필요한 필수 항목이 모두 입력 되었는지 꼼꼼하게 확인해주세요!</SFormCaution>
+          <Presentation
+            submitButtonLabel={<>모임 개설하기</>}
+            handleChangeImage={handleChangeImage}
+            handleDeleteImage={handleDeleteImage}
+            onSubmit={handleSubmit}
+            disabled={isSubmitDisabled}
+          />
+        </SFormContainer>
+        <TableOfContents
+          label="작성 항목"
+          onSubmit={handleSubmit}
+          submitButtonLabel="개설하기"
+          disabled={isSubmitDisabled}
+        />
+      </SContainer>
+      {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+      {/* @ts-ignore */}
+      <DevTool control={formMethods.control} />
+    </FormProvider>
+  );
+};
+
+export default MakePage;
+
+const SContainer = styled('div', {
+  margin: '80px 0',
+  display: 'flex',
+  gap: '30px',
+
+  '@media (max-width: 768px)': {
+    margin: 0,
+  },
+});
+const SFormContainer = styled('div', {
+  width: '100%',
+  padding: '36px 40px 56px',
+  borderRadius: '15px',
+
+  '@media (max-width: 768px)': {
+    padding: '40px 0 0 0',
+    background: '$gray950',
+  },
+});
+const SFormName = styled('h1', {
+  ...fontsObject.HEADING_2_32_B,
+  color: '$gray10',
+  marginBottom: '20px',
+
+  '@media (max-width: 768px)': {
+    ...fontsObject.HEADING_4_24_B,
+  },
+});
+
+const SFormCaution = styled('div', {
+  ...fontsObject.BODY_4_13_M,
+  padding: '14px 18px',
+  marginBottom: '60px',
+  borderRadius: '10px',
+  border: `1px solid ${colors.blue600}`,
+  background: 'var(--blue-alpha-100, rgba(52, 111, 250, 0.10))',
+});
