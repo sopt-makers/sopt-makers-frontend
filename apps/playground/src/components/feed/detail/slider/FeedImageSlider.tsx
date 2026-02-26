@@ -77,8 +77,8 @@ export default FeedImageSlider;
 const Background = styled(m.div)`
   display: flex;
   position: fixed;
-  top: 0;
   inset: 0;
+  top: 0;
   flex-direction: column;
   align-items: center;
   justify-content: center;
