@@ -46,6 +46,7 @@
     "@types/react": "18.0.21",
     "@types/react-dom": "18.0.6",
     "zod": "3.25.76",
-    "react-hook-form": "7.43.9"
+    "react-hook-form": "7.43.9",
+    "stylelint-order": "6.0.4"
   }
 }
