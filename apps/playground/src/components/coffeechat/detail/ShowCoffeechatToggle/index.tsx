@@ -4,7 +4,7 @@ import { fonts } from '@sopt-makers/fonts';
 import { Toggle } from '@sopt-makers/ui';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
-import { playgroundLink } from 'playground-common/export';
+import { playgroundLink } from '@sopt/ui';
 
 import { getCoffeechatDetail } from '@/api/endpoint/coffeechat/getCoffeechatDetail';
 import { changeIsBlindCoffeechat } from '@/api/endpoint/coffeechat/postCoffeechatIsBlind';

@@ -1,7 +1,7 @@
 import { colors } from '@sopt-makers/colors';
 import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
-import { playgroundLink } from 'playground-common/export';
+import { playgroundLink } from '@sopt/ui';
 
 import { useDeletePostMutation } from '@/api/endpoint/feed/deletePost';
 import { useGetPostsInfiniteQuery } from '@/api/endpoint/feed/getPosts';
