@@ -21,6 +21,11 @@
     "@typescript-eslint/no-empty-function": "off",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
+    "react-hooks/set-state-in-effect": "warn",
+    "react-hooks/static-components": "warn",
+    "react-hooks/immutability": "warn",
+    "react-hooks/refs": "warn",
+    "react-hooks/incompatible-library": "warn",
     "prettier/prettier": [
       "error",
       {

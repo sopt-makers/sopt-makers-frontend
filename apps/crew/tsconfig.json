@@ -16,6 +16,7 @@
     "incremental": true,
     "baseUrl": "./",
     "noUncheckedIndexedAccess": true,
+    "types": [],
     "paths": {
       "@common/*": ["src/common/*"],
       "@shared/*": ["src/shared/*"],
