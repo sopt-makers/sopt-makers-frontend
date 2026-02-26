@@ -1,0 +1,8 @@
+# apps/crew
+apps/crew/ @constantly-dev
+
+# apps/playground
+apps/playground/ 
+
+# shared packages
+packages/ @constantly-dev 
