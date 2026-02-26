@@ -1,41 +1,45 @@
-name: Development Deploy
+name: Playground - Development Deploy
 
 on:
   push:
-    branches:
-      - develop
+    branches: [develop]
+    paths:
+      - 'apps/playground/**'
+      - 'packages/**'
+      - 'package.json'
+      - 'yarn.lock'
   pull_request:
-    paths-ignore:
-      - '**.md'
-      - '.github/**/!(*.yml)'
-      - '.husky/**/*'
-      - '.vscode/**/*'
+    paths:
+      - 'apps/playground/**'
+      - 'packages/**'
 
 jobs:
-  build-app:
-    uses: ./.github/workflows/build.yml
-    with:
-      env: ${{ vars.DEVELOPMENT_ENV }}
-
   deploy:
-    needs: build-app
     runs-on: ubuntu-latest
     name: Deploy to Cloudflare Pages
     steps:
       - name: Checkout Branch
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Download Built App
-        uses: actions/download-artifact@v4
+      - uses: actions/setup-node@v4
         with:
-          name: built-app
-          path: out
+          node-version: 18
+          cache: yarn
+
+      - name: Install Packages
+        run: yarn install --immutable
+
+      - name: Set .env
+        run: echo "${{ vars.PLAYGROUND_DEVELOPMENT_ENV }}" > apps/playground/.env.local
+
+      - name: Build
+        run: yarn build:playground
 
       - name: Publish
         id: publish
         run: |
           set -o pipefail
-          yarn dlx wrangler pages publish "out" --project-name "${{ vars.CF_PAGES_NAME_DEVELOPMENT }}" --commit-message " " | tee deploy.log
+          yarn workspace playground run deploy --branch="${{ github.head_ref || github.ref_name }}" | tee deploy.log
           echo "log<<EOF" >> $GITHUB_OUTPUT
           echo "$(cat deploy.log)" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
@@ -44,6 +48,7 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
       - name: Get Preview URL
+        if: github.event_name == 'pull_request'
         uses: actions-ecosystem/action-regex-match@v2
         id: regex-match
         with:
@@ -57,7 +62,7 @@ jobs:
         with:
           issue-number: ${{ github.event.pull_request.number }}
           comment-author: 'github-actions[bot]'
-          body-includes: 프리뷰 배포 확인하기
+          body-includes: 'Playground 프리뷰 배포'
 
       - name: Create or update comment
         if: github.event_name == 'pull_request'
@@ -66,7 +71,7 @@ jobs:
           comment-id: ${{ steps.find_comment.outputs.comment-id }}
           issue-number: ${{ github.event.pull_request.number }}
           body: |
-            🚀 프리뷰 배포 확인하기 🚀
+            🚀 Playground 프리뷰 배포 확인하기 🚀
 
             ${{ steps.regex-match.outputs.group1 }}
           edit-mode: replace
