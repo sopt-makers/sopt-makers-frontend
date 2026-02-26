@@ -1,0 +1,51 @@
+{
+  "name": "sopt-makers-frontend",
+  "private": true,
+  "packageManager": "yarn@4.1.1",
+  "workspaces": {
+    "packages": [
+      "apps/*",
+      "apps/crew/packages/*",
+      "apps/playground/packages/*",
+      "packages/*"
+    ]
+  },
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "dev:crew": "turbo run dev --filter=crew",
+    "dev:playground": "turbo run dev --filter=playground",
+    "build:crew": "turbo run build --filter=crew",
+    "build:playground": "turbo run build --filter=playground",
+    "deploy": "turbo deploy",
+    "check": "turbo lint typecheck stylelint test:ci",
+    "update-mds": "yarn up @sopt-makers/colors@latest @sopt-makers/fonts@latest @sopt-makers/playground-common@latest @sopt-makers/ui@latest @sopt-makers/icons@latest",
+    "lint": "turbo lint",
+    "clean": "turbo clean"
+  },
+  "dependencies": {
+    "axios": "^1.1.3",
+    "dayjs": "^1.11.6",
+    "immer": "^10.0.4",
+    "nanoid": "^4.0.0",
+    "zod": "^3.20.6"
+  },
+  "devDependencies": {
+    "@types/node": "18.8.3",
+    "@types/react": "18.0.21",
+    "@types/react-dom": "18.0.6",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "^14.2.1",
+    "eslint-config-prettier": "^8.8.0",
+    "prettier": "^3.0.0",
+    "storybook": "^8.1.11",
+    "turbo": "^1.12.0",
+    "typescript": "^4.9.5"
+  },
+  "resolutions": {
+    "@types/react": "18.0.21",
+    "@types/react-dom": "18.0.6",
+    "zod": "3.25.76",
+    "react-hook-form": "7.43.9"
+  }
+}
