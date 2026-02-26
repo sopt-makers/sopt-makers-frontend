@@ -1,4 +1,4 @@
-import { playgroundLink } from 'playground-common/export';
+import { playgroundLink } from '@sopt/ui';
 import { FC, useContext } from 'react';
 import { atomFamily, useRecoilState } from 'recoil';
 

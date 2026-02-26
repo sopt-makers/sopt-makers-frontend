@@ -3,7 +3,7 @@ import { colors } from '@sopt-makers/colors';
 import { IconPlus } from '@sopt-makers/icons';
 import { Tag } from '@sopt-makers/ui';
 import Link from 'next/link';
-import { playgroundLink } from 'playground-common/export';
+import { playgroundLink } from '@sopt/ui';
 import { FC } from 'react';
 
 import Text from '@/components/common/Text';

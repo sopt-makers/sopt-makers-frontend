@@ -4,7 +4,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { Flex } from '@toss/emotion-utils';
 import { ErrorBoundary } from '@toss/error-boundary';
 import Link from 'next/link';
-import { playgroundLink } from 'playground-common/export';
+import { playgroundLink } from '@sopt/ui';
 import { createContext, ReactNode, useRef } from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';

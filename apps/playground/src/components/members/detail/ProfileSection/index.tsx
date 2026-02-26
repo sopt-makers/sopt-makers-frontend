@@ -7,7 +7,7 @@ import dayjs from 'dayjs';
 import { uniq } from 'lodash-es';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { playgroundLink } from 'playground-common/export';
+import { playgroundLink } from '@sopt/ui';
 import EditIcon from 'public/icons/icon-edit.svg';
 
 import { ProfileDetail } from '@/api/endpoint_LEGACY/members/type';

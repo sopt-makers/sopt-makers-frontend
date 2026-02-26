@@ -1,7 +1,7 @@
 import { DialogOptionType, useDialog, useToast } from '@sopt-makers/ui';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
-import { playgroundLink } from 'playground-common/export';
+import { playgroundLink } from '@sopt/ui';
 import { useMemo } from 'react';
 import { FieldValues } from 'react-hook-form';
 

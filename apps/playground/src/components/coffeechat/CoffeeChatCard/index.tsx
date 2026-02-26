@@ -5,7 +5,7 @@ import { fonts } from '@sopt-makers/fonts';
 import { Tag } from '@sopt-makers/ui';
 import { m } from 'framer-motion';
 import { useRouter } from 'next/router';
-import { playgroundLink } from 'playground-common/export';
+import { playgroundLink } from '@sopt/ui';
 import { useState } from 'react';
 
 import Divider from '@/components/common/Divider/Divider';

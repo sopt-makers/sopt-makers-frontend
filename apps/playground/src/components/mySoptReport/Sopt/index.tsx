@@ -4,7 +4,7 @@ import { fonts } from '@sopt-makers/fonts';
 import { IconChevronRight } from '@sopt-makers/icons';
 import { Button, Tag } from '@sopt-makers/ui';
 import router from 'next/router';
-import { playgroundLink } from 'playground-common/export';
+import { playgroundLink } from '@sopt/ui';
 
 import { useGetMemberOfMe } from '@/api/endpoint/members/getMemberOfMe';
 import { useGetMemberProperty } from '@/api/endpoint/members/getMemberProperty';

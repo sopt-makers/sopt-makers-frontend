@@ -2,7 +2,7 @@ import { colors } from '@sopt-makers/colors';
 import { useToast } from '@sopt-makers/ui';
 import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
-import { playgroundLink } from 'playground-common/export';
+import { playgroundLink } from '@sopt/ui';
 
 import { usePostBlockMemberMutation } from '@/api/endpoint/members/postBlockMember';
 import useConfirm from '@/components/common/Modal/useConfirm';

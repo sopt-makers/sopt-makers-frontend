@@ -4,7 +4,7 @@ import { fonts } from '@sopt-makers/fonts';
 import { IconChevronRight } from '@sopt-makers/icons';
 import { Button } from '@sopt-makers/ui';
 import router from 'next/router';
-import { playgroundLink } from 'playground-common/export';
+import { playgroundLink } from '@sopt/ui';
 
 import Responsive from '@/components/common/Responsive';
 import { LoggingClick } from '@/components/eventLogger/components/LoggingClick';

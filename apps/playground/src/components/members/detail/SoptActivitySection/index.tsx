@@ -1,4 +1,4 @@
-import { playgroundLink } from 'playground-common/export';
+import { playgroundLink } from '@sopt/ui';
 
 import { SoptActivity } from '@/api/endpoint_LEGACY/members/type';
 import { isProjectCategory } from '@/api/endpoint_LEGACY/projects/type';

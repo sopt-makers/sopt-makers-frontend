@@ -1,4 +1,4 @@
-import { playgroundLink } from 'playground-common/export';
+import { playgroundLink } from '@sopt/ui';
 
 import { useCopyText } from '@/hooks/useCopyText';
 
