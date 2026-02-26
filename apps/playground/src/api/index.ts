@@ -1,4 +1,4 @@
-import axios, { AxiosError } from 'axios';
+import axios, { AxiosError, AxiosHeaders } from 'axios';
 
 import { tokenStorage } from '@/components/auth/util/accessToken';
 import { ADMIN_API_KEY, ADMIN_API_URL, API_URL, AUTH_API_URL, CREW_API_URL, OPERATION_API_URL } from '@/constants/env';
@@ -117,7 +117,7 @@ export const handleTokenError = async (error: AxiosError<unknown>) => {
         },
       );
       if (!originRequest.headers) {
-        originRequest.headers = {};
+        originRequest.headers = new AxiosHeaders();
       }
       originRequest.headers.Authorization = `Bearer ${data.data.accessToken}`;
       tokenStorage.set(data.data.accessToken);

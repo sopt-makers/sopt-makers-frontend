@@ -3,215 +3,214 @@
  * Do not make direct changes to the file.
  */
 
-
 export interface paths {
-  "/meeting/{id}/apply/status": {
+  '/meeting/{id}/apply/status': {
     /**
      * 모임 지원자 상태 변경
      * @description 모임 지원자 상태 변경
      */
-    put: operations["MeetingV0Controller_updateApplyStatusByMeeting"];
+    put: operations['MeetingV0Controller_updateApplyStatusByMeeting'];
   };
-  "/meeting/{id}/list": {
+  '/meeting/{id}/list': {
     /**
      * 모임 지원자/참여자 조회
      * @description 모임 지원자/참여자 조회 (모임장이면 지원자, 아니면 참여자 조회)
      */
-    get: operations["MeetingV0Controller_getApplyListByMeeting"];
+    get: operations['MeetingV0Controller_getApplyListByMeeting'];
   };
-  "/meeting/apply": {
+  '/meeting/apply': {
     /**
      * 모임 지원/취소
      * @deprecated
      * @description 모임 지원/취소
      */
-    post: operations["MeetingV0Controller_applyMeeting"];
+    post: operations['MeetingV0Controller_applyMeeting'];
   };
-  "/meeting/{id}": {
+  '/meeting/{id}': {
     /**
      * 모임 상세 조회
      * @description 모임 상세 조회
      */
-    get: operations["MeetingV0Controller_getMeetingById"];
+    get: operations['MeetingV0Controller_getMeetingById'];
     /**
      * 모임 수정
      * @deprecated
      * @description 모임 수정
      */
-    put: operations["MeetingV0Controller_updateMeetingById"];
+    put: operations['MeetingV0Controller_updateMeetingById'];
     /**
      * 모임 삭제
      * @description 모임 삭제
      */
-    delete: operations["MeetingV0Controller_deleteMeetingById"];
+    delete: operations['MeetingV0Controller_deleteMeetingById'];
   };
-  "/meeting": {
+  '/meeting': {
     /**
      * 모임 전체 조회/검색/필터링
      * @description 모임 전체 조회/검색/필터링
      */
-    get: operations["MeetingV0Controller_getAllMeeting"];
+    get: operations['MeetingV0Controller_getAllMeeting'];
     /**
      * 모임 생성
      * @deprecated
      * @description 모임 생성
      */
-    post: operations["MeetingV0Controller_createMeeting"];
+    post: operations['MeetingV0Controller_createMeeting'];
   };
-  "/auth": {
+  '/auth': {
     /**
      * 로그인/회원가입
      * @description 로그인/회원가입
      */
-    post: operations["AuthV0Controller_loginUser"];
+    post: operations['AuthV0Controller_loginUser'];
   };
-  "/meeting/v1/{id}/list/csv": {
+  '/meeting/v1/{id}/list/csv': {
     /**
      * 모임 지원자 목록 csv 파일 다운로드
      * @description 모임장일때만 지원자 목록 csv 파일 다운로드 가능
      */
-    get: operations["MeetingV1Controller_getApplyListByMeetingCsvFileUrl"];
+    get: operations['MeetingV1Controller_getApplyListByMeetingCsvFileUrl'];
   };
-  "/meeting/v1/presigned-url": {
+  '/meeting/v1/presigned-url': {
     /** Meeting 썸네일 업로드용 Pre-Signed URL 발급 */
-    get: operations["MeetingV1Controller_getPresignedURL"];
+    get: operations['MeetingV1Controller_getPresignedURL'];
   };
-  "/meeting/v1": {
+  '/meeting/v1': {
     /**
      * 모임 생성
      * @deprecated
      * @description 모임 생성
      */
-    post: operations["MeetingV1Controller_createMeeting"];
+    post: operations['MeetingV1Controller_createMeeting'];
   };
-  "/meeting/v1/{id}": {
+  '/meeting/v1/{id}': {
     /**
      * 모임 수정
      * @description 모임 수정
      */
-    put: operations["MeetingV1Controller_updateMeetingById"];
+    put: operations['MeetingV1Controller_updateMeetingById'];
   };
-  "/users/meeting": {
+  '/users/meeting': {
     /**
      * 내가 만든 모임 조회
      * @description 내가 만든 모임 조회
      */
-    get: operations["UserV0Controller_getMeetingByUser"];
+    get: operations['UserV0Controller_getMeetingByUser'];
   };
-  "/users/apply": {
+  '/users/apply': {
     /**
      * 내가 신청한 모임 조회
      * @description 내가 신청한 모임 조회
      */
-    get: operations["UserV0Controller_getApplyByUser"];
+    get: operations['UserV0Controller_getApplyByUser'];
   };
-  "/users/{id}": {
+  '/users/{id}': {
     /**
      * 유저 상세 조회
      * @description 유저 상세 조회
      */
-    get: operations["UserV0Controller_getUserById"];
+    get: operations['UserV0Controller_getUserById'];
   };
-  "/users/v1/profile/me": {
+  '/users/v1/profile/me': {
     /**
      * 유저 본인 프로필 조회
      * @description 유저 본인 프로필 조회
      */
-    get: operations["UserV1Controller_getUserOwnProfile"];
+    get: operations['UserV1Controller_getUserOwnProfile'];
   };
-  "/": {
-    get: operations["HealthController_healthCheck"];
+  '/': {
+    get: operations['HealthController_healthCheck'];
   };
-  "/notice/v1": {
+  '/notice/v1': {
     /**
      * 공지사항 조회
      * @deprecated
      */
-    get: operations["NoticeV1Controller_getNotices"];
+    get: operations['NoticeV1Controller_getNotices'];
     /**
      * 공지사항 작성
      * @deprecated
      */
-    post: operations["NoticeV1Controller_createNotice"];
+    post: operations['NoticeV1Controller_createNotice'];
   };
-  "/post/v1/count": {
+  '/post/v1/count': {
     /**
      * 모임 게시글 개수 조회
      * @deprecated
      */
-    get: operations["PostV1Controller_getPostCount"];
+    get: operations['PostV1Controller_getPostCount'];
   };
-  "/post/v1": {
+  '/post/v1': {
     /**
      * 모임 게시글 목록 조회
      * @deprecated
      */
-    get: operations["PostV1Controller_getPosts"];
+    get: operations['PostV1Controller_getPosts'];
     /**
      * 모임 게시글 작성
      * @deprecated
      */
-    post: operations["PostV1Controller_createPost"];
+    post: operations['PostV1Controller_createPost'];
   };
-  "/post/v1/{postId}": {
+  '/post/v1/{postId}': {
     /**
      * 모임 게시글 조회
      * @deprecated
      */
-    get: operations["PostV1Controller_getMeetingPost"];
+    get: operations['PostV1Controller_getMeetingPost'];
     /** 모임 게시글 수정 */
-    put: operations["PostV1Controller_updatePost"];
+    put: operations['PostV1Controller_updatePost'];
     /**
      * 모임 게시글 삭제
      * @deprecated
      */
-    delete: operations["PostV1Controller_deletePost"];
+    delete: operations['PostV1Controller_deletePost'];
   };
-  "/post/v1/{postId}/like": {
+  '/post/v1/{postId}/like': {
     /** 게시글 좋아요 토글 */
-    post: operations["PostV1Controller_switchPostLike"];
+    post: operations['PostV1Controller_switchPostLike'];
   };
-  "/post/v1/{postId}/report": {
+  '/post/v1/{postId}/report': {
     /** 모임 게시글 신고 */
-    post: operations["PostV1Controller_createPostReport"];
+    post: operations['PostV1Controller_createPostReport'];
   };
-  "/comment/v1": {
+  '/comment/v1': {
     /**
      * 모임 게시글 댓글 리스트 조회
      * @deprecated
      */
-    get: operations["CommentV1Controller_getComments"];
+    get: operations['CommentV1Controller_getComments'];
     /**
      * 모임 게시글 댓글 작성
      * @deprecated
      */
-    post: operations["CommentV1Controller_createPostComment"];
+    post: operations['CommentV1Controller_createPostComment'];
   };
-  "/comment/v1/{commentId}/like": {
+  '/comment/v1/{commentId}/like': {
     /**
      * 댓글 좋아요 토글
      * @deprecated
      */
-    post: operations["CommentV1Controller_switchCommentLike"];
+    post: operations['CommentV1Controller_switchCommentLike'];
   };
-  "/comment/v1/{commentId}/report": {
+  '/comment/v1/{commentId}/report': {
     /**
      * 댓글 신고
      * @deprecated
      */
-    post: operations["CommentV1Controller_reportComment"];
+    post: operations['CommentV1Controller_reportComment'];
   };
-  "/comment/v1/{commentId}": {
+  '/comment/v1/{commentId}': {
     /**
      * 모임 게시글 댓글 수정
      * @deprecated
      */
-    put: operations["CommentV1Controller_updatePostComment"];
+    put: operations['CommentV1Controller_updatePostComment'];
     /**
      * 모임 게시글 댓글 삭제
      * @deprecated
      */
-    delete: operations["CommentV1Controller_deletePostComment"];
+    delete: operations['CommentV1Controller_deletePostComment'];
   };
 }
 
@@ -237,7 +236,55 @@ export interface components {
        * @example 200
        * @enum {number}
        */
-      statusCode: 100 | 101 | 102 | 103 | 200 | 201 | 202 | 203 | 204 | 205 | 206 | 300 | 301 | 302 | 303 | 304 | 307 | 308 | 400 | 401 | 402 | 403 | 404 | 405 | 406 | 407 | 408 | 409 | 410 | 411 | 412 | 413 | 414 | 415 | 416 | 417 | 418 | 421 | 422 | 424 | 428 | 429 | 500 | 501 | 502 | 503 | 504 | 505;
+      statusCode:
+        | 100
+        | 101
+        | 102
+        | 103
+        | 200
+        | 201
+        | 202
+        | 203
+        | 204
+        | 205
+        | 206
+        | 300
+        | 301
+        | 302
+        | 303
+        | 304
+        | 307
+        | 308
+        | 400
+        | 401
+        | 402
+        | 403
+        | 404
+        | 405
+        | 406
+        | 407
+        | 408
+        | 409
+        | 410
+        | 411
+        | 412
+        | 413
+        | 414
+        | 415
+        | 416
+        | 417
+        | 418
+        | 421
+        | 422
+        | 424
+        | 428
+        | 429
+        | 500
+        | 501
+        | 502
+        | 503
+        | 504
+        | 505;
       data: Record<string, never>;
     };
     Apply: {
@@ -251,11 +298,11 @@ export interface components {
       /** @description 지원한 모임 ID */
       meetingId: number;
       /** @description 지원한 모임 */
-      meeting: components["schemas"]["Meeting"];
+      meeting: components['schemas']['Meeting'];
       /** @description 지원자 ID */
       userId: number;
       /** @description 지원자 */
-      user: components["schemas"]["User"];
+      user: components['schemas']['User'];
       /** @description 지원 동기 */
       content: string;
       /**
@@ -278,18 +325,18 @@ export interface components {
        */
       createdDate: string;
       /** @description 좋아요 누른사람 */
-      user: components["schemas"]["User"];
+      user: components['schemas']['User'];
       /** @description 좋아요 누른사람 id */
       userId: number;
       /** @description 게시글 */
-      post: components["schemas"]["Post"];
+      post: components['schemas']['Post'];
       /**
        * @description 게시글 id
        * - 게시글 좋아요가 아닐 경우 null
        */
       postId: number | null;
       /** @description 댓글 */
-      comment: components["schemas"]["Comment"];
+      comment: components['schemas']['Comment'];
       /**
        * @description 댓글 id
        * - 댓글 좋아요가 아닐 경우 null
@@ -305,18 +352,18 @@ export interface components {
        */
       createdDate: string;
       /** @description 신고자 */
-      user: components["schemas"]["User"];
+      user: components['schemas']['User'];
       /** @description 신고자 id */
       userId: number;
       /** @description 게시글 */
-      post: components["schemas"]["Post"];
+      post: components['schemas']['Post'];
       /**
        * @description 게시글 id
        * @description 게시글 신고가 아닌 경우 null
        */
       postId: number | null;
       /** @description 댓글 */
-      comment: components["schemas"]["Comment"];
+      comment: components['schemas']['Comment'];
       /**
        * @description 댓글 id
        * @description 댓글 신고가 아닌 경우 null
@@ -343,25 +390,25 @@ export interface components {
        */
       updatedDate: string;
       /** @description 작성자 */
-      user: components["schemas"]["User"];
+      user: components['schemas']['User'];
       /** @description 유저 id */
       userId: number;
       /** @description 게시글 */
-      post: components["schemas"]["Post"];
+      post: components['schemas']['Post'];
       /** @description 게시글 id */
       postId: number;
       /** @description 좋아요 */
-      likes: components["schemas"]["Like"][];
+      likes: components['schemas']['Like'][];
       /** @description 좋아요 수 */
       likeCount: number;
       /** @description 부모 댓글 */
-      parent: components["schemas"]["Comment"];
+      parent: components['schemas']['Comment'];
       /** @description 부모 댓글 id */
       parentId: number | null;
       /** @description 자식 댓글 */
-      children: components["schemas"]["Comment"][];
+      children: components['schemas']['Comment'][];
       /** @description 신고 */
-      reports: components["schemas"]["Report"][];
+      reports: components['schemas']['Report'][];
     };
     Post: {
       /** @description Primary key */
@@ -385,32 +432,32 @@ export interface components {
       /** @description 이미지 리스트 */
       images: string[] | null;
       /** @description 작성자 */
-      user: components["schemas"]["User"];
+      user: components['schemas']['User'];
       /** @description 유저 id */
       userId: number;
       /** @description 미팅 */
-      meeting: components["schemas"]["Meeting"];
+      meeting: components['schemas']['Meeting'];
       /** @description 미팅 id */
       meetingId: number;
       /** @description 댓글 */
-      comments: components["schemas"]["Comment"][];
+      comments: components['schemas']['Comment'][];
       /** @description 댓글 수 */
       commentCount: number;
       /** @description 좋아요 */
-      likes: components["schemas"]["Like"][];
+      likes: components['schemas']['Like'][];
       /** @description 좋아요 수 */
       likeCount: number;
       /** @description 신고 */
-      reports: components["schemas"]["Report"][];
+      reports: components['schemas']['Report'][];
     };
     Meeting: {
       id: number;
-      user: components["schemas"]["User"];
+      user: components['schemas']['User'];
       userId: number;
-      appliedInfo: components["schemas"]["Apply"][];
+      appliedInfo: components['schemas']['Apply'][];
       title: string;
       /** @enum {string} */
-      category: "스터디" | "강연" | "번개" | "행사" | "세미나";
+      category: '스터디' | '강연' | '번개' | '행사' | '세미나';
       imageURL: Record<string, never>[];
       /** Format: date-time */
       startDate: string;
@@ -440,9 +487,9 @@ export interface components {
        * null인 경우 모든 기수 허용
        */
       targetActiveGeneration: number | null;
-      joinableParts: ("PM" | "DESIGN" | "IOS" | "ANDROID" | "SERVER" | "WEB")[];
+      joinableParts: ('PM' | 'DESIGN' | 'IOS' | 'ANDROID' | 'SERVER' | 'WEB')[];
       /** @description 게시글 리스트 */
-      posts: components["schemas"]["Post"][];
+      posts: components['schemas']['Post'][];
     };
     User: {
       /** @description Primary Key */
@@ -458,21 +505,21 @@ export interface components {
       /** @description 핸드폰 번호 */
       phone: string;
       /** @description 내가 생성한 모임 */
-      meetings: components["schemas"]["Meeting"][];
+      meetings: components['schemas']['Meeting'][];
       /** @description 내가 지원한 내역 */
-      apply: components["schemas"]["Apply"][];
+      apply: components['schemas']['Apply'][];
       /** @description 작성한 게시글 */
-      posts: components["schemas"]["Post"][];
+      posts: components['schemas']['Post'][];
       /** @description 좋아요 */
-      likes: components["schemas"]["Like"][];
+      likes: components['schemas']['Like'][];
       /** @description 신고 내역 */
-      reports: components["schemas"]["Report"][];
+      reports: components['schemas']['Report'][];
     };
     MeetingV0GetApplyListByMeetingResponseApplyDto: {
       id: number;
       /** @enum {number} */
       type: 0 | 1;
-      user: components["schemas"]["User"];
+      user: components['schemas']['User'];
       /**
        * @description 신청 각오
        * - 모임장의 경우만 노출
@@ -498,8 +545,8 @@ export interface components {
       hasNextPage: boolean;
     };
     MeetingV0GetApplyListByMeetingResponseDto: {
-      apply: components["schemas"]["MeetingV0GetApplyListByMeetingResponseApplyDto"][];
-      meta: components["schemas"]["PageMetaDto"];
+      apply: components['schemas']['MeetingV0GetApplyListByMeetingResponseApplyDto'][];
+      meta: components['schemas']['PageMetaDto'];
     };
     MeetingV0ApplyMeetingDto: {
       /**
@@ -515,12 +562,12 @@ export interface components {
     };
     MeetingV0GetMeetingByIdResponseDto: {
       id: number;
-      user: components["schemas"]["User"];
+      user: components['schemas']['User'];
       userId: number;
-      appliedInfo: components["schemas"]["Apply"][];
+      appliedInfo: components['schemas']['Apply'][];
       title: string;
       /** @enum {string} */
-      category: "스터디" | "강연" | "번개" | "행사" | "세미나";
+      category: '스터디' | '강연' | '번개' | '행사' | '세미나';
       imageURL: Record<string, never>[];
       /** Format: date-time */
       startDate: string;
@@ -547,7 +594,7 @@ export interface components {
       targetActiveGeneration: number | null;
       approvedApplyCount: number;
       createdGeneration: number;
-      joinableParts: ("PM" | "DESIGN" | "IOS" | "ANDROID" | "SERVER" | "WEB")[];
+      joinableParts: ('PM' | 'DESIGN' | 'IOS' | 'ANDROID' | 'SERVER' | 'WEB')[];
       /** @enum {number} */
       status?: 0 | 1 | 2;
       host?: boolean;
@@ -557,12 +604,12 @@ export interface components {
     };
     MeetingV0GetAllMeetingResponseMeetingDto: {
       id: number;
-      user: components["schemas"]["User"];
+      user: components['schemas']['User'];
       userId: number;
-      appliedInfo: components["schemas"]["Apply"][];
+      appliedInfo: components['schemas']['Apply'][];
       title: string;
       /** @enum {string} */
-      category: "스터디" | "강연" | "번개" | "행사" | "세미나";
+      category: '스터디' | '강연' | '번개' | '행사' | '세미나';
       imageURL: Record<string, never>[];
       /** Format: date-time */
       startDate: string;
@@ -587,7 +634,7 @@ export interface components {
        * null인 경우 모든 기수 허용
        */
       targetActiveGeneration: number | null;
-      joinableParts: ("PM" | "DESIGN" | "IOS" | "ANDROID" | "SERVER" | "WEB")[];
+      joinableParts: ('PM' | 'DESIGN' | 'IOS' | 'ANDROID' | 'SERVER' | 'WEB')[];
       /** @enum {number} */
       status?: 0 | 1 | 2;
       host?: boolean;
@@ -596,8 +643,8 @@ export interface components {
       approved?: boolean;
     };
     MeetingV0GetAllMeetingsResponseDto: {
-      meetings: components["schemas"]["MeetingV0GetAllMeetingResponseMeetingDto"][];
-      meta: components["schemas"]["PageMetaDto"];
+      meetings: components['schemas']['MeetingV0GetAllMeetingResponseMeetingDto'][];
+      meta: components['schemas']['PageMetaDto'];
     };
     MeetingV0CreateMeetingDto: {
       /**
@@ -612,7 +659,7 @@ export interface components {
        * @example 스터디
        * @enum {string}
        */
-      category: "스터디" | "강연" | "번개" | "행사" | "세미나";
+      category: '스터디' | '강연' | '번개' | '행사' | '세미나';
       /**
        * Format: date-time
        * @description 모집 기간 시작 날짜
@@ -684,7 +731,7 @@ export interface components {
        *   "IOS"
        * ]
        */
-      joinableParts: ("PM" | "DESIGN" | "IOS" | "ANDROID" | "SERVER" | "WEB")[];
+      joinableParts: ('PM' | 'DESIGN' | 'IOS' | 'ANDROID' | 'SERVER' | 'WEB')[];
     };
     MeetingV0UpdateMeetingDto: {
       /**
@@ -699,7 +746,7 @@ export interface components {
        * @example 스터디
        * @enum {string}
        */
-      category: "스터디" | "강연" | "번개" | "행사" | "세미나";
+      category: '스터디' | '강연' | '번개' | '행사' | '세미나';
       /**
        * Format: date-time
        * @description 모집 기간 시작 날짜
@@ -771,7 +818,7 @@ export interface components {
        *   "IOS"
        * ]
        */
-      joinableParts: ("PM" | "DESIGN" | "IOS" | "ANDROID" | "SERVER" | "WEB")[];
+      joinableParts: ('PM' | 'DESIGN' | 'IOS' | 'ANDROID' | 'SERVER' | 'WEB')[];
     };
     AuthV0TokenDto: {
       /**
@@ -788,20 +835,20 @@ export interface components {
       url?: string;
     };
     S3GetPresignedUrlResponseFieldsDto: {
-      "Content-Type": string;
+      'Content-Type': string;
       key: string;
       bucket: string;
-      "X-Amz-Algorithm": string;
-      "X-Amz-Credential": string;
-      "X-Amz-Date": string;
+      'X-Amz-Algorithm': string;
+      'X-Amz-Credential': string;
+      'X-Amz-Date': string;
       Policy: string;
-      "X-Amz-Signature": string;
+      'X-Amz-Signature': string;
     };
     MeetingV1GetPresignedUrlResponseDto: {
       /** @description POST 요청할 url */
       url: string;
       /** @description body에 넣을 url */
-      fields: components["schemas"]["S3GetPresignedUrlResponseFieldsDto"];
+      fields: components['schemas']['S3GetPresignedUrlResponseFieldsDto'];
     };
     MeetingV1CreateMeetingResponseDto: {
       /** @description 생성된 미팅 id */
@@ -819,7 +866,7 @@ export interface components {
        * @example 스터디
        * @enum {string}
        */
-      category: "스터디" | "강연" | "번개" | "행사" | "세미나";
+      category: '스터디' | '강연' | '번개' | '행사' | '세미나';
       /**
        * Format: date-time
        * @description 모집 기간 시작 날짜
@@ -891,7 +938,7 @@ export interface components {
        *   "IOS"
        * ]
        */
-      joinableParts: ("PM" | "DESIGN" | "IOS" | "ANDROID" | "SERVER" | "WEB")[];
+      joinableParts: ('PM' | 'DESIGN' | 'IOS' | 'ANDROID' | 'SERVER' | 'WEB')[];
     };
     MeetingV1UpdateMeetingBodyDto: {
       /**
@@ -905,7 +952,7 @@ export interface components {
        * @example 스터디
        * @enum {string}
        */
-      category: "스터디" | "강연" | "번개" | "행사" | "세미나";
+      category: '스터디' | '강연' | '번개' | '행사' | '세미나';
       /**
        * Format: date-time
        * @description 모집 기간 시작 날짜
@@ -977,16 +1024,16 @@ export interface components {
        *   "IOS"
        * ]
        */
-      joinableParts: ("PM" | "DESIGN" | "IOS" | "ANDROID" | "SERVER" | "WEB")[];
+      joinableParts: ('PM' | 'DESIGN' | 'IOS' | 'ANDROID' | 'SERVER' | 'WEB')[];
     };
     UserV0GetMeetingByUserMeetingDto: {
       id: number;
-      user: components["schemas"]["User"];
+      user: components['schemas']['User'];
       userId: number;
-      appliedInfo: components["schemas"]["Apply"][];
+      appliedInfo: components['schemas']['Apply'][];
       title: string;
       /** @enum {string} */
-      category: "스터디" | "강연" | "번개" | "행사" | "세미나";
+      category: '스터디' | '강연' | '번개' | '행사' | '세미나';
       imageURL: Record<string, never>[];
       /** Format: date-time */
       startDate: string;
@@ -1016,24 +1063,24 @@ export interface components {
        * null인 경우 모든 기수 허용
        */
       targetActiveGeneration: number | null;
-      joinableParts: ("PM" | "DESIGN" | "IOS" | "ANDROID" | "SERVER" | "WEB")[];
+      joinableParts: ('PM' | 'DESIGN' | 'IOS' | 'ANDROID' | 'SERVER' | 'WEB')[];
       /** @description 게시글 리스트 */
-      posts: components["schemas"]["Post"][];
+      posts: components['schemas']['Post'][];
       /** @enum {number} */
       status: 0 | 1 | 2;
     };
     UserV0GetMeetingByUserDto: {
-      meetings: components["schemas"]["UserV0GetMeetingByUserMeetingDto"][];
+      meetings: components['schemas']['UserV0GetMeetingByUserMeetingDto'][];
       count: number;
     };
     UserV0GetApplyByUserApplyMeetingDto: {
       id: number;
-      user: components["schemas"]["User"];
+      user: components['schemas']['User'];
       userId: number;
-      appliedInfo: components["schemas"]["Apply"][];
+      appliedInfo: components['schemas']['Apply'][];
       title: string;
       /** @enum {string} */
-      category: "스터디" | "강연" | "번개" | "행사" | "세미나";
+      category: '스터디' | '강연' | '번개' | '행사' | '세미나';
       imageURL: Record<string, never>[];
       /** Format: date-time */
       startDate: string;
@@ -1063,9 +1110,9 @@ export interface components {
        * null인 경우 모든 기수 허용
        */
       targetActiveGeneration: number | null;
-      joinableParts: ("PM" | "DESIGN" | "IOS" | "ANDROID" | "SERVER" | "WEB")[];
+      joinableParts: ('PM' | 'DESIGN' | 'IOS' | 'ANDROID' | 'SERVER' | 'WEB')[];
       /** @description 게시글 리스트 */
-      posts: components["schemas"]["Post"][];
+      posts: components['schemas']['Post'][];
       /** @enum {number} */
       status: 0 | 1 | 2;
     };
@@ -1082,7 +1129,7 @@ export interface components {
       /** @description 지원자 ID */
       userId: number;
       /** @description 지원자 */
-      user: components["schemas"]["User"];
+      user: components['schemas']['User'];
       /** @description 지원 동기 */
       content: string;
       /**
@@ -1095,10 +1142,10 @@ export interface components {
        * @enum {number}
        */
       status: 0 | 1 | 2;
-      meeting: components["schemas"]["UserV0GetApplyByUserApplyMeetingDto"];
+      meeting: components['schemas']['UserV0GetApplyByUserApplyMeetingDto'];
     };
     UserV0GetApplyByUserDto: {
-      apply: components["schemas"]["UserV0GetApplyByUserApplyDto"][];
+      apply: components['schemas']['UserV0GetApplyByUserApplyDto'][];
       count: number;
     };
     UserV1GetUserOwnProfileResponseDto: {
@@ -1197,7 +1244,7 @@ export interface components {
       id: number;
       title: string;
       /** @enum {string} */
-      category: "스터디" | "강연" | "번개" | "행사" | "세미나";
+      category: '스터디' | '강연' | '번개' | '행사' | '세미나';
     };
     PostV1GetPostsResponsePostDto: {
       /** @description 게시글 고유 ID */
@@ -1214,7 +1261,7 @@ export interface components {
       /** @description 첨부 이미지 */
       images: string[] | null;
       /** @description 작성자 정보 */
-      user: components["schemas"]["PostV1GetPostsResponsePostUserDto"];
+      user: components['schemas']['PostV1GetPostsResponsePostUserDto'];
       /** @description 좋아요 수 */
       likeCount: number;
       /** @description 본인이 좋아요를 눌렀는지 여부 */
@@ -1223,13 +1270,13 @@ export interface components {
       commentCount: number;
       /** @description 댓글 작성자 썸네일 리스트 */
       commenterThumbnails: string[];
-      meeting: components["schemas"]["PostV1GetPostsResponsePostMeetingDto"];
+      meeting: components['schemas']['PostV1GetPostsResponsePostMeetingDto'];
     };
     PostV1GetPostsResponseDto: {
       /** @description 게시물 목록 */
-      posts: components["schemas"]["PostV1GetPostsResponsePostDto"][];
+      posts: components['schemas']['PostV1GetPostsResponsePostDto'][];
       /** @description 페이지네이션 정보 */
-      meta: components["schemas"]["PageMetaDto"];
+      meta: components['schemas']['PageMetaDto'];
     };
     PostV1GetPostResponseUserDto: {
       /** @description 작성자 고유 ID */
@@ -1251,7 +1298,7 @@ export interface components {
       /** @description 모임 제목 */
       title: string;
       /** @description 모임 이미지 */
-      imageURL: components["schemas"]["PostV1GetPostResponseImageUrlDto"][];
+      imageURL: components['schemas']['PostV1GetPostResponseImageUrlDto'][];
       /** @description 모임 카테고리 */
       category: string;
       /** @description 모임 소개 */
@@ -1272,9 +1319,9 @@ export interface components {
       /** @description 첨부 이미지 */
       images: string[] | null;
       /** @description 작성자 정보 */
-      user: components["schemas"]["PostV1GetPostResponseUserDto"];
+      user: components['schemas']['PostV1GetPostResponseUserDto'];
       /** @description 미팅 정보 */
-      meeting: components["schemas"]["PostV1GetPostResponseMeetingDto"];
+      meeting: components['schemas']['PostV1GetPostResponseMeetingDto'];
       /** @description 조회수 */
       viewCount: number;
       /** @description 좋아요 수 */
@@ -1356,7 +1403,7 @@ export interface components {
       /** @description 댓글 내용 */
       contents: string;
       /** @description 댓글 작성자 정보 */
-      user: components["schemas"]["CommentV1GetCommentsResponseCommentUserDto"];
+      user: components['schemas']['CommentV1GetCommentsResponseCommentUserDto'];
       /**
        * Format: date-time
        * @description 댓글 작성/수정 일자
@@ -1369,9 +1416,9 @@ export interface components {
     };
     CommentV1GetCommentsResponseDto: {
       /** @description 댓글 목록 */
-      comments: components["schemas"]["CommentV1GetCommentsResponseCommentDto"][];
+      comments: components['schemas']['CommentV1GetCommentsResponseCommentDto'][];
       /** @description 페이지네이션 정보 */
-      meta: components["schemas"]["PageMetaDto"];
+      meta: components['schemas']['PageMetaDto'];
     };
     CommentV1SwitchCommentLikeResponseDto: {
       /** @description 본인이 댓글 좋아요를 눌렀는지 여부 */
@@ -1418,7 +1465,6 @@ export interface components {
 export type external = Record<string, never>;
 
 export interface operations {
-
   /**
    * 모임 지원자 상태 변경
    * @description 모임 지원자 상태 변경
@@ -1432,7 +1478,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/json": components["schemas"]["MeetingV0UpdateStatusApplyDto"];
+        'application/json': components['schemas']['MeetingV0UpdateStatusApplyDto'];
       };
     };
     responses: {
@@ -1467,7 +1513,7 @@ export interface operations {
          * @description desc : 최신순, asc : 오래된 순
          * @example desc
          */
-        date?: "desc" | "asc";
+        date?: 'desc' | 'asc';
       };
       path: {
         /** @description 모임 id */
@@ -1478,15 +1524,15 @@ export interface operations {
       /** @description 성공 */
       200: {
         content: {
-          "application/json": components["schemas"]["CommonResponseDto"] & {
-            data?: components["schemas"]["MeetingV0GetApplyListByMeetingResponseDto"];
+          'application/json': components['schemas']['CommonResponseDto'] & {
+            data?: components['schemas']['MeetingV0GetApplyListByMeetingResponseDto'];
           };
         };
       };
       /** @description 모임이 없습니다 */
       400: {
         content: {
-          "application/json": components["schemas"]["BaseExceptionDto"];
+          'application/json': components['schemas']['BaseExceptionDto'];
         };
       };
     };
@@ -1499,7 +1545,7 @@ export interface operations {
   MeetingV0Controller_applyMeeting: {
     requestBody: {
       content: {
-        "application/json": components["schemas"]["MeetingV0ApplyMeetingDto"];
+        'application/json': components['schemas']['MeetingV0ApplyMeetingDto'];
       };
     };
     responses: {
@@ -1508,7 +1554,7 @@ export interface operations {
       /** @description "모임이 없습니다" or "기수/파트를 설정해주세요" or "정원이 꽉찼습니다" or "활동 기수가 아닙니다." or "지원가능 파트가 아닙니다." or "32기 스터디는 23:00부터 신청할 수 있어요." */
       400: {
         content: {
-          "application/json": components["schemas"]["BaseExceptionDto"];
+          'application/json': components['schemas']['BaseExceptionDto'];
         };
       };
     };
@@ -1528,15 +1574,15 @@ export interface operations {
       /** @description 성공 */
       200: {
         content: {
-          "application/json": components["schemas"]["CommonResponseDto"] & {
-            data?: components["schemas"]["MeetingV0GetMeetingByIdResponseDto"];
+          'application/json': components['schemas']['CommonResponseDto'] & {
+            data?: components['schemas']['MeetingV0GetMeetingByIdResponseDto'];
           };
         };
       };
       /** @description 모임이 없습니다 */
       400: {
         content: {
-          "application/json": components["schemas"]["BaseExceptionDto"];
+          'application/json': components['schemas']['BaseExceptionDto'];
         };
       };
     };
@@ -1554,7 +1600,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "multipart/form-data": components["schemas"]["MeetingV0UpdateMeetingDto"];
+        'multipart/form-data': components['schemas']['MeetingV0UpdateMeetingDto'];
       };
     };
     responses: {
@@ -1563,7 +1609,7 @@ export interface operations {
       /** @description "이미지 파일이 없습니다." or "한 개 이상의 파트를 입력해주세요" or "조건에 맞는 모임이 없습니다." */
       400: {
         content: {
-          "application/json": components["schemas"]["BaseExceptionDto"];
+          'application/json': components['schemas']['BaseExceptionDto'];
         };
       };
     };
@@ -1585,7 +1631,7 @@ export interface operations {
       /** @description 조건에 맞는 모임이 없습니다. */
       400: {
         content: {
-          "application/json": components["schemas"]["BaseExceptionDto"];
+          'application/json': components['schemas']['BaseExceptionDto'];
         };
       };
     };
@@ -1623,7 +1669,7 @@ export interface operations {
          * @description 검색할 활동 파트 다중 선택. OR 조건으로 검색됨
          * @example PM,DESIGN,IOS,ANDROID,SERVER,WEB
          */
-        joinableParts?: ("PM" | "DESIGN" | "IOS" | "ANDROID" | "SERVER" | "WEB")[];
+        joinableParts?: ('PM' | 'DESIGN' | 'IOS' | 'ANDROID' | 'SERVER' | 'WEB')[];
         /**
          * @description 검색 내용
          * @example 스터디
@@ -1640,8 +1686,8 @@ export interface operations {
       /** @description 성공 */
       200: {
         content: {
-          "application/json": components["schemas"]["CommonResponseDto"] & {
-            data?: components["schemas"]["MeetingV0GetAllMeetingsResponseDto"];
+          'application/json': components['schemas']['CommonResponseDto'] & {
+            data?: components['schemas']['MeetingV0GetAllMeetingsResponseDto'];
           };
         };
       };
@@ -1655,7 +1701,7 @@ export interface operations {
   MeetingV0Controller_createMeeting: {
     requestBody: {
       content: {
-        "multipart/form-data": components["schemas"]["MeetingV0CreateMeetingDto"];
+        'multipart/form-data': components['schemas']['MeetingV0CreateMeetingDto'];
       };
     };
     responses: {
@@ -1664,7 +1710,7 @@ export interface operations {
       /** @description "이미지 파일이 없습니다." or "한 개 이상의 파트를 입력해주세요" or "프로필을 입력해주세요" */
       400: {
         content: {
-          "application/json": components["schemas"]["BaseExceptionDto"];
+          'application/json': components['schemas']['BaseExceptionDto'];
         };
       };
     };
@@ -1676,7 +1722,7 @@ export interface operations {
   AuthV0Controller_loginUser: {
     requestBody: {
       content: {
-        "application/json": components["schemas"]["AuthV0TokenDto"];
+        'application/json': components['schemas']['AuthV0TokenDto'];
       };
     };
     responses: {
@@ -1684,13 +1730,13 @@ export interface operations {
       /** @description 유효하지 않은 토큰 */
       401: {
         content: {
-          "application/json": components["schemas"]["BaseExceptionDto"];
+          'application/json': components['schemas']['BaseExceptionDto'];
         };
       };
       /** @description 로그인 서버 에러 */
       500: {
         content: {
-          "application/json": components["schemas"]["BaseExceptionDto"];
+          'application/json': components['schemas']['BaseExceptionDto'];
         };
       };
     };
@@ -1716,7 +1762,7 @@ export interface operations {
          * @description desc : 최신순, asc : 오래된 순
          * @example desc
          */
-        order?: "desc" | "asc";
+        order?: 'desc' | 'asc';
       };
       path: {
         /** @description 모임 id */
@@ -1727,15 +1773,15 @@ export interface operations {
       /** @description 성공 */
       200: {
         content: {
-          "application/json": components["schemas"]["CommonResponseDto"] & {
-            data?: components["schemas"]["MeetingV1GetApplyListByMeetingCsvFileUrlResponseDto"];
+          'application/json': components['schemas']['CommonResponseDto'] & {
+            data?: components['schemas']['MeetingV1GetApplyListByMeetingCsvFileUrlResponseDto'];
           };
         };
       };
       /** @description "모임이 없습니다." or "권한이 없습니다." */
       400: {
         content: {
-          "application/json": components["schemas"]["BaseExceptionDto"];
+          'application/json': components['schemas']['BaseExceptionDto'];
         };
       };
     };
@@ -1748,22 +1794,22 @@ export interface operations {
          * @description 파일 확장자
          * @example jpg
          */
-        contentType: "jpg" | "jpeg" | "png" | "csv";
+        contentType: 'jpg' | 'jpeg' | 'png' | 'csv';
       };
     };
     responses: {
       /** @description 성공 */
       200: {
         content: {
-          "application/json": components["schemas"]["CommonResponseDto"] & {
-            data?: components["schemas"]["MeetingV1GetPresignedUrlResponseDto"];
+          'application/json': components['schemas']['CommonResponseDto'] & {
+            data?: components['schemas']['MeetingV1GetPresignedUrlResponseDto'];
           };
         };
       };
       /** @description 발급 실패 */
       500: {
         content: {
-          "application/json": components["schemas"]["BaseExceptionDto"];
+          'application/json': components['schemas']['BaseExceptionDto'];
         };
       };
     };
@@ -1776,27 +1822,27 @@ export interface operations {
   MeetingV1Controller_createMeeting: {
     requestBody: {
       content: {
-        "application/json": components["schemas"]["MeetingV1CreateMeetingBodyDto"];
+        'application/json': components['schemas']['MeetingV1CreateMeetingBodyDto'];
       };
     };
     responses: {
       /** @description 성공 */
       200: {
         content: {
-          "application/json": components["schemas"]["CommonResponseDto"] & {
-            data?: components["schemas"]["MeetingV1CreateMeetingResponseDto"];
+          'application/json': components['schemas']['CommonResponseDto'] & {
+            data?: components['schemas']['MeetingV1CreateMeetingResponseDto'];
           };
         };
       };
       201: {
         content: {
-          "application/json": components["schemas"]["MeetingV1CreateMeetingResponseDto"];
+          'application/json': components['schemas']['MeetingV1CreateMeetingResponseDto'];
         };
       };
       /** @description "이미지 파일이 없습니다." or "한 개 이상의 파트를 입력해주세요" or "프로필을 입력해주세요" */
       400: {
         content: {
-          "application/json": components["schemas"]["BaseExceptionDto"];
+          'application/json': components['schemas']['BaseExceptionDto'];
         };
       };
     };
@@ -1813,7 +1859,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/json": components["schemas"]["MeetingV1UpdateMeetingBodyDto"];
+        'application/json': components['schemas']['MeetingV1UpdateMeetingBodyDto'];
       };
     };
     responses: {
@@ -1821,7 +1867,7 @@ export interface operations {
       /** @description "이미지 파일이 없습니다." or "한 개 이상의 파트를 입력해주세요" or "조건에 맞는 모임이 없습니다." */
       400: {
         content: {
-          "application/json": components["schemas"]["BaseExceptionDto"];
+          'application/json': components['schemas']['BaseExceptionDto'];
         };
       };
     };
@@ -1835,8 +1881,8 @@ export interface operations {
       /** @description 성공 */
       200: {
         content: {
-          "application/json": components["schemas"]["CommonResponseDto"] & {
-            data?: components["schemas"]["UserV0GetMeetingByUserDto"];
+          'application/json': components['schemas']['CommonResponseDto'] & {
+            data?: components['schemas']['UserV0GetMeetingByUserDto'];
           };
         };
       };
@@ -1851,8 +1897,8 @@ export interface operations {
       /** @description 성공 */
       200: {
         content: {
-          "application/json": components["schemas"]["CommonResponseDto"] & {
-            data?: components["schemas"]["UserV0GetApplyByUserDto"];
+          'application/json': components['schemas']['CommonResponseDto'] & {
+            data?: components['schemas']['UserV0GetApplyByUserDto'];
           };
         };
       };
@@ -1873,8 +1919,8 @@ export interface operations {
       /** @description 성공 */
       200: {
         content: {
-          "application/json": components["schemas"]["CommonResponseDto"] & {
-            data?: components["schemas"]["User"];
+          'application/json': components['schemas']['CommonResponseDto'] & {
+            data?: components['schemas']['User'];
           };
         };
       };
@@ -1889,8 +1935,8 @@ export interface operations {
       /** @description 성공 */
       200: {
         content: {
-          "application/json": components["schemas"]["CommonResponseDto"] & {
-            data?: components["schemas"]["UserV1GetUserOwnProfileResponseDto"];
+          'application/json': components['schemas']['CommonResponseDto'] & {
+            data?: components['schemas']['UserV1GetUserOwnProfileResponseDto'];
           };
         };
       };
@@ -1901,7 +1947,7 @@ export interface operations {
       /** @description The Health Check is successful */
       200: {
         content: {
-          "application/json": {
+          'application/json': {
             /** @example ok */
             status?: string;
             /**
@@ -1911,19 +1957,23 @@ export interface operations {
              *   }
              * }
              */
-            info?: ({
-              [key: string]: {
-                status: string;
-                [key: string]: unknown;
-              } | undefined;
-            }) | null;
+            info?: {
+              [key: string]:
+                | {
+                    status: string;
+                    [key: string]: unknown;
+                  }
+                | undefined;
+            } | null;
             /** @example {} */
-            error?: ({
-              [key: string]: {
-                status: string;
-                [key: string]: unknown;
-              } | undefined;
-            }) | null;
+            error?: {
+              [key: string]:
+                | {
+                    status: string;
+                    [key: string]: unknown;
+                  }
+                | undefined;
+            } | null;
             /**
              * @example {
              *   "database": {
@@ -1932,10 +1982,12 @@ export interface operations {
              * }
              */
             details?: {
-              [key: string]: {
-                status: string;
-                [key: string]: unknown;
-              } | undefined;
+              [key: string]:
+                | {
+                    status: string;
+                    [key: string]: unknown;
+                  }
+                | undefined;
             };
           };
         };
@@ -1943,7 +1995,7 @@ export interface operations {
       /** @description The Health Check is not successful */
       503: {
         content: {
-          "application/json": {
+          'application/json': {
             /** @example error */
             status?: string;
             /**
@@ -1953,12 +2005,14 @@ export interface operations {
              *   }
              * }
              */
-            info?: ({
-              [key: string]: {
-                status: string;
-                [key: string]: unknown;
-              } | undefined;
-            }) | null;
+            info?: {
+              [key: string]:
+                | {
+                    status: string;
+                    [key: string]: unknown;
+                  }
+                | undefined;
+            } | null;
             /**
              * @example {
              *   "redis": {
@@ -1967,12 +2021,14 @@ export interface operations {
              *   }
              * }
              */
-            error?: ({
-              [key: string]: {
-                status: string;
-                [key: string]: unknown;
-              } | undefined;
-            }) | null;
+            error?: {
+              [key: string]:
+                | {
+                    status: string;
+                    [key: string]: unknown;
+                  }
+                | undefined;
+            } | null;
             /**
              * @example {
              *   "database": {
@@ -1985,10 +2041,12 @@ export interface operations {
              * }
              */
             details?: {
-              [key: string]: {
-                status: string;
-                [key: string]: unknown;
-              } | undefined;
+              [key: string]:
+                | {
+                    status: string;
+                    [key: string]: unknown;
+                  }
+                | undefined;
             };
           };
         };
@@ -2006,15 +2064,15 @@ export interface operations {
          * @description 공지사항 상태
          * @example EXPOSING
          */
-        status: "EXPOSING";
+        status: 'EXPOSING';
       };
     };
     responses: {
       /** @description 성공 */
       200: {
         content: {
-          "application/json": components["schemas"]["CommonResponseDto"] & {
-            data?: components["schemas"]["NoticeV1GetNoticesResponseDto"];
+          'application/json': components['schemas']['CommonResponseDto'] & {
+            data?: components['schemas']['NoticeV1GetNoticesResponseDto'];
           };
         };
       };
@@ -2027,13 +2085,13 @@ export interface operations {
   NoticeV1Controller_createNotice: {
     requestBody: {
       content: {
-        "application/json": components["schemas"]["NoticeV1CreateNoticeBodyDto"];
+        'application/json': components['schemas']['NoticeV1CreateNoticeBodyDto'];
       };
     };
     responses: {
       201: {
         content: {
-          "application/json": number;
+          'application/json': number;
         };
       };
     };
@@ -2053,15 +2111,15 @@ export interface operations {
       /** @description 성공 */
       200: {
         content: {
-          "application/json": components["schemas"]["CommonResponseDto"] & {
-            data?: components["schemas"]["PostV1GetPostCountResponseDto"];
+          'application/json': components['schemas']['CommonResponseDto'] & {
+            data?: components['schemas']['PostV1GetPostCountResponseDto'];
           };
         };
       };
       /** @description "모임이 없습니다." or "권한이 없습니다." */
       400: {
         content: {
-          "application/json": components["schemas"]["BaseExceptionDto"];
+          'application/json': components['schemas']['BaseExceptionDto'];
         };
       };
     };
@@ -2088,15 +2146,15 @@ export interface operations {
       /** @description 성공 */
       200: {
         content: {
-          "application/json": components["schemas"]["CommonResponseDto"] & {
-            data?: components["schemas"]["PostV1GetPostsResponseDto"];
+          'application/json': components['schemas']['CommonResponseDto'] & {
+            data?: components['schemas']['PostV1GetPostsResponseDto'];
           };
         };
       };
       /** @description "모임이 없습니다." or "권한이 없습니다." */
       400: {
         content: {
-          "application/json": components["schemas"]["BaseExceptionDto"];
+          'application/json': components['schemas']['BaseExceptionDto'];
         };
       };
     };
@@ -2108,27 +2166,27 @@ export interface operations {
   PostV1Controller_createPost: {
     requestBody: {
       content: {
-        "application/json": components["schemas"]["PostV1CreatePostBodyDto"];
+        'application/json': components['schemas']['PostV1CreatePostBodyDto'];
       };
     };
     responses: {
       /** @description 성공 */
       200: {
         content: {
-          "application/json": components["schemas"]["CommonResponseDto"] & {
-            data?: components["schemas"]["PostV1CreatePostResponseDto"];
+          'application/json': components['schemas']['CommonResponseDto'] & {
+            data?: components['schemas']['PostV1CreatePostResponseDto'];
           };
         };
       };
       201: {
         content: {
-          "application/json": components["schemas"]["PostV1CreatePostResponseDto"];
+          'application/json': components['schemas']['PostV1CreatePostResponseDto'];
         };
       };
       /** @description 모임이 없습니다. */
       400: {
         content: {
-          "application/json": components["schemas"]["BaseExceptionDto"];
+          'application/json': components['schemas']['BaseExceptionDto'];
         };
       };
     };
@@ -2147,15 +2205,15 @@ export interface operations {
       /** @description 성공 */
       200: {
         content: {
-          "application/json": components["schemas"]["CommonResponseDto"] & {
-            data?: components["schemas"]["PostV1GetPostResponseDto"];
+          'application/json': components['schemas']['CommonResponseDto'] & {
+            data?: components['schemas']['PostV1GetPostResponseDto'];
           };
         };
       };
       /** @description "모임이 없습니다." or "권한이 없습니다." */
       400: {
         content: {
-          "application/json": components["schemas"]["BaseExceptionDto"];
+          'application/json': components['schemas']['BaseExceptionDto'];
         };
       };
     };
@@ -2173,22 +2231,22 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/json": components["schemas"]["PostV1UpdatePostBodyDto"];
+        'application/json': components['schemas']['PostV1UpdatePostBodyDto'];
       };
     };
     responses: {
       /** @description 성공 */
       200: {
         content: {
-          "application/json": components["schemas"]["CommonResponseDto"] & {
-            data?: components["schemas"]["PostV1UpdatePostResponseDto"];
+          'application/json': components['schemas']['CommonResponseDto'] & {
+            data?: components['schemas']['PostV1UpdatePostResponseDto'];
           };
         };
       };
       /** @description "게시글이 없습니다." or "권한이 없습니다." or "이미지는 최대 10개까지만 업로드 가능합니다." */
       400: {
         content: {
-          "application/json": components["schemas"]["BaseExceptionDto"];
+          'application/json': components['schemas']['BaseExceptionDto'];
         };
       };
     };
@@ -2226,14 +2284,14 @@ export interface operations {
       /** @description 성공 */
       200: {
         content: {
-          "application/json": components["schemas"]["CommonResponseDto"] & {
-            data?: components["schemas"]["PostV1SwitchPostLikeResponseDto"];
+          'application/json': components['schemas']['CommonResponseDto'] & {
+            data?: components['schemas']['PostV1SwitchPostLikeResponseDto'];
           };
         };
       };
       201: {
         content: {
-          "application/json": components["schemas"]["PostV1SwitchPostLikeResponseDto"];
+          'application/json': components['schemas']['PostV1SwitchPostLikeResponseDto'];
         };
       };
     };
@@ -2253,20 +2311,20 @@ export interface operations {
       /** @description 성공 */
       200: {
         content: {
-          "application/json": components["schemas"]["CommonResponseDto"] & {
-            data?: components["schemas"]["PostV1ReportPostResponseDto"];
+          'application/json': components['schemas']['CommonResponseDto'] & {
+            data?: components['schemas']['PostV1ReportPostResponseDto'];
           };
         };
       };
       201: {
         content: {
-          "application/json": components["schemas"]["PostV1ReportPostResponseDto"];
+          'application/json': components['schemas']['PostV1ReportPostResponseDto'];
         };
       };
       /** @description "모임이 없습니다." or "권한이 없습니다." */
       400: {
         content: {
-          "application/json": components["schemas"]["BaseExceptionDto"];
+          'application/json': components['schemas']['BaseExceptionDto'];
         };
       };
     };
@@ -2293,15 +2351,15 @@ export interface operations {
       /** @description 성공 */
       200: {
         content: {
-          "application/json": components["schemas"]["CommonResponseDto"] & {
-            data?: components["schemas"]["CommentV1GetCommentsResponseDto"];
+          'application/json': components['schemas']['CommonResponseDto'] & {
+            data?: components['schemas']['CommentV1GetCommentsResponseDto'];
           };
         };
       };
       /** @description "모임이 없습니다." or "권한이 없습니다." */
       400: {
         content: {
-          "application/json": components["schemas"]["BaseExceptionDto"];
+          'application/json': components['schemas']['BaseExceptionDto'];
         };
       };
     };
@@ -2313,26 +2371,26 @@ export interface operations {
   CommentV1Controller_createPostComment: {
     requestBody: {
       content: {
-        "application/json": components["schemas"]["CommentV1CreateCommentBodyDto"];
+        'application/json': components['schemas']['CommentV1CreateCommentBodyDto'];
       };
     };
     responses: {
       /** @description 성공 */
       200: {
         content: {
-          "application/json": components["schemas"]["CommonResponseDto"] & {
-            data?: components["schemas"]["CommentV1CreateCommentResponseDto"];
+          'application/json': components['schemas']['CommonResponseDto'] & {
+            data?: components['schemas']['CommentV1CreateCommentResponseDto'];
           };
         };
       };
       201: {
         content: {
-          "application/json": components["schemas"]["CommentV1CreateCommentResponseDto"];
+          'application/json': components['schemas']['CommentV1CreateCommentResponseDto'];
         };
       };
       400: {
         content: {
-          "application/json": components["schemas"]["BaseExceptionDto"];
+          'application/json': components['schemas']['BaseExceptionDto'];
         };
       };
     };
@@ -2355,14 +2413,14 @@ export interface operations {
       /** @description 성공 */
       200: {
         content: {
-          "application/json": components["schemas"]["CommonResponseDto"] & {
-            data?: components["schemas"]["CommentV1SwitchCommentLikeResponseDto"];
+          'application/json': components['schemas']['CommonResponseDto'] & {
+            data?: components['schemas']['CommentV1SwitchCommentLikeResponseDto'];
           };
         };
       };
       201: {
         content: {
-          "application/json": components["schemas"]["CommentV1SwitchCommentLikeResponseDto"];
+          'application/json': components['schemas']['CommentV1SwitchCommentLikeResponseDto'];
         };
       };
     };
@@ -2385,19 +2443,19 @@ export interface operations {
       /** @description 성공 */
       200: {
         content: {
-          "application/json": components["schemas"]["CommonResponseDto"] & {
-            data?: components["schemas"]["CommentV1ReportCommentResponseDto"];
+          'application/json': components['schemas']['CommonResponseDto'] & {
+            data?: components['schemas']['CommentV1ReportCommentResponseDto'];
           };
         };
       };
       201: {
         content: {
-          "application/json": components["schemas"]["CommentV1ReportCommentResponseDto"];
+          'application/json': components['schemas']['CommentV1ReportCommentResponseDto'];
         };
       };
       400: {
         content: {
-          "application/json": components["schemas"]["BaseExceptionDto"];
+          'application/json': components['schemas']['BaseExceptionDto'];
         };
       };
     };
@@ -2418,22 +2476,22 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/json": components["schemas"]["CommentV1UpdateCommentBodyDto"];
+        'application/json': components['schemas']['CommentV1UpdateCommentBodyDto'];
       };
     };
     responses: {
       /** @description 성공 */
       200: {
         content: {
-          "application/json": components["schemas"]["CommonResponseDto"] & {
-            data?: components["schemas"]["CommentV1CreateCommentResponseDto"];
+          'application/json': components['schemas']['CommonResponseDto'] & {
+            data?: components['schemas']['CommentV1CreateCommentResponseDto'];
           };
         };
       };
       /** @description "존재하지 않는 댓글입니다." or "권한이 없습니다." */
       400: {
         content: {
-          "application/json": components["schemas"]["BaseExceptionDto"];
+          'application/json': components['schemas']['BaseExceptionDto'];
         };
       };
     };
@@ -2456,7 +2514,7 @@ export interface operations {
       200: never;
       400: {
         content: {
-          "application/json": components["schemas"]["BaseExceptionDto"];
+          'application/json': components['schemas']['BaseExceptionDto'];
         };
       };
     };
@@ -2467,303 +2525,302 @@ export interface operations {
  * Do not make direct changes to the file.
  */
 
-
 export interface paths {
-  "/post/v2/{postId}": {
+  '/post/v2/{postId}': {
     /** 모임 게시글 조회 */
-    get: operations["getPost"];
+    get: operations['getPost'];
     /** 모임 게시글 수정 */
-    put: operations["updatePost"];
+    put: operations['updatePost'];
     /** 모임 게시글 삭제 */
-    delete: operations["deletePost"];
+    delete: operations['deletePost'];
   };
-  "/meeting/v2/{meetingId}": {
+  '/meeting/v2/{meetingId}': {
     /**
      * 모임 상세 조회
      * @description 모임 상세 조회
      */
-    get: operations["getMeetingById"];
+    get: operations['getMeetingById'];
     /**
      * 모임 수정
      * @description 모임 내용을 수정합니다.
      */
-    put: operations["updateMeeting"];
+    put: operations['updateMeeting'];
     /**
      * 모임 삭제
      * @description 모임 삭제합니다.
      */
-    delete: operations["deleteMeeting"];
+    delete: operations['deleteMeeting'];
   };
-  "/meeting/v2/{meetingId}/apply/status": {
+  '/meeting/v2/{meetingId}/apply/status': {
     /**
      * 모임 지원자 상태 변경
      * @description 모임 지원자의 지원 상태를 변경합니다.
      */
-    put: operations["updateApplyStatus"];
+    put: operations['updateApplyStatus'];
   };
-  "/flash/v2/{meetingId}": {
+  '/flash/v2/{meetingId}': {
     /** 번쩍 모임 상세 조회 */
-    get: operations["getFlashByMeetingId"];
+    get: operations['getFlashByMeetingId'];
     /** 번쩍 모임 수정 */
-    put: operations["updateFlash"];
+    put: operations['updateFlash'];
   };
-  "/comment/v2/{commentId}": {
+  '/comment/v2/{commentId}': {
     /** 모임 게시글 댓글 수정 */
-    put: operations["updateComment"];
+    put: operations['updateComment'];
     /** 모임 게시글 댓글 삭제 */
-    delete: operations["deleteComment"];
+    delete: operations['deleteComment'];
   };
-  "/api/v2/map/{soptMapId}": {
+  '/api/v2/map/{soptMapId}': {
     /** 솝맵 수정 api */
-    put: operations["updateSoptMap"];
+    put: operations['updateSoptMap'];
     /** 솝맵 삭제 api */
-    delete: operations["deleteSoptMap"];
+    delete: operations['deleteSoptMap'];
   };
-  "/api/v2/map/toggle/recommend/{soptMapId}": {
+  '/api/v2/map/toggle/recommend/{soptMapId}': {
     /** 솝맵 추천하기 api */
-    put: operations["recommendSoptMap"];
+    put: operations['recommendSoptMap'];
   };
-  "/user/v2/interestedKeywords": {
+  '/user/v2/interestedKeywords': {
     /** 유저 관심 키워드 조회 */
-    get: operations["getUserInterestedKeyword"];
+    get: operations['getUserInterestedKeyword'];
     /** 유저 관심 키워드 설정 */
-    post: operations["updateUserInterestedKeyword"];
+    post: operations['updateUserInterestedKeyword'];
   };
-  "/slack/emoji": {
+  '/slack/emoji': {
     /** 이모지 이벤트 생성 */
-    post: operations["addEmoji"];
+    post: operations['addEmoji'];
     /** 이모지 이벤트 삭제 */
-    delete: operations["deleteEmoji"];
+    delete: operations['deleteEmoji'];
     /** 이모지 이벤트 업데이트 */
-    patch: operations["updateEmoji"];
+    patch: operations['updateEmoji'];
   };
-  "/post/v2": {
+  '/post/v2': {
     /** 모임 게시글 목록 조회 */
-    get: operations["getPosts"];
+    get: operations['getPosts'];
     /** 모임 게시글 작성 */
-    post: operations["createPost"];
+    post: operations['createPost'];
   };
-  "/post/v2/{postId}/views": {
+  '/post/v2/{postId}/views': {
     /** 모임 게시글 조회수 증가 */
-    post: operations["addViewCount"];
+    post: operations['addViewCount'];
   };
-  "/post/v2/{postId}/report": {
+  '/post/v2/{postId}/report': {
     /** 모임 게시글 신고 */
-    post: operations["reportPost"];
+    post: operations['reportPost'];
   };
-  "/post/v2/{postId}/like": {
+  '/post/v2/{postId}/like': {
     /** 모임 게시글 좋아요 토글 */
-    post: operations["switchPostLike"];
+    post: operations['switchPostLike'];
   };
-  "/post/v2/mention": {
+  '/post/v2/mention': {
     /** 게시글에서 멘션하기 */
-    post: operations["mentionUserInPost"];
+    post: operations['mentionUserInPost'];
   };
-  "/notice/v2": {
+  '/notice/v2': {
     /** 공지사항 조회 */
-    get: operations["getNotices"];
+    get: operations['getNotices'];
     /** 공지사항 작성 */
-    post: operations["createNotice"];
+    post: operations['createNotice'];
   };
-  "/meeting/v2": {
+  '/meeting/v2': {
     /**
      * 모임 전체 조회/검색/필터링
      * @description 모임 전체 조회/검색/필터링
      */
-    get: operations["getMeetings"];
+    get: operations['getMeetings'];
     /** 모임 생성 */
-    post: operations["createMeeting"];
+    post: operations['createMeeting'];
   };
-  "/meeting/v2/apply": {
+  '/meeting/v2/apply': {
     /** 일반 모임 지원 */
-    post: operations["applyGeneralMeeting"];
+    post: operations['applyGeneralMeeting'];
   };
-  "/internal/post/{orgId}": {
+  '/internal/post/{orgId}': {
     /**
      * [Internal] 피드 전체 조회
      * @description 플그 모임 탭에서의 모임 피드를 보여주기 위한 조회 api
      */
-    get: operations["getPosts_1"];
+    get: operations['getPosts_1'];
     /**
      * [Internal] 피드 생성
      * @description 플그 모임 탭에서 피드를 생성하기 위한 api
      */
-    post: operations["createPost_1"];
+    post: operations['createPost_1'];
   };
-  "/internal/meeting/stats/likes": {
+  '/internal/meeting/stats/likes': {
     /**
      * [Internal] Playground '좋아요'수 동기화
      * @description Playground '좋아요'수를 동기화합니다. 이미 좋아요가 되어 있으면 취소하고, 없으면 추가합니다.
      */
-    post: operations["switchPostLike_1"];
+    post: operations['switchPostLike_1'];
   };
-  "/flash/v2": {
+  '/flash/v2': {
     /** 번쩍 모임 생성 */
-    post: operations["createFlash"];
+    post: operations['createFlash'];
   };
-  "/comment/v2": {
+  '/comment/v2': {
     /** 모임 게시글 댓글 리스트 조회 */
-    get: operations["getComments"];
+    get: operations['getComments'];
     /** 모임 게시글 댓글 작성 */
-    post: operations["createComment"];
+    post: operations['createComment'];
   };
-  "/comment/v2/{commentId}/report": {
+  '/comment/v2/{commentId}/report': {
     /** 댓글 신고하기 */
-    post: operations["reportComment"];
+    post: operations['reportComment'];
   };
-  "/comment/v2/{commentId}/like": {
+  '/comment/v2/{commentId}/like': {
     /** 모임 게시글 댓글 좋아요 토글 */
-    post: operations["switchCommentLike"];
+    post: operations['switchCommentLike'];
   };
-  "/comment/v2/mention": {
+  '/comment/v2/mention': {
     /** 댓글에서 유저 멘션 */
-    post: operations["mentionUserInComment"];
+    post: operations['mentionUserInComment'];
   };
-  "/auth/v2": {
+  '/auth/v2': {
     /** 로그인/회원가입 */
-    post: operations["loginUser"];
+    post: operations['loginUser'];
   };
-  "/api/v2/map": {
+  '/api/v2/map': {
     /** 솝맵 목록 조회/검색/필터링 api */
-    get: operations["getSoptMapList"];
+    get: operations['getSoptMapList'];
     /** 솝맵 등록 api */
-    post: operations["createSoptMap"];
+    post: operations['createSoptMap'];
   };
-  "/api/v2/map/event": {
+  '/api/v2/map/event': {
     /** 이벤트 당첨 여부 확인 */
-    post: operations["eventSoptMap"];
+    post: operations['eventSoptMap'];
   };
-  "/user/v2": {
+  '/user/v2': {
     /** 전체 사용자 조회 */
-    get: operations["getAllUser"];
+    get: operations['getAllUser'];
   };
-  "/user/v2/profile/me": {
+  '/user/v2/profile/me': {
     /** 유저 본인 프로필 조회 */
-    get: operations["getUserOwnProfile"];
+    get: operations['getUserOwnProfile'];
   };
-  "/user/v2/mention": {
+  '/user/v2/mention': {
     /**
      * 멘션 사용자 조회
      * @deprecated
      */
-    get: operations["getAllMentionUser"];
+    get: operations['getAllMentionUser'];
   };
-  "/user/v2/meeting": {
+  '/user/v2/meeting': {
     /** 내가 만든 모임 조회 */
-    get: operations["getCreatedMeetingByUser"];
+    get: operations['getCreatedMeetingByUser'];
   };
-  "/user/v2/meeting/all": {
+  '/user/v2/meeting/all': {
     /** 내가 속한 모임 조회 */
-    get: operations["getAllMeetingByUser"];
+    get: operations['getAllMeetingByUser'];
   };
-  "/user/v2/apply": {
+  '/user/v2/apply': {
     /** 내가 신청한 모임 조회 */
-    get: operations["getAppliedMeetingByUser"];
+    get: operations['getAppliedMeetingByUser'];
   };
-  "/property/v2": {
+  '/property/v2': {
     /** 키 값을 통한 단 건 조회(키 값이 없다면 전체 조회를 진행합니다.) */
-    get: operations["getProperty"];
+    get: operations['getProperty'];
   };
-  "/property/v2/home": {
+  '/property/v2/home': {
     /** 프로퍼티/홈 컨텐츠 조회 */
-    get: operations["getHomeProperty"];
+    get: operations['getHomeProperty'];
   };
-  "/post/v2/count": {
+  '/post/v2/count': {
     /** 모임 게시글 개수 조회 */
-    get: operations["getPostCount"];
+    get: operations['getPostCount'];
   };
-  "/meeting/v2/{meetingId}/list": {
+  '/meeting/v2/{meetingId}/list': {
     /**
      * 모임 지원자/참여자 조회
      * @description 모임 지원자/참여자 조회 (모임장이면 지원자, 아니면 참여자 조회)
      */
-    get: operations["findApplyList"];
+    get: operations['findApplyList'];
   };
-  "/meeting/v2/{meetingId}/list/csv": {
+  '/meeting/v2/{meetingId}/list/csv': {
     /**
      * 모임 지원자 목록 csv 파일 다운로드
      * @description 모임 지원자 목록 csv 파일 다운로드
      */
-    get: operations["getAppliesCsvFileUrl"];
+    get: operations['getAppliesCsvFileUrl'];
   };
-  "/meeting/v2/recommend": {
+  '/meeting/v2/recommend': {
     /**
      * 추천 모임 목록 조회
      * @description 추천 모임 목록 조회, 쿼리파라미터가 없는 경우 '지금 모집중인 모임' 반환
      */
-    get: operations["getRecommendMeetingsByIds"];
+    get: operations['getRecommendMeetingsByIds'];
   };
-  "/meeting/v2/presigned-url": {
+  '/meeting/v2/presigned-url': {
     /**
      * Meeting 썸네일 업로드용 Pre-Signed URL 발급
      * @description Meeting 썸네일 업로드용 Pre-Signed URL 발급합니다.
      */
-    get: operations["createPreSignedUrl"];
+    get: operations['createPreSignedUrl'];
   };
-  "/meeting/v2/org-user": {
+  '/meeting/v2/org-user': {
     /** 플레이그라운드 마이페이지 내 모임 정보 조회 */
-    get: operations["getAllMeetingByOrgUser"];
+    get: operations['getAllMeetingByOrgUser'];
   };
-  "/meeting/v2/banner": {
+  '/meeting/v2/banner': {
     /** 모임 둘러보기 조회 */
-    get: operations["getMeetingBanner"];
+    get: operations['getMeetingBanner'];
   };
-  "/internal/meetings": {
+  '/internal/meetings': {
     /**
      * [Internal] 모임 전체 조회/검색/필터링
      * @description 모임 전체 조회/검색/필터링
      */
-    get: operations["getMeetings_1"];
+    get: operations['getMeetings_1'];
   };
-  "/internal/meetings/{userId}": {
+  '/internal/meetings/{userId}': {
     /**
      * [Internal] 모임 정보 조회
      * @description 플그 요청에 따른 맴버에 따라 크루 모임 조회를 위한 api
      */
-    get: operations["getAppliedMeetingInfo"];
+    get: operations['getAppliedMeetingInfo'];
   };
-  "/internal/meetings/post": {
+  '/internal/meetings/post': {
     /**
      * [Internal] 모임 전체 조회
      * @description 플그 피드 작성시 크루 모임 전체 조회를 위한 api
      */
-    get: operations["getMeetingsForWritingPost"];
+    get: operations['getMeetingsForWritingPost'];
   };
-  "/internal/meeting/stats/studies": {
+  '/internal/meeting/stats/studies': {
     /**
      * [Internal] 특정 기수의 총 스터디 개수 반환
      * @description 특정 기수의 총 스터디 개수를 반환합니다.
      */
-    get: operations["getMeetingCountByGeneration"];
+    get: operations['getMeetingCountByGeneration'];
   };
-  "/internal/meeting/stats/fastest-applied/{orgId}": {
+  '/internal/meeting/stats/fastest-applied/{orgId}': {
     /**
      * [Internal] 특정 유저가 가장 빠르게 신청한 모임 N개 조회
      * @description 특정 유저가 가장 빠르게 신청한 모임 N개 조회하는 API입니다.
      */
-    get: operations["getTopFastestAppliedMeetings"];
+    get: operations['getTopFastestAppliedMeetings'];
   };
-  "/internal/meeting/stats/approved-studies/{orgId}": {
+  '/internal/meeting/stats/approved-studies/{orgId}': {
     /**
      * [Internal] 모임 유저의 승인된 스터디 수 조회
      * @description 특정 유저의 승인된 스터디 수를 조회하는 API입니다.
      */
-    get: operations["getApprovedStudyCountByOrgId"];
+    get: operations['getApprovedStudyCountByOrgId'];
   };
-  "/api/v2/map/search/subway": {
+  '/api/v2/map/search/subway': {
     /** 지하철역 검색 api */
-    get: operations["findSubwayStations"];
+    get: operations['findSubwayStations'];
   };
-  "/advertisement/v2": {
+  '/advertisement/v2': {
     /**
      * 광고 조회
      * @description 게시글 목록 페이지일 경우, ?category=POST  <br /> 모임 목록 페이지일 경우, ?category=MEETING
      */
-    get: operations["getAdvertisement"];
+    get: operations['getAdvertisement'];
   };
-  "/meeting/v2/{meetingId}/apply": {
+  '/meeting/v2/{meetingId}/apply': {
     /** 모임 지원 취소 */
-    delete: operations["applyMeetingCancel"];
+    delete: operations['applyMeetingCancel'];
   };
 }
 
@@ -2906,7 +2963,7 @@ export interface components {
        *   "IOS"
        * ]
        */
-      joinableParts: ("PM" | "DESIGN" | "IOS" | "ANDROID" | "SERVER" | "WEB")[];
+      joinableParts: ('PM' | 'DESIGN' | 'IOS' | 'ANDROID' | 'SERVER' | 'WEB')[];
       /**
        * @description 공동 모임장 userId (크루에서 사용하는 userId)
        * @example [
@@ -2949,7 +3006,7 @@ export interface components {
     };
     /** @description 번쩍 모임 생성 및 수정 request body dto */
     FlashV2CreateAndUpdateFlashBodyDto: {
-      flashBody: components["schemas"]["FlashV2CreateAndUpdateFlashBodyWithoutWelcomeMessageDto"];
+      flashBody: components['schemas']['FlashV2CreateAndUpdateFlashBodyWithoutWelcomeMessageDto'];
       /**
        * @description 환영 메시지 타입 리스트
        * @example [
@@ -3077,7 +3134,7 @@ export interface components {
        *   "CAFE"
        * ]
        */
-      tags: ("FOOD" | "CAFE" | "ETC")[];
+      tags: ('FOOD' | 'CAFE' | 'ETC')[];
       /**
        * @description 네이버 지도 링크
        * @example https://map~~~~
@@ -3408,7 +3465,7 @@ export interface components {
        *   "CAFE"
        * ]
        */
-      tags: ("FOOD" | "CAFE" | "ETC")[];
+      tags: ('FOOD' | 'CAFE' | 'ETC')[];
       /**
        * @description 네이버 지도 링크
        * @example https://map~~~~
@@ -3566,7 +3623,7 @@ export interface components {
        */
       profileImage?: string;
       /** @description 활동 기수 */
-      activities: components["schemas"]["UserActivityVO"][];
+      activities: components['schemas']['UserActivityVO'][];
       /**
        * @description 전화번호
        * @example 01094726796
@@ -3599,7 +3656,7 @@ export interface components {
        *   "IOS"
        * ]
        */
-      joinableParts: ("PM" | "DESIGN" | "IOS" | "ANDROID" | "SERVER" | "WEB")[];
+      joinableParts: ('PM' | 'DESIGN' | 'IOS' | 'ANDROID' | 'SERVER' | 'WEB')[];
       /**
        * @description 모임 카테고리
        * @example 스터디
@@ -3626,7 +3683,7 @@ export interface components {
        * @description 모임 사진
        * @example [url] 형식
        */
-      imageURL: components["schemas"]["ImageUrlVO"][];
+      imageURL: components['schemas']['ImageUrlVO'][];
       /**
        * @description 멘토 필요 여부
        * @example false
@@ -3658,7 +3715,7 @@ export interface components {
        * @example 20
        */
       capacity: number;
-      user: components["schemas"]["MeetingCreatorDto"];
+      user: components['schemas']['MeetingCreatorDto'];
       /**
        * Format: int32
        * @description 신청자 수
@@ -3687,7 +3744,7 @@ export interface components {
     /** @description 내가 생성한 모임 조회 Dto */
     UserV2GetCreatedMeetingByUserResponseDto: {
       /** @description 내가 생성한 모임 정보 */
-      meetings: components["schemas"]["MeetingV2GetCreatedMeetingByUserResponseDto"][];
+      meetings: components['schemas']['MeetingV2GetCreatedMeetingByUserResponseDto'][];
       /**
        * Format: int32
        * @description 내가 신청한 모임 갯수
@@ -3741,12 +3798,12 @@ export interface components {
        * @enum {integer}
        */
       status: 0 | 1 | 2;
-      meeting: components["schemas"]["MeetingV2GetCreatedMeetingByUserResponseDto"];
+      meeting: components['schemas']['MeetingV2GetCreatedMeetingByUserResponseDto'];
     };
     /** @description 내가 신청한 모임 조회 Dto */
     UserV2GetAppliedMeetingByUserResponseDto: {
       /** @description 내가 신청한 모임 정보 */
-      apply: components["schemas"]["ApplyV2GetAppliedMeetingByUserResponseDto"][];
+      apply: components['schemas']['ApplyV2GetAppliedMeetingByUserResponseDto'][];
       /**
        * Format: int32
        * @description 내가 신청한 모임 갯수
@@ -3754,7 +3811,7 @@ export interface components {
       count: number;
     };
     HomePropertyResponse: {
-      home?: components["schemas"]["MainPageContentVo"][];
+      home?: components['schemas']['MainPageContentVo'][];
     };
     MainPageContentVo: {
       title?: string;
@@ -3818,7 +3875,7 @@ export interface components {
        * ]
        */
       images: string[];
-      user: components["schemas"]["PostWriterInfoDto"];
+      user: components['schemas']['PostWriterInfoDto'];
       /**
        * Format: int32
        * @description 게시글 좋아요 수
@@ -3842,7 +3899,7 @@ export interface components {
        * @example 30
        */
       commentCount: number;
-      meeting: components["schemas"]["PostMeetingDto"];
+      meeting: components['schemas']['PostMeetingDto'];
       /**
        * @description 댓글 작성자 썸네일 목록
        * @example [
@@ -3879,7 +3936,7 @@ export interface components {
        * @description 모임 이미지 url
        * @example [url 형식]
        */
-      imageURL: components["schemas"]["ImageUrlVO"][];
+      imageURL: components['schemas']['ImageUrlVO'][];
       /**
        * @description 모임 설명
        * @example 모임 설명입니다.
@@ -3889,8 +3946,8 @@ export interface components {
     /** @description 게시글 조회 응답 Dto */
     PostV2GetPostsResponseDto: {
       /** @description 게시글의 기본 정보 + 댓글 썸네일 이미지 리스트 정보 + 차단된 유저의 게시물인지 아닌지 정보를 담고 있는 DTO */
-      posts: components["schemas"]["PostDetailResponseDto"][];
-      meta: components["schemas"]["PageMetaDto"];
+      posts: components['schemas']['PostDetailResponseDto'][];
+      meta: components['schemas']['PageMetaDto'];
     };
     /** @description 게시글 작성자 Dto */
     PostWriterInfoDto: {
@@ -3948,7 +4005,7 @@ export interface components {
        * ]
        */
       images: string[];
-      user: components["schemas"]["PostWriterInfoDto"];
+      user: components['schemas']['PostWriterInfoDto'];
       /**
        * Format: int32
        * @description 게시글 좋아요 갯수
@@ -3972,7 +4029,7 @@ export interface components {
        * @example 5
        */
       commentCount: number;
-      meeting: components["schemas"]["PostMeetingDto"];
+      meeting: components['schemas']['PostMeetingDto'];
     };
     PostV2GetPostCountResponseDto: {
       /**
@@ -4036,7 +4093,7 @@ export interface components {
        *   "IOS"
        * ]
        */
-      joinableParts: ("PM" | "DESIGN" | "IOS" | "ANDROID" | "SERVER" | "WEB")[];
+      joinableParts: ('PM' | 'DESIGN' | 'IOS' | 'ANDROID' | 'SERVER' | 'WEB')[];
       /**
        * @description 모임 카테고리
        * @example 스터디
@@ -4058,7 +4115,7 @@ export interface components {
        * @description 모임 사진
        * @example [url] 형식
        */
-      imageURL: components["schemas"]["ImageUrlVO"][];
+      imageURL: components['schemas']['ImageUrlVO'][];
       /**
        * @description 멘토 필요 여부
        * @example false
@@ -4090,7 +4147,7 @@ export interface components {
        * @example 20
        */
       capacity: number;
-      user: components["schemas"]["MeetingCreatorDto"];
+      user: components['schemas']['MeetingCreatorDto'];
       /**
        * Format: int32
        * @description 승인된 신청자 수
@@ -4105,8 +4162,8 @@ export interface components {
     /** @description 모임 조회 응답 Dto */
     MeetingV2GetAllMeetingDto: {
       /** @description 모임 객체 목록 */
-      meetings: components["schemas"]["MeetingResponseDto"][];
-      meta: components["schemas"]["PageMetaDto"];
+      meetings: components['schemas']['MeetingResponseDto'][];
+      meta: components['schemas']['PageMetaDto'];
     };
     /** @description 모임 신청자 객체 Dto */
     ApplicantByMeetingDto: {
@@ -4136,7 +4193,7 @@ export interface components {
        *   }
        * ]
        */
-      activities: components["schemas"]["UserActivityVO"][];
+      activities: components['schemas']['UserActivityVO'][];
       /**
        * @description 신청자 프로필 사진
        * @example [url] 형식
@@ -4196,7 +4253,7 @@ export interface components {
        * @example 1
        */
       status: number;
-      user: components["schemas"]["ApplicantByMeetingDto"];
+      user: components['schemas']['ApplicantByMeetingDto'];
     };
     /** @description 공동 모임장 조회 dto */
     MeetingV2CoLeaderResponseDto: {
@@ -4251,7 +4308,7 @@ export interface components {
        * @description 모임 이미지
        * @example [url 형식]
        */
-      imageURL: components["schemas"]["ImageUrlVO"][];
+      imageURL: components['schemas']['ImageUrlVO'][];
       /**
        * Format: date-time
        * @description 모임 신청 시작 시간
@@ -4331,9 +4388,9 @@ export interface components {
        *   "SERVER"
        * ]
        */
-      joinableParts: ("PM" | "DESIGN" | "IOS" | "ANDROID" | "SERVER" | "WEB")[];
+      joinableParts: ('PM' | 'DESIGN' | 'IOS' | 'ANDROID' | 'SERVER' | 'WEB')[];
       /** @description 공동 모임장 목록 */
-      coMeetingLeaders?: components["schemas"]["MeetingV2CoLeaderResponseDto"][];
+      coMeetingLeaders?: components['schemas']['MeetingV2CoLeaderResponseDto'][];
       /**
        * @description 공동 모임장 여부
        * @example false
@@ -4367,9 +4424,9 @@ export interface components {
        * @example false
        */
       approved: boolean;
-      user: components["schemas"]["MeetingCreatorDto"];
+      user: components['schemas']['MeetingCreatorDto'];
       /** @description 신청 목록 */
-      appliedInfo: components["schemas"]["ApplyWholeInfoDto"][];
+      appliedInfo: components['schemas']['ApplyWholeInfoDto'][];
       /** @description 환영 메시지 타입 목록 */
       welcomeMessageTypes: string[];
       /** @description 모임 키워드 타입 목록 */
@@ -4394,7 +4451,7 @@ export interface components {
        * @example 1
        */
       orgId: number;
-      recentActivity: components["schemas"]["UserActivityVO"];
+      recentActivity: components['schemas']['UserActivityVO'];
       /**
        * @description 신청자 프로필 사진
        * @example [url] 형식
@@ -4435,14 +4492,14 @@ export interface components {
        * @example 1
        * @enum {string}
        */
-      status: "WAITING" | "APPROVE" | "REJECT";
-      user: components["schemas"]["ApplicantDto"];
+      status: 'WAITING' | 'APPROVE' | 'REJECT';
+      user: components['schemas']['ApplicantDto'];
     };
     /** @description 모임 신청 목록 응답 Dto */
     MeetingGetApplyListResponseDto: {
       /** @description 신청 목록 */
-      apply: components["schemas"]["ApplyInfoDetailDto"][];
-      meta: components["schemas"]["PageMetaDto"];
+      apply: components['schemas']['ApplyInfoDetailDto'][];
+      meta: components['schemas']['PageMetaDto'];
     };
     /** @description csv url Dto */
     AppliesCsvFileUrlResponseDto: {
@@ -4455,7 +4512,7 @@ export interface components {
     /** @description 추천 모임 목록 조회 응답 Dto */
     MeetingV2GetRecommendDto: {
       /** @description 모임 객체 목록 */
-      meetings: components["schemas"]["MeetingResponseDto"][];
+      meetings: components['schemas']['MeetingResponseDto'][];
     };
     /** @description presigned 필드 Dto */
     PreSignedUrlFieldResponseDto: {
@@ -4463,7 +4520,7 @@ export interface components {
        * @description contentType
        * @example image/jpeg
        */
-      "Content-Type": string;
+      'Content-Type': string;
       /**
        * @description key
        * @example key 값
@@ -4478,17 +4535,17 @@ export interface components {
        * @description algorithm
        * @example algorithm 값
        */
-      "X-Amz-Algorithm": string;
+      'X-Amz-Algorithm': string;
       /**
        * @description credential
        * @example credential 값
        */
-      "X-Amz-Credential": string;
+      'X-Amz-Credential': string;
       /**
        * @description X-Amz-Date
        * @example X-Amz-Date 값
        */
-      "X-Amz-Date": string;
+      'X-Amz-Date': string;
       /**
        * @description policy
        * @example policy 값
@@ -4498,7 +4555,7 @@ export interface components {
        * @description X-Amz-Signature
        * @example X-Amz-Signature 값
        */
-      "X-Amz-Signature": string;
+      'X-Amz-Signature': string;
     };
     /** @description presigned url Dto */
     PreSignedUrlResponseDto: {
@@ -4507,13 +4564,13 @@ export interface components {
        * @example [url] 형식
        */
       url: string;
-      fields: components["schemas"]["PreSignedUrlFieldResponseDto"];
+      fields: components['schemas']['PreSignedUrlFieldResponseDto'];
     };
     /** @description 모임 조회 응답 Dto */
     MeetingV2GetAllMeetingByOrgUserDto: {
       /** @description 모임 객체 목록 */
-      meetings: components["schemas"]["MeetingV2GetAllMeetingByOrgUserMeetingDto"][];
-      meta: components["schemas"]["PageMetaDto"];
+      meetings: components['schemas']['MeetingV2GetAllMeetingByOrgUserMeetingDto'][];
+      meta: components['schemas']['PageMetaDto'];
     };
     /** @description 모임 객체 Dto */
     MeetingV2GetAllMeetingByOrgUserMeetingDto: {
@@ -4577,12 +4634,12 @@ export interface components {
        * @example 스터디
        * @enum {string}
        */
-      category: "STUDY" | "LECTURE" | "FLASH" | "EVENT" | "SEMINAR";
+      category: 'STUDY' | 'LECTURE' | 'FLASH' | 'EVENT' | 'SEMINAR';
       /**
        * @description 모임 사진
        * @example [url] 형식
        */
-      imageURL: components["schemas"]["ImageUrlVO"][];
+      imageURL: components['schemas']['ImageUrlVO'][];
       /**
        * Format: date-time
        * @description 모임 모집 시작일
@@ -4617,7 +4674,7 @@ export interface components {
        *   "SERVER"
        * ]
        */
-      joinableParts: ("PM" | "DESIGN" | "IOS" | "ANDROID" | "SERVER" | "WEB")[];
+      joinableParts: ('PM' | 'DESIGN' | 'IOS' | 'ANDROID' | 'SERVER' | 'WEB')[];
       /**
        * Format: int64
        * @description 지원자 수
@@ -4630,7 +4687,7 @@ export interface components {
        * @example 9
        */
       approvedUserCount: number;
-      user: components["schemas"]["MeetingV2GetMeetingBannerResponseUserDto"];
+      user: components['schemas']['MeetingV2GetMeetingBannerResponseUserDto'];
       /**
        * Format: int32
        * @description 모임 상태
@@ -4668,8 +4725,8 @@ export interface components {
       profileImage?: string;
     };
     InternalPostGetAllResponseDto: {
-      posts?: components["schemas"]["InternalPostResponseDto"][];
-      pageMeta?: components["schemas"]["PageMetaDto"];
+      posts?: components['schemas']['InternalPostResponseDto'][];
+      pageMeta?: components['schemas']['PageMetaDto'];
     };
     InternalPostResponseDto: {
       /**
@@ -4701,7 +4758,7 @@ export interface components {
        * ]
        */
       images: string[];
-      user: components["schemas"]["InternalPostWriterDetailInfoDto"];
+      user: components['schemas']['InternalPostWriterDetailInfoDto'];
       /**
        * Format: int32
        * @description 피드 좋아요 갯수
@@ -4766,13 +4823,13 @@ export interface components {
        * @example [url] 형식
        */
       profileImage?: string;
-      partInfo?: components["schemas"]["UserActivityVO"];
+      partInfo?: components['schemas']['UserActivityVO'];
     };
     /** @description [Internal] 모임 목록 조회 응답 Dto */
     InternalMeetingGetAllMeetingDto: {
       /** @description 모임 객체 목록 */
-      meetings: components["schemas"]["InternalMeetingResponseDto"][];
-      meta: components["schemas"]["PageMetaDto"];
+      meetings: components['schemas']['InternalMeetingResponseDto'][];
+      meta: components['schemas']['PageMetaDto'];
     };
     /** @description [Internal] 모임 조회 응답 Dto */
     InternalMeetingResponseDto: {
@@ -4793,7 +4850,7 @@ export interface components {
        * @example APPLY_ABLE
        * @enum {string}
        */
-      status?: "BEFORE_START" | "APPLY_ABLE" | "RECRUITMENT_COMPLETE";
+      status?: 'BEFORE_START' | 'APPLY_ABLE' | 'RECRUITMENT_COMPLETE';
       /**
        * @description 모임 이미지
        * @example [url 형식]
@@ -4804,7 +4861,7 @@ export interface components {
        * @example 스터디
        * @enum {string}
        */
-      category: "스터디" | "행사" | "세미나";
+      category: '스터디' | '행사' | '세미나';
       /**
        * @description 대상 파트 목록
        * @example [
@@ -4812,7 +4869,7 @@ export interface components {
        *   "IOS"
        * ]
        */
-      joinableParts: ("PM" | "DESIGN" | "IOS" | "ANDROID" | "SERVER" | "WEB")[];
+      joinableParts: ('PM' | 'DESIGN' | 'IOS' | 'ANDROID' | 'SERVER' | 'WEB')[];
       /**
        * @description 모임 차단 여부
        * @example false
@@ -4820,7 +4877,7 @@ export interface components {
       isBlockedMeeting?: boolean;
     };
     InternalUserAppliedMeetingResponseDto: {
-      userAppliedMeetings?: components["schemas"]["UserAppliedMeetingDto"][];
+      userAppliedMeetings?: components['schemas']['UserAppliedMeetingDto'][];
     };
     UserAppliedMeetingDto: {
       /**
@@ -4866,7 +4923,7 @@ export interface components {
        * @example 스터디
        * @enum {string}
        */
-      category?: "STUDY" | "LECTURE" | "FLASH" | "EVENT" | "SEMINAR" | "스터디" | "행사" | "세미나" | "번쩍" | "강연";
+      category?: 'STUDY' | 'LECTURE' | 'FLASH' | 'EVENT' | 'SEMINAR' | '스터디' | '행사' | '세미나' | '번쩍' | '강연';
       /**
        * @description 모임 이미지
        * @example [url 형식]
@@ -4879,8 +4936,8 @@ export interface components {
       description?: string;
     };
     InternalMeetingGetAllWritingPostResponseDto: {
-      meetings?: components["schemas"]["InternalMeetingForWritingPostDto"][];
-      pageMetaData?: components["schemas"]["PageMetaDto"];
+      meetings?: components['schemas']['InternalMeetingForWritingPostDto'][];
+      pageMetaData?: components['schemas']['PageMetaDto'];
     };
     /** @description 가장 빠르게 신청한 모임 DTO */
     TopFastestAppliedMeetingResponseDto: {
@@ -4899,7 +4956,7 @@ export interface components {
     /** @description 가장 빠르게 신청한 모임 목록 DTO */
     TopFastestAppliedMeetingsResponseDto: {
       /** @description 가장 빠르게 신청한 모임 */
-      topFastestAppliedMeetings?: components["schemas"]["TopFastestAppliedMeetingResponseDto"][];
+      topFastestAppliedMeetings?: components['schemas']['TopFastestAppliedMeetingResponseDto'][];
     };
     /** @description 번쩍 상세 조회 dto */
     FlashV2GetFlashByMeetingIdResponseDto: {
@@ -4929,7 +4986,7 @@ export interface components {
        * @description 번쩍 이미지
        * @example [url 형식]
        */
-      imageURL: components["schemas"]["ImageUrlVO"][];
+      imageURL: components['schemas']['ImageUrlVO'][];
       /**
        * Format: date-time
        * @description 번쩍 신청 종료 시간
@@ -5015,9 +5072,9 @@ export interface components {
        * @example false
        */
       approved: boolean;
-      user: components["schemas"]["MeetingCreatorDto"];
+      user: components['schemas']['MeetingCreatorDto'];
       /** @description 신청 목록 */
-      appliedInfo: components["schemas"]["ApplyWholeInfoDto"][];
+      appliedInfo: components['schemas']['ApplyWholeInfoDto'][];
     };
     /** @description 댓글 객체 응답 Dto */
     CommentDto: {
@@ -5032,7 +5089,7 @@ export interface components {
        * @example 이것은 댓글 내용입니다.
        */
       contents: string;
-      user: components["schemas"]["CommentWriterDto"];
+      user: components['schemas']['CommentWriterDto'];
       /**
        * Format: date-time
        * @description 댓글 생성 시점
@@ -5061,7 +5118,7 @@ export interface components {
        */
       order: number;
       /** @description 대댓글 객체 목록 */
-      replies: components["schemas"]["ReplyDto"][];
+      replies: components['schemas']['ReplyDto'][];
       /**
        * @description 차단여부
        * @example false
@@ -5070,8 +5127,8 @@ export interface components {
     };
     /** @description 댓글 목록 조회 응답 Dto */
     CommentV2GetCommentsResponseDto: {
-      comments: components["schemas"]["CommentDto"][];
-      meta: components["schemas"]["PageMetaDto"];
+      comments: components['schemas']['CommentDto'][];
+      meta: components['schemas']['PageMetaDto'];
     };
     /** @description 댓글 작성자 객체 Dto */
     CommentWriterDto: {
@@ -5111,7 +5168,7 @@ export interface components {
        * @example 이것은 댓글 내용입니다.
        */
       contents: string;
-      user: components["schemas"]["CommentWriterDto"];
+      user: components['schemas']['CommentWriterDto'];
       /**
        * Format: date-time
        * @description 댓글 생성 시점
@@ -5148,8 +5205,8 @@ export interface components {
     /** @description 솝맵 목록 조회 응답 Dto */
     SoptMapGetAllDto: {
       /** @description 솝맵 목록 */
-      soptMaps: components["schemas"]["SoptMapListResponseDto"][];
-      meta: components["schemas"]["PageMetaDto"];
+      soptMaps: components['schemas']['SoptMapListResponseDto'][];
+      meta: components['schemas']['PageMetaDto'];
     };
     /** @description 솝맵 목록 */
     SoptMapListResponseDto: {
@@ -5176,7 +5233,7 @@ export interface components {
        *   "CAFE"
        * ]
        */
-      mapTags?: ("FOOD" | "CAFE" | "ETC")[];
+      mapTags?: ('FOOD' | 'CAFE' | 'ETC')[];
       /**
        * @description 주변 지하철역 이름
        * @example [
@@ -5218,7 +5275,7 @@ export interface components {
       isCreator?: boolean;
     };
     SearchSubwayStationResponse: {
-      stations?: components["schemas"]["SubwayStationDto"][];
+      stations?: components['schemas']['SubwayStationDto'][];
     };
     SubwayStationDto: {
       /**
@@ -5264,7 +5321,7 @@ export interface components {
     /** @description 광고 구좌 조회 응답 Dto */
     AdvertisementsGetResponseDto: {
       /** @description 광고 구좌 이미지 리스트 */
-      advertisements: components["schemas"]["AdvertisementGetDto"][];
+      advertisements: components['schemas']['AdvertisementGetDto'][];
     };
     SlackEmojiEventDeleteRequestDto: {
       identifiedPwd?: string;
@@ -5281,7 +5338,6 @@ export interface components {
 export type external = Record<string, never>;
 
 export interface operations {
-
   /** 모임 게시글 조회 */
   getPost: {
     parameters: {
@@ -5293,7 +5349,7 @@ export interface operations {
       /** @description 성공 */
       200: {
         content: {
-          "application/json;charset=UTF-8": components["schemas"]["PostDetailBaseDto"];
+          'application/json;charset=UTF-8': components['schemas']['PostDetailBaseDto'];
         };
       };
       /** @description 모임이 없습니다 */
@@ -5309,14 +5365,14 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/json;charset=UTF-8": components["schemas"]["PostV2UpdatePostBodyDto"];
+        'application/json;charset=UTF-8': components['schemas']['PostV2UpdatePostBodyDto'];
       };
     };
     responses: {
       /** @description 성공 */
       200: {
         content: {
-          "application/json;charset=UTF-8": components["schemas"]["PostV2UpdatePostResponseDto"];
+          'application/json;charset=UTF-8': components['schemas']['PostV2UpdatePostResponseDto'];
         };
       };
       /** @description "게시글이 없습니다." or "이미지는 최대 10개까지만 업로드 가능합니다." */
@@ -5355,7 +5411,7 @@ export interface operations {
       /** @description 모임 상세 조회 성공 */
       200: {
         content: {
-          "application/json;charset=UTF-8": components["schemas"]["MeetingV2GetMeetingByIdResponseDto"];
+          'application/json;charset=UTF-8': components['schemas']['MeetingV2GetMeetingByIdResponseDto'];
         };
       };
       /** @description 모임이 없습니다. */
@@ -5374,7 +5430,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/json;charset=UTF-8": components["schemas"]["MeetingV2CreateAndUpdateMeetingBodyDto"];
+        'application/json;charset=UTF-8': components['schemas']['MeetingV2CreateAndUpdateMeetingBodyDto'];
       };
     };
     responses: {
@@ -5409,7 +5465,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/json;charset=UTF-8": components["schemas"]["ApplyV2UpdateStatusBodyDto"];
+        'application/json;charset=UTF-8': components['schemas']['ApplyV2UpdateStatusBodyDto'];
       };
     };
     responses: {
@@ -5428,7 +5484,7 @@ export interface operations {
       /** @description 번쩍 모임 상세 조회 성공 */
       200: {
         content: {
-          "application/json;charset=UTF-8": components["schemas"]["FlashV2GetFlashByMeetingIdResponseDto"];
+          'application/json;charset=UTF-8': components['schemas']['FlashV2GetFlashByMeetingIdResponseDto'];
         };
       };
       /** @description 번쩍 모임이 없습니다. */
@@ -5444,7 +5500,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/json;charset=UTF-8": components["schemas"]["FlashV2CreateAndUpdateFlashBodyDto"];
+        'application/json;charset=UTF-8': components['schemas']['FlashV2CreateAndUpdateFlashBodyDto'];
       };
     };
     responses: {
@@ -5463,14 +5519,14 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/json;charset=UTF-8": components["schemas"]["CommentV2UpdateCommentBodyDto"];
+        'application/json;charset=UTF-8': components['schemas']['CommentV2UpdateCommentBodyDto'];
       };
     };
     responses: {
       /** @description 성공 */
       200: {
         content: {
-          "application/json": components["schemas"]["CommentV2UpdateCommentResponseDto"];
+          'application/json': components['schemas']['CommentV2UpdateCommentResponseDto'];
         };
       };
     };
@@ -5496,26 +5552,26 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/json;charset=UTF-8": components["schemas"]["SoptMapUpdateRequest"];
+        'application/json;charset=UTF-8': components['schemas']['SoptMapUpdateRequest'];
       };
     };
     responses: {
       /** @description 성공 */
       200: {
         content: {
-          "application/json;charset=UTF-8": components["schemas"]["CreateSoptMapResponse"];
+          'application/json;charset=UTF-8': components['schemas']['CreateSoptMapResponse'];
         };
       };
       /** @description 권한 없음 */
       403: {
         content: {
-          "application/json;charset=UTF-8": components["schemas"]["CreateSoptMapResponse"];
+          'application/json;charset=UTF-8': components['schemas']['CreateSoptMapResponse'];
         };
       };
       /** @description 솝맵을 찾을 수 없음 */
       404: {
         content: {
-          "application/json;charset=UTF-8": components["schemas"]["CreateSoptMapResponse"];
+          'application/json;charset=UTF-8': components['schemas']['CreateSoptMapResponse'];
         };
       };
     };
@@ -5547,7 +5603,7 @@ export interface operations {
       /** @description 성공 */
       200: {
         content: {
-          "application/json;charset=UTF-8": components["schemas"]["ToggleSoptMapResponse"];
+          'application/json;charset=UTF-8': components['schemas']['ToggleSoptMapResponse'];
         };
       };
     };
@@ -5558,7 +5614,7 @@ export interface operations {
       /** @description 성공 */
       200: {
         content: {
-          "application/json;charset=UTF-8": components["schemas"]["UserV2GetInterestedKeywordsResponseDto"];
+          'application/json;charset=UTF-8': components['schemas']['UserV2GetInterestedKeywordsResponseDto'];
         };
       };
     };
@@ -5567,7 +5623,7 @@ export interface operations {
   updateUserInterestedKeyword: {
     requestBody: {
       content: {
-        "application/json;charset=UTF-8": components["schemas"]["UpdateUserInterestKeywordRequestDto"];
+        'application/json;charset=UTF-8': components['schemas']['UpdateUserInterestKeywordRequestDto'];
       };
     };
     responses: {
@@ -5579,14 +5635,14 @@ export interface operations {
   addEmoji: {
     requestBody: {
       content: {
-        "application/json;charset=UTF-8": components["schemas"]["SlackEmojiEventRequestDto"];
+        'application/json;charset=UTF-8': components['schemas']['SlackEmojiEventRequestDto'];
       };
     };
     responses: {
       /** @description OK */
       200: {
         content: {
-          "application/json;charset=UTF-8": string;
+          'application/json;charset=UTF-8': string;
         };
       };
     };
@@ -5595,14 +5651,14 @@ export interface operations {
   deleteEmoji: {
     requestBody: {
       content: {
-        "application/json;charset=UTF-8": components["schemas"]["SlackEmojiEventDeleteRequestDto"];
+        'application/json;charset=UTF-8': components['schemas']['SlackEmojiEventDeleteRequestDto'];
       };
     };
     responses: {
       /** @description OK */
       200: {
         content: {
-          "application/json;charset=UTF-8": string;
+          'application/json;charset=UTF-8': string;
         };
       };
     };
@@ -5611,14 +5667,14 @@ export interface operations {
   updateEmoji: {
     requestBody: {
       content: {
-        "application/json;charset=UTF-8": components["schemas"]["SlackUpdateEmojiEventRequestDto"];
+        'application/json;charset=UTF-8': components['schemas']['SlackUpdateEmojiEventRequestDto'];
       };
     };
     responses: {
       /** @description OK */
       200: {
         content: {
-          "application/json;charset=UTF-8": string;
+          'application/json;charset=UTF-8': string;
         };
       };
     };
@@ -5648,7 +5704,7 @@ export interface operations {
       /** @description 성공 */
       200: {
         content: {
-          "application/json;charset=UTF-8": components["schemas"]["PostV2GetPostsResponseDto"];
+          'application/json;charset=UTF-8': components['schemas']['PostV2GetPostsResponseDto'];
         };
       };
       /** @description 모임이 없습니다. */
@@ -5659,14 +5715,14 @@ export interface operations {
   createPost: {
     requestBody: {
       content: {
-        "application/json;charset=UTF-8": components["schemas"]["PostV2CreatePostBodyDto"];
+        'application/json;charset=UTF-8': components['schemas']['PostV2CreatePostBodyDto'];
       };
     };
     responses: {
       /** @description 성공 */
       201: {
         content: {
-          "application/json;charset=UTF-8": components["schemas"]["PostV2CreatePostResponseDto"];
+          'application/json;charset=UTF-8': components['schemas']['PostV2CreatePostResponseDto'];
         };
       };
       /** @description 모임이 없습니다. */
@@ -5686,7 +5742,7 @@ export interface operations {
       /** @description 성공, 응답 : 조회수 */
       200: {
         content: {
-          "application/json;charset=UTF-8": components["schemas"]["PostViewCountResponseDto"];
+          'application/json;charset=UTF-8': components['schemas']['PostViewCountResponseDto'];
         };
       };
     };
@@ -5702,7 +5758,7 @@ export interface operations {
       /** @description 성공 */
       201: {
         content: {
-          "application/json;charset=UTF-8": components["schemas"]["PostV2ReportResponseDto"];
+          'application/json;charset=UTF-8': components['schemas']['PostV2ReportResponseDto'];
         };
       };
       /** @description "게시글이 없습니다." or "이미 신고한 게시글입니다." */
@@ -5720,7 +5776,7 @@ export interface operations {
       /** @description 성공 */
       201: {
         content: {
-          "application/json;charset=UTF-8": components["schemas"]["PostV2SwitchPostLikeResponseDto"];
+          'application/json;charset=UTF-8': components['schemas']['PostV2SwitchPostLikeResponseDto'];
         };
       };
     };
@@ -5729,7 +5785,7 @@ export interface operations {
   mentionUserInPost: {
     requestBody: {
       content: {
-        "application/json;charset=UTF-8": components["schemas"]["PostV2MentionUserInPostRequestDto"];
+        'application/json;charset=UTF-8': components['schemas']['PostV2MentionUserInPostRequestDto'];
       };
     };
     responses: {
@@ -5743,7 +5799,7 @@ export interface operations {
       /** @description 성공 */
       200: {
         content: {
-          "application/json;charset=UTF-8": components["schemas"]["NoticeV2GetResponseDto"][];
+          'application/json;charset=UTF-8': components['schemas']['NoticeV2GetResponseDto'][];
         };
       };
     };
@@ -5752,7 +5808,7 @@ export interface operations {
   createNotice: {
     requestBody: {
       content: {
-        "application/json;charset=UTF-8": components["schemas"]["NoticeV2CreateRequestDto"];
+        'application/json;charset=UTF-8': components['schemas']['NoticeV2CreateRequestDto'];
       };
     };
     responses: {
@@ -5818,7 +5874,7 @@ export interface operations {
       /** @description 모임 지원자/참여자 조회 성공 */
       200: {
         content: {
-          "application/json;charset=UTF-8": components["schemas"]["MeetingV2GetAllMeetingDto"];
+          'application/json;charset=UTF-8': components['schemas']['MeetingV2GetAllMeetingDto'];
         };
       };
     };
@@ -5827,14 +5883,14 @@ export interface operations {
   createMeeting: {
     requestBody: {
       content: {
-        "application/json;charset=UTF-8": components["schemas"]["MeetingV2CreateAndUpdateMeetingBodyDto"];
+        'application/json;charset=UTF-8': components['schemas']['MeetingV2CreateAndUpdateMeetingBodyDto'];
       };
     };
     responses: {
       /** @description 성공 */
       201: {
         content: {
-          "application/json;charset=UTF-8": components["schemas"]["MeetingV2CreateMeetingResponseDto"];
+          'application/json;charset=UTF-8': components['schemas']['MeetingV2CreateMeetingResponseDto'];
         };
       };
       /** @description "이미지 파일이 없습니다." or "한 개 이상의 파트를 입력해주세요" or "프로필을 입력해주세요" */
@@ -5845,14 +5901,14 @@ export interface operations {
   applyGeneralMeeting: {
     requestBody: {
       content: {
-        "application/json;charset=UTF-8": components["schemas"]["MeetingV2ApplyMeetingDto"];
+        'application/json;charset=UTF-8': components['schemas']['MeetingV2ApplyMeetingDto'];
       };
     };
     responses: {
       /** @description 지원 완료 */
       201: {
         content: {
-          "application/json;charset=UTF-8": components["schemas"]["MeetingV2ApplyMeetingResponseDto"];
+          'application/json;charset=UTF-8': components['schemas']['MeetingV2ApplyMeetingResponseDto'];
         };
       };
       /** @description "모임이 없습니다" or "기수/파트를 설정해주세요" or "정원이 꽉찼습니다" or "활동 기수가 아닙니다" or "지원 가능한 파트가 아닙니다" or "지원 가능한 기간이 아닙니다" */
@@ -5889,7 +5945,7 @@ export interface operations {
       /** @description 모임 목록 조회 성공 */
       200: {
         content: {
-          "application/json;charset=UTF-8": components["schemas"]["InternalPostGetAllResponseDto"];
+          'application/json;charset=UTF-8': components['schemas']['InternalPostGetAllResponseDto'];
         };
       };
     };
@@ -5906,14 +5962,14 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/json;charset=UTF-8": components["schemas"]["InternalPostCreateRequestDto"];
+        'application/json;charset=UTF-8': components['schemas']['InternalPostCreateRequestDto'];
       };
     };
     responses: {
       /** @description 피드 생성 성공 */
       201: {
         content: {
-          "application/json;charset=UTF-8": components["schemas"]["InternalPostCreateResponseDto"];
+          'application/json;charset=UTF-8': components['schemas']['InternalPostCreateResponseDto'];
         };
       };
     };
@@ -5925,20 +5981,20 @@ export interface operations {
   switchPostLike_1: {
     requestBody: {
       content: {
-        "application/json;charset=UTF-8": components["schemas"]["InternalPostLikeRequestDto"];
+        'application/json;charset=UTF-8': components['schemas']['InternalPostLikeRequestDto'];
       };
     };
     responses: {
       /** @description 좋아요 수 동기화 성공 */
       201: {
         content: {
-          "application/json": unknown;
+          'application/json': unknown;
         };
       };
       /** @description 존재하지 않는 유저입니다. */
       404: {
         content: {
-          "application/json": unknown;
+          'application/json': unknown;
         };
       };
     };
@@ -5947,14 +6003,14 @@ export interface operations {
   createFlash: {
     requestBody: {
       content: {
-        "application/json;charset=UTF-8": components["schemas"]["FlashV2CreateAndUpdateFlashBodyDto"];
+        'application/json;charset=UTF-8': components['schemas']['FlashV2CreateAndUpdateFlashBodyDto'];
       };
     };
     responses: {
       /** @description meetingId: 10, tagId: 4 */
       201: {
         content: {
-          "application/json;charset=UTF-8": components["schemas"]["FlashV2CreateResponseDto"];
+          'application/json;charset=UTF-8': components['schemas']['FlashV2CreateResponseDto'];
         };
       };
       /** @description VALIDATION_EXCEPTION */
@@ -5986,7 +6042,7 @@ export interface operations {
       /** @description 성공 */
       200: {
         content: {
-          "application/json;charset=UTF-8": components["schemas"]["CommentV2GetCommentsResponseDto"];
+          'application/json;charset=UTF-8': components['schemas']['CommentV2GetCommentsResponseDto'];
         };
       };
     };
@@ -5995,14 +6051,14 @@ export interface operations {
   createComment: {
     requestBody: {
       content: {
-        "application/json;charset=UTF-8": components["schemas"]["CommentV2CreateCommentBodyDto"];
+        'application/json;charset=UTF-8': components['schemas']['CommentV2CreateCommentBodyDto'];
       };
     };
     responses: {
       /** @description 성공 */
       201: {
         content: {
-          "application/json": components["schemas"]["CommentV2CreateCommentResponseDto"];
+          'application/json': components['schemas']['CommentV2CreateCommentResponseDto'];
         };
       };
     };
@@ -6018,7 +6074,7 @@ export interface operations {
       /** @description 성공 */
       201: {
         content: {
-          "application/json": components["schemas"]["CommentV2ReportCommentResponseDto"];
+          'application/json': components['schemas']['CommentV2ReportCommentResponseDto'];
         };
       };
     };
@@ -6034,7 +6090,7 @@ export interface operations {
       /** @description 성공 */
       201: {
         content: {
-          "application/json": components["schemas"]["CommentV2SwitchCommentLikeResponseDto"];
+          'application/json': components['schemas']['CommentV2SwitchCommentLikeResponseDto'];
         };
       };
     };
@@ -6043,7 +6099,7 @@ export interface operations {
   mentionUserInComment: {
     requestBody: {
       content: {
-        "application/json;charset=UTF-8": components["schemas"]["CommentV2MentionUserInCommentRequestDto"];
+        'application/json;charset=UTF-8': components['schemas']['CommentV2MentionUserInCommentRequestDto'];
       };
     };
     responses: {
@@ -6057,7 +6113,7 @@ export interface operations {
       /** @description 성공 */
       201: {
         content: {
-          "application/json;charset=UTF-8": components["schemas"]["AuthV2ResponseDto"];
+          'application/json;charset=UTF-8': components['schemas']['AuthV2ResponseDto'];
         };
       };
       /** @description 유효하지 않는 토큰입니다. */
@@ -6074,12 +6130,12 @@ export interface operations {
          * @description 필터링할 카테고리 (null: 전체)
          * @example FOOD, CAFE
          */
-        categories?: ("FOOD" | "CAFE" | "ETC")[];
+        categories?: ('FOOD' | 'CAFE' | 'ETC')[];
         /**
          * @description 정렬 타입
          * @example LATEST
          */
-        sortType?: "LATEST" | "POPULAR";
+        sortType?: 'LATEST' | 'POPULAR';
         /**
          * @description 지하철역 검색어 (유사도 기반)
          * @example 강남
@@ -6101,7 +6157,7 @@ export interface operations {
       /** @description 성공 */
       200: {
         content: {
-          "application/json;charset=UTF-8": components["schemas"]["SoptMapGetAllDto"];
+          'application/json;charset=UTF-8': components['schemas']['SoptMapGetAllDto'];
         };
       };
     };
@@ -6110,14 +6166,14 @@ export interface operations {
   createSoptMap: {
     requestBody: {
       content: {
-        "application/json;charset=UTF-8": components["schemas"]["CreateSoptMapRequest"];
+        'application/json;charset=UTF-8': components['schemas']['CreateSoptMapRequest'];
       };
     };
     responses: {
       /** @description 성공 */
       200: {
         content: {
-          "application/json;charset=UTF-8": components["schemas"]["CreateSoptMapResponse"];
+          'application/json;charset=UTF-8': components['schemas']['CreateSoptMapResponse'];
         };
       };
     };
@@ -6126,14 +6182,14 @@ export interface operations {
   eventSoptMap: {
     requestBody: {
       content: {
-        "application/json;charset=UTF-8": components["schemas"]["CheckEventWinningRequest"];
+        'application/json;charset=UTF-8': components['schemas']['CheckEventWinningRequest'];
       };
     };
     responses: {
       /** @description 성공 */
       200: {
         content: {
-          "application/json;charset=UTF-8": components["schemas"]["SoptMapEventResponse"];
+          'application/json;charset=UTF-8': components['schemas']['SoptMapEventResponse'];
         };
       };
     };
@@ -6144,7 +6200,7 @@ export interface operations {
       /** @description 성공 */
       200: {
         content: {
-          "application/json;charset=UTF-8": components["schemas"]["UserV2GetAllUserDto"][];
+          'application/json;charset=UTF-8': components['schemas']['UserV2GetAllUserDto'][];
         };
       };
     };
@@ -6155,7 +6211,7 @@ export interface operations {
       /** @description 성공 */
       200: {
         content: {
-          "application/json;charset=UTF-8": components["schemas"]["UserV2GetUserOwnProfileResponseDto"];
+          'application/json;charset=UTF-8': components['schemas']['UserV2GetUserOwnProfileResponseDto'];
         };
       };
       /** @description 해당 유저가 없는 경우 */
@@ -6171,7 +6227,7 @@ export interface operations {
       /** @description 성공 */
       200: {
         content: {
-          "application/json;charset=UTF-8": components["schemas"]["UserV2GetAllMentionUserDto"][];
+          'application/json;charset=UTF-8': components['schemas']['UserV2GetAllMentionUserDto'][];
         };
       };
     };
@@ -6182,7 +6238,7 @@ export interface operations {
       /** @description 성공 */
       200: {
         content: {
-          "application/json;charset=UTF-8": components["schemas"]["UserV2GetCreatedMeetingByUserResponseDto"];
+          'application/json;charset=UTF-8': components['schemas']['UserV2GetCreatedMeetingByUserResponseDto'];
         };
       };
     };
@@ -6193,7 +6249,7 @@ export interface operations {
       /** @description 성공 */
       200: {
         content: {
-          "application/json;charset=UTF-8": components["schemas"]["UserV2GetAllMeetingByUserMeetingDto"][];
+          'application/json;charset=UTF-8': components['schemas']['UserV2GetAllMeetingByUserMeetingDto'][];
         };
       };
       /** @description 내가 속한 모임 리스트가 없는 경우 */
@@ -6206,7 +6262,7 @@ export interface operations {
       /** @description 성공 */
       200: {
         content: {
-          "application/json;charset=UTF-8": components["schemas"]["UserV2GetAppliedMeetingByUserResponseDto"];
+          'application/json;charset=UTF-8': components['schemas']['UserV2GetAppliedMeetingByUserResponseDto'];
         };
       };
     };
@@ -6222,7 +6278,7 @@ export interface operations {
       /** @description 성공 */
       200: {
         content: {
-          "application/json;charset=UTF-8": Record<string, never>;
+          'application/json;charset=UTF-8': Record<string, never>;
         };
       };
       /** @description 유효하지 않는 토큰입니다. */
@@ -6235,7 +6291,7 @@ export interface operations {
       /** @description 성공 */
       200: {
         content: {
-          "application/json;charset=UTF-8": components["schemas"]["HomePropertyResponse"];
+          'application/json;charset=UTF-8': components['schemas']['HomePropertyResponse'];
         };
       };
       /** @description 유효하지 않는 토큰입니다. */
@@ -6253,7 +6309,7 @@ export interface operations {
       /** @description 성공 */
       200: {
         content: {
-          "application/json;charset=UTF-8": components["schemas"]["PostV2GetPostCountResponseDto"];
+          'application/json;charset=UTF-8': components['schemas']['PostV2GetPostCountResponseDto'];
         };
       };
       /** @description 모임이 없습니다 */
@@ -6286,7 +6342,7 @@ export interface operations {
          * @description 날짜 정렬 (desc: 내림차순, asc: 오름차순)
          * @example desc
          */
-        date?: "desc" | "asc";
+        date?: 'desc' | 'asc';
       };
       path: {
         meetingId: number;
@@ -6296,7 +6352,7 @@ export interface operations {
       /** @description 모임 지원자/참여자 조회 성공 */
       200: {
         content: {
-          "application/json;charset=UTF-8": components["schemas"]["MeetingGetApplyListResponseDto"];
+          'application/json;charset=UTF-8': components['schemas']['MeetingGetApplyListResponseDto'];
         };
       };
       /** @description 모임이 없습니다. */
@@ -6334,7 +6390,7 @@ export interface operations {
       /** @description OK */
       200: {
         content: {
-          "application/json;charset=UTF-8": components["schemas"]["AppliesCsvFileUrlResponseDto"];
+          'application/json;charset=UTF-8': components['schemas']['AppliesCsvFileUrlResponseDto'];
         };
       };
     };
@@ -6361,7 +6417,7 @@ export interface operations {
       /** @description 추천 모임 목록 조회 성공 */
       200: {
         content: {
-          "application/json;charset=UTF-8": components["schemas"]["MeetingV2GetRecommendDto"];
+          'application/json;charset=UTF-8': components['schemas']['MeetingV2GetRecommendDto'];
         };
       };
       /** @description 모임이 없습니다. */
@@ -6382,7 +6438,7 @@ export interface operations {
       /** @description OK */
       200: {
         content: {
-          "application/json;charset=UTF-8": components["schemas"]["PreSignedUrlResponseDto"];
+          'application/json;charset=UTF-8': components['schemas']['PreSignedUrlResponseDto'];
         };
       };
     };
@@ -6412,7 +6468,7 @@ export interface operations {
       /** @description 성공 */
       200: {
         content: {
-          "application/json;charset=UTF-8": components["schemas"]["MeetingV2GetAllMeetingByOrgUserDto"];
+          'application/json;charset=UTF-8': components['schemas']['MeetingV2GetAllMeetingByOrgUserDto'];
         };
       };
     };
@@ -6423,7 +6479,7 @@ export interface operations {
       /** @description 성공 */
       200: {
         content: {
-          "application/json;charset=UTF-8": components["schemas"]["MeetingV2GetMeetingBannerResponseDto"][];
+          'application/json;charset=UTF-8': components['schemas']['MeetingV2GetMeetingBannerResponseDto'][];
         };
       };
       /** @description 모임이 없습니다. */
@@ -6464,7 +6520,7 @@ export interface operations {
       /** @description 모임 목록 조회 성공 */
       200: {
         content: {
-          "application/json;charset=UTF-8": components["schemas"]["InternalMeetingGetAllMeetingDto"];
+          'application/json;charset=UTF-8': components['schemas']['InternalMeetingGetAllMeetingDto'];
         };
       };
     };
@@ -6487,7 +6543,7 @@ export interface operations {
       /** @description 모임 목록 조회 성공 */
       200: {
         content: {
-          "application/json;charset=UTF-8": components["schemas"]["InternalUserAppliedMeetingResponseDto"];
+          'application/json;charset=UTF-8': components['schemas']['InternalUserAppliedMeetingResponseDto'];
         };
       };
     };
@@ -6515,7 +6571,7 @@ export interface operations {
       /** @description 모임 목록 조회 성공 */
       200: {
         content: {
-          "application/json;charset=UTF-8": components["schemas"]["InternalMeetingGetAllWritingPostResponseDto"];
+          'application/json;charset=UTF-8': components['schemas']['InternalMeetingGetAllWritingPostResponseDto'];
         };
       };
     };
@@ -6534,13 +6590,13 @@ export interface operations {
       /** @description 특정 기수의 총 스터디 개수 조회 성공 */
       200: {
         content: {
-          "application/json": string;
+          'application/json': string;
         };
       };
       /** @description 올바르지 않은 요청입니다. */
       400: {
         content: {
-          "application/json": unknown;
+          'application/json': unknown;
         };
       };
     };
@@ -6552,8 +6608,8 @@ export interface operations {
   getTopFastestAppliedMeetings: {
     parameters: {
       query: {
-        "query-count"?: number;
-        "query-year": number;
+        'query-count'?: number;
+        'query-year': number;
       };
       path: {
         /**
@@ -6567,13 +6623,13 @@ export interface operations {
       /** @description 가장 빠르게 신청한 모임 조회 성공 */
       200: {
         content: {
-          "application/json;charset=UTF-8": components["schemas"]["TopFastestAppliedMeetingsResponseDto"];
+          'application/json;charset=UTF-8': components['schemas']['TopFastestAppliedMeetingsResponseDto'];
         };
       };
       /** @description 존재하지 않는 유저입니다. */
       404: {
         content: {
-          "application/json": unknown;
+          'application/json': unknown;
         };
       };
     };
@@ -6596,13 +6652,13 @@ export interface operations {
       /** @description APPROVE된 스터디 수 조회 성공 */
       200: {
         content: {
-          "application/json": string;
+          'application/json': string;
         };
       };
       /** @description 존재하지 않는 유저입니다. */
       404: {
         content: {
-          "application/json": unknown;
+          'application/json': unknown;
         };
       };
     };
@@ -6618,19 +6674,19 @@ export interface operations {
       /** @description 성공 */
       200: {
         content: {
-          "application/json;charset=UTF-8": components["schemas"]["SearchSubwayStationResponse"];
+          'application/json;charset=UTF-8': components['schemas']['SearchSubwayStationResponse'];
         };
       };
       /** @description 권한 없음 */
       403: {
         content: {
-          "application/json;charset=UTF-8": components["schemas"]["SearchSubwayStationResponse"];
+          'application/json;charset=UTF-8': components['schemas']['SearchSubwayStationResponse'];
         };
       };
       /** @description 솝맵을 찾을 수 없음 */
       404: {
         content: {
-          "application/json;charset=UTF-8": components["schemas"]["SearchSubwayStationResponse"];
+          'application/json;charset=UTF-8': components['schemas']['SearchSubwayStationResponse'];
         };
       };
     };
@@ -6642,14 +6698,14 @@ export interface operations {
   getAdvertisement: {
     parameters: {
       query: {
-        category: "POST" | "MEETING";
+        category: 'POST' | 'MEETING';
       };
     };
     responses: {
       /** @description 성공 */
       200: {
         content: {
-          "application/json;charset=UTF-8": components["schemas"]["AdvertisementsGetResponseDto"];
+          'application/json;charset=UTF-8': components['schemas']['AdvertisementsGetResponseDto'];
         };
       };
     };

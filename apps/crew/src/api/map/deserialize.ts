@@ -9,7 +9,7 @@ const TAG_LABEL_MAP: Record<string, string> = {
 
 export const deserializeSoptMapData = (data: GetMapDetail['response']): FormType => {
   const code = data.tags?.[0];
-  const label = code ? TAG_LABEL_MAP[code] ?? '' : '';
+  const label = code ? (TAG_LABEL_MAP[code] ?? '') : '';
 
   return {
     name: data.placeName ?? '',

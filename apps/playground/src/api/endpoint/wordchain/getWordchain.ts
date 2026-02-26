@@ -60,13 +60,7 @@ export const useGetFinishedWordchainList = ({
 }: {
   limit: number;
   queryOptions?: Omit<
-    UseInfiniteQueryOptions<
-      FinishedWordchainListPage,
-      unknown,
-      FinishedWordchainListPage,
-      FinishedWordchainListPage,
-      QueryKey
-    >,
+    UseInfiniteQueryOptions<FinishedWordchainListPage, unknown, FinishedWordchainListPage, QueryKey>,
     'queryKey' | 'queryFn'
   >;
 }) =>

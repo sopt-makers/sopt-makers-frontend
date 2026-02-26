@@ -18,16 +18,12 @@ export const OverlayController = forwardRef(function OverlayController(
   const [isOpen, setIsOpen] = useState(false);
 
   const handleClose = useCallback(() => {
-    setIsOpen(false), onExit();
+    (setIsOpen(false), onExit());
   }, [onExit]);
 
-  useImperativeHandle(
-    ref,
-    () => {
-      return { close: handleClose };
-    },
-    [handleClose]
-  );
+  useImperativeHandle(ref, () => {
+    return { close: handleClose };
+  }, [handleClose]);
 
   useEffect(() => {
     //좀 어려울 것 같지만 고치기

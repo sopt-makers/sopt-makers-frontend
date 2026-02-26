@@ -1,9 +1,9 @@
 import { authToken } from '@/store/tokenStore';
 import { ACCESS_TOKEN_KEY, getAuthToken, redirectToLoginPage } from '@shared/util/auth';
-import { AxiosError, AxiosInstance, AxiosRequestConfig } from 'axios';
+import { AxiosError, AxiosInstance, InternalAxiosRequestConfig } from 'axios';
 import { authApi } from './index';
 
-export const checkToken = (config: AxiosRequestConfig) => {
+export const checkToken = (config: InternalAxiosRequestConfig) => {
   const token = getAuthToken();
 
   if (token && config.headers && !config.headers.Authorization) {
@@ -42,9 +42,6 @@ export const refreshToken = async (error: AxiosError<unknown>, instance: AxiosIn
           Authorization: `Bearer ${currentToken}`,
         },
       });
-      if (!originRequest.headers) {
-        originRequest.headers = {};
-      }
       originRequest.headers.Authorization = `Bearer ${data.data.accessToken}`;
       localStorage.setItem(ACCESS_TOKEN_KEY, data.data.accessToken);
       instance.defaults.headers.common['Authorization'] = `Bearer ${data.data.accessToken}`;
