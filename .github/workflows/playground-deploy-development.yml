@@ -51,7 +51,7 @@ jobs:
         id: publish
         run: |
           set -o pipefail
-          yarn wrangler pages publish out/ --project-name=sopt-internal | tee deploy.log
+          yarn wrangler pages publish out/ --project-name=sopt-internal-dev | tee deploy.log
           echo "log<<EOF" >> $GITHUB_OUTPUT
           echo "$(cat deploy.log)" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
