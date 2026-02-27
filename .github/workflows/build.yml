@@ -51,7 +51,7 @@ jobs:
       - name: Prepare deployment package
         run: |
           mkdir -p deploy
-          cp -r apps/playground/out/* deploy/
+          cp -r apps/playground/.next/* deploy/
           cp -r apps/playground/functions deploy/
 
       - uses: actions/upload-artifact@v4
