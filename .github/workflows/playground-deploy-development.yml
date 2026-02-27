@@ -4,14 +4,14 @@ on:
   push:
     branches: [develop]
     paths:
-      - 'apps/playground/**'
-      - 'packages/**'
-      - 'package.json'
-      - 'yarn.lock'
+      - "apps/playground/**"
+      - "packages/**"
+      - "package.json"
+      - "yarn.lock"
   pull_request:
     paths:
-      - 'apps/playground/**'
-      - 'packages/**'
+      - "apps/playground/**"
+      - "packages/**"
 
 jobs:
   deploy:
@@ -27,7 +27,10 @@ jobs:
           cache: yarn
 
       - name: Enable Corepack
-        run: corepack enable
+        run: |
+          corepack enable
+          corepack prepare yarn@4.1.1 --activate
+          yarn -v
 
       - name: Install Packages
         run: yarn install --immutable
@@ -64,8 +67,8 @@ jobs:
         id: find_comment
         with:
           issue-number: ${{ github.event.pull_request.number }}
-          comment-author: 'github-actions[bot]'
-          body-includes: 'Playground 프리뷰 배포'
+          comment-author: "github-actions[bot]"
+          body-includes: "Playground 프리뷰 배포"
 
       - name: Create or update comment
         if: github.event_name == 'pull_request'

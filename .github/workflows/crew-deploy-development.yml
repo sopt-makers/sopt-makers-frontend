@@ -4,14 +4,14 @@ on:
   push:
     branches: [develop]
     paths:
-      - 'apps/crew/**'
-      - 'packages/**'
-      - 'package.json'
-      - 'yarn.lock'
+      - "apps/crew/**"
+      - "packages/**"
+      - "package.json"
+      - "yarn.lock"
   pull_request:
     paths:
-      - 'apps/crew/**'
-      - 'packages/**'
+      - "apps/crew/**"
+      - "packages/**"
   workflow_dispatch:
 
 jobs:
@@ -32,7 +32,10 @@ jobs:
           cache: yarn
 
       - name: Enable Corepack
-        run: corepack enable
+        run: |
+          corepack enable
+          corepack prepare yarn@4.1.1 --activate
+          yarn -v
 
       - name: Install Packages
         run: yarn install --immutable

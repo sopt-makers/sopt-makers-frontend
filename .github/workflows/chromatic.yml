@@ -4,10 +4,10 @@ on:
   push:
     branches: [develop]
     paths:
-      - 'apps/playground/**'
+      - "apps/playground/**"
   pull_request:
     paths:
-      - 'apps/playground/**'
+      - "apps/playground/**"
 
 jobs:
   chromatic-deploy:
@@ -24,7 +24,10 @@ jobs:
           cache: yarn
 
       - name: Enable Corepack
-        run: corepack enable
+        run: |
+          corepack enable
+          corepack prepare yarn@4.1.1 --activate
+          yarn -v
 
       - name: Install Packages
         run: yarn install --immutable
@@ -45,7 +48,7 @@ jobs:
         id: find_comment
         with:
           issue-number: ${{ github.event.pull_request.number }}
-          comment-author: 'github-actions[bot]'
+          comment-author: "github-actions[bot]"
           body-includes: 스토리북으로 확인하기
 
       - name: Create or update comment
