@@ -41,7 +41,9 @@ jobs:
             ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn.lock') }}-
 
       - name: Set .env
-        run: echo "${{ inputs.env }}" > apps/playground/.env.local
+        run: |
+          cp apps/playground/.env.development apps/playground/.env.local
+          echo "${{ inputs.env }}" >> apps/playground/.env.local
 
       - name: Build
         run: yarn build:playground
