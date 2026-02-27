@@ -44,7 +44,7 @@ jobs:
         id: publish
         run: |
           set -o pipefail
-          yarn workspace playground run deploy --branch="${{ github.head_ref || github.ref_name }}" | tee deploy.log
+          yarn workspace playground run deploy | tee deploy.log
           echo "log<<EOF" >> $GITHUB_OUTPUT
           echo "$(cat deploy.log)" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
