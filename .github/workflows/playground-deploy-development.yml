@@ -44,6 +44,9 @@ jobs:
           corepack prepare yarn@4.1.1 --activate
           yarn -v
 
+      - name: Install Packages
+        run: yarn install --immutable
+
       - name: Publish
         id: publish
         run: |
