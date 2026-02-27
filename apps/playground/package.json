@@ -17,7 +17,7 @@
     "storybook": "storybook dev -p 6006",
     "prettier": "prettier --write .",
     "postinstall": "cd ../.. && husky install || true",
-    "deploy": "wrangler pages deploy .next/ --project-name=sopt-internal"
+    "deploy": "wrangler pages publish .next/ --project-name=sopt-internal"
   },
   "dependencies": {
     "@amplitude/analytics-browser": "^1.10.4",
@@ -46,7 +46,7 @@
     "@sopt/ui": "workspace:*",
     "@tanstack/react-query": "^5",
     "@tanstack/react-virtual": "^3.13.12",
-    "@toss/emotion-utils": "^1.1.7",
+    "@toss/emotion-utils": "^1.2.2",
     "@toss/error-boundary": "^1.4.6",
     "@toss/impression-area": "^1.3.1",
     "@toss/react": "^1.1.14",
@@ -146,7 +146,6 @@
     "tsup": "^7.1.0",
     "typescript": "^4.9.5",
     "url-loader": "^4.1.1",
-    "webpack": "^5.72.0",
-    "wrangler": "^3.0.0"
+    "webpack": "^5.72.0"
   }
 }

@@ -15,7 +15,7 @@
     "generate-types": "cat ./src/__generated__/schema1.d.ts ./src/__generated__/schema2.d.ts > ./src/__generated__/schema.d.ts",
     "wrangler": "wrangler",
     "where": "sh -c 'export IP=`ipconfig getifaddr en0` && echo [info] we are in ... http://${IP}:3000'",
-    "deploy": "wrangler pages deploy out/ --project-name=sopt-crew"
+    "deploy": "wrangler pages publish out/ --project-name=sopt-crew"
   },
   "dependencies": {
     "@amplitude/ampli": "^1.35.0",
@@ -61,7 +61,6 @@
     "eslint-plugin-prettier": "^5.5.5",
     "eslint-plugin-react-hooks": "^7.0.1",
     "openapi-typescript": "^6.3.9",
-    "prettier": "^3.0.0",
-    "wrangler": "^2.5.0"
+    "prettier": "^3.0.0"
   }
 }
