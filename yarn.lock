@@ -7893,7 +7893,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@toss/emotion-utils@npm:^1.2.2":
+"@toss/emotion-utils@npm:1.2.2":
   version: 1.2.2
   resolution: "@toss/emotion-utils@npm:1.2.2"
   dependencies:
@@ -7905,6 +7905,21 @@ __metadata:
     react: ^16 || ^17 || ^18
     react-dom: ^16 || ^17 || ^18
   checksum: 10c0/f1b6f4de31fe70119a10c33c27b87c9b22a8dddb6e7bfea73f3b6584530b69fee23f714df3e4effc7e8bf7819246f37d54f9349be358c933f85d379e91c59f9c
+  languageName: node
+  linkType: hard
+
+"@toss/emotion-utils@patch:@toss/emotion-utils@npm%3A1.2.2#~/.yarn/patches/@toss-emotion-utils-npm-1.2.2-534145a190.patch":
+  version: 1.2.2
+  resolution: "@toss/emotion-utils@patch:@toss/emotion-utils@npm%3A1.2.2#~/.yarn/patches/@toss-emotion-utils-npm-1.2.2-534145a190.patch::version=1.2.2&hash=438d02"
+  dependencies:
+    "@babel/runtime": "npm:^7.14.8"
+    "@toss/utils": "npm:^1.6.1"
+    csstype: "npm:^3.0.9"
+  peerDependencies:
+    "@emotion/react": "*"
+    react: ^16 || ^17 || ^18
+    react-dom: ^16 || ^17 || ^18
+  checksum: 10c0/66d9a1c18e910b4724bc6dd45c17ae4e7eca054b7ee9ae850e7a310eeb274a16ed59f3fdf55fd13cc5c6a70e83e2c78794e0a1da7bc0a37fb21ae449f23cbdf2
   languageName: node
   linkType: hard
 
@@ -18960,7 +18975,7 @@ __metadata:
     "@tanstack/react-virtual": "npm:^3.13.12"
     "@testing-library/jest-dom": "npm:^6.1.3"
     "@testing-library/react": "npm:^14.0.0"
-    "@toss/emotion-utils": "npm:^1.2.2"
+    "@toss/emotion-utils": "patch:@toss/emotion-utils@npm%3A1.2.2#~/.yarn/patches/@toss-emotion-utils-npm-1.2.2-534145a190.patch"
     "@toss/error-boundary": "npm:^1.4.6"
     "@toss/impression-area": "npm:^1.3.1"
     "@toss/react": "npm:^1.1.14"
