@@ -51,7 +51,7 @@ jobs:
         run: yarn build:crew
 
       - name: Publish
-        run: yarn workspace crew run deploy --branch=main
+        run: yarn workspace crew run deploy
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
