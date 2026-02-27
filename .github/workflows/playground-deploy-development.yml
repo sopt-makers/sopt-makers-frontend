@@ -15,31 +15,34 @@ on:
   workflow_dispatch:
 
 jobs:
+  build-app:
+    uses: ./.github/workflows/build.yml
+    with:
+      env: ${{ vars.DEVELOPMENT_ENV }}
+
   deploy:
+    needs: build-app
     runs-on: ubuntu-latest
     name: Deploy to Cloudflare Pages
     steps:
       - name: Checkout Branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
-      - uses: actions/setup-node@v4
+      - name: Download Built App
+        uses: actions/download-artifact@v4
         with:
-          node-version: 18
+          name: built-app
+          path: out
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
 
       - name: Enable Corepack
         run: |
           corepack enable
           corepack prepare yarn@4.1.1 --activate
           yarn -v
-
-      - name: Install Packages
-        run: yarn install --immutable
-
-      - name: Set .env
-        run: echo "${{ vars.PLAYGROUND_DEVELOPMENT_ENV }}" > apps/playground/.env.local
-
-      - name: Build
-        run: yarn build:playground
 
       - name: Publish
         id: publish
@@ -68,7 +71,7 @@ jobs:
         with:
           issue-number: ${{ github.event.pull_request.number }}
           comment-author: "github-actions[bot]"
-          body-includes: "Playground 프리뷰 배포"
+          body-includes: "Playground 프리뷰 배포 확인하기"
 
       - name: Create or update comment
         if: github.event_name == 'pull_request'

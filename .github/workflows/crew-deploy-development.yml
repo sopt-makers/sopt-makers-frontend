@@ -24,11 +24,12 @@ jobs:
     name: Deploy to Cloudflare Pages
     steps:
       - name: Checkout Branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
-      - uses: actions/setup-node@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 16
 
       - name: Enable Corepack
         run: |
