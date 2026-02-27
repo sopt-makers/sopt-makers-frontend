@@ -12,6 +12,7 @@ on:
     paths:
       - "apps/playground/**"
       - "packages/**"
+    workflow_dispatch:
 
 jobs:
   deploy:
