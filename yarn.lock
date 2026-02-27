@@ -11515,6 +11515,7 @@ __metadata:
     react-responsive: "npm:^9.0.2"
     react-slick: "npm:^0.30.2"
     slick-carousel: "npm:^1.8.1"
+    wrangler: "npm:^3.0.0"
   languageName: unknown
   linkType: soft
 
@@ -19037,6 +19038,7 @@ __metadata:
     url-loader: "npm:^4.1.1"
     use-query-params: "npm:^2.2.1"
     webpack: "npm:^5.72.0"
+    wrangler: "npm:^3.0.0"
     yup: "npm:^1.0.0"
   languageName: unknown
   linkType: soft
