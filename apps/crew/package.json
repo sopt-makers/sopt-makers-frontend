@@ -15,7 +15,7 @@
     "generate-types": "cat ./src/__generated__/schema1.d.ts ./src/__generated__/schema2.d.ts > ./src/__generated__/schema.d.ts",
     "wrangler": "wrangler",
     "where": "sh -c 'export IP=`ipconfig getifaddr en0` && echo [info] we are in ... http://${IP}:3000'",
-    "deploy": "yarn wrangler pages publish out/ --project-name=sopt-crew"
+    "deploy": "yarn wrangler pages publish out/ --project-name=sopt-crew --branch=main"
   },
   "dependencies": {
     "@amplitude/ampli": "^1.35.0",
