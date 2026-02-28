@@ -8,7 +8,6 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',
   reactStrictMode: true,
   // https://nextjs.org/docs/api-reference/next.config.js/custom-page-extensions
   pageExtensions: ['tsx', 'ts', 'jsx', 'js'],
