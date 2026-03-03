@@ -1,4 +1,4 @@
-name: Build App
+name: Playground - Build App
 
 on:
   workflow_call:
@@ -46,7 +46,7 @@ jobs:
           echo "${{ inputs.env }}" >> apps/playground/.env.local
 
       - name: Build
-        run: yarn build:playground
+        run: yarn build:playground && yarn next export
 
       - name: Prepare deployment package
         run: |

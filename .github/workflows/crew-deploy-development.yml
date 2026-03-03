@@ -46,13 +46,13 @@ jobs:
           echo "NEXT_PUBLIC_KAKAO_TALK_PLUGIN_KEY=${{ vars.CREW_NEXT_PUBLIC_KAKAO_TALK_PLUGIN_KEY }}" >> apps/crew/.env.local
           echo "NEXT_PUBLIC_SENTRY_DSN=${{ vars.CREW_NEXT_PUBLIC_SENTRY_DSN }}" >> apps/crew/.env.local
           echo "NEXT_PUBLIC_AMPLITUDE_API_KEY=${{ vars.CREW_NEXT_PUBLIC_AMPLITUDE_API_KEY }}" >> apps/crew/.env.local
-          echo "NEXT_PUBLIC_APP_ENV=development" >> apps/crew/.env.local
+          echo "NEXT_PUBLIC_APP_ENV=development" >> apps/crew/.env
 
       - name: Build
         run: yarn build:crew
 
       - name: Publish
-        run: yarn workspace crew run deploy
+        run: yarn run wrangler pages publish "apps/crew/out" --project-name "${{ secrets.CLOUDFLARE_PAGES_PROJECT_NAME }}" --commit-message "${{ github.sha }}" --branch=main
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

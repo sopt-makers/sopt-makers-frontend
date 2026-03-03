@@ -51,7 +51,7 @@ jobs:
         id: publish
         run: |
           set -o pipefail
-          yarn wrangler pages publish out/ --project-name=sopt-internal-dev | tee deploy.log
+          yarn dlx wrangler pages publish "out" --project-name "${{ vars.CF_PAGES_NAME_DEVELOPMENT }}" --commit-message " " | tee deploy.log
           echo "log<<EOF" >> $GITHUB_OUTPUT
           echo "$(cat deploy.log)" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
@@ -60,7 +60,6 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
       - name: Get Preview URL
-        if: github.event_name == 'pull_request'
         uses: actions-ecosystem/action-regex-match@v2
         id: regex-match
         with:
