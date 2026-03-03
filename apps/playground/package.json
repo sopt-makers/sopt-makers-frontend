@@ -16,8 +16,7 @@
     "test:ci": "jest --ci",
     "storybook": "storybook dev -p 6006",
     "prettier": "prettier --write .",
-    "postinstall": "cd ../.. && husky install || true",
-    "deploy": "yarn wrangler pages publish out/ --project-name=sopt-internal"
+    "postinstall": "cd ../.. && husky install || true"
   },
   "dependencies": {
     "@amplitude/analytics-browser": "^1.10.4",
@@ -66,10 +65,7 @@
     "postcss": "^8.4.0",
     "prop-types": "^15.8.1",
     "qs": "^6.11.0",
-    "react": "^18.2.0",
     "react-datepicker": "^4.8.0",
-    "react-dom": "^18.2.0",
-    "react-hook-form": "^7.43.9",
     "react-lottie": "^1.2.4",
     "react-markdown": "^8.0.4",
     "react-modal-sheet": "^1.10.2",
