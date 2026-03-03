@@ -32,7 +32,10 @@ jobs:
         run: yarn install --immutable
 
       - name: Set .env
-        run: echo "${{ vars.PLAYGROUND_DEVELOPMENT_ENV }}" > apps/playground/.env.local
+        run: |
+          echo "${{ vars.PLAYGROUND_DEVELOPMENT_ENV }}" > apps/playground/.env.local
+          cp apps/playground/.env.development apps/playground/.env
+          echo "${{ vars.PLAYGROUND_DEVELOPMENT_ENV }}" >> apps/playground/.env
 
       - name: Publish Chromatic
         id: publish_chromatic
@@ -40,6 +43,7 @@ jobs:
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           workingDir: apps/playground
+          buildScriptName: build-storybook
 
       - name: Find Comment
         if: github.event_name == 'pull_request'
