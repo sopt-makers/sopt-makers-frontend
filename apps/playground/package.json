@@ -76,6 +76,7 @@
     "react-virtuoso": "^4.6.2",
     "recoil": "^0.7.2",
     "slick-carousel": "^1.8.1",
+    "storybook": "^8.1.11",
     "swiper": "^9.4.1",
     "use-query-params": "^2.2.1",
     "yup": "^1.0.0"
