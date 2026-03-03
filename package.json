@@ -5,9 +5,8 @@
   "workspaces": {
     "packages": [
       "apps/*",
-      "apps/crew/packages/*",
-      "apps/playground/packages/*",
-      "packages/*"
+      "packages/*",
+      "apps/*/packages/*"
     ]
   },
   "scripts": {
@@ -28,6 +27,9 @@
     "dayjs": "^1.11.6",
     "immer": "^10.0.4",
     "nanoid": "^4.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.43.9",
     "zod": "^3.20.6"
   },
   "devDependencies": {
