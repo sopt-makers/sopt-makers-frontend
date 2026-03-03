@@ -15,7 +15,14 @@ import StorybookToastProvider from '../src/components/common/Toast/providers/Sto
 import StorybookEventLoggerProvider from '../src/components/eventLogger/providers/StorybookEventLoggerProvider';
 import GlobalStyle from '../src/styles/GlobalStyle';
 
-initialize();
+const isChromatic = typeof window !== 'undefined' && window.navigator.userAgent.match(/Chromatic/);
+
+if (!isChromatic) {
+  initialize({
+    onUnhandledRequest: 'bypass',
+    quiet: true,
+  });
+}
 
 const queryClient = new QueryClient({
   defaultOptions: { queries: { gcTime: 300000, refetchOnWindowFocus: false, staleTime: 300000, retry: 1 } },
@@ -61,5 +68,5 @@ export const decorators = [
       </QueryParamProvider>
     </QueryClientProvider>
   ),
-  mswDecorator,
+  ...(isChromatic ? [] : [mswDecorator]),
 ];
