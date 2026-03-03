@@ -2,6 +2,9 @@
   "name": "sopt-makers-frontend",
   "private": true,
   "packageManager": "yarn@4.1.1",
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "workspaces": {
     "packages": [
       "apps/*",
