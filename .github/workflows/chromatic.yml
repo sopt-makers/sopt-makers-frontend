@@ -34,9 +34,8 @@ jobs:
 
       - name: Set .env
         run: |
-          echo "${{ vars.PLAYGROUND_DEVELOPMENT_ENV }}" > apps/playground/.env.local
-          cp apps/playground/.env.development apps/playground/.env
-          echo "${{ vars.PLAYGROUND_DEVELOPMENT_ENV }}" >> apps/playground/.env
+          cp apps/playground/.env.development apps/playground/.env.local
+          echo "${{ vars.PLAYGROUND_DEVELOPMENT_ENV }}" >> apps/playground/.env.local
 
       - name: Publish Chromatic
         id: publish_chromatic
