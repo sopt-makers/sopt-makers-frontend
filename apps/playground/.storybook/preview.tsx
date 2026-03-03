@@ -5,7 +5,6 @@ import { OverlayProvider } from '@toss/use-overlay';
 import { LazyMotion } from 'framer-motion';
 import { initialize, mswDecorator } from 'msw-storybook-addon';
 import NextAdapterPages from 'next-query-params/pages';
-import { RouterContext } from 'next/dist/shared/lib/router-context';
 import React from 'react';
 import { RecoilRoot } from 'recoil';
 import { QueryParamProvider } from 'use-query-params';
@@ -38,9 +37,6 @@ export const parameters = {
     current: 'dark',
     dark: { ...themes.dark, appBg: colors.gray800 },
     light: { ...themes.normal, appBg: '#fff' },
-  },
-  nextRouter: {
-    Provider: RouterContext.Provider,
   },
 };
 
