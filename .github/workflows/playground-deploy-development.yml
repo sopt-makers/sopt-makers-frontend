@@ -17,11 +17,13 @@ on:
 jobs:
   build-app:
     uses: ./.github/workflows/build.yml
+    secrets: inherit
     with:
       env: ${{ vars.DEVELOPMENT_ENV }}
 
   deploy:
     needs: build-app
+    environment: development
     runs-on: ubuntu-latest
     name: Deploy to Cloudflare Pages
     steps:
@@ -51,7 +53,7 @@ jobs:
         id: publish
         run: |
           set -o pipefail
-          yarn run wrangler pages publish "out" --project-name "${{ secrets.CLOUDFLARE_PAGES_PLAYGROUND_PROJECT_NAME }}" --commit-message " " | tee deploy.log
+          yarn run wrangler pages deploy "out" --project-name "${{ secrets.CLOUDFLARE_PAGES_PLAYGROUND_PROJECT_NAME }}" --commit-message " " | tee deploy.log
           echo "log<<EOF" >> $GITHUB_OUTPUT
           echo "$(cat deploy.log)" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
