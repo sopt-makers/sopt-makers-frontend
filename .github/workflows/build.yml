@@ -46,7 +46,7 @@ jobs:
           echo "${{ inputs.env }}" >> apps/playground/.env.local
 
       - name: Build
-        run: yarn build:playground && yarn next export
+        run: yarn build:playground
 
       - name: Prepare deployment package
         run: |
