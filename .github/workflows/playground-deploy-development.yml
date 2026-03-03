@@ -53,7 +53,8 @@ jobs:
         id: publish
         run: |
           set -o pipefail
-          yarn run wrangler pages deploy "out" --project-name "${{ secrets.CLOUDFLARE_PAGES_PLAYGROUND_PROJECT_NAME }}" --commit-message " " | tee deploy.log
+          cd out && yarn run wrangler pages deploy . --project-name "${{ secrets.CLOUDFLARE_PAGES_PLAYGROUND_PROJECT_NAME }}" --commit-message " " | tee ../deploy.log
+          cd ..
           echo "log<<EOF" >> $GITHUB_OUTPUT
           echo "$(cat deploy.log)" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
