@@ -46,7 +46,7 @@ jobs:
           echo "NEXT_PUBLIC_KAKAO_TALK_PLUGIN_KEY=${{ vars.NEXT_PUBLIC_KAKAO_TALK_PLUGIN_KEY }}" >> apps/crew/.env.local
           echo "NEXT_PUBLIC_SENTRY_DSN=${{ vars.NEXT_PUBLIC_SENTRY_DSN }}" >> apps/crew/.env.local
           echo "NEXT_PUBLIC_AMPLITUDE_API_KEY=${{ vars.NEXT_PUBLIC_AMPLITUDE_API_KEY }}" >> apps/crew/.env.local
-          echo "NEXT_PUBLIC_APP_ENV=development" >> apps/crew/.env
+          echo "NEXT_PUBLIC_APP_ENV=${{ vars.NEXT_PUBLIC_APP_ENV }}" >> apps/crew/.env
 
       - name: Build
         run: yarn build:crew
