@@ -43,16 +43,16 @@ jobs:
       - name: Set .env
         run: |
           echo "${{ secrets.CREW_PROJECT_ENV }}" > apps/crew/.env.local
-          echo "NEXT_PUBLIC_KAKAO_TALK_PLUGIN_KEY=${{ vars.CREW_NEXT_PUBLIC_KAKAO_TALK_PLUGIN_KEY }}" >> apps/crew/.env.local
-          echo "NEXT_PUBLIC_SENTRY_DSN=${{ vars.CREW_NEXT_PUBLIC_SENTRY_DSN }}" >> apps/crew/.env.local
-          echo "NEXT_PUBLIC_AMPLITUDE_API_KEY=${{ vars.CREW_NEXT_PUBLIC_AMPLITUDE_API_KEY }}" >> apps/crew/.env.local
+          echo "NEXT_PUBLIC_KAKAO_TALK_PLUGIN_KEY=${{ vars.NEXT_PUBLIC_KAKAO_TALK_PLUGIN_KEY }}" >> apps/crew/.env.local
+          echo "NEXT_PUBLIC_SENTRY_DSN=${{ vars.NEXT_PUBLIC_SENTRY_DSN }}" >> apps/crew/.env.local
+          echo "NEXT_PUBLIC_AMPLITUDE_API_KEY=${{ vars.NEXT_PUBLIC_AMPLITUDE_API_KEY }}" >> apps/crew/.env.local
           echo "NEXT_PUBLIC_APP_ENV=development" >> apps/crew/.env
 
       - name: Build
         run: yarn build:crew
 
-      - name: Publish
-        run: yarn run wrangler pages publish "apps/crew/out" --project-name "${{ secrets.CLOUDFLARE_PAGES_CREW_PROJECT_NAME }}" --commit-message "${{ github.sha }}" --branch=main
+      - name: Deploy
+        run: yarn run wrangler pages deploy "apps/crew/out" --project-name "${{ secrets.CLOUDFLARE_PAGES_CREW_PROJECT_NAME }}" --commit-message "${{ github.sha }}" --branch=main
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
