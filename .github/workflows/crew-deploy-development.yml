@@ -42,7 +42,7 @@ jobs:
 
       - name: Set .env
         run: |
-          echo "${{ secrets.CREW_PROJECT_ENV }}" > apps/crew/.env.local
+          echo "${{ secrets.PROJECT_ENV }}" > apps/crew/.env.local
           echo "NEXT_PUBLIC_KAKAO_TALK_PLUGIN_KEY=${{ vars.NEXT_PUBLIC_KAKAO_TALK_PLUGIN_KEY }}" >> apps/crew/.env.local
           echo "NEXT_PUBLIC_SENTRY_DSN=${{ vars.NEXT_PUBLIC_SENTRY_DSN }}" >> apps/crew/.env.local
           echo "NEXT_PUBLIC_AMPLITUDE_API_KEY=${{ vars.NEXT_PUBLIC_AMPLITUDE_API_KEY }}" >> apps/crew/.env.local
@@ -50,6 +50,9 @@ jobs:
 
       - name: Build
         run: yarn build:crew
+
+      - name: Move artifacts into dist folder
+        run: cd apps/crew && mkdir group && mv out/* group/ && mv group out
 
       - name: Deploy
         run: yarn run wrangler pages deploy "apps/crew/out" --project-name "${{ secrets.CLOUDFLARE_PAGES_CREW_PROJECT_NAME }}" --commit-message "${{ github.sha }}" --branch=main
