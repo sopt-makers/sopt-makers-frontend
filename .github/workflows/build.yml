@@ -43,7 +43,7 @@ jobs:
       - name: Set .env
         run: |
           cp apps/playground/.env.development apps/playground/.env.local
-          echo "${{ inputs.env }}" >> apps/playground/.env.local
+          echo "${{ inputs.env }}" > apps/playground/.env.local
 
       - name: Build
         run: yarn build:playground
