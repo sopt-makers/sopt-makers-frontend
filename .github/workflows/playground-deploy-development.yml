@@ -9,6 +9,7 @@ on:
       - "package.json"
       - "yarn.lock"
   pull_request:
+    branches: [develop]
     paths:
       - "apps/playground/**"
       - "packages/**"
