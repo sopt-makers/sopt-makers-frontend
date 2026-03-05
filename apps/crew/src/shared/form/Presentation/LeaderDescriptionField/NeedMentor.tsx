@@ -1,0 +1,46 @@
+import CheckSelectedIcon from '@assets/svg/checkBox/form_selected.svg';
+import CheckUnselectedIcon from '@assets/svg/checkBox/form_unselected.svg';
+import { fontsObject } from '@sopt-makers/fonts';
+import { forwardRef } from 'react';
+import { styled } from 'stitches.config';
+
+interface NeedMentorProps extends React.HTMLAttributes<HTMLInputElement> {
+  name: string;
+  value: boolean;
+}
+
+const NeedMentor = forwardRef<HTMLInputElement, NeedMentorProps>(({ value, ...props }, ref) => {
+  return (
+    <SNeedMentorField htmlFor={props.name}>
+      {value ? <CheckSelectedIcon /> : <CheckUnselectedIcon />}
+      <div>
+        <input id={props.name} type="checkbox" ref={ref} {...props} />
+        <SNeedMentorLabel active={value}>멘토 구해요</SNeedMentorLabel>
+      </div>
+    </SNeedMentorField>
+  );
+});
+
+export default NeedMentor;
+
+const SNeedMentorField = styled('label', {
+  display: 'flex',
+  alignItems: 'center',
+  gap: '$4',
+  cursor: 'pointer',
+  paddingBottom: '$8',
+});
+
+const SNeedMentorLabel = styled('span', {
+  // fontAg: '12_medium_100',
+  ...fontsObject.BODY_3_14_R,
+
+  lineHeight: '180%',
+  color: '$gray300',
+  variants: {
+    active: {
+      true: { color: '$gray10' },
+    },
+  },
+  cursor: 'pointer',
+});

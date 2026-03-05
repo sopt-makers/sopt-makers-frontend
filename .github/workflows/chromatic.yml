@@ -1,0 +1,68 @@
+name: Playground - Storybook Deployment
+
+on:
+  push:
+    branches: [develop]
+    paths:
+      - "apps/playground/**"
+  pull_request:
+    paths:
+      - "apps/playground/**"
+  workflow_dispatch:
+
+jobs:
+  chromatic-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Enable Corepack
+        run: |
+          corepack enable
+          corepack prepare yarn@4.1.1 --activate
+          yarn -v
+
+      - name: Install Packages
+        run: yarn install --immutable
+
+      - name: Set .env
+        run: |
+          cp apps/playground/.env.development apps/playground/.env.local
+          echo "${{ vars.PLAYGROUND_DEVELOPMENT_ENV }}" >> apps/playground/.env.local
+
+      - name: Publish Chromatic
+        id: publish_chromatic
+        uses: chromaui/action@v1
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          workingDir: apps/playground
+          buildScriptName: build-storybook
+
+      - name: Find Comment
+        if: github.event_name == 'pull_request'
+        uses: peter-evans/find-comment@v2
+        id: find_comment
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          comment-author: "github-actions[bot]"
+          body-includes: 스토리북으로 확인하기
+
+      - name: Create or update comment
+        if: github.event_name == 'pull_request'
+        uses: peter-evans/create-or-update-comment@v2
+        with:
+          comment-id: ${{ steps.find_comment.outputs.comment-id }}
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            ✨✨ 스토리북으로 확인하기 ✨✨
+
+            - [Build](${{ steps.publish_chromatic.outputs.buildUrl }})
+            - [Preview](${{ steps.publish_chromatic.outputs.storybookUrl }})
+          edit-mode: replace

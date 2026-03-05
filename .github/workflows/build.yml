@@ -1,0 +1,71 @@
+name: Playground - Build App
+
+on:
+  workflow_call:
+    inputs:
+      env:
+        required: true
+        type: string
+      upload:
+        required: false
+        type: boolean
+        default: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Branch
+        uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Enable Corepack
+        run: |
+          corepack enable
+          corepack prepare yarn@4.1.1 --activate
+          yarn -v
+
+      - name: Cache Yarn
+        uses: actions/cache@v4
+        id: yarn-cache
+        with:
+          path: ~/.yarn/cache
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Install Packages
+        run: yarn install --immutable
+
+      - name: Nextjs Build Cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            ${{ github.workspace }}/.next/cache
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx', '**.json') }}
+          restore-keys: |
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn.lock') }}-
+
+      - name: Set .env
+        run: |
+          cp apps/playground/.env.development apps/playground/.env.local
+          echo "${{ inputs.env }}" > apps/playground/.env.local
+
+      - name: Build
+        run: yarn build:playground
+
+      - name: Prepare deployment package
+        run: |
+          mkdir -p deploy
+          cp -r apps/playground/out/* deploy/
+          cp -r apps/playground/functions deploy/
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: built-app
+          path: deploy
+          if-no-files-found: error
+          retention-days: 7

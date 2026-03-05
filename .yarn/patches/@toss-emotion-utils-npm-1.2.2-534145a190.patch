@@ -1,0 +1,15 @@
+diff --git a/esm/FullHeight.mjs b/esm/FullHeight.mjs
+index f12f7b0213f31a56635f78680dd67ba83364a8be..92ed937ee99512c66b4549cd4b831496a1aef8ea 100644
+--- a/esm/FullHeight.mjs
++++ b/esm/FullHeight.mjs
+@@ -1,8 +1,8 @@
+ import { objectWithoutProperties as _objectWithoutProperties, slicedToArray as _slicedToArray, objectSpread2 as _objectSpread2, taggedTemplateLiteral as _taggedTemplateLiteral } from './_virtual/_rollupPluginBabelHelpers.mjs';
+ import { css } from '@emotion/react';
+-import { useState } from 'react';
++import { useState, useLayoutEffect, useEffect } from 'react';
+ import { jsx } from '@emotion/react/jsx-runtime';
+-import { useIsomorphicLayoutEffect } from './.yarn/__virtual__/@toss-react-virtual-62cb29918b/1/packages/react/react/src/hooks/useIsomorphicLayoutEffect.mjs';
++var useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect;
+ 
+ var _templateObject;
+ 

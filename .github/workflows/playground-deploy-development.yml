@@ -1,0 +1,100 @@
+name: Playground - Development Deploy
+
+on:
+  push:
+    branches: [develop]
+    paths:
+      - "apps/playground/**"
+      - "packages/**"
+      - "package.json"
+      - "yarn.lock"
+  pull_request:
+    paths:
+      - "apps/playground/**"
+      - "packages/**"
+  workflow_dispatch:
+
+jobs:
+  build-app:
+    uses: ./.github/workflows/build.yml
+    secrets: inherit
+    with:
+      env: ${{ vars.PLAYGROUND_DEVELOPMENT_ENV }}
+
+  deploy:
+    needs: build-app
+    environment: development
+    runs-on: ubuntu-latest
+    name: Deploy to Cloudflare Pages
+    steps:
+      - name: Checkout Branch
+        uses: actions/checkout@v3
+
+      - name: Download Built App
+        uses: actions/download-artifact@v4
+        with:
+          name: built-app
+          path: out
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Enable Corepack
+        run: |
+          corepack enable
+          corepack prepare yarn@4.1.1 --activate
+          yarn -v
+
+      - name: Cache Yarn
+        uses: actions/cache@v4
+        id: yarn-cache
+        with:
+          path: ~/.yarn/cache
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Install Packages
+        run: yarn install --immutable
+
+      - name: Publish
+        id: publish
+        run: |
+          set -o pipefail
+          cd out && yarn run wrangler pages deploy . --project-name "${{ secrets.CLOUDFLARE_PAGES_PLAYGROUND_PROJECT_NAME }}" --commit-message " " | tee ../deploy.log
+          cd ..
+          echo "log<<EOF" >> $GITHUB_OUTPUT
+          echo "$(cat deploy.log)" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+      - name: Get Preview URL
+        uses: actions-ecosystem/action-regex-match@v2
+        id: regex-match
+        with:
+          text: ${{ steps.publish.outputs.log }}
+          regex: '(https:\/\/[A-z0-9]+\.[^\.]+\.pages\.dev)'
+
+      - name: Find Comment
+        if: github.event_name == 'pull_request'
+        uses: peter-evans/find-comment@v2
+        id: find_comment
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          comment-author: "github-actions[bot]"
+          body-includes: "Playground 프리뷰 배포 확인하기"
+
+      - name: Create or update comment
+        if: github.event_name == 'pull_request'
+        uses: peter-evans/create-or-update-comment@v2
+        with:
+          comment-id: ${{ steps.find_comment.outputs.comment-id }}
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            🚀 Playground 프리뷰 배포 확인하기 🚀
+
+            ${{ steps.regex-match.outputs.group1 }}
+          edit-mode: replace

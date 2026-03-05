@@ -1,0 +1,64 @@
+import { FC, ReactNode, useEffect, useState } from 'react';
+
+import { useGetMemberOfMe } from '@/api/endpoint/members/getMemberOfMe';
+import { useGetMemberProperty } from '@/api/endpoint/members/getMemberProperty';
+import AmplitudeLogViewer from '@/components/eventLogger/components/AmplitudeLogViewer';
+import { EventLoggerContext } from '@/components/eventLogger/context';
+import { createConsoleLogController } from '@/components/eventLogger/controllers/consoleLog';
+import { DEBUG } from '@/constants/env';
+
+interface EventLoggerProviderProps {
+  children: ReactNode;
+  apiKey: string;
+}
+
+const AmplitudeProvider: FC<EventLoggerProviderProps> = ({ children, apiKey }) => {
+  const [controller, setController] = useState(createConsoleLogController());
+  const { data } = useGetMemberOfMe();
+  const { data: property } = useGetMemberProperty();
+
+  useEffect(() => {
+    if (!apiKey) {
+      setController(createConsoleLogController());
+      return;
+    }
+    const initializeAmplitude = async () => {
+      try {
+        const { createAmplitudeController } = await import('@/components/eventLogger/controllers/amplitude');
+        const amplitudeController = createAmplitudeController(apiKey, data?.id ? `${data.id}` : undefined);
+
+        // user_properties 주입
+        if (data && property) {
+          amplitudeController.setUserProperties({
+            id: property.id,
+            job: property.job || '',
+            major: property.major || '',
+            organization: property.organization || '',
+            generation: property.generation,
+            part: property.part,
+            coffeeChatStatus: property.coffeeChatStatus,
+            receivedCoffeeChatCount: property.receivedCoffeeChatCount,
+            sentCoffeeChatCount: property.sentCoffeeChatCount,
+            uploadSopticleCount: property.uploadSopticleCount,
+            uploadReviewCount: property.uploadReviewCount,
+          });
+        }
+
+        setController(() => amplitudeController);
+      } catch (error) {
+        console.error('Failed to initialize Amplitude:', error);
+      }
+    };
+
+    initializeAmplitude();
+  }, [apiKey, data, property]);
+
+  return (
+    <EventLoggerContext.Provider value={controller}>
+      {children}
+      <AmplitudeLogViewer isDev={DEBUG} />
+    </EventLoggerContext.Provider>
+  );
+};
+
+export default AmplitudeProvider;
