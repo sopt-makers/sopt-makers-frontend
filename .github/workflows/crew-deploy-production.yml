@@ -8,10 +8,6 @@ on:
       - "packages/**"
       - "package.json"
       - "yarn.lock"
-  pull_request:
-    paths:
-      - "apps/crew/**"
-      - "packages/**"
   workflow_dispatch:
 
 jobs:
