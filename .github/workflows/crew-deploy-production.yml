@@ -8,6 +8,10 @@ on:
       - "packages/**"
       - "package.json"
       - "yarn.lock"
+  pull_request:
+    paths:
+      - "apps/crew/**"
+      - "packages/**"
   workflow_dispatch:
 
 jobs:
@@ -20,12 +24,11 @@ jobs:
     name: Deploy to Cloudflare Pages
     steps:
       - name: Checkout Branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v3
         with:
-          node-version: 18
-          cache: yarn
+          node-version: 20
 
       - name: Enable Corepack
         run: |
@@ -38,18 +41,21 @@ jobs:
 
       - name: Set .env
         run: |
-          echo "${{ secrets.CREW_PROJECT_ENV }}" > apps/crew/.env.local
-          echo "NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID=${{ secrets.CREW_NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID }}" >> apps/crew/.env.local
-          echo "NEXT_PUBLIC_KAKAO_TALK_PLUGIN_KEY=${{ vars.CREW_NEXT_PUBLIC_KAKAO_TALK_PLUGIN_KEY }}" >> apps/crew/.env.local
-          echo "NEXT_PUBLIC_SENTRY_DSN=${{ vars.CREW_NEXT_PUBLIC_SENTRY_DSN }}" >> apps/crew/.env.local
-          echo "NEXT_PUBLIC_AMPLITUDE_API_KEY=${{ vars.CREW_NEXT_PUBLIC_AMPLITUDE_API_KEY }}" >> apps/crew/.env.local
-          echo "NEXT_PUBLIC_APP_ENV=production" >> apps/crew/.env.local
+          echo "${{ secrets.PROJECT_ENV }}" > apps/crew/.env.local
+          echo "NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID=${{ secrets.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID }}" >> apps/crew/.env.local
+          echo "NEXT_PUBLIC_KAKAO_TALK_PLUGIN_KEY=${{ vars.NEXT_PUBLIC_KAKAO_TALK_PLUGIN_KEY }}" >> apps/crew/.env.local
+          echo "NEXT_PUBLIC_SENTRY_DSN=${{ vars.NEXT_PUBLIC_SENTRY_DSN }}" >> apps/crew/.env.local
+          echo "NEXT_PUBLIC_AMPLITUDE_API_KEY=${{ vars.NEXT_PUBLIC_AMPLITUDE_API_KEY }}" >> apps/crew/.env.local
+          echo "NEXT_PUBLIC_APP_ENV=${{ vars.NEXT_PUBLIC_APP_ENV }}" >> apps/crew/.env
 
       - name: Build
         run: yarn build:crew
 
-      - name: Publish
-        run: yarn workspace crew run deploy
+      - name: Move artifacts into dist folder
+        run: cd apps/crew && mkdir group && mv out/* group/ && mv group out
+
+      - name: Deploy
+        run: yarn run wrangler pages deploy "apps/crew/out" --project-name "${{ secrets.CLOUDFLARE_PAGES_CREW_PROJECT_NAME }}" --commit-message "${{ github.sha }}" --branch=main
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
