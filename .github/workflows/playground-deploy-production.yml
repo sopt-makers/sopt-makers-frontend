@@ -8,19 +8,37 @@ on:
       - "packages/**"
       - "package.json"
       - "yarn.lock"
+  pull_request:
+    paths:
+      - "apps/playground/**"
+      - "packages/**"
   workflow_dispatch:
 
 jobs:
+  build-app:
+    uses: ./.github/workflows/build.yml
+    secrets: inherit
+    with:
+      env: ${{ vars.PLAYGROUND_PRODUCTION_ENV }}
+
   deploy:
+    needs: build-app
     environment: production
     runs-on: ubuntu-latest
     permissions:
       contents: read
       deployments: write
+
     name: Deploy to Cloudflare Pages
     steps:
       - name: Checkout Branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
+
+      - name: Download Built App
+        uses: actions/download-artifact@v4
+        with:
+          name: built-app
+          path: out
 
       - uses: actions/setup-node@v4
         with:
@@ -36,14 +54,8 @@ jobs:
       - name: Install Packages
         run: yarn install --immutable
 
-      - name: Set .env
-        run: echo "${{ vars.PLAYGROUND_PRODUCTION_ENV }}" > apps/playground/.env.local
-
-      - name: Build
-        run: yarn build:playground
-
-      - name: Publish
-        run: yarn workspace playground run deploy
+      - name: Deploy
+        run: cd out && yarn run wrangler pages deploy . --project-name "${{ secrets.CLOUDFLARE_PAGES_PLAYGROUND_PROJECT_NAME }}" --commit-message " "
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
