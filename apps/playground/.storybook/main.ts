@@ -1,4 +1,10 @@
 import type { StorybookConfig } from '@storybook/nextjs';
+import dotenv from 'dotenv';
+import path from 'path';
+import webpack from 'webpack';
+
+dotenv.config({ path: path.resolve(__dirname, '../.env.local') });
+dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
 const config: StorybookConfig = {
   stories: ['../**/*.stories.@(js|jsx|ts|tsx|mdx)'],
@@ -16,6 +22,18 @@ const config: StorybookConfig = {
     if (!config.resolve || !config.module || !config.module.rules) {
       throw new Error('Webpack Error');
     }
+
+    const envVars = Object.keys(process.env)
+      .filter((key) => key.startsWith('NEXT_PUBLIC_'))
+      .reduce(
+        (acc, key) => {
+          acc[`process.env.${key}`] = JSON.stringify(process.env[key]);
+          return acc;
+        },
+        {} as Record<string, string>,
+      );
+
+    config.plugins?.push(new webpack.DefinePlugin(envVars));
 
     /// Storybook 에서 SVG 다루기 위한 설정
     const imageRule = config.module?.rules?.find((rule) => {

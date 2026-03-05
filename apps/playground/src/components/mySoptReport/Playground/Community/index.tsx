@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 import router from 'next/router';
-import { playgroundLink } from 'playground-common/export';
+import { playgroundLink } from '@sopt/ui';
 
 import Responsive from '@/components/common/Responsive';
 import { LoggingClick } from '@/components/eventLogger/components/LoggingClick';

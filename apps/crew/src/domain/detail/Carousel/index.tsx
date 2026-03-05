@@ -10,10 +10,12 @@ interface CarouselProps {
 
 const Carousel = ({ imageList }: CarouselProps) => {
   const imageListLength = imageList.length;
+  const hasMultipleImages = imageListLength > 1;
 
   const settings = {
-    prevArrow: <NextArrow className="prev" total={imageListLength} />,
-    nextArrow: <NextArrow className="next" total={imageListLength} />,
+    infinite: false,
+    prevArrow: hasMultipleImages && <NextArrow className="prev" total={imageListLength} />,
+    nextArrow: hasMultipleImages && <NextArrow className="next" total={imageListLength} />,
     responsive: [
       {
         breakpoint: 768,

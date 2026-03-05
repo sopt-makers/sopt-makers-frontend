@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
 import { IconChevronRight } from '@sopt-makers/icons';
 import { useRouter } from 'next/router';
-import { playgroundLink } from 'playground-common/export';
+import { playgroundLink } from '@sopt/ui';
 
 import { useGetMemberOfMe } from '@/api/endpoint/members/getMemberOfMe';
 import useModalState from '@/components/common/Modal/useModalState';

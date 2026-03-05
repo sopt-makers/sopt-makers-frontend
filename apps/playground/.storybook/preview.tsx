@@ -5,7 +5,6 @@ import { OverlayProvider } from '@toss/use-overlay';
 import { LazyMotion } from 'framer-motion';
 import { initialize, mswDecorator } from 'msw-storybook-addon';
 import NextAdapterPages from 'next-query-params/pages';
-import { RouterContext } from 'next/dist/shared/lib/router-context';
 import React from 'react';
 import { RecoilRoot } from 'recoil';
 import { QueryParamProvider } from 'use-query-params';
@@ -16,7 +15,14 @@ import StorybookToastProvider from '../src/components/common/Toast/providers/Sto
 import StorybookEventLoggerProvider from '../src/components/eventLogger/providers/StorybookEventLoggerProvider';
 import GlobalStyle from '../src/styles/GlobalStyle';
 
-initialize();
+const isChromatic = typeof window !== 'undefined' && window.navigator.userAgent.match(/Chromatic/);
+
+if (!isChromatic) {
+  initialize({
+    onUnhandledRequest: 'bypass',
+    quiet: true,
+  });
+}
 
 const queryClient = new QueryClient({
   defaultOptions: { queries: { gcTime: 300000, refetchOnWindowFocus: false, staleTime: 300000, retry: 1 } },
@@ -38,9 +44,6 @@ export const parameters = {
     current: 'dark',
     dark: { ...themes.dark, appBg: colors.gray800 },
     light: { ...themes.normal, appBg: '#fff' },
-  },
-  nextRouter: {
-    Provider: RouterContext.Provider,
   },
 };
 
@@ -65,5 +68,5 @@ export const decorators = [
       </QueryParamProvider>
     </QueryClientProvider>
   ),
-  mswDecorator,
+  ...(isChromatic ? [] : [mswDecorator]),
 ];

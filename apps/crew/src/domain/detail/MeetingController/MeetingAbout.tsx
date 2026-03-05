@@ -31,7 +31,7 @@ const MeetingAbout = ({ detailData }: { detailData: GetMeeting['response'] }) =>
       </h1>
       <SHostWrapper>
         <ProfileAnchor profileData={{ orgId: hostId, userprofileImage: hostProfileImage, userName: hostName }} />
-        {coMeetingLeaders?.map((item: typeof coMeetingLeaders[number]) => (
+        {coMeetingLeaders?.map((item: (typeof coMeetingLeaders)[number]) => (
           <ProfileAnchor profileData={item} />
         ))}
       </SHostWrapper>

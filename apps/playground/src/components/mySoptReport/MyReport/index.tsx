@@ -26,7 +26,7 @@ import Popup from '@/components/mySoptReport/PopUp';
 import useImageDownload from '@/components/resolution/read/hooks/useImageDownload';
 import { PLAYGROUND_ORIGIN } from '@/constants/links';
 import { fonts } from '@sopt-makers/fonts';
-import { playgroundLink } from 'playground-common/export';
+import { playgroundLink } from '@sopt/ui';
 
 interface MyReportProps {
   myPgData: MyPgData;

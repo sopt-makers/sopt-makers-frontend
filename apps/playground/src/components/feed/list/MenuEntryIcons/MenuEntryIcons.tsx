@@ -3,7 +3,7 @@ import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 import { Flex } from '@toss/emotion-utils';
 import Link from 'next/link';
-import { playgroundLink } from 'playground-common/export';
+import { playgroundLink } from '@sopt/ui';
 import { ReactNode } from 'react';
 
 import { CoffeeChatIcon, CrewIcon, MemberIcon, ProjectIcon } from '@/components/feed/list/MenuEntryIcons/Icons';

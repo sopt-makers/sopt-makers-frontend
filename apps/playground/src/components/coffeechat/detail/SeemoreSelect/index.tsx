@@ -8,7 +8,7 @@ import { DialogOptionType, useDialog, useToast } from '@sopt-makers/ui';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
-import { playgroundLink } from 'playground-common/export';
+import { playgroundLink } from '@sopt/ui';
 import { useState } from 'react';
 
 import { deleteCoffeechat } from '@/api/endpoint/coffeechat/deleteCoffeechat';

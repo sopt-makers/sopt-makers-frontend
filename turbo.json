@@ -1,0 +1,46 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "pipeline": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": [".next/**", "!.next/cache/**", "out/**", "dist/**"]
+    },
+    "lint": {
+      "dependsOn": ["^lint"]
+    },
+    "typecheck": {
+      "dependsOn": ["^build"]
+    },
+    "stylelint": {
+      "dependsOn": ["^build"]
+    },
+    "test:ci": {
+      "dependsOn": ["^build"],
+      "outputs": ["coverage/**"]
+    },
+    "build-storybook": {
+      "dependsOn": ["^build"],
+      "outputs": ["storybook-static/**"]
+    },
+    "generate-types-v1": {
+      "cache": false,
+      "outputs": ["src/__generated__/schema1.d.ts"]
+    },
+    "generate-types-v2": {
+      "cache": false,
+      "outputs": ["src/__generated__/schema2.d.ts"]
+    },
+    "generate-types": {
+      "dependsOn": ["generate-types-v1", "generate-types-v2"],
+      "outputs": ["src/__generated__/schema.d.ts"]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "deploy": {
+      "dependsOn": ["build", "lint"],
+      "cache": false
+    }
+  }
+}
