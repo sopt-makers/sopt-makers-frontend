@@ -59,7 +59,7 @@ jobs:
         run: yarn install --immutable
 
       - name: Deploy
-        run: cd out && yarn run wrangler pages deploy . --project-name "${{ secrets.CLOUDFLARE_PAGES_PLAYGROUND_PROJECT_NAME }}" --commit-message " "
+        run: cd out && yarn run wrangler pages deploy . --project-name "${{ secrets.CLOUDFLARE_PAGES_PLAYGROUND_PROJECT_NAME }}" --commit-message "${{ github.sha }}" --branch=main
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
