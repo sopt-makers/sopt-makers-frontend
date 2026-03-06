@@ -36,11 +36,11 @@
     "zod": "^3.20.6"
   },
   "devDependencies": {
+    "@sopt-makers/eslint-config": "workspace:*",
+    "@sopt-makers/prettier-config": "workspace:*",
     "@types/node": "18.8.3",
     "@types/react": "18.0.21",
     "@types/react-dom": "18.0.6",
-    "@sopt-makers/eslint-config": "workspace:*",
-    "@sopt-makers/prettier-config": "workspace:*",
     "storybook": "^7.6.20",
     "turbo": "^1.12.0",
     "typescript": "^4.9.5",

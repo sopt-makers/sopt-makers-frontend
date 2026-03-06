@@ -1,38 +1,4 @@
 {
-  "root": true,
-  "parser": "@typescript-eslint/parser",
-  "env": {
-    "es6": true,
-    "node": true,
-    "browser": true
-  },
-  "plugins": ["@typescript-eslint", "prettier", "import"],
-  "extends": [
-    "eslint:recommended",
-    "plugin:prettier/recommended",
-    "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:react-hooks/recommended",
-    "plugin:storybook/recommended"
-  ],
-  "rules": {
-    "@typescript-eslint/no-var-requires": "off",
-    "@typescript-eslint/explicit-module-boundary-types": "off",
-    "@typescript-eslint/no-empty-function": "off",
-    "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn",
-    "react-hooks/set-state-in-effect": "warn",
-    "react-hooks/static-components": "warn",
-    "react-hooks/immutability": "warn",
-    "react-hooks/refs": "warn",
-    "react-hooks/incompatible-library": "warn",
-    "prettier/prettier": [
-      "error",
-      {
-        "endOfLine": "auto"
-      }
-    ],
-    "import/no-unused-modules": [1, { "unusedExports": true }],
-    "react/no-unstable-nested-components": "off"
-  }
+    "root": true,
+    "extends": ["@sopt-makers/eslint-config/next"]
 }
