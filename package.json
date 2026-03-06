@@ -23,6 +23,7 @@
     "check": "turbo lint typecheck stylelint test:ci",
     "update-mds": "yarn up @sopt-makers/colors@latest @sopt-makers/fonts@latest @sopt-makers/playground-common@latest @sopt-makers/ui@latest @sopt-makers/icons@latest",
     "lint": "turbo lint",
+    "lint:fix": "turbo lint -- --fix",
     "clean": "turbo clean"
   },
   "dependencies": {
