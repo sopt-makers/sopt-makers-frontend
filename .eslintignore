@@ -1,0 +1,13 @@
+# dependencies
+node_modules
+
+# build outputs
+.next
+out
+dist
+
+# generated files
+**/__generated__
+
+# storybook
+storybook-static
