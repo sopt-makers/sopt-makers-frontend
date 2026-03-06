@@ -7,6 +7,7 @@ module.exports = {
   ],
   rules: {
     "react/display-name": "off",
+    "react/jsx-key": "off",
     "@next/next/no-img-element": "off",
     "import/no-unused-modules": ["warn", { unusedExports: true }],
   },
