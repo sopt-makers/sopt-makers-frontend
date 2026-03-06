@@ -8,6 +8,10 @@
     "lint": {
       "outputs": []
     },
+    "prettier": {
+      "cache": false,
+      "outputs": []
+    },
     "typecheck": {
       "dependsOn": ["^build"]
     },

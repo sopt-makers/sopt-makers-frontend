@@ -2,6 +2,7 @@
   "name": "playground",
   "version": "0.1.0",
   "private": true,
+  "prettier": "@sopt-makers/prettier-config",
   "scripts": {
     "prepare": "git config merge.ours.driver true || true",
     "dev": "next dev",

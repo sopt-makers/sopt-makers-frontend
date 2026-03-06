@@ -24,6 +24,7 @@
     "update-mds": "yarn up @sopt-makers/colors@latest @sopt-makers/fonts@latest @sopt-makers/playground-common@latest @sopt-makers/ui@latest @sopt-makers/icons@latest",
     "lint": "turbo lint",
     "lint:fix": "turbo lint -- --fix",
+    "prettier:fix": "turbo prettier -- --write",
     "clean": "turbo clean"
   },
   "dependencies": {
@@ -42,6 +43,7 @@
     "@types/node": "18.8.3",
     "@types/react": "18.0.21",
     "@types/react-dom": "18.0.6",
+    "prettier": "^3.8.1",
     "storybook": "^7.6.20",
     "turbo": "^1.12.0",
     "typescript": "^4.9.5",

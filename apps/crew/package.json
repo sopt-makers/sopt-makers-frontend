@@ -2,11 +2,13 @@
   "name": "crew",
   "version": "0.1.0",
   "private": true,
+  "prettier": "@sopt-makers/prettier-config",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "prettier": "prettier --write .",
     "typecheck": "tsc --noemit -p .",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
