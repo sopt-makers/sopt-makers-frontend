@@ -1,10 +1,11 @@
-import { ampli } from '@/ampli';
 import { useUserProfileQueryOption } from '@api/user/query';
 import Loader from '@common/loader/Loader';
 import Textarea from '@shared/form/Textarea';
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import { styled } from 'stitches.config';
+
+import { ampli } from '@/ampli';
 
 interface ApplicationModalContentProps {
   handleApplicationButton: (textareaValue: string) => void;

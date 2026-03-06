@@ -1,5 +1,5 @@
-import { styled } from 'stitches.config';
 import ArrowSmallDownIcon from '@assets/svg/arrow_small_down.svg';
+import { styled } from 'stitches.config';
 
 interface ButtonProps {
   open?: boolean;

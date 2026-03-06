@@ -1,4 +1,3 @@
-import { ampli } from '@/ampli';
 import { useMutationPostPostWithMention } from '@api/mention/mutation';
 import { postPost } from '@api/post';
 import PostQueryKey from '@api/post/PostQueryKey';
@@ -17,8 +16,11 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { styled } from 'stitches.config';
+
+import { ampli } from '@/ampli';
+
 import FeedFormPresentation from './FeedFormPresentation';
-import { FormCreateType, feedCreateSchema } from './feedSchema';
+import { feedCreateSchema,FormCreateType } from './feedSchema';
 
 const DevTool = dynamic(() => import('@hookform/devtools').then(module => module.DevTool), {
   ssr: false,

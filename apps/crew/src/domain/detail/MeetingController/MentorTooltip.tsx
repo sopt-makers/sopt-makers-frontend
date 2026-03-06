@@ -1,5 +1,5 @@
-import { styled } from 'stitches.config';
 import QuestionMarkIcon from '@assets/svg/question_mark.svg?rect';
+import { styled } from 'stitches.config';
 
 const MentorTooltip = () => {
   return (

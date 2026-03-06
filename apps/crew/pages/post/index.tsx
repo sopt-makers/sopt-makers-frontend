@@ -1,5 +1,3 @@
-import { paths } from '@/__generated__/schema2';
-import { ampli } from '@/ampli';
 import { usePostCommentLikeMutation, usePostCommentMutation } from '@api/comment/mutation';
 import { useGetCommentQueryOption } from '@api/comment/query';
 import { GetCommentListResponse } from '@api/comment/type';
@@ -37,6 +35,9 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useContext, useEffect, useRef } from 'react';
 import { styled } from 'stitches.config';
+
+import { paths } from '@/__generated__/schema2';
+import { ampli } from '@/ampli';
 
 export default function PostPage() {
   const commentRef = useRef<HTMLTextAreaElement | null>(null);
@@ -76,7 +77,6 @@ export default function PostPage() {
   });
 
   const handleCreateComment = async (req: PostCommentWithMentionRequest) => {
-    // eslint-disable-next-line prettier/prettier
     ampli.completedCommentPosting({
       crew_status: meeting?.approved,
       platform_type: isMobile ? 'MO' : 'PC',
@@ -279,7 +279,6 @@ export default function PostPage() {
                           /* @ts-ignore */
                           post={post}
                           meetingId={meetingId}
-                          // eslint-disable-next-line prettier/prettier
                           LikeButton={
                             <LikeButton
                               isLiked={post.isLiked}
@@ -322,7 +321,6 @@ export default function PostPage() {
                         post={post}
                         meetingId={meetingId}
                         HeaderSection={<MeetingInfo meetingInfo={post.meeting} />}
-                        // eslint-disable-next-line prettier/prettier
                         LikeButton={
                           <LikeButton
                             isLiked={post.isLiked}

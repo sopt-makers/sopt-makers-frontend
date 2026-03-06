@@ -1,9 +1,10 @@
-import { paths } from '@/__generated__/schema2';
 import { useUserProfileQueryOption } from '@api/user/query';
 import ProfileDefaultIcon from '@assets/svg/profile_default.svg?rect';
 import { APPROVAL_STATUS, EApprovalStatus } from '@constant/option';
 import { useQuery } from '@tanstack/react-query';
 import { styled } from 'stitches.config';
+
+import { paths } from '@/__generated__/schema2';
 
 interface RecruitmentStatusProps {
   recruitmentStatusList: paths['/meeting/v2/{meetingId}']['get']['responses']['200']['content']['application/json;charset=UTF-8']['appliedInfo'];

@@ -1,22 +1,23 @@
-import AvatarGroup from '@common/avatar/AvatarGroup';
-import { Flex } from '@shared/util/layout/Flex';
-import { styled } from 'stitches.config';
-// import MoreIcon from '@assets/svg/more.svg';
-import { ampli } from '@/ampli';
 import { GetPostListResponse } from '@api/post/type';
 import ClickedMenuIcon from '@assets/svg/clicked-menu-icon.svg';
 import MenuIcon from '@assets/svg/menu_icon.svg';
 import ProfileDefaultIcon from '@assets/svg/profile_default.svg?rect';
 import Avatar from '@common/avatar/Avatar';
+import AvatarGroup from '@common/avatar/AvatarGroup';
 import { AVATAR_MAX_LENGTH, CARD_TITLE_MAX_LENGTH } from '@constant/feed';
 import { THUMBNAIL_IMAGE_INDEX } from '@constant/index';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { Flex } from '@shared/util/layout/Flex';
 import { colors } from '@sopt-makers/colors';
 import { playgroundLink } from '@sopt-makers/playground-common';
 import { fromNow } from '@util/dayjs';
 import truncateText from '@util/truncateText';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { styled } from 'stitches.config';
+
+// import MoreIcon from '@assets/svg/more.svg';
+import { ampli } from '@/ampli';
 
 interface FeedItemProps {
   post: GetPostListResponse['posts'][number];

@@ -1,4 +1,5 @@
 import { FormType } from '@type/form';
+
 import { PostMeeting } from './type';
 
 export const serializeMeetingData = (formData: FormType): PostMeeting['request'] => {

@@ -3,6 +3,7 @@ import SendIcon from 'public/assets/svg/send.svg';
 import SendFillIcon from 'public/assets/svg/send_fill.svg';
 import React, { forwardRef, useContext, useRef, useState } from 'react';
 import { styled } from 'stitches.config';
+
 import CommonMention from '../Mention';
 import { MentionContext } from '../Mention/MentionContext';
 export interface FeedCommentInputProps {

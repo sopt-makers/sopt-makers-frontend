@@ -1,4 +1,5 @@
 import { styled } from 'stitches.config';
+
 import MobileSizeSkeleton, { MobileSizeSkeletonProps } from './MobileSize';
 
 function CardSkeleton({ mobileType }: MobileSizeSkeletonProps) {

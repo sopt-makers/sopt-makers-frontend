@@ -1,7 +1,7 @@
-import { Fragment } from 'react';
-import { Listbox } from '@headlessui/react';
-import { styled } from 'stitches.config';
 import ArrowSmallDownIcon from '@assets/svg/arrow_small_down.svg';
+import { Listbox } from '@headlessui/react';
+import { Fragment } from 'react';
+import { styled } from 'stitches.config';
 
 interface ButtonProps {
   open?: boolean;

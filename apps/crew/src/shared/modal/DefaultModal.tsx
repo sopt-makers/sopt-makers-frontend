@@ -1,6 +1,7 @@
 import { Dialog } from '@headlessui/react';
 import { PropsWithChildren, ReactNode } from 'react';
 import { styled } from 'stitches.config';
+
 import ModalContainer from './ModalContainer';
 
 interface DefaultModalProps {

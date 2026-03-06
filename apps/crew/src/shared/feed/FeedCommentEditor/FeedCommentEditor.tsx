@@ -1,6 +1,7 @@
+import { PostCommentWithMentionRequest } from '@api/mention';
 import { useRef, useState } from 'react';
 import { styled } from 'stitches.config';
-import { PostCommentWithMentionRequest } from '@api/mention';
+
 import CommonMention from '../Mention';
 
 interface FeedCommentEditorProps {

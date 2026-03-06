@@ -1,5 +1,5 @@
-import { styled } from 'stitches.config';
 import RecommentPointIcon from '@assets/svg/recomment_point_icon.svg';
+import { styled } from 'stitches.config';
 
 interface CommentBlockerProps {
   variant?: 'default' | 'secondary';

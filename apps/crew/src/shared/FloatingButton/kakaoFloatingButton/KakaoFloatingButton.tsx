@@ -1,6 +1,5 @@
 import KakaoLogoIcon28 from '@assets/svg/logo_kakao_28.svg';
 import KakaoLogoIcon32 from '@assets/svg/logo_kakao_32.svg';
-
 import { useDisplay } from '@hook/useDisplay';
 import { styled } from 'stitches.config';
 

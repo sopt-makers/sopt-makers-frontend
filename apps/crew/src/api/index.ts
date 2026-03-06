@@ -1,9 +1,11 @@
-import { paths } from '@/__generated__/schema';
-import { authToken } from '@/store/tokenStore';
 import { isProduction } from '@constant/environment';
 import axios from 'axios';
 import { computed } from 'nanostores';
 import createClient from 'openapi-fetch';
+
+import { paths } from '@/__generated__/schema';
+import { authToken } from '@/store/tokenStore';
+
 import { checkToken, refreshToken } from './interceptor';
 
 export type PromiseResponse<T> = { data: T; statusCode: number };

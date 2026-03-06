@@ -1,6 +1,7 @@
 import { FilterType } from '@constant/option';
 import { useMultiQueryString } from '@hook/queryString';
 import { CSSType, styled } from 'stitches.config';
+
 import ChipItem from './ChipItem';
 
 interface ChipsProps {

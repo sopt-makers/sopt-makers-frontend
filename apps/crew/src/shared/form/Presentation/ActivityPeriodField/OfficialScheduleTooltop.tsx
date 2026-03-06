@@ -34,7 +34,11 @@ const OfficialScheduleTooltip = () => {
   const { open } = useDialog();
 
   const handleSoptScheduleOpen = (isOpen: boolean) => {
-    window.innerWidth <= 768 ? open(soptScheduleDialogOption) : setIsSoptScheduleOpen(isOpen);
+    if (window.innerWidth <= 768) {
+      open(soptScheduleDialogOption);
+    } else {
+      setIsSoptScheduleOpen(isOpen);
+    }
   };
 
   useEffect(() => {

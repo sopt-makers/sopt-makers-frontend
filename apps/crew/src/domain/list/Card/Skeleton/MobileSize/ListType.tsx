@@ -1,6 +1,7 @@
 import { Divider } from '@shared/util/Divider';
 import { Flex } from '@shared/util/layout/Flex';
 import { styled } from 'stitches.config';
+
 import { SBasicSkeleton, SDetailInfoSkeleton } from '..';
 
 function ListType() {

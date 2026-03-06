@@ -1,9 +1,10 @@
-import { ampli } from '@/ampli';
 import { ArrowButton } from '@common/button/Arrow';
 import { Flex } from '@shared/util/layout/Flex';
 import { bindThePages } from '@util/bindThePages';
 import { useEffect, useState } from 'react';
 import { styled } from 'stitches.config';
+
+import { ampli } from '@/ampli';
 interface PaginationProps {
   totalPagesLength?: number;
   currentPageIndex?: number;

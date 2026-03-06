@@ -1,4 +1,3 @@
-import { ampli } from '@/ampli';
 import { useGetAdvertisementQueryOption } from '@api/advertisement/query';
 import { useMeetingListQueryOption } from '@api/meeting/query';
 import { MeetingData } from '@api/meeting/type';
@@ -13,6 +12,9 @@ import { AdvertisementCategory } from '@type/advertisement';
 import Link from 'next/link';
 import { useEffect } from 'react';
 import { styled } from 'stitches.config';
+
+import { ampli } from '@/ampli';
+
 import Card from '../Card';
 import EmptyView from '../EmptyView';
 import GridLayout from '../Grid/Layout';

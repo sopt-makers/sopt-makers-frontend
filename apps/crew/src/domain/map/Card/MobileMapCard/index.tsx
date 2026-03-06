@@ -7,6 +7,7 @@ import { IconDotsVertical } from '@sopt-makers/icons';
 import { Tag } from '@sopt-makers/ui';
 import { useState } from 'react';
 import { styled } from 'stitches.config';
+
 import { getTagVariant } from '../util';
 
 interface MobileMapCardProps {

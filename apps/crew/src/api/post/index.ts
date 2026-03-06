@@ -7,6 +7,7 @@ import {
   PutPostResponse,
 } from '@api/post/type';
 import { FormCreateType, FormEditType } from '@shared/feed/Modal/feedSchema';
+
 import { api } from '..';
 
 export const getPostList = async (page: number, take: number, meetingId?: number) => {

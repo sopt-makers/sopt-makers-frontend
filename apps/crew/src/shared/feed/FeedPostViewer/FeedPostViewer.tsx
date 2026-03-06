@@ -1,4 +1,5 @@
-import { paths } from '@/__generated__/schema2';
+import 'dayjs/locale/ko';
+
 import ArrowIcon from '@assets/svg/arrow_card.svg';
 import Avatar from '@common/avatar/Avatar';
 import { CATEGORY_OPTIONS } from '@constant/option';
@@ -11,12 +12,13 @@ import { playgroundLink } from '@sopt-makers/playground-common';
 import { useToast } from '@sopt-makers/ui';
 import { fromNow } from '@util/dayjs';
 import dayjs from 'dayjs';
-import 'dayjs/locale/ko';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import Link from 'next/link';
 import MenuIcon from 'public/assets/svg/ic_menu.svg';
 import ShareIcon from 'public/assets/svg/share.svg';
 import { styled } from 'stitches.config';
+
+import { paths } from '@/__generated__/schema2';
 
 dayjs.extend(relativeTime);
 dayjs.locale('ko');

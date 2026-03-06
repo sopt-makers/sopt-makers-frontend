@@ -3,6 +3,7 @@ import { useToast } from '@sopt-makers/ui';
 import { InfiniteData, useMutation, useQueryClient } from '@tanstack/react-query';
 import { produce } from 'immer';
 import router from 'next/router';
+
 import { deleteMap, postSoptMap, putMapRecommendation, putSoptMap } from '.';
 import MapQueryKey from './MapQueryKey';
 import { serializeSoptMapData } from './serialize';

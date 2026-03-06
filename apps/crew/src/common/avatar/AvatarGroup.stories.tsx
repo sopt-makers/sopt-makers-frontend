@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import AvatarGroup from './AvatarGroup';
 import Avatar from './Avatar';
+import AvatarGroup from './AvatarGroup';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction
 const meta: Meta<typeof AvatarGroup> = {

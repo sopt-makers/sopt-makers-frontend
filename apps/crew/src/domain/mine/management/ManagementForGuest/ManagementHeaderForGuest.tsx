@@ -1,8 +1,9 @@
-import { components } from '@/__generated__/schema2';
 import { numberOptionList } from '@data/options';
 import Select from '@shared/form/Select';
 import { Option } from '@shared/form/Select/OptionItem';
 import { styled } from 'stitches.config';
+
+import { components } from '@/__generated__/schema2';
 
 type ManagementHeaderForGuestProps = {
   isMeetingDataLoading: boolean;

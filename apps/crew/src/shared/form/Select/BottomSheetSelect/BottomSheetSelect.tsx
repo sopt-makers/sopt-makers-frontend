@@ -1,6 +1,7 @@
 import { Listbox } from '@headlessui/react';
 import useModal from '@hook/useModal';
 import Label from '@shared/form/Label';
+
 import { defaultOption, Option } from '../OptionItem';
 import MobileOptionItem from '../OptionItem/MobileOptionItem';
 import { MultipleSelectProps, SelectProps } from '../types/props';

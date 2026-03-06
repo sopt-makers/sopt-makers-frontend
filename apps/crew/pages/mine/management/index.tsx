@@ -1,4 +1,3 @@
-import { ampli } from '@/ampli';
 import { useMeetingMemberListQueryOption, useMeetingQueryOption } from '@api/meeting/query';
 import { numberOptionList, numberOptionListDefault, sortOptionList, sortOptionListDefault } from '@data/options';
 import Pagination from '@domain/list/Pagination';
@@ -12,6 +11,8 @@ import { Option } from '@shared/form/Select/OptionItem';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { styled } from 'stitches.config';
+
+import { ampli } from '@/ampli';
 
 const ManagementPage = () => {
   const router = useRouter();

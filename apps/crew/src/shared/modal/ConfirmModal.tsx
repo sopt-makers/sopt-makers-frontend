@@ -1,6 +1,7 @@
 import Loader from '@common/loader/Loader';
 import { Dialog } from '@headlessui/react';
 import { styled } from 'stitches.config';
+
 import ModalContainer from './ModalContainer';
 
 interface ConfirmModalProps {

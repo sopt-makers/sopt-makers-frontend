@@ -4,6 +4,7 @@ import { Flex } from '@shared/util/layout/Flex';
 import { fontsObject } from '@sopt-makers/fonts';
 import { Button, Tag } from '@sopt-makers/ui';
 import { styled } from 'stitches.config';
+
 import { getTagVariant } from '../util';
 
 interface DesktopMapCardProps {

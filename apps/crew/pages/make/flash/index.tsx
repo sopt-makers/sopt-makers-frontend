@@ -1,4 +1,3 @@
-import { ampli } from '@/ampli';
 import { usePostFlashMutation } from '@api/flash/mutation';
 import BungaeIcon from '@assets/svg/bungae.svg';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -10,6 +9,8 @@ import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { styled } from 'stitches.config';
+
+import { ampli } from '@/ampli';
 
 const DevTool = dynamic(() => import('@hookform/devtools').then(module => module.DevTool), {
   ssr: false,

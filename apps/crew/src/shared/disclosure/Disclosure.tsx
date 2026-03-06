@@ -1,9 +1,10 @@
-import { ampli } from '@/ampli';
 import { Disclosure as HeadlessDisclosure } from '@headlessui/react';
 import { Flex } from '@shared/util/layout/Flex';
 import { parseTextToLink } from '@shared/util/parseTextToLink';
 import ArrowIcon from 'public/assets/svg/arrow_down.svg';
 import { styled } from 'stitches.config';
+
+import { ampli } from '@/ampli';
 
 interface DisclosureProps {
   title: string;

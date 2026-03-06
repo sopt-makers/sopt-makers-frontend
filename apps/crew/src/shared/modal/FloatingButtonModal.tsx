@@ -1,10 +1,11 @@
-import { ampli } from '@/ampli';
 import BoltIcon from '@assets/svg/bolt_md.svg';
 import GroupIcon from '@assets/svg/floating_button_group_icon.svg';
 import MapIcon from '@assets/svg/floating_button_map_icon.svg';
 import KakaoLogoIcon from '@assets/svg/logo_kakao.svg';
 import { useRouter } from 'next/router';
 import { keyframes, styled } from 'stitches.config';
+
+import { ampli } from '@/ampli';
 
 const FloatingButtonModal = ({ isActive }: { isActive: boolean }) => {
   const router = useRouter();

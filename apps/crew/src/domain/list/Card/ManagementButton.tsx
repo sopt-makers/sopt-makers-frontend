@@ -1,9 +1,10 @@
-import { ampli } from '@/ampli';
 import ArrowMobileRight from '@assets/svg/arrow_mobile_right.svg';
 import ArrowSmallRight from '@assets/svg/arrow_small_right.svg';
 import { Flex } from '@shared/util/layout/Flex';
 import Link from 'next/link';
 import { styled } from 'stitches.config';
+
+import { ampli } from '@/ampli';
 
 interface ManagementButtonProps {
   id: number;

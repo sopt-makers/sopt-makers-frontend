@@ -1,9 +1,9 @@
-import { styled } from 'stitches.config';
 import CommentIcon from 'public/assets/svg/comment.svg';
 import CommentHoverIcon from 'public/assets/svg/comment_hover.svg';
 import LikeIcon from 'public/assets/svg/like.svg';
-import LikeHoverIcon from 'public/assets/svg/like_hover.svg';
 import LikeFillIcon from 'public/assets/svg/like_fill.svg';
+import LikeHoverIcon from 'public/assets/svg/like_hover.svg';
+import { styled } from 'stitches.config';
 
 interface FeedCommentLikeSectionProps {
   isLiked: boolean;

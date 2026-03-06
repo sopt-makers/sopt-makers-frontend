@@ -13,6 +13,7 @@ import { colors } from '@sopt-makers/colors';
 import { fontsObject } from '@sopt-makers/fonts';
 import React, { useRef } from 'react';
 import { styled } from 'stitches.config';
+
 import DescriptionField from './DescriptionField';
 interface PresentationProps {
   submitButtonLabel: React.ReactNode;

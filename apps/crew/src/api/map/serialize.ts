@@ -1,4 +1,5 @@
 import { FormType } from '@domain/map/Form/type';
+
 import { PostSoptMap } from './type';
 
 const TAG_MAP: Record<string, PostSoptMap['request']['tags'][number]> = {

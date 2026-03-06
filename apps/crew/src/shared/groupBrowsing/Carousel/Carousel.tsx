@@ -1,11 +1,13 @@
+import 'slick-carousel/slick/slick.css';
+
 import { useFlashListQueryOption } from '@api/flash/query';
 import Loader from '@common/loader/Loader';
 import { Suspense } from '@suspensive/react';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { useEffect, useRef, useState } from 'react';
 import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
 import { styled } from 'stitches.config';
+
 import GroupBrowsingCard from '../GroupBrowsingCard/GroupBrowsingCard';
 import NextArrow from './NextArrow';
 
@@ -26,7 +28,9 @@ const Carousel = () => {
       }
     });
 
-    componentRef.current && resizeObserver.observe(componentRef.current);
+    if (componentRef.current) {
+      resizeObserver.observe(componentRef.current);
+    }
 
     return () => resizeObserver.disconnect();
   }, []);

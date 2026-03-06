@@ -1,10 +1,12 @@
-import { ampli } from '@/ampli';
 import { MeetingData } from '@api/meeting/type';
 import { PART_OPTIONS, PART_VALUES, RECRUITMENT_STATUS } from '@constant/option';
 import DesktopSizeFlashCard from '@domain/list/Card/DesktopSizeCard/DesktopSizeFlashCard';
 import Link from 'next/link';
 import { ReactNode } from 'react';
 import { styled } from 'stitches.config';
+
+import { ampli } from '@/ampli';
+
 import DesktopSizeCard from './DesktopSizeCard';
 import MobileSizeCard from './MobileSize';
 

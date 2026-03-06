@@ -12,8 +12,9 @@ import dynamic from 'next/dynamic';
 import { useEffect } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { styled } from 'stitches.config';
+
 import FeedFormPresentation from './FeedFormPresentation';
-import { FormEditType, feedEditSchema } from './feedSchema';
+import { feedEditSchema,FormEditType } from './feedSchema';
 
 const DevTool = dynamic(() => import('@hookform/devtools').then(module => module.DevTool), {
   ssr: false,

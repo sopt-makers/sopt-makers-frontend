@@ -1,4 +1,5 @@
 import { FormType } from '@domain/map/Form/type';
+
 import { GetMapDetail } from './type';
 
 const TAG_LABEL_MAP: Record<string, string> = {

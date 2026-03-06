@@ -1,5 +1,6 @@
 import UserQueryKey from '@api/user/UserQueryKey';
 import { queryOptions } from '@tanstack/react-query';
+
 import {
   getInterestedKeywords,
   getUser,

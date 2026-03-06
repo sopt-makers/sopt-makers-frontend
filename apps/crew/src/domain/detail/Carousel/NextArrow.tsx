@@ -1,6 +1,7 @@
+import ArrowBigLeftIcon from '@assets/svg/arrow_big_left.svg';
 import React from 'react';
 import { styled } from 'stitches.config';
-import ArrowBigLeftIcon from '@assets/svg/arrow_big_left.svg';
+
 import { ampli } from '@/ampli';
 
 interface NextArrowProps {

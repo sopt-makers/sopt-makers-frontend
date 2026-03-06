@@ -3,6 +3,7 @@ import ModalBackground from '@shared/modal/ModalBackground';
 import { getResizedImage } from '@util/image';
 import { useState } from 'react';
 import { styled } from 'stitches.config';
+
 import { GroupInfo } from '../FeedFormPresentation';
 import SelectMeetingOptionItem from './SelectMeetingOptionItem';
 

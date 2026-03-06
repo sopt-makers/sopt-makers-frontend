@@ -1,10 +1,11 @@
-import { styled } from 'stitches.config';
-import ModalContainer from './ModalContainer';
 import useEmblaCarousel from 'embla-carousel-react';
 import ArrowLeft from 'public/assets/svg/arrow_big_left.svg';
 import ArrowRight from 'public/assets/svg/arrow_big_right.svg';
 import CloseIcon from 'public/assets/svg/x_big.svg';
 import { useEffect, useState } from 'react';
+import { styled } from 'stitches.config';
+
+import ModalContainer from './ModalContainer';
 
 interface ImageCarouselModalProps {
   isOpen: boolean;
@@ -31,7 +32,6 @@ export default function ImageCarouselModal({ isOpen, close, images, startIndex =
       <ModalWrapper>
         <Container>
           {/* top 고정 요소 */}
-          {/* eslint-disable-next-line prettier/prettier */}
           <Counter>
             {currentIndex} / {images.length}
           </Counter>

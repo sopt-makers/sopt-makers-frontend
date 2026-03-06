@@ -1,9 +1,10 @@
-import { ampli } from '@/ampli';
 import ProfileDefaultIcon from '@assets/svg/profile_default.svg?rect';
 import { playgroundURL } from '@constant/url';
 import { fontsObject } from '@sopt-makers/fonts';
 import { playgroundLink } from '@sopt-makers/playground-common';
 import { styled } from 'stitches.config';
+
+import { ampli } from '@/ampli';
 
 interface ProfileAnchorProps {
   profileData: {

@@ -1,10 +1,11 @@
-import { ampli } from '@/ampli';
 import Switch from '@common/button/Switch';
 import { Switch as HeadlessSwitch } from '@headlessui/react';
 import { useIsOnlyActiveGenerationParams } from '@hook/queryString/custom';
 import { Flex } from '@shared/util/layout/Flex';
 import { parseBool } from '@util/parseBool';
 import { CSSType, styled } from 'stitches.config';
+
+import { ampli } from '@/ampli';
 interface ToggleProps {
   css?: CSSType;
   label?: string;

@@ -1,5 +1,5 @@
-import { Fragment } from 'react';
 import { Listbox } from '@headlessui/react';
+import { Fragment } from 'react';
 import { CSSType, styled } from 'stitches.config';
 
 export interface Option {

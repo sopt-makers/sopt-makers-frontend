@@ -1,4 +1,3 @@
-import { ampli } from '@/ampli';
 import FlashQueryKey from '@api/flash/FlashQueryKey';
 import { GetFlash } from '@api/flash/type';
 import MeetingQueryKey from '@api/meeting/MeetingQueryKey';
@@ -13,9 +12,9 @@ import { useUserProfileQueryOption } from '@api/user/query';
 import ArrowSmallRightIcon from '@assets/svg/arrow_small_right.svg';
 import ButtonLoader from '@common/loader/ButtonLoader';
 import { ERecruitmentStatus } from '@constant/option';
+import { CAPACITY } from '@domain/detail/MeetingController/constant';
 import FlashAbout from '@domain/detail/MeetingController/FlashAbout';
 import MeetingAbout from '@domain/detail/MeetingController/MeetingAbout';
-import { CAPACITY } from '@domain/detail/MeetingController/constant';
 import useModal from '@hook/useModal';
 import DefaultModal from '@shared/modal/DefaultModal';
 import { playgroundLink } from '@sopt-makers/playground-common';
@@ -26,6 +25,9 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { ReactNode, useState } from 'react';
 import { styled } from 'stitches.config';
+
+import { ampli } from '@/ampli';
+
 import ProfileConfirmModal from './Modal/Confirm/ProfileConfirmModal';
 import ApplicationModalContent from './Modal/Content/ApplicationModalContent';
 import RecruitmentStatusModalContent from './Modal/Content/RecruitmentStatusModalContent';

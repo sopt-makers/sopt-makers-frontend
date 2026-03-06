@@ -8,6 +8,7 @@ import {
   PostMeetingApplication,
   UpdateMeetingApplication,
 } from '@api/meeting/type';
+
 import { api } from '..';
 
 export const getMeetingList = async (params: GetMeetingList['request']) => {

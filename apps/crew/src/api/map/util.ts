@@ -1,4 +1,5 @@
 import { InfiniteData } from '@tanstack/react-query';
+
 import { GetMapList } from './type';
 
 type MapCacheData = InfiniteData<GetMapList['response']> | GetMapList['response'];

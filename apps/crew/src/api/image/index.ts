@@ -1,5 +1,7 @@
-import { api } from '@/api';
 import axios from 'axios';
+
+import { api } from '@/api';
+
 import { GetPresignedUrl } from './type';
 
 export const getPresignedUrl = async (params: GetPresignedUrl['request']) => {

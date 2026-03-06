@@ -1,4 +1,5 @@
 import { styled } from 'stitches.config';
+
 import FeedItemSkeleton from './FeedItemSkeleton';
 
 interface MobileFeedListSkeletonProps {

@@ -1,8 +1,9 @@
-import { ampli } from '@/ampli';
 import { Arrow } from '@common/button/Arrow';
 import { CATEGORY_OPTIONS } from '@constant/option';
 import { useRouter } from 'next/router';
 import { styled } from 'stitches.config';
+
+import { ampli } from '@/ampli';
 
 interface MeetingInfoProps {
   meetingInfo: {

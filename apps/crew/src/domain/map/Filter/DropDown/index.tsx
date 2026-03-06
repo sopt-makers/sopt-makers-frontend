@@ -1,4 +1,3 @@
-import { ampli } from '@/ampli';
 import { useUserProfileQueryOption } from '@api/user/query';
 import { FilterType } from '@constant/option';
 import { useMultiQueryString } from '@hook/queryString';
@@ -7,6 +6,8 @@ import { SelectV2 } from '@sopt-makers/ui';
 import { css } from '@stitches/react';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { useEffect, useMemo, useState } from 'react';
+
+import { ampli } from '@/ampli';
 
 interface DropDownFilterProps {
   filter: FilterType;

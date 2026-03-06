@@ -13,6 +13,7 @@ import { parseTextToLink } from '@shared/util/parseTextToLink';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+
 import FeedActionButton from '../FeedActionButton/FeedActionButton';
 import FeedCommentEditor from '../FeedCommentEditor/FeedCommentEditor';
 import FeedCommentViewer from '../FeedCommentViewer/FeedCommentViewer';
@@ -58,7 +59,6 @@ const FeedReCommentContainer = ({ comment, reply, postUserId, onClickLike }: Fee
                 <FeedActionButton
                   onClick={() =>
                     overlay.open(({ isOpen, close }) => (
-                      // eslint-disable-next-line prettier/prettier
                       <ConfirmModal
                         isModalOpened={isOpen}
                         message="댓글을 삭제하시겠습니까?"
@@ -81,7 +81,6 @@ const FeedReCommentContainer = ({ comment, reply, postUserId, onClickLike }: Fee
                 <FeedActionButton
                   onClick={() => {
                     overlay.open(({ isOpen, close }) => (
-                      // eslint-disable-next-line prettier/prettier
                       <ConfirmModal
                         isModalOpened={isOpen}
                         message="댓글을 신고하시겠습니까?"

@@ -1,7 +1,3 @@
-import { ACCEPTED_IMAGE_TYPES, MAX_FILE_SIZE } from '@type/form';
-import { styled } from 'stitches.config';
-
-import { ampli } from '@/ampli';
 import { getPresignedUrl, uploadImage } from '@api/image';
 import CameraIcon from '@assets/svg/camera.svg';
 import CancelIcon from '@assets/svg/x_big_gray.svg';
@@ -10,12 +6,17 @@ import { imageS3Bucket } from '@constant/url';
 import FormController from '@shared/form/FormController';
 import { Divider } from '@shared/util/Divider';
 import { useToast } from '@sopt-makers/ui';
+import { ACCEPTED_IMAGE_TYPES, MAX_FILE_SIZE } from '@type/form';
 import { getResizedImage } from '@util/image';
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
+import { styled } from 'stitches.config';
+
+import { ampli } from '@/ampli';
+
 import CommonMention from '../Mention';
+import { ERROR_MESSAGE } from './feedSchema';
 import ImagePreview from './ImagePreview';
 import SelectMeeting from './SelectMeeting';
-import { ERROR_MESSAGE } from './feedSchema';
 
 export interface GroupInfo {
   id?: number;

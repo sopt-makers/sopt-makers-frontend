@@ -1,6 +1,6 @@
+import { ACCEPTED_IMAGE_TYPES } from '@type/form';
 import { nanoid } from 'nanoid';
 import React, { useMemo, useState } from 'react';
-import { ACCEPTED_IMAGE_TYPES } from '@type/form';
 import { styled } from 'stitches.config';
 
 interface ImagePreviewProps {

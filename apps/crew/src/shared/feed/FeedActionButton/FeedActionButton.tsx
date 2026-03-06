@@ -1,6 +1,6 @@
-import { PropsWithChildren, forwardRef } from 'react';
-import { styled } from 'stitches.config';
 import { fontsObject } from '@sopt-makers/fonts';
+import { forwardRef,PropsWithChildren } from 'react';
+import { styled } from 'stitches.config';
 
 type FeedActionButtonProps = React.HTMLAttributes<HTMLButtonElement>;
 

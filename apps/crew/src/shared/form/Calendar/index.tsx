@@ -1,3 +1,5 @@
+import 'react-calendar/dist/Calendar.css';
+
 import { useDisplay } from '@hook/useDisplay';
 import { fontsObject } from '@sopt-makers/fonts';
 import { IconCalendar } from '@sopt-makers/icons';
@@ -6,8 +8,8 @@ import { formatCalendarDate } from '@util/dayjs';
 import dayjs from 'dayjs';
 import React, { Dispatch, SetStateAction, useCallback, useEffect, useRef, useState } from 'react';
 import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
 import { styled } from 'stitches.config';
+
 import ErrorMessage from '../ErrorMessage';
 import BottomSheetDialog from '../Select/BottomSheetSelect/BottomSheetDialog';
 

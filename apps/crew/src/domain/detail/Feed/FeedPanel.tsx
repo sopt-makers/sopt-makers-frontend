@@ -1,6 +1,3 @@
-import { paths } from '@/__generated__/schema2';
-import { ampli } from '@/ampli';
-import { api } from '@/api';
 import { useMeetingQueryOption } from '@api/meeting/query';
 import { useDeletePostMutation, useUpdatePostLikeMutation } from '@api/post/mutation';
 import { useGetPostListInfiniteQuery } from '@api/post/query';
@@ -22,6 +19,11 @@ import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { styled } from 'stitches.config';
+
+import { paths } from '@/__generated__/schema2';
+import { ampli } from '@/ampli';
+import { api } from '@/api';
+
 import EmptyView from './EmptyView';
 import FeedItem from './FeedItem';
 import MobileFeedListSkeleton from './Skeleton/MobileFeedListSkeleton';

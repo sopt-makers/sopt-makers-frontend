@@ -4,6 +4,7 @@ import { Divider } from '@shared/util/Divider';
 import { Flex } from '@shared/util/layout/Flex';
 import { getResizedImage } from '@util/image';
 import { styled } from 'stitches.config';
+
 import { MobileSizeCardProps } from '.';
 
 function ListType({ meetingData }: Omit<MobileSizeCardProps, 'mobileType'>) {

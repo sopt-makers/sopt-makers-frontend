@@ -1,6 +1,6 @@
-import { parseMentionedUserIds } from '@shared/util/parseMentionedUserIds';
 import { useUserQueryOption } from '@api/user/query';
 import { GetUser } from '@api/user/type';
+import { parseMentionedUserIds } from '@shared/util/parseMentionedUserIds';
 import { colors } from '@sopt-makers/colors';
 import { fontsObject } from '@sopt-makers/fonts';
 import { keyframes, styled } from '@stitches/react';
@@ -8,6 +8,7 @@ import { useQuery } from '@tanstack/react-query';
 import DefaultProfile from 'public/assets/svg/mention_profile_default.svg';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { Mention, MentionsInput, SuggestionDataItem } from 'react-mentions';
+
 import { MentionContext } from './MentionContext';
 interface mentionableDataType {
   id: number;

@@ -1,6 +1,7 @@
-import { PropsWithChildren } from 'react';
-import ModalBackground from './ModalBackground';
 import { Dialog } from '@headlessui/react';
+import { PropsWithChildren } from 'react';
+
+import ModalBackground from './ModalBackground';
 
 export interface ModalContainerProps {
   isModalOpened: boolean;

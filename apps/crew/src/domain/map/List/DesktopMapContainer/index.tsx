@@ -4,6 +4,7 @@ import Pagination from '@domain/map/Pagination';
 import { usePageParams } from '@hook/queryString/custom';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { styled } from 'stitches.config';
+
 import MapList from '../MapList';
 
 const DesktopMapContainer = () => {

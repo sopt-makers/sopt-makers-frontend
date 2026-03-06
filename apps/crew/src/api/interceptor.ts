@@ -1,6 +1,8 @@
-import { authToken } from '@/store/tokenStore';
 import { ACCESS_TOKEN_KEY, getAuthToken, redirectToLoginPage } from '@shared/util/auth';
 import { AxiosError, AxiosInstance, InternalAxiosRequestConfig } from 'axios';
+
+import { authToken } from '@/store/tokenStore';
+
 import { authApi } from './index';
 
 export const checkToken = (config: InternalAxiosRequestConfig) => {

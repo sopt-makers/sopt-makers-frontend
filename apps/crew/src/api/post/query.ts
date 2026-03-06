@@ -1,5 +1,6 @@
 import PostQueryKey from '@api/post/PostQueryKey';
 import { queryOptions, useInfiniteQuery } from '@tanstack/react-query';
+
 import { getPostDetail, getPostList } from '.';
 
 export const useGetPostListInfiniteQuery = (take: number, meetingId?: number, enabled?: boolean) => {

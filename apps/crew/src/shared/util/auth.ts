@@ -1,6 +1,7 @@
-import { authToken } from '@/store/tokenStore';
 import { validateAuthToken } from '@api/auth';
 import { playgroundLink } from '@sopt-makers/playground-common';
+
+import { authToken } from '@/store/tokenStore';
 
 export const ACCESS_TOKEN_KEY = 'serviceAccessToken';
 

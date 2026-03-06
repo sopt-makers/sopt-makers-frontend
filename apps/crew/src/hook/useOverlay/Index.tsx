@@ -1,6 +1,7 @@
 import { useContext, useEffect, useMemo, useRef, useState } from 'react';
-import { OverlayContext } from './OverlayProvider';
+
 import { OverlayController, OverlayControlRef } from './OverlayController';
+import { OverlayContext } from './OverlayProvider';
 import { CreateOverlayElement } from './types';
 
 let elementId = 1;

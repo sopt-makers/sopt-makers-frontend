@@ -1,9 +1,10 @@
-import { ampli } from '@/ampli';
 import { GetMeetingMemberList } from '@api/meeting/type';
 import ProfileDefaultIcon from '@assets/svg/profile_default.svg?rect';
 import { playgroundLink } from '@sopt-makers/playground-common';
 import dayjs from 'dayjs';
 import { styled } from 'stitches.config';
+
+import { ampli } from '@/ampli';
 
 interface ManagementListItemForGuestProps {
   application: GetMeetingMemberList['response']['apply'][number];

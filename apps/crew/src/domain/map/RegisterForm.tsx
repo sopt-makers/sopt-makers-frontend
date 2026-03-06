@@ -5,12 +5,13 @@ import { Button } from '@sopt-makers/ui';
 import router from 'next/router';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { styled } from 'stitches.config';
+
 import DescriptionField from './Form/DescriptionField';
 import LinkField from './Form/LinkField';
 import LocationKeywordField from './Form/LocationKeywordField';
 import NameField from './Form/NameField';
 import SubwayField from './Form/SubwayField';
-import { FormType, formSchema } from './Form/type';
+import { formSchema,FormType } from './Form/type';
 
 const emptyValues: FormType = {
   name: '',

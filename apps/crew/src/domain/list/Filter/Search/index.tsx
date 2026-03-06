@@ -3,6 +3,7 @@ import { SearchField } from '@sopt-makers/ui';
 import { css } from '@stitches/react';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+
 import SearchMobile from './Mobile';
 
 const buttonPositioner = css({

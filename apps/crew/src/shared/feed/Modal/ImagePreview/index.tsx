@@ -1,6 +1,6 @@
+import CancelIcon from '@assets/svg/x.svg';
 import { useState } from 'react';
 import { styled } from 'stitches.config';
-import CancelIcon from '@assets/svg/x.svg';
 
 interface ImagePreviewProps {
   url: string;

@@ -1,6 +1,7 @@
 import { useMapEventGiftQueryOption } from '@api/map/query';
 import { Suspense } from '@suspensive/react';
 import { useSuspenseQuery } from '@tanstack/react-query';
+
 import ResultEvent from './ResultEvent';
 
 interface SuccessEventProps {

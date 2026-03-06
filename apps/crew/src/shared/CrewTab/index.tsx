@@ -1,10 +1,11 @@
-import { ampli } from '@/ampli';
 import { TabList } from '@common/tabList/TabList';
 import { Flex } from '@shared/util/layout/Flex';
 import { Tag } from '@sopt-makers/ui';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { ReactNode } from 'react';
+
+import { ampli } from '@/ampli';
 
 const CrewTab = ({ children }: { children?: ReactNode }) => {
   const path = useRouter().pathname;

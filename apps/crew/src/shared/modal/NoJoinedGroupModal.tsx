@@ -1,6 +1,7 @@
 import { Dialog } from '@headlessui/react';
 import Link from 'next/link';
 import { styled } from 'stitches.config';
+
 import ModalBackground from './ModalBackground';
 import { ModalContainerProps } from './ModalContainer';
 

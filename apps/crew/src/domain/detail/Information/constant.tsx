@@ -1,3 +1,5 @@
+import 'dayjs/locale/ko';
+
 import { GetFlash } from '@api/flash/type';
 import { GetMeeting } from '@api/meeting/type';
 import CalendarIcon from '@assets/svg/calendar.svg?rect';
@@ -6,7 +8,6 @@ import { parseTextToLink } from '@shared/util/parseTextToLink';
 import { IconLocation } from '@sopt-makers/icons';
 import { Chip } from '@sopt-makers/ui';
 import dayjs from 'dayjs';
-import 'dayjs/locale/ko';
 import { styled } from 'stitches.config';
 dayjs.locale('ko');
 

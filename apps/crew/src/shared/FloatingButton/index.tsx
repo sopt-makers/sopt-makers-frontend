@@ -1,16 +1,17 @@
-import { ampli } from '@/ampli';
 import { useUserMeetingListMutation } from '@api/user/mutation';
 import PlusIcon from '@assets/svg/plus.svg';
 import Plus from '@assets/svg/plus.svg?rect';
 import { useDisplay } from '@hook/useDisplay';
 import { useOverlay } from '@hook/useOverlay/Index';
-import KakaoFloatingButton from '@shared/FloatingButton/kakaoFloatingButton/KakaoFloatingButton';
 import FeedCreateWithSelectMeetingModal from '@shared/feed/Modal/FeedCreateWithSelectMeetingModal';
+import KakaoFloatingButton from '@shared/FloatingButton/kakaoFloatingButton/KakaoFloatingButton';
 import FloatingButtonModal from '@shared/modal/FloatingButtonModal';
 import NoJoinedGroupModal from '@shared/modal/NoJoinedGroupModal';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { styled } from 'stitches.config';
+
+import { ampli } from '@/ampli';
 
 function FloatingButton() {
   const [isActive, setIsActive] = useState(false);

@@ -2,10 +2,10 @@ import { useDeleteCommentMutation, usePostCommentReportMutation, usePutCommentMu
 import { GetCommentListResponse, GetCommentReplyResponse } from '@api/comment/type';
 import { PostCommentWithMentionRequest } from '@api/mention';
 import { useMutationPostCommentWithMention } from '@api/mention/mutation';
-import ReCommentHoverIcon from '@assets/svg/Recomment_Hover_Icon.svg';
 import AlertIcon from '@assets/svg/alert-triangle.svg';
 import ReWriteIcon from '@assets/svg/comment-write.svg';
 import MessageIcon from '@assets/svg/message-dots.svg?v2';
+import ReCommentHoverIcon from '@assets/svg/Recomment_Hover_Icon.svg';
 import ReplyPointIcon from '@assets/svg/recomment_point_icon.svg';
 import TrashIcon from '@assets/svg/trash.svg';
 import Avatar from '@common/avatar/Avatar';
@@ -18,6 +18,7 @@ import { fontsObject } from '@sopt-makers/fonts';
 import { useRouter } from 'next/router';
 import { useContext, useRef, useState } from 'react';
 import { styled } from 'stitches.config';
+
 import FeedActionButton from '../FeedActionButton/FeedActionButton';
 import FeedCommentEditor from '../FeedCommentEditor/FeedCommentEditor';
 import FeedCommentViewer from '../FeedCommentViewer/FeedCommentViewer';
@@ -33,7 +34,6 @@ interface FeedCommentContainerProps {
   isCreatingComment: boolean;
 }
 
-// eslint-disable-next-line prettier/prettier
 
 export default function FeedCommentContainer({
   comment,
@@ -85,7 +85,6 @@ export default function FeedCommentContainer({
                   <FeedActionButton
                     onClick={() =>
                       overlay.open(({ isOpen, close }) => (
-                        // eslint-disable-next-line prettier/prettier
                         <ConfirmModal
                           isModalOpened={isOpen}
                           message="댓글을 삭제하시겠습니까?"
@@ -108,7 +107,6 @@ export default function FeedCommentContainer({
                   <FeedActionButton
                     onClick={() =>
                       overlay.open(({ isOpen, close }) => (
-                        // eslint-disable-next-line prettier/prettier
                         <ConfirmModal
                           isModalOpened={isOpen}
                           message="신고하시겠습니까?"

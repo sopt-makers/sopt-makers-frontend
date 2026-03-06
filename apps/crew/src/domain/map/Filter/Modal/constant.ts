@@ -1,6 +1,7 @@
 import KakaoMapIcon from '@assets/svg/ic_kakao_map.svg';
 import NaverMapIcon from '@assets/svg/ic_naver_map.svg';
 import { SVGProps } from 'react';
+
 import { MapLinkKey } from './type';
 
 type IconComponent = (props: SVGProps<SVGSVGElement>) => JSX.Element;

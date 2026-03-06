@@ -1,5 +1,6 @@
 import { getResizedImage } from '@util/image';
 import { styled } from 'stitches.config';
+
 import { GroupInfo } from '../FeedFormPresentation';
 
 interface SelectMeetingOptionItemProps {
