@@ -24,7 +24,7 @@
     "update-mds": "yarn up @sopt-makers/colors@latest @sopt-makers/fonts@latest @sopt-makers/playground-common@latest @sopt-makers/ui@latest @sopt-makers/icons@latest",
     "lint": "turbo lint",
     "lint:fix": "turbo lint -- --fix",
-    "prettier:fix": "turbo prettier -- --write",
+    "prettier": "turbo prettier",
     "clean": "turbo clean"
   },
   "dependencies": {
