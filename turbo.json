@@ -6,12 +6,9 @@
       "outputs": [".next/**", "!.next/cache/**", "out/**", "dist/**"]
     },
     "lint": {
-      "dependsOn": ["^lint"]
+      "outputs": []
     },
     "typecheck": {
-      "dependsOn": ["^build"]
-    },
-    "stylelint": {
       "dependsOn": ["^build"]
     },
     "test:ci": {
@@ -32,6 +29,7 @@
     },
     "generate-types": {
       "dependsOn": ["generate-types-v1", "generate-types-v2"],
+      "cache": false,
       "outputs": ["src/__generated__/schema.d.ts"]
     },
     "dev": {
