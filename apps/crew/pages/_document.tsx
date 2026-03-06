@@ -6,17 +6,17 @@ import { getCssText } from '../stitches.config';
 export default class Document extends NextDocument {
   render() {
     return (
-      <Html lang="ko">
+      <Html lang='ko'>
         <Head>
-          <style id="stitches" dangerouslySetInnerHTML={{ __html: getCssText() }} />
-          <script type="text/javascript" src="//developers.kakao.com/sdk/js/kakao.min.js" />
+          <style id='stitches' dangerouslySetInnerHTML={{ __html: getCssText() }} />
+          <script async type='text/javascript' src='//developers.kakao.com/sdk/js/kakao.min.js' />
         </Head>
         <body>
           <noscript>
             <iframe
               src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
-              height="0"
-              width="0"
+              height='0'
+              width='0'
               style={{ display: 'none', visibility: 'hidden' }}
             />
           </noscript>

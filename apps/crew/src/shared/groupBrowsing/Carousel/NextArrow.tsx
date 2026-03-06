@@ -17,7 +17,7 @@ const NextArrow = ({ className, onClick, total }: NextArrowProps) => {
   };
 
   return (
-    <SButton className={className} onClick={e => handleClick(e)}>
+    <SButton className={className} onClick={(e) => handleClick(e)}>
       <Arrow />
     </SButton>
   );
@@ -26,19 +26,19 @@ const NextArrow = ({ className, onClick, total }: NextArrowProps) => {
 export default NextArrow;
 
 const SButton = styled('button', {
-  width: '$40',
-  height: '$40',
-  cursor: 'pointer',
+  'width': '$40',
+  'height': '$40',
+  'cursor': 'pointer',
 
   '@tablet': {
     display: 'none',
   },
 
   '& svg': {
-    display: 'block',
-    margin: '0 auto',
-    width: '100%',
-    height: '100%',
+    'display': 'block',
+    'margin': '0 auto',
+    'width': '100%',
+    'height': '100%',
 
     '& circle, & rect': {
       transition: 'fill 0.1s ease-in-out',

@@ -5,8 +5,8 @@ import { PostMeeting } from './type';
 export const serializeMeetingData = (formData: FormType): PostMeeting['request'] => {
   const refinedParts = formData.detail.joinableParts
     // NOTE: value가 null, 'all' 인 것들을 필터링한다
-    .filter(part => part.value && part.value !== 'all')
-    .map(part => part.value) as ('PM' | 'DESIGN' | 'IOS' | 'ANDROID' | 'SERVER' | 'WEB')[];
+    .filter((part) => part.value && part.value !== 'all')
+    .map((part) => part.value) as ('PM' | 'DESIGN' | 'IOS' | 'ANDROID' | 'SERVER' | 'WEB')[];
 
   return {
     title: formData.title,
@@ -25,7 +25,7 @@ export const serializeMeetingData = (formData: FormType): PostMeeting['request']
     isMentorNeeded: formData.detail.isMentorNeeded ?? false,
     canJoinOnlyActiveGeneration: formData.detail.canJoinOnlyActiveGeneration ?? false,
     joinableParts: refinedParts,
-    coLeaderUserIds: formData.detail.coLeader?.map(user => user.userId) ?? [],
+    coLeaderUserIds: formData.detail.coLeader?.map((user) => user.userId) ?? [],
     welcomeMessageTypes: formData.welcomeMessageTypes === null ? undefined : formData.welcomeMessageTypes,
     meetingKeywordTypes: formData.meetingKeywordTypes === null ? undefined : formData.meetingKeywordTypes,
   };

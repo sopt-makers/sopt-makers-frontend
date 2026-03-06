@@ -51,7 +51,7 @@ const FeedItem = ({ post, HeaderSection, LikeButton, onClick, Actions }: FeedIte
           <Link href={host + '/members/' + matches[2]}>
             <p style={{ color: colors.success, display: 'inline' }}>@{matches[1]}</p>
           </Link>
-        </SFeedContent>
+        </SFeedContent>,
       );
       lastIndex = regex.lastIndex;
     }
@@ -67,26 +67,26 @@ const FeedItem = ({ post, HeaderSection, LikeButton, onClick, Actions }: FeedIte
     <SFeedItem onClick={onClick}>
       {HeaderSection}
       <STop>
-        <Flex align="center">
+        <Flex align='center'>
           <SProfileButton
-            onClick={e => {
+            onClick={(e) => {
               e.preventDefault();
               ampli.clickFeedProfile({ location: router.pathname });
               window.location.href = `${playgroundLink.memberDetail(user.orgId)}`;
             }}
           >
             <SProfileImageWrapper>
-              {user.profileImage ? <SProfileImage src={user.profileImage} alt="" /> : <ProfileDefaultIcon />}
+              {user.profileImage ? <SProfileImage src={user.profileImage} alt='' /> : <ProfileDefaultIcon />}
             </SProfileImageWrapper>
             <SName>{user.name}</SName>
           </SProfileButton>
           <STime>{fromNow(createdDate)}</STime>
         </Flex>
-        <div onClick={e => e.preventDefault()} style={{ position: 'relative' }}>
+        <div onClick={(e) => e.preventDefault()} style={{ position: 'relative' }}>
           <DropdownMenu.Root>
             <STrigger>
-              <MenuIcon data-icon="menu" />
-              <ClickedMenuIcon data-icon="clicked-menu" />
+              <MenuIcon data-icon='menu' />
+              <ClickedMenuIcon data-icon='clicked-menu' />
             </STrigger>
             <DropdownMenu.Portal>
               <DropdownMenu.Content asChild>
@@ -107,13 +107,13 @@ const FeedItem = ({ post, HeaderSection, LikeButton, onClick, Actions }: FeedIte
       <SContent>{processString()}</SContent>
       {images && images[THUMBNAIL_IMAGE_INDEX] && (
         <SThumbnailWrapper>
-          <SThumbnail src={images[THUMBNAIL_IMAGE_INDEX]} alt="" />
+          <SThumbnail src={images[THUMBNAIL_IMAGE_INDEX]} alt='' />
           {images.length > 1 && <SThumbnailCount>+{images.length - 1}</SThumbnailCount>}
         </SThumbnailWrapper>
       )}
 
       <SBottom>
-        <Flex align="center">
+        <Flex align='center'>
           {commenterThumbnails && (
             <AvatarGroup>
               {[...commenterThumbnails]
@@ -123,7 +123,7 @@ const FeedItem = ({ post, HeaderSection, LikeButton, onClick, Actions }: FeedIte
                   <Avatar
                     key={`${thumbnail}-${index}`}
                     src={thumbnail}
-                    alt=""
+                    alt=''
                     Overlay={
                       commenterThumbnails.length > AVATAR_MAX_LENGTH &&
                       index === AVATAR_MAX_LENGTH - 1 && <SOverlay>+</SOverlay>
@@ -147,12 +147,12 @@ const FeedItem = ({ post, HeaderSection, LikeButton, onClick, Actions }: FeedIte
 export default FeedItem;
 
 const SFeedItem = styled('div', {
-  padding: '$20 $20 $28 $20',
-  background: '$gray900',
-  borderRadius: '12px',
-  color: '$gray10',
-  width: '100%',
-  transition: 'transform 0.3s ease',
+  'padding': '$20 $20 $28 $20',
+  'background': '$gray900',
+  'borderRadius': '12px',
+  'color': '$gray10',
+  'width': '100%',
+  'transition': 'transform 0.3s ease',
   '&:hover': {
     transform: 'translateY(-10px)',
   },
@@ -169,7 +169,7 @@ const SFeedContent = styled('div', {
     content: 'none',
     display: 'inline-block',
   },
-  display: 'inline-block',
+  'display': 'inline-block',
 });
 
 const STop = styled('div', {
@@ -208,11 +208,11 @@ const MenuItemsContainer = styled('div', {
   zIndex: 2,
 });
 const SMenuItemContainer = styled('div', {
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  width: '80px',
-  background: '$gray800',
+  'display': 'flex',
+  'alignItems': 'center',
+  'justifyContent': 'center',
+  'width': '80px',
+  'background': '$gray800',
 
   '&:hover': {
     background: '$gray700',
@@ -257,25 +257,25 @@ const STime = styled('span', {
 });
 
 const STitle = styled('div', {
-  mb: '$8',
-  fontStyle: 'H3',
-  wordBreak: 'break-all',
+  'mb': '$8',
+  'fontStyle': 'H3',
+  'wordBreak': 'break-all',
   '@media (max-width: 768px)': {
     fontStyle: 'H4',
   },
 });
 
 const SContent = styled('div', {
-  mb: '$20',
-  color: '$gray200',
-  fontStyle: 'B2',
-  whiteSpace: 'pre-wrap',
-  wordBreak: 'break-all',
-  display: '-webkit-box',
-  textOverflow: 'ellipsis',
-  WebkitBoxOrient: 'vertical',
-  WebkitLineClamp: 3,
-  overflow: 'hidden',
+  'mb': '$20',
+  'color': '$gray200',
+  'fontStyle': 'B2',
+  'whiteSpace': 'pre-wrap',
+  'wordBreak': 'break-all',
+  'display': '-webkit-box',
+  'textOverflow': 'ellipsis',
+  'WebkitBoxOrient': 'vertical',
+  'WebkitLineClamp': 3,
+  'overflow': 'hidden',
   '@media (max-width: 768px)': {
     fontStyle: 'B3',
   },
@@ -286,15 +286,15 @@ const SThumbnailWrapper = styled('div', {
 });
 
 const SThumbnail = styled('img', {
-  display: 'block',
-  mb: '$20',
-  borderRadius: '8px',
-  background: '$gray700',
-  width: '100%',
-  maxWidth: '$340',
-  height: 'fit-content',
-  aspectRatio: '4 / 3',
-  objectFit: 'cover',
+  'display': 'block',
+  'mb': '$20',
+  'borderRadius': '8px',
+  'background': '$gray700',
+  'width': '100%',
+  'maxWidth': '$340',
+  'height': 'fit-content',
+  'aspectRatio': '4 / 3',
+  'objectFit': 'cover',
 
   '@media (max-width: 768px)': {
     maxWidth: '100%',
@@ -302,18 +302,18 @@ const SThumbnail = styled('img', {
 });
 
 const SThumbnailCount = styled('div', {
-  position: 'absolute',
-  top: '12px',
-  right: '12px',
-  zIndex: 1,
-  backgroundColor: '$gray950',
-  opacity: 0.6,
-  color: '$gray100',
-  borderRadius: '50%',
-  fontStyle: 'T5',
-  width: '40px',
-  height: '40px',
-  flexType: 'center',
+  'position': 'absolute',
+  'top': '12px',
+  'right': '12px',
+  'zIndex': 1,
+  'backgroundColor': '$gray950',
+  'opacity': 0.6,
+  'color': '$gray100',
+  'borderRadius': '50%',
+  'fontStyle': 'T5',
+  'width': '40px',
+  'height': '40px',
+  'flexType': 'center',
 
   '@media (max-width: 768px)': {
     width: '36px',

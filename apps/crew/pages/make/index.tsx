@@ -17,7 +17,7 @@ import { ampli } from '@/ampli';
 import LocalStorage from '@/store/localStorage/LocalStorage';
 import LocalStorageKey from '@/store/localStorage/LocalStorageKey';
 
-const DevTool = dynamic(() => import('@hookform/devtools').then(module => module.DevTool), {
+const DevTool = dynamic(() => import('@hookform/devtools').then((module) => module.DevTool), {
   ssr: false,
 });
 
@@ -52,9 +52,9 @@ const MakePage = () => {
     formMethods.setValue('files', files);
   };
 
-  const onSubmit: SubmitHandler<FormType> = async formData => {
+  const onSubmit: SubmitHandler<FormType> = async (formData) => {
     mutateCreateMeeting(formData, {
-      onSuccess: data => {
+      onSuccess: (data) => {
         ampli.completedMakeGroup({ from_resume: false });
         submittedRef.current = true;
         removeDraftCreateMeeting();
@@ -126,9 +126,9 @@ const MakePage = () => {
           />
         </SFormContainer>
         <TableOfContents
-          label="작성 항목"
+          label='작성 항목'
           onSubmit={handleSubmit}
-          submitButtonLabel="개설하기"
+          submitButtonLabel='개설하기'
           disabled={isSubmitDisabled}
         />
       </SContainer>
@@ -142,18 +142,18 @@ const MakePage = () => {
 export default MakePage;
 
 const SContainer = styled('div', {
-  margin: '80px 0',
-  display: 'flex',
-  gap: '30px',
+  'margin': '80px 0',
+  'display': 'flex',
+  'gap': '30px',
 
   '@media (max-width: 768px)': {
     margin: 0,
   },
 });
 const SFormContainer = styled('div', {
-  width: '100%',
-  padding: '36px 40px 56px',
-  borderRadius: '15px',
+  'width': '100%',
+  'padding': '36px 40px 56px',
+  'borderRadius': '15px',
 
   '@media (max-width: 768px)': {
     padding: '40px 0 0 0',
@@ -162,8 +162,8 @@ const SFormContainer = styled('div', {
 });
 const SFormName = styled('h1', {
   ...fontsObject.HEADING_2_32_B,
-  color: '$gray10',
-  marginBottom: '20px',
+  'color': '$gray10',
+  'marginBottom': '20px',
 
   '@media (max-width: 768px)': {
     ...fontsObject.HEADING_4_24_B,

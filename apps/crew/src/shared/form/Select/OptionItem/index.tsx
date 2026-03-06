@@ -39,14 +39,14 @@ function OptionItem({ css, option }: OptionItemProps) {
 export default OptionItem;
 
 const SOptionItem = styled('div', {
-  cursor: 'pointer',
-  display: 'flex',
-  alignItems: 'center',
-  padding: '12px 16px',
-  background: '$gray800',
-  fontAg: '18_medium_100',
-  borderRadius: '8px',
-  variants: {
+  'cursor': 'pointer',
+  'display': 'flex',
+  'alignItems': 'center',
+  'padding': '12px 16px',
+  'background': '$gray800',
+  'fontAg': '18_medium_100',
+  'borderRadius': '8px',
+  'variants': {
     selected: {
       true: {
         background: '$gray600',

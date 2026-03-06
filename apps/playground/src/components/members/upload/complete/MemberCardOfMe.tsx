@@ -27,7 +27,14 @@ const MemberCardOfMe: FC<MemberCardOfMeProps> = ({ name, belongs, badges, intro,
           {imageUrl ? (
             <Image className='image' src={imageUrl} width={180} alt='member_image' />
           ) : (
-            <IconUser style={{ width: 115, height: 115, color: `${colors.gray400}`, paddingTop: '10px' }} />
+            <IconUser
+              style={{
+                width: 115,
+                height: 115,
+                color: `${colors.gray400}`,
+                paddingTop: '10px',
+              }}
+            />
           )}
         </ImageHolder>
       </StyledImageArea>

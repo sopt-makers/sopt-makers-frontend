@@ -37,7 +37,7 @@ const ManagementHeaderForHost = ({ id, isMeetingDataLoading, management }: Manag
 export default ManagementHeaderForHost;
 
 const SListTitle = styled('div', {
-  fontAg: '32_bold_100',
+  'fontAg': '32_bold_100',
 
   '@mobile': {
     fontAg: '18_bold_100',
@@ -45,12 +45,12 @@ const SListTitle = styled('div', {
 });
 
 const SDownloadButton = styled('button', {
-  color: '$gray10',
-  fontAg: '18_bold_100',
-  border: '1px solid $gray10',
-  borderRadius: '14px',
-  padding: '$18 $24 $18 $20',
-  flexType: 'verticalCenter',
+  'color': '$gray10',
+  'fontAg': '18_bold_100',
+  'border': '1px solid $gray10',
+  'borderRadius': '14px',
+  'padding': '$18 $24 $18 $20',
+  'flexType': 'verticalCenter',
 
   '& > svg': {
     mr: '$12',

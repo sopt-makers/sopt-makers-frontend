@@ -12,7 +12,7 @@ export const validateAuthToken = async (authToken: string) => {
         headers: {
           Authorization: `Bearer ${authToken}`,
         },
-      }
+      },
     );
 
     return true;

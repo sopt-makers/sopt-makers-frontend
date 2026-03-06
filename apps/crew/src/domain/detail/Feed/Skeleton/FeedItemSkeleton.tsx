@@ -4,8 +4,8 @@ import { styled } from 'stitches.config';
 const FeedItemSkeleton = () => {
   return (
     <SFeedItemSkeleton>
-      <Flex align="center" justify="between" css={{ mb: '$17', '@media (max-width: 768px)': { mb: '$12' } }}>
-        <Flex align="center" justify="start">
+      <Flex align='center' justify='between' css={{ 'mb': '$17', '@media (max-width: 768px)': { mb: '$12' } }}>
+        <Flex align='center' justify='start'>
           <SProfileImage />
           <SName />
         </Flex>
@@ -15,7 +15,7 @@ const FeedItemSkeleton = () => {
       <SContent />
       <SContent />
 
-      <SBottom align="center" justify="between">
+      <SBottom align='center' justify='between'>
         <SComment />
         <SLike />
       </SBottom>
@@ -26,9 +26,9 @@ const FeedItemSkeleton = () => {
 export default FeedItemSkeleton;
 
 const SFeedItemSkeleton = styled('div', {
-  padding: '$24 $20 $28 $20',
-  background: '#171818',
-  borderRadius: '12px',
+  'padding': '$24 $20 $28 $20',
+  'background': '#171818',
+  'borderRadius': '12px',
   '@media (max-width: 768px)': {
     padding: '$20',
   },
@@ -67,7 +67,7 @@ const SContent = styled(Item, {
 });
 
 const SBottom = styled(Flex, {
-  mt: '$22',
+  'mt': '$22',
 
   '@media (max-width: 768px)': {
     '& > *': {

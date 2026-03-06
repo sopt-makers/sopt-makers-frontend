@@ -10,7 +10,7 @@ import { MobileSizeCardProps } from '.';
 function ListType({ meetingData }: Omit<MobileSizeCardProps, 'mobileType'>) {
   return (
     <Container>
-      <Flex align="center" css={{ mb: '$16' }}>
+      <Flex align='center' css={{ mb: '$16' }}>
         <ImageWrapper>
           <RecruitmentStatusTag status={meetingData.status} style={{ position: 'absolute', top: '8px', left: '8px' }} />
           <SThumbnailImage
@@ -21,10 +21,10 @@ function ListType({ meetingData }: Omit<MobileSizeCardProps, 'mobileType'>) {
         </ImageWrapper>
         <InfoGroup>
           <STitle>{meetingData.title}</STitle>
-          <Flex align="center">
+          <Flex align='center'>
             <SProfileWrapper>
               {meetingData.user.profileImage ? (
-                <SProfile src={getResizedImage(meetingData.user.profileImage, 120)} alt="" />
+                <SProfile src={getResizedImage(meetingData.user.profileImage, 120)} alt='' />
               ) : (
                 <ProfileDefaultIcon width={20} height={20} />
               )}
@@ -34,7 +34,7 @@ function ListType({ meetingData }: Omit<MobileSizeCardProps, 'mobileType'>) {
             <SCategory>{meetingData.category}</SCategory>
           </Flex>
           <Flex>
-            {meetingData.meetingKeywordTypes?.map(keyword => (
+            {meetingData.meetingKeywordTypes?.map((keyword) => (
               <WelcomeTag key={keyword}>{keyword}</WelcomeTag>
             ))}
           </Flex>
@@ -96,8 +96,8 @@ const STitle = styled('p', {
 });
 
 const SUserInfo = styled('p', {
-  fontStyle: 'B4',
-  color: '$gray300',
+  'fontStyle': 'B4',
+  'color': '$gray300',
   '& + &': {
     ml: '$4',
   },

@@ -12,12 +12,12 @@ interface OrderFilterProps {
 
 const OrderFilter = ({ value, options, onChange }: OrderFilterProps) => {
   return (
-    <SelectV2.Root type="text" onChange={val => onChange(val as string)} defaultValue={value}>
+    <SelectV2.Root type='text' onChange={(val) => onChange(val as string)} defaultValue={value}>
       <SelectV2.Trigger>
         <StyledTriggerContent icon={<StyledIconSwitchVertical />} />
       </SelectV2.Trigger>
       <SelectV2.Menu>
-        {options.map(option => (
+        {options.map((option) => (
           <SelectV2.MenuItem key={option.value} option={option} />
         ))}
       </SelectV2.Menu>

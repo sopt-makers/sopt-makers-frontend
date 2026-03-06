@@ -67,17 +67,19 @@ export const useRecommendMapMutation = () => {
   return useMutation({
     mutationFn: (mapId: number) => putMapRecommendation(mapId),
 
-    onMutate: async targetMapId => {
+    onMutate: async (targetMapId) => {
       await queryClient.cancelQueries({ queryKey: MapQueryKey.all() });
 
-      const previousData = queryClient.getQueriesData({ queryKey: MapQueryKey.all() });
+      const previousData = queryClient.getQueriesData({
+        queryKey: MapQueryKey.all(),
+      });
 
-      queryClient.setQueriesData<MapCacheData>({ queryKey: MapQueryKey.all() }, oldData => {
+      queryClient.setQueriesData<MapCacheData>({ queryKey: MapQueryKey.all() }, (oldData) => {
         if (!oldData) return undefined;
 
-        return produce(oldData, draft => {
-          visitMapCache(draft, soptMaps => {
-            const target = soptMaps.find(map => map.id === targetMapId);
+        return produce(oldData, (draft) => {
+          visitMapCache(draft, (soptMaps) => {
+            const target = soptMaps.find((map) => map.id === targetMapId);
             if (target) {
               target.isRecommended = !target.isRecommended;
               target.recommendCount = (target.recommendCount ?? 0) + (target.isRecommended ? 1 : -1);

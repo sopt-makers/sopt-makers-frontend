@@ -181,7 +181,13 @@ const ProjectList = () => {
                             isAvailable={project.isAvailable}
                             isFounding={project.isFounding}
                           />
-                          <div css={{ width: '100%', height: '1px', background: colors.gray700 }} />
+                          <div
+                            css={{
+                              width: '100%',
+                              height: '1px',
+                              background: colors.gray700,
+                            }}
+                          />
                         </Link>
                       </LoggingClick>
                     </Responsive>

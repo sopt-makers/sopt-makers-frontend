@@ -13,7 +13,7 @@ type ManagementHeaderForGuestProps = {
   };
   onChangeSelectOption: (
     setValue: (value: string | number) => void,
-    optionList: Option[]
+    optionList: Option[],
   ) => (changeOption: Option) => void;
   convertedNumberTake: Option;
   setTake: (value: string | number) => void;
@@ -46,7 +46,7 @@ const ManagementHeaderForGuest = ({
 export default ManagementHeaderForGuest;
 
 const SListTitle = styled('div', {
-  fontAg: '32_bold_100',
+  'fontAg': '32_bold_100',
 
   '@mobile': {
     fontAg: '18_bold_100',
@@ -55,9 +55,9 @@ const SListTitle = styled('div', {
 
 const SSelectNumberWrapper = styled('div', {
   '& button': {
-    borderRadius: '14px',
-    border: '1px solid $gray600',
-    backgroundColor: '$gray950',
+    'borderRadius': '14px',
+    'border': '1px solid $gray600',
+    'backgroundColor': '$gray950',
 
     '@mobile': {
       display: 'none',

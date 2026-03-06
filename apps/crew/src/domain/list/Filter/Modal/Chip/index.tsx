@@ -19,7 +19,7 @@ function Chips({ isLabel, css, filter }: ChipsProps) {
   return (
     <SChipWrapper css={{ ...css }}>
       {isLabel && <SLabel>{label}</SLabel>}
-      {options.map(option => (
+      {options.map((option) => (
         <ChipItem
           key={option}
           isSelected={selectedValues.includes(option) || (isEntire && option === '전체')}
@@ -38,9 +38,9 @@ export default Chips;
 
 const SChipWrapper = styled('div', {});
 const SLabel = styled('p', {
-  color: '$gray10',
-  fontAg: '18_bold_100',
-  mb: '$20',
+  'color': '$gray10',
+  'fontAg': '18_bold_100',
+  'mb': '$20',
   '@media (max-width: 768px)': {
     fontAg: '14_bold_100',
     mb: '$6',

@@ -97,11 +97,17 @@ const Menus = styled.nav<{ isFixed: boolean }>`
     `};
 `;
 
-const MenuTab = styled.div<{ isActive: boolean; mainColor: keyof typeof colors; textColor: keyof typeof colors }>`
+const MenuTab = styled.div<{
+  isActive: boolean;
+  mainColor: keyof typeof colors;
+  textColor: keyof typeof colors;
+}>`
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
   border-radius: 100px;
   cursor: pointer;
   padding: 9px 0;

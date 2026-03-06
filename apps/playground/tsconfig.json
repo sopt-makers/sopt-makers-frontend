@@ -23,6 +23,12 @@
     "jsx": "preserve",
     "jsxImportSource": "@emotion/react"
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "jest.setup.ts", "src/components/mySoptReport/ReportCard/CardHeader"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "jest.setup.ts",
+    "src/components/mySoptReport/ReportCard/CardHeader"
+  ],
   "exclude": ["node_modules", "functions/**/*", "worker/**/*"]
 }

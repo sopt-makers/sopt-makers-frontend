@@ -9,7 +9,7 @@ interface MapListProps {
 const MapList = ({ mapList }: MapListProps) => {
   return (
     <SCardWrapper>
-      {mapList.map(mapData => (
+      {mapList.map((mapData) => (
         <MapCard key={mapData.id} mapData={mapData} />
       ))}
     </SCardWrapper>
@@ -17,10 +17,10 @@ const MapList = ({ mapList }: MapListProps) => {
 };
 
 const SCardWrapper = styled('div', {
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '12px',
-  mt: '$24',
+  'display': 'flex',
+  'flexDirection': 'column',
+  'gap': '12px',
+  'mt': '$24',
 
   '@mobile': {
     mt: '$16',

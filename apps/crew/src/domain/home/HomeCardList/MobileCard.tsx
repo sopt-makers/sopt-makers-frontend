@@ -30,7 +30,7 @@ const MobileCard = ({
   joinableParts,
 }: MobileCardProps) => {
   const isAllParts = joinableParts.length === 6 || joinableParts === null;
-  const displayParts = isAllParts ? '전체 파트' : joinableParts.map(part => PART_NAME[part]).join(', ');
+  const displayParts = isAllParts ? '전체 파트' : joinableParts.map((part) => PART_NAME[part]).join(', ');
 
   return (
     <Link href={`/detail?id=${id}`}>
@@ -40,12 +40,12 @@ const MobileCard = ({
           <STitleStyle>{title}</STitleStyle>
           <SMetaStyle></SMetaStyle>
           <Flex>
-            <UserIcon width="16" height="16" style={{ alignContent: 'center', marginRight: '6px' }} />
+            <UserIcon width='16' height='16' style={{ alignContent: 'center', marginRight: '6px' }} />
             <SInfoStyle style={{ whiteSpace: 'nowrap' }}>{`${approvedCount}/${capacity}명`}</SInfoStyle>
             <SMetaSubStyle>·</SMetaSubStyle>
             <SInfoStyle>{`${canJoinOnlyActiveGeneration ? '활동 기수' : '전체 기수'} / ${displayParts}`}</SInfoStyle>
           </Flex>
-          <Flex align="center">
+          <Flex align='center'>
             <Avatar
               src={ownerImage}
               alt={`${title} 모임장 프로필`}

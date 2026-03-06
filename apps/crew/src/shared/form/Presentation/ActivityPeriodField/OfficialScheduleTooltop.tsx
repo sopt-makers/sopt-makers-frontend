@@ -64,7 +64,14 @@ const OfficialScheduleTooltip = () => {
     >
       <div style={{ display: 'flex', gap: '4px', marginRight: '16px' }}>
         <SoptNotice>SOPT 공식 일정 확인하기</SoptNotice>
-        <IconAlertCircle style={{ width: '16px', height: '16px', color: 'gray', cursor: 'pointer' }} />
+        <IconAlertCircle
+          style={{
+            width: '16px',
+            height: '16px',
+            color: 'gray',
+            cursor: 'pointer',
+          }}
+        />
       </div>
       {isSoptScheduleOpen && (
         <ToolTipDiv>

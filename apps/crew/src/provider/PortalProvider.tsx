@@ -14,7 +14,7 @@ export function PortalProvider({ children }: PortalProviderProps) {
     <PortalContext.Provider value={portalContainerRef}>
       {children}
       <div
-        ref={elem => {
+        ref={(elem) => {
           if (portalContainerRef !== null || elem === null) {
             return;
           }
@@ -33,7 +33,7 @@ interface PortalConsumerProps {
 export function PortalConsumer({ children }: PortalConsumerProps) {
   return (
     <PortalContext.Consumer>
-      {portalContainerRef => {
+      {(portalContainerRef) => {
         if (portalContainerRef === null || typeof window === 'undefined') {
           return null;
         }

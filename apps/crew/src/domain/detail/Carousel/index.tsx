@@ -17,8 +17,8 @@ const Carousel = ({ imageList }: CarouselProps) => {
 
   const settings = {
     infinite: false,
-    prevArrow: hasMultipleImages && <NextArrow className="prev" total={imageListLength} />,
-    nextArrow: hasMultipleImages && <NextArrow className="next" total={imageListLength} />,
+    prevArrow: hasMultipleImages && <NextArrow className='prev' total={imageListLength} />,
+    nextArrow: hasMultipleImages && <NextArrow className='next' total={imageListLength} />,
     responsive: [
       {
         breakpoint: 768,
@@ -34,7 +34,7 @@ const Carousel = ({ imageList }: CarouselProps) => {
       <Slider {...settings}>
         {imageList.map(({ id, url }) => (
           <SImageWrapper key={id}>
-            <img src={url} alt="" />
+            <img src={url} alt='' />
           </SImageWrapper>
         ))}
       </Slider>
@@ -46,9 +46,9 @@ export default Carousel;
 
 const SCarousel = styled('div', {
   '.slick-slider': {
-    flexType: 'center',
-    mt: '$60',
-    mb: '$80',
+    'flexType': 'center',
+    'mt': '$60',
+    'mb': '$80',
 
     '@mobile': {
       mt: '0',
@@ -66,9 +66,9 @@ const SCarousel = styled('div', {
   },
 
   '.slick-list': {
-    width: '100%',
-    maxWidth: '$869',
-    borderRadius: '14px',
+    'width': '100%',
+    'maxWidth': '$869',
+    'borderRadius': '14px',
 
     '@mobile': {
       borderRadius: '$0',
@@ -97,10 +97,10 @@ const SCarousel = styled('div', {
   },
 
   '.slick-dots li': {
-    position: 'relative',
-    top: '-14px',
-    display: 'inline-block',
-    width: 'fit-content',
+    'position': 'relative',
+    'top': '-14px',
+    'display': 'inline-block',
+    'width': 'fit-content',
 
     '& + &': {
       ml: '$4',
@@ -133,10 +133,10 @@ const SCarousel = styled('div', {
 
 const SImageWrapper = styled('div', {
   img: {
-    objectFit: 'cover',
-    width: '100%',
-    height: '$594',
-    margin: '0 auto',
+    'objectFit': 'cover',
+    'width': '100%',
+    'height': '$594',
+    'margin': '0 auto',
 
     '@mobile': {
       height: '$256',

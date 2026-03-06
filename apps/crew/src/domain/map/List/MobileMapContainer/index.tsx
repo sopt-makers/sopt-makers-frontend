@@ -10,7 +10,7 @@ const MobileMapContainer = () => {
 
   const ref = useInfiniteScroll({ hasNextPage, fetchNextPage });
 
-  const allMaps = data.pages.flatMap(page => page.soptMaps);
+  const allMaps = data.pages.flatMap((page) => page.soptMaps);
   const totalCount = data.pages[0]?.meta.itemCount ?? 0;
 
   return (

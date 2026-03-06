@@ -7,14 +7,14 @@ import { useState } from 'react';
 import SearchMobile from './Mobile';
 
 const buttonPositioner = css({
-  display: 'flex',
-  width: '100%',
-  padding: '11px 16px',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  flexShrink: 0,
-  borderRadius: '10px',
-  background: 'var(--Color-Gray-Scale-800, #202025)',
+  'display': 'flex',
+  'width': '100%',
+  'padding': '11px 16px',
+  'justifyContent': 'space-between',
+  'alignItems': 'center',
+  'flexShrink': 0,
+  'borderRadius': '10px',
+  'background': 'var(--Color-Gray-Scale-800, #202025)',
 
   //notice: MDS Input styling 에러로 인해, 직접 스타일링함함
   '& > button': {
@@ -40,9 +40,9 @@ function Search() {
   return (
     <SearchField
       className={buttonPositioner()}
-      placeholder="모임을 검색해보세요"
+      placeholder='모임을 검색해보세요'
       value={inputValue}
-      onChange={e => {
+      onChange={(e) => {
         setInputValue(e.target.value);
       }}
       onSubmit={() => {

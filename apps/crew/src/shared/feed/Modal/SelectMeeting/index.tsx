@@ -17,7 +17,7 @@ function SelectMeeting({ selectMeetingInfo, meetingList, onClick }: SelectMeetin
   const [isSelectOpen, setIsSelectOpen] = useState(false);
 
   const handleSelectClick = () => {
-    setIsSelectOpen(prev => !prev);
+    setIsSelectOpen((prev) => !prev);
   };
 
   const handleSelectItemClick = (meetingInfo: GroupInfo) => {
@@ -38,7 +38,7 @@ function SelectMeeting({ selectMeetingInfo, meetingList, onClick }: SelectMeetin
       <SelectMobileLayout isSelectOpen={isSelectOpen}>
         <SelectMobileTitle>어떤 모임의 피드를 작성할까요?</SelectMobileTitle>
         <SelectMobileListWrapper>
-          {meetingList.map(meetingInfo => (
+          {meetingList.map((meetingInfo) => (
             <SelectMeetingOptionItem
               meetingInfo={meetingInfo}
               isSelected={selectMeetingInfo?.id === meetingInfo.id}
@@ -74,7 +74,7 @@ function SelectMeeting({ selectMeetingInfo, meetingList, onClick }: SelectMeetin
           }}
         />
         <SelectDesktopLayout isSelectOpen={isSelectOpen}>
-          {meetingList.map(meetingInfo => (
+          {meetingList.map((meetingInfo) => (
             <SelectMeetingOptionItem
               meetingInfo={meetingInfo}
               isSelected={selectMeetingInfo?.id === meetingInfo.id}
@@ -94,23 +94,23 @@ const Container = styled('div', {
 });
 
 const InfoWrapper = styled('div', {
-  mt: '$40',
-  flexType: 'verticalCenter',
-  cursor: 'pointer',
+  'mt': '$40',
+  'flexType': 'verticalCenter',
+  'cursor': 'pointer',
   '@media (max-width: 768px)': {
     px: '$20',
   },
 });
 
 const SThumbnailImage = styled('div', {
-  width: '56px',
-  height: '56px',
-  borderRadius: '$6',
-  overflow: 'hidden',
-  backgroundColor: '$gray800',
-  backgroundSize: 'cover',
-  backgroundPosition: 'center center',
-  backgroundRepeat: 'no-repeat',
+  'width': '56px',
+  'height': '56px',
+  'borderRadius': '$6',
+  'overflow': 'hidden',
+  'backgroundColor': '$gray800',
+  'backgroundSize': 'cover',
+  'backgroundPosition': 'center center',
+  'backgroundRepeat': 'no-repeat',
   '@media (max-width: 768px)': {
     width: '40px',
     height: '40px',
@@ -118,10 +118,10 @@ const SThumbnailImage = styled('div', {
 });
 
 const SCategory = styled('p', {
-  color: '$gray400',
-  fontStyle: 'T3',
-  whiteSpace: 'nowrap',
-  ml: '$20',
+  'color': '$gray400',
+  'fontStyle': 'T3',
+  'whiteSpace': 'nowrap',
+  'ml': '$20',
   '@media (max-width: 768px)': {
     fontStyle: 'T4',
     ml: '$12',
@@ -129,35 +129,35 @@ const SCategory = styled('p', {
 });
 
 const STitle = styled('p', {
-  maxWidth: '70%',
-  color: '$white',
-  fontStyle: 'T3',
-  ml: '$8',
-  overflow: 'hidden',
-  whiteSpace: 'nowrap',
-  textOverflow: 'ellipsis',
-  wordBreak: 'break-all',
+  'maxWidth': '70%',
+  'color': '$white',
+  'fontStyle': 'T3',
+  'ml': '$8',
+  'overflow': 'hidden',
+  'whiteSpace': 'nowrap',
+  'textOverflow': 'ellipsis',
+  'wordBreak': 'break-all',
   '@media (max-width: 768px)': {
     fontStyle: 'T4',
   },
 });
 
 const SelectDesktopLayout = styled('div', {
-  position: 'absolute',
-  top: '120%',
-  left: 0,
-  p: '$8',
-  maxWidth: '500px',
-  height: '344px',
-  width: '100%',
+  'position': 'absolute',
+  'top': '120%',
+  'left': 0,
+  'p': '$8',
+  'maxWidth': '500px',
+  'height': '344px',
+  'width': '100%',
 
-  backgroundColor: '$gray700',
-  borderRadius: '$6',
-  zIndex: '$3',
-  overflowX: 'hidden',
-  overflowY: 'auto',
-  transition: 'all 0.3s ease-in-out',
-  variants: {
+  'backgroundColor': '$gray700',
+  'borderRadius': '$6',
+  'zIndex': '$3',
+  'overflowX': 'hidden',
+  'overflowY': 'auto',
+  'transition': 'all 0.3s ease-in-out',
+  'variants': {
     isSelectOpen: {
       true: {
         height: '344px',
@@ -182,22 +182,22 @@ const SelectMobileTitle = styled('p', {
 });
 
 const SelectMobileLayout = styled('div', {
-  position: 'absolute',
-  display: 'none',
+  'position': 'absolute',
+  'display': 'none',
 
-  bottom: '20px',
-  left: '20px',
-  right: '20px',
-  pt: '$24',
-  pb: '$16',
-  height: '400px',
-  overflow: 'hidden',
+  'bottom': '20px',
+  'left': '20px',
+  'right': '20px',
+  'pt': '$24',
+  'pb': '$16',
+  'height': '400px',
+  'overflow': 'hidden',
 
-  backgroundColor: '$gray700',
-  borderRadius: '16px',
-  zIndex: '$3',
-  transition: 'all 0.3s ease-in-out',
-  variants: {
+  'backgroundColor': '$gray700',
+  'borderRadius': '16px',
+  'zIndex': '$3',
+  'transition': 'all 0.3s ease-in-out',
+  'variants': {
     isSelectOpen: {
       true: {
         height: '400px',

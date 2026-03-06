@@ -109,9 +109,9 @@ export const Flex = <E extends keyof JSX.IntrinsicElements>({
 };
 
 Flex.Center = <E extends keyof JSX.IntrinsicElements>(props: Props<E>) => (
-  <Flex<E> align="center" justify="center" {...props} />
+  <Flex<E> align='center' justify='center' {...props} />
 );
-Flex.CenterVertical = <E extends keyof JSX.IntrinsicElements>(props: Props<E>) => <Flex<E> align="center" {...props} />;
+Flex.CenterVertical = <E extends keyof JSX.IntrinsicElements>(props: Props<E>) => <Flex<E> align='center' {...props} />;
 Flex.CenterHorizontal = <E extends keyof JSX.IntrinsicElements>(props: Props<E>) => (
-  <Flex<E> justify="center" {...props} />
+  <Flex<E> justify='center' {...props} />
 );

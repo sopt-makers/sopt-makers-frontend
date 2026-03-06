@@ -30,30 +30,30 @@ const ProfileAnchor = ({ profileData }: ProfileAnchorProps) => {
 export default ProfileAnchor;
 
 const SProfileAnchor = styled('a', {
-  flexType: 'verticalCenter',
-  color: '$gray10',
-  width: 'fit-content',
-  bg: '$gray900',
-  br: '10px',
+  'flexType': 'verticalCenter',
+  'color': '$gray10',
+  'width': 'fit-content',
+  'bg': '$gray900',
+  'br': '10px',
 
-  display: 'flex',
-  padding: '12px 16px',
-  justifyContent: 'center',
-  alignItems: 'center',
-  gap: '14px',
+  'display': 'flex',
+  'padding': '12px 16px',
+  'justifyContent': 'center',
+  'alignItems': 'center',
+  'gap': '14px',
   '@media (max-width: 414px)': {
     padding: '5px 8px',
     gap: '6px',
     br: '6.25px',
   },
 
-  img: {
-    width: '$48',
-    height: '$48',
-    borderRadius: '50%',
-    objectFit: 'cover',
+  'img': {
+    'width': '$48',
+    'height': '$48',
+    'borderRadius': '50%',
+    'objectFit': 'cover',
 
-    background: '$gray700',
+    'background': '$gray700',
     '@media (max-width: 768px)': {
       width: '$32',
       height: '$32',
@@ -65,8 +65,8 @@ const SProfileAnchor = styled('a', {
   },
 
   '& > svg:first-child': {
-    width: '$48',
-    height: '$48',
+    'width': '$48',
+    'height': '$48',
 
     '@media (max-width: 768px)': {
       width: '$32',
@@ -80,7 +80,7 @@ const SProfileAnchor = styled('a', {
 
   '& > span': {
     ...fontsObject.TITLE_3_24_SB,
-    fontWeight: 500,
+    'fontWeight': 500,
 
     '@media (max-width: 768px)': {
       fontStyle: 'T5',

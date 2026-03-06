@@ -1,24 +1,22 @@
-import invariant from 'invariant'
+import invariant from 'invariant';
 
-const combineRegExps = regExps => {
-  const serializedRegexParser = /^\/(.+)\/(\w+)?$/
+const combineRegExps = (regExps) => {
+  const serializedRegexParser = /^\/(.+)\/(\w+)?$/;
   return new RegExp(
     regExps
-      .map(regex => {
-        const [, regexString, regexFlags] = serializedRegexParser.exec(
-          regex.toString()
-        )
+      .map((regex) => {
+        const [, regexString, regexFlags] = serializedRegexParser.exec(regex.toString());
 
         invariant(
           !regexFlags,
-          `RegExp flags are not supported. Change /${regexString}/${regexFlags} into /${regexString}/`
-        )
+          `RegExp flags are not supported. Change /${regexString}/${regexFlags} into /${regexString}/`,
+        );
 
-        return `(${regexString})`
+        return `(${regexString})`;
       })
       .join('|'),
-    'g'
-  )
-}
+    'g',
+  );
+};
 
-export default combineRegExps
+export default combineRegExps;

@@ -5,7 +5,7 @@ import MobileSizeSkeleton, { MobileSizeSkeletonProps } from './MobileSize';
 function CardSkeleton({ mobileType }: MobileSizeSkeletonProps) {
   return (
     <>
-      <div className="pc-only">
+      <div className='pc-only'>
         <SLayout>
           <SBasicSkeleton
             css={{
@@ -22,7 +22,7 @@ function CardSkeleton({ mobileType }: MobileSizeSkeletonProps) {
           <SDetailInfoSkeleton css={{ width: '120px', height: '20px' }} />
         </SLayout>
       </div>
-      <div className="mobile-only">
+      <div className='mobile-only'>
         <MobileSizeSkeleton mobileType={mobileType} />
       </div>
     </>
@@ -32,15 +32,15 @@ function CardSkeleton({ mobileType }: MobileSizeSkeletonProps) {
 export default CardSkeleton;
 
 export const SLayout = styled('div', {
-  width: '380px',
+  'width': '380px',
   '@media (max-width: 768px)': {
     width: '162px',
   },
 });
 
 export const SBasicSkeleton = styled('div', {
-  backgroundColor: '$gray700',
-  borderRadius: '6px',
+  'backgroundColor': '$gray700',
+  'borderRadius': '6px',
   '@media (max-width: 768px)': {
     borderRadius: '5px',
   },

@@ -3,8 +3,8 @@ import { IconBell, IconChevronRight } from '@sopt-makers/icons';
 import { styled } from '@stitches/react';
 
 export const SIconBell = styled(IconBell, {
-  width: '20px',
-  height: '20px',
+  'width': '20px',
+  'height': '20px',
   '@mobile': {
     width: '16px',
     height: '16px',
@@ -22,18 +22,18 @@ export const SSelectedAlarm = styled('span', {
 });
 
 export const SSettingButton = styled('button', {
-  display: 'flex',
-  flexType: 'verticalCenter',
-  gap: '$8',
-  color: '$gray10',
-  fontAg: '18_semibold_100',
+  'display': 'flex',
+  'flexType': 'verticalCenter',
+  'gap': '$8',
+  'color': '$gray10',
+  'fontAg': '18_semibold_100',
 
   '@tablet': {
     padding: '0',
     fontAg: '14_semibold_100',
   },
 
-  path: {
+  'path': {
     stroke: '$gray10',
   },
   '@media (max-width: 320px)': {

@@ -45,12 +45,12 @@ const MbtiRank = styled.div<{ rank: number }>`
           color: ${colors.white};
         `
       : props.rank === 2
-      ? css`
-          color: ${colors.gray100};
-        `
-      : css`
-          color: ${colors.gray200};
-        `}
+        ? css`
+            color: ${colors.gray100};
+          `
+        : css`
+            color: ${colors.gray200};
+          `}
 
   @media ${MOBILE_MEDIA_QUERY} {
     ${fonts.TITLE_18_SB};

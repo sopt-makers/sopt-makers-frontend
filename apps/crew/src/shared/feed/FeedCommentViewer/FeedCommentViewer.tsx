@@ -42,7 +42,10 @@ export default function FeedCommentViewer({
     setIsReCommentClicked(true);
     //commentParentId: 본인의 부모 댓글의 id, parentComment: 본인이 부모 댓글 여부
     if (commentParentId) {
-      setParentComment({ parentComment: false, parentCommentId: commentParentId });
+      setParentComment({
+        parentComment: false,
+        parentCommentId: commentParentId,
+      });
     } else {
       setParentComment({ parentComment: false, parentCommentId: comment.id });
     }
@@ -60,7 +63,7 @@ export default function FeedCommentViewer({
           </Name>
           <Date>{fromNow(comment.createdDate)}</Date>
         </AuthorWrapper>
-        <Menu as="div" style={{ position: 'relative' }}>
+        <Menu as='div' style={{ position: 'relative' }}>
           <Menu.Button>
             <MenuIcon />
           </Menu.Button>
@@ -142,11 +145,11 @@ const MenuItems = styled(Menu.Items, {
   background: '$gray800',
 });
 const SMenuItemContainer = styled('div', {
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  width: '80px',
-  background: '$gray800',
+  'display': 'flex',
+  'alignItems': 'center',
+  'justifyContent': 'center',
+  'width': '80px',
+  'background': '$gray800',
 
   '&:hover': {
     background: '$gray700',
@@ -188,18 +191,18 @@ const SLikeHoverIcon = styled(LikeHoverIcon, {
   display: 'none',
 });
 const LikeIconWrapper = styled('div', {
-  width: '20px',
-  height: '20px',
-  color: '$gray300',
-  display: 'flex',
-  flexType: 'center',
+  'width': '20px',
+  'height': '20px',
+  'color': '$gray300',
+  'display': 'flex',
+  'flexType': 'center',
   '&:hover svg:first-of-type': {
     display: 'none',
   },
   '&:hover svg:nth-of-type(2)': {
     display: 'block',
   },
-  variants: {
+  'variants': {
     isLiked: {
       true: {
         '&:hover svg:first-of-type': {
@@ -222,11 +225,11 @@ const ReCommentWrapper = styled('div', {
   ...fontsObject.LABEL_4_12_SB,
 });
 const MessageIconWrapper = styled('div', {
-  width: '20px',
-  height: '20px',
-  color: '$gray300',
-  display: 'flex',
-  flexType: 'center',
+  'width': '20px',
+  'height': '20px',
+  'color': '$gray300',
+  'display': 'flex',
+  'flexType': 'center',
   '&:hover svg:first-of-type': {
     display: 'none',
   },

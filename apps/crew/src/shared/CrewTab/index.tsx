@@ -20,23 +20,23 @@ const CrewTab = ({ children }: { children?: ReactNode }) => {
   const lastSegment = (path.split('/').at(-1) || 'group') as keyof typeof tabText;
 
   return (
-    <Flex align="center" justify="between">
-      <TabList text={tabText[lastSegment]} size="big">
-        <Link href="/" onClick={() => ampli.clickNavbarGroup({ menu: '피드' })}>
-          <TabList.Item text="feedAll">홈</TabList.Item>
+    <Flex align='center' justify='between'>
+      <TabList text={tabText[lastSegment]} size='big'>
+        <Link href='/' onClick={() => ampli.clickNavbarGroup({ menu: '피드' })}>
+          <TabList.Item text='feedAll'>홈</TabList.Item>
         </Link>
-        <Link href="/list" onClick={() => ampli.clickNavbarGroup({ menu: '전체 모임' })}>
-          <TabList.Item text="groupAll">전체 모임</TabList.Item>
+        <Link href='/list' onClick={() => ampli.clickNavbarGroup({ menu: '전체 모임' })}>
+          <TabList.Item text='groupAll'>전체 모임</TabList.Item>
         </Link>
-        <Link href="/mine" onClick={() => ampli.clickNavbarGroup({ menu: '내 모임' })}>
-          <TabList.Item text="mine">내 모임</TabList.Item>
+        <Link href='/mine' onClick={() => ampli.clickNavbarGroup({ menu: '내 모임' })}>
+          <TabList.Item text='mine'>내 모임</TabList.Item>
         </Link>
-        <Link href="/map" onClick={() => ampli.clickNavbarGroup({ menu: '솝맵' })}>
-          <TabList.Item text="map">
+        <Link href='/map' onClick={() => ampli.clickNavbarGroup({ menu: '솝맵' })}>
+          <TabList.Item text='map'>
             {/* 홍보 이후 New 키워드 제거 */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
               솝맵
-              <Tag size="md" shape="rect" variant="primary">
+              <Tag size='md' shape='rect' variant='primary'>
                 New
               </Tag>
             </div>

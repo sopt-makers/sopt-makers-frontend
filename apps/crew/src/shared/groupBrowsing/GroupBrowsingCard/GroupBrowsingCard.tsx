@@ -35,14 +35,14 @@ const GroupBrowsingCard: FC<MeetingData> = ({ id, title, user, imageURL }) => {
     <Link href={`/detail?id=${id}`} style={{ display: 'flex', justifyContent: 'start', width: '305px' }}>
       <SGroupBrowsingCard
         css={{
-          background: `linear-gradient(0deg, rgba(23, 24, 28, 0.60) 0%, rgba(23, 24, 28, 0.60) 100%), url(${imgSrc}) lightgray 50% / cover no-repeat`,
+          'background': `linear-gradient(0deg, rgba(23, 24, 28, 0.60) 0%, rgba(23, 24, 28, 0.60) 100%), url(${imgSrc}) lightgray 50% / cover no-repeat`,
           '&:hover': {
             background: `linear-gradient(0deg, rgba(23, 24, 28, 0.80) 0%, rgba(23, 24, 28, 0.80) 100%), url(${imgSrc}) lightgray 50% / cover no-repeat`,
           },
         }}
       >
         <SUser>
-          <Avatar src={user.profileImage} alt="" sx={{ width: 18, height: 18 }} />
+          <Avatar src={user.profileImage} alt='' sx={{ width: 18, height: 18 }} />
           <SDesc>{user.name}</SDesc>
         </SUser>
         <STitle>{title}</STitle>
@@ -56,20 +56,27 @@ const GroupBrowsingCard: FC<MeetingData> = ({ id, title, user, imageURL }) => {
         </SBottom>
 
         <SOverlayContent>
-          <Flex align="center">
+          <Flex align='center'>
             <CalendarIcon style={{ marginRight: '6px' }} />
             <SDesc>
               {dayjs(flashData?.activityStartDate).format('YYYY.MM.DD')} -{' '}
               {dayjs(flashData?.activityEndDate).format('YYYY.MM.DD')}
             </SDesc>
           </Flex>
-          <Flex align="center">
-            <IconLocation style={{ width: '12px', height: '12px', marginRight: '6px', color: '#9D9DA4' }} />
+          <Flex align='center'>
+            <IconLocation
+              style={{
+                width: '12px',
+                height: '12px',
+                marginRight: '6px',
+                color: '#9D9DA4',
+              }}
+            />
             <SDesc>{flashData?.flashPlace ?? '협의 후 결정'}</SDesc>
           </Flex>
           <SChipWrapper>
-            {flashData?.welcomeMessageTypes.map(welcome => (
-              <Tag size="sm" shape="pill" variant="secondary" type="solid">
+            {flashData?.welcomeMessageTypes.map((welcome) => (
+              <Tag size='sm' shape='pill' variant='secondary' type='solid'>
                 {welcome}
               </Tag>
             ))}

@@ -17,11 +17,11 @@ function SelectBottomSheet({
   headerRight,
 }: PropsWithChildren<SelectBottomSheetProps>) {
   return (
-    <SLayout direction="column" justify="between" isVisible={isVisible}>
+    <SLayout direction='column' justify='between' isVisible={isVisible}>
       <SelectSection>
-        <Flex css={{ px: '$28' }} align="center" justify="between">
+        <Flex css={{ px: '$28' }} align='center' justify='between'>
           <div>{headerLeft}</div>
-          <SLabel as="p">{label}</SLabel>
+          <SLabel as='p'>{label}</SLabel>
           <div>{headerRight}</div>
         </Flex>
         <SListItemWrapper>{children}</SListItemWrapper>
@@ -34,25 +34,25 @@ function SelectBottomSheet({
 export default SelectBottomSheet;
 
 const SLayout = styled(Flex, {
-  position: 'fixed',
-  bottom: 0,
-  right: 0,
-  left: 0,
-  width: '100vw',
-  height: '0px',
-  backgroundColor: '$gray800',
-  boxShadow: '4px 4px 40px $gray800',
-  borderRadius: '20px 20px 0px 0px',
-  zIndex: '$2',
-  variants: {
+  'position': 'fixed',
+  'bottom': 0,
+  'right': 0,
+  'left': 0,
+  'width': '100vw',
+  'height': '0px',
+  'backgroundColor': '$gray800',
+  'boxShadow': '4px 4px 40px $gray800',
+  'borderRadius': '20px 20px 0px 0px',
+  'zIndex': '$2',
+  'variants': {
     isVisible: {
       true: { height: 'auto', minHeight: '306px' },
       false: { height: '0px' },
     },
   },
-  transition: 'height 0.5s',
-  color: '#fff',
-  display: 'none',
+  'transition': 'height 0.5s',
+  'color': '#fff',
+  'display': 'none',
   '@media (max-width: 768px)': {
     display: 'flex',
   },

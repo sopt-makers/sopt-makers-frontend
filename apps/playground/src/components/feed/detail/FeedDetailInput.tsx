@@ -84,7 +84,11 @@ const FeedDetailInput: FC<FeedDetailInputProps> = ({
       {
         onSuccess: async () => {
           setCommentData((prev) => ({ ...prev, text: '' }));
-          setReplyState({ member: null, replyTargetCommentId: null, parentCommentId: null });
+          setReplyState({
+            member: null,
+            replyTargetCommentId: null,
+            parentCommentId: null,
+          });
           const { isSuccess } = await refetchCommentQuery();
           if (isSuccess) {
             const loggingCategory = hasChildren ? `${category}_${tag}` : `${category}`;

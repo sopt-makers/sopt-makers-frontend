@@ -12,7 +12,7 @@ function Switch({ css, checked, onChange }: SwitchProps) {
   return (
     <HeadlessSwitch as={Fragment} checked={checked} onChange={onChange}>
       {({ checked }) => (
-        <SSwitch type="button" css={{ ...css }} checked={checked}>
+        <SSwitch type='button' css={{ ...css }} checked={checked}>
           <SThumb />
         </SSwitch>
       )}
@@ -33,7 +33,7 @@ const SSwitch = styled('button', {
   variants: {
     checked: {
       true: {
-        backgroundColor: '$success',
+        'backgroundColor': '$success',
         '& > div': {
           transform: 'translate3d(12px,0,0)',
         },

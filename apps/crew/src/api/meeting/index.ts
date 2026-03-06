@@ -63,18 +63,18 @@ export const getMeetingMemberCSV = async (meetingId: string) => {
   // status를 1로 박아 놓은 이유 : 승인된 신청자만 보기 위해
   // type을 0,1로 둔 이유 : 지원, 초대 둘다 보기 위해 (지금은 초대가 없지만...)
   return await api.get<GetMeetingMemberCSV['response']>(
-    `/meeting/v2/${meetingId}/list/csv?status=1&type=0,1&order=desc`
+    `/meeting/v2/${meetingId}/list/csv?status=1&type=0,1&order=desc`,
   );
 };
 
 export const postMeetingApplication = async (
-  body: PostMeetingApplication['request']
+  body: PostMeetingApplication['request'],
 ): Promise<PostMeetingApplication['response']> => {
   return (await api.post<PostMeetingApplication['response']>(`/meeting/v2/apply`, body)).data;
 };
 
 export const postEventApplication = async (
-  body: PostMeetingApplication['request']
+  body: PostMeetingApplication['request'],
 ): Promise<PostMeetingApplication['response']> => {
   return (await api.post<PostMeetingApplication['response']>(`/meeting/v2/apply/undefined`, body)).data;
 };

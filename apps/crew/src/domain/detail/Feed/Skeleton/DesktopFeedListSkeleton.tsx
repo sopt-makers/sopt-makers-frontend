@@ -26,10 +26,10 @@ const DesktopFeedListSkeleton = ({ row, column }: DesktopFeedListSkeletonProps) 
 export default DesktopFeedListSkeleton;
 
 const SDesktopFeedListSkeleton = styled('div', {
-  display: 'grid',
-  gap: '24px 30px',
-  margin: '0 auto',
-  mt: '$56',
+  'display': 'grid',
+  'gap': '24px 30px',
+  'margin': '0 auto',
+  'mt': '$56',
   '@media (max-width: 768px)': {
     display: 'none',
   },

@@ -50,10 +50,10 @@ function Pagination({ totalPagesLength = 1, currentPageIndex = 1, changeCurrentP
   }, [currentPageIndex]);
 
   return (
-    <Flex align="center" justify="center">
-      <Flex align="center">
-        <SArrowButton direction="left" disabled={pagesIndex === 0} onClick={pagesIndex === 0 ? () => {} : prevBundle} />
-        <Flex css={{ mx: '$24', '@media (max-width: 768px)': { mx: '$10' } }} as="ul">
+    <Flex align='center' justify='center'>
+      <Flex align='center'>
+        <SArrowButton direction='left' disabled={pagesIndex === 0} onClick={pagesIndex === 0 ? () => {} : prevBundle} />
+        <Flex css={{ 'mx': '$24', '@media (max-width: 768px)': { mx: '$10' } }} as='ul'>
           {pagesBundle[pagesIndex]?.map((item, idx) => (
             <SPageLink key={idx} isCurrent={currentPageIndex === item} onClick={() => handlePageLinkClick(item)}>
               {item}
@@ -61,7 +61,7 @@ function Pagination({ totalPagesLength = 1, currentPageIndex = 1, changeCurrentP
           ))}
         </Flex>
         <SArrowButton
-          direction="right"
+          direction='right'
           disabled={pagesBundle.length - 1 <= pagesIndex}
           onClick={pagesBundle.length - 1 <= pagesIndex ? () => {} : nextBundle}
         />
@@ -73,13 +73,13 @@ function Pagination({ totalPagesLength = 1, currentPageIndex = 1, changeCurrentP
 export default Pagination;
 
 const SPageLink = styled('li', {
-  flexType: 'center',
-  width: '40px',
-  height: '40px',
-  fontStyle: 'H3',
-  cursor: 'pointer',
-  color: '$gray200',
-  variants: {
+  'flexType': 'center',
+  'width': '40px',
+  'height': '40px',
+  'fontStyle': 'H3',
+  'cursor': 'pointer',
+  'color': '$gray200',
+  'variants': {
     isCurrent: {
       true: {
         color: '$gray950',
@@ -93,9 +93,9 @@ const SPageLink = styled('li', {
   },
 
   '@media (max-width: 768px)': {
-    width: '$24',
-    height: '$24',
-    fontAg: '14_bold_100',
+    'width': '$24',
+    'height': '$24',
+    'fontAg': '14_bold_100',
     '& + &': {
       ml: '$10',
     },

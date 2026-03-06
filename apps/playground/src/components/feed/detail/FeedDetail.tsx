@@ -76,7 +76,11 @@ const FeedDetail = ({ postId, renderCategoryLink, renderBackLink }: FeedDetailPr
   });
 
   useEffect(() => {
-    setReplyState({ member: null, replyTargetCommentId: null, parentCommentId: null });
+    setReplyState({
+      member: null,
+      replyTargetCommentId: null,
+      parentCommentId: null,
+    });
   }, [postId]);
   if (postData == null || commentData == null) {
     return null;
@@ -182,7 +186,9 @@ const FeedDetail = ({ postId, renderCategoryLink, renderBackLink }: FeedDetailPr
           tag={currentCategory?.tag?.name ?? '전체'}
           hasChildren={children.length > 0}
           onSubmitted={() => {
-            queryClient.invalidateQueries({ queryKey: useGetPostsInfiniteQuery.getKey(categoryId) });
+            queryClient.invalidateQueries({
+              queryKey: useGetPostsInfiniteQuery.getKey(categoryId),
+            });
             requestAnimationFrame(() => {
               // MEMO(@jun): refecth 이후 render가 완료되기 전에 scroll 처리가 되어버려서, 리렌더링 이후에 실행하도록
               if (containerRef.current) {

@@ -61,9 +61,9 @@ const FeedReCommentContainer = ({ comment, reply, postUserId, onClickLike }: Fee
                     overlay.open(({ isOpen, close }) => (
                       <ConfirmModal
                         isModalOpened={isOpen}
-                        message="댓글을 삭제하시겠습니까?"
-                        cancelButton="돌아가기"
-                        confirmButton="삭제하기"
+                        message='댓글을 삭제하시겠습니까?'
+                        cancelButton='돌아가기'
+                        confirmButton='삭제하기'
                         handleModalClose={close}
                         handleConfirm={() => {
                           mutateDeleteComment(reply.id);
@@ -83,9 +83,9 @@ const FeedReCommentContainer = ({ comment, reply, postUserId, onClickLike }: Fee
                     overlay.open(({ isOpen, close }) => (
                       <ConfirmModal
                         isModalOpened={isOpen}
-                        message="댓글을 신고하시겠습니까?"
-                        cancelButton="돌아가기"
-                        confirmButton="신고하기"
+                        message='댓글을 신고하시겠습니까?'
+                        cancelButton='돌아가기'
+                        confirmButton='신고하기'
                         handleModalClose={close}
                         handleConfirm={() => {
                           mutateReportComment(reply.id);

@@ -14,7 +14,7 @@ export const deserializeSoptMapData = (data: GetMapDetail['response']): FormType
 
   return {
     name: data.placeName ?? '',
-    subwayStations: data.stationNames?.map(station => ({ name: station })) ?? [],
+    subwayStations: data.stationNames?.map((station) => ({ name: station })) ?? [],
     description: data.description ?? '',
     category: {
       label,

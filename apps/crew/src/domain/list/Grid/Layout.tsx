@@ -3,20 +3,20 @@ import { styled } from 'stitches.config';
 
 function GridLayout({ children, mobileType }: PropsWithChildren<{ mobileType: 'list' | 'card' }>) {
   return (
-    <StyledGridContainer as="ul" mobileType={mobileType}>
+    <StyledGridContainer as='ul' mobileType={mobileType}>
       {children}
     </StyledGridContainer>
   );
 }
 
 const StyledGridContainer = styled('div', {
-  display: 'grid',
-  gridTemplateColumns: 'repeat(3, 1fr)',
-  rowGap: '104px',
-  columnGap: '30px',
+  'display': 'grid',
+  'gridTemplateColumns': 'repeat(3, 1fr)',
+  'rowGap': '104px',
+  'columnGap': '30px',
 
-  margin: '24px 0 120px 0',
-  placeItems: 'start center',
+  'margin': '24px 0 120px 0',
+  'placeItems': 'start center',
 
   '@laptop': {
     gridTemplateColumns: 'repeat(2, 1fr)',
@@ -28,7 +28,7 @@ const StyledGridContainer = styled('div', {
     alignItems: 'center',
   },
 
-  variants: {
+  'variants': {
     mobileType: {
       list: {
         '@mobile': {

@@ -21,7 +21,7 @@ const Carousel = () => {
   const componentRef = useRef(null);
 
   useEffect(() => {
-    const resizeObserver = new ResizeObserver(entries => {
+    const resizeObserver = new ResizeObserver((entries) => {
       // eslint-disable-next-line prefer-const
       for (let entry of entries) {
         setWidth(entry.contentRect.width);
@@ -44,14 +44,14 @@ const Carousel = () => {
       <SBlankArrow></SBlankArrow>
     ) : (
       <SPrevArrowContainer>
-        <NextArrow className="prev" total={cardListLength} />
+        <NextArrow className='prev' total={cardListLength} />
       </SPrevArrowContainer>
     ),
     nextArrow: isLastPage ? (
       <SBlankArrow></SBlankArrow>
     ) : (
       <SNextArrowContainer>
-        <NextArrow className="next" total={cardListLength} />
+        <NextArrow className='next' total={cardListLength} />
       </SNextArrowContainer>
     ),
     speed: 500,
@@ -66,7 +66,7 @@ const Carousel = () => {
   return (
     <SCarousel ref={componentRef}>
       <Slider {...settings}>
-        {cardList.map(card => (
+        {cardList.map((card) => (
           <GroupBrowsingCard key={card.id} {...card}></GroupBrowsingCard>
         ))}
       </Slider>
@@ -83,13 +83,13 @@ export default () => {
 };
 
 const SCarousel = styled('div', {
-  position: 'relative',
+  'position': 'relative',
 
   '.slick-slider': {
-    flexType: 'center',
-    position: 'relative',
-    maxWidth: '1328px',
-    width: '100vw',
+    'flexType': 'center',
+    'position': 'relative',
+    'maxWidth': '1328px',
+    'width': '100vw',
 
     '@laptop': {
       width: '100%',
@@ -99,16 +99,16 @@ const SCarousel = styled('div', {
   },
 
   '.slick-list': {
-    width: '1200px',
-    minWidth: '1200px',
+    'width': '1200px',
+    'minWidth': '1200px',
 
     '& a': {
       flexType: 'center',
     },
 
     '@laptop': {
-      width: '732px',
-      minWidth: '732px',
+      'width': '732px',
+      'minWidth': '732px',
 
       '&:after': {
         content: '""',
@@ -130,7 +130,7 @@ const SCarousel = styled('div', {
   },
 
   '.slick-next': {
-    transform: 'rotate(180deg)',
+    'transform': 'rotate(180deg)',
     '@laptop': {
       right: '-10px',
     },

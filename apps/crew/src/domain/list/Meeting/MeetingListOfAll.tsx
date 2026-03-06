@@ -44,15 +44,15 @@ function MeetingListOfAll() {
       </SMeetingCountWrapper>
       {meetingListData?.meetings.length ? (
         <>
-          <GridLayout mobileType="list">
+          <GridLayout mobileType='list'>
             {meetingListData.meetings.slice(0, 2).map((meetingData: MeetingData) => (
-              <Card key={meetingData.id} meetingData={meetingData} mobileType="list" />
+              <Card key={meetingData.id} meetingData={meetingData} mobileType='list' />
             ))}
 
             {meetingAds?.advertisements && meetingListData?.meta.page === 1 && (
               <Link
                 href={meetingAds?.advertisements[0]?.advertisementLink ?? ''}
-                target="_blank"
+                target='_blank'
                 onClick={() =>
                   ampli.clickBanner({
                     banner_id: meetingAds?.advertisements[0]?.advertisementId,
@@ -65,18 +65,26 @@ function MeetingListOfAll() {
                 {isDesktop ? (
                   <img
                     src={meetingAds?.advertisements[0]?.desktopImageUrl}
-                    style={{ width: '380px', height: '478px', borderRadius: '12px' }}
+                    style={{
+                      width: '380px',
+                      height: '478px',
+                      borderRadius: '12px',
+                    }}
                   ></img>
                 ) : (
                   <img
                     src={meetingAds?.advertisements[0]?.mobileImageUrl}
-                    style={{ width: '100%', height: '82px', borderRadius: '8px' }}
+                    style={{
+                      width: '100%',
+                      height: '82px',
+                      borderRadius: '8px',
+                    }}
                   ></img>
                 )}
               </Link>
             )}
-            {meetingListData?.meetings.slice(2).map(meetingData => (
-              <Card key={meetingData.id} meetingData={meetingData} mobileType="list" />
+            {meetingListData?.meetings.slice(2).map((meetingData) => (
+              <Card key={meetingData.id} meetingData={meetingData} mobileType='list' />
             ))}
           </GridLayout>
 
@@ -89,7 +97,7 @@ function MeetingListOfAll() {
           </PaginationWrapper>
         </>
       ) : (
-        <EmptyView message="검색 결과가 없습니다." />
+        <EmptyView message='검색 결과가 없습니다.' />
       )}
     </main>
   );
@@ -99,9 +107,9 @@ export default () => {
   return (
     <Suspense
       fallback={
-        <GridLayout mobileType="list">
+        <GridLayout mobileType='list'>
           {new Array(6).fill(null).map((_, index) => (
-            <CardSkeleton key={index} mobileType="list" />
+            <CardSkeleton key={index} mobileType='list' />
           ))}
         </GridLayout>
       }
@@ -116,14 +124,14 @@ const PaginationWrapper = styled('div', {
 });
 
 const SMeetingCountWrapper = styled('div', {
-  display: 'flex',
+  'display': 'flex',
   '@media (max-width: 849px)': {
     justifyContent: 'center',
   },
 });
 
 const SMeetingCount = styled('p', {
-  fontStyle: 'H3',
+  'fontStyle': 'H3',
   '@media (max-width: 849px)': {
     width: '380px',
   },

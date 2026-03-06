@@ -36,7 +36,9 @@ export default function ShowCoffeechatToggle({ isBlind, memberId }: ShowCoffeech
         queryClient.refetchQueries({ queryKey: ['getRecentCoffeeChat'] });
         queryClient.refetchQueries({ queryKey: ['getMembersCoffeeChat'] });
         queryClient.invalidateQueries({ queryKey: ['getMemberOfMe'] });
-        queryClient.invalidateQueries({ queryKey: getCoffeechatDetail.cacheKey(memberId) });
+        queryClient.invalidateQueries({
+          queryKey: getCoffeechatDetail.cacheKey(memberId),
+        });
 
         await router.push(playgroundLink.coffeechatDetail(memberId));
       },

@@ -3,13 +3,23 @@ import { colors } from '@sopt-makers/colors';
 import { forwardRef, InputHTMLAttributes } from 'react';
 
 interface SwitchProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
-  size?: { labelWidth: string; labelHeight: string; sliderWidth: string; sliderHeight: string };
+  size?: {
+    labelWidth: string;
+    labelHeight: string;
+    sliderWidth: string;
+    sliderHeight: string;
+  };
 }
 
 const Switch = forwardRef<HTMLInputElement, SwitchProps>(
   (
     {
-      size = { labelWidth: '30px', labelHeight: '18px', sliderWidth: '16.15px', sliderHeight: '15.75px' },
+      size = {
+        labelWidth: '30px',
+        labelHeight: '18px',
+        sliderWidth: '16.15px',
+        sliderHeight: '15.75px',
+      },
       className,
       ...props
     },
@@ -52,7 +62,9 @@ const StyledInput = styled.input<{ translateX: string }>`
   }
 
   &:focus + .slider {
-    box-shadow: 0 2px 2px rgb(0 0 0 / 25%), 0 2px 2px rgb(0 0 0 / 25%);
+    box-shadow:
+      0 2px 2px rgb(0 0 0 / 25%),
+      0 2px 2px rgb(0 0 0 / 25%);
   }
 `;
 

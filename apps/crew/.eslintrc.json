@@ -1,4 +1,4 @@
 {
-    "root": true,
-    "extends": ["@sopt-makers/eslint-config/next"]
+  "root": true,
+  "extends": ["@sopt-makers/eslint-config/next"]
 }

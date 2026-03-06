@@ -20,7 +20,7 @@ const AlarmSettingModal = ({ isOpen, close, selectedAlarm, onKeywordClick, onRes
   return (
     <DefaultModal
       titleLeft={
-        <SRefreshButton onClick={onReset} aria-label="알림 설정 새로고침">
+        <SRefreshButton onClick={onReset} aria-label='알림 설정 새로고침'>
           <IconRefresh />
         </SRefreshButton>
       }
@@ -35,7 +35,7 @@ const AlarmSettingModal = ({ isOpen, close, selectedAlarm, onKeywordClick, onRes
           <SModalSubTitle>선택한 키워드의 신규 모임이 생기면 푸시 알림을 보내드려요.</SModalSubTitle>
         </SModalContentTitle>
         <SModalChipWrap>
-          {keywordSettiongOptions.map(keyword => {
+          {keywordSettiongOptions.map((keyword) => {
             return (
               <Chip
                 key={keyword}

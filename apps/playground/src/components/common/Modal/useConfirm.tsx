@@ -67,7 +67,10 @@ const StyledModalContent = styled(Modal.Content)<{ maxWidth?: number }>`
   }
 `;
 
-const StyledOkButton = styled(Modal.Button)<{ color?: string; okButtonTextColor?: string }>`
+const StyledOkButton = styled(Modal.Button)<{
+  color?: string;
+  okButtonTextColor?: string;
+}>`
   background: ${(props) => props.color ?? colors.white};
   color: ${(props) => props.okButtonTextColor ?? colors.black};
 `;

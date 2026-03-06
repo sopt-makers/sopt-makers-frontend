@@ -75,7 +75,7 @@ const BottomSheetSelect = ({
 
   const displayIcon = disabled
     ? null
-    : icon ?? (
+    : (icon ?? (
         <IconChevronDown
           style={{
             width: 20,
@@ -84,7 +84,7 @@ const BottomSheetSelect = ({
             transition: 'all 0.5s',
           }}
         />
-      );
+      ));
 
   return (
     <Container>

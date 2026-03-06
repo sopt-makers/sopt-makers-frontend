@@ -29,7 +29,7 @@ export default function FeedCommentEditor({ defaultValue, onCancel, onSubmit }: 
   };
 
   return (
-    <EditorContainer onSubmit={e => e.preventDefault()}>
+    <EditorContainer onSubmit={(e) => e.preventDefault()}>
       <Editor>
         <CommonMention
           inputRef={editorRef}
@@ -57,13 +57,13 @@ const EditorContainer = styled('form', {
   background: '$gray950',
 });
 const Editor = styled('div', {
-  minWidth: 0,
-  width: '100%',
-  padding: '11px 16px',
-  background: 'transparent',
-  border: 'none',
-  outline: 'none',
-  resize: 'none',
+  'minWidth': 0,
+  'width': '100%',
+  'padding': '11px 16px',
+  'background': 'transparent',
+  'border': 'none',
+  'outline': 'none',
+  'resize': 'none',
   '@media (max-width: 768px)': {
     position: 'relative',
   },

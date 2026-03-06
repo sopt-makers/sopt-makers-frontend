@@ -39,7 +39,7 @@ const CommonDetail = ({ detailData }: CommonDetailProps) => {
       <SDetailPage>
         <Carousel imageList={detailData?.imageURL} />
         <MeetingController detailData={detailData} />
-        <Tab.Group selectedIndex={selectedIndex} onChange={index => setSelectedIndex(index)}>
+        <Tab.Group selectedIndex={selectedIndex} onChange={(index) => setSelectedIndex(index)}>
           <STabList>
             <Tab as={Fragment}>
               <STabButton isSelected={selectedIndex === SelectedTab.INFORMATION}>모임 안내</STabButton>
@@ -68,7 +68,7 @@ const CommonDetail = ({ detailData }: CommonDetailProps) => {
 export default CommonDetail;
 
 const SDetailPage = styled('div', {
-  mb: '$374',
+  'mb': '$374',
 
   '@media (max-width: 768px)': {
     mb: '$122',
@@ -76,7 +76,7 @@ const SDetailPage = styled('div', {
 });
 
 const STabList = styled('div', {
-  display: 'flex',
+  'display': 'flex',
 
   '@media (max-width: 768px)': {
     width: 'calc(100% + 40px)',
@@ -90,10 +90,10 @@ const STabList = styled('div', {
 });
 
 const STabButton = styled('button', {
-  pb: '$24',
-  mr: '$32',
-  fontStyle: 'H1',
-  color: '$gray500',
+  'pb': '$24',
+  'mr': '$32',
+  'fontStyle': 'H1',
+  'color': '$gray500',
 
   '&:hover': {
     color: '$gray10',
@@ -107,18 +107,18 @@ const STabButton = styled('button', {
     textAlign: 'center',
   },
 
-  variants: {
+  'variants': {
     isSelected: {
       true: {
-        color: '$gray10',
-        borderBottom: `4px solid $gray10`,
+        'color': '$gray10',
+        'borderBottom': `4px solid $gray10`,
         '@media (max-width: 768px)': {
           borderWidth: '2px',
         },
       },
       false: {
-        color: '$gray500',
-        paddingBottom: '$28',
+        'color': '$gray500',
+        'paddingBottom': '$28',
         '@media (max-width: 768px)': {
           paddingBottom: '$18',
         },

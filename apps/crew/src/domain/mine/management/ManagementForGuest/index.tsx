@@ -13,7 +13,7 @@ type ManagementForGuestProps = {
   management: GetMeetingMemberList['response'];
   onChangeSelectOption: (
     setValue: (value: string | number) => void,
-    optionList: Option[]
+    optionList: Option[],
   ) => (changeOption: Option) => void;
   convertedNumberTake: Option;
   setTake: (value: string | number) => void;
@@ -44,7 +44,7 @@ const ManagementForGuest = ({
       ) : (
         <>
           {management && management.apply?.length > 0 ? (
-            management?.apply.map(application => (
+            management?.apply.map((application) => (
               <ManagementListItemForGuest
                 key={application.id}
                 application={application}
@@ -63,11 +63,11 @@ const ManagementForGuest = ({
 export default ManagementForGuest;
 
 const SListHeader = styled('div', {
-  flexType: 'verticalCenter',
-  justifyContent: 'space-between',
-  mt: '$64',
-  mb: '$48',
-  position: 'relative',
+  'flexType': 'verticalCenter',
+  'justifyContent': 'space-between',
+  'mt': '$64',
+  'mb': '$48',
+  'position': 'relative',
 
   '@mobile': {
     mt: '$40',
@@ -76,12 +76,12 @@ const SListHeader = styled('div', {
 });
 
 const SEmptyView = styled('div', {
-  flexType: 'center',
-  height: '$820',
-  borderRadius: '10px',
-  border: `1px solid $gray600`,
-  fontAg: '24_medium_100',
-  color: '$gray400',
+  'flexType': 'center',
+  'height': '$820',
+  'borderRadius': '10px',
+  'border': `1px solid $gray600`,
+  'fontAg': '24_medium_100',
+  'color': '$gray400',
 
   '@mobile': {
     fontAg: '16_medium_100',

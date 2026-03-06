@@ -22,7 +22,7 @@ const ManagementListItemForGuest = ({ application, isActive = false }: Managemen
         <SOrderNumber>{applyNumber}</SOrderNumber>
         <SProfile>
           <SGuestProfileImage>
-            {user.profileImage ? <img src={user.profileImage} alt="user profile image" /> : <ProfileDefaultIcon />}
+            {user.profileImage ? <img src={user.profileImage} alt='user profile image' /> : <ProfileDefaultIcon />}
           </SGuestProfileImage>
           <SName onClick={() => navigateToUserProfileWithTracking(user.orgId)}>{user.name}</SName>
         </SProfile>
@@ -47,16 +47,16 @@ export const SUserInformation = styled('div', {
 });
 
 export const SListItem = styled('div', {
-  flexType: 'verticalCenter',
-  justifyContent: 'space-between',
-  borderRadius: '20px',
-  backgroundColor: '$gray800',
-  padding: '$24',
-  minWidth: 'fit-content',
-  height: '$80',
-  mb: '$16',
+  'flexType': 'verticalCenter',
+  'justifyContent': 'space-between',
+  'borderRadius': '20px',
+  'backgroundColor': '$gray800',
+  'padding': '$24',
+  'minWidth': 'fit-content',
+  'height': '$80',
+  'mb': '$16',
 
-  variants: {
+  'variants': {
     isActive: {
       true: {
         border: '1px solid $gray10',
@@ -76,11 +76,11 @@ export const SListItem = styled('div', {
 });
 
 const SVerticalLine = styled('div', {
-  width: '$1',
-  height: '$12',
-  ml: '$30',
-  mr: '$30',
-  backgroundColor: '$gray500',
+  'width': '$1',
+  'height': '$12',
+  'ml': '$30',
+  'mr': '$30',
+  'backgroundColor': '$gray500',
 
   '@mobile': {
     display: 'none',
@@ -88,7 +88,7 @@ const SVerticalLine = styled('div', {
 });
 
 export const SProfile = styled('div', {
-  flexType: 'verticalCenter',
+  'flexType': 'verticalCenter',
 
   '@mobile': {
     flex: 1,
@@ -123,13 +123,13 @@ const SGuestProfileImage = styled(SProfileImage, {
 });
 
 export const SName = styled('button', {
-  ml: '$8',
-  color: '$gray10',
-  fontAg: '18_semibold_100',
-  textDecoration: 'underline',
-  textUnderlinePosition: 'under',
-  textAlign: 'center',
-  minWidth: '$48',
+  'ml': '$8',
+  'color': '$gray10',
+  'fontAg': '18_semibold_100',
+  'textDecoration': 'underline',
+  'textUnderlinePosition': 'under',
+  'textAlign': 'center',
+  'minWidth': '$48',
 
   '@mobile': {
     fontAg: '14_bold_100',
@@ -138,8 +138,8 @@ export const SName = styled('button', {
 });
 
 export const SDate = styled('p', {
-  flexType: 'verticalCenter',
-  fontAg: '18_semibold_100',
+  'flexType': 'verticalCenter',
+  'fontAg': '18_semibold_100',
 
   '@mobile': {
     fontAg: '12_medium_100',
@@ -149,9 +149,9 @@ export const SDate = styled('p', {
 });
 
 export const STime = styled('p', {
-  ml: '$8',
-  fontAg: '18_semibold_100',
-  color: '$gray300',
+  'ml': '$8',
+  'fontAg': '18_semibold_100',
+  'color': '$gray300',
 
   '@mobile': {
     ml: '$4',
@@ -161,14 +161,14 @@ export const STime = styled('p', {
 });
 
 export const SOrderNumber = styled('p', {
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
+  'display': 'flex',
+  'alignItems': 'center',
+  'justifyContent': 'center',
 
-  width: '$60',
-  marginRight: '$28',
+  'width': '$60',
+  'marginRight': '$28',
 
-  fontAg: '16_semibold_100',
+  'fontAg': '16_semibold_100',
 
   '@mobile': {
     fontAg: '14_medium_100',

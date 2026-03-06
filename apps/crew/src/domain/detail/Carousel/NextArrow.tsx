@@ -17,7 +17,7 @@ const NextArrow = ({ className, onClick, total }: NextArrowProps) => {
   };
 
   return (
-    <SButton className={className} onClick={e => handleClick(e)}>
+    <SButton className={className} onClick={(e) => handleClick(e)}>
       <ArrowBigLeftIcon />
     </SButton>
   );
@@ -26,9 +26,9 @@ const NextArrow = ({ className, onClick, total }: NextArrowProps) => {
 export default NextArrow;
 
 const SButton = styled('button', {
-  width: '$72',
-  height: '$72',
-  cursor: 'pointer',
+  'width': '$72',
+  'height': '$72',
+  'cursor': 'pointer',
 
   '@mobile': {
     display: 'none',

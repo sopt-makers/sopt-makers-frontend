@@ -17,7 +17,7 @@ const Filter = ({ placeCount }: FilterProps) => {
   const { isDesktop } = useDisplay();
   const { value: sortType, setValue: setSortType } = useSortTypeParams();
 
-  const selectedOption = ORDER_OPTIONS.find(opt => opt.value === sortType) ?? ORDER_OPTIONS[0];
+  const selectedOption = ORDER_OPTIONS.find((opt) => opt.value === sortType) ?? ORDER_OPTIONS[0];
 
   const handleSelectOrderBy = (newValue: string) => {
     setSortType(newValue);
@@ -39,7 +39,7 @@ const Filter = ({ placeCount }: FilterProps) => {
     <>
       <Search />
       <SMeetingCount>{placeCount}개의 장소</SMeetingCount>
-      <Flex align="center" justify="between" style={{ marginTop: '20px' }}>
+      <Flex align='center' justify='between' style={{ marginTop: '20px' }}>
         <MapDropDownFilter filter={CATEGORY_FILTER} width={'160px'} />
         <OrderFilter value={selectedOption} options={ORDER_OPTIONS} onChange={handleSelectOrderBy} />
       </Flex>

@@ -36,13 +36,13 @@ export function useOverlay() {
             onExit={() => {
               unmount(id);
             }}
-          />
+          />,
         );
       },
       close: () => {
         overlayRef.current?.close();
       },
     }),
-    [id, mount, unmount]
+    [id, mount, unmount],
   );
 }

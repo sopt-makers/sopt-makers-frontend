@@ -38,7 +38,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             staleTime: Infinity,
           },
         },
-      })
+      }),
   );
   const router = useRouter();
   const _authToken = useStore(authToken);
@@ -108,8 +108,8 @@ function MyApp({ Component, pageProps }: AppProps) {
           <SEO />
           <ReactQueryDevtools initialIsOpen={false} />
           <Script
-            id="gtag-base"
-            strategy="afterInteractive"
+            id='gtag-base'
+            strategy='afterInteractive'
             dangerouslySetInnerHTML={{
               __html: `
             (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -145,11 +145,11 @@ function MyApp({ Component, pageProps }: AppProps) {
 export default MyApp;
 
 const Layout = styled('div', {
-  color: theme.colors.white,
-  mx: '$auto',
-  marginTop: '128px',
-  width: '1200px',
-  height: '100%',
+  'color': theme.colors.white,
+  'mx': '$auto',
+  'marginTop': '128px',
+  'width': '1200px',
+  'height': '100%',
 
   '@laptop': {
     width: '790px',

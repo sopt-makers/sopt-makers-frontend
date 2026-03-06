@@ -56,8 +56,12 @@ const FeedUpload: FC = () => {
             vote: !!data.vote,
             mention: /@([^\[\]\s@]+)\[(\d+)\]/.test(data.content),
           });
-          queryClient.invalidateQueries({ queryKey: useGetPostsInfiniteQuery.getKey('') });
-          queryClient.invalidateQueries({ queryKey: getRecentPosts.cacheKey() });
+          queryClient.invalidateQueries({
+            queryKey: useGetPostsInfiniteQuery.getKey(''),
+          });
+          queryClient.invalidateQueries({
+            queryKey: getRecentPosts.cacheKey(),
+          });
           await router.push(playgroundLink.feedList());
         },
       },

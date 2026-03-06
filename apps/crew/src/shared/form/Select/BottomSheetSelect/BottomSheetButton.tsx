@@ -17,7 +17,7 @@ function BottomSheetButton({ open, label, handleOpen }: ButtonProps) {
   const isNotSelected = !label.active;
 
   return (
-    <SButton type="button" isNotSelected={isNotSelected} onClick={handleOpen}>
+    <SButton type='button' isNotSelected={isNotSelected} onClick={handleOpen}>
       {label.text}
       <SArrowDownIcon open={open} isNotSelected={isNotSelected} />
     </SButton>

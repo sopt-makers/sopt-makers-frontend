@@ -18,7 +18,7 @@ const enum MeetingType {
 const MinePage: NextPage = () => {
   const [selectedMeetingType, setSelectedMeetingType] = useSessionStorage<MeetingType>(
     'meetingType',
-    MeetingType.APPLIED
+    MeetingType.APPLIED,
   );
 
   return (
@@ -65,9 +65,9 @@ const MinePage: NextPage = () => {
 export default MinePage;
 
 const STabList = styled(Tab.List, {
-  flexType: 'center',
-  marginTop: '126px',
-  paddingBottom: '64px',
+  'flexType': 'center',
+  'marginTop': '126px',
+  'paddingBottom': '64px',
   '@media (max-width: 768px)': {
     marginTop: '48px',
     paddingBottom: '24px',
@@ -75,11 +75,11 @@ const STabList = styled(Tab.List, {
 });
 
 const STab = styled('button', {
-  fontAg: '20_bold_100',
-  px: '$16',
-  py: '$14',
-  borderRadius: '10px',
-  variants: {
+  'fontAg': '20_bold_100',
+  'px': '$16',
+  'py': '$14',
+  'borderRadius': '10px',
+  'variants': {
     isSelected: {
       true: {
         color: '$gray10',

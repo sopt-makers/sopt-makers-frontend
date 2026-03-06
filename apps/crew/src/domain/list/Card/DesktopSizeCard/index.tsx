@@ -27,7 +27,7 @@ function DesktopSizeCard({ meetingData, isFlash = false, flashDetailInfo, flashC
     <div>
       <ImageWrapper>
         <RecruitmentStatusTag status={meetingData.status} style={{ position: 'absolute', top: '16px', left: '16px' }} />
-        <STag size="md" type="solid">
+        <STag size='md' type='solid'>
           {isFlash ? flashCount : `${meetingData.approvedCount} / ${meetingData.capacity}명`}
         </STag>
         <SThumbnailImage
@@ -45,10 +45,10 @@ function DesktopSizeCard({ meetingData, isFlash = false, flashDetailInfo, flashC
         <STitle>{meetingData.title}</STitle>
       </STitleSection>
 
-      <Flex css={{ mb: '$14' }} align="center">
+      <Flex css={{ mb: '$14' }} align='center'>
         <SProfileWrapper>
           {meetingData.user.profileImage ? (
-            <SProfile src={getResizedImage(meetingData.user.profileImage, 120)} alt="" />
+            <SProfile src={getResizedImage(meetingData.user.profileImage, 120)} alt='' />
           ) : (
             <ProfileDefaultIcon width={24} height={24} />
           )}
@@ -92,7 +92,7 @@ const SThumbnailImage = styled('div', {
 });
 
 const STitleSection = styled('div', {
-  my: '$16',
+  'my': '$16',
   '@media (max-width: 768px)': {
     my: '$8',
   },

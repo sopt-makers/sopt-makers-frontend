@@ -31,8 +31,8 @@ const Home: NextPage = () => {
 export default Home;
 
 const SFilterWrapper = styled('div', {
-  mt: '$45',
-  mb: '$40',
+  'mt': '$45',
+  'mb': '$40',
   '@tablet': {
     mt: '$30',
   },

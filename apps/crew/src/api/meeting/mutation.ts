@@ -43,7 +43,9 @@ export const usePutMeetingMutation = (meetingId: number) => {
   return useMutation({
     mutationFn: (formData: FormType) => putMeeting(meetingId, serializeMeetingData(formData)),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: MeetingQueryKey.detail(meetingId) });
+      queryClient.invalidateQueries({
+        queryKey: MeetingQueryKey.detail(meetingId),
+      });
     },
   });
 };

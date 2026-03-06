@@ -17,7 +17,10 @@ const ApplicationModalContent = ({ handleApplicationButton, disabled }: Applicat
   const { data: me } = useQuery(useUserProfileQueryOption());
 
   const handleClick = () => {
-    ampli.completedRegisterGroup({ user_id: Number(me?.orgId), submit_promise: textareaValue ? true : false });
+    ampli.completedRegisterGroup({
+      user_id: Number(me?.orgId),
+      submit_promise: textareaValue ? true : false,
+    });
     handleApplicationButton(textareaValue);
   };
 
@@ -26,7 +29,7 @@ const ApplicationModalContent = ({ handleApplicationButton, disabled }: Applicat
       <Textarea
         value={textareaValue}
         onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setTextareaValue(e.target.value)}
-        placeholder="(선택사항) 모임에 임할 각오를 입력해주세요, 입력한 각오는 개설자에게 전달돼요"
+        placeholder='(선택사항) 모임에 임할 각오를 입력해주세요, 입력한 각오는 개설자에게 전달돼요'
         maxLength={150}
         error={textareaValue.length >= 150 ? '150자 까지 입력할 수 있습니다.' : ''}
       />
@@ -40,8 +43,8 @@ const ApplicationModalContent = ({ handleApplicationButton, disabled }: Applicat
 export default ApplicationModalContent;
 
 const SApplicationModalContent = styled('div', {
-  padding: '$24 $24 $40 $24',
-  borderRadius: '0 0 16px 16px',
+  'padding': '$24 $24 $40 $24',
+  'borderRadius': '0 0 16px 16px',
 
   '@media (max-width: 768px)': {
     padding: '0 $16',
@@ -54,18 +57,18 @@ const SApplicationModalContent = styled('div', {
     mb: '$48',
   },
 
-  label: {
+  'label': {
     margin: 0,
   },
 
-  textarea: {
-    width: '100%',
-    height: '$200',
-    fontAg: '16_medium_150',
-    color: '$gray10',
-    backgroundColor: '$gray700',
-    outline: 'none',
-    borderRadius: '10px',
+  'textarea': {
+    'width': '100%',
+    'height': '$200',
+    'fontAg': '16_medium_150',
+    'color': '$gray10',
+    'backgroundColor': '$gray700',
+    'outline': 'none',
+    'borderRadius': '10px',
 
     '@media (max-width: 768px)': {
       height: '$160',
@@ -78,17 +81,17 @@ const SApplicationModalContent = styled('div', {
     boxShadow: `0 0 0 1px #C0C5C9`,
   },
 
-  button: {
-    display: 'block',
-    margin: '0 auto',
-    mt: '$4',
-    padding: '$19 0',
-    width: '$180',
-    borderRadius: '12px',
-    textAlign: 'center',
-    fontAg: '18_bold_100',
-    color: '$gray950',
-    backgroundColor: '$gray10',
+  'button': {
+    'display': 'block',
+    'margin': '0 auto',
+    'mt': '$4',
+    'padding': '$19 0',
+    'width': '$180',
+    'borderRadius': '12px',
+    'textAlign': 'center',
+    'fontAg': '18_bold_100',
+    'color': '$gray950',
+    'backgroundColor': '$gray10',
 
     '&:disabled': {
       opacity: 0.35,

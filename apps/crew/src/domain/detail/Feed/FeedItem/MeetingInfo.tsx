@@ -17,10 +17,13 @@ function MeetingInfo({ meetingInfo }: MeetingInfoProps) {
   const router = useRouter();
   return (
     <Container
-      onClick={e => {
+      onClick={(e) => {
         e.preventDefault();
         e.stopPropagation();
-        ampli.clickFeedCardGroupLabel({ group_id: meetingInfo.id, location: router.pathname });
+        ampli.clickFeedCardGroupLabel({
+          group_id: meetingInfo.id,
+          location: router.pathname,
+        });
         router.push(`/detail?id=${meetingInfo.id}`);
       }}
     >
@@ -28,7 +31,7 @@ function MeetingInfo({ meetingInfo }: MeetingInfoProps) {
         <MeetingType isStudy={meetingInfo.category === CATEGORY_OPTIONS[0]}>{meetingInfo.category}</MeetingType>
         <MeetingName>{meetingInfo.title}</MeetingName>
       </MeetingInfoWrapper>
-      <Arrow css={{ margin: 0 }} direction="right" size={18} color="$gray200" strokeWidth={1.125} />
+      <Arrow css={{ margin: 0 }} direction='right' size={18} color='$gray200' strokeWidth={1.125} />
     </Container>
   );
 }
@@ -36,16 +39,16 @@ function MeetingInfo({ meetingInfo }: MeetingInfoProps) {
 export default MeetingInfo;
 
 const Container = styled('div', {
-  display: 'flex',
-  background: '$gray800',
-  borderRadius: '8px',
-  height: '46px',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-  fontStyle: 'T5',
-  padding: '$0 $12',
-  mb: '$20',
-  border: '1px solid $gray800',
+  'display': 'flex',
+  'background': '$gray800',
+  'borderRadius': '8px',
+  'height': '46px',
+  'alignItems': 'center',
+  'justifyContent': 'space-between',
+  'fontStyle': 'T5',
+  'padding': '$0 $12',
+  'mb': '$20',
+  'border': '1px solid $gray800',
   '&:hover': {
     border: '1px solid $gray500',
   },

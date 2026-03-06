@@ -87,7 +87,10 @@ const Vote = ({ postId, categoryId, isMine, hasVoted, options, isMultiple, total
               onClick={(e) => {
                 e.preventDefault();
                 vote({ selectedOptions: [...selectedIds] });
-                logClickEvent('vote', { category: category, feedId: postId.toString() });
+                logClickEvent('vote', {
+                  category: category,
+                  feedId: postId.toString(),
+                });
               }}
             >
               투표하기
@@ -104,7 +107,10 @@ const Vote = ({ postId, categoryId, isMine, hasVoted, options, isMultiple, total
                 if (mode === 'select') {
                   setSelectedIds([]);
                 }
-                logClickEvent('voteResult', { category: category, feedId: postId.toString() });
+                logClickEvent('voteResult', {
+                  category: category,
+                  feedId: postId.toString(),
+                });
               }}
             >
               {mode === 'view' ? '돌아가기' : '결과보기'}

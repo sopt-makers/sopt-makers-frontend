@@ -16,7 +16,9 @@ type useImageHandlerProps = {
 const useImageHandler = ({ onChangeImage, onDeleteImage }: useImageHandlerProps) => {
   const uploadFile = async (file: File) => {
     const extension = file.type.split('/')[1];
-    const { url, fields } = await getPresignedUrl({ contentType: extension ?? '' });
+    const { url, fields } = await getPresignedUrl({
+      contentType: extension ?? '',
+    });
     await uploadImage(file, url, fields);
     const imageUrls = imageS3Bucket + fields.key;
     return imageUrls;
@@ -42,7 +44,7 @@ const useImageHandler = ({ onChangeImage, onDeleteImage }: useImageHandlerProps)
         return;
       }
       const newFiles = Array.from(e.target.files);
-      if (newFiles.some(file => file.size > MAX_FILE_SIZE)) {
+      if (newFiles.some((file) => file.size > MAX_FILE_SIZE)) {
         alert('5MB 이하의 사진만 업로드할 수 있습니다.');
         return;
       }
@@ -51,7 +53,7 @@ const useImageHandler = ({ onChangeImage, onDeleteImage }: useImageHandlerProps)
         alert('이미지는 최대 6개까지 업로드 가능합니다.');
         return;
       } else {
-        const urls = await Promise.all(newFiles.map(async file => await uploadFile(file)));
+        const urls = await Promise.all(newFiles.map(async (file) => await uploadFile(file)));
         onChange([...imageUrls, ...urls]);
       }
     };

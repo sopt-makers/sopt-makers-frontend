@@ -15,7 +15,7 @@ function Filter() {
   return (
     <>
       {isLaptop ? <Search /> : <></>}
-      <Flex align="center" justify="between">
+      <Flex align='center' justify='between'>
         <ScrollFilter>
           <Flex>
             <DropDownFilter filter={CATEGORY_FILTER} width={'149px'} />
@@ -30,7 +30,7 @@ function Filter() {
         {isLaptop ? <></> : <Search />}
       </Flex>
 
-      {!!search && <SearchResultMessage>"{search}"에 대한 검색결과입니다.</SearchResultMessage>}
+      {!!search && <SearchResultMessage>&quot;{search}&quot;에 대한 검색결과입니다.</SearchResultMessage>}
     </>
   );
 }
@@ -38,8 +38,8 @@ function Filter() {
 export default Filter;
 
 const SearchResultMessage = styled('p', {
-  fontAg: '24_medium_100',
-  mt: '$80',
+  'fontAg': '24_medium_100',
+  'mt': '$80',
   '@media (max-width: 768px)': { display: 'none' },
 });
 
@@ -49,8 +49,8 @@ const ScrollFilter = styled('div', {
   },
 
   '@media (max-width: 768px)': {
-    overflow: 'hidden',
-    overflowX: 'scroll',
+    'overflow': 'hidden',
+    'overflowX': 'scroll',
 
     '&::-webkit-scrollbar': {
       height: '2px',

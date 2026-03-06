@@ -6,11 +6,11 @@ const TitleField = () => {
   return (
     <STitleField>
       <FormController
-        name="title"
+        name='title'
         render={({ field, fieldState: { error } }) => (
           <TextInput
-            label="모임 이름"
-            placeholder="모임 이름"
+            label='모임 이름'
+            placeholder='모임 이름'
             maxLength={30}
             required
             error={error?.message}

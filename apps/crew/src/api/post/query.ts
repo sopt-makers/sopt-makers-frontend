@@ -16,9 +16,9 @@ export const useGetPostListInfiniteQuery = (take: number, meetingId?: number, en
       return allPages.length + 1;
     },
     enabled: enabled,
-    select: data => {
+    select: (data) => {
       return {
-        pages: data.pages.flatMap(page => page?.posts),
+        pages: data.pages.flatMap((page) => page?.posts),
         pageParams: data.pageParams,
         total: data.pages[0]?.meta.itemCount,
       };
@@ -30,7 +30,7 @@ export const useGetPostDetailQueryOption = (postId: string) => {
   return queryOptions({
     queryKey: PostQueryKey.detail(+postId),
     queryFn: () => getPostDetail(+postId),
-    select: res => res,
+    select: (res) => res,
     enabled: !!postId,
   });
 };

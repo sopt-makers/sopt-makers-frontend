@@ -88,7 +88,7 @@ function FlashPresentation({
         return;
       }
       const newFiles = Array.from(e.target.files);
-      if (newFiles.some(file => file.size > MAX_FILE_SIZE)) {
+      if (newFiles.some((file) => file.size > MAX_FILE_SIZE)) {
         alert('5MB 이하의 사진만 업로드할 수 있습니다.');
         return;
       }
@@ -97,14 +97,16 @@ function FlashPresentation({
         alert('이미지는 최대 1개까지 업로드 가능합니다.');
         return;
       } else {
-        const urls = await Promise.all(newFiles.map(async file => await uploadFile(file)));
+        const urls = await Promise.all(newFiles.map(async (file) => await uploadFile(file)));
         onChange([...imageUrls, ...urls]);
       }
     };
 
   const uploadFile = async (file: File) => {
     const extension = file.type.split('/')[1];
-    const { url, fields } = await getPresignedUrl({ contentType: extension ?? '' });
+    const { url, fields } = await getPresignedUrl({
+      contentType: extension ?? '',
+    });
     await uploadImage(file, url, fields);
     const imageUrls = imageS3Bucket + fields.key;
     return imageUrls;
@@ -132,11 +134,11 @@ function FlashPresentation({
           {/* 번쩍 이름 */}
           <STitleField>
             <FormController
-              name="title"
+              name='title'
               render={({ field, fieldState: { error } }) => (
                 <TextInput
-                  label="번쩍 이름"
-                  placeholder="번쩍 이름"
+                  label='번쩍 이름'
+                  placeholder='번쩍 이름'
                   maxLength={30}
                   required
                   error={error?.message}
@@ -153,7 +155,7 @@ function FlashPresentation({
           <div>
             <Label required={true}>설명</Label>
             <FormController
-              name="desc"
+              name='desc'
               render={({ field, fieldState: { error } }) => (
                 <>
                   <Textarea
@@ -171,7 +173,7 @@ function FlashPresentation({
           <div>
             <SLabelCheckboxWrapper>
               <SLabelWrapper>
-                <Label required={true} size="small">
+                <Label required={true} size='small'>
                   진행일
                 </Label>
               </SLabelWrapper>
@@ -184,7 +186,7 @@ function FlashPresentation({
             <SDateFieldWrapper>
               <SDateField>
                 <FormController
-                  name="timeInfo.dateRange"
+                  name='timeInfo.dateRange'
                   render={({ field, formState: { errors } }) => {
                     const dateError = errors.timeInfo as
                       | (FieldError & {
@@ -213,7 +215,7 @@ function FlashPresentation({
               {timeState === '예정 기간 (협의 후 결정)' && <span style={{ marginTop: '14px' }}>-</span>}
               <SDateField>
                 <FormController
-                  name="timeInfo.dateRange"
+                  name='timeInfo.dateRange'
                   render={({ field, formState: { errors } }) => {
                     const dateError = errors.detail as
                       | (FieldError & {
@@ -243,7 +245,7 @@ function FlashPresentation({
             <SCheckBoxWrapper>
               <FormController
                 defaultValue={flashTime[0]}
-                name="timeInfo.time"
+                name='timeInfo.time'
                 render={({ field: { value, onChange } }) => {
                   const isChecked = value.value === '예정 기간 (협의 후 결정)';
                   const newTimeState = isChecked ? '당일' : '예정 기간 (협의 후 결정)';
@@ -251,8 +253,8 @@ function FlashPresentation({
                   return (
                     <>
                       <CheckBox
-                        label="협의 후 결정"
-                        size="sm"
+                        label='협의 후 결정'
+                        size='sm'
                         checked={isChecked}
                         onClick={() => {
                           setTimeState(newTimeState);
@@ -273,7 +275,7 @@ function FlashPresentation({
           <div>
             <SLabelCheckboxWrapper>
               <SLabelWrapper>
-                <Label required={true} size="small">
+                <Label required={true} size='small'>
                   장소
                 </Label>
               </SLabelWrapper>
@@ -281,10 +283,10 @@ function FlashPresentation({
             <STargetFieldWrapper>
               <STargetChipContainer>
                 <FormController
-                  name="placeInfo.place"
+                  name='placeInfo.place'
                   render={({ field: { value, onChange } }) => (
                     <>
-                      {flashPlace.map(place => {
+                      {flashPlace.map((place) => {
                         return (
                           <Chip
                             active={value.value === place.value}
@@ -307,14 +309,14 @@ function FlashPresentation({
             <STargetFieldWrapper>
               <STargetChipContainer>
                 <FormController
-                  name="placeInfo.placeDetail"
+                  name='placeInfo.placeDetail'
                   render={({ field, fieldState: { error } }) => (
                     <>
                       {placeState === '오프라인' && (
-                        <TextInput placeholder="번쩍 멤버들과 만날 장소" error={error?.message} {...field} />
+                        <TextInput placeholder='번쩍 멤버들과 만날 장소' error={error?.message} {...field} />
                       )}
                       {placeState === '온라인' && (
-                        <TextInput placeholder="플랫폼, 주소 정보" error={error?.message} {...field} />
+                        <TextInput placeholder='플랫폼, 주소 정보' error={error?.message} {...field} />
                       )}
                     </>
                   )}
@@ -327,7 +329,7 @@ function FlashPresentation({
           <div>
             <SLabelCheckboxWrapper>
               <SLabelWrapper>
-                <Label required={true} size="small">
+                <Label required={true} size='small'>
                   모집 인원
                 </Label>
               </SLabelWrapper>
@@ -335,13 +337,27 @@ function FlashPresentation({
             <HelpMessage>번쩍이 진행될 수 있는 최소 인원~최대 인원을 입력해주세요 (개설자 제외)</HelpMessage>
             <SPeopleWrapper>
               <FormController
-                name="capacityInfo.minCapacity"
+                name='capacityInfo.minCapacity'
                 render={({ field }) => (
                   <TextInput
-                    type="number"
-                    placeholder="최소 인원"
-                    style={{ width: '95px', height: '48px', padding: '11px 16px' }}
-                    right={<span style={{ marginLeft: '10px', marginRight: '10px', color: '#a9a9a9' }}>-</span>}
+                    type='number'
+                    placeholder='최소 인원'
+                    style={{
+                      width: '95px',
+                      height: '48px',
+                      padding: '11px 16px',
+                    }}
+                    right={
+                      <span
+                        style={{
+                          marginLeft: '10px',
+                          marginRight: '10px',
+                          color: '#a9a9a9',
+                        }}
+                      >
+                        -
+                      </span>
+                    }
                     required
                     // error={error?.message}
                     {...field}
@@ -355,12 +371,16 @@ function FlashPresentation({
                 )}
               ></FormController>
               <FormController
-                name="capacityInfo.maxCapacity"
+                name='capacityInfo.maxCapacity'
                 render={({ field }) => (
                   <TextInput
-                    type="number"
-                    placeholder="최대 인원"
-                    style={{ width: '95px', height: '48px', padding: '11px 16px' }}
+                    type='number'
+                    placeholder='최대 인원'
+                    style={{
+                      width: '95px',
+                      height: '48px',
+                      padding: '11px 16px',
+                    }}
                     right={<span style={{ marginLeft: '10px', color: '#a9a9a9' }}>명</span>}
                     required
                     // error={error?.message}
@@ -394,7 +414,7 @@ function FlashPresentation({
             </HelpMessage>
             <SFileInputWrapper>
               <FormController
-                name="files"
+                name='files'
                 defaultValue={[]}
                 render={({ field: { value: imageUrls, onChange, onBlur }, fieldState: { error } }) => (
                   <>
@@ -407,7 +427,11 @@ function FlashPresentation({
                       />
                     ))}
                     {/* NOTE: 이미지 개수가 1개 미만일때만 파일 입력 필드를 보여준다. */}
-                    <div style={{ display: imageUrls.length < 1 ? 'block' : 'none' }}>
+                    <div
+                      style={{
+                        display: imageUrls.length < 1 ? 'block' : 'none',
+                      }}
+                    >
                       <FileInput
                         error={error?.message}
                         onChange={handleAddFiles({ imageUrls, onChange })}
@@ -426,13 +450,13 @@ function FlashPresentation({
       {/* TODO: icon이 포함된 컴포넌트를 주입받아야 한다. */}
       <ButtonContainer>
         {cancelButtonLabel && (
-          <CancelButton type="button" onClick={() => router.back()}>
+          <CancelButton type='button' onClick={() => router.back()}>
             <CancelIcon />
             {cancelButtonLabel}
           </CancelButton>
         )}
         <SubmitButton
-          type="button"
+          type='button'
           onClick={() => {
             open(dialogOption);
           }}
@@ -448,9 +472,9 @@ function FlashPresentation({
 export default FlashPresentation;
 
 const SForm = styled('form', {
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '60px',
+  'display': 'flex',
+  'flexDirection': 'column',
+  'gap': '60px',
   '@media (max-width: 768px)': {
     gap: '56px',
   },
@@ -459,7 +483,7 @@ const STitleField = styled('div', {
   width: '100%',
 });
 const SFileInputWrapper = styled('div', {
-  width: '260px',
+  'width': '260px',
 
   '@media (max-width: 414px)': {
     width: '256px',
@@ -471,8 +495,8 @@ const SApplicationFieldWrapper = styled('div', {
   gap: '12px',
 });
 const SApplicationField = styled('div', {
-  width: '100%',
-  maxWidth: '205px',
+  'width': '100%',
+  'maxWidth': '205px',
 
   '@media (max-width: 768px)': {
     maxWidth: '151px',
@@ -488,9 +512,9 @@ const STargetFieldWrapper = styled('div', {
 });
 
 const STargetChipContainer = styled('div', {
-  display: 'flex',
-  gap: '$10',
-  flexWrap: 'wrap',
+  'display': 'flex',
+  'gap': '$10',
+  'flexWrap': 'wrap',
 
   '@media(max-width: 430px)': {
     maxWidth: '320px',
@@ -498,9 +522,9 @@ const STargetChipContainer = styled('div', {
 });
 
 const ButtonContainer = styled('div', {
-  display: 'flex',
-  gap: '20px',
-  alignSelf: 'flex-end',
+  'display': 'flex',
+  'gap': '20px',
+  'alignSelf': 'flex-end',
 
   '@media (max-width: 768px)': {
     flexDirection: 'column-reverse',
@@ -510,15 +534,15 @@ const ButtonContainer = styled('div', {
   },
 });
 const Button = styled('button', {
-  padding: '16px 20px',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  gap: '12px',
-  background: '$gray600',
-  borderRadius: '10px',
-  fontAg: '18_bold_100',
-  color: '$gray10',
+  'padding': '16px 20px',
+  'display': 'flex',
+  'alignItems': 'center',
+  'justifyContent': 'center',
+  'gap': '12px',
+  'background': '$gray600',
+  'borderRadius': '10px',
+  'fontAg': '18_bold_100',
+  'color': '$gray10',
 
   '@media (max-width: 768px)': {
     gap: '10px',
@@ -528,8 +552,8 @@ const Button = styled('button', {
 });
 const CancelButton = styled(Button, {});
 const SubmitButton = styled(Button, {
-  background: '$gray10',
-  color: '$gray950',
+  'background': '$gray10',
+  'color': '$gray950',
   '&:disabled': {
     cursor: 'not-allowed',
     opacity: 0.35,
@@ -546,7 +570,7 @@ const SLabelCheckboxWrapper = styled('div', {
 });
 
 const SPeopleWrapper = styled('div', {
-  display: 'flex',
+  'display': 'flex',
 
   '& > div': {
     width: 'fit-content',

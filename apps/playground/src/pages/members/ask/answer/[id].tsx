@@ -73,7 +73,9 @@ const AskAnswerPage: FC = () => {
     window.history.back();
   };
 
-  const askerName = question.isAnonymous ? question.anonymousProfile?.nickname ?? '익명' : question.askerName ?? '익명';
+  const askerName = question.isAnonymous
+    ? (question.anonymousProfile?.nickname ?? '익명')
+    : (question.askerName ?? '익명');
 
   return (
     <AuthRequired>
@@ -117,7 +119,8 @@ const AskAnswerPage: FC = () => {
                 <NameRow>
                   <Text typography='SUIT_14_SB'>{askerName}</Text>
                   <Text typography='SUIT_12_SB' color={colors.gray400}>
-                    {!question.isAnonymous && <>{question.askerLatestGeneration}∙</>}{getRelativeTime(question.createdAt)}
+                    {!question.isAnonymous && <>{question.askerLatestGeneration}∙</>}
+                    {getRelativeTime(question.createdAt)}
                   </Text>
                 </NameRow>
               </HeaderText>

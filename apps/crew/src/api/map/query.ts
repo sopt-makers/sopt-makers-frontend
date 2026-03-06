@@ -30,7 +30,7 @@ export const useMapListQueryOption = () => {
   const { value: stationKeyword } = useStationKeywordParams();
   const { value: page } = usePageParams();
 
-  const convertedCategories = categories?.map(kor => SERVER_CATEGORY_MAP[kor]).filter(Boolean);
+  const convertedCategories = categories?.map((kor) => SERVER_CATEGORY_MAP[kor]).filter(Boolean);
 
   const params: MapListRequest = {
     page: Number(page) || 1,
@@ -45,7 +45,7 @@ export const useMapListQueryOption = () => {
   return queryOptions<GetMapList['response']>({
     queryKey: MapQueryKey.list(params),
     queryFn: () => getMapList(params),
-    placeholderData: prev => prev,
+    placeholderData: (prev) => prev,
   });
 };
 
@@ -54,7 +54,7 @@ export const useMapListInfiniteQueryOption = () => {
   const { value: sortType } = useSortTypeParams();
   const { value: stationKeyword } = useStationKeywordParams();
 
-  const convertedCategories = categories?.map(kor => SERVER_CATEGORY_MAP[kor]).filter(Boolean);
+  const convertedCategories = categories?.map((kor) => SERVER_CATEGORY_MAP[kor]).filter(Boolean);
 
   const baseParams: Omit<MapListRequest, 'page'> = {
     take: TAKES_PER_PAGE,
@@ -96,6 +96,6 @@ export const useMapDetailQueryOption = (soptMapId: number) => {
   return queryOptions<GetMapDetail['response'], Error, FormType>({
     queryKey: MapQueryKey.detail(soptMapId),
     queryFn: () => getMapDetail({ soptMapId }),
-    select: res => deserializeSoptMapData(res),
+    select: (res) => deserializeSoptMapData(res),
   });
 };

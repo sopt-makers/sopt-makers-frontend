@@ -32,7 +32,7 @@ const UtilityButton = ({
   const showActiveNumber = typeof activeNumber === 'number' && activeNumber > 0;
 
   return (
-    <SButton className={className} size={size} isActive={isActive} type="button" {...props}>
+    <SButton className={className} size={size} isActive={isActive} type='button' {...props}>
       {renderIcon()}
       <SLabel>{children}</SLabel>
 
@@ -44,19 +44,19 @@ const UtilityButton = ({
 export default UtilityButton;
 
 const SButton = styled('button', {
-  display: 'inline-flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  gap: '4px',
-  border: '1px solid $gray700',
-  borderRadius: '9999px',
+  'display': 'inline-flex',
+  'alignItems': 'center',
+  'justifyContent': 'center',
+  'gap': '4px',
+  'border': '1px solid $gray700',
+  'borderRadius': '9999px',
 
   '& svg': {
     width: '16px',
     height: '16px',
   },
 
-  variants: {
+  'variants': {
     size: {
       s: {
         height: '36px',
@@ -75,7 +75,7 @@ const SButton = styled('button', {
         color: '$white',
       },
       false: {
-        color: '$gray400',
+        'color': '$gray400',
 
         '&:hover': {
           color: '$white',
@@ -84,7 +84,7 @@ const SButton = styled('button', {
     },
   },
 
-  defaultVariants: {
+  'defaultVariants': {
     size: 's',
     isActive: false,
   },

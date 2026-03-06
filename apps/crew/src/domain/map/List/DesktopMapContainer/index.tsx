@@ -26,8 +26,8 @@ const DesktopMapContainer = () => {
 export default DesktopMapContainer;
 
 const SPageWrapper = styled('div', {
-  mt: '$120',
-  mb: '$80',
+  'mt': '$120',
+  'mb': '$80',
 
   '@mobile': {
     mb: '$60',

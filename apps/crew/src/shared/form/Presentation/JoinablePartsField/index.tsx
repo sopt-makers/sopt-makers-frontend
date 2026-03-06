@@ -15,20 +15,20 @@ const JoinablePartsField = ({ value, onChange }: JoinablePartsFieldProps) => {
     // 'all' 옵션을 클릭했을 때 처리
     if (selectedOption.value === 'all') {
       // 전체 옵션이 이미 선택되어 있으면 해제, 아니면 전체 선택
-      updatedParts = isValidValue && value.some(part => part.value === 'all') ? [] : parts;
+      updatedParts = isValidValue && value.some((part) => part.value === 'all') ? [] : parts;
     } else {
       // 개별 옵션을 선택할 때
-      if (isValidValue && value.some(part => part.value === selectedOption.value)) {
+      if (isValidValue && value.some((part) => part.value === selectedOption.value)) {
         // 이미 선택된 항목이면 해제
-        updatedParts = updatedParts.filter(part => part.value !== selectedOption.value);
+        updatedParts = updatedParts.filter((part) => part.value !== selectedOption.value);
       } else {
         // 선택되지 않은 항목이면 추가
         updatedParts.push(selectedOption);
       }
 
       // 개별 옵션 해제 시 전체 옵션도 해제
-      if (updatedParts.some(part => part.value === 'all') && updatedParts.length < parts.length) {
-        updatedParts = updatedParts.filter(part => part.value !== 'all');
+      if (updatedParts.some((part) => part.value === 'all') && updatedParts.length < parts.length) {
+        updatedParts = updatedParts.filter((part) => part.value !== 'all');
       }
 
       // 모든 개별 파트가 선택되었으면 'all' 옵션도 활성화
@@ -42,9 +42,9 @@ const JoinablePartsField = ({ value, onChange }: JoinablePartsFieldProps) => {
 
   return (
     <>
-      {parts.map(part => (
+      {parts.map((part) => (
         <Chip
-          active={Array.isArray(value) && value.some(selected => selected.value === part.value)}
+          active={Array.isArray(value) && value.some((selected) => selected.value === part.value)}
           onClick={() => handleClick(part)}
           key={part.value}
           style={{ width: '80px' }}

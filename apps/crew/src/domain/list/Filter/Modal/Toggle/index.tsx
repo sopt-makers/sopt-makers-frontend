@@ -23,7 +23,7 @@ function Toggle({ css, label }: ToggleProps) {
     <HeadlessSwitch.Group>
       <ToggleWrapper css={{ ...css }}>
         {label && <SLabel>{label}</SLabel>}
-        <SSwitchWrapper align="center" justify="center">
+        <SSwitchWrapper align='center' justify='center'>
           <SToggleDetailWord isOnlyActiveGeneration={parseBool(isOnlyActiveGeneration)}>
             <HeadlessSwitch.Label>활동 기수만</HeadlessSwitch.Label>
           </SToggleDetailWord>
@@ -37,19 +37,19 @@ function Toggle({ css, label }: ToggleProps) {
 export default Toggle;
 const ToggleWrapper = styled('div', {});
 const SLabel = styled('p', {
-  color: '$gray10',
-  fontAg: '18_bold_100',
-  mb: '$20',
+  'color': '$gray10',
+  'fontAg': '18_bold_100',
+  'mb': '$20',
   '@media (max-width: 768px)': {
     fontAg: '14_bold_100',
     mb: '$16',
   },
 });
 const SSwitchWrapper = styled(Flex, {
-  background: '$gray950',
-  borderRadius: '14px',
-  width: '163px',
-  height: '46px',
+  'background': '$gray950',
+  'borderRadius': '14px',
+  'width': '163px',
+  'height': '46px',
   '@media (max-width: 768px)': {
     width: '124px',
     height: '36px',
@@ -57,15 +57,15 @@ const SSwitchWrapper = styled(Flex, {
   },
 });
 const SToggleDetailWord = styled('div', {
-  fontAg: '16_medium_100',
-  color: '$gray300',
-  mt: '$1',
-  mr: '$15',
+  'fontAg': '16_medium_100',
+  'color': '$gray300',
+  'mt': '$1',
+  'mr': '$15',
   '@media (max-width: 768px)': {
     fontAg: '12_semibold_100',
     mr: '$8',
   },
-  variants: {
+  'variants': {
     isOnlyActiveGeneration: {
       true: {
         color: '$gray10',

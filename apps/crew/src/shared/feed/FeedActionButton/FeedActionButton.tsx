@@ -1,5 +1,5 @@
 import { fontsObject } from '@sopt-makers/fonts';
-import { forwardRef,PropsWithChildren } from 'react';
+import { forwardRef, PropsWithChildren } from 'react';
 import { styled } from 'stitches.config';
 
 type FeedActionButtonProps = React.HTMLAttributes<HTMLButtonElement>;
@@ -11,7 +11,7 @@ const FeedActionButton = forwardRef<HTMLButtonElement, PropsWithChildren<FeedAct
         {children}
       </MenuItem>
     );
-  }
+  },
 );
 
 export default FeedActionButton;

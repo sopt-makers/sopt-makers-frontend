@@ -29,7 +29,7 @@ const LinkModalContent = ({ onSelect }: LinkModalContentProps) => {
       <p>등록자가 입력한 외부 링크로 이동합니다.</p>
       <div>
         {LINK_OPTIONS.map(({ key, label, Icon }) => (
-          <LinkButton key={key} type="button" onClick={() => handleClick(key)} data-selected={localSelected === key}>
+          <LinkButton key={key} type='button' onClick={() => handleClick(key)} data-selected={localSelected === key}>
             <Icon />
             {label}
             {localSelected === key && <CheckIcon />}

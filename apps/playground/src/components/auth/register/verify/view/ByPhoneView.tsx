@@ -83,7 +83,10 @@ const ByPhoneView: FC<ByPhoneProps> = (props) => {
               initial='hide'
               animate='show'
               exit='hide'
-              variants={{ hide: { height: 0, transition: { delay: 0.2 } }, show: { height: 'auto' } }}
+              variants={{
+                hide: { height: 0, transition: { delay: 0.2 } },
+                show: { height: 'auto' },
+              }}
             >
               <StyledCodeInput
                 placeholder='인증번호를 입력해주세요.'
@@ -103,7 +106,10 @@ const ByPhoneView: FC<ByPhoneProps> = (props) => {
               initial='hide'
               animate='show'
               exit='hide'
-              variants={{ hide: { height: 0, opacity: 0 }, show: { height: 'auto', opacity: 1 } }}
+              variants={{
+                hide: { height: 0, opacity: 0 },
+                show: { height: 'auto', opacity: 1 },
+              }}
             >
               <ErrorMessage message={props.message} />
             </ErrorMessageHolder>

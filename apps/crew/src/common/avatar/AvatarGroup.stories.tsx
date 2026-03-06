@@ -18,18 +18,18 @@ export const Default: Story = {
   args: {
     children: [
       <Avatar
-        src="https://mui.com/static/images/avatar/1.jpg"
-        alt="sample iamge"
+        src='https://mui.com/static/images/avatar/1.jpg'
+        alt='sample iamge'
         sx={{ width: '48px', height: '48px' }}
       />,
       <Avatar
-        src="https://mui.com/static/images/avatar/2.jpg"
-        alt="sample iamge"
+        src='https://mui.com/static/images/avatar/2.jpg'
+        alt='sample iamge'
         sx={{ width: '48px', height: '48px' }}
       />,
       <Avatar
-        src="https://mui.com/static/images/avatar/3.jpg"
-        alt="sample iamge"
+        src='https://mui.com/static/images/avatar/3.jpg'
+        alt='sample iamge'
         sx={{ width: '48px', height: '48px' }}
       />,
     ],

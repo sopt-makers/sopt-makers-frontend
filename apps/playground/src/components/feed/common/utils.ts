@@ -57,7 +57,7 @@ export function getMemberInfo(post: Post) {
   const isMakers = post.member.activity.team === '메이커스';
 
   const defaultInfo = `${post.member.activity.generation}기 ${
-    is특수임원 ? post.member.activity.part : isMakers ? '메이커스' :`${post.member.activity.part}파트`
+    is특수임원 ? post.member.activity.part : isMakers ? '메이커스' : `${post.member.activity.part}파트`
   }`;
 
   if (post.categoryId == null) {

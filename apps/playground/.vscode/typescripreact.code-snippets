@@ -16,12 +16,12 @@
       "export const Default = {",
       "  args: {},",
       "} satisfies Story;",
-      ""
+      "",
     ],
-    "description": ""
+    "description": "",
   },
   "media mobile": {
     "prefix": ["@media mobile", "media mobile"],
-    "body": ["@media \\${MOBILE_MEDIA_QUERY} {", "  ${1}", "}"]
-  }
+    "body": ["@media \\${MOBILE_MEDIA_QUERY} {", "  ${1}", "}"],
+  },
 }

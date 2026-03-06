@@ -11,11 +11,11 @@ const MemberCountField = () => {
     <SMemberCountWrapper>
       <div style={{ width: '119px' }}>
         <FormController
-          name="capacity"
+          name='capacity'
           render={({ field }) => (
             <TextInput
-              type="number"
-              placeholder="총 인원 수"
+              type='number'
+              placeholder='총 인원 수'
               style={{ width: '95px', height: '48px', padding: '11px 16px' }}
               right={<span style={{ marginLeft: '10px', color: '#a9a9a9' }}>명</span>}
               required
@@ -33,7 +33,7 @@ const MemberCountField = () => {
 const OnlyActiveGenerationField = () => {
   return (
     <FormController
-      name="detail.canJoinOnlyActiveGeneration"
+      name='detail.canJoinOnlyActiveGeneration'
       defaultValue={false}
       render={({ field: { value, onChange } }) => (
         <SFormCheckBox active={value} onClick={() => onChange(!value)}>

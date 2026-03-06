@@ -56,17 +56,17 @@ const FeedCommentInput = forwardRef<HTMLTextAreaElement, FeedCommentInputProps>(
             isComment={true}
             onClick={() => {
               setIsReCommentClicked(false);
-              setParentComment(prev => ({ ...prev, parentComment: true }));
+              setParentComment((prev) => ({ ...prev, parentComment: true }));
             }}
           />
         </CommentInput>
 
-        <SendButton type="submit" onClick={handleSubmit} disabled={disabled}>
+        <SendButton type='submit' onClick={handleSubmit} disabled={disabled}>
           {isFocused ? <SendFillIcon /> : <SendIcon />}
         </SendButton>
       </Container>
     );
-  }
+  },
 );
 
 export default FeedCommentInput;
@@ -87,14 +87,14 @@ const Container = styled('form', {
   },
 });
 const CommentInput = styled('div', {
-  minWidth: 0,
-  width: '100%',
-  padding: '11px 16px',
-  borderRadius: '10px',
-  background: '$gray800',
-  border: 'none',
-  outline: 'none',
-  resize: 'none',
+  'minWidth': 0,
+  'width': '100%',
+  'padding': '11px 16px',
+  'borderRadius': '10px',
+  'background': '$gray800',
+  'border': 'none',
+  'outline': 'none',
+  'resize': 'none',
   '&': {
     color: '$gray300',
   },

@@ -37,7 +37,10 @@ export default function CoffeeChatCategory() {
   const [search, setSearch] = useState('');
   const [clientSearch, setClientSearch] = useState('');
   const [queryParams, setQueryParams] = useState({
-    ...(section && section !== '전체' && { section: section === '프론트엔드' ? '프론트' : section }),
+    ...(section &&
+      section !== '전체' && {
+        section: section === '프론트엔드' ? '프론트' : section,
+      }),
     ...(topicType && topicType !== '전체' && { topicType }),
     ...(career &&
       career !== '전체' && {
@@ -48,7 +51,10 @@ export default function CoffeeChatCategory() {
   });
   useEffect(() => {
     setQueryParams({
-      ...(section && section !== '전체' && { section: section === '프론트엔드' ? '프론트' : section }),
+      ...(section &&
+        section !== '전체' && {
+          section: section === '프론트엔드' ? '프론트' : section,
+        }),
       ...(topicType && topicType !== '전체' && { topicType }),
       ...(career &&
         career !== '전체' && {

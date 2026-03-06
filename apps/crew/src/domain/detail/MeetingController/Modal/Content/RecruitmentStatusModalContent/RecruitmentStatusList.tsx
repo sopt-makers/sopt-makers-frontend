@@ -20,7 +20,7 @@ const RecruitmentStatusList = ({ recruitmentStatusList }: RecruitmentStatusProps
           <SRecruitmentStatusItem key={id} isActive={me?.orgId === orgId}>
             <div>
               <AppliedNumberText>{applyNumber}</AppliedNumberText>
-              {profileImage ? <img src={profileImage} alt="" /> : <ProfileDefaultIcon />}
+              {profileImage ? <img src={profileImage} alt='' /> : <ProfileDefaultIcon />}
               <span>{name}</span>
             </div>
             <SStatusText isApproved={status === EApprovalStatus.APPROVE}>{APPROVAL_STATUS[status]}</SStatusText>
@@ -34,9 +34,9 @@ const RecruitmentStatusList = ({ recruitmentStatusList }: RecruitmentStatusProps
 export default RecruitmentStatusList;
 
 const SRecruitmentStatusListWrapper = styled('div', {
-  height: '$219',
+  'height': '$219',
 
-  overflowY: 'scroll',
+  'overflowY': 'scroll',
 
   '@tablet': {
     height: '$160',
@@ -54,11 +54,11 @@ const SRecruitmentStatusListWrapper = styled('div', {
 });
 
 const SRecruitmentStatusList = styled('div', {
-  display: 'grid',
-  gridTemplateColumns: 'repeat(2, 1fr)',
-  gap: '$12',
+  'display': 'grid',
+  'gridTemplateColumns': 'repeat(2, 1fr)',
+  'gap': '$12',
 
-  padding: '0 $24',
+  'padding': '0 $24',
 
   '@tablet': {
     gap: '$8',
@@ -72,18 +72,18 @@ const SRecruitmentStatusList = styled('div', {
 });
 
 const SRecruitmentStatusItem = styled('div', {
-  flexType: 'verticalCenter',
-  justifyContent: 'space-between',
+  'flexType': 'verticalCenter',
+  'justifyContent': 'space-between',
 
-  width: '100%',
-  height: '$64',
-  padding: '$16 $20',
+  'width': '100%',
+  'height': '$64',
+  'padding': '$16 $20',
 
-  borderRadius: '12px',
-  backgroundColor: '$gray700',
-  color: '$gray10',
+  'borderRadius': '12px',
+  'backgroundColor': '$gray700',
+  'color': '$gray10',
 
-  fontAg: '16_semibold_100',
+  'fontAg': '16_semibold_100',
 
   '@tablet': {
     height: '$48',
@@ -91,16 +91,16 @@ const SRecruitmentStatusItem = styled('div', {
     fontAg: '14_medium_100',
   },
 
-  div: {
+  'div': {
     flexType: 'verticalCenter',
   },
 
-  img: {
-    width: '$32',
-    height: '$32',
-    borderRadius: '$round',
-    objectFit: 'cover',
-    background: '$gray600',
+  'img': {
+    'width': '$32',
+    'height': '$32',
+    'borderRadius': '$round',
+    'objectFit': 'cover',
+    'background': '$gray600',
 
     '@tablet': {
       width: '$26',
@@ -108,9 +108,9 @@ const SRecruitmentStatusItem = styled('div', {
     },
   },
 
-  svg: {
-    width: '$32',
-    height: '$32',
+  'svg': {
+    'width': '$32',
+    'height': '$32',
 
     '@tablet': {
       width: '$26',
@@ -118,19 +118,19 @@ const SRecruitmentStatusItem = styled('div', {
     },
   },
 
-  span: {
-    ml: '$10',
-    whiteSpace: 'nowrap',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    maxWidth: '$154',
+  'span': {
+    'ml': '$10',
+    'whiteSpace': 'nowrap',
+    'overflow': 'hidden',
+    'textOverflow': 'ellipsis',
+    'maxWidth': '$154',
 
     '@tablet': {
       maxWidth: '$61',
     },
   },
 
-  variants: {
+  'variants': {
     isActive: {
       true: {
         border: '1px solid $gray10',
@@ -152,11 +152,11 @@ const AppliedNumberText = styled('p', {
 });
 
 const SStatusText = styled('div', {
-  ml: '$14',
-  color: '$gray500',
-  fontAg: '14_medium_100',
+  'ml': '$14',
+  'color': '$gray500',
+  'fontAg': '14_medium_100',
 
-  variants: {
+  'variants': {
     isApproved: {
       true: {
         color: '$success',

@@ -57,10 +57,8 @@ const LoginPage: FC = () => {
           <ResetLoginCard href={playgroundLink.resetLogin()}>
             <StyledWarningIcon />
             <ResetLoginDescription>
-            <ResetLoginTitle>
-            로그인 중 오류가 발생했나요?
-            </ResetLoginTitle>
-            아래 버튼을 통해 다른 계정으로 재설정 부탁드려요.
+              <ResetLoginTitle>로그인 중 오류가 발생했나요?</ResetLoginTitle>
+              아래 버튼을 통해 다른 계정으로 재설정 부탁드려요.
             </ResetLoginDescription>
             <ResetLoginAction>소셜 계정 재설정하기 {'>'}</ResetLoginAction>
           </ResetLoginCard>
@@ -182,7 +180,7 @@ const ResetLoginCard = styled(Link)`
   border-radius: 10px;
   background: rgb(24 119 242 / 20%);
   padding: 16px;
-  width:100%;
+  width: 100%;
   max-width: 420px;
 
   @media ${MOBILE_MEDIA_QUERY} {
@@ -197,9 +195,9 @@ const StyledWarningIcon = styled(WarningIcon)`
   height: 14px;
 `;
 
-const ResetLoginTitle=styled.div`
+const ResetLoginTitle = styled.div`
   ${fonts.TITLE_14_SB}
-`
+`;
 
 const ResetLoginDescription = styled.div`
   grid-area: description;

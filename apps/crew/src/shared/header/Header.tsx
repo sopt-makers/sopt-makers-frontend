@@ -24,7 +24,7 @@ const Header: FC = () => {
 
   const renderLink = ({ href, children }: LinkRendererParams) => {
     if (href.startsWith(playgroundLink.groupList())) {
-      return <Link href="/">{children}</Link>;
+      return <Link href='/'>{children}</Link>;
     }
     return <a href={href}>{children}</a>;
   };
@@ -56,7 +56,7 @@ const HeaderWrapper = styled('div', {
 });
 
 const SDesktopHeaderWrapper = styled(HeaderWrapper, {
-  display: 'block',
+  'display': 'block',
 
   '@tablet': {
     display: 'none',
@@ -64,9 +64,9 @@ const SDesktopHeaderWrapper = styled(HeaderWrapper, {
 });
 
 const SMobileHeaderWrapper = styled(HeaderWrapper, {
-  display: 'none',
+  'display': 'none',
 
-  img: {
+  'img': {
     width: '100%',
   },
 

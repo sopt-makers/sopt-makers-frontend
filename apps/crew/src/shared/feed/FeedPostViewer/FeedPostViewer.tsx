@@ -88,7 +88,7 @@ export default function FeedPostViewer({
             <button onClick={handleClickShare}>
               <ShareIcon />
             </button>
-            <Menu as="div" style={{ position: 'relative' }}>
+            <Menu as='div' style={{ position: 'relative' }}>
               <Menu.Button>
                 <MenuIcon />
               </Menu.Button>
@@ -123,7 +123,7 @@ export default function FeedPostViewer({
         </ContentBody>
         <Link href={`/detail?id=${post.meeting.id}`} passHref legacyBehavior>
           <GroupButton>
-            <GroupThumbnail src={post.meeting.imageURL[0]?.url} alt="" />
+            <GroupThumbnail src={post.meeting.imageURL[0]?.url} alt='' />
             <GroupInformation>
               <div>
                 <GroupCategory isStudy={post.meeting.category === CATEGORY_OPTIONS[0]}>
@@ -149,13 +149,13 @@ export default function FeedPostViewer({
 }
 
 const Container = styled('div', {
-  width: '800px',
-  height: '100%',
-  flexShrink: 0,
-  borderRadius: '20px',
-  border: '1px solid $gray700',
-  background: '$gray950',
-  mb: '$80',
+  'width': '800px',
+  'height': '100%',
+  'flexShrink': 0,
+  'borderRadius': '20px',
+  'border': '1px solid $gray700',
+  'background': '$gray950',
+  'mb': '$80',
   '@media (max-width: 768px)': {
     width: '100%',
     border: 'none',
@@ -163,10 +163,10 @@ const Container = styled('div', {
   },
 });
 const ContentWrapper = styled('div', {
-  padding: '32px',
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '24px',
+  'padding': '32px',
+  'display': 'flex',
+  'flexDirection': 'column',
+  'gap': '24px',
   '@media (max-width: 768px)': {
     gap: '16px',
     padding: '0 0 20px 0',
@@ -193,20 +193,20 @@ const AuthorInfo = styled('div', {
   gap: '2px',
 });
 const AuthorName = styled('span', {
-  color: '$gray10',
-  fontWeight: '600',
-  fontSize: '16px',
-  lineHeight: '22px',
+  'color': '$gray10',
+  'fontWeight': '600',
+  'fontSize': '16px',
+  'lineHeight': '22px',
   '@media (max-width: 768px)': {
     fontSize: '14px',
     lineHeight: '18px',
   },
 });
 const UpdatedDate = styled('span', {
-  color: '$gray300',
-  fontWeight: '600',
-  fontSize: '14px',
-  lineHeight: '18px',
+  'color': '$gray300',
+  'fontWeight': '600',
+  'fontSize': '14px',
+  'lineHeight': '18px',
   '@media (max-width: 768px)': {
     fontSize: '12px',
     lineHeight: '16px',
@@ -217,15 +217,15 @@ const ContentBody = styled('div', {
   flexDirection: 'column',
 });
 const GroupButton = styled('a', {
-  display: 'flex',
-  gap: '$16',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-  background: '$gray800',
-  width: '100%',
-  height: '102px',
-  padding: '$18 $20',
-  borderRadius: '12px',
+  'display': 'flex',
+  'gap': '$16',
+  'alignItems': 'center',
+  'justifyContent': 'space-between',
+  'background': '$gray800',
+  'width': '100%',
+  'height': '102px',
+  'padding': '$18 $20',
+  'borderRadius': '12px',
   '&:hover': {
     outline: '1px solid $gray500',
   },
@@ -235,33 +235,33 @@ const GroupButton = styled('a', {
   },
 });
 const GroupThumbnail = styled('img', {
-  width: '88px',
-  height: '100%',
-  objectFit: 'cover',
-  borderRadius: '8px',
+  'width': '88px',
+  'height': '100%',
+  'objectFit': 'cover',
+  'borderRadius': '8px',
   '@media (max-width: 768px)': {
     display: 'none',
   },
 });
 const GroupInformation = styled('div', {
-  display: 'flex',
-  flexDirection: 'column',
-  flex: '1',
-  gap: '8px',
-  color: '$gray100',
-  fontSize: '13px',
-  lineHeight: '20px',
-  span: {
-    fontWeight: '600',
-    fontSize: '16px',
-    lineHeight: '22px',
+  'display': 'flex',
+  'flexDirection': 'column',
+  'flex': '1',
+  'gap': '8px',
+  'color': '$gray100',
+  'fontSize': '13px',
+  'lineHeight': '20px',
+  'span': {
+    'fontWeight': '600',
+    'fontSize': '16px',
+    'lineHeight': '22px',
     '@media (max-width: 768px)': {
       fontSize: '14px',
       lineHeight: '18px',
     },
   },
   'span + span': {
-    marginLeft: '$8',
+    'marginLeft': '$8',
     '@media (max-width: 768px)': {
       marginLeft: '$6',
     },
@@ -279,80 +279,80 @@ const GroupCategory = styled('span', {
   },
 });
 const GroupDescription = styled('p', {
-  height: '$40',
-  overflow: 'hidden',
-  whiteSpace: 'normal',
-  textOverflow: 'ellipsis',
-  wordBreak: 'break-all',
-  display: '-webkit-box',
-  WebkitLineClamp: 2,
-  WebkitBoxOrient: 'vertical',
+  'height': '$40',
+  'overflow': 'hidden',
+  'whiteSpace': 'normal',
+  'textOverflow': 'ellipsis',
+  'wordBreak': 'break-all',
+  'display': '-webkit-box',
+  'WebkitLineClamp': 2,
+  'WebkitBoxOrient': 'vertical',
   '@media (max-width: 768px)': {
     display: 'none',
   },
 });
 const Title = styled('h2', {
-  color: 'white',
-  fontStyle: 'H2',
+  'color': 'white',
+  'fontStyle': 'H2',
   '@media (max-width: 768px)': {
     fontStyle: 'H4',
   },
 });
 const Contents = styled('p', {
-  mt: '$12',
-  color: '$gray100',
-  fontStyle: 'B2',
-  whiteSpace: 'pre-wrap',
-  wordBreak: 'break-word',
+  'mt': '$12',
+  'color': '$gray100',
+  'fontStyle': 'B2',
+  'whiteSpace': 'pre-wrap',
+  'wordBreak': 'break-word',
   '@media (max-width: 768px)': {
     fontStyle: 'B3',
   },
 });
 const ImageSection = styled('section', {
-  margin: '24px 0',
+  'margin': '24px 0',
   '@media (max-width: 768px)': {
     margin: '16px 0',
   },
 });
 const BigImage = styled('img', {
-  width: '100%',
-  height: '453px',
-  objectFit: 'cover',
-  borderRadius: '10px',
-  cursor: 'pointer',
+  'width': '100%',
+  'height': '453px',
+  'objectFit': 'cover',
+  'borderRadius': '10px',
+  'cursor': 'pointer',
   '@media (max-width: 768px)': {
     height: '219px',
   },
 });
 const ImageListWrapper = styled('div', {
-  display: 'grid',
-  gridTemplateColumns: 'repeat(5, 1fr)',
-  gap: '8px',
+  'display': 'grid',
+  'gridTemplateColumns': 'repeat(5, 1fr)',
+  'gap': '8px',
   '@media (max-width: 768px)': {
-    display: 'flex',
-    gap: '6px',
-    overflowX: 'scroll',
+    'display': 'flex',
+    'gap': '6px',
+    'overflowX': 'scroll',
     '-ms-overflow-style': 'none',
-    scrollbarWidth: 'none',
+    'scrollbarWidth': 'none',
     '&::-webkit-scrollbar': {
       display: 'none',
     },
   },
 });
 const ImageListItem = styled('img', {
-  width: '100%',
-  height: '136px',
-  objectFit: 'cover',
-  borderRadius: '8px',
-  cursor: 'pointer',
+  'width': '100%',
+  'height': '136px',
+  'objectFit': 'cover',
+  'borderRadius': '8px',
+  'cursor': 'pointer',
   '@media (max-width: 768px)': {
     height: '144px',
   },
 });
 const ViewCount = styled('span', {
-  alignSelf: 'flex-end',
-  color: '$gray200',
-  fontStyle: 'B4',
+  'alignSelf': 'flex-end',
+  'color': '$gray200',
+  'fontStyle': 'B4',
   '@media (max-width: 768px)': {
     fontStyle: 'C1',
   },
@@ -369,11 +369,11 @@ const MenuItems = styled(Menu.Items, {
   background: '$gray800',
 });
 const SMenuItemContainer = styled('div', {
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  width: '80px',
-  background: '$gray800',
+  'display': 'flex',
+  'alignItems': 'center',
+  'justifyContent': 'center',
+  'width': '80px',
+  'background': '$gray800',
 
   '&:hover': {
     background: '$gray700',
@@ -386,35 +386,35 @@ const SMenuItemContainer = styled('div', {
   },
 });
 const CommentLikeWrapper = styled('div', {
-  color: '$gray08',
-  fontStyle: 'T5',
-  height: '48px',
-  flexType: 'center',
-  borderTop: '1px solid $gray700',
-  borderBottom: '1px solid $gray700',
+  'color': '$gray08',
+  'fontStyle': 'T5',
+  'height': '48px',
+  'flexType': 'center',
+  'borderTop': '1px solid $gray700',
+  'borderBottom': '1px solid $gray700',
   '@media (max-width: 768px)': {
     width: '100vw',
     marginLeft: 'calc(50% - 50vw)',
   },
 });
 const CommentListWrapper = styled('div', {
-  padding: '28px 28px 32px 32px',
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '40px',
+  'padding': '28px 28px 32px 32px',
+  'display': 'flex',
+  'flexDirection': 'column',
+  'gap': '40px',
   '@media (max-width: 768px)': {
     padding: '24px 0 32px 0',
     gap: '36px',
   },
 });
 const SAvatar = styled(Avatar, {
-  width: '44px',
-  height: '44px',
+  'width': '44px',
+  'height': '44px',
   '@media (max-width: 768px)': {
     width: '40px',
     height: '40px',
   },
-  svg: {
+  'svg': {
     width: '44px',
     height: '44px',
   },

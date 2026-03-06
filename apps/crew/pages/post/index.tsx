@@ -68,7 +68,7 @@ export default function PostPage() {
   const { mutate: mutatePostViews, data: viewCount } = usePostViewsMutation(query.id as string);
 
   const { setTarget } = useIntersectionObserver({
-    onIntersect: entries => {
+    onIntersect: (entries) => {
       const entry = entries[0];
       if (entry?.isIntersecting) {
         return entry?.isIntersecting;
@@ -106,7 +106,7 @@ export default function PostPage() {
           content: '게시글을 삭제했습니다',
         });
       },
-      onError: error => {
+      onError: (error) => {
         const axiosError = error as AxiosError<{ errorCode: string }>;
         overlay.close();
         open({
@@ -146,12 +146,14 @@ export default function PostPage() {
     };
 
   const { data: meeting } = useQuery(
-    useMeetingQueryOption({ meetingId: post?.meeting.id ? Number(post.meeting.id) : 0 })
+    useMeetingQueryOption({
+      meetingId: post?.meeting.id ? Number(post.meeting.id) : 0,
+    }),
   );
 
   const comments = commentQuery.data?.comments?.filter(
     (comment: GetCommentListResponse['comments'][number]): comment is GetCommentListResponse['comments'][number] =>
-      !!comment
+      !!comment,
   );
 
   const handleClickComment = () => {
@@ -168,20 +170,23 @@ export default function PostPage() {
 
   const meetingId = meeting?.id;
   const { data: posts } = useGetPostListInfiniteQuery(TAKE_COUNT, meetingId as number); // meetingId가 undefined 일 때는 enabled되지 않음
-  const postsInMeeting = posts?.pages.filter(_post => _post?.id !== post?.id).slice(0, 3);
+  const postsInMeeting = posts?.pages.filter((_post) => _post?.id !== post?.id).slice(0, 3);
   const { mutate: mutateLike } = useUpdatePostLikeMutation(TAKE_COUNT, Number(meetingId));
 
   const handleClickLike =
     (postId: number) => (mutateCb: (postId: number) => void) => (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault();
-      ampli.clickFeedlistLike({ crew_status: meeting?.approved, location: router.pathname });
+      ampli.clickFeedlistLike({
+        crew_status: meeting?.approved,
+        location: router.pathname,
+      });
       mutateCb(postId);
     };
 
   // NOTE: 전체 피드 게시글 조회 & 좋아요의 경우 meetingId가 없고, 캐시 키로 meetingId를 사용하지 않기 때문에 optimistic update가 정상 동작하도록 별도 mutation을 사용한다.
   const { mutate: mutateLikeInAllPost } = useUpdatePostLikeMutation(TAKE_COUNT);
   const { data: allPosts, hasNextPage, fetchNextPage } = useGetPostListInfiniteQuery(TAKE_COUNT);
-  const allMeetingPosts = allPosts?.pages.filter(_post => _post?.meeting.id !== meetingId).slice(0, 5); // 현재 조회하는 게시글이 속한 모임의 게시글은 제외한다
+  const allMeetingPosts = allPosts?.pages.filter((_post) => _post?.meeting.id !== meetingId).slice(0, 5); // 현재 조회하는 게시글이 속한 모임의 게시글은 제외한다
   // 현재 모임의 게시글을 제외했는데 모임 게시글이 없다면 다음 페이지를 불러온다.
   useEffect(() => {
     if (!hasNextPage) return;
@@ -255,7 +260,9 @@ export default function PostPage() {
         onClickAuthor={async (e: React.MouseEvent<HTMLAnchorElement>) => {
           const href = e.currentTarget.href;
           e.preventDefault();
-          await ampli.clickFeeddetatilProfile({ crew_status: meeting?.approved }).promise;
+          await ampli.clickFeeddetatilProfile({
+            crew_status: meeting?.approved,
+          }).promise;
           window.location.assign(href);
         }}
       />
@@ -264,7 +271,7 @@ export default function PostPage() {
           <FeedListWrapper>
             <FeedListTitle>이 모임의 다른 피드</FeedListTitle>
             <FeedList>
-              {postsInMeeting?.map(post => {
+              {postsInMeeting?.map((post) => {
                 if (!post) return;
                 const isMyFeed = post.user.id === me?.id;
                 return (
@@ -290,7 +297,9 @@ export default function PostPage() {
                             postId: post.id,
                             isMine: isMyFeed,
                             handleDelete: () => handleDeleteSubPost(post.id),
-                            handleReport: handleConfirmReportPost({ postId: post.id }),
+                            handleReport: handleConfirmReportPost({
+                              postId: post.id,
+                            }),
                             overlay: overlay,
                           })}
                         />
@@ -305,7 +314,7 @@ export default function PostPage() {
         <FeedListWrapper>
           <FeedListTitle>SOPT 모임들의 최신 피드</FeedListTitle>
           <FeedList>
-            {allMeetingPosts?.map(post => {
+            {allMeetingPosts?.map((post) => {
               if (!post) return;
               const isMyFeed = post.user.id === me?.id;
               return (
@@ -332,7 +341,9 @@ export default function PostPage() {
                           postId: post.id,
                           isMine: isMyFeed,
                           handleDelete: () => handleDeleteSubPost(post.id),
-                          handleReport: handleConfirmReportPost({ postId: post.id }),
+                          handleReport: handleConfirmReportPost({
+                            postId: post.id,
+                          }),
                           overlay: overlay,
                         })}
                       />
@@ -349,8 +360,8 @@ export default function PostPage() {
 }
 
 const Container = styled('div', {
-  flexType: 'horizontalCenter',
-  gap: '40px',
+  'flexType': 'horizontalCenter',
+  'gap': '40px',
   '@laptop': {
     flexDirection: 'column',
     alignItems: 'center',
@@ -358,10 +369,10 @@ const Container = styled('div', {
   },
 });
 const FeedListContainer = styled('div', {
-  width: '380px',
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '80px',
+  'width': '380px',
+  'display': 'flex',
+  'flexDirection': 'column',
+  'gap': '80px',
   '@laptop': {
     width: '800px',
     flexDirection: 'row',

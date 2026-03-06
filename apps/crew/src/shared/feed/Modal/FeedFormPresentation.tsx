@@ -62,7 +62,7 @@ function FeedFormPresentation({
   const [selectedMeeting, setSelectedMeeting] = useState<GroupInfo | undefined>(undefined);
 
   const handleWindowResize = () => {
-    setTextareaHeightChangeFlag(flag => !flag);
+    setTextareaHeightChangeFlag((flag) => !flag);
   };
 
   useEffect(() => {
@@ -82,7 +82,7 @@ function FeedFormPresentation({
           const marginBottom = parseInt(computedStyle.marginBottom, 10) || 0;
           return totalHeight + component.clientHeight + marginTop + marginBottom;
         },
-        0
+        0,
       );
 
       const availableHeight = window.innerHeight - allComponentHeights - BasicPadding;
@@ -92,7 +92,7 @@ function FeedFormPresentation({
 
   const onDeleteFile = (index: number) => () => {
     handleDeleteImage(index);
-    setTextareaHeightChangeFlag(flag => !flag);
+    setTextareaHeightChangeFlag((flag) => !flag);
   };
 
   const handleAddFiles =
@@ -102,7 +102,7 @@ function FeedFormPresentation({
         return;
       }
       const newFiles = Array.from(e.target.files);
-      if (newFiles.some(file => file.size > MAX_FILE_SIZE)) {
+      if (newFiles.some((file) => file.size > MAX_FILE_SIZE)) {
         alert('5MB 이하의 사진만 업로드할 수 있습니다.');
         return;
       }
@@ -111,16 +111,21 @@ function FeedFormPresentation({
         alert('이미지는 최대 10개까지 업로드 가능합니다.');
         return;
       } else {
-        const urls = await Promise.all(newFiles.map(async file => await uploadFile(file)));
+        const urls = await Promise.all(newFiles.map(async (file) => await uploadFile(file)));
         onChange([...imageUrls, ...urls]);
       }
-      setTextareaHeightChangeFlag(flag => !flag);
-      ampli.attachFeedPhoto({ user_id: userId, platform_type: window.innerWidth > 768 ? 'PC' : 'MO' });
+      setTextareaHeightChangeFlag((flag) => !flag);
+      ampli.attachFeedPhoto({
+        user_id: userId,
+        platform_type: window.innerWidth > 768 ? 'PC' : 'MO',
+      });
     };
 
   const uploadFile = async (file: File) => {
     const extension = file.type.split('/')[1];
-    const { url, fields } = await getPresignedUrl({ contentType: extension ?? '' });
+    const { url, fields } = await getPresignedUrl({
+      contentType: extension ?? '',
+    });
     await uploadImage(file, url, fields);
     const imageUrls = imageS3Bucket + fields.key;
     return imageUrls;
@@ -134,14 +139,14 @@ function FeedFormPresentation({
   return (
     <SFormContainer>
       <form onSubmit={onSubmit}>
-        <SFormHeader className="calc_target">
+        <SFormHeader className='calc_target'>
           <SCancelIcon onClick={handleModalClose} />
           <SFormName>{title}</SFormName>
-          <SSubmitButton type="submit" disabled={disabled}>
+          <SSubmitButton type='submit' disabled={disabled}>
             완료
           </SSubmitButton>
         </SFormHeader>
-        <div className="calc_target">
+        <div className='calc_target'>
           {attendGroupsInfo?.length === 0 && groupInfo ? (
             <SGroupInfoSection>
               <SThumbnailImage
@@ -161,17 +166,17 @@ function FeedFormPresentation({
           )}
         </div>
 
-        <SDivider className="calc_target" />
+        <SDivider className='calc_target' />
         <FormController
-          name="title"
-          defaultValue=""
+          name='title'
+          defaultValue=''
           render={({ field: { value: titleValue, onChange, onBlur } }) => (
             <STitleInput
-              className="calc_target"
-              type="text"
-              placeholder="제목을 입력해 주세요. (최대 100자)"
+              className='calc_target'
+              type='text'
+              placeholder='제목을 입력해 주세요. (최대 100자)'
               value={titleValue}
-              onChange={e => {
+              onChange={(e) => {
                 const inputValue = e.target.value;
                 if (inputValue.length <= FORM_TITLE_MAX_LENGTH) {
                   onChange(inputValue);
@@ -187,10 +192,10 @@ function FeedFormPresentation({
             />
           )}
         />
-        <SDivider className="calc_target" />
+        <SDivider className='calc_target' />
         <FormController
-          name="contents"
-          defaultValue=""
+          name='contents'
+          defaultValue=''
           render={({ field: { value: contentsValue, onChange } }) => (
             <SFeedContentTextArea
               css={{
@@ -211,29 +216,29 @@ function FeedFormPresentation({
             </SFeedContentTextArea>
           )}
         />
-        <SDivider className="calc_target" />
+        <SDivider className='calc_target' />
         <FormController
-          name="images"
+          name='images'
           defaultValue={[]}
           render={({ field: { value: imageUrls, onChange, onBlur } }) => (
             <>
               {!!(imageUrls as string[]).length && (
                 <>
-                  <SImageListWrapper className="calc_target">
+                  <SImageListWrapper className='calc_target'>
                     {(imageUrls as string[]).map((url, idx) => (
                       <SImagePreviewHolder key={`${url}-${idx}`}>
                         <ImagePreview url={url} onDelete={onDeleteFile(idx)} />
                       </SImagePreviewHolder>
                     ))}
                   </SImageListWrapper>
-                  <SImageListDivider className="calc_target" />
+                  <SImageListDivider className='calc_target' />
                 </>
               )}
 
-              <SImageInputWrapper className="calc_target">
+              <SImageInputWrapper className='calc_target'>
                 <SFileInputWrapper>
                   <SFileInput
-                    type="file"
+                    type='file'
                     multiple
                     accept={ACCEPTED_IMAGE_TYPES.join(', ')}
                     onChange={handleAddFiles({ imageUrls, onChange })}
@@ -254,10 +259,10 @@ function FeedFormPresentation({
 export default FeedFormPresentation;
 
 const SFormContainer = styled('div', {
-  width: '100%',
-  padding: '40px 30px 30px',
-  background: '$gray800',
-  borderRadius: '15px',
+  'width': '100%',
+  'padding': '40px 30px 30px',
+  'background': '$gray800',
+  'borderRadius': '15px',
   '@media (max-width: 768px)': {
     padding: '30px 0 0 0',
     background: '$gray950',
@@ -266,8 +271,8 @@ const SFormContainer = styled('div', {
   },
 });
 const SFormName = styled('h1', {
-  fontStyle: 'H1',
-  color: '$gray10',
+  'fontStyle': 'H1',
+  'color': '$gray10',
 
   '@media (max-width: 768px)': {
     margin: 0,
@@ -276,9 +281,9 @@ const SFormName = styled('h1', {
 });
 
 const SFormHeader = styled('div', {
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
+  'display': 'flex',
+  'justifyContent': 'space-between',
+  'alignItems': 'center',
   '@media (max-width: 768px)': {
     px: '$20',
   },
@@ -289,9 +294,9 @@ const SCancelIcon = styled(CancelIcon, {
 });
 
 const SSubmitButton = styled('button', {
-  fontStyle: 'T1',
-  color: '$gray10',
-  variants: {
+  'fontStyle': 'T1',
+  'color': '$gray10',
+  'variants': {
     disabled: {
       true: {
         color: '$gray500',
@@ -305,22 +310,22 @@ const SSubmitButton = styled('button', {
 });
 
 const SGroupInfoSection = styled('div', {
-  mt: '$40',
-  flexType: 'verticalCenter',
+  'mt': '$40',
+  'flexType': 'verticalCenter',
   '@media (max-width: 768px)': {
     px: '$20',
   },
 });
 
 const SThumbnailImage = styled('div', {
-  width: '56px',
-  height: '56px',
-  borderRadius: '$6',
-  overflow: 'hidden',
-  backgroundColor: '$gray800',
-  backgroundSize: 'cover',
-  backgroundPosition: 'center center',
-  backgroundRepeat: 'no-repeat',
+  'width': '56px',
+  'height': '56px',
+  'borderRadius': '$6',
+  'overflow': 'hidden',
+  'backgroundColor': '$gray800',
+  'backgroundSize': 'cover',
+  'backgroundPosition': 'center center',
+  'backgroundRepeat': 'no-repeat',
   '@media (max-width: 768px)': {
     width: '40px',
     height: '40px',
@@ -328,9 +333,9 @@ const SThumbnailImage = styled('div', {
 });
 
 const SCategory = styled('p', {
-  color: '$gray400',
-  fontStyle: 'T3',
-  ml: '$20',
+  'color': '$gray400',
+  'fontStyle': 'T3',
+  'ml': '$20',
   '@media (max-width: 768px)': {
     fontStyle: 'T4',
     ml: '$12',
@@ -338,14 +343,14 @@ const SCategory = styled('p', {
 });
 
 const STitle = styled('p', {
-  maxWidth: '70%',
-  color: '$white',
-  fontStyle: 'T3',
-  ml: '$8',
-  overflow: 'hidden',
-  whiteSpace: 'nowrap',
-  textOverflow: 'ellipsis',
-  wordBreak: 'break-all',
+  'maxWidth': '70%',
+  'color': '$white',
+  'fontStyle': 'T3',
+  'ml': '$8',
+  'overflow': 'hidden',
+  'whiteSpace': 'nowrap',
+  'textOverflow': 'ellipsis',
+  'wordBreak': 'break-all',
 
   '@media (max-width: 768px)': {
     fontStyle: 'T4',
@@ -353,18 +358,18 @@ const STitle = styled('p', {
 });
 
 const SDivider = styled(Divider, {
-  my: '$24',
-  backgroundColor: '$gray600',
+  'my': '$24',
+  'backgroundColor': '$gray600',
   '@media (max-width: 768px)': {
     my: '$20',
   },
 });
 
 const STitleInput = styled('input', {
-  width: '100%',
-  color: '$white',
-  fontStyle: 'H3',
-  ml: '$8',
+  'width': '100%',
+  'color': '$white',
+  'fontStyle': 'H3',
+  'ml': '$8',
 
   '@media (max-width: 768px)': {
     px: '$20',
@@ -374,14 +379,14 @@ const STitleInput = styled('input', {
 });
 
 const SFeedContentTextArea = styled('div', {
-  width: '100%',
-  height: '208px',
-  border: 'none',
-  resize: 'none',
-  fontStyle: 'B2',
-  color: '$white',
-  backgroundColor: 'inherit',
-  ml: '$8',
+  'width': '100%',
+  'height': '208px',
+  'border': 'none',
+  'resize': 'none',
+  'fontStyle': 'B2',
+  'color': '$white',
+  'backgroundColor': 'inherit',
+  'ml': '$8',
 
   '@media (max-width: 768px)': {
     px: '$20',
@@ -394,10 +399,10 @@ const SFeedContentTextArea = styled('div', {
 });
 
 const SImagePreviewHolder = styled('div', {
-  width: '108px',
-  height: '108px',
-  mb: '$24',
-  mr: '$12',
+  'width': '108px',
+  'height': '108px',
+  'mb': '$24',
+  'mr': '$12',
   '@media (max-width: 768px)': {
     width: '84px',
     height: '84px',
@@ -426,17 +431,17 @@ const SImageCount = styled('p', {
 });
 
 const SImageInputWrapper = styled('div', {
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'space-between',
+  'display': 'flex',
+  'alignItems': 'center',
+  'justifyContent': 'space-between',
   '@media (max-width: 768px)': {
     px: '$16',
   },
 });
 
 const SImageListWrapper = styled('div', {
-  display: 'flex',
-  overflowX: 'scroll',
+  'display': 'flex',
+  'overflowX': 'scroll',
   '&::-webkit-scrollbar': {
     display: 'none',
   },

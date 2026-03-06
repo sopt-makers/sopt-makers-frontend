@@ -12,7 +12,7 @@ import { styled } from 'stitches.config';
 
 import { ampli } from '@/ampli';
 
-const DevTool = dynamic(() => import('@hookform/devtools').then(module => module.DevTool), {
+const DevTool = dynamic(() => import('@hookform/devtools').then((module) => module.DevTool), {
   ssr: false,
 });
 
@@ -37,9 +37,9 @@ const Flash = () => {
     formMethods.setValue('files', files);
   };
 
-  const onSubmit: SubmitHandler<FlashFormType> = async formData => {
+  const onSubmit: SubmitHandler<FlashFormType> = async (formData) => {
     mutateCreateFlash(formData, {
-      onSuccess: data => {
+      onSuccess: (data) => {
         ampli.completedMakeGroup({ from_resume: false });
         router.push(`/detail/flash?id=${data.meetingId}`);
       },
@@ -78,18 +78,18 @@ const Flash = () => {
 export default Flash;
 
 const SContainer = styled('div', {
-  margin: '80px 0',
-  display: 'flex',
-  gap: '30px',
+  'margin': '80px 0',
+  'display': 'flex',
+  'gap': '30px',
 
   '@media (max-width: 768px)': {
     margin: 0,
   },
 });
 const SFormContainer = styled('div', {
-  width: '100%',
-  padding: '36px 40px 56px',
-  borderRadius: '15px',
+  'width': '100%',
+  'padding': '36px 40px 56px',
+  'borderRadius': '15px',
 
   '@media (max-width: 768px)': {
     padding: '40px 0 0 0',
@@ -97,9 +97,9 @@ const SFormContainer = styled('div', {
   },
 });
 const SFormName = styled('h1', {
-  fontAg: '24_bold_100',
-  color: '$gray10',
-  marginBottom: '20px',
+  'fontAg': '24_bold_100',
+  'color': '$gray10',
+  'marginBottom': '20px',
 
   '@media (max-width: 768px)': {
     margin: 0,

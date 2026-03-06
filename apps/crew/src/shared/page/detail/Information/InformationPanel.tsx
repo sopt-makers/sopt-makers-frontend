@@ -28,15 +28,15 @@ const InformationPanel = ({ detailData }: InformationPanelProps) => {
   const handleChange = useCallback(
     (text: string) => {
       setSelectedTab(text);
-      tabRef.current[detailList.findIndex(item => item.key === text)]?.scrollIntoView({ behavior: 'smooth' });
+      tabRef.current[detailList.findIndex((item) => item.key === text)]?.scrollIntoView({ behavior: 'smooth' });
     },
-    [detailList]
+    [detailList],
   );
 
   return (
     <SInformationPanel>
       {isMobile && (
-        <TabList text={selectedTab ?? ''} size="small" onChange={handleChange}>
+        <TabList text={selectedTab ?? ''} size='small' onChange={handleChange}>
           {detailList.map(
             ({ key, isValid }) =>
               isValid &&
@@ -44,7 +44,7 @@ const InformationPanel = ({ detailData }: InformationPanelProps) => {
                 <TabList.Item key={key} text={key}>
                   {key}
                 </TabList.Item>
-              )
+              ),
           )}
         </TabList>
       )}
@@ -52,11 +52,11 @@ const InformationPanel = ({ detailData }: InformationPanelProps) => {
         ({ key, Title, Content, isValid }, idx) =>
           isValid && (
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-            <SDetail key={key} ref={element => (tabRef.current[idx] = element!)}>
+            <SDetail key={key} ref={(element) => (tabRef.current[idx] = element!)}>
               <Title />
               <Content />
             </SDetail>
-          )
+          ),
       )}
     </SInformationPanel>
   );
@@ -71,9 +71,9 @@ const SInformationPanel = styled('div', {
 });
 
 const SDetail = styled('section', {
-  scrollMarginTop: '$80',
-  color: '$gray10',
-  mt: '$120',
+  'scrollMarginTop': '$80',
+  'color': '$gray10',
+  'mt': '$120',
 
   '@media (max-width: 768px)': {
     mt: '$56',

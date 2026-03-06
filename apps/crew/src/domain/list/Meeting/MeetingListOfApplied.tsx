@@ -19,19 +19,19 @@ function MeetingListOfApplied() {
     <main>
       <SMeetingCount>{applyData?.apply.length}개의 모임</SMeetingCount>
       {applyData?.apply.length ? (
-        <GridLayout mobileType="card">
-          {applyData?.apply.map(applyData => (
+        <GridLayout mobileType='card'>
+          {applyData?.apply.map((applyData) => (
             <Card
               key={applyData.id}
               // TODO: mine meetingData 에 welcomeMessageTypes, meetingKeywordTypes가 현재 없지만, 곧 서버에서 내려줄 예정
               meetingData={applyData.meeting as unknown as MeetingData}
-              mobileType="card"
+              mobileType='card'
               bottom={<Status status={applyData.status} />}
             />
           ))}
         </GridLayout>
       ) : (
-        <EmptyView message="모임이 없습니다." />
+        <EmptyView message='모임이 없습니다.' />
       )}
     </main>
   );
@@ -41,9 +41,9 @@ export default () => {
   return (
     <Suspense
       fallback={
-        <GridLayout mobileType="card">
+        <GridLayout mobileType='card'>
           {new Array(4).fill(null).map((_, index) => (
-            <CardSkeleton key={index} mobileType="card" />
+            <CardSkeleton key={index} mobileType='card' />
           ))}
         </GridLayout>
       }
@@ -54,7 +54,7 @@ export default () => {
 };
 
 const SMeetingCount = styled('p', {
-  fontStyle: 'H3',
+  'fontStyle': 'H3',
   '@media (max-width: 849px)': {
     width: '380px',
   },

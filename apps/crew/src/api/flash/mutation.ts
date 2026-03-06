@@ -11,7 +11,9 @@ export const usePutFlashMutation = ({ meetingId }: { meetingId: number }) => {
     mutationFn: ({ id, formData }: { id: number; formData: FlashFormType }) =>
       putFlash(id, serializeFlashFormData(formData)),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: FlashQueryKey.detail(meetingId) });
+      queryClient.invalidateQueries({
+        queryKey: FlashQueryKey.detail(meetingId),
+      });
     },
   });
 };

@@ -111,7 +111,13 @@ export default function AskFormPage({
                 <ReplyRow>
                   {commentSlot && (
                     <ReplyIcon aria-hidden>
-                      <IconFlipForward style={{ width: 24, height: 24, transform: 'scale(1, -1)' }} />
+                      <IconFlipForward
+                        style={{
+                          width: 24,
+                          height: 24,
+                          transform: 'scale(1, -1)',
+                        }}
+                      />
                     </ReplyIcon>
                   )}
                   <ContentsInput
@@ -160,7 +166,13 @@ export default function AskFormPage({
                 <ReplyRow>
                   {commentSlot && (
                     <ReplyIcon aria-hidden>
-                      <IconFlipForward style={{ width: 24, height: 24, transform: 'scale(1, -1)' }} />
+                      <IconFlipForward
+                        style={{
+                          width: 24,
+                          height: 24,
+                          transform: 'scale(1, -1)',
+                        }}
+                      />
                     </ReplyIcon>
                   )}
 

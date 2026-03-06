@@ -45,7 +45,9 @@ const FeedList: FC<FeedListProps> = ({ renderFeedDetailLink, onScrollChange }) =
   }));
 
   const handleCategoryChange = (categoryId: string) => {
-    queryClient.invalidateQueries({ queryKey: useGetPostsInfiniteQuery.getKey(categoryId) });
+    queryClient.invalidateQueries({
+      queryKey: useGetPostsInfiniteQuery.getKey(categoryId),
+    });
     window.scrollTo({ top: 0 });
   };
 

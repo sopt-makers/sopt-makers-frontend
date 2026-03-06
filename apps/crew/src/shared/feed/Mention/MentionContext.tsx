@@ -1,4 +1,4 @@
-import React, { createContext, Dispatch, SetStateAction,useState } from 'react';
+import React, { createContext, Dispatch, SetStateAction, useState } from 'react';
 
 interface MentionProviderProps {
   children: React.ReactNode;
@@ -39,7 +39,14 @@ const MentionProvider: React.FC<MentionProviderProps> = ({ children }) => {
 
   return (
     <MentionContext.Provider
-      value={{ isReCommentClicked, setIsReCommentClicked, user, setUser, parentComment, setParentComment }}
+      value={{
+        isReCommentClicked,
+        setIsReCommentClicked,
+        user,
+        setUser,
+        parentComment,
+        setParentComment,
+      }}
     >
       {children}
     </MentionContext.Provider>

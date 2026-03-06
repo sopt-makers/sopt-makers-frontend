@@ -21,16 +21,18 @@ export const useUpdatePostLikeMutation = (take: number, meetingId?: number) => {
 
   return useMutation({
     mutationFn: (postId: number) => postPostLike(postId),
-    onMutate: async postId => {
-      await queryClient.cancelQueries({ queryKey: PostQueryKey.list(take, meetingId) });
+    onMutate: async (postId) => {
+      await queryClient.cancelQueries({
+        queryKey: PostQueryKey.list(take, meetingId),
+      });
 
       const previousPosts = queryClient.getQueryData(PostQueryKey.list(take, meetingId));
 
       queryClient.setQueryData<InfiniteData<{ posts: GetPostListResponse['posts'] }>>(
         PostQueryKey.list(take, meetingId),
-        oldData => {
-          const newData = produce(oldData, draft => {
-            draft?.pages.forEach(page => {
+        (oldData) => {
+          const newData = produce(oldData, (draft) => {
+            draft?.pages.forEach((page) => {
               page.posts.forEach((post: { id: number; likeCount: number; isLiked: boolean }) => {
                 if (post.id === postId) {
                   post.likeCount = post.isLiked ? post.likeCount - 1 : post.likeCount + 1;
@@ -40,7 +42,7 @@ export const useUpdatePostLikeMutation = (take: number, meetingId?: number) => {
             });
           });
           return newData;
-        }
+        },
       );
       return { previousPosts };
     },
@@ -59,7 +61,9 @@ export const usePostLikeMutation = (queryId: string) => {
   return useMutation({
     mutationFn: () => postPostLike(+queryId),
     onMutate: async () => {
-      await queryClient.cancelQueries({ queryKey: PostQueryKey.detail(+queryId) });
+      await queryClient.cancelQueries({
+        queryKey: PostQueryKey.detail(+queryId),
+      });
 
       const previousPost = queryClient.getQueryData<GetPostDetailResponse>(PostQueryKey.detail(+queryId));
 
@@ -68,7 +72,7 @@ export const usePostLikeMutation = (queryId: string) => {
       }
 
       queryClient.setQueryData(PostQueryKey.detail(+queryId), (oldData: GetPostDetailResponse) => {
-        return produce(oldData, draft => {
+        return produce(oldData, (draft) => {
           draft.isLiked = !oldData.isLiked;
           draft.likeCount = oldData.isLiked ? oldData.likeCount - 1 : oldData.likeCount + 1;
         });
@@ -83,7 +87,9 @@ export const usePostLikeMutation = (queryId: string) => {
       }
     },
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: PostQueryKey.detail(+queryId) });
+      queryClient.invalidateQueries({
+        queryKey: PostQueryKey.detail(+queryId),
+      });
     },
   });
 };

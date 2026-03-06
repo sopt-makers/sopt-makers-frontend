@@ -54,7 +54,7 @@ const RecruitmentStatusModalContent = ({
 export default RecruitmentStatusModalContent;
 
 const SRecruitmentStatusListWrapper = styled('div', {
-  padding: '$24 $24 0 $24',
+  'padding': '$24 $24 0 $24',
 
   '@tablet': {
     padding: '$0',
@@ -62,11 +62,11 @@ const SRecruitmentStatusListWrapper = styled('div', {
 });
 
 const SEmptyText = styled('p', {
-  flexType: 'center',
-  width: '100%',
-  height: '$280',
-  color: '$gray400',
-  fontAg: '18_semibold_100',
+  'flexType': 'center',
+  'width': '100%',
+  'height': '$280',
+  'color': '$gray400',
+  'fontAg': '18_semibold_100',
 
   '@tablet': {
     height: '$184',
@@ -75,9 +75,9 @@ const SEmptyText = styled('p', {
 });
 
 const SRecruitmentStatusModalBottom = styled('div', {
-  margin: '$24 $42 $44 $30',
-  flexType: 'verticalCenter',
-  justifyContent: 'space-between',
+  'margin': '$24 $42 $44 $30',
+  'flexType': 'verticalCenter',
+  'justifyContent': 'space-between',
 
   '@tablet': {
     margin: '$16 $20 $24 $20',
@@ -85,8 +85,8 @@ const SRecruitmentStatusModalBottom = styled('div', {
 });
 
 const STotal = styled('p', {
-  color: '$gray400',
-  fontAg: '16_medium_100',
+  'color': '$gray400',
+  'fontAg': '16_medium_100',
 
   '@tablet': {
     fontAg: '12_medium_100',
@@ -94,18 +94,18 @@ const STotal = styled('p', {
 });
 
 const SManagementAnchor = styled('a', {
-  fontAg: '16_semibold_100',
-  color: '$gray10',
-  flexType: 'verticalCenter',
-  position: 'absolute',
-  right: '$42',
+  'fontAg': '16_semibold_100',
+  'color': '$gray10',
+  'flexType': 'verticalCenter',
+  'position': 'absolute',
+  'right': '$42',
 
   '@tablet': {
     fontAg: '12_semibold_100',
     right: '$20',
   },
 
-  svg: {
+  'svg': {
     ml: '$8',
   },
 });

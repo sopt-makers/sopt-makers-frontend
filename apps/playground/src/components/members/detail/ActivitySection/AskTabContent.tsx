@@ -231,15 +231,15 @@ const AskTabContent = ({ memberId, memberName, meId, unansweredCount }: AskTabCo
                 {selectedTab === 'answered'
                   ? '아직 답변된 질문이 없어요.'
                   : isMyProfile
-                  ? '모든 질문에 답변했어요'
-                  : '새로운 질문이 없어요.'}
+                    ? '모든 질문에 답변했어요'
+                    : '새로운 질문이 없어요.'}
               </EmptyTitle>
               <EmptyState>
                 {selectedTab === 'answered'
                   ? `${memberName}님에게 새로운 질문을 해볼까요?`
                   : isMyProfile
-                  ? '새로운 질문이 들어오면 문자로 알려드릴게요.'
-                  : `${memberName}님에게 새로운 질문을 해볼까요?`}
+                    ? '새로운 질문이 들어오면 문자로 알려드릴게요.'
+                    : `${memberName}님에게 새로운 질문을 해볼까요?`}
               </EmptyState>
             </EmptyContainer>
           ) : (
@@ -271,8 +271,8 @@ const AskTabContent = ({ memberId, memberName, meId, unansweredCount }: AskTabCo
                         profileImage={question.isAnonymous ? null : question.askerProfileImage}
                         name={
                           question.isAnonymous
-                            ? question.anonymousProfile?.nickname ?? '익명'
-                            : question.askerName ?? '익명'
+                            ? (question.anonymousProfile?.nickname ?? '익명')
+                            : (question.askerName ?? '익명')
                         }
                         info={
                           <>
@@ -323,7 +323,13 @@ const AskTabContent = ({ memberId, memberName, meId, unansweredCount }: AskTabCo
                                       router.push(`/members/ask/edit/${question.questionId}`);
                                     }}
                                   >
-                                    <Flex align='center' css={{ gap: '10px', color: `${colors.gray10}` }}>
+                                    <Flex
+                                      align='center'
+                                      css={{
+                                        gap: '10px',
+                                        color: `${colors.gray10}`,
+                                      }}
+                                    >
                                       <IconWrite css={{ width: '16px', height: '16px' }} />
                                       수정
                                     </Flex>
@@ -364,10 +370,18 @@ const AskTabContent = ({ memberId, memberName, meId, unansweredCount }: AskTabCo
                                   type='danger'
                                   onClick={(e) => {
                                     e.stopPropagation();
-                                    handleReportQuestion({ questionId: question.questionId });
+                                    handleReportQuestion({
+                                      questionId: question.questionId,
+                                    });
                                   }}
                                 >
-                                  <Flex align='center' css={{ gap: '10px', color: `${colors.gray10}` }}>
+                                  <Flex
+                                    align='center'
+                                    css={{
+                                      gap: '10px',
+                                      color: `${colors.gray10}`,
+                                    }}
+                                  >
                                     <IconAlertTriangle css={{ width: '16px', height: '16px' }} />
                                     신고
                                   </Flex>
@@ -378,10 +392,18 @@ const AskTabContent = ({ memberId, memberName, meId, unansweredCount }: AskTabCo
                                 type='danger'
                                 onClick={(e) => {
                                   e.stopPropagation();
-                                  handleReportQuestion({ questionId: question.questionId });
+                                  handleReportQuestion({
+                                    questionId: question.questionId,
+                                  });
                                 }}
                               >
-                                <Flex align='center' css={{ gap: '10px', color: `${colors.gray10}` }}>
+                                <Flex
+                                  align='center'
+                                  css={{
+                                    gap: '10px',
+                                    color: `${colors.gray10}`,
+                                  }}
+                                >
                                   <IconAlertTriangle css={{ width: '16px', height: '16px' }} />
                                   신고
                                 </Flex>
@@ -395,7 +417,9 @@ const AskTabContent = ({ memberId, memberName, meId, unansweredCount }: AskTabCo
                             isLiked={question.isReacted}
                             type='thumb'
                             onClick={() => {
-                              logClickEvent('AskLike', { feedId: question.questionId });
+                              logClickEvent('AskLike', {
+                                feedId: question.questionId,
+                              });
                               reactToQuestion(question.questionId);
                             }}
                           />

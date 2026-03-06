@@ -13,7 +13,7 @@ const FILTERS: FilterType[] = [
 function Filter() {
   return (
     <Flex>
-      {FILTERS.map(filter => (
+      {FILTERS.map((filter) => (
         <FilterSelect key={filter.label} filter={filter} />
       ))}
     </Flex>

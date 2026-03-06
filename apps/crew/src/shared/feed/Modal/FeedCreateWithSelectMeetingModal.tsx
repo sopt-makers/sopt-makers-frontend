@@ -20,9 +20,9 @@ import { styled } from 'stitches.config';
 import { ampli } from '@/ampli';
 
 import FeedFormPresentation from './FeedFormPresentation';
-import { feedCreateSchema,FormCreateType } from './feedSchema';
+import { feedCreateSchema, FormCreateType } from './feedSchema';
 
-const DevTool = dynamic(() => import('@hookform/devtools').then(module => module.DevTool), {
+const DevTool = dynamic(() => import('@hookform/devtools').then((module) => module.DevTool), {
   ssr: false,
 });
 
@@ -46,7 +46,7 @@ function FeedCreateWithSelectMeetingModal({ isModalOpened, handleModalClose }: C
 
   const { isValid } = formMethods.formState;
   const meetingType = formMethods.getValues('meetingId')
-    ? attendMeetingList?.filter(item => item.id == formMethods.getValues('meetingId'))[0]?.category
+    ? attendMeetingList?.filter((item) => item.id == formMethods.getValues('meetingId'))[0]?.category
     : '';
 
   const hostname = typeof window !== 'undefined' ? window.location.hostname : '';
@@ -61,7 +61,7 @@ function FeedCreateWithSelectMeetingModal({ isModalOpened, handleModalClose }: C
 
   const { mutateAsync: mutateCreateFeed, isPending: isSubmitting } = useMutation({
     mutationFn: (formData: FormCreateType) => postPost(formData),
-    onSuccess: res => {
+    onSuccess: (res) => {
       queryClient.invalidateQueries({ queryKey: PostQueryKey.all() });
       alert('피드를 작성했습니다.');
       mutatePostPostWithMention({
@@ -88,12 +88,19 @@ function FeedCreateWithSelectMeetingModal({ isModalOpened, handleModalClose }: C
   const onSubmit = useThrottle(async () => {
     const createFeedParameter = { ...formMethods.getValues() };
     await mutateCreateFeed(createFeedParameter);
-    ampli.completedFeedPosting({ user_id: Number(me?.orgId), platform_type: platform, feed_upload: formatDate() });
+    ampli.completedFeedPosting({
+      user_id: Number(me?.orgId),
+      platform_type: platform,
+      feed_upload: formatDate(),
+    });
   }, 5000);
 
   useEffect(() => {
     return () => {
-      ampli.completedFeedPostingCanceled({ user_id: Number(me?.orgId), platform_type: platform });
+      ampli.completedFeedPostingCanceled({
+        user_id: Number(me?.orgId),
+        platform_type: platform,
+      });
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -106,10 +113,10 @@ function FeedCreateWithSelectMeetingModal({ isModalOpened, handleModalClose }: C
             <FeedFormPresentation
               userId={Number(me?.orgId)}
               attendGroupsInfo={attendMeetingList}
-              title="피드 작성"
+              title='피드 작성'
               handleDeleteImage={handleDeleteImage}
               handleModalClose={handleModalClose}
-              setMeetingInfo={meetingInfo =>
+              setMeetingInfo={(meetingInfo) =>
                 formMethods.setValue('meetingId', meetingInfo?.id as number, {
                   shouldValidate: true,
                   shouldDirty: true,
@@ -126,8 +133,8 @@ function FeedCreateWithSelectMeetingModal({ isModalOpened, handleModalClose }: C
         isModalOpened={exitModal.isModalOpened}
         message={`피드 작성을 그만두시겠어요?\n지금까지 쓴 내용이 지워져요.`}
         handleModalClose={exitModal.handleModalClose}
-        cancelButton="돌아가기"
-        confirmButton="그만두기"
+        cancelButton='돌아가기'
+        confirmButton='그만두기'
         handleConfirm={() => {
           exitModal.handleModalClose();
           handleModalClose();
@@ -135,10 +142,10 @@ function FeedCreateWithSelectMeetingModal({ isModalOpened, handleModalClose }: C
       />
       <ConfirmModal
         isModalOpened={submitModal.isModalOpened}
-        message="게시글을 작성하시겠습니까?"
+        message='게시글을 작성하시겠습니까?'
         handleModalClose={submitModal.handleModalClose}
-        cancelButton="돌아가기"
-        confirmButton="확인"
+        cancelButton='돌아가기'
+        confirmButton='확인'
         handleConfirm={onSubmit}
       />
       {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
@@ -151,18 +158,18 @@ function FeedCreateWithSelectMeetingModal({ isModalOpened, handleModalClose }: C
 export default FeedCreateWithSelectMeetingModal;
 
 const SDialogWrapper = styled('div', {
-  position: 'fixed',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  zIndex: '$2',
-  borderRadius: '20px',
-  backgroundColor: '$gray700',
-  width: '100%',
-  maxWidth: '$768',
-  boxShadow: '0px 4px 4px rgba(0,0,0,0.25)',
-  maxHeight: '100vh',
-  overflow: 'visible',
+  'position': 'fixed',
+  'top': '50%',
+  'left': '50%',
+  'transform': 'translate(-50%, -50%)',
+  'zIndex': '$2',
+  'borderRadius': '20px',
+  'backgroundColor': '$gray700',
+  'width': '100%',
+  'maxWidth': '$768',
+  'boxShadow': '0px 4px 4px rgba(0,0,0,0.25)',
+  'maxHeight': '100vh',
+  'overflow': 'visible',
   '&::-webkit-scrollbar': {
     display: 'none',
   },

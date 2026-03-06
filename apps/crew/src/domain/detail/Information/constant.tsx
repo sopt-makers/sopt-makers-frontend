@@ -19,12 +19,12 @@ export const MeetingDetailList = (detailData: GetMeeting['response']) => [
       return (
         <>
           <STarget>
-            {detailData?.meetingKeywordTypes.map(tag => (
+            {detailData?.meetingKeywordTypes.map((tag) => (
               <Chip key={tag} style={{ boxShadow: 'none' }} active>
                 {tag}
               </Chip>
             ))}
-            {detailData?.welcomeMessageTypes.map(tag => (
+            {detailData?.welcomeMessageTypes.map((tag) => (
               <Chip key={tag} style={{ boxShadow: 'none' }}>
                 {tag}
               </Chip>
@@ -41,7 +41,7 @@ export const MeetingDetailList = (detailData: GetMeeting['response']) => [
     Title: () => <STitle>활동 기간</STitle>,
     Content: () => (
       <SDescription>{`${dayjs(detailData?.mStartDate ?? '').format('YYYY.MM.DD (ddd)')} ~ ${dayjs(
-        detailData?.mEndDate ?? ''
+        detailData?.mEndDate ?? '',
       ).format('YYYY.MM.DD (ddd)')}`}</SDescription>
     ),
     isValid: detailData?.mStartDate && detailData?.mEndDate,
@@ -58,8 +58,8 @@ export const MeetingDetailList = (detailData: GetMeeting['response']) => [
     Content: () => (
       <STarget>
         {detailData?.joinableParts
-          ?.map(key => PART_NAME[key])
-          .map(part => (
+          ?.map((key) => PART_NAME[key])
+          .map((part) => (
             <Chip key={part} style={{ width: '80px', boxShadow: 'none' }} active>
               {part}
             </Chip>
@@ -92,12 +92,12 @@ export const FlashDetailList = (detailData: GetFlash['response']) => {
         return (
           <>
             <STarget>
-              {detailData?.meetingKeywordTypes.map(tag => (
+              {detailData?.meetingKeywordTypes.map((tag) => (
                 <Chip key={tag} style={{ boxShadow: 'none' }} active>
                   {tag}
                 </Chip>
               ))}
-              {detailData?.welcomeMessageTypes.map(tag => (
+              {detailData?.welcomeMessageTypes.map((tag) => (
                 <Chip key={tag} disabled style={{ boxShadow: 'none' }}>
                   {tag}
                 </Chip>
@@ -147,7 +147,7 @@ export const FlashDetailList = (detailData: GetFlash['response']) => {
       Content: () => (
         <SDescription style={{ color: 'white' }}>{`${parsePlaceType(
           detailData.flashPlaceType,
-          detailData.flashPlace
+          detailData.flashPlace,
         )}`}</SDescription>
       ),
       isValid: true,
@@ -167,8 +167,8 @@ const parsePlaceType = (placeType: string, place: string) => {
 };
 
 const STitle = styled('h2', {
-  fontAg: '24_bold_100',
-  mb: '$24',
+  'fontAg': '24_bold_100',
+  'mb': '$24',
 
   '@media (max-width: 768px)': {
     fontStyle: 'H4',
@@ -177,10 +177,10 @@ const STitle = styled('h2', {
 });
 
 const SIconCalendar = styled(CalendarIcon, {
-  width: '24px',
-  height: '24px',
+  'width': '24px',
+  'height': '24px',
 
-  mb: '$24',
+  'mb': '$24',
 
   '& path': {
     stroke: '$white',
@@ -192,10 +192,10 @@ const SIconCalendar = styled(CalendarIcon, {
 });
 
 const SIconLocation = styled(IconLocation, {
-  width: '24px',
-  height: '24px',
+  'width': '24px',
+  'height': '24px',
 
-  mb: '$24',
+  'mb': '$24',
 
   '@media (max-width: 768px)': {
     mb: '$20',
@@ -209,11 +209,11 @@ const SIconTitleWrapper = styled('div', {
 });
 
 const SDescription = styled('p', {
-  fontAg: '22_regular_170',
-  whiteSpace: 'pre-line',
-  color: '$gray200',
+  'fontAg': '22_regular_170',
+  'whiteSpace': 'pre-line',
+  'color': '$gray200',
 
-  a: {
+  'a': {
     textDecoration: 'underline',
     wordBreak: 'break-all',
   },
@@ -236,13 +236,13 @@ const Divider = styled('hr', {
 });
 
 const STarget = styled(SDescription, {
-  display: 'flex',
-  alignItems: 'center',
-  gap: '$10',
-  color: '$gray10',
-  flexWrap: 'wrap',
+  'display': 'flex',
+  'alignItems': 'center',
+  'gap': '$10',
+  'color': '$gray10',
+  'flexWrap': 'wrap',
 
-  mb: '$24',
+  'mb': '$24',
 
   '@media (max-width: 768px)': {
     mb: '$20',

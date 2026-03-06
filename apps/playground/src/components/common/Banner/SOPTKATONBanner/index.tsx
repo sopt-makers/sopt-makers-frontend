@@ -6,7 +6,9 @@ import Responsive from '@/components/common/Responsive';
 import { playgroundLink } from '@/constants/links';
 
 import MobileEventBanner from './MobileEventBanner';
-const DesktopEventBanner = dynamic(() => import('./DesktopEventBanner'), { ssr: false });
+const DesktopEventBanner = dynamic(() => import('./DesktopEventBanner'), {
+  ssr: false,
+});
 
 interface BannerProps {
   className?: string;

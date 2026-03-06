@@ -13,7 +13,7 @@ const WelcomeMessageField = () => {
 
     let updatedKeywords = [...value];
     if (updatedKeywords.includes(option.value)) {
-      updatedKeywords = updatedKeywords.filter(keyword => keyword !== option.value);
+      updatedKeywords = updatedKeywords.filter((keyword) => keyword !== option.value);
     } else {
       updatedKeywords.push(option.value);
     }
@@ -27,7 +27,7 @@ const WelcomeMessageField = () => {
     <div>
       <SLabelCheckboxWrapper>
         <SLabelWrapper>
-          <Label size="small">#환영 태그</Label>
+          <Label size='small'>#환영 태그</Label>
         </SLabelWrapper>
       </SLabelCheckboxWrapper>
       <HelpMessage>
@@ -36,12 +36,12 @@ const WelcomeMessageField = () => {
       <STargetFieldWrapper>
         <STargetChipContainer>
           <FormController
-            name="welcomeMessageTypes"
+            name='welcomeMessageTypes'
             defaultValue={[]}
             render={({ field: { value = [], onChange } }) => {
               return (
                 <>
-                  {flashTags.map(tag => {
+                  {flashTags.map((tag) => {
                     return (
                       <Chip
                         active={value.includes(tag.value)}
@@ -79,9 +79,9 @@ const STargetFieldWrapper = styled('div', {
 });
 
 const STargetChipContainer = styled('div', {
-  display: 'flex',
-  gap: '$10',
-  flexWrap: 'wrap',
+  'display': 'flex',
+  'gap': '$10',
+  'flexWrap': 'wrap',
 
   '@media(max-width: 430px)': {
     maxWidth: '320px',

@@ -58,7 +58,12 @@ const AdsBanner: React.FC = () => {
             <LoggingClick
               key={idx}
               eventKey='ads'
-              param={{ id: myId, bannerId: idx, pageUrl: ad.link, timeStamp: time }}
+              param={{
+                id: myId,
+                bannerId: idx,
+                pageUrl: ad.link,
+                timeStamp: time,
+              }}
             >
               <LoggingImpression
                 areaThreshold={1}
@@ -117,7 +122,9 @@ const AdsSlider = styled(Slider as React.ComponentType<Settings>)`
   /* stylelint-disable-next-line no-descending-specificity */
   .slick-prev {
     left: 8px;
-    transition: opacity 0.3s, visibility 0.3s;
+    transition:
+      opacity 0.3s,
+      visibility 0.3s;
     visibility: hidden;
     opacity: 0;
 
@@ -129,7 +136,9 @@ const AdsSlider = styled(Slider as React.ComponentType<Settings>)`
   /* stylelint-disable-next-line no-descending-specificity */
   .slick-next {
     right: 8px;
-    transition: opacity 0.3s, visibility 0.3s;
+    transition:
+      opacity 0.3s,
+      visibility 0.3s;
     visibility: hidden;
     opacity: 0;
 

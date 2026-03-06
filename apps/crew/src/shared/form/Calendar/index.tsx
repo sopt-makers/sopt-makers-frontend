@@ -153,9 +153,9 @@ const CalendarInputForm = ({ selectedDate, setSelectedDate, error, dateType, sel
         next2Label={null}
         prev2Label={null}
         minDate={new Date()}
-        minDetail="month"
-        maxDetail="month"
-        calendarType="gregory"
+        minDetail='month'
+        maxDetail='month'
+        calendarType='gregory'
         tileContent={({ date }) => {
           if (selectedDate?.includes(formatCalendarDate(date))) {
             return (
@@ -180,16 +180,16 @@ const CalendarInputForm = ({ selectedDate, setSelectedDate, error, dateType, sel
         <>
           <SInputWrapper onClick={() => setIsOpen(true)}>
             <SInputCustom>
-              <span className="filled">{inputValue}</span>
-              <span className="placeholder">{'YYYY.MM.DD'.substring(inputValue?.length ?? 0)}</span>
+              <span className='filled'>{inputValue}</span>
+              <span className='placeholder'>{'YYYY.MM.DD'.substring(inputValue?.length ?? 0)}</span>
               <SInput
-                type="text"
+                type='text'
                 name={selectedDateFieldName}
                 value={inputValue}
                 onChange={handleInputChange}
                 maxLength={10}
-                placeholder=""
-                autoComplete="off"
+                placeholder=''
+                autoComplete='off'
               />
             </SInputCustom>
             {isMobile ? <IconCalendar style={{ width: '20' }} /> : <IconCalendar style={{ width: '24' }} />}
@@ -207,16 +207,16 @@ const CalendarInputForm = ({ selectedDate, setSelectedDate, error, dateType, sel
         <>
           <SInputWrapper onClick={() => setIsOpen(true)}>
             <SInputCustom>
-              <span className="filled">{inputValue}</span>
-              <span className="placeholder">{'YYYY.MM.DD'.substring(inputValue?.length ?? 0)}</span>
+              <span className='filled'>{inputValue}</span>
+              <span className='placeholder'>{'YYYY.MM.DD'.substring(inputValue?.length ?? 0)}</span>
               <SInput
-                type="text"
+                type='text'
                 name={selectedDateFieldName}
                 value={inputValue}
                 onChange={handleInputChange}
                 maxLength={10}
-                placeholder="YYYY.MM.DD"
-                autoComplete="off"
+                placeholder='YYYY.MM.DD'
+                autoComplete='off'
               />
             </SInputCustom>
             <IconCalendar style={{ width: '24' }} />
@@ -236,12 +236,12 @@ const CalendarInputForm = ({ selectedDate, setSelectedDate, error, dateType, sel
 export default CalendarInputForm;
 
 const SInputCustom = styled('div', {
-  position: 'relative',
-  width: '80%',
-  display: 'flex',
-  alignItems: 'center',
-  color: '$gray10',
-  caretColor: '$gray10',
+  'position': 'relative',
+  'width': '80%',
+  'display': 'flex',
+  'alignItems': 'center',
+  'color': '$gray10',
+  'caretColor': '$gray10',
 
   '& .filled': {
     color: '$gray10',
@@ -286,14 +286,14 @@ const SDotWrapper = styled('div', {
 });
 
 const SInputWrapper = styled('div', {
-  display: 'flex',
-  width: '100%',
-  padding: '18px 20px',
-  color: '$gray10',
-  background: '$gray800',
-  borderRadius: 10,
-  justifyContent: 'space-between',
-  cursor: 'pointer',
+  'display': 'flex',
+  'width': '100%',
+  'padding': '18px 20px',
+  'color': '$gray10',
+  'background': '$gray800',
+  'borderRadius': 10,
+  'justifyContent': 'space-between',
+  'cursor': 'pointer',
 
   '@media (max-width: 768px)': {
     padding: '16px',
@@ -311,15 +311,15 @@ const SDot = styled('div', {
 });
 
 const SInput = styled('input', {
-  width: '80%',
-  display: 'flex',
-  alignItems: 'center',
-  cursor: 'pointer',
+  'width': '80%',
+  'display': 'flex',
+  'alignItems': 'center',
+  'cursor': 'pointer',
   ...fontsObject.BODY_2_16_M,
-  color: '$gray10',
-  caretColor: '$transparent',
+  'color': '$gray10',
+  'caretColor': '$transparent',
   '&::placeholder': {
-    color: '$gray500',
+    'color': '$gray500',
     '@media (max-width: 768px)': {
       ...fontsObject.LABEL_5_11_SB,
     },

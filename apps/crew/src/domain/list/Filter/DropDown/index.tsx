@@ -52,19 +52,33 @@ function DropDownFilter({ filter, width }: DropDownFilterProps) {
 
     switch (subject) {
       case 'category':
-        ampli.applyMultiplefilter({ 'Applied-category': joined, 'Applied-generation': false });
+        ampli.applyMultiplefilter({
+          'Applied-category': joined,
+          'Applied-generation': false,
+        });
         break;
       case 'status':
-        ampli.applyMultiplefilter({ 'Applied-status': joined, 'Applied-generation': false });
+        ampli.applyMultiplefilter({
+          'Applied-status': joined,
+          'Applied-generation': false,
+        });
         break;
       case 'part':
-        ampli.applyMultiplefilter({ 'Applied-part': joined, 'Applied-generation': false });
+        ampli.applyMultiplefilter({
+          'Applied-part': joined,
+          'Applied-generation': false,
+        });
         break;
       case 'keyword':
-        ampli.applyMultiplefilter({ 'Applied-keyword': joined, 'Applied-generation': false });
+        ampli.applyMultiplefilter({
+          'Applied-keyword': joined,
+          'Applied-generation': false,
+        });
         break;
       case 'isOnlyActiveGeneration':
-        ampli.applyMultiplefilter({ 'Applied-generation': joined === `${ACTIVE_GENERATION}기만` });
+        ampli.applyMultiplefilter({
+          'Applied-generation': joined === `${ACTIVE_GENERATION}기만`,
+        });
         break;
     }
   };
@@ -78,12 +92,12 @@ function DropDownFilter({ filter, width }: DropDownFilterProps) {
 
   return (
     <SDropDownContainer>
-      <SelectV2.Root type="text" visibleOptions={6} defaultValue={defaultValue} onChange={setPartQuery} multiple={true}>
+      <SelectV2.Root type='text' visibleOptions={6} defaultValue={defaultValue} onChange={setPartQuery} multiple={true}>
         <SelectV2.Trigger>
           <SelectV2.TriggerContent className={getAutoClass(width)()} placeholder={label} label={resolvedLabel} />
         </SelectV2.Trigger>
         <SelectV2.Menu>
-          {options.map(option => (
+          {options.map((option) => (
             <SelectV2.MenuItem key={option} option={{ label: option, value: option }} />
           ))}
         </SelectV2.Menu>

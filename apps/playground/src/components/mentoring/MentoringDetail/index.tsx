@@ -42,7 +42,11 @@ export default function MentoringDetail({ mentorId }: MentoringDetailProps) {
     clickMentorProfileCareer: () => logClickEvent('mentorProfileCareer', { mentorId }),
     clickMentoringApplicationButton: () => logClickEvent('mentoringApplicationButton', { mentorId }),
     submitMentoringApplication: (receiverId: number, category: string) =>
-      logSubmitEvent('sendMessage', { receiverId, category, referral: 'mentoringDetail' }),
+      logSubmitEvent('sendMessage', {
+        receiverId,
+        category,
+        referral: 'mentoringDetail',
+      }),
     pageView: () => logPageViewEvent('mentoringDetail', { mentorId }),
   };
 
@@ -132,7 +136,7 @@ export default function MentoringDetail({ mentorId }: MentoringDetailProps) {
           </Section>
         </Main>
       </Container>
-       {/* NOTE: 현재 사용되지 않는 기능에서 타입 에러가 나서 주석처리 합니다. */}
+      {/* NOTE: 현재 사용되지 않는 기능에서 타입 에러가 나서 주석처리 합니다. */}
       {/* {isOpenMessageModal && (
         <MessageModal
           receiverId={mentorId.toString()}

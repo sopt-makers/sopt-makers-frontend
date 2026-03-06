@@ -34,7 +34,6 @@ interface FeedCommentContainerProps {
   isCreatingComment: boolean;
 }
 
-
 export default function FeedCommentContainer({
   comment,
   isMine,
@@ -87,9 +86,9 @@ export default function FeedCommentContainer({
                       overlay.open(({ isOpen, close }) => (
                         <ConfirmModal
                           isModalOpened={isOpen}
-                          message="댓글을 삭제하시겠습니까?"
-                          cancelButton="돌아가기"
-                          confirmButton="삭제하기"
+                          message='댓글을 삭제하시겠습니까?'
+                          cancelButton='돌아가기'
+                          confirmButton='삭제하기'
                           handleModalClose={close}
                           handleConfirm={() => {
                             mutateDeleteComment(comment.id);
@@ -109,9 +108,9 @@ export default function FeedCommentContainer({
                       overlay.open(({ isOpen, close }) => (
                         <ConfirmModal
                           isModalOpened={isOpen}
-                          message="신고하시겠습니까?"
-                          cancelButton="돌아가기"
-                          confirmButton="신고하기"
+                          message='신고하시겠습니까?'
+                          cancelButton='돌아가기'
+                          confirmButton='신고하기'
                           handleModalClose={close}
                           handleConfirm={() => {
                             mutateReportComment(comment.id);
@@ -163,7 +162,7 @@ export default function FeedCommentContainer({
         <>
           {comment?.replies?.map((reply: GetCommentReplyResponse) => {
             return reply.isBlockedComment ? (
-              <CommentBlocker variant="secondary" />
+              <CommentBlocker variant='secondary' />
             ) : (
               <FeedReCommentContainer
                 comment={comment}
@@ -184,9 +183,9 @@ export default function FeedCommentContainer({
 }
 
 const LoadMoreReCommentsButton = styled('div', {
-  display: 'flex',
-  alignItems: 'center',
-  cursor: 'pointer',
+  'display': 'flex',
+  'alignItems': 'center',
+  'cursor': 'pointer',
   '& > span': {
     color: colors.gray300,
     ...fontsObject.LABEL_4_12_SB,
@@ -195,17 +194,17 @@ const LoadMoreReCommentsButton = styled('div', {
 });
 
 const SReplyButton = styled('div', {
-  marginLeft: '8px',
+  'marginLeft': '8px',
   '&:hover': {
     textDecoration: 'underline',
   },
 });
 
 const MessageIconWrapper = styled('div', {
-  width: '20px',
-  height: '20px',
-  color: '$gray300',
-  marginLeft: '12px',
+  'width': '20px',
+  'height': '20px',
+  'color': '$gray300',
+  'marginLeft': '12px',
   '&:hover svg:first-of-type': {
     display: 'none',
   },

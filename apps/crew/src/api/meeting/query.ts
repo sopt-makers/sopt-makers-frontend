@@ -43,15 +43,15 @@ export const useMeetingListQueryOption = () => {
 
   if (status?.length) {
     params.status = status
-      .map(item => parseStatusToNumber(item, RECRUITMENT_STATUS))
-      .filter(item => item !== null)
+      .map((item) => parseStatusToNumber(item, RECRUITMENT_STATUS))
+      .filter((item) => item !== null)
       .join(',');
   }
 
   if (part?.length) {
     params.joinableParts = part
       .map((item: string) => parsePartLabelToValue(item))
-      .filter(item => item !== null)
+      .filter((item) => item !== null)
       .join(',');
   }
 
@@ -87,7 +87,7 @@ export const useMeetingMemberListQueryOption = ({ meetingId }: { meetingId: stri
     page: Number(page),
     take: Number(convertedNumberTake.value),
     status:
-      status?.length === 0 ? DEFAULT_STATUS : status.map(item => APPROVAL_STATUS_KOREAN_TO_ENGLISH[item]).join(','),
+      status?.length === 0 ? DEFAULT_STATUS : status.map((item) => APPROVAL_STATUS_KOREAN_TO_ENGLISH[item]).join(','),
     date: convertedSortTake.value as 'desc' | 'asc',
   };
 

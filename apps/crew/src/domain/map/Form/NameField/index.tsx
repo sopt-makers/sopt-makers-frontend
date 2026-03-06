@@ -6,12 +6,12 @@ const NameField = () => {
   return (
     <STitleField>
       <FormController
-        name="name"
+        name='name'
         render={({ field, fieldState: { error } }) => (
           <TextInput
-            label="장소 이름"
-            message="체인점의 경우, 정확한 지점명을 입력해 주세요."
-            placeholder="장소 이름"
+            label='장소 이름'
+            message='체인점의 경우, 정확한 지점명을 입력해 주세요.'
+            placeholder='장소 이름'
             maxLength={30}
             required
             error={error?.message}
