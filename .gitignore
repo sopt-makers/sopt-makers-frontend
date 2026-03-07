@@ -22,4 +22,4 @@ node_modules
 .turbo
 
 # Build outputs
-packages/ui/dist
+packages/ui/dist/**/*
