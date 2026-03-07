@@ -9,9 +9,27 @@ export default {
 export const Default = {
   args: {
     careers: [
-      { companyName: '당근마켓', isCurrent: true, title: 'FE Developer', startDate: '2023-04', endDate: null },
-      { companyName: '토스', isCurrent: false, title: 'FE Developer', startDate: '2022-04', endDate: '2023-03' },
-      { companyName: '네이버', isCurrent: false, title: 'FE Developer', startDate: '2021-04', endDate: '2022-03' },
+      {
+        companyName: '당근마켓',
+        isCurrent: true,
+        title: 'FE Developer',
+        startDate: '2023-04',
+        endDate: null,
+      },
+      {
+        companyName: '토스',
+        isCurrent: false,
+        title: 'FE Developer',
+        startDate: '2022-04',
+        endDate: '2023-03',
+      },
+      {
+        companyName: '네이버',
+        isCurrent: false,
+        title: 'FE Developer',
+        startDate: '2021-04',
+        endDate: '2022-03',
+      },
     ],
     links: [
       { id: -1, title: 'Github', url: 'https://playground.sopt.org/members/8' },
@@ -26,8 +44,20 @@ export const Default = {
 export const JoblessWithTwoCareers = {
   args: {
     careers: [
-      { companyName: '당근마켓', isCurrent: false, title: 'FE Developer', startDate: '2023-03', endDate: '2023-04' },
-      { companyName: '토스', isCurrent: false, title: 'FE Developer', startDate: '2022-04', endDate: '2023-02' },
+      {
+        companyName: '당근마켓',
+        isCurrent: false,
+        title: 'FE Developer',
+        startDate: '2023-03',
+        endDate: '2023-04',
+      },
+      {
+        companyName: '토스',
+        isCurrent: false,
+        title: 'FE Developer',
+        startDate: '2022-04',
+        endDate: '2023-02',
+      },
     ],
     links: [
       { id: -1, title: 'Github', url: 'https://playground.sopt.org/members/8' },
@@ -42,7 +72,13 @@ export const JoblessWithTwoCareers = {
 export const JoblessWithCareer = {
   args: {
     careers: [
-      { companyName: '당근마켓', isCurrent: false, title: 'FE Developer', startDate: '2023-03', endDate: '2023-04' },
+      {
+        companyName: '당근마켓',
+        isCurrent: false,
+        title: 'FE Developer',
+        startDate: '2023-03',
+        endDate: '2023-04',
+      },
     ],
     links: [
       { id: -1, title: 'Github', url: 'https://playground.sopt.org/members/8' },
@@ -56,7 +92,15 @@ export const JoblessWithCareer = {
 
 export const New = {
   args: {
-    careers: [{ companyName: '당근마켓', isCurrent: true, title: 'FE Developer', startDate: '2023-03', endDate: null }],
+    careers: [
+      {
+        companyName: '당근마켓',
+        isCurrent: true,
+        title: 'FE Developer',
+        startDate: '2023-03',
+        endDate: null,
+      },
+    ],
     links: [
       { id: -1, title: 'Github', url: 'https://playground.sopt.org/members/8' },
       { id: -1, title: '블로그', url: 'https://playground.sopt.org/members/8' },

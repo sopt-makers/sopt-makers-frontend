@@ -78,7 +78,10 @@ export default function MemberUploadPage() {
       mbtiDescription,
       interest,
       activities: activities.map((activity) => {
-        const newActivity: SoptActivity = { ...activity, generation: activity.generation.replace(/기/g, '') };
+        const newActivity: SoptActivity = {
+          ...activity,
+          generation: activity.generation.replace(/기/g, ''),
+        };
         if (activity.team === UNSELECTED || activity.team === '') {
           return { ...newActivity, team: null };
         }

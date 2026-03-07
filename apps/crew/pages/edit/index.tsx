@@ -16,7 +16,7 @@ import { useEffect } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { styled } from 'stitches.config';
 
-const DevTool = dynamic(() => import('@hookform/devtools').then(module => module.DevTool), {
+const DevTool = dynamic(() => import('@hookform/devtools').then((module) => module.DevTool), {
   ssr: false,
 });
 
@@ -38,7 +38,7 @@ const EditPage = () => {
   });
   const { isValid, errors, isDirty } = formMethods.formState;
 
-  const onSubmit: SubmitHandler<FormType> = async formData => {
+  const onSubmit: SubmitHandler<FormType> = async (formData) => {
     try {
       await mutateAsync(formData);
       alert('모임을 수정했습니다.');
@@ -75,11 +75,11 @@ const EditPage = () => {
         parts.length - 1 === formData?.joinableParts.length
           ? parts
           : // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-            [...formData!.joinableParts.map(partString => parts.find(part => part.value === partString))];
+            [...formData!.joinableParts.map((partString) => parts.find((part) => part.value === partString))];
 
       formMethods.reset({
         ...formData,
-        files: formData?.imageURL.map(image => image.url),
+        files: formData?.imageURL.map((image) => image.url),
         dateRange: [formatCalendarDate(formData?.startDate), formatCalendarDate(formData?.endDate)],
         category: { label: formData?.category, value: formData?.category },
         // TODO: 불필요한 재정의 피할 수 있도록 API server 랑 싱크 맞추는 거 필요할 듯
@@ -109,7 +109,7 @@ const EditPage = () => {
           <SFormCaution>모임 개설에 필요한 필수 항목이 모두 입력 되었는지 꼼꼼하게 확인해주세요!</SFormCaution>
           <Presentation
             submitButtonLabel={<>정보 수정하기</>}
-            cancelButtonLabel="수정 취소하기"
+            cancelButtonLabel='수정 취소하기'
             handleChangeImage={handleChangeImage}
             handleDeleteImage={handleDeleteImage}
             onSubmit={handleSubmit}
@@ -117,10 +117,10 @@ const EditPage = () => {
           />
         </SFormContainer>
         <TableOfContents
-          label="작성 항목"
+          label='작성 항목'
           onSubmit={handleSubmit}
-          cancelButtonLabel="수정 취소하기"
-          submitButtonLabel="정보 수정하기"
+          cancelButtonLabel='수정 취소하기'
+          submitButtonLabel='정보 수정하기'
           disabled={isSubmitting || !isValid || Object.keys(errors).length > 0 || !isDirty}
         />
       </SContainer>
@@ -134,18 +134,18 @@ const EditPage = () => {
 export default EditPage;
 
 const SContainer = styled('div', {
-  margin: '80px 0',
-  display: 'flex',
-  gap: '30px',
+  'margin': '80px 0',
+  'display': 'flex',
+  'gap': '30px',
 
   '@media (max-width: 768px)': {
     margin: 0,
   },
 });
 const SFormContainer = styled('div', {
-  width: '100%',
-  padding: '44px 40px 56px',
-  borderRadius: '15px',
+  'width': '100%',
+  'padding': '44px 40px 56px',
+  'borderRadius': '15px',
 
   '@media (max-width: 768px)': {
     padding: '40px 0 0 0',
@@ -155,8 +155,8 @@ const SFormContainer = styled('div', {
 
 const SFormName = styled('h1', {
   ...fontsObject.HEADING_2_32_B,
-  color: '$gray10',
-  marginBottom: '20px',
+  'color': '$gray10',
+  'marginBottom': '20px',
 
   '@media (max-width: 768px)': {
     ...fontsObject.HEADING_4_24_B,

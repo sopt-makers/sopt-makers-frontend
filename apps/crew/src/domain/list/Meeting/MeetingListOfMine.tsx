@@ -4,6 +4,7 @@ import { useScrollRestorationAfterLoading } from '@hook/useScrollRestoration';
 import { Suspense } from '@suspensive/react';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { styled } from 'stitches.config';
+
 import Card from '../Card';
 import ManagementButton from '../Card/ManagementButton';
 import CardSkeleton from '../Card/Skeleton';
@@ -18,13 +19,13 @@ function MeetingListOfMine() {
     <main style={{ marginBottom: '20%' }}>
       <SMeetingCount>{mineData?.meetings.length}개의 모임</SMeetingCount>
       {mineData?.meetings.length ? (
-        <GridLayout mobileType="card">
-          {mineData?.meetings.map(meetingData => (
+        <GridLayout mobileType='card'>
+          {mineData?.meetings.map((meetingData) => (
             <Card
               key={meetingData.id}
               // TODO: mine meetingData 에 welcomeMessageTypes, meetingKeywordTypes 가 현재 없지만, 곧 서버에서 내려줄 예정
               meetingData={meetingData as unknown as MeetingData}
-              mobileType="card"
+              mobileType='card'
               bottom={
                 meetingData?.isCoLeader ? (
                   <SBlankManageMentButton></SBlankManageMentButton>
@@ -36,7 +37,7 @@ function MeetingListOfMine() {
           ))}
         </GridLayout>
       ) : (
-        <EmptyView message="모임이 없습니다." />
+        <EmptyView message='모임이 없습니다.' />
       )}
     </main>
   );
@@ -46,9 +47,9 @@ export default () => {
   return (
     <Suspense
       fallback={
-        <GridLayout mobileType="card">
+        <GridLayout mobileType='card'>
           {new Array(6).fill(null).map((_, index) => (
-            <CardSkeleton key={index} mobileType="card" />
+            <CardSkeleton key={index} mobileType='card' />
           ))}
         </GridLayout>
       }
@@ -59,7 +60,7 @@ export default () => {
 };
 
 const SMeetingCount = styled('p', {
-  fontStyle: 'H3',
+  'fontStyle': 'H3',
   '@media (max-width: 849px)': {
     width: '380px',
   },
@@ -70,11 +71,11 @@ const SMeetingCount = styled('p', {
 });
 
 const SBlankManageMentButton = styled('div', {
-  width: '128px',
-  padding: '12px 12px 13px 14px',
-  borderRadius: '71px',
-  fontAg: '16_bold_100',
-  whiteSpace: 'nowrap',
+  'width': '128px',
+  'padding': '12px 12px 13px 14px',
+  'borderRadius': '71px',
+  'fontAg': '16_bold_100',
+  'whiteSpace': 'nowrap',
   //background: '$gray800',
   '@media (max-width: 768px)': {
     width: '91px',

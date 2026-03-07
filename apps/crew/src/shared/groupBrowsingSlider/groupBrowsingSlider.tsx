@@ -10,7 +10,7 @@ const GroupBrowsingSlider = () => {
 
   return (
     <SSlider>
-      {cardList.map(card => (
+      {cardList.map((card) => (
         <MobileSizeCard key={card.id} {...card} />
       ))}{' '}
     </SSlider>

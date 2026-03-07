@@ -1,4 +1,6 @@
-import { authToken } from '@/store/tokenStore';
+import '@sopt-makers/ui/dist/index.css';
+import '../styles/globals.css';
+
 import { getUserProfile } from '@api/user';
 import Loader from '@common/loader/Loader';
 import { OverlayProvider } from '@hook/useOverlay/OverlayProvider';
@@ -10,7 +12,6 @@ import Header from '@shared/header/Header';
 import SEO from '@shared/seo/SEO';
 import { setAccessTokens } from '@shared/util/auth';
 import { DialogProvider, ToastProvider } from '@sopt-makers/ui';
-import '@sopt-makers/ui/dist/index.css';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { GTM_ID, pageview } from '@util/gtm';
@@ -20,8 +21,10 @@ import Script from 'next/script';
 import React, { useEffect, useState } from 'react';
 import { styled, theme } from 'stitches.config';
 import { globalStyles } from 'styles/globals';
+
+import { authToken } from '@/store/tokenStore';
+
 import { ampli } from '../src/ampli';
-import '../styles/globals.css';
 
 function MyApp({ Component, pageProps }: AppProps) {
   globalStyles();
@@ -35,7 +38,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             staleTime: Infinity,
           },
         },
-      })
+      }),
   );
   const router = useRouter();
   const _authToken = useStore(authToken);
@@ -105,8 +108,8 @@ function MyApp({ Component, pageProps }: AppProps) {
           <SEO />
           <ReactQueryDevtools initialIsOpen={false} />
           <Script
-            id="gtag-base"
-            strategy="afterInteractive"
+            id='gtag-base'
+            strategy='afterInteractive'
             dangerouslySetInnerHTML={{
               __html: `
             (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -142,11 +145,11 @@ function MyApp({ Component, pageProps }: AppProps) {
 export default MyApp;
 
 const Layout = styled('div', {
-  color: theme.colors.white,
-  mx: '$auto',
-  marginTop: '128px',
-  width: '1200px',
-  height: '100%',
+  'color': theme.colors.white,
+  'mx': '$auto',
+  'marginTop': '128px',
+  'width': '1200px',
+  'height': '100%',
 
   '@laptop': {
     width: '790px',

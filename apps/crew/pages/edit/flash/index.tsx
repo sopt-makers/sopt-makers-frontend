@@ -13,7 +13,7 @@ import { useEffect } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { styled } from 'stitches.config';
 
-const DevTool = dynamic(() => import('@hookform/devtools').then(module => module.DevTool), {
+const DevTool = dynamic(() => import('@hookform/devtools').then((module) => module.DevTool), {
   ssr: false,
 });
 
@@ -22,7 +22,9 @@ const FlashEditPage = () => {
   const id = +(router.query.id || 0);
 
   const { data: formData } = useQuery(useFlashQueryOption({ meetingId: id }));
-  const { mutateAsync, isPending: isSubmitting } = usePutFlashMutation({ meetingId: id });
+  const { mutateAsync, isPending: isSubmitting } = usePutFlashMutation({
+    meetingId: id,
+  });
 
   const formMethods = useForm<FlashFormType>({
     mode: 'onChange',
@@ -31,7 +33,7 @@ const FlashEditPage = () => {
 
   const { isValid, errors, isDirty } = formMethods.formState;
 
-  const onSubmit: SubmitHandler<FlashFormType> = async formData => {
+  const onSubmit: SubmitHandler<FlashFormType> = async (formData) => {
     try {
       await mutateAsync({ id, formData });
       alert('모임을 수정했습니다.');
@@ -107,7 +109,7 @@ const FlashEditPage = () => {
                   번쩍 수정하기
                 </>
               }
-              cancelButtonLabel="수정 취소하기"
+              cancelButtonLabel='수정 취소하기'
               handleChangeImage={handleChangeImage}
               handleDeleteImage={handleDeleteImage}
               onSubmit={formMethods.handleSubmit(onSubmit)}
@@ -128,18 +130,18 @@ const FlashEditPage = () => {
 export default FlashEditPage;
 
 const SContainer = styled('div', {
-  margin: '80px 0',
-  display: 'flex',
-  gap: '30px',
+  'margin': '80px 0',
+  'display': 'flex',
+  'gap': '30px',
 
   '@media (max-width: 768px)': {
     margin: 0,
   },
 });
 const SFormContainer = styled('div', {
-  width: '100%',
-  padding: '44px 40px 56px',
-  borderRadius: '15px',
+  'width': '100%',
+  'padding': '44px 40px 56px',
+  'borderRadius': '15px',
 
   '@media (max-width: 768px)': {
     padding: '40px 0 0 0',
@@ -147,9 +149,9 @@ const SFormContainer = styled('div', {
   },
 });
 const SFormName = styled('h1', {
-  fontAg: '24_bold_100',
-  color: '$gray10',
-  marginBottom: '90px',
+  'fontAg': '24_bold_100',
+  'color': '$gray10',
+  'marginBottom': '90px',
 
   '@media (max-width: 768px)': {
     margin: 0,

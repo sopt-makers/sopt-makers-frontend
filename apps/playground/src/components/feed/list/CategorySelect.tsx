@@ -52,7 +52,7 @@ const CategorySelect: FC<CategorySelectProps> = ({ categories, onCategoryChange 
                 onClick={() => {
                   onCategoryChange(category.id);
                 }}
-                categoryId={category.hasAllCategory ? category.id : category.tags.at(0)?.id ?? category.id} // 하위에 "전체" 카테고리가 없으면 태그의 첫 카테고리로 보내기
+                categoryId={category.hasAllCategory ? category.id : (category.tags.at(0)?.id ?? category.id)} // 하위에 "전체" 카테고리가 없으면 태그의 첫 카테고리로 보내기
                 active={parentCategory?.id === category.id}
               >
                 {category.name}

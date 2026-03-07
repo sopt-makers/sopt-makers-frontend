@@ -2,10 +2,10 @@ import { useDeleteCommentMutation, usePostCommentReportMutation, usePutCommentMu
 import { GetCommentListResponse, GetCommentReplyResponse } from '@api/comment/type';
 import { PostCommentWithMentionRequest } from '@api/mention';
 import { useMutationPostCommentWithMention } from '@api/mention/mutation';
-import ReCommentHoverIcon from '@assets/svg/Recomment_Hover_Icon.svg';
 import AlertIcon from '@assets/svg/alert-triangle.svg';
 import ReWriteIcon from '@assets/svg/comment-write.svg';
 import MessageIcon from '@assets/svg/message-dots.svg?v2';
+import ReCommentHoverIcon from '@assets/svg/Recomment_Hover_Icon.svg';
 import ReplyPointIcon from '@assets/svg/recomment_point_icon.svg';
 import TrashIcon from '@assets/svg/trash.svg';
 import Avatar from '@common/avatar/Avatar';
@@ -18,6 +18,7 @@ import { fontsObject } from '@sopt-makers/fonts';
 import { useRouter } from 'next/router';
 import { useContext, useRef, useState } from 'react';
 import { styled } from 'stitches.config';
+
 import FeedActionButton from '../FeedActionButton/FeedActionButton';
 import FeedCommentEditor from '../FeedCommentEditor/FeedCommentEditor';
 import FeedCommentViewer from '../FeedCommentViewer/FeedCommentViewer';
@@ -32,8 +33,6 @@ interface FeedCommentContainerProps {
   handleCreateComment: (req: PostCommentWithMentionRequest) => Promise<void>;
   isCreatingComment: boolean;
 }
-
-// eslint-disable-next-line prettier/prettier
 
 export default function FeedCommentContainer({
   comment,
@@ -78,19 +77,19 @@ export default function FeedCommentContainer({
           Actions={
             isMine
               ? [
-                  <FeedActionButton onClick={() => setEditMode(true)}>
+                  <FeedActionButton key='edit' onClick={() => setEditMode(true)}>
                     <ReWriteIcon />
                     수정
                   </FeedActionButton>,
                   <FeedActionButton
+                    key='delete'
                     onClick={() =>
                       overlay.open(({ isOpen, close }) => (
-                        // eslint-disable-next-line prettier/prettier
                         <ConfirmModal
                           isModalOpened={isOpen}
-                          message="댓글을 삭제하시겠습니까?"
-                          cancelButton="돌아가기"
-                          confirmButton="삭제하기"
+                          message='댓글을 삭제하시겠습니까?'
+                          cancelButton='돌아가기'
+                          confirmButton='삭제하기'
                           handleModalClose={close}
                           handleConfirm={() => {
                             mutateDeleteComment(comment.id);
@@ -106,14 +105,14 @@ export default function FeedCommentContainer({
                 ]
               : [
                   <FeedActionButton
+                    key='report'
                     onClick={() =>
                       overlay.open(({ isOpen, close }) => (
-                        // eslint-disable-next-line prettier/prettier
                         <ConfirmModal
                           isModalOpened={isOpen}
-                          message="신고하시겠습니까?"
-                          cancelButton="돌아가기"
-                          confirmButton="신고하기"
+                          message='신고하시겠습니까?'
+                          cancelButton='돌아가기'
+                          confirmButton='신고하기'
                           handleModalClose={close}
                           handleConfirm={() => {
                             mutateReportComment(comment.id);
@@ -165,7 +164,7 @@ export default function FeedCommentContainer({
         <>
           {comment?.replies?.map((reply: GetCommentReplyResponse) => {
             return reply.isBlockedComment ? (
-              <CommentBlocker variant="secondary" />
+              <CommentBlocker variant='secondary' />
             ) : (
               <FeedReCommentContainer
                 comment={comment}
@@ -186,9 +185,9 @@ export default function FeedCommentContainer({
 }
 
 const LoadMoreReCommentsButton = styled('div', {
-  display: 'flex',
-  alignItems: 'center',
-  cursor: 'pointer',
+  'display': 'flex',
+  'alignItems': 'center',
+  'cursor': 'pointer',
   '& > span': {
     color: colors.gray300,
     ...fontsObject.LABEL_4_12_SB,
@@ -197,17 +196,17 @@ const LoadMoreReCommentsButton = styled('div', {
 });
 
 const SReplyButton = styled('div', {
-  marginLeft: '8px',
+  'marginLeft': '8px',
   '&:hover': {
     textDecoration: 'underline',
   },
 });
 
 const MessageIconWrapper = styled('div', {
-  width: '20px',
-  height: '20px',
-  color: '$gray300',
-  marginLeft: '12px',
+  'width': '20px',
+  'height': '20px',
+  'color': '$gray300',
+  'marginLeft': '12px',
   '&:hover svg:first-of-type': {
     display: 'none',
   },

@@ -27,7 +27,9 @@ export const usePostQuestionAnswer = () => {
       postQuestionAnswer.request({ questionId, content }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['getMemberQuestions'] });
-      queryClient.invalidateQueries({ queryKey: ['getUnansweredQuestionCount'] });
+      queryClient.invalidateQueries({
+        queryKey: ['getUnansweredQuestionCount'],
+      });
     },
   });
 };

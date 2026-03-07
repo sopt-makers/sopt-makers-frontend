@@ -54,7 +54,7 @@ function ResultEvent({ isWinLottery, giftUrl }: ResultEventProps) {
     <SContainer>
       {config.title()}
       <SImage src={config.imageSrc} alt={config.alt} />
-      <SButton onClick={config.onButtonClick} size="lg" variant="fill" color="primary">
+      <SButton onClick={config.onButtonClick} size='lg' variant='fill' color='primary'>
         {config.buttonText}
       </SButton>
     </SContainer>
@@ -64,13 +64,13 @@ function ResultEvent({ isWinLottery, giftUrl }: ResultEventProps) {
 export default ResultEvent;
 
 const SContainer = styled('section', {
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  gap: '$44',
+  'display': 'flex',
+  'flexDirection': 'column',
+  'alignItems': 'center',
+  'gap': '$44',
 
-  margin: '80px auto',
-  width: '100%',
+  'margin': '80px auto',
+  'width': '100%',
 
   '@mobile': {
     margin: '48px auto',
@@ -85,17 +85,17 @@ const STitleContainer = styled('div', {
 });
 
 const STitle = styled('h1', {
-  textAlign: 'center',
+  'textAlign': 'center',
 
   ...fontsObject.HEADING_3_28_B,
-  lineHeight: '42px',
-  letterSpacing: '-0.56px',
+  'lineHeight': '42px',
+  'letterSpacing': '-0.56px',
 
   '& span': {
     color: '$secondary',
   },
 
-  mt: '$30',
+  'mt': '$30',
 
   '@mobile': {
     mt: '$104',
@@ -113,8 +113,8 @@ const SDescription = styled('p', {
 });
 
 const SImage = styled('img', {
-  width: '440px',
-  height: '440px',
+  'width': '440px',
+  'height': '440px',
 
   '@mobile': {
     width: '360px',
@@ -123,7 +123,7 @@ const SImage = styled('img', {
 });
 
 const SButton = styled(Button, {
-  width: '560px',
+  'width': '560px',
 
   '@mobile': {
     width: '320px',

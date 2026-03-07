@@ -1,6 +1,3 @@
-import { paths } from '@/__generated__/schema2';
-import { ampli } from '@/ampli';
-import { api } from '@/api';
 import { useMeetingQueryOption } from '@api/meeting/query';
 import { useDeletePostMutation, useUpdatePostLikeMutation } from '@api/post/mutation';
 import { useGetPostListInfiniteQuery } from '@api/post/query';
@@ -22,6 +19,11 @@ import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { styled } from 'stitches.config';
+
+import { paths } from '@/__generated__/schema2';
+import { ampli } from '@/ampli';
+import { api } from '@/api';
+
 import EmptyView from './EmptyView';
 import FeedItem from './FeedItem';
 import MobileFeedListSkeleton from './Skeleton/MobileFeedListSkeleton';
@@ -61,7 +63,7 @@ const FeedPanel = ({ isMember }: FeedPanelProps) => {
           content: '게시글을 삭제했습니다',
         });
       },
-      onError: error => {
+      onError: (error) => {
         const axiosError = error as AxiosError<{ errorCode: string }>;
         feedCreateOverlay.close();
         open({
@@ -80,7 +82,11 @@ const FeedPanel = ({ isMember }: FeedPanelProps) => {
 
   const handleModalOpen = () => {
     if (me?.orgId) {
-      ampli.clickFeedPosting({ user_id: Number(me?.orgId), group_id: Number(meetingId), location: router.pathname });
+      ampli.clickFeedPosting({
+        user_id: Number(me?.orgId),
+        group_id: Number(meetingId),
+        location: router.pathname,
+      });
     }
     feedCreateOverlay.open(({ isOpen, close }) => {
       return <FeedCreateModal meetingId={meetingId} isModalOpened={isOpen} handleModalClose={close} />;
@@ -127,7 +133,7 @@ const FeedPanel = ({ isMember }: FeedPanelProps) => {
     }
   }, [inView, hasNextPage, fetchNextPage]);
 
-  const renderedPosts = postsData?.pages.map(post => {
+  const renderedPosts = postsData?.pages.map((post) => {
     if (!post) return;
     const isMyPost = me?.id === post.user.id;
     return (
@@ -190,7 +196,7 @@ const FeedPanel = ({ isMember }: FeedPanelProps) => {
       {isTablet ? (
         <SMobileContainer>{renderedPosts}</SMobileContainer>
       ) : (
-        <SDesktopContainer align="left" gap={30}>
+        <SDesktopContainer align='left' gap={30}>
           {renderedPosts}
         </SDesktopContainer>
       )}
@@ -207,8 +213,8 @@ const FeedPanel = ({ isMember }: FeedPanelProps) => {
 export default FeedPanel;
 
 const SContainer = styled('div', {
-  flexType: 'center',
-  minHeight: '752px',
+  'flexType': 'center',
+  'minHeight': '752px',
 
   '@media (max-width: 768px)': {
     minHeight: '376px',
@@ -224,12 +230,12 @@ const SDesktopContainer = styled(MasonryInfiniteGrid, {
 });
 
 const SMobileContainer = styled('div', {
-  display: 'flex',
-  flexDirection: 'column',
-  marginTop: 0,
+  'display': 'flex',
+  'flexDirection': 'column',
+  'marginTop': 0,
   '& a:not(:first-child)::before': {
-    content: '',
-    display: 'none',
+    'content': '',
+    'display': 'none',
 
     '@media (max-width: 768px)': {
       display: 'block',
@@ -242,10 +248,10 @@ const SMobileContainer = styled('div', {
 });
 
 const SHeader = styled('div', {
-  flexType: 'center',
-  padding: '$31 0',
-  fontStyle: 'H1',
-  color: '$gray200',
+  'flexType': 'center',
+  'padding': '$31 0',
+  'fontStyle': 'H1',
+  'color': '$gray200',
 
   '@media (max-width: 768px)': {
     padding: '$16 $20',
@@ -263,12 +269,12 @@ const SCount = styled('span', {
 });
 
 const SButton = styled('button', {
-  backgroundColor: '$secondary',
-  fontStyle: 'H2',
-  ml: '$48',
-  color: '$white',
-  padding: '$16 $36',
-  borderRadius: '14px',
+  'backgroundColor': '$secondary',
+  'fontStyle': 'H2',
+  'ml': '$48',
+  'color': '$white',
+  'padding': '$16 $36',
+  'borderRadius': '14px',
 
   '@media (max-width: 768px)': {
     fontStyle: 'T5',

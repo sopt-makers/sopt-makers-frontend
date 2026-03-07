@@ -41,7 +41,7 @@ const CoLeader = ({ value: coLeaders = [], onChange, error }: CoLeaderFieldProps
       })) ?? [];
 
   const handleUserSelect = (user: mentionableDataType) => {
-    if (coLeaders.length < 3 && !coLeaders.some(leader => leader.id === user.id)) {
+    if (coLeaders.length < 3 && !coLeaders.some((leader) => leader.id === user.id)) {
       onChange([...coLeaders, user]); // 선택한 유저 객체 추가
     }
     setComment('');
@@ -117,9 +117,9 @@ const Container = styled('div', {
 });
 
 const LeadersContainer = styled('div', {
-  display: 'flex',
-  alignItems: 'center',
-  gap: '8px',
+  'display': 'flex',
+  'alignItems': 'center',
+  'gap': '8px',
   '@media (max-width: 430px)': {
     flexDirection: 'column',
     alignItems: 'flex-start',
@@ -127,10 +127,10 @@ const LeadersContainer = styled('div', {
 });
 
 const LeadersWrapper = styled('div', {
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  gap: '10px',
+  'display': 'flex',
+  'justifyContent': 'center',
+  'alignItems': 'center',
+  'gap': '10px',
   '@media (max-width: 430px)': {
     gap: '8px',
     flexWrap: 'wrap',
@@ -139,21 +139,21 @@ const LeadersWrapper = styled('div', {
 });
 
 const Leader = styled('div', {
-  width: '134px',
-  heigth: '48px',
+  'width': '134px',
+  'heigth': '48px',
 
-  display: 'flex',
-  padding: '8px 12px',
-  justifyContent: 'center',
-  alignItems: 'center',
-  gap: '10px',
+  'display': 'flex',
+  'padding': '8px 12px',
+  'justifyContent': 'center',
+  'alignItems': 'center',
+  'gap': '10px',
 
-  borderRadius: '10px',
-  backgroundColor: '$gray900',
-  flexWrap: 'nowrap',
+  'borderRadius': '10px',
+  'backgroundColor': '$gray900',
+  'flexWrap': 'nowrap',
 
-  color: '$white',
-  position: 'relative',
+  'color': '$white',
+  'position': 'relative',
 
   '@media (max-width: 430px)': {
     width: '113px',
@@ -164,9 +164,9 @@ const Leader = styled('div', {
 });
 
 const LeaderName = styled('span', {
-  color: '$white',
+  'color': '$white',
   ...fontsObject.BODY_2_16_M,
-  whiteSpace: 'nowrap',
+  'whiteSpace': 'nowrap',
 
   '@media (max-width: 430px)': {
     ...fontsObject.BODY_3_14_M,
@@ -220,11 +220,11 @@ const SProfile = styled('a', {
   color: '$gray10',
   width: 'fit-content',
   img: {
-    width: '$32',
-    height: '$32',
-    borderRadius: '50%',
-    objectFit: 'cover',
-    background: '$gray700',
+    'width': '$32',
+    'height': '$32',
+    'borderRadius': '50%',
+    'objectFit': 'cover',
+    'background': '$gray700',
 
     '@media (max-width: 430px)': {
       width: '$24',
@@ -254,8 +254,8 @@ const StyledIconXClose = styled(IconXClose, {
 });
 
 const StyledProfileDefaultIcon = styled(ProfileDefaultIcon, {
-  width: '32px',
-  height: '32px',
+  'width': '32px',
+  'height': '32px',
   '@media (max-width: 430px)': {
     width: '24px',
     height: '24px',

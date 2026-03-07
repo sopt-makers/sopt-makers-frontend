@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react';
 
 export const usePlatform = () => {
-  const [platformInfo, setPlatformInfo] = useState({ isMobileOS: false, isDesktopOS: false });
+  const [platformInfo, setPlatformInfo] = useState({
+    isMobileOS: false,
+    isDesktopOS: false,
+  });
 
   useEffect(() => {
     const ua = navigator.userAgent;

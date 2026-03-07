@@ -114,7 +114,14 @@ const WorkPreferenceMemberCard = ({
                 ) : profileImage ? (
                   <Image className='image' src={profileImage} width={80} alt='member_image' />
                 ) : (
-                  <IconUser style={{ width: 60, height: 60, color: `${colors.gray400}`, paddingTop: '10px' }} />
+                  <IconUser
+                    style={{
+                      width: 60,
+                      height: 60,
+                      color: `${colors.gray400}`,
+                      paddingTop: '10px',
+                    }}
+                  />
                 )}
               </ImageHolder>
             </StyledImageArea>

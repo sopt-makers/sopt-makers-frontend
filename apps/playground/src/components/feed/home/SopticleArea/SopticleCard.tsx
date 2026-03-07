@@ -24,11 +24,15 @@ const SopticleCard = ({ sopticle }: SopticleCardProps) => {
         <UserNameStyle>{member.name}</UserNameStyle>
         <DotStyle>•</DotStyle>
         <SubTextStyle>
-         {getMemberInfo({
+          {getMemberInfo({
             categoryId: 21,
             categoryName: '솝티클',
             member: {
-              activity: member?.activity ?? { generation: 0, part: '', team: null },
+              activity: member?.activity ?? {
+                generation: 0,
+                part: '',
+                team: null,
+              },
               careers: member?.careers ?? null,
             },
           })}

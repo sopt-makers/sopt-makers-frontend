@@ -41,15 +41,15 @@ const SOverlay = styled('div', {
 });
 
 const SBottomSheet = styled('div', {
-  position: 'fixed',
-  bottom: '$42',
-  left: '$16',
-  right: '$16',
-  backgroundColor: '$gray800',
-  borderRadius: '20px',
-  padding: '$12 $8',
-  zIndex: 1000,
-  animation: 'slideUp 0.3s ease-out',
+  'position': 'fixed',
+  'bottom': '$42',
+  'left': '$16',
+  'right': '$16',
+  'backgroundColor': '$gray800',
+  'borderRadius': '20px',
+  'padding': '$12 $8',
+  'zIndex': 1000,
+  'animation': 'slideUp 0.3s ease-out',
 
   '@keyframes slideUp': {
     from: {

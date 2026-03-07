@@ -4,6 +4,7 @@ import useSessionStorage from '@hook/useSessionStorage';
 import { Flex } from '@shared/util/layout/Flex';
 import { MouseEventHandler } from 'react';
 import { styled } from 'stitches.config';
+
 import SelectBottomSheet from './BottomSheet';
 import SelectComboBoxItem from './SelectComboBoxItem';
 interface SelectListDataType {
@@ -28,8 +29,8 @@ function MultiSelect({ selectListData, selectedValues, addValue, deleteValue }: 
     <>
       <SSelectWrapper>
         <SSelectDisplay
-          align="center"
-          justify="between"
+          align='center'
+          justify='between'
           onClick={() => toggleSelectList()}
           isSelected={selectedValues.length !== 0}
         >
@@ -38,23 +39,23 @@ function MultiSelect({ selectListData, selectedValues, addValue, deleteValue }: 
         </SSelectDisplay>
 
         <>
-          <SSelectBoxList as="ul" isVisible={isVisible}>
-            {selectListData.options.map(option => (
+          <SSelectBoxList as='ul' isVisible={isVisible}>
+            {selectListData.options.map((option) => (
               <SelectComboBoxItem
                 key={option}
                 value={option}
-                isChecked={selectedValues?.filter(selectedValue => selectedValue === option).length > 0}
+                isChecked={selectedValues?.filter((selectedValue) => selectedValue === option).length > 0}
                 onCheck={addValue}
                 onRemove={deleteValue}
               />
             ))}
           </SSelectBoxList>
           <SelectBottomSheet label={selectListData.label} isVisible={isVisible} handleClose={() => setIsVisible(false)}>
-            {selectListData.options.map(option => (
+            {selectListData.options.map((option) => (
               <SelectComboBoxItem
                 key={option}
                 value={option}
-                isChecked={selectedValues?.filter(selectedValue => selectedValue === option).length > 0}
+                isChecked={selectedValues?.filter((selectedValue) => selectedValue === option).length > 0}
                 onCheck={addValue}
                 onRemove={deleteValue}
               />
@@ -69,9 +70,9 @@ function MultiSelect({ selectListData, selectedValues, addValue, deleteValue }: 
 export default MultiSelect;
 
 const SSelectWrapper = styled('div', {
-  position: 'relative',
+  'position': 'relative',
   '& + &': {
-    ml: '$12',
+    'ml': '$12',
     '@media (max-width: 768px)': {
       ml: '$8',
     },
@@ -79,12 +80,12 @@ const SSelectWrapper = styled('div', {
 });
 
 const SSelectDisplay = styled(Flex, {
-  width: '153px',
-  border: '1px solid $gray600',
-  borderRadius: '14px',
-  padding: '$18 $20',
-  cursor: 'pointer',
-  variants: {
+  'width': '153px',
+  'border': '1px solid $gray600',
+  'borderRadius': '14px',
+  'padding': '$18 $20',
+  'cursor': 'pointer',
+  'variants': {
     isSelected: {
       true: {
         border: '1px solid $gray10',
@@ -111,9 +112,9 @@ const SArrowIcon = styled(ArrowIcon, {
 });
 
 const SCategory = styled('span', {
-  fontAg: '18_medium_100',
-  color: '$gray10',
-  variants: {
+  'fontAg': '18_medium_100',
+  'color': '$gray10',
+  'variants': {
     isSelected: {
       true: {
         color: '1px solid $gray10',
@@ -125,21 +126,21 @@ const SCategory = styled('span', {
   },
 });
 const SSelectBoxList = styled('div', {
-  width: '100%',
-  position: 'absolute',
-  border: '1px solid $gray600',
-  borderRadius: '$10',
-  padding: '$8 $16',
-  top: '63px',
-  backgroundColor: '$gray950',
-  zIndex: '$2',
+  'width': '100%',
+  'position': 'absolute',
+  'border': '1px solid $gray600',
+  'borderRadius': '$10',
+  'padding': '$8 $16',
+  'top': '63px',
+  'backgroundColor': '$gray950',
+  'zIndex': '$2',
   '& li': {
     height: '50px',
   },
   '& li:last-child': {
     borderBottom: 'none',
   },
-  variants: {
+  'variants': {
     isVisible: {
       true: { visibility: 'visible' },
       false: { visibility: 'hidden' },
@@ -159,14 +160,14 @@ const SelectOverlay = ({ onClick, isVisible }: OverlayProps) => {
 };
 
 const SSelectOverlay = styled('div', {
-  position: 'fixed',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  zIndex: '$1',
-  width: '100%',
-  height: '100%',
-  variants: {
+  'position': 'fixed',
+  'top': '50%',
+  'left': '50%',
+  'transform': 'translate(-50%, -50%)',
+  'zIndex': '$1',
+  'width': '100%',
+  'height': '100%',
+  'variants': {
     isVisible: {
       true: { display: 'block' },
       false: { display: 'none' },

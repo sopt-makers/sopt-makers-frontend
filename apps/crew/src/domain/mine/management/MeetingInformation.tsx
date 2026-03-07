@@ -35,12 +35,12 @@ const MeetingInformation = ({ meetingData }: MeetingInformationProps) => {
 export default MeetingInformation;
 
 const SMeetingInformation = styled('a', {
-  flexType: 'verticalCenter',
-  marginTop: '$64',
-  background: '$gray800',
-  padding: '$32 $26 $32 $29',
-  border: `1px solid $gray600`,
-  borderRadius: '24px',
+  'flexType': 'verticalCenter',
+  'marginTop': '$64',
+  'background': '$gray800',
+  'padding': '$32 $26 $32 $29',
+  'border': `1px solid $gray600`,
+  'borderRadius': '24px',
 
   '& > div': {
     flex: '1',
@@ -57,12 +57,12 @@ const SMeetingInformation = styled('a', {
 });
 
 const SImage = styled('img', {
-  width: '$167',
-  minWidth: '$167',
-  height: '$109',
-  borderRadius: '14px',
-  marginRight: '$35',
-  objectFit: 'cover',
+  'width': '$167',
+  'minWidth': '$167',
+  'height': '$109',
+  'borderRadius': '14px',
+  'marginRight': '$35',
+  'objectFit': 'cover',
 
   '@media (max-width: 768px)': {
     width: '$103',
@@ -74,9 +74,9 @@ const SImage = styled('img', {
 });
 
 const SCategory = styled('div', {
-  fontAg: '24_semibold_100',
-  color: '$gray400',
-  mb: '$10',
+  'fontAg': '24_semibold_100',
+  'color': '$gray400',
+  'mb': '$10',
 
   '@media (max-width: 768px)': {
     fontAg: '12_bold_100',
@@ -84,8 +84,8 @@ const SCategory = styled('div', {
 });
 
 const STitle = styled('p', {
-  fontAg: '28_bold_140',
-  color: '$gray10',
+  'fontAg': '28_bold_140',
+  'color': '$gray10',
 
   '@media (max-width: 768px)': {
     fontAg: '14_bold_140',

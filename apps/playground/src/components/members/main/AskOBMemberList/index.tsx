@@ -50,14 +50,13 @@ export default function BestOBMemberForAsk() {
   useEffect(() => {
     if (didInitSelectedPart.current) return;
 
-  const parts = myProperty?.part ?? [];
-  const lastRealPart = [...parts].reverse().find((p) => p !== '메이커스');
+    const parts = myProperty?.part ?? [];
+    const lastRealPart = [...parts].reverse().find((p) => p !== '메이커스');
 
-  if (lastRealPart) {
-    setSelectedPart(lastRealPart);
-    didInitSelectedPart.current = true;
-  }
-
+    if (lastRealPart) {
+      setSelectedPart(lastRealPart);
+      didInitSelectedPart.current = true;
+    }
   }, [myProperty]);
 
   useEffect(() => {
@@ -140,7 +139,7 @@ export default function BestOBMemberForAsk() {
   if (isLoading) {
     return (
       <BestOBMemberWrapper>
-         <Responsive only='desktop'>
+        <Responsive only='desktop'>
           <TitleWrapper>
             <DropdownTrigger>
               {PART_OPTIONS.find((option) => option.value === selectedPart)?.label}

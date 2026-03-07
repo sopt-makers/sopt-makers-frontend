@@ -3,7 +3,10 @@ import { HttpResponse, http } from 'msw';
 
 import Example, { API_PATH } from '@/components/common/Example';
 
-const random = { message: 'https://images.dog.ceo/breeds/spaniel-irish/n02102973_377.jpg', status: 'success' };
+const random = {
+  message: 'https://images.dog.ceo/breeds/spaniel-irish/n02102973_377.jpg',
+  status: 'success',
+};
 
 export default {
   component: Example,

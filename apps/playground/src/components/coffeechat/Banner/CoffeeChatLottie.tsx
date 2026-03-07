@@ -15,7 +15,7 @@ function CoffeeChatLottie() {
     autoplay: true,
     animationData: coffeePC,
     rendererSettings: {
-      preserveAspectRatio: 'xMidYMid slice', 
+      preserveAspectRatio: 'xMidYMid slice',
     },
   };
   const defaultMobileOptions = {
@@ -23,47 +23,42 @@ function CoffeeChatLottie() {
     autoplay: true,
     animationData: mobilePC,
     rendererSettings: {
-      preserveAspectRatio: 'xMidYMid slice', 
+      preserveAspectRatio: 'xMidYMid slice',
     },
   };
   return (
-<LoggingClick eventKey='coffeechatBanner'>
-  <a href='https://www.notion.so/sopt-makers/87ca4563b6ec49528b7d34372edff677?pvs=4' target="_blank">
-  <Responsive only='desktop'>
-    <DesktopLottieWrapper>
-      <Lottie
-        options={defaultDesktopOptions}
-        width={'100%'}/>
-    </DesktopLottieWrapper>
-    </Responsive>
-    <Responsive only='mobile'>
-        <MobileLottieWrapper>
-          <Lottie
-            options={defaultMobileOptions}
-            width={'100%'} />
-      </MobileLottieWrapper>
-    </Responsive>
-  </a>
-</LoggingClick>
+    <LoggingClick eventKey='coffeechatBanner'>
+      <a href='https://www.notion.so/sopt-makers/87ca4563b6ec49528b7d34372edff677?pvs=4' target='_blank'>
+        <Responsive only='desktop'>
+          <DesktopLottieWrapper>
+            <Lottie options={defaultDesktopOptions} width={'100%'} />
+          </DesktopLottieWrapper>
+        </Responsive>
+        <Responsive only='mobile'>
+          <MobileLottieWrapper>
+            <Lottie options={defaultMobileOptions} width={'100%'} />
+          </MobileLottieWrapper>
+        </Responsive>
+      </a>
+    </LoggingClick>
   );
 }
 
 export default CoffeeChatLottie;
 
-const DesktopLottieWrapper=styled.div`
+const DesktopLottieWrapper = styled.div`
   position: relative;
   width: 100vw;
   height: 196px;
   overflow: hidden;
 
-  @media ${PCTA_MID_MEDIA_QUERY}{
-    height:146px;
+  @media ${PCTA_MID_MEDIA_QUERY} {
+    height: 146px;
   }
-`
-const MobileLottieWrapper=styled.div`
+`;
+const MobileLottieWrapper = styled.div`
   position: relative;
   width: 100vw;
   height: 196px;
   overflow: hidden;
-
-`
+`;

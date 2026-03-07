@@ -1,4 +1,3 @@
-import { ampli } from '@/ampli';
 import { useMeetingMemberListQueryOption, useMeetingQueryOption } from '@api/meeting/query';
 import { numberOptionList, numberOptionListDefault, sortOptionList, sortOptionListDefault } from '@data/options';
 import Pagination from '@domain/list/Pagination';
@@ -13,6 +12,8 @@ import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { styled } from 'stitches.config';
 
+import { ampli } from '@/ampli';
+
 const ManagementPage = () => {
   const router = useRouter();
   const id = router.query.id as string;
@@ -24,7 +25,7 @@ const ManagementPage = () => {
   const { isLoading: isMeetingDataLoading, data: meetingData } = useQuery(
     useMeetingQueryOption({
       meetingId: Number(id),
-    })
+    }),
   );
 
   const convertedNumberTake = numberOptionList[Number(take)] ?? numberOptionListDefault;
@@ -33,7 +34,7 @@ const ManagementPage = () => {
   const { isLoading: isManagementDataLoading, data: management } = useQuery(
     useMeetingMemberListQueryOption({
       meetingId: id,
-    })
+    }),
   );
 
   const isHost = meetingData?.host ?? false;
@@ -44,14 +45,16 @@ const ManagementPage = () => {
 
       switch (optionList) {
         case numberOptionList:
-          ampli.filterListOptionManagement({ manage_listing_no: Number(changeOptionValue) });
+          ampli.filterListOptionManagement({
+            manage_listing_no: Number(changeOptionValue),
+          });
           break;
         case sortOptionList:
           ampli.filterManagementListOrder({ manage_sort: changeOptionValue });
           break;
       }
 
-      setValue(optionList.findIndex(option => option.value === changeOptionValue));
+      setValue(optionList.findIndex((option) => option.value === changeOptionValue));
     };
 
   return (
@@ -100,8 +103,8 @@ const ManagementPage = () => {
 export default ManagementPage;
 
 const SManagementPage = styled('div', {
-  mt: '$100',
-  mb: '$180',
+  'mt': '$100',
+  'mb': '$180',
 
   '@mobile': {
     mt: '$31',
@@ -110,7 +113,7 @@ const SManagementPage = styled('div', {
 });
 
 const SPaginationWrapper = styled('div', {
-  mt: '$80',
+  'mt': '$80',
 
   '@mobile': {
     mt: '$40',

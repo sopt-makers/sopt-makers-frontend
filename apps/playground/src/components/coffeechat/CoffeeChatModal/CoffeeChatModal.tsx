@@ -78,7 +78,11 @@ const MessageModal: FC<MessageModalProps> = ({ receiverId, phone, ...props }) =>
           receiverId,
           category: '커피챗',
         });
-        logSubmitEvent('sendCoffeechat', { content: content, receiverId, senderId });
+        logSubmitEvent('sendCoffeechat', {
+          content: content,
+          receiverId,
+          senderId,
+        });
         open({
           icon: 'success',
           content: '커피챗 제안이 잘 전달되었어요!',

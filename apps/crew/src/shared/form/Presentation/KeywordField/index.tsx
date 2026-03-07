@@ -16,7 +16,7 @@ const KeywordField = () => {
 
     let updatedKeywords = [...value];
     if (updatedKeywords.includes(option.value)) {
-      updatedKeywords = updatedKeywords.filter(keyword => keyword !== option.value);
+      updatedKeywords = updatedKeywords.filter((keyword) => keyword !== option.value);
     } else {
       updatedKeywords.push(option.value);
     }
@@ -31,12 +31,12 @@ const KeywordField = () => {
       <Label required={true}>모임 키워드</Label>
       <HelpMessage>최대 {MAX_KEYWORD_COUNT}개까지 선택할 수 있어요</HelpMessage>
       <FormController
-        name="meetingKeywordTypes"
+        name='meetingKeywordTypes'
         defaultValue={[]}
         render={({ field: { value, onChange }, fieldState: { error: keywordError } }) => (
           <>
             <SChipContainer>
-              {keywordOptions.map(option => {
+              {keywordOptions.map((option) => {
                 const isSelected = value.includes(option.value);
                 return (
                   <Chip
@@ -61,9 +61,9 @@ const KeywordField = () => {
 export default KeywordField;
 
 const SChipContainer = styled('div', {
-  display: 'flex',
-  gap: '$10',
-  flexWrap: 'wrap',
+  'display': 'flex',
+  'gap': '$10',
+  'flexWrap': 'wrap',
 
   '@media(max-width: 430px)': {
     maxWidth: '320px',

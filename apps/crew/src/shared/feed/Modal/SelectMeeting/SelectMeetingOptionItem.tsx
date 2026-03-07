@@ -1,5 +1,6 @@
 import { getResizedImage } from '@util/image';
 import { styled } from 'stitches.config';
+
 import { GroupInfo } from '../FeedFormPresentation';
 
 interface SelectMeetingOptionItemProps {
@@ -30,15 +31,15 @@ function SelectMeetingOptionItem({ meetingInfo, isSelected, onClick }: SelectMee
 }
 export default SelectMeetingOptionItem;
 const SelectItemWrapper = styled('div', {
-  display: 'flex',
-  padding: '10px 12px',
-  borderRadius: '6px',
-  mb: '$4',
-  cursor: 'pointer',
+  'display': 'flex',
+  'padding': '10px 12px',
+  'borderRadius': '6px',
+  'mb': '$4',
+  'cursor': 'pointer',
   '&:hover': {
     backgroundColor: '$gray600',
   },
-  variants: {
+  'variants': {
     isSelected: {
       true: {
         backgroundColor: '$gray600',
@@ -48,27 +49,27 @@ const SelectItemWrapper = styled('div', {
 });
 
 const STitle = styled('p', {
-  maxWidth: '70%',
-  color: '$white',
-  fontStyle: 'T3',
-  ml: '$8',
-  overflow: 'hidden',
-  whiteSpace: 'nowrap',
-  textOverflow: 'ellipsis',
-  wordBreak: 'break-all',
+  'maxWidth': '70%',
+  'color': '$white',
+  'fontStyle': 'T3',
+  'ml': '$8',
+  'overflow': 'hidden',
+  'whiteSpace': 'nowrap',
+  'textOverflow': 'ellipsis',
+  'wordBreak': 'break-all',
   '@media (max-width: 768px)': {
     fontStyle: 'T4',
   },
 });
 const SelectItemThumbnailImage = styled('div', {
-  width: '48px',
-  height: '48px',
-  borderRadius: '$6',
-  overflow: 'hidden',
-  backgroundColor: '$gray800',
-  backgroundSize: 'cover',
-  backgroundPosition: 'center center',
-  backgroundRepeat: 'no-repeat',
+  'width': '48px',
+  'height': '48px',
+  'borderRadius': '$6',
+  'overflow': 'hidden',
+  'backgroundColor': '$gray800',
+  'backgroundSize': 'cover',
+  'backgroundPosition': 'center center',
+  'backgroundRepeat': 'no-repeat',
   '@media (max-width: 768px)': {
     width: '40px',
     height: '40px',

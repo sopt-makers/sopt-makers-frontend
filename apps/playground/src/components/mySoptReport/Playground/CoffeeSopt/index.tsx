@@ -156,16 +156,16 @@ const CoffechatBox = styled.div<{ rank: number }>`
           color: ${colors.white};
         `
       : props.rank === 2
-      ? css`
-          color: ${colors.gray100};
-        `
-      : props.rank === 3
-      ? css`
-          color: ${colors.gray200};
-        `
-      : css`
-          color: ${colors.gray300};
-        `}
+        ? css`
+            color: ${colors.gray100};
+          `
+        : props.rank === 3
+          ? css`
+              color: ${colors.gray200};
+            `
+          : css`
+              color: ${colors.gray300};
+            `}
 
   @media ${MOBILE_MEDIA_QUERY} {
     ${fonts.LABEL_14_SB};

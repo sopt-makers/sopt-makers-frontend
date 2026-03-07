@@ -53,8 +53,12 @@ const ProjectEdit: FC<ProjectEditProps> = ({ projectId }) => {
         {
           onSuccess: () => {
             toast.show({ message: '프로젝트를 성공적으로 수정했어요.' });
-            queryClient.invalidateQueries({ queryKey: getProjectQueryKey(projectId) });
-            queryClient.invalidateQueries({ queryKey: getProjectListQueryKey() });
+            queryClient.invalidateQueries({
+              queryKey: getProjectQueryKey(projectId),
+            });
+            queryClient.invalidateQueries({
+              queryKey: getProjectListQueryKey(),
+            });
             queryClient.invalidateQueries({
               queryKey: ['getProjectById', projectId],
             });

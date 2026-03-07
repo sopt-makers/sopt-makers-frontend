@@ -43,7 +43,9 @@ const ImageUploaderLegacy: FC<ImageUploaderProps> = ({
       if (files == null || files.length === 0) return;
       const file = files[0];
       try {
-        const { filename, signedUrl } = await getPresignedUrl.request({ filename: file.name });
+        const { filename, signedUrl } = await getPresignedUrl.request({
+          filename: file.name,
+        });
         if (!signedUrl) {
           throw new Error('presigned-url을 받아오는데 실패하였습니다.');
         }

@@ -13,12 +13,13 @@ export interface OverlayControlRef {
 
 export const OverlayController = forwardRef(function OverlayController(
   { overlayElement: OverlayElement, onExit }: Props,
-  ref: Ref<OverlayControlRef>
+  ref: Ref<OverlayControlRef>,
 ) {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleClose = useCallback(() => {
-    (setIsOpen(false), onExit());
+    setIsOpen(false);
+    onExit();
   }, [onExit]);
 
   useImperativeHandle(ref, () => {

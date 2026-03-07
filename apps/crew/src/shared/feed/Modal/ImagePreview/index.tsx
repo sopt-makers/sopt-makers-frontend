@@ -1,6 +1,6 @@
+import CancelIcon from '@assets/svg/x.svg';
 import { useState } from 'react';
 import { styled } from 'stitches.config';
-import CancelIcon from '@assets/svg/x.svg';
 
 interface ImagePreviewProps {
   url: string;
@@ -14,13 +14,13 @@ export default function ImagePreview({ url, onDelete }: ImagePreviewProps) {
     <SContainer onMouseLeave={() => setShowBackdrop(false)} onMouseEnter={() => setShowBackdrop(true)}>
       {showBackdrop && (
         <SBackdrop>
-          <SDeleteButton type="button" onClick={onDelete}>
+          <SDeleteButton type='button' onClick={onDelete}>
             <CancelIcon />
           </SDeleteButton>
         </SBackdrop>
       )}
 
-      <SImage src={url} alt="" />
+      <SImage src={url} alt='' />
     </SContainer>
   );
 }

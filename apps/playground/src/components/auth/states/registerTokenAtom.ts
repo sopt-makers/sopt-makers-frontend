@@ -4,7 +4,10 @@ import { isClientSide } from '@/utils';
 
 const REGISTER_TOKEN_KEY = 'registerToken';
 
-export const registerTokenAtom = atom<{ type: 'register' | 'reset'; value: string } | null>({
+export const registerTokenAtom = atom<{
+  type: 'register' | 'reset';
+  value: string;
+} | null>({
   key: 'registerTokenAtom',
   default: null,
   effects: [

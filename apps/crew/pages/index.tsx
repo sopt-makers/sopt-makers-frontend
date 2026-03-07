@@ -25,7 +25,7 @@ const Home: NextPage = () => {
         </>
       ) : (
         <>
-          <Flex align="center" justify="center">
+          <Flex align='center' justify='center'>
             <SContentTitle style={{ marginTop: '54px' }}>⚡ 솝트만의 일회성 모임, 번쩍</SContentTitle>
           </Flex>
           <GroupBrowsingCarouselContainer>
@@ -34,7 +34,7 @@ const Home: NextPage = () => {
         </>
       )}
       {isLaptop ? (
-        <Flex direction="column" justify="center" align="center">
+        <Flex direction='column' justify='center' align='center'>
           <QuickMenuWrapper>
             <QuickMenu />
           </QuickMenuWrapper>
@@ -42,7 +42,7 @@ const Home: NextPage = () => {
         </Flex>
       ) : (
         <>
-          <Flex justify="between" style={{ marginTop: '72px' }}>
+          <Flex justify='between' style={{ marginTop: '72px' }}>
             <HomeCardList />
             <div style={{ paddingLeft: '106px' }}>
               <QuickMenu />
@@ -59,13 +59,13 @@ const Home: NextPage = () => {
 export default Home;
 
 const SContentTitle = styled('div', {
-  fontStyle: 'H1',
-  color: '$white',
-  mb: '$20',
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  width: '100%',
+  'fontStyle': 'H1',
+  'color': '$white',
+  'mb': '$20',
+  'display': 'flex',
+  'justifyContent': 'space-between',
+  'alignItems': 'center',
+  'width': '100%',
 
   '@mobile': {
     display: 'flex',
@@ -79,10 +79,10 @@ const GroupBrowsingCarouselContainer = styled('div', {
 });
 
 const QuickMenuWrapper = styled('div', {
-  display: 'flex',
-  justifyContent: 'center',
+  'display': 'flex',
+  'justifyContent': 'center',
 
-  margin: '$60 0 $72',
+  'margin': '$60 0 $72',
 
   '@tablet': {
     margin: '$40 0',

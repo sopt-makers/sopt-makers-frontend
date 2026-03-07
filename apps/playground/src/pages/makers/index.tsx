@@ -13,7 +13,12 @@ import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 import { setLayout } from '@/utils/layout';
 
 interface MakersPageProps {
-  memberMetadataList: { id: number; profileImage: string; currentCompany: string | null; generations: number[] }[];
+  memberMetadataList: {
+    id: number;
+    profileImage: string;
+    currentCompany: string | null;
+    generations: number[];
+  }[];
 }
 
 const MakersPage: FC<MakersPageProps> = ({ memberMetadataList }) => {
@@ -37,7 +42,7 @@ export const getStaticProps: GetStaticProps<MakersPageProps> = async () => {
 
     const memberMetadataList = memberList.map((member) => {
       const sortedCareers = member.careers.filter((career) => career.isCurrent);
-      const currentCompany = sortedCareers.length > 0 ? sortedCareers.at(-1)?.companyName ?? null : null;
+      const currentCompany = sortedCareers.length > 0 ? (sortedCareers.at(-1)?.companyName ?? null) : null;
       const generations = member.activities.map((value) => value.generation).sort((a, b) => a - b);
 
       return {

@@ -2,6 +2,7 @@ import PictureIcon from '@assets/svg/icon-interaction-plus.svg';
 import { ACCEPTED_IMAGE_TYPES } from '@type/form';
 import { HTMLAttributes } from 'react';
 import { styled } from 'stitches.config';
+
 import ErrorMessage from '../ErrorMessage';
 import HelpMessage from '../HelpMessage';
 import Label from '../Label';
@@ -20,7 +21,7 @@ export default function FileInput({ label, message, error, required, ...props }:
       {message && <HelpMessage>{message}</HelpMessage>}
       <SInputWrapper>
         <PictureIcon />
-        <SInput type="file" multiple accept={ACCEPTED_IMAGE_TYPES.join(', ')} {...props} />
+        <SInput type='file' multiple accept={ACCEPTED_IMAGE_TYPES.join(', ')} {...props} />
       </SInputWrapper>
       {error && <SErrorMessage>{error}</SErrorMessage>}
     </SContainer>

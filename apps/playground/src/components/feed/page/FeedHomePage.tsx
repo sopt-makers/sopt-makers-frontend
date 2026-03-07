@@ -53,7 +53,9 @@ const CommunityPage: FC = () => {
                   <CategoryLink
                     categoryId={categoryId}
                     onClick={() => {
-                      queryClient.invalidateQueries({ queryKey: useGetPostsInfiniteQuery.getKey(categoryId) });
+                      queryClient.invalidateQueries({
+                        queryKey: useGetPostsInfiniteQuery.getKey(categoryId),
+                      });
                       window.scrollTo({ top: 0 });
                     }}
                   >

@@ -18,7 +18,7 @@ const QuickMenu = () => {
 
   return (
     <SContainer>
-      {menu.map(item => (
+      {menu.map((item) => (
         <Link key={item.label} href={item.link}>
           <SItem>
             <SMenuBtn>
@@ -35,9 +35,9 @@ const QuickMenu = () => {
 export default QuickMenu;
 
 const SContainer = styled('section', {
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '40px',
+  'display': 'flex',
+  'flexDirection': 'column',
+  'gap': '40px',
 
   '@laptop': {
     flexDirection: 'row',
@@ -51,12 +51,12 @@ const SContainer = styled('section', {
 });
 
 const SMenuBtn = styled('button', {
-  display: 'flex',
+  'display': 'flex',
 
-  padding: '20px',
+  'padding': '20px',
 
-  borderRadius: '28px',
-  background: '$gray900',
+  'borderRadius': '28px',
+  'background': '$gray900',
 
   '@tablet': {
     padding: '8px',
@@ -69,11 +69,11 @@ const SMenuBtn = styled('button', {
 });
 
 const SItem = styled('div', {
-  display: 'flex',
-  alignItems: 'center',
-  gap: '24px',
+  'display': 'flex',
+  'alignItems': 'center',
+  'gap': '24px',
 
-  cursor: 'pointer',
+  'cursor': 'pointer',
 
   '@laptop': {
     flexDirection: 'column',
@@ -82,10 +82,10 @@ const SItem = styled('div', {
 });
 
 const SItemLabel = styled('h3', {
-  fontStyle: 'H2',
-  letterSpacing: '-0.4px',
-  color: '$white',
-  textAlign: 'center',
+  'fontStyle': 'H2',
+  'letterSpacing': '-0.4px',
+  'color': '$white',
+  'textAlign': 'center',
 
   '@laptop': {
     flexDirection: 'column',

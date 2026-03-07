@@ -21,8 +21,18 @@ export const menuList: {
   id: 'sopt' | 'playground' | 'my-pg';
 }[] = [
   { title: '솝트', mainColor: 'blue400', textColor: 'white', id: 'sopt' },
-  { title: '플레이그라운드', mainColor: 'orange400', textColor: 'white', id: 'playground' },
-  { title: '마이 플그', mainColor: 'yellow400', textColor: 'black', id: 'my-pg' },
+  {
+    title: '플레이그라운드',
+    mainColor: 'orange400',
+    textColor: 'white',
+    id: 'playground',
+  },
+  {
+    title: '마이 플그',
+    mainColor: 'yellow400',
+    textColor: 'black',
+    id: 'my-pg',
+  },
 ];
 
 export interface CommunityStats {

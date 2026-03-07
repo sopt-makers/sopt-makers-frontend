@@ -18,13 +18,13 @@ function InitializationButton({ css, withText = true, size = 16 }: Initializatio
         },
       },
       undefined,
-      { shallow: true }
+      { shallow: true },
     );
   };
   return (
     <Flex
-      className="initialize-button"
-      as="button"
+      className='initialize-button'
+      as='button'
       css={mergeCss(
         {
           '@media (max-width: 768px)': {
@@ -32,7 +32,7 @@ function InitializationButton({ css, withText = true, size = 16 }: Initializatio
             marginTop: '16px',
           },
         },
-        css
+        css,
       )}
       onClick={onClickInitialization}
     >
@@ -45,10 +45,10 @@ function InitializationButton({ css, withText = true, size = 16 }: Initializatio
 export default InitializationButton;
 
 const InitializationText = styled('span', {
-  fontAg: '18_medium_100',
-  color: '$gray10',
-  ml: '$6',
-  whiteSpace: 'nowrap',
+  'fontAg': '18_medium_100',
+  'color': '$gray10',
+  'ml': '$6',
+  'whiteSpace': 'nowrap',
   '@media (max-width: 768px)': {
     display: 'none',
   },

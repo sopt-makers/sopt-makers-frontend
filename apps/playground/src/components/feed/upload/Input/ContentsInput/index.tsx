@@ -14,79 +14,81 @@ interface ContentsInputProp {
   placeholder?: string;
 }
 
-const ContentsInput = forwardRef(({ onChange, value, placeholder='내용을 입력해주세요' }: ContentsInputProp, ref: Ref<HTMLDivElement>) => {
-  const editableRef = useRef<HTMLDivElement>(null);
-  const {
-    isMentionOpen,
-    searchedMemberList,
-    handleMention,
-    selectMention,
-    mentionPosition,
-    handleKeyDown,
-    setIsComposing,
-  } = useMention(editableRef);
-  const { saveCursor, restoreCursor } = useCursorPosition(editableRef);
+const ContentsInput = forwardRef(
+  ({ onChange, value, placeholder = '내용을 입력해주세요' }: ContentsInputProp, ref: Ref<HTMLDivElement>) => {
+    const editableRef = useRef<HTMLDivElement>(null);
+    const {
+      isMentionOpen,
+      searchedMemberList,
+      handleMention,
+      selectMention,
+      mentionPosition,
+      handleKeyDown,
+      setIsComposing,
+    } = useMention(editableRef);
+    const { saveCursor, restoreCursor } = useCursorPosition(editableRef);
 
-  const handleContentsInput = () => {
-    saveCursor();
-    if (!editableRef.current) return;
-    const html = editableRef.current.innerHTML;
-    const parsed = parseHTMLToMentions(html);
-    onChange({
-      target: {
-        value: parsed,
-      },
-    } as ChangeEvent<HTMLTextAreaElement>);
-  };
+    const handleContentsInput = () => {
+      saveCursor();
+      if (!editableRef.current) return;
+      const html = editableRef.current.innerHTML;
+      const parsed = parseHTMLToMentions(html);
+      onChange({
+        target: {
+          value: parsed,
+        },
+      } as ChangeEvent<HTMLTextAreaElement>);
+    };
 
-  const handleSelectMention = ({ member, isReply = false }: { member: Member; isReply?: boolean }) => {
-    selectMention({ selectedMember: member, isReply });
-    handleContentsInput();
-  };
+    const handleSelectMention = ({ member, isReply = false }: { member: Member; isReply?: boolean }) => {
+      selectMention({ selectedMember: member, isReply });
+      handleContentsInput();
+    };
 
-  useEffect(() => {
-    if (!editableRef.current || value === null) return;
+    useEffect(() => {
+      if (!editableRef.current || value === null) return;
 
-    const currentHTML = editableRef.current.innerHTML;
-    const parsed = parseMentionsToHTML(value);
+      const currentHTML = editableRef.current.innerHTML;
+      const parsed = parseMentionsToHTML(value);
 
-    if (currentHTML !== parsed) {
-      editableRef.current.innerHTML = parsed;
+      if (currentHTML !== parsed) {
+        editableRef.current.innerHTML = parsed;
 
-      restoreCursor();
-    }
-  }, [value]);
+        restoreCursor();
+      }
+    }, [value]);
 
-  return (
-    <>
-      <Contents
-        contentEditable
-        spellCheck='false'
-        onInput={(e) => {
-          handleMention();
-          handleContentsInput();
-        }}
-        onKeyDown={(e) => {
-          handleKeyDown(e);
-          handleContentsInput();
-        }}
-        onCompositionStart={() => setIsComposing(true)}
-        onCompositionEnd={() => setIsComposing(false)}
-        aria-label={placeholder}
-        ref={editableRef}
-        data-placeholder={(value ?? '').trim().length === 0 ? placeholder : ''}
-      />
-      {isMentionOpen && mentionPosition && (
-        <MentionDropdown
-          parentRef={editableRef}
-          searchedMemberList={searchedMemberList}
-          onSelect={handleSelectMention}
-          mentionPosition={mentionPosition}
+    return (
+      <>
+        <Contents
+          contentEditable
+          spellCheck='false'
+          onInput={(e) => {
+            handleMention();
+            handleContentsInput();
+          }}
+          onKeyDown={(e) => {
+            handleKeyDown(e);
+            handleContentsInput();
+          }}
+          onCompositionStart={() => setIsComposing(true)}
+          onCompositionEnd={() => setIsComposing(false)}
+          aria-label={placeholder}
+          ref={editableRef}
+          data-placeholder={(value ?? '').trim().length === 0 ? placeholder : ''}
         />
-      )}
-    </>
-  );
-});
+        {isMentionOpen && mentionPosition && (
+          <MentionDropdown
+            parentRef={editableRef}
+            searchedMemberList={searchedMemberList}
+            onSelect={handleSelectMention}
+            mentionPosition={mentionPosition}
+          />
+        )}
+      </>
+    );
+  },
+);
 
 export default ContentsInput;
 

@@ -25,7 +25,7 @@ const SearchSubway = ({ value: selectedStations = [], onChange, error }: SearchS
   const subwayStations = subwayStationsData?.stations ?? [];
 
   const handleStationSelect = (station: SubwayStationDataType) => {
-    if (selectedStations.length < 3 && !selectedStations.some(s => s.name === station.name)) {
+    if (selectedStations.length < 3 && !selectedStations.some((s) => s.name === station.name)) {
       onChange([...selectedStations, station]);
     }
     setSearchKeyword('');
@@ -45,8 +45,8 @@ const SearchSubway = ({ value: selectedStations = [], onChange, error }: SearchS
             <SearchInput
               ref={inputRef}
               value={searchKeyword}
-              onChange={e => setSearchKeyword(e.target.value)}
-              placeholder="지하철역 검색"
+              onChange={(e) => setSearchKeyword(e.target.value)}
+              placeholder='지하철역 검색'
             />
             {searchKeyword ? (
               <StyledIconXCircle
@@ -103,9 +103,9 @@ const SearchSubway = ({ value: selectedStations = [], onChange, error }: SearchS
 export default SearchSubway;
 
 const StationsContainer = styled('div', {
-  display: 'flex',
-  alignItems: 'center',
-  gap: '8px',
+  'display': 'flex',
+  'alignItems': 'center',
+  'gap': '8px',
   '@media (max-width: 430px)': {
     flexDirection: 'column',
     alignItems: 'flex-start',
@@ -113,10 +113,10 @@ const StationsContainer = styled('div', {
 });
 
 const StationsWrapper = styled('div', {
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  gap: '10px',
+  'display': 'flex',
+  'justifyContent': 'center',
+  'alignItems': 'center',
+  'gap': '10px',
   '@media (max-width: 430px)': {
     gap: '8px',
     flexWrap: 'wrap',
@@ -125,22 +125,22 @@ const StationsWrapper = styled('div', {
 });
 
 const Station = styled('div', {
-  width: 'auto',
-  minWidth: '100px',
-  height: '48px',
+  'width': 'auto',
+  'minWidth': '100px',
+  'height': '48px',
 
-  display: 'flex',
-  padding: '8px 12px',
-  justifyContent: 'center',
-  alignItems: 'center',
-  gap: '10px',
+  'display': 'flex',
+  'padding': '8px 12px',
+  'justifyContent': 'center',
+  'alignItems': 'center',
+  'gap': '10px',
 
-  borderRadius: '10px',
-  backgroundColor: '$gray900',
-  flexWrap: 'nowrap',
+  'borderRadius': '10px',
+  'backgroundColor': '$gray900',
+  'flexWrap': 'nowrap',
 
-  color: '$white',
-  position: 'relative',
+  'color': '$white',
+  'position': 'relative',
 
   '@media (max-width: 430px)': {
     minWidth: '80px',
@@ -151,9 +151,9 @@ const Station = styled('div', {
 });
 
 const StationName = styled('span', {
-  color: '$white',
+  'color': '$white',
   ...fontsObject.BODY_2_16_M,
-  whiteSpace: 'nowrap',
+  'whiteSpace': 'nowrap',
 
   '@media (max-width: 430px)': {
     ...fontsObject.BODY_3_14_M,
@@ -161,11 +161,11 @@ const StationName = styled('span', {
 });
 
 const SearchInput = styled('input', {
-  flex: 1,
-  background: 'transparent',
-  border: 'none',
-  outline: 'none',
-  color: '$white',
+  'flex': 1,
+  'background': 'transparent',
+  'border': 'none',
+  'outline': 'none',
+  'color': '$white',
   ...fontsObject.BODY_2_16_M,
   '&::placeholder': {
     color: '$gray400',
@@ -189,11 +189,11 @@ const SearchResultDropdown = styled('div', {
 });
 
 const StationItem = styled('div', {
-  padding: '12px 16px',
-  cursor: 'pointer',
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
+  'padding': '12px 16px',
+  'cursor': 'pointer',
+  'display': 'flex',
+  'justifyContent': 'space-between',
+  'alignItems': 'center',
   '&:hover': {
     backgroundColor: '$gray700',
   },

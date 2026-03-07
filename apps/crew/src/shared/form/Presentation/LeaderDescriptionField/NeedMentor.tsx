@@ -14,7 +14,7 @@ const NeedMentor = forwardRef<HTMLInputElement, NeedMentorProps>(({ value, ...pr
     <SNeedMentorField htmlFor={props.name}>
       {value ? <CheckSelectedIcon /> : <CheckUnselectedIcon />}
       <div>
-        <input id={props.name} type="checkbox" ref={ref} {...props} />
+        <input id={props.name} type='checkbox' ref={ref} {...props} />
         <SNeedMentorLabel active={value}>멘토 구해요</SNeedMentorLabel>
       </div>
     </SNeedMentorField>

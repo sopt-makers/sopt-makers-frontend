@@ -45,18 +45,42 @@ const ManagementListItemForHost = ({ meetingId, application }: ManagementListIte
         onSuccess: () => {
           setIsMutateLoading(false);
         },
-      }
+      },
     );
   };
 
   const statusButtonConfig = {
     desktop: {
       WAITING: [
-        { type: 'approve', label: '승인', action: EApprovalStatus.APPROVE, ButtonComponent: SWhiteButton },
-        { type: 'reject', label: '거절', action: EApprovalStatus.REJECT, ButtonComponent: SGrayButton },
+        {
+          type: 'approve',
+          label: '승인',
+          action: EApprovalStatus.APPROVE,
+          ButtonComponent: SWhiteButton,
+        },
+        {
+          type: 'reject',
+          label: '거절',
+          action: EApprovalStatus.REJECT,
+          ButtonComponent: SGrayButton,
+        },
       ],
-      APPROVE: [{ type: 'cancel', label: '승인 취소', action: EApprovalStatus.WAITING, ButtonComponent: SGrayButton }],
-      REJECT: [{ type: 'cancel', label: '거절 취소', action: EApprovalStatus.WAITING, ButtonComponent: SGrayButton }],
+      APPROVE: [
+        {
+          type: 'cancel',
+          label: '승인 취소',
+          action: EApprovalStatus.WAITING,
+          ButtonComponent: SGrayButton,
+        },
+      ],
+      REJECT: [
+        {
+          type: 'cancel',
+          label: '거절 취소',
+          action: EApprovalStatus.WAITING,
+          ButtonComponent: SGrayButton,
+        },
+      ],
     },
     mobile: {
       WAITING: [
@@ -99,7 +123,7 @@ const ManagementListItemForHost = ({ meetingId, application }: ManagementListIte
           <SOrderNumber>{applyNumber}</SOrderNumber>
           <SDesktopProfile>
             <SProfileImage>
-              {user.profileImage ? <img src={user.profileImage} alt="" /> : <ProfileDefaultIcon />}
+              {user.profileImage ? <img src={user.profileImage} alt='' /> : <ProfileDefaultIcon />}
             </SProfileImage>
             <SName onClick={() => navigateToUserProfileWithTracking(user.orgId)}>{user.name}</SName>
             <SUserStatus status={status}>{APPROVAL_STATUS_ENGLISH_TO_KOREAN[status]}</SUserStatus>
@@ -154,7 +178,7 @@ const ManagementListItemForHost = ({ meetingId, application }: ManagementListIte
 export default ManagementListItemForHost;
 
 const SDesktopListItem = styled(SListItem, {
-  display: 'flex',
+  'display': 'flex',
 
   '@media (max-width: 768px)': {
     display: 'none',
@@ -162,7 +186,7 @@ const SDesktopListItem = styled(SListItem, {
 });
 
 const SMobileCard = styled('div', {
-  display: 'none',
+  'display': 'none',
 
   '@media (max-width: 768px)': {
     display: 'block',
@@ -179,9 +203,9 @@ const SCardContent = styled('div', {
 });
 
 const SCardUserInformation = styled('div', {
-  flex: 1,
+  'flex': 1,
   '& > div': {
-    flexType: 'verticalCenter',
+    'flexType': 'verticalCenter',
     '& + &': {
       mt: '$7',
     },
@@ -276,11 +300,11 @@ const SCardButtonContainer = styled('div', {
 });
 
 const SRoundButton = styled('button', {
-  color: '$gray10',
-  borderRadius: '32px',
-  fontAg: '16_bold_100',
-  padding: '$12 $20',
-  lineHeight: '$16',
+  'color': '$gray10',
+  'borderRadius': '32px',
+  'fontAg': '16_bold_100',
+  'padding': '$12 $20',
+  'lineHeight': '$16',
 
   '&:disabled': {
     opacity: '0.35',

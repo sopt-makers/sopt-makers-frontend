@@ -12,10 +12,11 @@ import dynamic from 'next/dynamic';
 import { useEffect } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { styled } from 'stitches.config';
-import FeedFormPresentation from './FeedFormPresentation';
-import { FormEditType, feedEditSchema } from './feedSchema';
 
-const DevTool = dynamic(() => import('@hookform/devtools').then(module => module.DevTool), {
+import FeedFormPresentation from './FeedFormPresentation';
+import { feedEditSchema, FormEditType } from './feedSchema';
+
+const DevTool = dynamic(() => import('@hookform/devtools').then((module) => module.DevTool), {
   ssr: false,
 });
 
@@ -84,7 +85,7 @@ function FeedEditModal({ isModalOpened, postId, handleModalClose }: EditModal) {
               imageUrl: postData?.meeting?.imageURL[THUMBNAIL_IMAGE_INDEX]?.url || '',
               category: postData?.meeting?.category || '',
             }}
-            title="피드 수정"
+            title='피드 수정'
             handleDeleteImage={handleDeleteImage}
             handleModalClose={handleModalClose}
             onSubmit={formMethods.handleSubmit(handleSubmitClick)}
@@ -96,8 +97,8 @@ function FeedEditModal({ isModalOpened, postId, handleModalClose }: EditModal) {
         isModalOpened={exitModal.isModalOpened}
         message={`수정을 취소하시겠습니까?`}
         handleModalClose={exitModal.handleModalClose}
-        cancelButton="돌아가기"
-        confirmButton="그만두기"
+        cancelButton='돌아가기'
+        confirmButton='그만두기'
         handleConfirm={() => {
           exitModal.handleModalClose();
           handleModalClose();
@@ -105,10 +106,10 @@ function FeedEditModal({ isModalOpened, postId, handleModalClose }: EditModal) {
       />
       <ConfirmModal
         isModalOpened={submitModal.isModalOpened}
-        message="게시글을 수정하시겠습니까?"
+        message='게시글을 수정하시겠습니까?'
         handleModalClose={submitModal.handleModalClose}
-        cancelButton="돌아가기"
-        confirmButton="확인"
+        cancelButton='돌아가기'
+        confirmButton='확인'
         handleConfirm={onSubmit}
       />
       {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
@@ -121,18 +122,18 @@ function FeedEditModal({ isModalOpened, postId, handleModalClose }: EditModal) {
 export default FeedEditModal;
 
 const SDialogWrapper = styled('div', {
-  position: 'fixed',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  zIndex: '$2',
-  borderRadius: '20px',
-  backgroundColor: '$gray700',
-  width: '100%',
-  maxWidth: '$768',
-  boxShadow: '0px 4px 4px rgba(0,0,0,0.25)',
-  maxHeight: '100vh',
-  overflow: 'visible',
+  'position': 'fixed',
+  'top': '50%',
+  'left': '50%',
+  'transform': 'translate(-50%, -50%)',
+  'zIndex': '$2',
+  'borderRadius': '20px',
+  'backgroundColor': '$gray700',
+  'width': '100%',
+  'maxWidth': '$768',
+  'boxShadow': '0px 4px 4px rgba(0,0,0,0.25)',
+  'maxHeight': '100vh',
+  'overflow': 'visible',
   '&::-webkit-scrollbar': {
     display: 'none',
   },

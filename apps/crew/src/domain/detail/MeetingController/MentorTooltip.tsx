@@ -1,5 +1,5 @@
-import { styled } from 'stitches.config';
 import QuestionMarkIcon from '@assets/svg/question_mark.svg?rect';
+import { styled } from 'stitches.config';
 
 const MentorTooltip = () => {
   return (
@@ -18,15 +18,15 @@ const MentorTooltip = () => {
 export default MentorTooltip;
 
 const STooltip = styled('div', {
-  position: 'absolute',
-  top: '$13',
-  left: '176px',
-  backgroundColor: '$gray600',
-  width: 'max-content',
-  padding: '$12 $14',
-  borderRadius: '10px',
-  fontAg: '14_medium_100',
-  cursor: 'default',
+  'position': 'absolute',
+  'top': '$13',
+  'left': '176px',
+  'backgroundColor': '$gray600',
+  'width': 'max-content',
+  'padding': '$12 $14',
+  'borderRadius': '10px',
+  'fontAg': '14_medium_100',
+  'cursor': 'default',
 
   '@media (max-width: 768px)': {
     top: '-2px',
@@ -56,9 +56,9 @@ const STooltipTitle = styled('div', {
 });
 
 const STooltipDescription = styled('div', {
-  display: 'none',
-  mt: '$14',
-  lineHeight: '140%',
+  'display': 'none',
+  'mt': '$14',
+  'lineHeight': '140%',
 
   '& > p': {
     '@media (max-width: 768px)': {
@@ -69,7 +69,7 @@ const STooltipDescription = styled('div', {
 });
 
 const SQuestionMarkIcon = styled(QuestionMarkIcon, {
-  marginLeft: '$10',
+  'marginLeft': '$10',
 
   '@media (max-width: 768px)': {
     ml: '$6',

@@ -34,7 +34,9 @@ const ProjectImageSlider: FC<ProjectImageSliderProps> = ({ images, className }) 
           </NextNavigationButton>
         </Responsive>
         <StyledSwiper
-          thumbs={{ swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null }}
+          thumbs={{
+            swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null,
+          }}
           modules={[Navigation, Thumbs]}
           navigation={
             isMobile

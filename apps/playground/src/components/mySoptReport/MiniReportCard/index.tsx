@@ -118,7 +118,11 @@ const TypeValue = styled.p<{ $isSecondLine?: boolean }>`
   font-size: 42px;
 `;
 
-const ReportValue = styled.p<{ $marginTop?: number; $fontSize?: string; $color: string }>`
+const ReportValue = styled.p<{
+  $marginTop?: number;
+  $fontSize?: string;
+  $color: string;
+}>`
   margin-top: ${({ $marginTop }) => $marginTop}px;
   ${fonts.HEADING_16_B};
 

@@ -41,11 +41,19 @@ const FeedEdit: FC = () => {
           const parentId = getParentCategoryIdById(data.categoryId);
 
           const promises = [
-            queryClient.invalidateQueries({ queryKey: useGetPostsInfiniteQuery.getKey(parentId?.toString()) }),
-            queryClient.invalidateQueries({ queryKey: useGetPostsInfiniteQuery.getKey('') }),
-            queryClient.invalidateQueries({ queryKey: getRecentPosts.cacheKey() }),
+            queryClient.invalidateQueries({
+              queryKey: useGetPostsInfiniteQuery.getKey(parentId?.toString()),
+            }),
+            queryClient.invalidateQueries({
+              queryKey: useGetPostsInfiniteQuery.getKey(''),
+            }),
+            queryClient.invalidateQueries({
+              queryKey: getRecentPosts.cacheKey(),
+            }),
             editingId
-              ? queryClient.invalidateQueries({ queryKey: getPost.cacheKey(`${editingId}`) })
+              ? queryClient.invalidateQueries({
+                  queryKey: getPost.cacheKey(`${editingId}`),
+                })
               : Promise.resolve(),
           ];
 
@@ -60,7 +68,12 @@ const FeedEdit: FC = () => {
     if (!data) return null;
 
     const voteData = data.posts.vote;
-    return voteData ? { isMultiple: voteData.isMultiple, voteOptions: voteData.options.map((o) => o.content) } : null;
+    return voteData
+      ? {
+          isMultiple: voteData.isMultiple,
+          voteOptions: voteData.options.map((o) => o.content),
+        }
+      : null;
   }, [data]);
 
   if (isPending) {

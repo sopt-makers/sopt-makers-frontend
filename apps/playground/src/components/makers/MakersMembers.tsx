@@ -15,7 +15,12 @@ import { textStyles } from '@/styles/typography';
 interface MakersMembersProps {
   className?: string;
   generations: MakersGeneration[];
-  metadataList: { id: number; profileImage: string; currentCompany: string | null; generations: number[] }[];
+  metadataList: {
+    id: number;
+    profileImage: string;
+    currentCompany: string | null;
+    generations: number[];
+  }[];
 }
 
 const MakersMembers: FC<MakersMembersProps> = ({ className, generations, metadataList }) => {
@@ -100,7 +105,9 @@ const StyledMakersMembers = styled.div`
 `;
 
 const TabButton = styled.a`
-  transition: border-bottom-color 0.2s, color 0.2s;
+  transition:
+    border-bottom-color 0.2s,
+    color 0.2s;
   border: 2px solid transparent;
   cursor: pointer;
   padding: 12px 24px;

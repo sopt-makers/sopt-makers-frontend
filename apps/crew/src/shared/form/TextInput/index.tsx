@@ -2,6 +2,7 @@ import HelpMessage from '@shared/form/HelpMessage';
 import Label from '@shared/form/Label';
 import React, { HTMLAttributes } from 'react';
 import { styled } from 'stitches.config';
+
 import ErrorMessage from '../ErrorMessage';
 
 interface TextInputProps extends HTMLAttributes<HTMLInputElement> {
@@ -35,7 +36,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
         )}
       </SHelperTextContainer>
     </SContainer>
-  )
+  ),
 );
 
 export default TextInput;
@@ -50,14 +51,14 @@ const SInputWrapper = styled('div', {
   alignItems: 'center',
 });
 const SInput = styled('input', {
-  width: '100%',
-  padding: '18px 20px',
-  display: 'flex',
-  alignItems: 'center',
-  fontAg: '16_medium_100',
-  color: '$gray10',
-  background: '$gray800',
-  borderRadius: 10,
+  'width': '100%',
+  'padding': '18px 20px',
+  'display': 'flex',
+  'alignItems': 'center',
+  'fontAg': '16_medium_100',
+  'color': '$gray10',
+  'background': '$gray800',
+  'borderRadius': 10,
   '&::placeholder': {
     color: '$gray300',
   },

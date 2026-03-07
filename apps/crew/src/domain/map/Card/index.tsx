@@ -8,6 +8,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import router from 'next/router';
 import { useRef } from 'react';
 import { styled } from 'stitches.config';
+
 import LinkModalContent from '../Filter/Modal/LinkModalContent';
 import { MapLinkKey } from '../Filter/Modal/type';
 import DesktopMapCard from './DesktopMapCard';

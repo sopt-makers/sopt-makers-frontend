@@ -1,4 +1,3 @@
-import { ampli } from '@/ampli';
 import FlashQueryKey from '@api/flash/FlashQueryKey';
 import { GetFlash } from '@api/flash/type';
 import MeetingQueryKey from '@api/meeting/MeetingQueryKey';
@@ -13,9 +12,9 @@ import { useUserProfileQueryOption } from '@api/user/query';
 import ArrowSmallRightIcon from '@assets/svg/arrow_small_right.svg';
 import ButtonLoader from '@common/loader/ButtonLoader';
 import { ERecruitmentStatus } from '@constant/option';
+import { CAPACITY } from '@domain/detail/MeetingController/constant';
 import FlashAbout from '@domain/detail/MeetingController/FlashAbout';
 import MeetingAbout from '@domain/detail/MeetingController/MeetingAbout';
-import { CAPACITY } from '@domain/detail/MeetingController/constant';
 import useModal from '@hook/useModal';
 import DefaultModal from '@shared/modal/DefaultModal';
 import { playgroundLink } from '@sopt-makers/playground-common';
@@ -26,6 +25,9 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { ReactNode, useState } from 'react';
 import { styled } from 'stitches.config';
+
+import { ampli } from '@/ampli';
+
 import ProfileConfirmModal from './Modal/Confirm/ProfileConfirmModal';
 import ApplicationModalContent from './Modal/Content/ApplicationModalContent';
 import RecruitmentStatusModalContent from './Modal/Content/RecruitmentStatusModalContent';
@@ -143,7 +145,10 @@ const MeetingController = ({ detailData }: DetailHeaderProps) => {
               title: '신청 완료 되었습니다',
               description: '',
               type: 'single',
-              typeOptions: { approveButtonText: '확인', buttonFunction: dialogClose },
+              typeOptions: {
+                approveButtonText: '확인',
+                buttonFunction: dialogClose,
+              },
             });
 
             setIsSubmitting(false);
@@ -159,13 +164,16 @@ const MeetingController = ({ detailData }: DetailHeaderProps) => {
                 title: errorResponse.data.errorCode,
                 description: '',
                 type: 'single',
-                typeOptions: { approveButtonText: '확인', buttonFunction: dialogClose },
+                typeOptions: {
+                  approveButtonText: '확인',
+                  buttonFunction: dialogClose,
+                },
               });
               setIsSubmitting(false);
               handleDefaultModalClose();
             }
           },
-        }
+        },
       );
     } else {
       mutateApplication(
@@ -182,7 +190,10 @@ const MeetingController = ({ detailData }: DetailHeaderProps) => {
               title: '신청 완료 되었습니다',
               description: '',
               type: 'single',
-              typeOptions: { approveButtonText: '확인', buttonFunction: dialogClose },
+              typeOptions: {
+                approveButtonText: '확인',
+                buttonFunction: dialogClose,
+              },
             });
 
             setIsSubmitting(false);
@@ -201,13 +212,16 @@ const MeetingController = ({ detailData }: DetailHeaderProps) => {
                 title: errorResponse.data.errorCode,
                 description: '',
                 type: 'single',
-                typeOptions: { approveButtonText: '확인', buttonFunction: dialogClose },
+                typeOptions: {
+                  approveButtonText: '확인',
+                  buttonFunction: dialogClose,
+                },
               });
             }
             setIsSubmitting(false);
             handleDefaultModalClose();
           },
-        }
+        },
       );
     }
   };
@@ -302,11 +316,11 @@ const MeetingController = ({ detailData }: DetailHeaderProps) => {
 export default MeetingController;
 
 const SPanelWrapper = styled('div', {
-  flexType: 'verticalCenter',
-  justifyContent: 'space-between',
-  pb: '$120',
-  borderBottom: `2px solid $gray700`,
-  mb: '$40',
+  'flexType': 'verticalCenter',
+  'justifyContent': 'space-between',
+  'pb': '$120',
+  'borderBottom': `2px solid $gray700`,
+  'mb': '$40',
 
   '@mobile': {
     display: 'block',
@@ -324,12 +338,12 @@ const Button = styled('button', {
 });
 
 const SStatusButton = styled(Button, {
-  flexType: 'verticalCenter',
-  justifyContent: 'space-between',
-  padding: '$21 $20',
-  mb: '$16',
-  backgroundColor: '$gray800',
-  fontAg: '18_semibold_100',
+  'flexType': 'verticalCenter',
+  'justifyContent': 'space-between',
+  'padding': '$21 $20',
+  'mb': '$16',
+  'backgroundColor': '$gray800',
+  'fontAg': '18_semibold_100',
 
   '@mobile': {
     width: '100%',
@@ -353,13 +367,13 @@ const SStatusButton = styled(Button, {
 });
 
 const SGuestButton = styled(Button, {
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  fontAg: '20_bold_100',
-  padding: '$20 0',
-  textAlign: 'center',
-  color: '$gray950',
+  'display': 'flex',
+  'justifyContent': 'center',
+  'alignItems': 'center',
+  'fontAg': '20_bold_100',
+  'padding': '$20 0',
+  'textAlign': 'center',
+  'color': '$gray950',
   '@mobile': {
     width: '100%',
     height: '$46',
@@ -374,7 +388,7 @@ const SGuestButton = styled(Button, {
     cursor: 'not-allowed',
   },
 
-  variants: {
+  'variants': {
     isApplied: {
       true: {
         border: `2px solid $gray600`,
@@ -395,12 +409,12 @@ const SGuestButton = styled(Button, {
 
 const SHostButtonContainer = styled('div', {
   '& > *': {
-    width: '$144',
-    color: '$gray10',
-    padding: '$20 0',
-    textAlign: 'center',
-    borderRadius: '$50',
-    fontAg: '20_bold_100',
+    'width': '$144',
+    'color': '$gray10',
+    'padding': '$20 0',
+    'textAlign': 'center',
+    'borderRadius': '$50',
+    'fontAg': '20_bold_100',
 
     '@mobile': {
       width: 'calc(50% - 3.5px)',
@@ -409,16 +423,16 @@ const SHostButtonContainer = styled('div', {
     },
   },
 
-  button: {
-    border: `2px solid $gray600`,
-    mr: '$12',
+  'button': {
+    'border': `2px solid $gray600`,
+    'mr': '$12',
 
     '@mobile': {
       mr: '$7',
     },
   },
 
-  a: {
+  'a': {
     display: 'inline-block',
     backgroundColor: '$gray10',
     color: '$gray950',

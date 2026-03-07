@@ -19,7 +19,10 @@ interface CoffeechatUploadPageProps {
 }
 
 export default function CoffeechatUploadPage({ uploadType, form, onSubmit }: CoffeechatUploadPageProps) {
-  const methods = useForm<CoffeechatFormContent>({ resolver: yupResolver(coffeeChatchema), defaultValues: form });
+  const methods = useForm<CoffeechatFormContent>({
+    resolver: yupResolver(coffeeChatchema),
+    defaultValues: form,
+  });
   const { handleSubmit, setFocus, watch } = methods;
   const { isOpen, onClose, onOpen } = useModalState();
 

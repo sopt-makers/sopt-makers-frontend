@@ -7,6 +7,7 @@ import { IconDotsVertical } from '@sopt-makers/icons';
 import { Tag } from '@sopt-makers/ui';
 import { useState } from 'react';
 import { styled } from 'stitches.config';
+
 import { getTagVariant } from '../util';
 
 interface MobileMapCardProps {
@@ -41,11 +42,11 @@ const MobileMapCard = ({ onDelete, onEdit, onLinkClick, onRecommendClick, mapDat
   return (
     <>
       <SContainer>
-        <Flex align="center" justify="between">
+        <Flex align='center' justify='between'>
           <STagWrapper>
             <SPlaceNum>{mapData?.id}</SPlaceNum>
             {mapData?.mapTags?.map((tag, index) => (
-              <Tag key={index} size="sm" variant={getTagVariant(tag)}>
+              <Tag key={index} size='sm' variant={getTagVariant(tag)}>
                 {tag}
               </Tag>
             ))}
@@ -63,15 +64,15 @@ const MobileMapCard = ({ onDelete, onEdit, onLinkClick, onRecommendClick, mapDat
 
         <SRecommendButtonWrapper>
           <UtilityButton
-            iconType="thumb"
-            size="xs"
+            iconType='thumb'
+            size='xs'
             onClick={() => onRecommendClick(mapData?.id ?? 0)}
             isActive={mapData?.isRecommended}
             activeNumber={mapData?.recommendCount}
           >
             나도 추천해요
           </UtilityButton>
-          <UtilityButton iconType="link" onClick={onLinkClick} size="xs">
+          <UtilityButton iconType='link' onClick={onLinkClick} size='xs'>
             바로가기
           </UtilityButton>
         </SRecommendButtonWrapper>
@@ -132,21 +133,21 @@ const SRecommendButtonWrapper = styled('div', {
 });
 
 const SInfoWrapper = styled('div', {
-  display: 'flex',
-  alignItems: 'center',
-  gap: '2px',
-  width: '100%',
-  padding: '$10 $16',
-  borderRadius: '8px',
+  'display': 'flex',
+  'alignItems': 'center',
+  'gap': '2px',
+  'width': '100%',
+  'padding': '$10 $16',
+  'borderRadius': '8px',
   ...fontsObject.BODY_4_13_M,
 
   '& p': {
     flexShrink: 0,
   },
 
-  backgroundColor: '$gray900',
+  'backgroundColor': '$gray900',
 
-  variants: {
+  'variants': {
     isClicked: {
       true: {
         backgroundColor: 'transparent',

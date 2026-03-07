@@ -9,10 +9,7 @@ const getMyLatestAnsweredQuestionResponseScheme = z.object({
   index: z.number().nullable(),
 });
 
-export type GetMyLatestAnsweredQuestionResponse = z.infer<
-  typeof getMyLatestAnsweredQuestionResponseScheme
->;
-
+export type GetMyLatestAnsweredQuestionResponse = z.infer<typeof getMyLatestAnsweredQuestionResponseScheme>;
 
 interface GetMyLatestAnsweredQuestionRequest {
   memberId: number;
@@ -26,14 +23,10 @@ export const getMyLatestAnsweredQuestion = createEndpoint({
   serverResponseScheme: getMyLatestAnsweredQuestionResponseScheme,
 });
 
-
-export const useGetMyLatestAnsweredQuestion = (
-  memberId: number | null | undefined,
-) => {
+export const useGetMyLatestAnsweredQuestion = (memberId: number | null | undefined) => {
   return useQuery({
     queryKey: ['getMyLatestAnsweredQuestion', memberId],
-    queryFn: () =>
-      getMyLatestAnsweredQuestion.request({ memberId: memberId as number }),
+    queryFn: () => getMyLatestAnsweredQuestion.request({ memberId: memberId as number }),
     enabled: Boolean(memberId),
   });
 };

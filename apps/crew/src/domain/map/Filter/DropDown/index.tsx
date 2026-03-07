@@ -1,4 +1,3 @@
-import { ampli } from '@/ampli';
 import { useUserProfileQueryOption } from '@api/user/query';
 import { FilterType } from '@constant/option';
 import { useMultiQueryString } from '@hook/queryString';
@@ -7,6 +6,8 @@ import { SelectV2 } from '@sopt-makers/ui';
 import { css } from '@stitches/react';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { useEffect, useMemo, useState } from 'react';
+
+import { ampli } from '@/ampli';
 
 interface DropDownFilterProps {
   filter: FilterType;
@@ -45,7 +46,10 @@ function MapDropDownFilter({ filter, width }: DropDownFilterProps) {
       return deleteKey();
     }
     setRawSelected(values);
-    ampli.applySoptmapFilter({ soptmap_category: values.join(','), user_id: user.id });
+    ampli.applySoptmapFilter({
+      soptmap_category: values.join(','),
+      user_id: user.id,
+    });
   };
 
   useEffect(() => {
@@ -58,7 +62,7 @@ function MapDropDownFilter({ filter, width }: DropDownFilterProps) {
   return (
     <SelectV2.Root
       key={selectedValue.join(',')} // 이 부분 추가!
-      type="text"
+      type='text'
       visibleOptions={6}
       defaultValue={defaultValue}
       onChange={setPartQuery}
@@ -68,7 +72,7 @@ function MapDropDownFilter({ filter, width }: DropDownFilterProps) {
         <SelectV2.TriggerContent className={getAutoClass(width)()} placeholder={label} label={resolvedLabel} />
       </SelectV2.Trigger>
       <SelectV2.Menu>
-        {options.map(option => (
+        {options.map((option) => (
           <SelectV2.MenuItem key={option} option={{ label: option, value: option }} />
         ))}
       </SelectV2.Menu>

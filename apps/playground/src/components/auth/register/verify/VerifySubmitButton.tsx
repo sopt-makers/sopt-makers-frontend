@@ -9,7 +9,9 @@ const VerifySubmitButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: 0.2s background-color, 0.2s color;
+  transition:
+    0.2s background-color,
+    0.2s color;
   border-radius: 10px;
   padding: 0 14px;
   height: 48px;

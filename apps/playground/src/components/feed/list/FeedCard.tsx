@@ -123,7 +123,11 @@ const Base = forwardRef<HTMLDivElement, PropsWithChildren<BaseProps>>(
                     )}
                   </ProfileImageBox>
 
-                  <Text typography={isAskMode ? 'SUIT_16_SB' : 'SUIT_14_SB'} mobileTypography='SUIT_14_SB' lineHeight={20}>
+                  <Text
+                    typography={isAskMode ? 'SUIT_16_SB' : 'SUIT_14_SB'}
+                    mobileTypography='SUIT_14_SB'
+                    lineHeight={20}
+                  >
                     {anonymousProfile?.nickname ?? '익명'}
                   </Text>
                   <InfoText typography='SUIT_14_M' lineHeight={20} color={colors.gray300}>
@@ -347,7 +351,12 @@ const FEED_CARD_RIGHT_SPACE = 16;
 
 const Image = ({ children }: PropsWithChildren<unknown>) => {
   return (
-    <HorizontalScroller css={{ marginLeft: -FEED_CARD_LEFT_SPACE, marginRight: -FEED_CARD_RIGHT_SPACE }}>
+    <HorizontalScroller
+      css={{
+        marginLeft: -FEED_CARD_LEFT_SPACE,
+        marginRight: -FEED_CARD_RIGHT_SPACE,
+      }}
+    >
       <Flex
         css={{
           paddingLeft: FEED_CARD_LEFT_SPACE,
@@ -367,9 +376,18 @@ const ImageItem = styled(ImageWithSkeleton)``;
 const Comment = ({ children }: PropsWithChildren<unknown>) => {
   return (
     <HorizontalScroller
-      css={{ marginTop: '4px', marginLeft: -FEED_CARD_LEFT_SPACE, marginRight: -FEED_CARD_RIGHT_SPACE }}
+      css={{
+        marginTop: '4px',
+        marginLeft: -FEED_CARD_LEFT_SPACE,
+        marginRight: -FEED_CARD_RIGHT_SPACE,
+      }}
     >
-      <StyledComment css={{ paddingLeft: FEED_CARD_LEFT_SPACE, paddingRight: FEED_CARD_RIGHT_SPACE }}>
+      <StyledComment
+        css={{
+          paddingLeft: FEED_CARD_LEFT_SPACE,
+          paddingRight: FEED_CARD_RIGHT_SPACE,
+        }}
+      >
         {children}
       </StyledComment>
     </HorizontalScroller>

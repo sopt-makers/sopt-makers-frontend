@@ -24,7 +24,11 @@ export const getInterestedKeywords = async () => {
 };
 
 export const postInterestedKeywords = async (keywords: KeywordSettingOptionType[]) => {
-  return (await api.post<PostUserInterestedKeywords>('/user/v2/interestedKeywords', { keywords })).data;
+  return (
+    await api.post<PostUserInterestedKeywords>('/user/v2/interestedKeywords', {
+      keywords,
+    })
+  ).data;
 };
 
 export const getUserMeetingList = async () => {

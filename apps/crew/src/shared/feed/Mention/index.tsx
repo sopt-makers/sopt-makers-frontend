@@ -1,6 +1,6 @@
-import { parseMentionedUserIds } from '@shared/util/parseMentionedUserIds';
 import { useUserQueryOption } from '@api/user/query';
 import { GetUser } from '@api/user/type';
+import { parseMentionedUserIds } from '@shared/util/parseMentionedUserIds';
 import { colors } from '@sopt-makers/colors';
 import { fontsObject } from '@sopt-makers/fonts';
 import { keyframes, styled } from '@stitches/react';
@@ -8,6 +8,7 @@ import { useQuery } from '@tanstack/react-query';
 import DefaultProfile from 'public/assets/svg/mention_profile_default.svg';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { Mention, MentionsInput, SuggestionDataItem } from 'react-mentions';
+
 import { MentionContext } from './MentionContext';
 interface mentionableDataType {
   id: number;
@@ -104,7 +105,7 @@ const CommonMention = ({
         <SRenderSuggestion key={suggestion.id}>
           {(suggestion as mentionableDataType).profileImageUrl ? (
             <SImageWrapper>
-              <img src={(suggestion as mentionableDataType).profileImageUrl} alt="Img" />
+              <img src={(suggestion as mentionableDataType).profileImageUrl} alt='Img' />
             </SImageWrapper>
           ) : (
             <DefaultProfile />
@@ -153,16 +154,20 @@ const CommonMention = ({
       onClick={onClick}
     >
       <Mention
-        trigger="@"
+        trigger='@'
         displayTransform={(_, display) => `@${display}`}
-        data={search => {
+        data={(search) => {
           const data = getFilteredAndRandomUsers(
             search,
-            (mentionUserList ?? []).map((v: GetUser[number]) => ({ ...v, id: v.orgId, display: v.userName }))
+            (mentionUserList ?? []).map((v: GetUser[number]) => ({
+              ...v,
+              id: v.orgId,
+              display: v.userName,
+            })),
           );
           return data;
         }}
-        markup="-~!@#@__display__[__id__]%^&*+" // markup 의 display와 id 앞 뒤에 __ 가 있는 이유는, string 에서 js 변수를 찾아내기 위한 라이브러리 rule 입니다.
+        markup='-~!@#@__display__[__id__]%^&*+' // markup 의 display와 id 앞 뒤에 __ 가 있는 이유는, string 에서 js 변수를 찾아내기 위한 라이브러리 rule 입니다.
         renderSuggestion={renderSuggestion}
       />
     </MentionsInput>
@@ -215,11 +220,11 @@ const CommentMentionStyle = {
       zIndex: '1',
     },
   },
-  suggestions: {
+  'suggestions': {
     backgroundColor: 'transparent',
     item: {
-      minWidth: '154px',
-      borderRadius: '8px',
+      'minWidth': '154px',
+      'borderRadius': '8px',
       '&focused': {
         background: colors.gray800,
       },
@@ -281,11 +286,11 @@ const FeedModalMentionStyle = {
       zIndex: '1',
     },
   },
-  suggestions: {
+  'suggestions': {
     backgroundColor: 'transparent',
     item: {
-      minWidth: '154px',
-      borderRadius: '8px',
+      'minWidth': '154px',
+      'borderRadius': '8px',
       '&focused': {
         background: colors.gray800,
       },
@@ -299,17 +304,17 @@ const fadeIn = keyframes({
 });
 
 const SCustomSuggestionsContainer = styled('div', {
-  borderRadius: '13px',
-  boxSizing: 'border-box',
-  width: 'max-content',
-  padding: '8px',
-  background: '#17181c',
-  border: `1px solid ${colors.gray700}`,
+  'borderRadius': '13px',
+  'boxSizing': 'border-box',
+  'width': 'max-content',
+  'padding': '8px',
+  'background': '#17181c',
+  'border': `1px solid ${colors.gray700}`,
 
-  animation: `${fadeIn} 0.5s forwards`,
+  'animation': `${fadeIn} 0.5s forwards`,
 
-  maxHeight: '418px',
-  overflow: 'scroll',
+  'maxHeight': '418px',
+  'overflow': 'scroll',
 
   '@media (max-width: 768px)': {
     position: 'fixed',
@@ -324,15 +329,15 @@ const SCustomSuggestionsContainer = styled('div', {
 });
 
 const SRenderSuggestion = styled('button', {
-  boxSizing: 'border-box',
-  padding: '8px 12px',
-  gap: '12px',
-  display: 'flex',
-  alignItems: 'center',
-  borderRadius: '8px',
-  marginBottom: '6px',
+  'boxSizing': 'border-box',
+  'padding': '8px 12px',
+  'gap': '12px',
+  'display': 'flex',
+  'alignItems': 'center',
+  'borderRadius': '8px',
+  'marginBottom': '6px',
   ...fontsObject.BODY_2_16_M,
-  color: colors.gray10,
+  'color': colors.gray10,
   '& > div > p': {
     ...fontsObject.BODY_4_13_R,
     color: colors.gray100,

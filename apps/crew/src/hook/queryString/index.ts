@@ -21,7 +21,7 @@ export function useQueryString(key: string, initValue?: string | null, withPage?
         query: queryData,
       },
       undefined,
-      { shallow: true }
+      { shallow: true },
     );
   };
 
@@ -56,7 +56,7 @@ export function useMultiQueryString(key: string, withPage?: boolean) {
         query: queryData,
       },
       undefined,
-      { shallow: true }
+      { shallow: true },
     );
   };
   const setValue = (value: string[]) => {
@@ -90,7 +90,7 @@ export function useMultiQueryString(key: string, withPage?: boolean) {
         query: {},
       },
       undefined,
-      { shallow: true }
+      { shallow: true },
     );
   };
 

@@ -49,7 +49,9 @@ const ContentBox = styled.div`
   flex-direction: column;
   z-index: ${zIndex.헤더 + 100};
   border-radius: 14px;
-  box-shadow: 0 10px 38px -10px rgb(22 23 24 / 35%), 0 10px 20px -15px rgb(22 23 24 / 20%);
+  box-shadow:
+    0 10px 38px -10px rgb(22 23 24 / 35%),
+    0 10px 20px -15px rgb(22 23 24 / 20%);
   background: ${colors.gray700};
   padding: 12px 0;
   min-width: 176px;

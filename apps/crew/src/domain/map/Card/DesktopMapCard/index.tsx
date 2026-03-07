@@ -4,6 +4,7 @@ import { Flex } from '@shared/util/layout/Flex';
 import { fontsObject } from '@sopt-makers/fonts';
 import { Button, Tag } from '@sopt-makers/ui';
 import { styled } from 'stitches.config';
+
 import { getTagVariant } from '../util';
 
 interface DesktopMapCardProps {
@@ -18,11 +19,11 @@ const DesktopMapCard = ({ onDelete, onEdit, onLinkClick, onRecommendClick, mapDa
     <SContainer>
       <SPlaceNum>{mapData?.id}</SPlaceNum>
       <SContentWrapper>
-        <Flex align="center" justify="between">
+        <Flex align='center' justify='between'>
           <SPlaceWrapper>
             <STagWrapper>
               {mapData?.mapTags?.map((tag, index) => (
-                <Tag key={index} size="md" variant={getTagVariant(tag)}>
+                <Tag key={index} size='md' variant={getTagVariant(tag)}>
                   {tag}
                 </Tag>
               ))}
@@ -33,14 +34,14 @@ const DesktopMapCard = ({ onDelete, onEdit, onLinkClick, onRecommendClick, mapDa
 
           <SRecommendButtonWrapper>
             <UtilityButton
-              iconType="thumb"
+              iconType='thumb'
               onClick={() => onRecommendClick(mapData?.id ?? 0)}
               isActive={mapData?.isRecommended}
               activeNumber={mapData?.recommendCount}
             >
               나도 추천해요
             </UtilityButton>
-            <UtilityButton iconType="link" onClick={onLinkClick}>
+            <UtilityButton iconType='link' onClick={onLinkClick}>
               바로가기
             </UtilityButton>
           </SRecommendButtonWrapper>
@@ -48,10 +49,10 @@ const DesktopMapCard = ({ onDelete, onEdit, onLinkClick, onRecommendClick, mapDa
 
         <SDivider />
 
-        <Flex align="center" justify="between">
-          <Flex align="start" css={{ gap: '8px', flex: 1, minWidth: 0 }}>
+        <Flex align='center' justify='between'>
+          <Flex align='start' css={{ gap: '8px', flex: 1, minWidth: 0 }}>
             {mapData?.isCreator && (
-              <Tag variant="default" size="md">
+              <Tag variant='default' size='md'>
                 내가 등록한 장소
               </Tag>
             )}
@@ -65,10 +66,10 @@ const DesktopMapCard = ({ onDelete, onEdit, onLinkClick, onRecommendClick, mapDa
           {mapData?.isCreator && (
             <SEditButtonWrapper>
               {/* TODO: mds varient 추가시 옵션 변경 */}
-              <Button size="sm" theme="black" rounded="lg" onClick={onDelete}>
+              <Button size='sm' theme='black' rounded='lg' onClick={onDelete}>
                 삭제
               </Button>
-              <Button size="sm" rounded="lg" onClick={onEdit}>
+              <Button size='sm' rounded='lg' onClick={onEdit}>
                 수정
               </Button>
             </SEditButtonWrapper>
@@ -80,12 +81,12 @@ const DesktopMapCard = ({ onDelete, onEdit, onLinkClick, onRecommendClick, mapDa
 };
 
 const SContainer = styled('div', {
-  display: 'flex',
-  gap: '12px',
-  width: '100%',
-  padding: '16px',
-  borderRadius: '10px',
-  border: '1px solid $gray800',
+  'display': 'flex',
+  'gap': '12px',
+  'width': '100%',
+  'padding': '16px',
+  'borderRadius': '10px',
+  'border': '1px solid $gray800',
   '&:hover': {
     backgroundColor: '$gray900',
     border: '1px solid $gray600',
@@ -140,12 +141,12 @@ const SDivider = styled('div', {
 });
 
 const SInfoWrapper = styled('div', {
-  display: 'flex',
-  alignItems: 'start',
-  gap: '2px',
+  'display': 'flex',
+  'alignItems': 'start',
+  'gap': '2px',
   ...fontsObject.BODY_3_14_L,
-  flex: 1,
-  minWidth: 0,
+  'flex': 1,
+  'minWidth': 0,
   '& p': {
     flexShrink: 0,
   },

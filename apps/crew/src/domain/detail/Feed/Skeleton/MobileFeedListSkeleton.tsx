@@ -1,4 +1,5 @@
 import { styled } from 'stitches.config';
+
 import FeedItemSkeleton from './FeedItemSkeleton';
 
 interface MobileFeedListSkeletonProps {
@@ -29,8 +30,8 @@ const SFeedItemWrapper = styled('div', {
     borderBottom: '8px solid $gray800',
   },
 
-  width: 'calc(100% + 40px)',
-  marginLeft: '-20px',
+  'width': 'calc(100% + 40px)',
+  'marginLeft': '-20px',
 
   '@media (max-width: 414px)': {
     width: 'calc(100% + 32px)',

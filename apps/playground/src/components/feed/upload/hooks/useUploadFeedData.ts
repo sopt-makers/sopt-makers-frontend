@@ -58,7 +58,10 @@ export default function useUploadFeedData(defaultValue: PostedFeedDataType) {
   };
 
   const saveImageUrls = (urls: string[]) => {
-    setFeedData((feedData) => ({ ...feedData, images: [...feedData.images, ...urls] }));
+    setFeedData((feedData) => ({
+      ...feedData,
+      images: [...feedData.images, ...urls],
+    }));
   };
 
   const removeImage = (index: number) => {

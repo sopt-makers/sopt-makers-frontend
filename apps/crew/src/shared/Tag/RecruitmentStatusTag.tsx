@@ -20,7 +20,7 @@ const RecruitmentStatusTag = ({ status, ...props }: RecruitmentStatusTagProps) =
 export default RecruitmentStatusTag;
 
 const CustomTag = styled('div', {
-  variants: {
+  'variants': {
     variant: {
       default: {
         background: '$gray700',
@@ -37,12 +37,12 @@ const CustomTag = styled('div', {
     },
   },
 
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
+  'display': 'flex',
+  'alignItems': 'center',
+  'justifyContent': 'center',
 
-  padding: '$3 $8',
-  borderRadius: '$4',
+  'padding': '$3 $8',
+  'borderRadius': '$4',
 
   '@mobile': {
     padding: '$3 $6',

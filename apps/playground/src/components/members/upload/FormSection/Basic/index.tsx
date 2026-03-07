@@ -59,7 +59,10 @@ export default function MemberBasicFormSection() {
             setIsAuthNumberCreated(true);
           },
           onError: (e) => {
-            toastOpen({ icon: 'error', content: '인증번호 발송에 실패했어요.' });
+            toastOpen({
+              icon: 'error',
+              content: '인증번호 발송에 실패했어요.',
+            });
           },
         },
       );
@@ -78,13 +81,19 @@ export default function MemberBasicFormSection() {
         },
         {
           onSuccess: () => {
-            toastOpen({ icon: 'success', content: '인증번호 검증에 성공했어요.' });
+            toastOpen({
+              icon: 'success',
+              content: '인증번호 검증에 성공했어요.',
+            });
             setIsAuthNumberCreated(false);
             setAuthNumber('');
             reset({ ...getValues(), phone: getValues('phone') });
           },
           onError: () => {
-            toastOpen({ icon: 'error', content: '인증번호 검증에 실패했어요.' });
+            toastOpen({
+              icon: 'error',
+              content: '인증번호 검증에 실패했어요.',
+            });
             setVerificationError(true);
           },
         },

@@ -1,6 +1,6 @@
+import { ACCEPTED_IMAGE_TYPES } from '@type/form';
 import { nanoid } from 'nanoid';
 import React, { useMemo, useState } from 'react';
-import { ACCEPTED_IMAGE_TYPES } from '@type/form';
 import { styled } from 'stitches.config';
 
 interface ImagePreviewProps {
@@ -18,13 +18,13 @@ export default function ImagePreview({ url, onChange, onDelete }: ImagePreviewPr
       {showControl && (
         <SBackdrop>
           <SEditButton htmlFor={id}>수정</SEditButton>
-          <SDeleteButton type="button" onClick={onDelete}>
+          <SDeleteButton type='button' onClick={onDelete}>
             삭제
           </SDeleteButton>
         </SBackdrop>
       )}
-      <SImage src={url} alt="" />
-      <SInput id={id} type="file" accept={ACCEPTED_IMAGE_TYPES.join(', ')} onChange={onChange} />
+      <SImage src={url} alt='' />
+      <SInput id={id} type='file' accept={ACCEPTED_IMAGE_TYPES.join(', ')} onChange={onChange} />
     </SContainer>
   );
 }

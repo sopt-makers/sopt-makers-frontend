@@ -1,5 +1,6 @@
-import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
+
+import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import updateLocale from 'dayjs/plugin/updateLocale';
 const localeList = dayjs.Ls;

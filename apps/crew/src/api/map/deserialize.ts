@@ -1,4 +1,5 @@
 import { FormType } from '@domain/map/Form/type';
+
 import { GetMapDetail } from './type';
 
 const TAG_LABEL_MAP: Record<string, string> = {
@@ -13,7 +14,7 @@ export const deserializeSoptMapData = (data: GetMapDetail['response']): FormType
 
   return {
     name: data.placeName ?? '',
-    subwayStations: data.stationNames?.map(station => ({ name: station })) ?? [],
+    subwayStations: data.stationNames?.map((station) => ({ name: station })) ?? [],
     description: data.description ?? '',
     category: {
       label,

@@ -25,13 +25,21 @@ export const MemberCard = () => {
 
   useEffect(() => {
     if (member) {
-      logImpressionEvent('memberCard', { id: member.id, name: member.name, screen: 'recommended' });
+      logImpressionEvent('memberCard', {
+        id: member.id,
+        name: member.name,
+        screen: 'recommended',
+      });
     }
   }, [member, logImpressionEvent]);
 
   const handleClickCard = () => {
     if (member) {
-      logClickEvent('memberCard', { id: member.id, name: member.name, screen: 'recommended' });
+      logClickEvent('memberCard', {
+        id: member.id,
+        name: member.name,
+        screen: 'recommended',
+      });
       router.push(playgroundLink.memberDetail(member.id));
     }
   };

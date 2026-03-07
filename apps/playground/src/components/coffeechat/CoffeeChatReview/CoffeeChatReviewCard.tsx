@@ -139,7 +139,11 @@ export default function CoffeeChatReviewCard({
   );
 }
 
-const Container = styled(m.div)<{ isEmptyData?: boolean; isBlurred?: boolean; isMine?: boolean }>`
+const Container = styled(m.div)<{
+  isEmptyData?: boolean;
+  isBlurred?: boolean;
+  isMine?: boolean;
+}>`
   display: flex;
   flex-direction: column;
   align-items: flex-start;

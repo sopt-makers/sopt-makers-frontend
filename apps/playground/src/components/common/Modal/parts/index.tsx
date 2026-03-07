@@ -28,7 +28,10 @@ export const ModalDescription = styled.div`
   ${textStyles.SUIT_14_R};
 `;
 
-export const ModalFooter = styled.div<{ align: 'left' | 'right' | 'stretch'; stack?: 'horizontal' | 'vertical' }>`
+export const ModalFooter = styled.div<{
+  align: 'left' | 'right' | 'stretch';
+  stack?: 'horizontal' | 'vertical';
+}>`
   display: grid;
   margin-top: 24px;
 

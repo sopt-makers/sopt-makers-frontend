@@ -1,5 +1,6 @@
 import { PropsWithChildren, useMemo } from 'react';
 import { styled } from 'stitches.config';
+
 import { TabListContext, useTabListContext } from './TabListContext';
 
 interface TabListProps {
@@ -19,7 +20,7 @@ export function TabList({ text, size, onChange, children }: PropsWithChildren<Ta
       size,
       onChange: onChange ? onChange : () => {},
     }),
-    [text, size, onChange]
+    [text, size, onChange],
   );
   return (
     <STabList>
@@ -41,12 +42,12 @@ function TabItem({ text, children }: PropsWithChildren<TabProps>) {
 TabList.Item = TabItem;
 
 const STabList = styled('ul', {
-  display: 'flex',
+  'display': 'flex',
 
   '@tablet': {
-    overflowX: 'scroll',
+    'overflowX': 'scroll',
     '-ms-overflow-style': 'none',
-    scrollbarWidth: 'none',
+    'scrollbarWidth': 'none',
     '&::-webkit-scrollbar': {
       display: 'none',
     },
@@ -54,13 +55,13 @@ const STabList = styled('ul', {
 });
 
 const STab = styled('li', {
-  cursor: 'pointer',
-  borderBottom: '2px solid transparent',
+  'cursor': 'pointer',
+  'borderBottom': '2px solid transparent',
   '&:hover': {
     color: '$gray10',
   },
 
-  variants: {
+  'variants': {
     isSelected: {
       true: {
         color: '$gray10',
@@ -73,16 +74,16 @@ const STab = styled('li', {
 
     isSmall: {
       true: {
-        pb: '$24',
-        fontAg: '24_semibold_100',
-        paddingBottom: '$17',
-        mr: '$32',
+        'pb': '$24',
+        'fontAg': '24_semibold_100',
+        'paddingBottom': '$17',
+        'mr': '$32',
 
         '@tablet': {
-          fontAg: '16_bold_100',
-          padding: '$16 $8',
-          mr: '$8',
-          minWidth: 'fit-content',
+          'fontAg': '16_bold_100',
+          'padding': '$16 $8',
+          'mr': '$8',
+          'minWidth': 'fit-content',
 
           '&:last-child': {
             mr: '$0',
@@ -91,9 +92,9 @@ const STab = styled('li', {
       },
 
       false: {
-        pb: '$16',
-        mr: '$20',
-        fontStyle: 'H1',
+        'pb': '$16',
+        'mr': '$20',
+        'fontStyle': 'H1',
 
         '@tablet': {
           fontStyle: 'T3',

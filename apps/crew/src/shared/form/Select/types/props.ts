@@ -1,5 +1,6 @@
-import type { Option } from '../OptionItem';
 import type { FocusEventHandler } from 'react';
+
+import type { Option } from '../OptionItem';
 
 interface CommonProps {
   label?: string;

@@ -30,9 +30,9 @@ export const CrewIcon = ({ size = 30, fill = '#FF6E1D', ...props }: IconProps) =
         width='23.125'
         height='20.166'
         filterUnits='userSpaceOnUse'
-        color-interpolation-filters='sRGB'
+        colorInterpolationFilters='sRGB'
       >
-        <feFlood flood-opacity='0' result='BackgroundImageFix' />
+        <feFlood floodOpacity='0' result='BackgroundImageFix' />
         <feGaussianBlur in='BackgroundImageFix' stdDeviation='1.375' />
         <feComposite in2='SourceAlpha' operator='in' result='effect1_backgroundBlur_4844_16706' />
         <feBlend mode='normal' in='SourceGraphic' in2='effect1_backgroundBlur_4844_16706' result='shape' />

@@ -1,9 +1,11 @@
-import { paths } from '@/__generated__/schema';
-import { authToken } from '@/store/tokenStore';
 import { isProduction } from '@constant/environment';
 import axios from 'axios';
 import { computed } from 'nanostores';
 import createClient from 'openapi-fetch';
+
+import { paths } from '@/__generated__/schema';
+import { authToken } from '@/store/tokenStore';
+
 import { checkToken, refreshToken } from './interceptor';
 
 export type PromiseResponse<T> = { data: T; statusCode: number };
@@ -26,7 +28,7 @@ export const authApi = axios.create({
   withCredentials: true,
 });
 
-authToken.subscribe(newToken => {
+authToken.subscribe((newToken) => {
   api.defaults.headers.common['Authorization'] = `Bearer ${newToken}`;
 });
 
@@ -34,25 +36,25 @@ export const playgroundApi = axios.create({
   baseURL: playgroundBaseURL,
 });
 
-authToken.subscribe(newToken => {
+authToken.subscribe((newToken) => {
   playgroundApi.defaults.headers.common['Authorization'] = newToken;
 });
 
-export const apiV2 = computed(authToken, currentToken =>
+export const apiV2 = computed(authToken, (currentToken) =>
   createClient<paths>({
     baseUrl: baseURL,
     headers: currentToken ? { Authorization: `Bearer ${currentToken}` } : {},
-  })
+  }),
 );
 
-api.interceptors.request.use(checkToken, err => err);
+api.interceptors.request.use(checkToken, (err) => err);
 
 api.interceptors.response.use(
-  res => res,
-  async err => refreshToken(err, api)
+  (res) => res,
+  async (err) => refreshToken(err, api),
 );
 
 baseApi.interceptors.response.use(
-  res => res,
-  async err => refreshToken(err, baseApi)
+  (res) => res,
+  async (err) => refreshToken(err, baseApi),
 );

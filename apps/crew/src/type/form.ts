@@ -96,7 +96,7 @@ export const schema = z.object({
         z.object({
           label: z.string(),
           value: z.string().nullable(),
-        })
+        }),
       )
       .min(1, { message: '대상 파트를 선택해주세요.' }),
     coLeader: z.array(z.any()).optional(),
@@ -205,7 +205,7 @@ export const flashSchema = z.object({
       }),
       placeDetail: z.string().nullable().optional(),
     })
-    .refine(data => {
+    .refine((data) => {
       if (data.place.label === '오프라인' || data.place.label === '온라인') {
         return data.placeDetail && data.placeDetail.length > 0;
       } else if (data.place.label === '협의 후 결정') {

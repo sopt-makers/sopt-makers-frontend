@@ -33,7 +33,9 @@ const StyledHelpCard = styled.a<{ highlight?: boolean }>`
   display: flex;
   flex-direction: column;
   gap: 10px;
-  transition: background-color 0.3s, box-shadow 0.3s;
+  transition:
+    background-color 0.3s,
+    box-shadow 0.3s;
   border-radius: 6px;
   background-color: ${colors.gray700};
   cursor: pointer;

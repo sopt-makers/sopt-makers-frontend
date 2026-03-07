@@ -2,11 +2,13 @@
   "name": "crew",
   "version": "0.1.0",
   "private": true,
+  "prettier": "@sopt-makers/prettier-config",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "format": "prettier --write . --ignore-path ../../.prettierignore",
     "typecheck": "tsc --noemit -p .",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
@@ -52,12 +54,7 @@
     "@hookform/devtools": "^4.3.1",
     "@types/react-mentions": "4.1.13",
     "@types/react-responsive": "^8.0.5",
-    "eslint": "^8.57.0",
-    "eslint-plugin-import": "^2.32.0",
-    "eslint-plugin-prettier": "^5.5.5",
-    "eslint-plugin-react-hooks": "^7.0.1",
     "openapi-typescript": "^6.3.9",
-    "prettier": "^3.0.0",
     "wrangler": "^3.0.0"
   }
 }

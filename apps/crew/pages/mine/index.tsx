@@ -1,16 +1,14 @@
-import type { NextPage } from 'next';
-
+import MeetingListOfApplied from '@domain/list/Meeting/MeetingListOfApplied';
+import MeetingListOfMine from '@domain/list/Meeting/MeetingListOfMine';
 import { Tab } from '@headlessui/react';
 import useSessionStorage from '@hook/useSessionStorage';
+import CrewTab from '@shared/CrewTab';
+import KakaoFloatingButton from '@shared/FloatingButton/kakaoFloatingButton/KakaoFloatingButton';
+import type { NextPage } from 'next';
 import { Fragment } from 'react';
 import { styled } from 'stitches.config';
 
 import { ampli } from '@/ampli';
-import MeetingListOfApplied from '@domain/list/Meeting/MeetingListOfApplied';
-import MeetingListOfMine from '@domain/list/Meeting/MeetingListOfMine';
-import CrewTab from '@shared/CrewTab';
-
-import KakaoFloatingButton from '@shared/FloatingButton/kakaoFloatingButton/KakaoFloatingButton';
 
 const enum MeetingType {
   APPLIED,
@@ -20,7 +18,7 @@ const enum MeetingType {
 const MinePage: NextPage = () => {
   const [selectedMeetingType, setSelectedMeetingType] = useSessionStorage<MeetingType>(
     'meetingType',
-    MeetingType.APPLIED
+    MeetingType.APPLIED,
   );
 
   return (
@@ -67,9 +65,9 @@ const MinePage: NextPage = () => {
 export default MinePage;
 
 const STabList = styled(Tab.List, {
-  flexType: 'center',
-  marginTop: '126px',
-  paddingBottom: '64px',
+  'flexType': 'center',
+  'marginTop': '126px',
+  'paddingBottom': '64px',
   '@media (max-width: 768px)': {
     marginTop: '48px',
     paddingBottom: '24px',
@@ -77,11 +75,11 @@ const STabList = styled(Tab.List, {
 });
 
 const STab = styled('button', {
-  fontAg: '20_bold_100',
-  px: '$16',
-  py: '$14',
-  borderRadius: '10px',
-  variants: {
+  'fontAg': '20_bold_100',
+  'px': '$16',
+  'py': '$14',
+  'borderRadius': '10px',
+  'variants': {
     isSelected: {
       true: {
         color: '$gray10',

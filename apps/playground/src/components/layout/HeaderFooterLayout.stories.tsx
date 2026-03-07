@@ -8,7 +8,17 @@ export default {
 
 export const Default = {
   args: {
-    children: <div style={{ backgroundColor: '#7d7d7d', textAlign: 'center', height: '200px' }}>Page Content</div>,
+    children: (
+      <div
+        style={{
+          backgroundColor: '#7d7d7d',
+          textAlign: 'center',
+          height: '200px',
+        }}
+      >
+        Page Content
+      </div>
+    ),
   },
 
   name: '기본',

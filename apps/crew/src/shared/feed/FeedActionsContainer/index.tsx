@@ -37,6 +37,7 @@ const FeedActionsContainer = ({
   if (isMine) {
     return [
       <FeedActionButton
+        key='edit'
         onClick={() =>
           openOverlay(({ isOpen, close }) => (
             <FeedEditModal postId={postId} isModalOpened={isOpen} handleModalClose={close} />
@@ -47,13 +48,14 @@ const FeedActionsContainer = ({
         수정
       </FeedActionButton>,
       <FeedActionButton
+        key='delete'
         onClick={() => {
           openOverlay(({ isOpen, close }) => (
             <ConfirmModal
               isModalOpened={isOpen}
-              message="게시글을 삭제하시겠습니까?"
-              cancelButton="돌아가기"
-              confirmButton="삭제하기"
+              message='게시글을 삭제하시겠습니까?'
+              cancelButton='돌아가기'
+              confirmButton='삭제하기'
               handleModalClose={close}
               handleConfirm={handleDelete}
             />
@@ -68,13 +70,14 @@ const FeedActionsContainer = ({
 
   return [
     <FeedActionButton
+      key='report'
       onClick={() => {
         openOverlay(({ isOpen, close }) => (
           <ConfirmModal
             isModalOpened={isOpen}
-            message="게시글을 신고하시겠습니까?"
-            cancelButton="돌아가기"
-            confirmButton="신고하기"
+            message='게시글을 신고하시겠습니까?'
+            cancelButton='돌아가기'
+            confirmButton='신고하기'
             handleModalClose={close}
             handleConfirm={handleReport}
           />

@@ -13,6 +13,7 @@ import { parseTextToLink } from '@shared/util/parseTextToLink';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+
 import FeedActionButton from '../FeedActionButton/FeedActionButton';
 import FeedCommentEditor from '../FeedCommentEditor/FeedCommentEditor';
 import FeedCommentViewer from '../FeedCommentViewer/FeedCommentViewer';
@@ -51,19 +52,19 @@ const FeedReCommentContainer = ({ comment, reply, postUserId, onClickLike }: Fee
         Actions={
           isMine
             ? [
-                <FeedActionButton onClick={() => setReplyEditMode(true)}>
+                <FeedActionButton key='edit' onClick={() => setReplyEditMode(true)}>
                   <ReWriteIcon />
                   수정
                 </FeedActionButton>,
                 <FeedActionButton
+                  key='delete'
                   onClick={() =>
                     overlay.open(({ isOpen, close }) => (
-                      // eslint-disable-next-line prettier/prettier
                       <ConfirmModal
                         isModalOpened={isOpen}
-                        message="댓글을 삭제하시겠습니까?"
-                        cancelButton="돌아가기"
-                        confirmButton="삭제하기"
+                        message='댓글을 삭제하시겠습니까?'
+                        cancelButton='돌아가기'
+                        confirmButton='삭제하기'
                         handleModalClose={close}
                         handleConfirm={() => {
                           mutateDeleteComment(reply.id);
@@ -79,14 +80,14 @@ const FeedReCommentContainer = ({ comment, reply, postUserId, onClickLike }: Fee
               ]
             : [
                 <FeedActionButton
+                  key='report'
                   onClick={() => {
                     overlay.open(({ isOpen, close }) => (
-                      // eslint-disable-next-line prettier/prettier
                       <ConfirmModal
                         isModalOpened={isOpen}
-                        message="댓글을 신고하시겠습니까?"
-                        cancelButton="돌아가기"
-                        confirmButton="신고하기"
+                        message='댓글을 신고하시겠습니까?'
+                        cancelButton='돌아가기'
+                        confirmButton='신고하기'
                         handleModalClose={close}
                         handleConfirm={() => {
                           mutateReportComment(reply.id);

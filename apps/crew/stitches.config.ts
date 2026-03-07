@@ -433,8 +433,8 @@ const stitches = createStitches({
       };
     },
     clickable: () => ({
-      position: 'relative',
-      cursor: 'pointer',
+      'position': 'relative',
+      'cursor': 'pointer',
       '&:after': {
         content: '',
         position: 'absolute',
@@ -457,8 +457,8 @@ const stitches = createStitches({
     hideScrollbar: (value: boolean) =>
       value
         ? {
-            scrollbarWidth: 'none',
-            msOverflowStyle: 'none',
+            'scrollbarWidth': 'none',
+            'msOverflowStyle': 'none',
             '&::-webkit-scrollbar': { display: 'none' },
           }
         : {},

@@ -1,5 +1,5 @@
-import { styled } from 'stitches.config';
 import ArrowSmallDownIcon from '@assets/svg/arrow_small_down.svg';
+import { styled } from 'stitches.config';
 
 interface ButtonProps {
   open?: boolean;
@@ -17,7 +17,7 @@ function BottomSheetButton({ open, label, handleOpen }: ButtonProps) {
   const isNotSelected = !label.active;
 
   return (
-    <SButton type="button" isNotSelected={isNotSelected} onClick={handleOpen}>
+    <SButton type='button' isNotSelected={isNotSelected} onClick={handleOpen}>
       {label.text}
       <SArrowDownIcon open={open} isNotSelected={isNotSelected} />
     </SButton>

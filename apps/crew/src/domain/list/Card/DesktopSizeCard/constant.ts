@@ -4,13 +4,13 @@ import { PART_OPTIONS, PART_VALUES } from '@constant/option';
 import dayjs from 'dayjs';
 
 const parsePartValueToLabel = (part: string) => {
-  const partIdx = PART_VALUES.findIndex(option => option === part);
+  const partIdx = PART_VALUES.findIndex((option) => option === part);
   if (partIdx >= 0) return PART_OPTIONS[partIdx];
   return null;
 };
 
 export const MeetingInformation = (
-  meetingData: MeetingData
+  meetingData: MeetingData,
 ): { label: string; value: () => string; isValid: boolean }[] => [
   {
     label: '모집 기간',
@@ -25,8 +25,8 @@ export const MeetingInformation = (
       const part = isAllParts
         ? '전체 파트'
         : meetingData.joinableParts
-            .map(part => parsePartValueToLabel(part))
-            .filter(item => item !== null)
+            .map((part) => parsePartValueToLabel(part))
+            .filter((item) => item !== null)
             .join(',');
       return `${
         meetingData.targetActiveGeneration ? `${meetingData.targetActiveGeneration}기` : '전체 기수'
@@ -36,13 +36,13 @@ export const MeetingInformation = (
   },
   {
     label: '환영 태그',
-    value: () => meetingData.welcomeMessageTypes?.map(message => `#${message}`).join(' '),
+    value: () => meetingData.welcomeMessageTypes?.map((message) => `#${message}`).join(' '),
     isValid: !!meetingData.welcomeMessageTypes?.length,
   },
 ];
 
 export const FlashInformation = (
-  flashData: GetFlash['response']
+  flashData: GetFlash['response'],
 ): { label: string; value: () => string; isValid: boolean }[] => [
   {
     label: '진행 일자',
@@ -63,7 +63,7 @@ export const FlashInformation = (
   },
   {
     label: '환영 태그',
-    value: () => flashData.welcomeMessageTypes?.map(message => `#${message}`).join(' '),
+    value: () => flashData.welcomeMessageTypes?.map((message) => `#${message}`).join(' '),
     isValid: !!flashData.welcomeMessageTypes?.length,
   },
 ];

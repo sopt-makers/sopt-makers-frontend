@@ -68,11 +68,15 @@ const PopularArea = () => {
             <PopularCard key={`skeleton-${index}`} rank={index + 1} isLoading />
           ))}
         {data?.map((card, index) => {
-          const category = card.id !== null ? getFullCategoryNameFromId(card.id) ?? card.category : card.category;
+          const category = card.id !== null ? (getFullCategoryNameFromId(card.id) ?? card.category) : card.category;
           return (
             <LoggingClick
               eventKey='feedCard'
-              param={{ feedId: String(card.id), category, referral: 'category_HOT' }}
+              param={{
+                feedId: String(card.id),
+                category,
+                referral: 'category_HOT',
+              }}
               key={card.id ?? index}
             >
               <PopularCard

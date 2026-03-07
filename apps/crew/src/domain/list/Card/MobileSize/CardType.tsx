@@ -1,6 +1,7 @@
 import { RECRUITMENT_STATUS } from '@constant/option';
 import { getResizedImage } from '@util/image';
 import { styled } from 'stitches.config';
+
 import { MobileSizeCardProps } from '.';
 
 function CardType({ meetingData }: Pick<MobileSizeCardProps, 'meetingData'>) {
@@ -36,13 +37,13 @@ const SThumbnailImage = styled('div', {
 });
 
 const SStatus = styled('div', {
-  position: 'absolute',
-  top: '16px',
-  left: '16px',
-  borderRadius: '$8',
-  padding: '$3 $8',
-  fontStyle: 'T5',
-  variants: {
+  'position': 'absolute',
+  'top': '16px',
+  'left': '16px',
+  'borderRadius': '$8',
+  'padding': '$3 $8',
+  'fontStyle': 'T5',
+  'variants': {
     recruitingStatus: {
       0: {
         backgroundColor: '$gray500',
@@ -65,16 +66,16 @@ const SStatus = styled('div', {
 });
 
 const STitleSection = styled('div', {
-  my: '$16',
+  'my': '$16',
   '@media (max-width: 768px)': {
     my: '$8',
   },
 });
 
 const STitle = styled('p', {
-  maxWidth: '380px',
-  fontStyle: 'H2',
-  mt: '$8',
+  'maxWidth': '380px',
+  'fontStyle': 'H2',
+  'mt': '$8',
   '@media (max-width: 768px)': {
     fontAg: '14_semibold_140',
     maxWidth: '162px',
@@ -85,8 +86,8 @@ const MobileWrapper = styled('div', {
   display: 'flex',
 });
 const SMobileValue = styled('p', {
-  fontAg: '12_medium_100',
-  color: '$gray400',
+  'fontAg': '12_medium_100',
+  'color': '$gray400',
   '& + &': {
     ml: '$8',
   },

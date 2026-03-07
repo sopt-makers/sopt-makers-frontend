@@ -3,6 +3,7 @@ import SendIcon from 'public/assets/svg/send.svg';
 import SendFillIcon from 'public/assets/svg/send_fill.svg';
 import { forwardRef, useRef, useState } from 'react';
 import { styled } from 'stitches.config';
+
 import { FeedCommentInputProps } from '../FeedCommentInput/FeedCommentInput';
 import CommonMention from '../Mention';
 
@@ -47,13 +48,13 @@ const FeedReCommentInput = forwardRef<HTMLTextAreaElement, Omit<FeedCommentInput
             />
           </CommentInput>
 
-          <SendButton type="submit" onClick={handleSubmit} disabled={disabled}>
+          <SendButton type='submit' onClick={handleSubmit} disabled={disabled}>
             {isFocused ? <SendFillIcon /> : <SendIcon />}
           </SendButton>
         </Container>
       </div>
     );
-  }
+  },
 );
 
 //$gray800 이런건 theme인건가?
@@ -74,14 +75,14 @@ const Container = styled('form', {
   },
 });
 const CommentInput = styled('div', {
-  minWidth: 0,
-  width: '100%',
-  padding: '11px 16px',
-  borderRadius: '10px',
-  background: '$gray800',
-  border: 'none',
-  outline: 'none',
-  resize: 'none',
+  'minWidth': 0,
+  'width': '100%',
+  'padding': '11px 16px',
+  'borderRadius': '10px',
+  'background': '$gray800',
+  'border': 'none',
+  'outline': 'none',
+  'resize': 'none',
   '&': {
     color: '$gray300',
   },

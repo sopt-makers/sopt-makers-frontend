@@ -23,6 +23,8 @@
     "check": "turbo lint typecheck stylelint test:ci",
     "update-mds": "yarn up @sopt-makers/colors@latest @sopt-makers/fonts@latest @sopt-makers/playground-common@latest @sopt-makers/ui@latest @sopt-makers/icons@latest",
     "lint": "turbo lint",
+    "lint:fix": "turbo lint -- --fix",
+    "format": "turbo format",
     "clean": "turbo clean"
   },
   "dependencies": {
@@ -36,17 +38,25 @@
     "zod": "^3.20.6"
   },
   "devDependencies": {
+    "@sopt-makers/eslint-config": "workspace:*",
+    "@sopt-makers/prettier-config": "workspace:*",
     "@types/node": "18.8.3",
     "@types/react": "18.0.21",
     "@types/react-dom": "18.0.6",
-    "eslint": "^8.57.0",
-    "eslint-config-next": "^14.2.1",
-    "eslint-config-prettier": "^8.8.0",
-    "prettier": "^3.0.0",
+    "lint-staged": "^15.0.0",
+    "prettier": "^3.8.1",
     "storybook": "^7.6.20",
     "turbo": "^1.12.0",
     "typescript": "^4.9.5",
     "wrangler": "^3.0.0"
+  },
+  "lint-staged": {
+    "**/*.{ts,tsx}": [
+      "eslint --fix"
+    ],
+    "**/*.{ts,tsx,js,jsx,json,css,md}": [
+      "prettier --write --ignore-path .prettierignore"
+    ]
   },
   "resolutions": {
     "@types/react": "18.0.21",

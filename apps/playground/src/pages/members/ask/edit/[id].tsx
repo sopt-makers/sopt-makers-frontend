@@ -8,7 +8,7 @@ import { setLayout } from '@/utils/layout';
 import { usePutMemberQuestion } from '@/api/endpoint/members/putMemberQuestion';
 import { useDialog } from '@sopt-makers/ui';
 
-type AskDraft = { content: string; isAnonymous: boolean, receiverId: number };
+type AskDraft = { content: string; isAnonymous: boolean; receiverId: number };
 
 const AskEditPage: FC = () => {
   const router = useRouter();
@@ -44,7 +44,6 @@ const AskEditPage: FC = () => {
     } catch {
       // ignore
     }
-
   }, [status, storageKey]);
 
   useEffect(() => {
@@ -73,7 +72,11 @@ const AskEditPage: FC = () => {
         approveButtonText: '수정하기',
         buttonFunction: async () => {
           try {
-            await putQuestion({ questionId: questionIdNum, content, isAnonymous });
+            await putQuestion({
+              questionId: questionIdNum,
+              content,
+              isAnonymous,
+            });
 
             sessionStorage.removeItem(storageKey);
 

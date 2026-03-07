@@ -31,7 +31,7 @@ const DesktopCard = ({
   joinableParts,
 }: DesktopCardProps) => {
   const isAllParts = joinableParts.length === 6 || joinableParts === null;
-  const displayParts = isAllParts ? '전체 파트' : joinableParts.map(part => PART_NAME[part]).join(', ');
+  const displayParts = isAllParts ? '전체 파트' : joinableParts.map((part) => PART_NAME[part]).join(', ');
 
   return (
     <Link href={`/detail?id=${id}`}>

@@ -1,3 +1,3 @@
-const isIE = () => !!document.documentMode
+const isIE = () => !!document.documentMode;
 
-export default isIE
+export default isIE;

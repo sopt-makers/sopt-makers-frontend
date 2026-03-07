@@ -90,10 +90,24 @@ const ProfileSection = ({ profile, memberId }: ProfileSectionProps) => {
             ) : (
               <EmptyProfileImage>
                 <Responsive only='desktop'>
-                  <IconUser style={{ width: 130, height: 130, color: `${colors.gray400}`, paddingTop: '20px' }} />
+                  <IconUser
+                    style={{
+                      width: 130,
+                      height: 130,
+                      color: `${colors.gray400}`,
+                      paddingTop: '20px',
+                    }}
+                  />
                 </Responsive>
                 <Responsive only='mobile'>
-                  <IconUser style={{ width: 60, height: 60, color: `${colors.gray400}`, paddingTop: '10px' }} />
+                  <IconUser
+                    style={{
+                      width: 60,
+                      height: 60,
+                      color: `${colors.gray400}`,
+                      paddingTop: '10px',
+                    }}
+                  />
                 </Responsive>
               </EmptyProfileImage>
             )}

@@ -33,7 +33,10 @@ const ResolutionWrapper = styled.div`
   width: fit-content;
 `;
 
-const Footer = styled.div<{ align: 'left' | 'right' | 'stretch'; stack?: 'horizontal' | 'vertical' }>`
+const Footer = styled.div<{
+  align: 'left' | 'right' | 'stretch';
+  stack?: 'horizontal' | 'vertical';
+}>`
   display: grid;
   margin-top: 24px;
   padding: 0 24px;

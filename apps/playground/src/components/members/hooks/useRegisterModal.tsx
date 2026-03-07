@@ -30,7 +30,11 @@ const useRegisterModal = () => {
             }}
             zIndex={options.zIndex}
             hideCloseButton={true}
-            style={{ minWidth: '310px', maxWidth: options.maxWidth, width: 'calc(100% - 60px)' }}
+            style={{
+              minWidth: '310px',
+              maxWidth: options.maxWidth,
+              width: 'calc(100% - 60px)',
+            }}
           >
             <ModalContent>
               <ModalTitle>{options.title}</ModalTitle>
@@ -85,7 +89,10 @@ const ModalContent = styled(Modal.Content)<{ maxWidth?: number }>`
   padding: 30px 30px 24px;
 `;
 
-const OkButton = styled(Modal.Button)<{ color?: string; okButtonTextColor?: string }>`
+const OkButton = styled(Modal.Button)<{
+  color?: string;
+  okButtonTextColor?: string;
+}>`
   background-color: ${(props) => props.color ?? colors.white};
   color: ${(props) => props.okButtonTextColor ?? colors.black};
 `;

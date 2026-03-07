@@ -1,10 +1,12 @@
-import { ampli } from '@/ampli';
 import { MeetingData } from '@api/meeting/type';
 import { PART_OPTIONS, PART_VALUES, RECRUITMENT_STATUS } from '@constant/option';
 import DesktopSizeFlashCard from '@domain/list/Card/DesktopSizeCard/DesktopSizeFlashCard';
 import Link from 'next/link';
 import { ReactNode } from 'react';
 import { styled } from 'stitches.config';
+
+import { ampli } from '@/ampli';
+
 import DesktopSizeCard from './DesktopSizeCard';
 import MobileSizeCard from './MobileSize';
 
@@ -19,7 +21,9 @@ function Card({ bottom, meetingData, mobileType }: CardProps) {
 
   return (
     <CardWrapper
-      css={{ '@mobile': { width: mobileType === 'list' ? '100%' : 'fit-content' } }}
+      css={{
+        '@mobile': { width: mobileType === 'list' ? '100%' : 'fit-content' },
+      }}
       onClick={() => {
         ampli.clickGroupCard({
           group_id: meetingData.id,
@@ -27,7 +31,7 @@ function Card({ bottom, meetingData, mobileType }: CardProps) {
           group_category: meetingData.category,
           group_title: meetingData.title,
           group_owner_id: Number(meetingData.user.orgId),
-          group_part: meetingData.joinableParts.map(part => PART_OPTIONS[PART_VALUES.indexOf(part)]).join(', '),
+          group_part: meetingData.joinableParts.map((part) => PART_OPTIONS[PART_VALUES.indexOf(part)]).join(', '),
           group_generation: meetingData.canJoinOnlyActiveGeneration,
         });
       }}
@@ -54,7 +58,7 @@ const DesktopOnly = styled('div', {
   },
 });
 const MobileOnly = styled('div', {
-  display: 'none',
+  'display': 'none',
   '@mobile': {
     display: 'flex',
     width: '100%',

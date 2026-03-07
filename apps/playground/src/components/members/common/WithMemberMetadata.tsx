@@ -65,7 +65,7 @@ const memberMetadataFamily = selectorFamily<MemberMetadata | null, number>({
       return {
         profileImage: member.profileImage,
         generations: member.activities.map((value) => value.generation).sort((a, b) => a - b),
-        currentCompany: sortedCareers.length > 0 ? sortedCareers.at(-1)?.companyName ?? null : null,
+        currentCompany: sortedCareers.length > 0 ? (sortedCareers.at(-1)?.companyName ?? null) : null,
       };
     },
 });

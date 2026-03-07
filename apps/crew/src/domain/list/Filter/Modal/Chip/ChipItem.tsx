@@ -1,7 +1,8 @@
-import { ampli } from '@/ampli';
 import { CATEGORY_FILTER, PART_FILTER, STATUS_FILTER } from '@constant/option';
 import { useDisplay } from '@hook/useDisplay';
 import { Chip } from '@sopt-makers/ui';
+
+import { ampli } from '@/ampli';
 
 interface ChipItemProps {
   label: string;

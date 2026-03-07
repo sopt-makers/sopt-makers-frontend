@@ -18,8 +18,8 @@ const KeywordsSettingButton = () => {
   const [isSettingOpen, setIsSettingOpen] = useState(false);
 
   const handleKeywordClick = (value: KeywordSettingOptionType) => {
-    setSelectedAlarm(prev => {
-      const next = prev.includes(value) ? prev.filter(v => v !== value) : [...prev, value];
+    setSelectedAlarm((prev) => {
+      const next = prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value];
       mutateUserInterested(next);
       return next;
     });

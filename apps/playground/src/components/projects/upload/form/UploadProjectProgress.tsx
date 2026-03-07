@@ -19,18 +19,38 @@ const UploadProjectProgress: FC<UploadProjectProgressProps> = ({ formState }) =>
       active: dirtyFields.generation,
       required: true,
     },
-    { title: '어디서 진행했나요?', active: dirtyFields.category, required: true },
+    {
+      title: '어디서 진행했나요?',
+      active: dirtyFields.category,
+      required: true,
+    },
     {
       title: '팀원',
       active: Boolean(dirtyFields.members?.[0]),
       required: true,
     },
-    { title: '서비스 형태', active: Boolean(dirtyFields.serviceType), required: true },
-    { title: '프로젝트 기간', active: Boolean(dirtyFields.period), required: true },
-    { title: '프로젝트 한줄 소개', active: dirtyFields.summary, required: true },
+    {
+      title: '서비스 형태',
+      active: Boolean(dirtyFields.serviceType),
+      required: true,
+    },
+    {
+      title: '프로젝트 기간',
+      active: Boolean(dirtyFields.period),
+      required: true,
+    },
+    {
+      title: '프로젝트 한줄 소개',
+      active: dirtyFields.summary,
+      required: true,
+    },
     { title: '프로젝트 설명', active: dirtyFields.detail, required: true },
     { title: '로고 이미지', active: dirtyFields.logoImage, required: true },
-    { title: '썸네일 이미지', active: dirtyFields.thumbnailImage, required: true },
+    {
+      title: '썸네일 이미지',
+      active: dirtyFields.thumbnailImage,
+      required: true,
+    },
     {
       title: '프로젝트 이미지',
       active: dirtyFields.projectImages?.some((image) => Boolean(image) && image.imageUrl !== false),

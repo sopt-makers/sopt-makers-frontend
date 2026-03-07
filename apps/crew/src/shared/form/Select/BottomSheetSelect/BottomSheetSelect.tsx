@@ -1,6 +1,7 @@
 import { Listbox } from '@headlessui/react';
 import useModal from '@hook/useModal';
 import Label from '@shared/form/Label';
+
 import { defaultOption, Option } from '../OptionItem';
 import MobileOptionItem from '../OptionItem/MobileOptionItem';
 import { MultipleSelectProps, SelectProps } from '../types/props';
@@ -28,19 +29,19 @@ export default function BottomSheetSelect({
       if (isAllUnselected(value, newValues)) return onChange([value[0] ?? defaultOption]);
       // NOTE: 전체 선택되어 있는 상황에서 다른 옵션을 체크 해제하는 경우 전체 옵션도 해제해주어야 한다.
       if (newValues.length !== options.length) {
-        newValues = newValues.filter(v => v.value !== 'all');
+        newValues = newValues.filter((v) => v.value !== 'all');
       }
       onChange(newValues);
     } else {
       onChange(newValue as Option);
     }
   };
-  const selectableOptions = options.filter(option => option.value);
+  const selectableOptions = options.filter((option) => option.value);
 
   const buttonLabel = () => {
     if (multiple) {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      const selectedItems = value?.filter(v => v.value).sort((a, b) => a.order! - b.order!);
+      const selectedItems = value?.filter((v) => v.value).sort((a, b) => a.order! - b.order!);
       // NOTE: 선택된 옵션이 존재하지 않거나 빈 배열일경우 디폴트 옵션을 라벨로 표기한다.
       if (!selectedItems?.length) return { text: value?.[0]?.label, active: false };
       // NOTE: 전체 선택이 포함된경우 '전체' 라고 표기한다.
@@ -57,9 +58,9 @@ export default function BottomSheetSelect({
       {label && <Label required={required}>{label}</Label>}
       <BottomSheetDialog.Button label={buttonLabel()} open={isModalOpened} handleOpen={handleToggle} />
       <BottomSheetDialog label={label || ''} handleClose={handleModalClose} isOpen={isModalOpened}>
-        <Listbox value={value} onChange={handleChange} onBlur={onBlur} by="value" as="div" multiple={multiple}>
+        <Listbox value={value} onChange={handleChange} onBlur={onBlur} by='value' as='div' multiple={multiple}>
           <Listbox.Options static>
-            {selectableOptions.map(option => (
+            {selectableOptions.map((option) => (
               <MobileOptionItem key={option.value} option={option} />
             ))}
           </Listbox.Options>
