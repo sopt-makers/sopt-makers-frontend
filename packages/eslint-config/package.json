@@ -2,10 +2,6 @@
   "name": "@sopt-makers/eslint-config",
   "version": "0.0.1",
   "main": "index.js",
-  "files": [
-    "index.js",
-    "next.js"
-  ],
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.38.1",
     "@typescript-eslint/parser": "^5.38.1",
