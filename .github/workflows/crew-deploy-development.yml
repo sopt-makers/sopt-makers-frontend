@@ -9,10 +9,6 @@ on:
       - "package.json"
       - "yarn.lock"
   pull_request:
-    paths:
-      - "apps/crew/**"
-      - "apps/crew/**/.*"
-      - "packages/**"
   workflow_dispatch:
 
 jobs:
