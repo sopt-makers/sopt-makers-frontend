@@ -40,6 +40,7 @@ function SelectMeeting({ selectMeetingInfo, meetingList, onClick }: SelectMeetin
         <SelectMobileListWrapper>
           {meetingList.map((meetingInfo) => (
             <SelectMeetingOptionItem
+              key={meetingInfo.id}
               meetingInfo={meetingInfo}
               isSelected={selectMeetingInfo?.id === meetingInfo.id}
               onClick={handleSelectItemClick}
@@ -66,7 +67,7 @@ function SelectMeeting({ selectMeetingInfo, meetingList, onClick }: SelectMeetin
           <Arrow direction={isSelectOpen ? 'top' : 'bottom'} css={{ margin: '0 0 0 6px' }} />
         </InfoWrapper>
         <ModalBackground
-          onClick={isSelectOpen ? handleSelectClick : () => {}}
+          onClick={isSelectOpen ? handleSelectClick : undefined}
           css={{
             background: 'rgba(0, 0, 0, 0)',
             transition: 'all 0.3s ease',
@@ -76,6 +77,7 @@ function SelectMeeting({ selectMeetingInfo, meetingList, onClick }: SelectMeetin
         <SelectDesktopLayout isSelectOpen={isSelectOpen}>
           {meetingList.map((meetingInfo) => (
             <SelectMeetingOptionItem
+              key={meetingInfo.id}
               meetingInfo={meetingInfo}
               isSelected={selectMeetingInfo?.id === meetingInfo.id}
               onClick={handleSelectItemClick}

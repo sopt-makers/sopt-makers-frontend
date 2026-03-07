@@ -77,11 +77,12 @@ export default function FeedCommentContainer({
           Actions={
             isMine
               ? [
-                  <FeedActionButton onClick={() => setEditMode(true)}>
+                  <FeedActionButton key='edit' onClick={() => setEditMode(true)}>
                     <ReWriteIcon />
                     수정
                   </FeedActionButton>,
                   <FeedActionButton
+                    key='delete'
                     onClick={() =>
                       overlay.open(({ isOpen, close }) => (
                         <ConfirmModal
@@ -104,6 +105,7 @@ export default function FeedCommentContainer({
                 ]
               : [
                   <FeedActionButton
+                    key='report'
                     onClick={() =>
                       overlay.open(({ isOpen, close }) => (
                         <ConfirmModal

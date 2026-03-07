@@ -37,6 +37,7 @@ const FeedActionsContainer = ({
   if (isMine) {
     return [
       <FeedActionButton
+        key='edit'
         onClick={() =>
           openOverlay(({ isOpen, close }) => (
             <FeedEditModal postId={postId} isModalOpened={isOpen} handleModalClose={close} />
@@ -47,6 +48,7 @@ const FeedActionsContainer = ({
         수정
       </FeedActionButton>,
       <FeedActionButton
+        key='delete'
         onClick={() => {
           openOverlay(({ isOpen, close }) => (
             <ConfirmModal
@@ -68,6 +70,7 @@ const FeedActionsContainer = ({
 
   return [
     <FeedActionButton
+      key='report'
       onClick={() => {
         openOverlay(({ isOpen, close }) => (
           <ConfirmModal

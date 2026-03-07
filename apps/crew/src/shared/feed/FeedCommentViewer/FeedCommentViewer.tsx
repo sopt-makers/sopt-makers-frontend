@@ -69,8 +69,8 @@ export default function FeedCommentViewer({
           </Menu.Button>
           <MenuItems>
             {Actions.map((Action, index) => (
-              <SMenuItemContainer>
-                <Menu.Item key={index}>{Action}</Menu.Item>
+              <SMenuItemContainer key={index}>
+                <Menu.Item>{Action}</Menu.Item>
               </SMenuItemContainer>
             ))}
           </MenuItems>

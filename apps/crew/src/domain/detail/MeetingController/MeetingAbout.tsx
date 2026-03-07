@@ -38,7 +38,7 @@ const MeetingAbout = ({ detailData }: { detailData: GetMeeting['response'] }) =>
           }}
         />
         {coMeetingLeaders?.map((item: (typeof coMeetingLeaders)[number]) => (
-          <ProfileAnchor profileData={item} />
+          <ProfileAnchor key={item.orgId} profileData={item} />
         ))}
       </SHostWrapper>
       {isMentorNeeded && <MentorTooltip />}

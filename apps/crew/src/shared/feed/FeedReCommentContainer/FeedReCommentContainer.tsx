@@ -52,11 +52,12 @@ const FeedReCommentContainer = ({ comment, reply, postUserId, onClickLike }: Fee
         Actions={
           isMine
             ? [
-                <FeedActionButton onClick={() => setReplyEditMode(true)}>
+                <FeedActionButton key='edit' onClick={() => setReplyEditMode(true)}>
                   <ReWriteIcon />
                   수정
                 </FeedActionButton>,
                 <FeedActionButton
+                  key='delete'
                   onClick={() =>
                     overlay.open(({ isOpen, close }) => (
                       <ConfirmModal
@@ -79,6 +80,7 @@ const FeedReCommentContainer = ({ comment, reply, postUserId, onClickLike }: Fee
               ]
             : [
                 <FeedActionButton
+                  key='report'
                   onClick={() => {
                     overlay.open(({ isOpen, close }) => (
                       <ConfirmModal

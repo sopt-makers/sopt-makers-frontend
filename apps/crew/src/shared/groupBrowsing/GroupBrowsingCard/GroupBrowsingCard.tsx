@@ -76,7 +76,7 @@ const GroupBrowsingCard: FC<MeetingData> = ({ id, title, user, imageURL }) => {
           </Flex>
           <SChipWrapper>
             {flashData?.welcomeMessageTypes.map((welcome) => (
-              <Tag size='sm' shape='pill' variant='secondary' type='solid'>
+              <Tag key={welcome} size='sm' shape='pill' variant='secondary' type='solid'>
                 {welcome}
               </Tag>
             ))}

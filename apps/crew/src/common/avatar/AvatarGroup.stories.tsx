@@ -18,16 +18,19 @@ export const Default: Story = {
   args: {
     children: [
       <Avatar
+        key='1'
         src='https://mui.com/static/images/avatar/1.jpg'
         alt='sample iamge'
         sx={{ width: '48px', height: '48px' }}
       />,
       <Avatar
+        key='2'
         src='https://mui.com/static/images/avatar/2.jpg'
         alt='sample iamge'
         sx={{ width: '48px', height: '48px' }}
       />,
       <Avatar
+        key='3'
         src='https://mui.com/static/images/avatar/3.jpg'
         alt='sample iamge'
         sx={{ width: '48px', height: '48px' }}

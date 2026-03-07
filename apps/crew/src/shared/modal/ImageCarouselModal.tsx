@@ -45,7 +45,7 @@ export default function ImageCarouselModal({ isOpen, close, images, startIndex =
           <CarouselContainer ref={emblaRef}>
             <CarouselScrollContainer>
               {images.map((image) => (
-                <CarouselItem>
+                <CarouselItem key={image}>
                   <Image src={image} />
                 </CarouselItem>
               ))}

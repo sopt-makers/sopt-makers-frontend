@@ -92,8 +92,8 @@ const FeedItem = ({ post, HeaderSection, LikeButton, onClick, Actions }: FeedIte
               <DropdownMenu.Content asChild>
                 <MenuItemsContainer>
                   {Actions?.map((Action, index) => (
-                    <SMenuItemContainer>
-                      <DropdownMenu.Item key={index}>{Action}</DropdownMenu.Item>
+                    <SMenuItemContainer key={index}>
+                      <DropdownMenu.Item>{Action}</DropdownMenu.Item>
                     </SMenuItemContainer>
                   ))}
                 </MenuItemsContainer>
