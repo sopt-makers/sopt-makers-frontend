@@ -1,0 +1,15 @@
+🥐 Crew:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "apps/crew/**"
+          - "packages/**"
+          - "package.json"
+          - "yarn.lock"
+
+⚡️️ Playground:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "apps/playground/**"
+          - "packages/**"
+          - "package.json"
+          - "yarn.lock"
