@@ -1,7 +1,6 @@
 /* 반응형 적용은 문의에 대한 답변 들은 뒤에!
 @import url('ui/desktop-variables.css') screen;
 @import url('ui/mobile-variables.css') screen and (max-width: 768px); 
-
 @import url('@sopt-makers/ui/desktop-variable.css') screen;
 @import url('@sopt-makers/ui/mobile-variables.css') screen and (max-width: 768px);
 */
@@ -163,8 +162,6 @@ body {
     margin-bottom: 10px;
   }
 
-
-
   .react-calendar__tile {
     display: flex;
     font-family: SUIT;
@@ -235,9 +232,6 @@ body {
     }
   }
 
-
-
-
   .react-calendar__tile--active {
     background: none;
     border-radius: 50%;
@@ -264,10 +258,9 @@ body {
     }
   }
 
-  .react-calendar__tile--range{
+  .react-calendar__tile--range {
     border-radius: 0;
     background: var(--colors-gray500);
-
 
     &:hover {
       background: var(--colors-gray500);
@@ -283,8 +276,7 @@ body {
     }
   }
 
-
-  .react-calendar__tile--hasActive{
+  .react-calendar__tile--hasActive {
     background: none;
     &:hover {
       background: var(--colors-gray500);
@@ -301,10 +293,10 @@ body {
     }
   }
 
-  .react-calendar__tile--rangeEnd  {
+  .react-calendar__tile--rangeEnd {
     background-color: var(--colors-gray500);
     border-radius: 0 47% 47% 0;
-    margin: 10px 0 ;
+    margin: 10px 0;
     padding: 0;
     width: 40px;
     height: 38px !important;
@@ -320,7 +312,6 @@ body {
       display: flex;
       justify-content: center;
       align-items: center;
-
     }
   }
 
@@ -335,9 +326,7 @@ body {
     &:enabled:focus {
       background: var(--colors-gray500);
     }
-
   }
-
 
   .react-calendar__tile--rangeStart {
     background-color: var(--colors-gray500);
@@ -357,26 +346,23 @@ body {
     }
   }
 
-  .react-calendar__tile--hover{
+  .react-calendar__tile--hover {
     background-color: var(--colors-gray500) !important;
   }
 
-  .react-calendar__tile--hoverStart{
+  .react-calendar__tile--hoverStart {
     background-color: var(--colors-gray500) !important;
     border-radius: 47% 0 0 47%;
-
   }
 
-  .react-calendar__tile--hoverEnd{
+  .react-calendar__tile--hoverEnd {
     background-color: var(--colors-gray500) !important;
     border-radius: 0 47% 47% 0;
-
   }
 
   .react-calendar__tile--range.single-select-mode {
     background: unset !important;
   }
-
 }
 
 html,
