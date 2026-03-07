@@ -23,7 +23,7 @@ module.exports = {
         caughtErrors: "all",
       },
     ],
-    "@typescript-eslint/no-empty-interface": "off",
+    "@typescript-eslint/no-empty-object-type": "off",
     "@typescript-eslint/ban-ts-comment": "off",
 
     // Import 정렬
