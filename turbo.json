@@ -11,7 +11,7 @@
     "stylelint": {
       "outputs": []
     },
-    "prettier": {
+    "format": {
       "cache": false,
       "outputs": []
     },

@@ -16,7 +16,7 @@
     "test": "jest --watch",
     "test:ci": "jest --ci",
     "storybook": "storybook dev -p 6006",
-    "prettier": "prettier --write . --ignore-path ../../.prettierignore",
+    "format": "prettier --write . --ignore-path ../../.prettierignore",
     "postinstall": "cd ../.. && husky install || true"
   },
   "dependencies": {

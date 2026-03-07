@@ -24,7 +24,7 @@
     "update-mds": "yarn up @sopt-makers/colors@latest @sopt-makers/fonts@latest @sopt-makers/playground-common@latest @sopt-makers/ui@latest @sopt-makers/icons@latest",
     "lint": "turbo lint",
     "lint:fix": "turbo lint -- --fix",
-    "prettier": "turbo prettier",
+    "format": "turbo format",
     "clean": "turbo clean"
   },
   "dependencies": {
@@ -43,11 +43,20 @@
     "@types/node": "18.8.3",
     "@types/react": "18.0.21",
     "@types/react-dom": "18.0.6",
+    "lint-staged": "^15.0.0",
     "prettier": "^3.8.1",
     "storybook": "^7.6.20",
     "turbo": "^1.12.0",
     "typescript": "^4.9.5",
     "wrangler": "^3.0.0"
+  },
+  "lint-staged": {
+    "**/*.{ts,tsx}": [
+      "eslint --fix"
+    ],
+    "**/*.{ts,tsx,js,jsx,json,css,md}": [
+      "prettier --write --ignore-path .prettierignore"
+    ]
   },
   "resolutions": {
     "@types/react": "18.0.21",
