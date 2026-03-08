@@ -55,7 +55,7 @@
   },
   "lint-staged": {
     "**/*.{ts,tsx}": [
-      "eslint --fix"
+      "eslint --fix --rule '{\"@typescript-eslint/consistent-type-exports\": \"off\"}'"
     ],
     "**/*.{ts,tsx,js,jsx,json,css,md}": [
       "prettier --write --ignore-path .prettierignore"
