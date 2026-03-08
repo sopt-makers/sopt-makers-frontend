@@ -1,5 +1,5 @@
 import { useUserProfileQueryOption } from '@api/user/query';
-import { FilterType } from '@constant/option';
+import type { FilterType } from '@constant/option';
 import { useMultiQueryString } from '@hook/queryString';
 import useDebounce from '@hook/useDebounce';
 import { SelectV2 } from '@sopt-makers/ui';

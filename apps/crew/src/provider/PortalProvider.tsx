@@ -1,4 +1,5 @@
-import React, { createContext, ReactNode, useState } from 'react';
+import type { ReactNode } from 'react';
+import React, { createContext, useState } from 'react';
 import { createPortal } from 'react-dom';
 
 export const PortalContext = createContext<HTMLDivElement | null>(null);

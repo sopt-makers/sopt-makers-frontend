@@ -2,7 +2,7 @@ import { RECRUITMENT_STATUS } from '@constant/option';
 import { getResizedImage } from '@util/image';
 import { styled } from 'stitches.config';
 
-import { MobileSizeCardProps } from '.';
+import type { MobileSizeCardProps } from '.';
 
 function CardType({ meetingData }: Pick<MobileSizeCardProps, 'meetingData'>) {
   return (

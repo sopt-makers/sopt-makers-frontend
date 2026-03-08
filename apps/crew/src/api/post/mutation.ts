@@ -1,6 +1,7 @@
 import PostQueryKey from '@api/post/PostQueryKey';
-import { GetPostDetailResponse, GetPostListResponse } from '@api/post/type';
-import { InfiniteData, useMutation, useQueryClient } from '@tanstack/react-query';
+import type { GetPostDetailResponse, GetPostListResponse } from '@api/post/type';
+import type { InfiniteData } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { produce } from 'immer';
 
 import { deletePost, postPostLike, postViews } from '.';

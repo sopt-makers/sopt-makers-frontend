@@ -2,7 +2,7 @@ import ArrowSmallRightIcon from '@assets/svg/arrow_small_right.svg';
 import Link from 'next/link';
 import { styled } from 'stitches.config';
 
-import { paths } from '@/__generated__/schema2';
+import type { paths } from '@/__generated__/schema2';
 import { ampli } from '@/ampli';
 
 import RecruitmentStatusList from './RecruitmentStatusList';

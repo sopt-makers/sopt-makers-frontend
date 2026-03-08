@@ -1,6 +1,6 @@
-import { FormType } from '@domain/map/Form/type';
+import type { FormType } from '@domain/map/Form/type';
 
-import { GetMapDetail } from './type';
+import type { GetMapDetail } from './type';
 
 const TAG_LABEL_MAP: Record<string, string> = {
   CAFE: '카페',

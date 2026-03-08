@@ -1,6 +1,6 @@
 import PictureIcon from '@assets/svg/icon-interaction-plus.svg';
 import { ACCEPTED_IMAGE_TYPES } from '@type/form';
-import { HTMLAttributes } from 'react';
+import type { HTMLAttributes } from 'react';
 import { styled } from 'stitches.config';
 
 import ErrorMessage from '../ErrorMessage';

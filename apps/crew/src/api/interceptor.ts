@@ -1,5 +1,5 @@
 import { ACCESS_TOKEN_KEY, getAuthToken, redirectToLoginPage } from '@shared/util/auth';
-import { AxiosError, AxiosInstance, InternalAxiosRequestConfig } from 'axios';
+import type { AxiosError, AxiosInstance, InternalAxiosRequestConfig } from 'axios';
 
 import { authToken } from '@/store/tokenStore';
 

@@ -1,6 +1,6 @@
-import { FormType } from '@type/form';
+import type { FormType } from '@type/form';
 
-import { PostMeeting } from './type';
+import type { PostMeeting } from './type';
 
 export const serializeMeetingData = (formData: FormType): PostMeeting['request'] => {
   const refinedParts = formData.detail.joinableParts

@@ -1,4 +1,4 @@
-import { KeywordSettingOptionType } from '@api/user';
+import type { KeywordSettingOptionType } from '@api/user';
 
 export const numberOptionListDefault = { label: '10명씩 보기', value: '10' };
 

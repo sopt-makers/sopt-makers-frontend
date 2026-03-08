@@ -1,7 +1,7 @@
 import { categories } from '@data/categories';
 import FormController from '@shared/form/FormController';
 import Select from '@shared/form/Select';
-import { FieldError } from 'react-hook-form';
+import type { FieldError } from 'react-hook-form';
 
 const CategoryField = () => {
   return (

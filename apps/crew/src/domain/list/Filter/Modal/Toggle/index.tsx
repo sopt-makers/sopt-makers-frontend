@@ -3,7 +3,8 @@ import { Switch as HeadlessSwitch } from '@headlessui/react';
 import { useIsOnlyActiveGenerationParams } from '@hook/queryString/custom';
 import { Flex } from '@shared/util/layout/Flex';
 import { parseBool } from '@util/parseBool';
-import { CSSType, styled } from 'stitches.config';
+import type { CSSType } from 'stitches.config';
+import { styled } from 'stitches.config';
 
 import { ampli } from '@/ampli';
 interface ToggleProps {

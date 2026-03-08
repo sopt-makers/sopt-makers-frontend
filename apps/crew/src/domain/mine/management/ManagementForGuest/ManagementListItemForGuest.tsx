@@ -1,4 +1,4 @@
-import { GetMeetingMemberList } from '@api/meeting/type';
+import type { GetMeetingMemberList } from '@api/meeting/type';
 import ProfileDefaultIcon from '@assets/svg/profile_default.svg?rect';
 import { playgroundLink } from '@sopt-makers/playground-common';
 import dayjs from 'dayjs';

@@ -2,7 +2,7 @@ import { flashTags } from '@data/options';
 import FormController from '@shared/form/FormController';
 import HelpMessage from '@shared/form/HelpMessage';
 import Label from '@shared/form/Label';
-import { Option } from '@shared/form/Select/OptionItem';
+import type { Option } from '@shared/form/Select/OptionItem';
 import { Chip } from '@sopt-makers/ui';
 import { useCallback } from 'react';
 import { styled } from 'stitches.config';

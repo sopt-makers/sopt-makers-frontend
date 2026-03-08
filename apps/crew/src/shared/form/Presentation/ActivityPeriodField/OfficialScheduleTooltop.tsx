@@ -1,7 +1,8 @@
 import BubblePointIcon from '@assets/svg/bubble_point.svg';
 import { fontsObject } from '@sopt-makers/fonts';
 import { IconAlertCircle } from '@sopt-makers/icons';
-import { DialogOptionType, useDialog } from '@sopt-makers/ui';
+import type { DialogOptionType } from '@sopt-makers/ui';
+import { useDialog } from '@sopt-makers/ui';
 import { useEffect, useRef, useState } from 'react';
 import { styled } from 'stitches.config';
 

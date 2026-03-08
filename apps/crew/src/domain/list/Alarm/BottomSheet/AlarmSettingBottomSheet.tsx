@@ -1,4 +1,4 @@
-import { KeywordSettingOptionType } from '@api/user';
+import type { KeywordSettingOptionType } from '@api/user';
 import { keywordSettiongOptions } from '@data/options';
 import BottomSheetDialog from '@shared/form/Select/BottomSheetSelect/BottomSheetDialog';
 import { fontsObject } from '@sopt-makers/fonts';

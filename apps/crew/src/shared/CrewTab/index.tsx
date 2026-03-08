@@ -3,7 +3,7 @@ import { Flex } from '@shared/util/layout/Flex';
 import { Tag } from '@sopt-makers/ui';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 import { ampli } from '@/ampli';
 

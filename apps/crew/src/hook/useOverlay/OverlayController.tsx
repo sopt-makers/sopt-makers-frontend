@@ -1,6 +1,7 @@
-import { forwardRef, Ref, useCallback, useEffect, useImperativeHandle, useState } from 'react';
+import type { Ref } from 'react';
+import { forwardRef, useCallback, useEffect, useImperativeHandle, useState } from 'react';
 
-import { CreateOverlayElement } from './types';
+import type { CreateOverlayElement } from './types';
 
 interface Props {
   overlayElement: CreateOverlayElement;

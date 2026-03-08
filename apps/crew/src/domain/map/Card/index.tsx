@@ -1,16 +1,17 @@
 import MapQueryKey from '@api/map/MapQueryKey';
 import { useDeleteMapMutation, useRecommendMapMutation } from '@api/map/mutation';
-import { mapData } from '@api/map/type';
+import type { mapData } from '@api/map/type';
 import { useDisplay } from '@hook/useDisplay';
 import { usePlatform } from '@hook/usePlatform';
-import { DialogOptionType, useDialog } from '@sopt-makers/ui';
+import type { DialogOptionType } from '@sopt-makers/ui';
+import { useDialog } from '@sopt-makers/ui';
 import { useQueryClient } from '@tanstack/react-query';
 import router from 'next/router';
 import { useRef } from 'react';
 import { styled } from 'stitches.config';
 
 import LinkModalContent from '../Filter/Modal/LinkModalContent';
-import { MapLinkKey } from '../Filter/Modal/type';
+import type { MapLinkKey } from '../Filter/Modal/type';
 import DesktopMapCard from './DesktopMapCard';
 import MobileMapCard from './MobileMapCard';
 

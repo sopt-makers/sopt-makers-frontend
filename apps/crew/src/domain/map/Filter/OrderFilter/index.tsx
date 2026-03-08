@@ -2,7 +2,7 @@ import { IconSwitchVertical } from '@sopt-makers/icons';
 import { SelectV2 } from '@sopt-makers/ui';
 import { styled } from 'stitches.config';
 
-import { Option } from './constant';
+import type { Option } from './constant';
 
 interface OrderFilterProps {
   value?: Option;

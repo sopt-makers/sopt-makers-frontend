@@ -1,4 +1,4 @@
-import { GetCommentListResponse } from '@api/comment/type';
+import type { GetCommentListResponse } from '@api/comment/type';
 import LikeHoverIcon from '@assets/svg/like_hover_in_comment.svg';
 import MessageIcon from '@assets/svg/message-dots.svg';
 import ReCommentHoverIcon from '@assets/svg/Recomment_Hover_Icon.svg';

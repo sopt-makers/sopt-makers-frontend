@@ -6,7 +6,8 @@ import { IconCalendar } from '@sopt-makers/icons';
 import { formatDateInput, MAX_DATE_INPUT_LENGTH, WEEKDAYS } from '@util/date';
 import { formatCalendarDate } from '@util/dayjs';
 import dayjs from 'dayjs';
-import React, { Dispatch, SetStateAction, useCallback, useEffect, useRef, useState } from 'react';
+import type { Dispatch, SetStateAction } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Calendar from 'react-calendar';
 import { styled } from 'stitches.config';
 

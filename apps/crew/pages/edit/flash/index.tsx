@@ -5,12 +5,14 @@ import Loader from '@common/loader/Loader';
 import { zodResolver } from '@hookform/resolvers/zod';
 import FlashPresentation from '@shared/form/Presentation/FlashPresentation';
 import { useQuery } from '@tanstack/react-query';
-import { FlashFormType, flashSchema } from '@type/form';
+import type { FlashFormType } from '@type/form';
+import { flashSchema } from '@type/form';
 import { formatCalendarDate } from '@util/dayjs';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+import type { SubmitHandler } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 import { styled } from 'stitches.config';
 
 const DevTool = dynamic(() => import('@hookform/devtools').then((module) => module.DevTool), {

@@ -3,7 +3,7 @@ import axios from 'axios';
 import { computed } from 'nanostores';
 import createClient from 'openapi-fetch';
 
-import { paths } from '@/__generated__/schema';
+import type { paths } from '@/__generated__/schema';
 import { authToken } from '@/store/tokenStore';
 
 import { checkToken, refreshToken } from './interceptor';

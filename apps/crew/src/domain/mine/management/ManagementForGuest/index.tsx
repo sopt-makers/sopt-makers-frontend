@@ -1,7 +1,7 @@
-import { GetMeetingMemberList } from '@api/meeting/type';
+import type { GetMeetingMemberList } from '@api/meeting/type';
 import { useUserProfileQueryOption } from '@api/user/query';
 import ManagementListSkeleton from '@domain/mine/management/Skeleton/ManagementListSkeleton';
-import { Option } from '@shared/form/Select/OptionItem';
+import type { Option } from '@shared/form/Select/OptionItem';
 import { useQuery } from '@tanstack/react-query';
 import { styled } from 'stitches.config';
 

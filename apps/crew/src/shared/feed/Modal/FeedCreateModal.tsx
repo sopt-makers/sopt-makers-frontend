@@ -8,7 +8,8 @@ import useModal from '@hook/useModal';
 import useThrottle from '@hook/useThrottle';
 import { zodResolver } from '@hookform/resolvers/zod';
 import ConfirmModal from '@shared/modal/ConfirmModal';
-import ModalContainer, { ModalContainerProps } from '@shared/modal/ModalContainer';
+import type { ModalContainerProps } from '@shared/modal/ModalContainer';
+import ModalContainer from '@shared/modal/ModalContainer';
 import { parseMentionedUserIds } from '@shared/util/parseMentionedUserIds';
 import { useToast } from '@sopt-makers/ui';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -16,13 +17,15 @@ import { formatDate } from '@util/dayjs';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+import type { SubmitHandler } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 import { styled } from 'stitches.config';
 
 import { ampli } from '@/ampli';
 
 import FeedFormPresentation from './FeedFormPresentation';
-import { feedCreateSchema, FormCreateType } from './feedSchema';
+import type { FormCreateType } from './feedSchema';
+import { feedCreateSchema } from './feedSchema';
 
 const DevTool = dynamic(() => import('@hookform/devtools').then((module) => module.DevTool), {
   ssr: false,

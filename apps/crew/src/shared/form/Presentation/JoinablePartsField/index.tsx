@@ -1,5 +1,5 @@
 import { defaultParts, parts } from '@data/options';
-import { Option } from '@shared/form/Select/OptionItem';
+import type { Option } from '@shared/form/Select/OptionItem';
 import { Chip } from '@sopt-makers/ui';
 
 interface JoinablePartsFieldProps {

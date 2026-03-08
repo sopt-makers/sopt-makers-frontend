@@ -1,5 +1,5 @@
 import { Dialog } from '@headlessui/react';
-import { PropsWithChildren } from 'react';
+import type { PropsWithChildren } from 'react';
 
 import ModalBackground from './ModalBackground';
 

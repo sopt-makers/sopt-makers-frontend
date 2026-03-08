@@ -5,10 +5,10 @@ import ManagementHeaderForHost from '@domain/mine/management/ManagementForHost/M
 import ManagementListItemForHost from '@domain/mine/management/ManagementForHost/ManagementListItemForHost';
 import ManagementListSkeleton from '@domain/mine/management/Skeleton/ManagementListSkeleton';
 import Select from '@shared/form/Select';
-import { Option } from '@shared/form/Select/OptionItem';
+import type { Option } from '@shared/form/Select/OptionItem';
 import { styled } from 'stitches.config';
 
-import { components } from '@/__generated__/schema2';
+import type { components } from '@/__generated__/schema2';
 
 type ManagementForHostProps = {
   isManagementDataLoading: boolean;

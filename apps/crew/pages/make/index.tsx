@@ -6,11 +6,13 @@ import Presentation from '@shared/form/Presentation';
 import TableOfContents from '@shared/form/TableOfContents';
 import { colors } from '@sopt-makers/colors';
 import { fontsObject } from '@sopt-makers/fonts';
-import { FormType, schema } from '@type/form';
+import type { FormType } from '@type/form';
+import { schema } from '@type/form';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
-import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+import type { SubmitHandler } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 import { styled } from 'stitches.config';
 
 import { ampli } from '@/ampli';

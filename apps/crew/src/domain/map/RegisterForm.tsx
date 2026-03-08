@@ -3,7 +3,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { fontsObject } from '@sopt-makers/fonts';
 import { Button } from '@sopt-makers/ui';
 import router from 'next/router';
-import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+import type { SubmitHandler } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 import { styled } from 'stitches.config';
 
 import DescriptionField from './Form/DescriptionField';
@@ -11,7 +12,8 @@ import LinkField from './Form/LinkField';
 import LocationKeywordField from './Form/LocationKeywordField';
 import NameField from './Form/NameField';
 import SubwayField from './Form/SubwayField';
-import { formSchema, FormType } from './Form/type';
+import type { FormType } from './Form/type';
+import { formSchema } from './Form/type';
 
 const emptyValues: FormType = {
   name: '',

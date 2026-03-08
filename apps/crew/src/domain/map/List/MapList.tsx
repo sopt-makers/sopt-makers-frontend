@@ -1,4 +1,4 @@
-import { mapData } from '@api/map/type';
+import type { mapData } from '@api/map/type';
 import MapCard from '@domain/map/Card/index';
 import { styled } from 'stitches.config';
 

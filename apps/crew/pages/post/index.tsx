@@ -1,9 +1,9 @@
 import { usePostCommentLikeMutation, usePostCommentMutation } from '@api/comment/mutation';
 import { useGetCommentQueryOption } from '@api/comment/query';
-import { GetCommentListResponse } from '@api/comment/type';
+import type { GetCommentListResponse } from '@api/comment/type';
 import { api } from '@api/index';
 import { useMeetingQueryOption } from '@api/meeting/query';
-import { PostCommentWithMentionRequest } from '@api/mention';
+import type { PostCommentWithMentionRequest } from '@api/mention';
 import { useMutationPostCommentWithMention } from '@api/mention/mutation';
 import {
   useDeletePostMutation,
@@ -30,13 +30,13 @@ import FeedPostViewer from '@shared/feed/FeedPostViewer/FeedPostViewer';
 import { MentionContext } from '@shared/feed/Mention/MentionContext';
 import { useToast } from '@sopt-makers/ui';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { AxiosError } from 'axios';
+import type { AxiosError } from 'axios';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useContext, useEffect, useRef } from 'react';
 import { styled } from 'stitches.config';
 
-import { paths } from '@/__generated__/schema2';
+import type { paths } from '@/__generated__/schema2';
 import { ampli } from '@/ampli';
 
 export default function PostPage() {

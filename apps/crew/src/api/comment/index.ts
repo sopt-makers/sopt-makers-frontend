@@ -1,5 +1,5 @@
 import { api } from '..';
-import { GetCommentListResponse, PostCommentListRequest, PostCommentResponse, PostMentionRequest } from './type';
+import type { GetCommentListResponse, PostCommentListRequest, PostCommentResponse, PostMentionRequest } from './type';
 
 export const getCommentList = async (postId: number) => {
   const { data } = await api.get<GetCommentListResponse>(`/comment/v2?postId=${postId}`);

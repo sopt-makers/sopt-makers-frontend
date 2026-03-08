@@ -1,7 +1,7 @@
 import { getPresignedUrl, uploadImage } from '@api/image';
 import { imageS3Bucket } from '@constant/url';
 import { MAX_FILE_SIZE } from '@type/form';
-import { ChangeEvent } from 'react';
+import type { ChangeEvent } from 'react';
 
 export interface FileChangeHandler {
   imageUrls: string[];

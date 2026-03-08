@@ -1,6 +1,7 @@
 import HelpMessage from '@shared/form/HelpMessage';
 import Label from '@shared/form/Label';
-import React, { HTMLAttributes } from 'react';
+import type { HTMLAttributes } from 'react';
+import React from 'react';
 import { styled } from 'stitches.config';
 
 import ErrorMessage from '../ErrorMessage';

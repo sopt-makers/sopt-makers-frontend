@@ -1,6 +1,6 @@
-import { MeetingData } from '@api/meeting/type';
+import type { MeetingData } from '@api/meeting/type';
 import ProfileDefaultIcon from '@assets/svg/profile_default.svg?rect';
-import { CategoryKoType } from '@constant/option';
+import type { CategoryKoType } from '@constant/option';
 import { CategoryChip } from '@domain/list/Card/DesktopSizeCard/CategoryChip';
 import { MeetingInformation } from '@domain/list/Card/DesktopSizeCard/constant';
 import RecruitmentStatusTag from '@shared/Tag/RecruitmentStatusTag';

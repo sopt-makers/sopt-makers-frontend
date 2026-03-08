@@ -2,7 +2,7 @@ import IconThumbsUpFilled from '@assets/svg/thumbs_up_filled.svg';
 import { fontsObject } from '@sopt-makers/fonts';
 import { IconLink, IconThumbsUp } from '@sopt-makers/icons';
 import { styled } from '@stitches/react';
-import { ButtonHTMLAttributes, ReactNode } from 'react';
+import type { ButtonHTMLAttributes, ReactNode } from 'react';
 
 interface UtilityButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children?: ReactNode;

@@ -1,4 +1,4 @@
-import { FormType } from '@domain/map/Form/type';
+import type { FormType } from '@domain/map/Form/type';
 import {
   useCategoriesParams,
   usePageParams,
@@ -11,7 +11,7 @@ import { getMapDetail, getMapEvent, getMapEventGift, getMapList, getSearchSubway
 import { SERVER_CATEGORY_MAP } from './constant';
 import { deserializeSoptMapData } from './deserialize';
 import MapQueryKey from './MapQueryKey';
-import { GetMapDetail, GetMapEvent, GetMapEventGift, GetMapList } from './type';
+import type { GetMapDetail, GetMapEvent, GetMapEventGift, GetMapList } from './type';
 
 export const useSearchSubwayQueryOption = (query: string) => {
   return queryOptions({

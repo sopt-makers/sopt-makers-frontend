@@ -1,8 +1,9 @@
 import { deleteComment, postComment, postCommentLike, postCommentReport, putComment } from '@api/comment';
 import CommentQueryKey from '@api/comment/CommentQueryKey';
-import { GetCommentListResponse, PostCommentListRequest } from '@api/comment/type';
+import type { GetCommentListResponse, PostCommentListRequest } from '@api/comment/type';
 import { useToast } from '@sopt-makers/ui';
-import { InfiniteData, useMutation, useQueryClient } from '@tanstack/react-query';
+import type { InfiniteData } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { produce } from 'immer';
 import { useRouter } from 'next/router';
 

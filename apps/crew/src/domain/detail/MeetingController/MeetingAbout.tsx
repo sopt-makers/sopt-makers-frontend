@@ -1,4 +1,4 @@
-import { GetMeeting } from '@api/meeting/type';
+import type { GetMeeting } from '@api/meeting/type';
 import MentorTooltip from '@domain/detail/MeetingController/MentorTooltip';
 import ProfileAnchor from '@domain/detail/MeetingController/ProfileAnchor';
 import RecruitmentStatusTag from '@shared/Tag/RecruitmentStatusTag';

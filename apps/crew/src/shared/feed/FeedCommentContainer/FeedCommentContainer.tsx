@@ -1,6 +1,6 @@
 import { useDeleteCommentMutation, usePostCommentReportMutation, usePutCommentMutation } from '@api/comment/mutation';
-import { GetCommentListResponse, GetCommentReplyResponse } from '@api/comment/type';
-import { PostCommentWithMentionRequest } from '@api/mention';
+import type { GetCommentListResponse, GetCommentReplyResponse } from '@api/comment/type';
+import type { PostCommentWithMentionRequest } from '@api/mention';
 import { useMutationPostCommentWithMention } from '@api/mention/mutation';
 import AlertIcon from '@assets/svg/alert-triangle.svg';
 import ReWriteIcon from '@assets/svg/comment-write.svg';

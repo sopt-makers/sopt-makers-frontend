@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import { api } from '@/api';
 
-import { GetPresignedUrl } from './type';
+import type { GetPresignedUrl } from './type';
 
 export const getPresignedUrl = async (params: GetPresignedUrl['request']) => {
   const { data } = await api.get<GetPresignedUrl['response']>('/meeting/v2/presigned-url', {

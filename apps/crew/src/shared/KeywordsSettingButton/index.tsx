@@ -1,4 +1,4 @@
-import { KeywordSettingOptionType } from '@api/user';
+import type { KeywordSettingOptionType } from '@api/user';
 import { useMutationInterestedKeywords } from '@api/user/mutation';
 import { useGetInterestedKeywordsQueryOption } from '@api/user/query';
 import AlarmSettingBottomSheet from '@domain/list/Alarm/BottomSheet/AlarmSettingBottomSheet';

@@ -4,10 +4,13 @@ import { imageS3Bucket } from '@constant/url';
 import { flashPlace, flashTime } from '@data/options';
 import WelcomeMessageField from '@shared/form/Presentation/WelcomeMessageField';
 import { CheckBox, Chip, useDialog } from '@sopt-makers/ui';
-import { FlashFormType, MAX_FILE_SIZE } from '@type/form';
+import type { FlashFormType } from '@type/form';
+import { MAX_FILE_SIZE } from '@type/form';
 import { useRouter } from 'next/router';
-import React, { ChangeEvent, ReactNode, useRef, useState } from 'react';
-import { FieldError, FieldErrors, useFormContext } from 'react-hook-form';
+import type { ChangeEvent, ReactNode } from 'react';
+import React, { useRef, useState } from 'react';
+import type { FieldError, FieldErrors } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 import { styled } from 'stitches.config';
 
 import CalendarInputForm from '../../Calendar';

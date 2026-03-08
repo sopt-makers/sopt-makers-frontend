@@ -1,6 +1,7 @@
-import { FilterType } from '@constant/option';
+import type { FilterType } from '@constant/option';
 import { useMultiQueryString } from '@hook/queryString';
-import { CSSType, styled } from 'stitches.config';
+import type { CSSType } from 'stitches.config';
+import { styled } from 'stitches.config';
 
 import ChipItem from './ChipItem';
 

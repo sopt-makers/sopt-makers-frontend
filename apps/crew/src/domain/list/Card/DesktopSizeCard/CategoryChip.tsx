@@ -2,7 +2,7 @@ import BoltIcon from '@assets/svg/icon_bolt.svg?rect';
 import EventIcon from '@assets/svg/icon_event.svg?rect';
 import SeminarIcon from '@assets/svg/icon_seminar.svg?rect';
 import StudyIcon from '@assets/svg/icon_study.svg?rect';
-import { CategoryKoType } from '@constant/option';
+import type { CategoryKoType } from '@constant/option';
 import { Tag } from '@sopt-makers/ui';
 import { styled } from 'stitches.config';
 

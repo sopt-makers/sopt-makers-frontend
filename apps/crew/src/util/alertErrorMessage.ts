@@ -1,4 +1,4 @@
-import { AxiosError, AxiosResponse } from 'axios';
+import type { AxiosError, AxiosResponse } from 'axios';
 
 const alertErrorMessage = (error: AxiosError) => {
   const errorResponse = error.response as AxiosResponse;

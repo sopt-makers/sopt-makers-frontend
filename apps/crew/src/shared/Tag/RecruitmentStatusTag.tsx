@@ -1,6 +1,6 @@
 import { RECRUITMENT_STATUS } from '@constant/option';
 import { fontsObject } from '@sopt-makers/fonts';
-import { HTMLAttributes } from 'react';
+import type { HTMLAttributes } from 'react';
 import { styled } from 'stitches.config';
 
 interface RecruitmentStatusTagProps extends HTMLAttributes<HTMLDivElement> {

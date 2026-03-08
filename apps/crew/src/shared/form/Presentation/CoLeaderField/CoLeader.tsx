@@ -1,5 +1,5 @@
 import { useUserProfileQueryOption, useUserQueryOption } from '@api/user/query';
-import { GetUser } from '@api/user/type';
+import type { GetUser } from '@api/user/type';
 import ProfileDefaultIcon from '@assets/svg/profile_default.svg?rect';
 import SearchMention from '@shared/form/SearchMention';
 import { fontsObject } from '@sopt-makers/fonts';

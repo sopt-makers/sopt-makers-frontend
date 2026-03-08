@@ -1,5 +1,5 @@
 import { useDialog } from '@sopt-makers/ui';
-import { FormType } from '@type/form';
+import type { FormType } from '@type/form';
 import dayjs from '@util/dayjs';
 import { useCallback, useEffect, useState } from 'react';
 

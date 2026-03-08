@@ -1,4 +1,4 @@
-import { GetPostListResponse } from '@api/post/type';
+import type { GetPostListResponse } from '@api/post/type';
 import ClickedMenuIcon from '@assets/svg/clicked-menu-icon.svg';
 import MenuIcon from '@assets/svg/menu_icon.svg';
 import ProfileDefaultIcon from '@assets/svg/profile_default.svg?rect';

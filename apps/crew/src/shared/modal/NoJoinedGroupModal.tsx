@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { styled } from 'stitches.config';
 
 import ModalBackground from './ModalBackground';
-import { ModalContainerProps } from './ModalContainer';
+import type { ModalContainerProps } from './ModalContainer';
 
 const NoJoinedGroupModal = ({ isModalOpened, handleModalClose }: ModalContainerProps) => {
   return (

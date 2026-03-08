@@ -1,4 +1,4 @@
-import { PostCommentWithMentionRequest } from '@api/mention';
+import type { PostCommentWithMentionRequest } from '@api/mention';
 import { useRef, useState } from 'react';
 import { styled } from 'stitches.config';
 

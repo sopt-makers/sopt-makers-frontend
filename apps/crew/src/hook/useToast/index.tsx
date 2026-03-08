@@ -1,6 +1,7 @@
 import { useOverlay } from '@hook/useOverlay/Index';
 
-import Toast, { ToastProps } from './Toast';
+import type { ToastProps } from './Toast';
+import Toast from './Toast';
 
 function useToast() {
   const overlay = useOverlay();

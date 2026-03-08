@@ -2,7 +2,8 @@ import ResetIcon from '@assets/svg/reset.svg?rect';
 import { Flex } from '@shared/util/layout/Flex';
 import { mergeCss } from '@util/styles';
 import { useRouter } from 'next/router';
-import { CSSType, styled } from 'stitches.config';
+import type { CSSType } from 'stitches.config';
+import { styled } from 'stitches.config';
 interface InitializationButtonProp {
   css?: CSSType;
   withText?: boolean;

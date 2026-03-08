@@ -7,7 +7,7 @@ import MeetingInformation from '@domain/mine/management/MeetingInformation';
 import MeetingInformationSkeleton from '@domain/mine/management/Skeleton/MeetingInformationSkeleton';
 import { usePageParams, useSortByDateParams, useTakeParams } from '@hook/queryString/custom';
 import CrewTab from '@shared/CrewTab';
-import { Option } from '@shared/form/Select/OptionItem';
+import type { Option } from '@shared/form/Select/OptionItem';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { styled } from 'stitches.config';

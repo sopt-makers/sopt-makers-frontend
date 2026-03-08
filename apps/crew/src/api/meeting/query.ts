@@ -1,5 +1,5 @@
 import MeetingQueryKey from '@api/meeting/MeetingQueryKey';
-import { GetMeeting, GetMeetingList, GetMeetingMemberList, GetRecommendMeetingList } from '@api/meeting/type';
+import type { GetMeeting, GetMeetingList, GetMeetingMemberList, GetRecommendMeetingList } from '@api/meeting/type';
 import { parsePartLabelToValue, parseStatusToNumber } from '@api/meeting/util';
 import { ACTIVE_GENERATION } from '@constant/activeGeneration';
 import { APPROVAL_STATUS_ENGLISH, APPROVAL_STATUS_KOREAN_TO_ENGLISH, RECRUITMENT_STATUS } from '@constant/option';

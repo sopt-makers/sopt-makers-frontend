@@ -8,12 +8,14 @@ import TableOfContents from '@shared/form/TableOfContents';
 import { colors } from '@sopt-makers/colors';
 import { fontsObject } from '@sopt-makers/fonts';
 import { useQuery } from '@tanstack/react-query';
-import { FormType, schema } from '@type/form';
+import type { FormType } from '@type/form';
+import { schema } from '@type/form';
 import { formatCalendarDate } from '@util/dayjs';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+import type { SubmitHandler } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 import { styled } from 'stitches.config';
 
 const DevTool = dynamic(() => import('@hookform/devtools').then((module) => module.DevTool), {

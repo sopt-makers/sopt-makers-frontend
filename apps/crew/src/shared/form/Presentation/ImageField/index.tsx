@@ -3,8 +3,8 @@ import FormController from '@shared/form/FormController';
 import HelpMessage from '@shared/form/HelpMessage';
 import Label from '@shared/form/Label';
 import ImagePreview from '@shared/form/Presentation/ImageField/ImagePreview';
-import { FileChangeHandler } from '@shared/form/Presentation/ImageField/useImageHandler';
-import { ChangeEvent } from 'react';
+import type { FileChangeHandler } from '@shared/form/Presentation/ImageField/useImageHandler';
+import type { ChangeEvent } from 'react';
 import { styled } from 'stitches.config';
 
 type ImageFieldProps = {

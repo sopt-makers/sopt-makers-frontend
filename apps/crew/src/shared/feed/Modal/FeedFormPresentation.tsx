@@ -8,7 +8,8 @@ import { Divider } from '@shared/util/Divider';
 import { useToast } from '@sopt-makers/ui';
 import { ACCEPTED_IMAGE_TYPES, MAX_FILE_SIZE } from '@type/form';
 import { getResizedImage } from '@util/image';
-import { ChangeEvent, useEffect, useRef, useState } from 'react';
+import type { ChangeEvent } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { styled } from 'stitches.config';
 
 import { ampli } from '@/ampli';

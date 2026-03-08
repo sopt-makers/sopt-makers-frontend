@@ -1,5 +1,5 @@
 import { useFlashQueryOption } from '@api/flash/query';
-import { MeetingData } from '@api/meeting/type';
+import type { MeetingData } from '@api/meeting/type';
 import CalendarIcon from '@assets/svg/calendar.svg';
 import Avatar from '@common/avatar/Avatar';
 import { Flex } from '@shared/util/layout/Flex';
@@ -11,7 +11,7 @@ import { getResizedImage } from '@util/image';
 import dayjs from 'dayjs';
 import isBetween from 'dayjs/plugin/isBetween';
 import Link from 'next/link';
-import { FC } from 'react';
+import type { FC } from 'react';
 import { keyframes, styled } from 'stitches.config';
 dayjs.extend(isBetween);
 

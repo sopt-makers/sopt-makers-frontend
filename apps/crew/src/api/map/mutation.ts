@@ -1,13 +1,14 @@
-import { FormType } from '@domain/map/Form/type';
+import type { FormType } from '@domain/map/Form/type';
 import { useToast } from '@sopt-makers/ui';
-import { InfiniteData, useMutation, useQueryClient } from '@tanstack/react-query';
+import type { InfiniteData } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { produce } from 'immer';
 import router from 'next/router';
 
 import { deleteMap, postSoptMap, putMapRecommendation, putSoptMap } from '.';
 import MapQueryKey from './MapQueryKey';
 import { serializeSoptMapData } from './serialize';
-import { GetMapList } from './type';
+import type { GetMapList } from './type';
 import { visitMapCache } from './util';
 
 export const usePostSoptMapMutation = () => {

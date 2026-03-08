@@ -1,7 +1,9 @@
-import { useMutation, UseMutationOptions, UseMutationResult } from '@tanstack/react-query';
-import { AxiosError } from 'axios';
+import type { UseMutationOptions, UseMutationResult } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
+import type { AxiosError } from 'axios';
 
-import { postCommentWithMention, PostCommentWithMentionRequest, postPostWithMention } from '.';
+import type { PostCommentWithMentionRequest } from '.';
+import { postCommentWithMention, postPostWithMention } from '.';
 
 interface UseMutateBody<T> {
   useMutationOptions?: UseMutationOptions<void, AxiosError, T>;

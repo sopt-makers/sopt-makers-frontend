@@ -2,7 +2,7 @@
 import ArrowIcon from '@assets/svg/arrow_small_right.svg';
 import useSessionStorage from '@hook/useSessionStorage';
 import { Flex } from '@shared/util/layout/Flex';
-import { MouseEventHandler } from 'react';
+import type { MouseEventHandler } from 'react';
 import { styled } from 'stitches.config';
 
 import SelectBottomSheet from './BottomSheet';

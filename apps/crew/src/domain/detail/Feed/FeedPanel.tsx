@@ -13,14 +13,14 @@ import FeedActionsContainer from '@shared/feed/FeedActionsContainer';
 import FeedCreateModal from '@shared/feed/Modal/FeedCreateModal';
 import { useToast } from '@sopt-makers/ui';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { AxiosError } from 'axios';
+import type { AxiosError } from 'axios';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { styled } from 'stitches.config';
 
-import { paths } from '@/__generated__/schema2';
+import type { paths } from '@/__generated__/schema2';
 import { ampli } from '@/ampli';
 import { api } from '@/api';
 

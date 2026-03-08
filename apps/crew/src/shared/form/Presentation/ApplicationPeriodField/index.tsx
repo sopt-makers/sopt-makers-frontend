@@ -2,7 +2,7 @@ import CalendarInputForm from '@shared/form/Calendar';
 import FormController from '@shared/form/FormController';
 import HelpMessage from '@shared/form/HelpMessage';
 import Label from '@shared/form/Label';
-import { FieldError } from 'react-hook-form';
+import type { FieldError } from 'react-hook-form';
 import { styled } from 'stitches.config';
 
 const ApplicationPeriodField = () => {

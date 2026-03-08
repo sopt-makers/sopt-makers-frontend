@@ -6,15 +6,18 @@ import { THUMBNAIL_IMAGE_INDEX } from '@constant/index';
 import useModal from '@hook/useModal';
 import { zodResolver } from '@hookform/resolvers/zod';
 import ConfirmModal from '@shared/modal/ConfirmModal';
-import ModalContainer, { ModalContainerProps } from '@shared/modal/ModalContainer';
+import type { ModalContainerProps } from '@shared/modal/ModalContainer';
+import ModalContainer from '@shared/modal/ModalContainer';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import dynamic from 'next/dynamic';
 import { useEffect } from 'react';
-import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+import type { SubmitHandler } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 import { styled } from 'stitches.config';
 
 import FeedFormPresentation from './FeedFormPresentation';
-import { feedEditSchema, FormEditType } from './feedSchema';
+import type { FormEditType } from './feedSchema';
+import { feedEditSchema } from './feedSchema';
 
 const DevTool = dynamic(() => import('@hookform/devtools').then((module) => module.DevTool), {
   ssr: false,

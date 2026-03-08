@@ -4,9 +4,10 @@ import { styled } from 'stitches.config';
 
 import ErrorMessage from '../../ErrorMessage';
 import Button from '../Button';
-import OptionItem, { defaultOption, Option } from '../OptionItem';
+import type { Option } from '../OptionItem';
+import OptionItem, { defaultOption } from '../OptionItem';
 import CheckboxOptionItem from '../OptionItem/CheckboxOptionItem';
-import { MultipleSelectProps, SelectProps } from '../types/props';
+import type { MultipleSelectProps, SelectProps } from '../types/props';
 import { isAllSelect, isAllUnselected } from '../utils';
 
 export default function BaseSelect(props: SelectProps | MultipleSelectProps) {

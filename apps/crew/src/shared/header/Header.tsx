@@ -3,7 +3,7 @@ import { ACCESS_TOKEN_KEY } from '@shared/util/auth';
 import { DesktopHeader, MobileHeader, playgroundLink } from '@sopt-makers/playground-common';
 import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
-import { FC, ReactNode } from 'react';
+import type { FC, ReactNode } from 'react';
 import { styled } from 'stitches.config';
 
 // TODO: playground 팀에서 type export하면 제거할 예정

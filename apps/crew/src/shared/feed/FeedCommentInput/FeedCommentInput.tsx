@@ -1,4 +1,4 @@
-import { PostCommentWithMentionRequest } from '@api/mention';
+import type { PostCommentWithMentionRequest } from '@api/mention';
 import SendIcon from 'public/assets/svg/send.svg';
 import SendFillIcon from 'public/assets/svg/send_fill.svg';
 import React, { forwardRef, useContext, useRef, useState } from 'react';

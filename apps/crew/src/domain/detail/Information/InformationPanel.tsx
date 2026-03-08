@@ -1,5 +1,5 @@
-import { GetFlash } from '@api/flash/type';
-import { GetMeeting } from '@api/meeting/type';
+import type { GetFlash } from '@api/flash/type';
+import type { GetMeeting } from '@api/meeting/type';
 import { TabList } from '@common/tabList/TabList';
 import { FlashDetailList, MeetingDetailList } from '@domain/detail/Information/constant';
 import { useDisplay } from '@hook/useDisplay';

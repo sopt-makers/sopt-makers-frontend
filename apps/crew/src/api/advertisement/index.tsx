@@ -1,4 +1,4 @@
-import { AdvertisementCategoryType, GetAdvertisementResponse } from '@api/advertisement/type';
+import type { AdvertisementCategoryType, GetAdvertisementResponse } from '@api/advertisement/type';
 
 import { api } from '..';
 

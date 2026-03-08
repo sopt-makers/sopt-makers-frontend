@@ -4,7 +4,7 @@ import { getResizedImage } from '@util/image';
 import { useState } from 'react';
 import { styled } from 'stitches.config';
 
-import { GroupInfo } from '../FeedFormPresentation';
+import type { GroupInfo } from '../FeedFormPresentation';
 import SelectMeetingOptionItem from './SelectMeetingOptionItem';
 
 interface SelectMeetingProps {

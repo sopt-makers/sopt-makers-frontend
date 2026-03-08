@@ -1,4 +1,4 @@
-import { PropsWithChildren } from 'react';
+import type { PropsWithChildren } from 'react';
 import { styled } from 'stitches.config';
 
 function GridLayout({ children, mobileType }: PropsWithChildren<{ mobileType: 'list' | 'card' }>) {

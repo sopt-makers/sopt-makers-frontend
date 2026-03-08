@@ -1,6 +1,6 @@
 import { useGetAdvertisementQueryOption } from '@api/advertisement/query';
 import { useMeetingListQueryOption } from '@api/meeting/query';
-import { MeetingData } from '@api/meeting/type';
+import type { MeetingData } from '@api/meeting/type';
 import { useUserProfileQueryOption } from '@api/user/query';
 import CardSkeleton from '@domain/list/Card/Skeleton';
 import { usePageParams } from '@hook/queryString/custom';

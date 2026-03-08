@@ -1,7 +1,7 @@
 import AlertIcon from '@assets/svg/alert-triangle.svg';
 import ReWriteIcon from '@assets/svg/comment-write.svg';
 import TrashIcon from '@assets/svg/trash.svg';
-import { CreateOverlayElement } from '@hook/useOverlay/types';
+import type { CreateOverlayElement } from '@hook/useOverlay/types';
 import FeedActionButton from '@shared/feed/FeedActionButton/FeedActionButton';
 import FeedEditModal from '@shared/feed/Modal/FeedEditModal';
 import ConfirmModal from '@shared/modal/ConfirmModal';

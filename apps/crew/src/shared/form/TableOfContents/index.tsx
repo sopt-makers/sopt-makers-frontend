@@ -1,8 +1,9 @@
 import CheckedIcon from '@assets/svg/icon_progress_checked.svg';
 import UncheckedIcon from '@assets/svg/icon_progress_unchecked.svg';
 import { fontsObject } from '@sopt-makers/fonts';
-import { Button, DialogOptionType, useDialog } from '@sopt-makers/ui';
-import { FormType } from '@type/form';
+import type { DialogOptionType } from '@sopt-makers/ui';
+import { Button, useDialog } from '@sopt-makers/ui';
+import type { FormType } from '@type/form';
 import { useRouter } from 'next/router';
 import { useFormContext, useWatch } from 'react-hook-form';
 import { styled } from 'stitches.config';

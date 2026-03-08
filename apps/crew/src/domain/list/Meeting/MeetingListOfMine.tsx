@@ -1,4 +1,4 @@
-import { MeetingData } from '@api/meeting/type';
+import type { MeetingData } from '@api/meeting/type';
 import { useUserMeetingListQueryOption } from '@api/user/query';
 import { useScrollRestorationAfterLoading } from '@hook/useScrollRestoration';
 import { Suspense } from '@suspensive/react';

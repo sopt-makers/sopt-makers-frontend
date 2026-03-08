@@ -1,4 +1,4 @@
-import { mapData } from '@api/map/type';
+import type { mapData } from '@api/map/type';
 import UtilityButton from '@common/button/UtilityButton';
 import MobileBottomSheet from '@domain/map/BottomSheet';
 import { Flex } from '@shared/util/layout/Flex';

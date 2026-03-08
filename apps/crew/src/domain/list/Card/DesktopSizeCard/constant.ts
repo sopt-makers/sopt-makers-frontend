@@ -1,5 +1,5 @@
-import { GetFlash } from '@api/flash/type';
-import { MeetingData } from '@api/meeting/type';
+import type { GetFlash } from '@api/flash/type';
+import type { MeetingData } from '@api/meeting/type';
 import { PART_OPTIONS, PART_VALUES } from '@constant/option';
 import dayjs from 'dayjs';
 

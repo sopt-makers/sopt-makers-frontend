@@ -1,6 +1,6 @@
-import { InfiniteData } from '@tanstack/react-query';
+import type { InfiniteData } from '@tanstack/react-query';
 
-import { GetMapList } from './type';
+import type { GetMapList } from './type';
 
 type MapCacheData = InfiniteData<GetMapList['response']> | GetMapList['response'];
 type MapListUpdater = (mapList: GetMapList['response']['soptMaps']) => void;

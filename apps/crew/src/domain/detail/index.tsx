@@ -1,5 +1,5 @@
-import { GetFlash } from '@api/flash/type';
-import { GetMeeting } from '@api/meeting/type';
+import type { GetFlash } from '@api/flash/type';
+import type { GetMeeting } from '@api/meeting/type';
 import Loader from '@common/loader/Loader';
 import Carousel from '@domain/detail/Carousel';
 import FeedPanel from '@domain/detail/Feed/FeedPanel';

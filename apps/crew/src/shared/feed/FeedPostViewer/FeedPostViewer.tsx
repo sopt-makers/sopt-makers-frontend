@@ -18,7 +18,7 @@ import MenuIcon from 'public/assets/svg/ic_menu.svg';
 import ShareIcon from 'public/assets/svg/share.svg';
 import { styled } from 'stitches.config';
 
-import { paths } from '@/__generated__/schema2';
+import type { paths } from '@/__generated__/schema2';
 
 dayjs.extend(relativeTime);
 dayjs.locale('ko');

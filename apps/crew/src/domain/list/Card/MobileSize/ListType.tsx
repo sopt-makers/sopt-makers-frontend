@@ -5,7 +5,7 @@ import { Flex } from '@shared/util/layout/Flex';
 import { getResizedImage } from '@util/image';
 import { styled } from 'stitches.config';
 
-import { MobileSizeCardProps } from '.';
+import type { MobileSizeCardProps } from '.';
 
 function ListType({ meetingData }: Omit<MobileSizeCardProps, 'mobileType'>) {
   return (

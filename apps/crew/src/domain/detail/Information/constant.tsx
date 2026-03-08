@@ -1,7 +1,7 @@
 import 'dayjs/locale/ko';
 
-import { GetFlash } from '@api/flash/type';
-import { GetMeeting } from '@api/meeting/type';
+import type { GetFlash } from '@api/flash/type';
+import type { GetMeeting } from '@api/meeting/type';
 import CalendarIcon from '@assets/svg/calendar.svg?rect';
 import { PART_NAME } from '@constant/option';
 import { parseTextToLink } from '@shared/util/parseTextToLink';

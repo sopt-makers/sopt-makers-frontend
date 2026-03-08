@@ -1,4 +1,4 @@
-import { CSSProps } from '@util/styles';
+import type { CSSProps } from '@util/styles';
 import { styled } from 'stitches.config';
 
 const alignOptions = {

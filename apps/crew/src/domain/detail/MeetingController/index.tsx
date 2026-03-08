@@ -1,5 +1,5 @@
 import FlashQueryKey from '@api/flash/FlashQueryKey';
-import { GetFlash } from '@api/flash/type';
+import type { GetFlash } from '@api/flash/type';
 import MeetingQueryKey from '@api/meeting/MeetingQueryKey';
 import {
   useDeleteMeetingApplicationMutation,
@@ -7,7 +7,7 @@ import {
   usePostEventApplicationMutation,
   usePostMeetingApplicationMutation,
 } from '@api/meeting/mutation';
-import { GetMeeting } from '@api/meeting/type';
+import type { GetMeeting } from '@api/meeting/type';
 import { useUserProfileQueryOption } from '@api/user/query';
 import ArrowSmallRightIcon from '@assets/svg/arrow_small_right.svg';
 import ButtonLoader from '@common/loader/ButtonLoader';
@@ -20,10 +20,12 @@ import DefaultModal from '@shared/modal/DefaultModal';
 import { playgroundLink } from '@sopt-makers/playground-common';
 import { useDialog } from '@sopt-makers/ui';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { AxiosError, AxiosResponse } from 'axios';
+import type { AxiosResponse } from 'axios';
+import { AxiosError } from 'axios';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { ReactNode, useState } from 'react';
+import type { ReactNode } from 'react';
+import { useState } from 'react';
 import { styled } from 'stitches.config';
 
 import { ampli } from '@/ampli';

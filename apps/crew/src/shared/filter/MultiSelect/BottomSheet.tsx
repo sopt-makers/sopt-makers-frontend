@@ -1,5 +1,5 @@
 import { Flex } from '@shared/util/layout/Flex';
-import { PropsWithChildren, ReactNode } from 'react';
+import type { PropsWithChildren, ReactNode } from 'react';
 import { styled } from 'stitches.config';
 interface SelectBottomSheetProps {
   label: string;

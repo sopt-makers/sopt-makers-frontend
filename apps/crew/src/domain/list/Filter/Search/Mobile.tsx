@@ -2,7 +2,8 @@ import SearchIcon from '@assets/svg/search.svg';
 import { useSearchParams } from '@hook/queryString/custom';
 import useBooleanState from '@hook/useBooleanState';
 import { Flex } from '@shared/util/layout/Flex';
-import { FieldValues, useForm } from 'react-hook-form';
+import type { FieldValues } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { styled } from 'stitches.config';
 
 function SearchMobile() {

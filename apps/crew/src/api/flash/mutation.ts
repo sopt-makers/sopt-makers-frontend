@@ -2,7 +2,7 @@ import { postFlash, putFlash } from '@api/flash';
 import FlashQueryKey from '@api/flash/FlashQueryKey';
 import { serializeFlashFormData } from '@api/flash/serialize';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { FlashFormType } from '@type/form';
+import type { FlashFormType } from '@type/form';
 
 export const usePutFlashMutation = ({ meetingId }: { meetingId: number }) => {
   const queryClient = useQueryClient();

@@ -1,5 +1,6 @@
 import { fontsObject } from '@sopt-makers/fonts';
-import { DialogOptionType, useDialog } from '@sopt-makers/ui';
+import type { DialogOptionType } from '@sopt-makers/ui';
+import { useDialog } from '@sopt-makers/ui';
 import { useRouter } from 'next/router';
 import { styled } from 'stitches.config';
 

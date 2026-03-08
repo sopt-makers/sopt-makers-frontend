@@ -4,7 +4,8 @@ import { fontsObject } from '@sopt-makers/fonts';
 import { keyframes, styled } from '@stitches/react';
 import DefaultProfile from 'public/assets/svg/mention_profile_default.svg';
 import React, { useCallback } from 'react';
-import { Mention, MentionsInput, SuggestionDataItem } from 'react-mentions';
+import type { SuggestionDataItem } from 'react-mentions';
+import { Mention, MentionsInput } from 'react-mentions';
 
 interface mentionableDataType {
   id: number;

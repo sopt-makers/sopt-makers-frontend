@@ -1,6 +1,6 @@
-import { FormType } from '@domain/map/Form/type';
+import type { FormType } from '@domain/map/Form/type';
 
-import { PostSoptMap } from './type';
+import type { PostSoptMap } from './type';
 
 const TAG_MAP: Record<string, PostSoptMap['request']['tags'][number]> = {
   카페: 'CAFE',

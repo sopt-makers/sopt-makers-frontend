@@ -1,4 +1,4 @@
-import { GetMeeting } from '@api/meeting/type';
+import type { GetMeeting } from '@api/meeting/type';
 import ArrowMediumRightGrayIcon from '@assets/svg/arrow_medium_right_gray.svg';
 import { ERecruitmentStatus, RECRUITMENT_STATUS } from '@constant/option';
 import Link from 'next/link';

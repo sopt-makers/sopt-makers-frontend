@@ -2,9 +2,10 @@ import { Listbox } from '@headlessui/react';
 import useModal from '@hook/useModal';
 import Label from '@shared/form/Label';
 
-import { defaultOption, Option } from '../OptionItem';
+import type { Option } from '../OptionItem';
+import { defaultOption } from '../OptionItem';
 import MobileOptionItem from '../OptionItem/MobileOptionItem';
-import { MultipleSelectProps, SelectProps } from '../types/props';
+import type { MultipleSelectProps, SelectProps } from '../types/props';
 import { isAllSelect, isAllUnselected } from '../utils';
 import BottomSheetDialog from './BottomSheetDialog';
 

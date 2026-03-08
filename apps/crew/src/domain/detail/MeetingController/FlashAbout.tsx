@@ -1,4 +1,4 @@
-import { GetFlash } from '@api/flash/type';
+import type { GetFlash } from '@api/flash/type';
 import ProfileAnchor from '@domain/detail/MeetingController/ProfileAnchor';
 import RecruitmentStatusTag from '@shared/Tag/RecruitmentStatusTag';
 import dayjs from 'dayjs';

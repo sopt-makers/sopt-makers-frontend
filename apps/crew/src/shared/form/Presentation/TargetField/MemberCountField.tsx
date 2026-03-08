@@ -3,7 +3,7 @@ import CheckUnselectedIcon from '@assets/svg/checkBox/form_unselected.svg';
 import FormController from '@shared/form/FormController';
 import TextInput from '@shared/form/TextInput';
 import { fontsObject } from '@sopt-makers/fonts';
-import { ChangeEvent } from 'react';
+import type { ChangeEvent } from 'react';
 import { styled } from 'stitches.config';
 
 const MemberCountField = () => {

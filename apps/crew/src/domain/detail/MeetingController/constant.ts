@@ -1,5 +1,5 @@
-import { GetFlash } from '@api/flash/type';
-import { GetMeeting } from '@api/meeting/type';
+import type { GetFlash } from '@api/flash/type';
+import type { GetMeeting } from '@api/meeting/type';
 
 export const CAPACITY = (detailData: GetMeeting['response'] | GetFlash['response']) => {
   if ('capacity' in detailData) {
