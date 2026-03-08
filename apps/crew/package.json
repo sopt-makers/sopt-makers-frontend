@@ -2,7 +2,6 @@
   "name": "crew",
   "version": "0.1.0",
   "private": true,
-  "prettier": "@sopt-makers/prettier-config",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
