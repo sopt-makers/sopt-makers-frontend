@@ -15,12 +15,30 @@ jobs:
 
       - name: Label PR
         run: |
-          changed_files=$(gh pr diff ${{ github.event.pull_request.number }} --name-only)
+          PR=${{ github.event.pull_request.number }}
+          changed_files=$(gh pr diff $PR --name-only)
+
+          current_labels=$(gh pr view $PR --json labels -q '.labels[].name')
 
           add_label() {
             gh label create "$1" --color "0075ca" 2>/dev/null || true
-            gh pr edit ${{ github.event.pull_request.number }} --add-label "$1"
+            gh pr edit $PR --add-label "$1"
           }
+
+          remove_label_if_exists() {
+            if echo "$current_labels" | grep -qF "$1"; then
+              gh pr edit $PR --remove-label "$1"
+            fi
+          }
+
+          remove_label_if_exists "🥐 Crew"
+          remove_label_if_exists "⚡️ Playground"
+          remove_label_if_exists "🔗 Root"
+          remove_label_if_exists "🔗 Workflows"
+
+          echo "$current_labels" | grep "^🔗 Packages:" | while read -r label; do
+            gh pr edit $PR --remove-label "$label"
+          done
 
           if echo "$changed_files" | grep -q "^apps/crew/"; then
             add_label "🥐 Crew"
