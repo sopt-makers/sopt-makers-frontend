@@ -26,6 +26,8 @@ module.exports = {
     ],
     "@typescript-eslint/no-empty-object-type": "off",
     "@typescript-eslint/ban-ts-comment": "off",
+    "@typescript-eslint/consistent-type-imports": "error",
+    "@typescript-eslint/consistent-type-exports": "error",
 
     // Import 정렬
     "simple-import-sort/imports": "warn",
