@@ -48,12 +48,8 @@ jobs:
             add_label "⚡️ Playground"
           fi
 
-          if echo "$changed_files" | grep -qE "^[^/]+$"; then
+          if echo "$changed_files" | grep -qE "^[^/]+$|^\.github/"; then
             add_label "🔗 Root"
-          fi
-
-          if echo "$changed_files" | grep -q "^\.github/workflows/"; then
-            add_label "🔗 Workflows"
           fi
 
           changed_packages=$(echo "$changed_files" | grep "^packages/" | awk -F'/' '{print $2}' | sort -u)
