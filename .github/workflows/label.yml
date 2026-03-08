@@ -27,7 +27,7 @@ jobs:
           fi
 
           if echo "$changed_files" | grep -q "^apps/playground/"; then
-            add_label "⚡️️ Playground"
+            add_label "⚡️ Playground"
           fi
 
           if echo "$changed_files" | grep -qE "^[^/]+$"; then
