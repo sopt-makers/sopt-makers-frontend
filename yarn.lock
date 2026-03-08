@@ -6441,12 +6441,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sopt-makers/prettier-config@workspace:*, @sopt-makers/prettier-config@workspace:packages/prettier-config":
-  version: 0.0.0-use.local
-  resolution: "@sopt-makers/prettier-config@workspace:packages/prettier-config"
-  languageName: unknown
-  linkType: soft
-
 "@sopt-makers/ui@npm:2.8.9":
   version: 2.8.9
   resolution: "@sopt-makers/ui@npm:2.8.9"
@@ -21969,7 +21963,6 @@ __metadata:
   resolution: "sopt-makers-frontend@workspace:."
   dependencies:
     "@sopt-makers/eslint-config": "workspace:*"
-    "@sopt-makers/prettier-config": "workspace:*"
     "@types/node": "npm:18.8.3"
     "@types/react": "npm:18.0.21"
     "@types/react-dom": "npm:18.0.6"
