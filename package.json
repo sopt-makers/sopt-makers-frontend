@@ -19,13 +19,14 @@
     "dev:playground": "turbo run dev --filter=playground",
     "build:crew": "turbo run build --filter=crew",
     "build:playground": "turbo run build --filter=playground",
-    "deploy": "turbo deploy",
-    "check": "turbo lint typecheck stylelint test:ci",
+    "check:crew": "turbo lint typecheck check:crew",
+    "check:playground": "turbo lint typecheck check:playground stylelint test:ci --filter=playground",
     "update-mds": "yarn up @sopt-makers/colors@latest @sopt-makers/fonts@latest @sopt-makers/playground-common@latest @sopt-makers/ui@latest @sopt-makers/icons@latest",
     "lint": "turbo lint",
     "lint:fix": "turbo lint -- --fix",
     "format": "turbo format",
-    "clean": "turbo clean"
+    "clean": "turbo clean",
+    "deploy": "turbo deploy"
   },
   "dependencies": {
     "axios": "^1.1.3",
