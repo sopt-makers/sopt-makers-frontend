@@ -37,6 +37,9 @@ jobs:
           cp apps/playground/.env.development apps/playground/.env.local
           echo "${{ vars.PLAYGROUND_DEVELOPMENT_ENV }}" >> apps/playground/.env.local
 
+      - name: Build packages
+        run: yarn turbo run build --filter=@sopt/ui
+
       - name: Publish Chromatic
         id: publish_chromatic
         uses: chromaui/action@v1
