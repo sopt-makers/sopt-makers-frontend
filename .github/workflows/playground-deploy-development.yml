@@ -8,7 +8,6 @@ on:
       - "packages/**"
       - "package.json"
       - "yarn.lock"
-  pull_request:
   workflow_dispatch:
 
 jobs:
