@@ -4,10 +4,11 @@ on:
   push:
     branches: [develop]
     paths:
-      - "apps/crew/**"
-      - "packages/**"
-      - "package.json"
-      - "yarn.lock"
+      - 'apps/crew/**'
+      - 'packages/**'
+      - 'package.json'
+      - 'yarn.lock'
+  pull_request:
   workflow_dispatch:
 
 jobs:

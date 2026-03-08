@@ -4,10 +4,11 @@ on:
   push:
     branches: [develop]
     paths:
-      - "apps/playground/**"
-      - "packages/**"
-      - "package.json"
-      - "yarn.lock"
+      - 'apps/playground/**'
+      - 'packages/**'
+      - 'package.json'
+      - 'yarn.lock'
+  pull_request:
   workflow_dispatch:
 
 jobs:
@@ -80,8 +81,8 @@ jobs:
         id: find_comment
         with:
           issue-number: ${{ github.event.pull_request.number }}
-          comment-author: "github-actions[bot]"
-          body-includes: "Playground 프리뷰 배포 확인하기"
+          comment-author: 'github-actions[bot]'
+          body-includes: 'Playground 프리뷰 배포 확인하기'
 
       - name: Create or update comment
         if: github.event_name == 'pull_request'
