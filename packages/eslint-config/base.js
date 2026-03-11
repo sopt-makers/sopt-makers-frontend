@@ -1,6 +1,7 @@
 /** @type {import("eslint").Linter.Config} */
 
 module.exports = {
+  ignorePatterns: ['**/.next', '**/out', '**/dist', '**/storybook-static', '**/__generated__'],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     project: true,
