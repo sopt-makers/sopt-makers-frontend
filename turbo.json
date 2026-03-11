@@ -15,10 +15,8 @@
       "cache": false,
       "outputs": []
     },
-    "check": {
-      "outputs": []
-    },
     "typecheck": {
+      "dependsOn": ["^build"],
       "outputs": []
     },
     "test:ci": {
