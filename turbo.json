@@ -15,16 +15,10 @@
       "cache": false,
       "outputs": []
     },
-    "typecheck": {
-      "dependsOn": ["^build"]
-    },
     "check": {
       "outputs": []
     },
-    "check:crew": {
-      "outputs": []
-    },
-    "check:playground": {
+    "typecheck": {
       "outputs": []
     },
     "test:ci": {
