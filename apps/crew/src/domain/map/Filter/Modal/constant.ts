@@ -4,7 +4,7 @@ import type { SVGProps } from 'react';
 
 import type { MapLinkKey } from './type';
 
-type IconComponent = (props: SVGProps<SVGSVGElement>) => JSX.Element;
+type IconComponent = (props: SVGProps<SVGSVGElement>) => JSX.Element | null;
 
 export const LINK_OPTIONS: {
   key: MapLinkKey;
