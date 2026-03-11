@@ -1,0 +1,2 @@
+# eslint-plugin-import의 no-unused-modules 규칙이 FileEnumerator 내부 API를 사용할 때
+# .eslintignore 파일의 존재를 필요로 합니다. 내용이 없어도 파일이 있어야 정상 동작합니다.
