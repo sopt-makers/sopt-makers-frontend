@@ -1,0 +1,5 @@
+{
+  "apps/crew/**/*.{ts,tsx}": ["eslint --fix", "bash -c 'cd apps/crew && tsc --noemit -p .'"],
+  "apps/playground/**/*.{ts,tsx}": ["eslint --fix", "bash -c 'cd apps/playground && tsc --noemit -p .'"],
+  "**/*.{ts,tsx,js,jsx,json,css,md}": "prettier --write --ignore-path .prettierignore"
+}
