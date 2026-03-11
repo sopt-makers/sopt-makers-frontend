@@ -10,6 +10,8 @@
   },
   "scripts": {
     "build": "turbo run build",
+    "build:crew": "turbo run build --filter=crew",
+    "build:playground": "turbo run build --filter=playground",
     "check": "turbo typecheck stylelint test:ci",
     "clean": "turbo clean",
     "dev": "turbo run dev",
