@@ -3,19 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "format": "prettier --write . --ignore-path ../../.prettierignore",
-    "typecheck": "tsc --noemit -p .",
-    "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
+    "dev": "next dev",
+    "format": "prettier --write . --ignore-path ../../.prettierignore",
+    "generate-types": "cat ./src/__generated__/schema1.d.ts ./src/__generated__/schema2.d.ts > ./src/__generated__/schema.d.ts",
     "generate-types-v1": "openapi-typescript https://crew.api.dev.sopt.org/api-docs-json -o ./src/__generated__/schema1.d.ts",
     "generate-types-v2": "openapi-typescript https://crew.api.dev.sopt.org/api-docs/json -o ./src/__generated__/schema2.d.ts",
-    "generate-types": "cat ./src/__generated__/schema1.d.ts ./src/__generated__/schema2.d.ts > ./src/__generated__/schema.d.ts",
-    "wrangler": "wrangler",
-    "where": "sh -c 'export IP=`ipconfig getifaddr en0` && echo [info] we are in ... http://${IP}:3000'"
+    "lint": "next lint",
+    "start": "next start",
+    "storybook": "storybook dev -p 6006",
+    "typecheck": "tsc --noemit -p .",
+    "where": "sh -c 'export IP=`ipconfig getifaddr en0` && echo [info] we are in ... http://${IP}:3000'",
+    "wrangler": "wrangler"
   },
   "dependencies": {
     "@amplitude/ampli": "^1.35.0",

@@ -3,20 +3,20 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "prepare": "git config merge.ours.driver true || true",
-    "dev": "next dev",
+    "analyze": "cross-env ANALYZE=true next build",
     "build": "next build",
     "build-storybook": "cross-env NODE_OPTIONS='--max-old-space-size=4096' storybook build",
-    "analyze": "cross-env ANALYZE=true next build",
-    "start": "next start",
+    "dev": "next dev",
+    "format": "prettier --write . --ignore-path ../../.prettierignore",
+    "postinstall": "cd ../.. && husky install || true",
     "lint": "next lint",
-    "typecheck": "tsc --noemit -p .",
+    "prepare": "git config merge.ours.driver true || true",
+    "start": "next start",
+    "storybook": "storybook dev -p 6006",
     "stylelint": "stylelint **/*.(ts|tsx)",
     "test": "jest --watch",
     "test:ci": "jest --ci",
-    "storybook": "storybook dev -p 6006",
-    "format": "prettier --write . --ignore-path ../../.prettierignore",
-    "postinstall": "cd ../.. && husky install || true"
+    "typecheck": "tsc --noemit -p ."
   },
   "dependencies": {
     "@amplitude/analytics-browser": "^1.10.4",
