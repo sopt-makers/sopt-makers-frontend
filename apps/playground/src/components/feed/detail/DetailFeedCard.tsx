@@ -9,7 +9,8 @@ import { Flex, Stack } from '@toss/emotion-utils';
 import { m } from 'framer-motion';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { forwardRef, PropsWithChildren, ReactNode, useCallback, useEffect, useId, useRef, useState } from 'react';
+import type { PropsWithChildren, ReactNode } from 'react';
+import { forwardRef, useCallback, useEffect, useId, useRef, useState } from 'react';
 import { useContext } from 'react';
 import { useResetRecoilState } from 'recoil';
 
@@ -23,7 +24,8 @@ import Text from '@/components/common/Text';
 import FeedLike from '@/components/feed/common/FeedLike';
 import useBlindWriterPromise from '@/components/feed/common/hooks/useBlindWriterPromise';
 import { useCursorPosition } from '@/components/feed/common/hooks/useCursorPosition';
-import useMention, { Member } from '@/components/feed/common/hooks/useMention';
+import type { Member } from '@/components/feed/common/hooks/useMention';
+import useMention from '@/components/feed/common/hooks/useMention';
 import {
   IconChevronLeft,
   IconChevronRight,
@@ -776,7 +778,7 @@ const Input = ({ value, onChange, isBlindChecked, onChangeIsBlindChecked, isPend
 
   const handleCheckBlindWriter = (isBlindWriter: boolean) => {
     if (sessionStorage.getItem('hasSeenBlindWriterAlert') === null) {
-      isBlindWriter && handleShowBlindWriterPromise();
+      if (isBlindWriter) handleShowBlindWriterPromise();
       sessionStorage.setItem('hasSeenBlindWriterAlert', 'seen');
     }
     onChangeIsBlindChecked(isBlindWriter);

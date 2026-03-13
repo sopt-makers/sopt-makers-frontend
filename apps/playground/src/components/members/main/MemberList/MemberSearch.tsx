@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
-import { FC } from 'react';
+import type { FC } from 'react';
 
-import { InputProps } from '@/components/common/Input';
+import type { InputProps } from '@/components/common/Input';
 import SearchIcon from '@/public/icons/icon-member-search.svg';
 import SearchClearIcon from '@/public/icons/icon-search-clear.svg';
 import { textStyles } from '@/styles/typography';

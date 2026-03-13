@@ -1,11 +1,12 @@
-import { FC, useEffect, useRef, useState } from 'react';
+import type { FC } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import AccessTokenPanel from '@/components/debug/panels/AccessTokenPanel';
 import NavigationPanel from '@/components/debug/panels/NavigationPanel';
 import SideBar from '@/components/debug/SideBar';
 import SideToggleButton from '@/components/debug/SideToggleButton';
-import TimecapsopDelteButton from '@/components/resolution/delete';
 import BalanceOpenButton from '@/components/matchmember/BalanceOpenButton';
+import TimecapsopDelteButton from '@/components/resolution/delete';
 
 const Debugger: FC = () => {
   const [isOpen, setIsOpen] = useState(false);

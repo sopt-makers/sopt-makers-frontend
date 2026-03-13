@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from 'react';
 
 import { LoggingClick } from '@/components/eventLogger/components/LoggingClick';
 import { menuList } from '@/components/mySoptReport/constants';
-import { ActiveTabType } from '@/components/mySoptReport/types';
+import type { ActiveTabType } from '@/components/mySoptReport/types';
 import useMediaQuery from '@/hooks/useMediaQuery';
 import { MOBILE_MAX_WIDTH, MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 

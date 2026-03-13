@@ -2,7 +2,8 @@ import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
 import { m } from 'framer-motion';
 import Link from 'next/link';
-import { FC, useCallback, useState } from 'react';
+import type { FC } from 'react';
+import { useCallback, useState } from 'react';
 
 import {
   AndroidIcon,
@@ -22,7 +23,7 @@ interface CatchPhraseSectionProps {}
 
 const shineColorList = ['#5DDBFF', '#FDBBF9', '#FFCA00'];
 
-const CatchPhraseSection: FC<CatchPhraseSectionProps> = ({}) => {
+const CatchPhraseSection: FC<CatchPhraseSectionProps> = () => {
   const [shineColor, setShineColor] = useState(shineColorList[0]);
 
   const handleSentenceChange = useCallback((_: unknown, idx: number) => {

@@ -4,10 +4,12 @@ import { IconChevronLeft } from '@sopt-makers/icons';
 import { Button, Callout } from '@sopt-makers/ui';
 import { Spacing } from '@toss/emotion-utils';
 import { useRouter } from 'next/router';
-import { FormEvent, useEffect, useRef } from 'react';
+import type { FormEvent } from 'react';
+import { useEffect, useRef } from 'react';
 
 import { useMeetingList } from '@/api/crew/getMeetingList';
-import { GroupFeedParams, usePostGroupFeed } from '@/api/crew/postGroupFeed';
+import type { GroupFeedParams } from '@/api/crew/postGroupFeed';
+import { usePostGroupFeed } from '@/api/crew/postGroupFeed';
 import { useGetMemberOfMe } from '@/api/endpoint/members/getMemberOfMe';
 import Checkbox from '@/components/common/Checkbox';
 import useModalState from '@/components/common/Modal/useModalState';
@@ -29,7 +31,7 @@ import TitleInput from '@/components/feed/upload/Input/TitleInput';
 import DesktopFeedUploadLayout from '@/components/feed/upload/layout/DesktopFeedUploadLayout';
 import MobileFeedUploadLayout from '@/components/feed/upload/layout/MobileFeedUploadLayout';
 import { GroupSelect, SelectContent, SelectTrigger } from '@/components/feed/upload/select/GroupSelect';
-import { PostedFeedDataType } from '@/components/feed/upload/types';
+import type { PostedFeedDataType } from '@/components/feed/upload/types';
 import UsingRules from '@/components/feed/upload/UsingRules';
 import VoteModal from '@/components/feed/upload/voteModal';
 import VotePreview from '@/components/feed/upload/votePreview';
@@ -68,7 +70,7 @@ export default function FeedUploadPage({ defaultValue, editingId, onSubmit }: Fe
   const handleMobileKeyPressToContents = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === 'Enter' && !e.nativeEvent.isComposing) {
       e.preventDefault();
-      mobileContentsRef.current && mobileContentsRef.current.focus();
+      if (mobileContentsRef.current) mobileContentsRef.current.focus();
     }
   };
 
@@ -76,7 +78,7 @@ export default function FeedUploadPage({ defaultValue, editingId, onSubmit }: Fe
   const handleDesktopKeyPressToContents = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === 'Enter' && !e.nativeEvent.isComposing) {
       e.preventDefault();
-      desktopContentsRef.current && desktopContentsRef.current.focus();
+      if (desktopContentsRef.current) desktopContentsRef.current.focus();
     }
   };
 

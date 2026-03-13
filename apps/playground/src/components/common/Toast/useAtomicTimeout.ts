@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 
-import { TimeoutID } from '@/types';
+import type { TimeoutID } from '@/types';
 
 const useAtomicTimeout = () => {
   const timeoutRef = useRef<TimeoutID | null>(null);

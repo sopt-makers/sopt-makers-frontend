@@ -1,7 +1,8 @@
 import styled from '@emotion/styled';
-import Modal from '@/components/common/Modal';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
+
+import Modal from '@/components/common/Modal';
 
 interface CheckModalProps {
   isOpen: boolean;

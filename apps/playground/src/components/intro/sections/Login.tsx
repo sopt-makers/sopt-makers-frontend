@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
 import Link from 'next/link';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import { playgroundLink } from '@/constants/links';
 import useScroll from '@/hooks/useScroll';
@@ -11,7 +11,7 @@ import { textStyles } from '@/styles/typography';
 
 interface LoginProps {}
 
-const Login: FC<LoginProps> = ({}) => {
+const Login: FC<LoginProps> = () => {
   const { isScrollingDown, isScrollTop } = useScroll();
 
   return (

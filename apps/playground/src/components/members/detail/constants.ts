@@ -1,4 +1,4 @@
-import { ProjectCategory } from '@/components/members/detail/types';
+import type { ProjectCategory } from '@/components/members/detail/types';
 
 export const PROJECT_CATEGORY_LABEL: Record<ProjectCategory, string> = {
   APPJAM: '앱잼',

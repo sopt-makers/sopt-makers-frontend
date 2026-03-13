@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import Link from 'next/link';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import SquareLink from '@/components/common/SquareLink';
 import { playgroundLink } from '@/constants/links';

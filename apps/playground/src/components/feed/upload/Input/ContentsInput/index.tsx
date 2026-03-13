@@ -1,9 +1,11 @@
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
-import { ChangeEvent, forwardRef, Ref, useEffect, useRef } from 'react';
+import type { ChangeEvent, Ref } from 'react';
+import { forwardRef, useEffect, useRef } from 'react';
 
 import { useCursorPosition } from '@/components/feed/common/hooks/useCursorPosition';
-import useMention, { Member } from '@/components/feed/common/hooks/useMention';
+import type { Member } from '@/components/feed/common/hooks/useMention';
+import useMention from '@/components/feed/common/hooks/useMention';
 import MentionDropdown from '@/components/feed/common/MentionDropdown';
 import { parseHTMLToMentions, parseMentionsToHTML } from '@/components/feed/common/utils/parseMention';
 import { textStyles } from '@/styles/typography';

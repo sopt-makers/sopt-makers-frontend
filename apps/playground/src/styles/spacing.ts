@@ -1,6 +1,7 @@
 import { css } from '@emotion/react';
 
-import { buildCSSWithLength, CSSValueWithLength } from '@/utils';
+import type { CSSValueWithLength } from '@/utils';
+import { buildCSSWithLength } from '@/utils';
 
 export interface SpaceProps {
   m?: CSSValueWithLength;

@@ -1,11 +1,11 @@
 import styled from '@emotion/styled';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import AuthRequired from '@/components/auth/AuthRequired';
 
 interface SoulmatePageProps {}
 
-const SoulmatePage: FC<SoulmatePageProps> = ({}) => {
+const SoulmatePage: FC<SoulmatePageProps> = () => {
   return (
     <AuthRequired>
       <Container>Soulmate</Container>

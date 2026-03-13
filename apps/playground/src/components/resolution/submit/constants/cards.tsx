@@ -1,4 +1,4 @@
-import { ClickEvents } from '@/components/eventLogger/events';
+import type { ClickEvents } from '@/components/eventLogger/events';
 import { playgroundLink } from '@/constants/links';
 import CoffeeIcon from '@/public/logos/playgroundGuide/img_coffee.svg';
 import GroupIcon from '@/public/logos/playgroundGuide/img_group.svg';

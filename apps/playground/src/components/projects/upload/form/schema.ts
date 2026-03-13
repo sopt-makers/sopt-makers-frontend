@@ -1,4 +1,4 @@
-import { DefaultValues } from 'react-hook-form';
+import type { DefaultValues } from 'react-hook-form';
 import * as z from 'zod';
 
 import { DEFAULT_MEMBER } from '@/components/projects/upload/form/constants';

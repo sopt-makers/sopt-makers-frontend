@@ -1,4 +1,4 @@
-import { Meta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
 import CareerItem from '@/components/members/detail/CareerSection/CareerItem';
 

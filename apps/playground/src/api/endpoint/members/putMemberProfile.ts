@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { z } from 'zod';
 
-import { ProfileRequest } from '@/api/endpoint_LEGACY/members/type';
+import type { ProfileRequest } from '@/api/endpoint_LEGACY/members/type';
 import { createEndpoint } from '@/api/typedAxios';
 
 /**

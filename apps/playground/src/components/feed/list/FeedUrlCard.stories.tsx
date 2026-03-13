@@ -1,5 +1,5 @@
-import { Decorator, Meta } from '@storybook/react';
-import { ComponentProps } from 'react';
+import type { Decorator, Meta } from '@storybook/react';
+import type { ComponentProps } from 'react';
 
 import FeedUrlCard from '@/components/feed/list/FeedUrlCard';
 

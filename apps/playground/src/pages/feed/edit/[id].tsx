@@ -1,7 +1,8 @@
+import { playgroundLink } from '@sopt/constant';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
-import { playgroundLink } from '@sopt/ui';
-import { FC, useMemo } from 'react';
+import type { FC } from 'react';
+import { useMemo } from 'react';
 
 import { editFeed } from '@/api/endpoint/feed/editFeed';
 import { getPost, useGetPostQuery } from '@/api/endpoint/feed/getPost';
@@ -14,7 +15,7 @@ import useEventLogger from '@/components/eventLogger/hooks/useEventLogger';
 import { getParentCategoryIdById } from '@/components/feed/common/utils';
 import EditImpossibleModal from '@/components/feed/edit/EditImpossibleModal';
 import FeedUploadPage, { LoadingWrapper } from '@/components/feed/page/FeedUploadPage';
-import { FeedDataType } from '@/components/feed/upload/types';
+import type { FeedDataType } from '@/components/feed/upload/types';
 import useStringRouterQuery from '@/hooks/useStringRouterQuery';
 import { setLayout } from '@/utils/layout';
 

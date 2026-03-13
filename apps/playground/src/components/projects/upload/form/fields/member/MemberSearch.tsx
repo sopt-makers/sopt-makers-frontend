@@ -2,10 +2,11 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
 import { Command } from 'cmdk';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import Text from '@/components/common/Text';
-import { Member, useMemberSearch } from '@/components/projects/upload/form/fields/member/MemberSearchContext';
+import type { Member } from '@/components/projects/upload/form/fields/member/MemberSearchContext';
+import { useMemberSearch } from '@/components/projects/upload/form/fields/member/MemberSearchContext';
 import IconClear from '@/public/icons/icon-member-search-clear.svg';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 import { textStyles } from '@/styles/typography';

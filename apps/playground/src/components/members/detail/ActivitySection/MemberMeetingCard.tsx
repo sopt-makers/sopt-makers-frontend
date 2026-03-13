@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 import Link from 'next/link';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import ContentsCard from '@/components/common/ContentsCard';
 import { playgroundLink } from '@/constants/links';

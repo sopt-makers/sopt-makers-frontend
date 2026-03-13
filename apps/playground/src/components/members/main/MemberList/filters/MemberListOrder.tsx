@@ -3,7 +3,7 @@ import { colors } from '@sopt-makers/colors';
 import { IconSwitchVertical } from '@sopt-makers/icons';
 import { SelectV2 } from '@sopt-makers/ui';
 
-import { Option } from '@/components/members/main/MemberList/filters/constants';
+import type { Option } from '@/components/members/main/MemberList/filters/constants';
 
 interface MemberListOrderProps<T> {
   className?: string;

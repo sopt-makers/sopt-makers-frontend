@@ -1,5 +1,5 @@
-import { AxiosRequestConfig } from 'axios';
-import { z } from 'zod';
+import type { AxiosRequestConfig } from 'axios';
+import type { z } from 'zod';
 
 import { axiosInstance } from '@/api';
 import { DEBUG } from '@/constants/env';

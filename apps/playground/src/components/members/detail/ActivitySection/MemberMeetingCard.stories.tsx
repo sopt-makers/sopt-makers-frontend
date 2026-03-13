@@ -1,4 +1,4 @@
-import { Meta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
 import MemberMeetingCard from '@/components/members/detail/ActivitySection/MemberMeetingCard';
 

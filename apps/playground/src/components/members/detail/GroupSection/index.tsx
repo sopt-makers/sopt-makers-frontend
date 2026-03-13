@@ -1,20 +1,20 @@
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
+import { useVirtualizer } from '@tanstack/react-virtual';
 import axios from 'axios';
 import Link from 'next/link';
 import { useCallback, useRef } from 'react';
-import { useVirtualizer } from '@tanstack/react-virtual';
 
-import { ProfileDetail } from '@/api/endpoint_LEGACY/members/type';
+import { useMemberMeetingList } from '@/api/crew/getMeetingList';
+import type { ProfileDetail } from '@/api/endpoint_LEGACY/members/type';
+import Loading from '@/components/common/Loading';
 import ResizedImage from '@/components/common/ResizedImage';
 import Text from '@/components/common/Text';
 import MemberMeetingCard from '@/components/members/detail/ActivitySection/MemberMeetingCard';
 import EmptyProfile from '@/components/members/detail/EmptyProfile';
 import { playgroundLink } from '@/constants/links';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
-import { useMemberMeetingList } from '@/api/crew/getMeetingList';
-import Loading from '@/components/common/Loading';
 
 interface GroupSectionProps {
   profile: ProfileDetail;

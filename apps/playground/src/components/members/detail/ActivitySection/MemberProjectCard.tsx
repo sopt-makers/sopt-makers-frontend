@@ -1,7 +1,7 @@
 import Link from 'next/link';
-import { FC } from 'react';
+import type { FC } from 'react';
 
-import { MemberProject } from '@/api/endpoint_LEGACY/members/type';
+import type { MemberProject } from '@/api/endpoint_LEGACY/members/type';
 import ContentsCard from '@/components/common/ContentsCard';
 import { PROJECT_CATEGORY_LABEL } from '@/components/members/detail/constants';
 import { playgroundLink } from '@/constants/links';

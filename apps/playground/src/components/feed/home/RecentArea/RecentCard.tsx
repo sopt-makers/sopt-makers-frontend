@@ -2,15 +2,15 @@ import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
-import { RecentPosts } from '@/api/endpoint/feed/getRecentPosts';
+import type { RecentPosts } from '@/api/endpoint/feed/getRecentPosts';
 import Text from '@/components/common/Text';
 import { LoggingClick } from '@/components/eventLogger/components/LoggingClick';
 import { parseMentionsToJSX } from '@/components/feed/common/utils/parseMention';
 import { QUESTION_CATEGORY_ID } from '@/components/feed/constants';
 import FeedIcon from '@/components/feed/home/RecentArea/FeedIcon';
 import VoteIcon from '@/public/icons/icon-vote.svg';
-import { useRouter } from 'next/router';
 
 interface RecentCardProps {
   recentPosts: RecentPosts;

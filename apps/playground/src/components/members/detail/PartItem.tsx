@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import { IconPlus } from '@sopt-makers/icons';
 import { Tag } from '@sopt-makers/ui';
 import Link from 'next/link';
-import { playgroundLink } from '@sopt/ui';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import Text from '@/components/common/Text';
 import ActivityBadge from '@/components/members/detail/ActivityBadge';

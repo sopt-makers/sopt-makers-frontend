@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
-import { Controller, FieldError, useFieldArray, useFormContext } from 'react-hook-form';
+import type { FieldError } from 'react-hook-form';
+import { Controller, useFieldArray, useFormContext } from 'react-hook-form';
 
 import BottomSheetSelect from '@/components/coffeechat/upload/CoffeechatForm/BottomSheetSelect';
 import Responsive from '@/components/common/Responsive';
@@ -10,7 +11,7 @@ import { DEFAULT_ACTIVITY, PARTS, TEAMS } from '@/components/members/upload/cons
 import FormHeader from '@/components/members/upload/forms/FormHeader';
 import { MemberFormSection as FormSection } from '@/components/members/upload/forms/FormSection';
 import Select from '@/components/members/upload/forms/Select';
-import { MemberUploadForm } from '@/components/members/upload/types';
+import type { MemberUploadForm } from '@/components/members/upload/types';
 import { GENERATIONS, LAST_EDITABLE_GENERATION } from '@/constants/generation';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
@@ -47,8 +48,8 @@ export default function MemberSoptActivityFormSection({
       | undefined,
   ) => {
     if (!activityError) return;
-    if (activityError.hasOwnProperty('generation')) return activityError.generation?.message;
-    if (activityError.hasOwnProperty('part')) return activityError.part?.message;
+    if (Object.prototype.hasOwnProperty.call(activityError, 'generation')) return activityError.generation?.message;
+    if (Object.prototype.hasOwnProperty.call(activityError, 'part')) return activityError.part?.message;
     return activityError.team?.message;
   };
 

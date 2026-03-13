@@ -1,7 +1,8 @@
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
 import { m, useMotionTemplate, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { FC, MouseEvent, ReactNode, useEffect, useRef, useState } from 'react';
+import type { FC, MouseEvent, ReactNode } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 

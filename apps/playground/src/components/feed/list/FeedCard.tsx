@@ -6,7 +6,8 @@ import { Tag } from '@sopt-makers/ui';
 import { Flex, Spacing, Stack } from '@toss/emotion-utils';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { forwardRef, PropsWithChildren, ReactNode, useState } from 'react';
+import type { PropsWithChildren, ReactNode } from 'react';
+import { forwardRef, useState } from 'react';
 
 import HorizontalScroller from '@/components/common/HorizontalScroller';
 import ImageWithSkeleton from '@/components/common/ImageWithSkeleton';

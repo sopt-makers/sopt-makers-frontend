@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { z } from 'zod';
 
 import { createEndpoint } from '@/api/typedAxios';
-import { WorkPreferenceType } from '@/components/matchmember/constant';
+import type { WorkPreferenceType } from '@/components/matchmember/constant';
 
 export const postWorkPreference = createEndpoint({
   request: (requestBody: WorkPreferenceType) => ({

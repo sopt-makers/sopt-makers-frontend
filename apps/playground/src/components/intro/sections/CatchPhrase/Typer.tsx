@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
-import { FC, useEffect, useRef, useState } from 'react';
+import type { FC } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 interface TyperProps {
   sequence: Sentence[];

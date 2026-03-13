@@ -1,7 +1,8 @@
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
 import { AnimatePresence, m } from 'framer-motion';
-import { FC, FormEvent, ReactNode, useState } from 'react';
+import type { FC, FormEvent, ReactNode } from 'react';
+import { useState } from 'react';
 
 import { PHONE_REGEX, PHONE_REGEX_SHORT } from '@/components/auth/register/verify/regex';
 import VerifySubmitButton from '@/components/auth/register/verify/VerifySubmitButton';

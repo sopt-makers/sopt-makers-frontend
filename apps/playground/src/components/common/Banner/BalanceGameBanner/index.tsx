@@ -1,10 +1,11 @@
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
 import { useRouter } from 'next/router';
-import { MB_BASE_MEDIA_QUERY, PCTA_S_MEDIA_QUERY } from '@/styles/mediaQuery';
+
 import matchMemberBannerDesktop from '@/public/icons/img/banner_balancegame_desktop.png';
-import matchMemberBannerMobile from '@/public/icons/img/banner_balancegame_mobile.png';
 import matchMemberBannerMid from '@/public/icons/img/banner_balancegame_mid.png';
-import { playgroundLink } from '@sopt/ui';
+import matchMemberBannerMobile from '@/public/icons/img/banner_balancegame_mobile.png';
+import { MB_BASE_MEDIA_QUERY, PCTA_S_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 const BalanceGameBanner = () => {
   const router = useRouter();

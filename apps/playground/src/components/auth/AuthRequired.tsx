@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
-import { FC, ReactNode, useCallback, useEffect, useRef } from 'react';
+import type { FC, ReactNode } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 
 import { tokenStorage } from '@/components/auth/util/accessToken';
 import useLastUnauthorized from '@/components/auth/util/useLastUnauthorized';

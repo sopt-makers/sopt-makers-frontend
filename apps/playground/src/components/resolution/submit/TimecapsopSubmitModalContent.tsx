@@ -3,7 +3,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { colors } from '@sopt-makers/colors';
 import { IconAlertCircle } from '@sopt-makers/icons';
 import { TextArea } from '@sopt-makers/ui';
-import { FC, useState } from 'react';
+import type { FC } from 'react';
+import { useState } from 'react';
 import { useEffect, useRef } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import * as yup from 'yup';
@@ -11,8 +12,9 @@ import * as yup from 'yup';
 import RHFControllerFormItem from '@/components/common/form/RHFControllerFormItem';
 import Loading from '@/components/common/Loading';
 import Text from '@/components/common/Text';
-import { ModalProps } from '@/components/members/detail/MessageSection/Modal';
-import { TAG, TimecapsopTag } from '@/components/resolution/constants';
+import type { ModalProps } from '@/components/members/detail/MessageSection/Modal';
+import type { TimecapsopTag } from '@/components/resolution/constants';
+import { TAG } from '@/components/resolution/constants';
 import { useConfirmResolution } from '@/components/resolution/submit/useConfirmResolution';
 import { pgColors } from '@/styles/colors';
 import { MOBILE_MAX_WIDTH, MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
@@ -54,19 +56,15 @@ const TimecapsopSubmitModalContent: FC<TimecapsopSubmitModalProps> = ({ userName
   };
 
   const submit = async ({ content }: TimecapsopForm) => {
-    try {
-      if (!isValid) return;
-      handleConfirmResolution({
-        content,
-        tags: selectedTag,
-        onSuccess: () => {
-          props.onClose();
-          props.onSuccess();
-        },
-      });
-    } catch (error) {
-      throw error;
-    }
+    if (!isValid) return;
+    handleConfirmResolution({
+      content,
+      tags: selectedTag,
+      onSuccess: () => {
+        props.onClose();
+        props.onSuccess();
+      },
+    });
   };
 
   const textareaRef = useRef<HTMLTextAreaElement>(null);

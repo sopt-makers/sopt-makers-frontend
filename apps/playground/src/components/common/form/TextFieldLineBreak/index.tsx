@@ -3,7 +3,7 @@ import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 import { TextArea } from '@sopt-makers/ui';
 
-import { CoffeechatFormPaths } from '@/components/coffeechat/upload/CoffeechatForm/types';
+import type { CoffeechatFormPaths } from '@/components/coffeechat/upload/CoffeechatForm/types';
 
 interface TextFieldLineBreakProps {
   name: CoffeechatFormPaths;

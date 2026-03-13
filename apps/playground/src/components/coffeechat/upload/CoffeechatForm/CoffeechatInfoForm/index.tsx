@@ -10,7 +10,7 @@ import {
   COFFECHAT_TOPIC,
   MEETING_TYPE_OPTIONS,
 } from '@/components/coffeechat/upload/CoffeechatForm/constants';
-import { CoffeechatFormContent } from '@/components/coffeechat/upload/CoffeechatForm/types';
+import type { CoffeechatFormContent } from '@/components/coffeechat/upload/CoffeechatForm/types';
 import FormItem from '@/components/common/form/FormItem';
 import FormTitle from '@/components/common/form/FormTitle';
 import TextFieldLineBreak from '@/components/common/form/TextFieldLineBreak';

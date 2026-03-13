@@ -1,11 +1,13 @@
-import { useGetReviewsInfiniteQuery } from '@/api/endpoint/remember/getReviews';
-import { useUploadReviewMutation } from '@/api/endpoint/remember/uploadReview';
-import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
-import { ChangeEvent, useState } from 'react';
+import type { ChangeEvent } from 'react';
+import { useState } from 'react';
 import TextareaAutosize from 'react-textarea-autosize';
+
+import { useGetReviewsInfiniteQuery } from '@/api/endpoint/remember/getReviews';
+import { useUploadReviewMutation } from '@/api/endpoint/remember/uploadReview';
+import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 const MAX_LENGTH = 3000;
 

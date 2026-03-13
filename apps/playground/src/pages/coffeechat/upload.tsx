@@ -1,9 +1,10 @@
-import { DialogOptionType, useDialog, useToast } from '@sopt-makers/ui';
+import { playgroundLink } from '@sopt/constant';
+import type { DialogOptionType } from '@sopt-makers/ui';
+import { useDialog, useToast } from '@sopt-makers/ui';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
-import { playgroundLink } from '@sopt/ui';
 import { useMemo } from 'react';
-import { FieldValues } from 'react-hook-form';
+import type { FieldValues } from 'react-hook-form';
 
 import { getCoffeechatDetail } from '@/api/endpoint/coffeechat/getCoffeechatDetail';
 import { uploadCoffeechat } from '@/api/endpoint/coffeechat/uploadCoffeechat';
@@ -12,7 +13,7 @@ import { useGetMemberProfileById } from '@/api/endpoint_LEGACY/hooks';
 import AuthRequired from '@/components/auth/AuthRequired';
 import CoffeechatLoading from '@/components/coffeechat/Loading';
 import CoffeechatUploadPage from '@/components/coffeechat/page/CoffeechatUploadPage';
-import { CoffeechatFormContent } from '@/components/coffeechat/upload/CoffeechatForm/types';
+import type { CoffeechatFormContent } from '@/components/coffeechat/upload/CoffeechatForm/types';
 import useEventLogger from '@/components/eventLogger/hooks/useEventLogger';
 import { setLayout } from '@/utils/layout';
 

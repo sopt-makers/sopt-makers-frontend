@@ -1,4 +1,5 @@
-import { Meta, StoryObj } from '@storybook/react';
+import type { Meta } from '@storybook/react';
+import { StoryObj } from '@storybook/react';
 import { useState } from 'react';
 
 import ProjectFilterChip from './ProjectFilterChip';
@@ -8,7 +9,7 @@ const meta = {
 } satisfies Meta<typeof ProjectFilterChip>;
 export default meta;
 
-export const 기본 = () => {
+export const Default = () => {
   const [checked, onChange] = useState<boolean>(false);
   return (
     <ProjectFilterChip checked={checked} onCheckedChange={onChange}>
@@ -16,3 +17,4 @@ export const 기본 = () => {
     </ProjectFilterChip>
   );
 };
+Default.storyName = '기본';

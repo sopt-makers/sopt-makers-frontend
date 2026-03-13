@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
-import { Meta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
 import DesktopFeedUploadLayout from '@/components/feed/upload/layout/DesktopFeedUploadLayout';
 import BackArrow from '@/public/icons/icon_chevron_left.svg';

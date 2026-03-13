@@ -2,9 +2,10 @@ import styled from '@emotion/styled';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { colors } from '@sopt-makers/colors';
 import dynamic from 'next/dynamic';
-import { FC, ReactNode, useState } from 'react';
+import type { FC, ReactNode } from 'react';
+import { useState } from 'react';
 
-import { LinkRenderer } from '@/components/common/Header/types';
+import type { LinkRenderer } from '@/components/common/Header/types';
 import { textStyles } from '@/styles/typography';
 import { zIndex } from '@/styles/zIndex';
 

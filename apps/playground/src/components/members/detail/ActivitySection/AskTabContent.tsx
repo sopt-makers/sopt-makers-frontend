@@ -8,7 +8,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
-import { QuestionTab, useGetMemberQuestions } from '@/api/endpoint/members/getMemberQuestions';
+import type { QuestionTab } from '@/api/endpoint/members/getMemberQuestions';
+import { useGetMemberQuestions } from '@/api/endpoint/members/getMemberQuestions';
 import { useGetMyLatestAnsweredQuestion } from '@/api/endpoint/members/getMyLatestAnsweredQuestion';
 import { usePostQuestionReaction } from '@/api/endpoint/members/postQuestionReaction';
 import Pagination from '@/components/common/Pagination';

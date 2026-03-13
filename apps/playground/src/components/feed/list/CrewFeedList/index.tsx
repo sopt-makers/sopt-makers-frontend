@@ -2,7 +2,8 @@ import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
 import { useRouter } from 'next/router';
 import { useRef } from 'react';
-import { Virtuoso, VirtuosoHandle } from 'react-virtuoso';
+import type { VirtuosoHandle } from 'react-virtuoso';
+import { Virtuoso } from 'react-virtuoso';
 import { atom, useRecoilState } from 'recoil';
 
 import { useGetCrewPostInfiniteQuery } from '@/api/crew/getCrewPost';

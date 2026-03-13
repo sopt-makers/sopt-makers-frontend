@@ -1,5 +1,5 @@
 import { axiosInstance } from '@/api';
-import {
+import type {
   Member,
   PagedMemberProfile,
   PostMemberMessageVariables,

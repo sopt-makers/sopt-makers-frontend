@@ -1,5 +1,5 @@
-import { Meta, StoryObj } from '@storybook/react';
-import { HttpResponse, http } from 'msw';
+import type { Meta, StoryObj } from '@storybook/react';
+import { http, HttpResponse } from 'msw';
 
 import Example, { API_PATH } from '@/components/common/Example';
 

@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
 import Link from 'next/link';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import Responsive from '@/components/common/Responsive';
 import Text from '@/components/common/Text';

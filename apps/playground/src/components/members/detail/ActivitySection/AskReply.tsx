@@ -9,7 +9,7 @@ import { Flex } from '@toss/emotion-utils';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
-import { MemberQuestion } from '@/api/endpoint/members/getMemberQuestions';
+import type { MemberQuestion } from '@/api/endpoint/members/getMemberQuestions';
 import { usePostAnswerReaction } from '@/api/endpoint/members/postAnswerReaction';
 import useModalState from '@/components/common/Modal/useModalState';
 import ResizedImage from '@/components/common/ResizedImage';
@@ -20,10 +20,10 @@ import FeedDropdown from '@/components/feed/common/FeedDropdown';
 import FeedLike from '@/components/feed/common/FeedLike';
 import { useDeleteQuestionAnswer } from '@/components/feed/common/hooks/useDeleteQuestion';
 import { getRelativeTime } from '@/components/feed/common/utils';
+import { parseMentionsToJSX } from '@/components/feed/common/utils/parseMention';
 import { MessageCategory } from '@/components/members/detail/MessageSection/MessageModal';
 import MessageModal from '@/components/members/detail/MessageSection/MessageModal';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
-import { parseMentionsToJSX } from '@/components/feed/common/utils/parseMention';
 import { parseTextToLink } from '@/utils/parseTextToLink';
 interface AskReplyProps {
   question: MemberQuestion;

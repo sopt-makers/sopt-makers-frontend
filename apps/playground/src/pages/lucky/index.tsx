@@ -1,8 +1,10 @@
+import { playgroundLink } from '@sopt/constant';
+import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
-import { playgroundLink } from '@sopt/ui';
 import { useEffect, useState } from 'react';
 
 import { useGetLuckyPick } from '@/api/endpoint/resolution/getLuckyPick';
+import { useGetResolution } from '@/api/endpoint/resolution/getResolution';
 import { useGetMemberProfileOfMe } from '@/api/endpoint_LEGACY/hooks';
 import AuthRequired from '@/components/auth/AuthRequired';
 import useEventLogger from '@/components/eventLogger/hooks/useEventLogger';
@@ -11,8 +13,6 @@ import LuckyReady from '@/components/luckydraw/LuckyReady';
 import LuckyResult from '@/components/luckydraw/LuckyResult';
 import LuckyWinnerGuide from '@/components/luckydraw/LuckyWinnerGuide';
 import { setLayout } from '@/utils/layout';
-import { useQueryClient } from '@tanstack/react-query';
-import { useGetResolution } from '@/api/endpoint/resolution/getResolution';
 
 type Step = 'ready' | 'loading' | 'result' | 'winnerGuide';
 

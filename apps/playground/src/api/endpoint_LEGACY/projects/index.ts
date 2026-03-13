@@ -1,7 +1,7 @@
 import { QS } from '@toss/utils';
 
 import { axiosInstance } from '@/api';
-import {
+import type {
   ProjectDetail,
   ProjectInput,
   ProjectListResponse,

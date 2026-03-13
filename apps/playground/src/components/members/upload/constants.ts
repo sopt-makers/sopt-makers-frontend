@@ -1,6 +1,6 @@
-import { DefaultValues } from 'react-hook-form';
+import type { DefaultValues } from 'react-hook-form';
 
-import { MemberUploadForm } from '@/components/members/upload/types';
+import type { MemberUploadForm } from '@/components/members/upload/types';
 
 export const UNSELECTED = '선택 안 함';
 

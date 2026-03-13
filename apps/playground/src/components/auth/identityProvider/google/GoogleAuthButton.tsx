@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
-import { FC, ReactNode } from 'react';
+import type { FC, ReactNode } from 'react';
 
 import SquareLink from '@/components/common/SquareLink';
 import IconGoogle from '@/public/icons/icon-google-color.svg';

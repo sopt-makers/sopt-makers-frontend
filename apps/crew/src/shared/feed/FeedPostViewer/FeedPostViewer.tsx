@@ -8,7 +8,7 @@ import { Menu } from '@headlessui/react';
 import { useOverlay } from '@hook/useOverlay/Index';
 import ImageCarouselModal from '@shared/modal/ImageCarouselModal';
 import { parseTextToLink } from '@shared/util/parseTextToLink';
-import { playgroundLink } from '@sopt-makers/playground-common';
+import { playgroundLink } from '@sopt/constant';
 import { useToast } from '@sopt-makers/ui';
 import { fromNow } from '@util/dayjs';
 import dayjs from 'dayjs';

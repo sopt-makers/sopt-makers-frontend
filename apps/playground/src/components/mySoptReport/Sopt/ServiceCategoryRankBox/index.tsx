@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 
-import { ServiceCategoryRankType } from '@/components/mySoptReport/types';
+import type { ServiceCategoryRankType } from '@/components/mySoptReport/types';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 export default function ServiceCategoryRankBox({

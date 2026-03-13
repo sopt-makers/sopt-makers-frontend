@@ -16,7 +16,6 @@
       "outputs": []
     },
     "typecheck": {
-      "dependsOn": ["@sopt/ui#build"],
       "outputs": []
     },
     "test:ci": {

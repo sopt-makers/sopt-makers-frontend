@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import useEventLogger from '@/components/eventLogger/hooks/useEventLogger';
 import { MAKERS_TEAM_URL, playgroundLink } from '@/constants/links';
@@ -16,7 +16,7 @@ interface FooterProps {
   className?: string;
 }
 
-const Footer: FC<FooterProps> = ({}) => {
+const Footer: FC<FooterProps> = () => {
   const { isScrollingDown, isScrollTop } = useScroll();
   const { logClickEvent } = useEventLogger();
   const { pathname } = useRouter();

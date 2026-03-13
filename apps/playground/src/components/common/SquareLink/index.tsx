@@ -1,7 +1,9 @@
 import styled from '@emotion/styled';
-import { AnchorHTMLAttributes, ElementType, forwardRef } from 'react';
+import type { AnchorHTMLAttributes, ElementType } from 'react';
+import { forwardRef } from 'react';
 
-import { ButtonSize, buttonSize, ButtonStyle, buttonStyles } from '@/components/common/SquareLink/style';
+import type { ButtonSize, ButtonStyle } from '@/components/common/SquareLink/style';
+import { buttonSize, buttonStyles } from '@/components/common/SquareLink/style';
 import { textStyles } from '@/styles/typography';
 
 interface ButtonProps extends AnchorHTMLAttributes<HTMLAnchorElement> {

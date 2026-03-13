@@ -1,4 +1,4 @@
-import { Meta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
 import FullScreenLayout from '@/components/layout/FullScreenLayout';
 

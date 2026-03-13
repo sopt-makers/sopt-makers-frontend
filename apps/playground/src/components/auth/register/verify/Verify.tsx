@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import HelpCard from '@/components/auth/register/verify/HelpCard';
 import useByPhone from '@/components/auth/register/verify/useByPhone';
@@ -11,7 +11,7 @@ import { MEMBER_REQUEST_FORM_URL, playgroundLink } from '@/constants/links';
 
 interface VerifyProps {}
 
-const Verify: FC<VerifyProps> = ({}) => {
+const Verify: FC<VerifyProps> = () => {
   const { logSubmitEvent } = useEventLogger();
 
   const router = useRouter();

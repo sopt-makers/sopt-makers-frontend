@@ -2,7 +2,8 @@ import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
 import { useToast } from '@sopt-makers/ui';
 import Link from 'next/link';
-import { FC, useEffect, useMemo, useState } from 'react';
+import type { FC } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import type { MemberQuestion } from '@/api/endpoint/members/getMemberQuestions';
 import { usePostMemberQuestionAnswer } from '@/api/endpoint/members/postMemberAnswer';

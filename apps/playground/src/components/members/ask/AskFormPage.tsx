@@ -1,8 +1,9 @@
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
-import { IconChevronLeft, IconFlipForward, IconRepeat } from '@sopt-makers/icons';
+import { IconFlipForward } from '@sopt-makers/icons';
 import { Button } from '@sopt-makers/ui';
-import { ReactNode, useEffect, useRef, useState } from 'react';
+import type { ReactNode } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import Checkbox from '@/components/common/Checkbox';
 import Responsive from '@/components/common/Responsive';

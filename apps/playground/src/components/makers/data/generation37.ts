@@ -1,4 +1,4 @@
-import { MakersGeneration } from '@/components/makers/data/types';
+import type { MakersGeneration } from '@/components/makers/data/types';
 
 export const generation37: MakersGeneration = {
   title: '37기',

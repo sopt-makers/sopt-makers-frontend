@@ -1,4 +1,4 @@
-import { Mentoring, MentoringData } from '@/components/mentoring/data/types';
+import type { Mentoring, MentoringData } from '@/components/mentoring/data/types';
 
 const MENTOR_LIST = [
   { id: 1, name: '송정우' },

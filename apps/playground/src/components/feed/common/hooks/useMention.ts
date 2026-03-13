@@ -1,6 +1,7 @@
 import { colors } from '@sopt-makers/colors';
 import { useDebounce } from '@toss/react';
-import { RefObject, useState } from 'react';
+import type { RefObject } from 'react';
+import { useState } from 'react';
 
 import useGetMembersByNameQuery from '@/components/projects/upload/hooks/useGetMembersByNameQuery';
 

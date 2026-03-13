@@ -1,6 +1,7 @@
 import { useUserProfileQueryOption } from '@api/user/query';
 import { ACCESS_TOKEN_KEY } from '@shared/util/auth';
-import { DesktopHeader, MobileHeader, playgroundLink } from '@sopt-makers/playground-common';
+import { playgroundLink } from '@sopt/constant';
+import { DesktopHeader, MobileHeader } from '@sopt/ui';
 import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 import type { FC, ReactNode } from 'react';

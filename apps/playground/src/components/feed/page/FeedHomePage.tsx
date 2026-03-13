@@ -1,7 +1,7 @@
 import { useQueryClient } from '@tanstack/react-query';
 import { ImpressionArea } from '@toss/impression-area';
 import Link from 'next/link';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import { useGetPostsInfiniteQuery } from '@/api/endpoint/feed/getPosts';
 import Responsive from '@/components/common/Responsive';

@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import * as ScrollArea from '@radix-ui/react-scroll-area';
 import { colors } from '@sopt-makers/colors';
-import { FC, FormEvent, ReactNode } from 'react';
+import type { FC, FormEvent, ReactNode } from 'react';
 
 import { cardStyle } from '@/components/soulmate/view/common/commonStyles';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';

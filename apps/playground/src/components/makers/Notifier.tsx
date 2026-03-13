@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import IconOutgoing from '@/public/icons/icon-link-outgoing.svg';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';

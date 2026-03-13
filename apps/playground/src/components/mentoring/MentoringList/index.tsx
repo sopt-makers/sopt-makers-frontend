@@ -3,7 +3,8 @@ import { colors } from '@sopt-makers/colors';
 import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 import ArrowDiagonalIcon from 'public/icons/icon-diagonal-arrow.svg';
-import { ReactNode, startTransition, useEffect, useState } from 'react';
+import type { ReactNode } from 'react';
+import { startTransition, useEffect, useState } from 'react';
 
 import { getMemberProfileById } from '@/api/endpoint_LEGACY/members';
 import Carousel from '@/components/common/Carousel';

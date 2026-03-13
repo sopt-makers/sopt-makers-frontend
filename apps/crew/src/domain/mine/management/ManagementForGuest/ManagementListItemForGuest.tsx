@@ -1,6 +1,6 @@
 import type { GetMeetingMemberList } from '@api/meeting/type';
 import ProfileDefaultIcon from '@assets/svg/profile_default.svg?rect';
-import { playgroundLink } from '@sopt-makers/playground-common';
+import { playgroundLink } from '@sopt/constant';
 import dayjs from 'dayjs';
 import { styled } from 'stitches.config';
 

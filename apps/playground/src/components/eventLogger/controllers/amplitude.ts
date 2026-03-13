@@ -1,7 +1,7 @@
 import { createInstance, Identify } from '@amplitude/analytics-browser';
 
-import { UserProperties } from '@/components/eventLogger/events';
-import { EventLoggerController } from '@/components/eventLogger/types';
+import type { UserProperties } from '@/components/eventLogger/events';
+import type { EventLoggerController } from '@/components/eventLogger/types';
 
 export function createAmplitudeController(apiKey: string, userId: string | undefined): EventLoggerController {
   const instance = createInstance();

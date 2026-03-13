@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import IconArrowRight from '@/public/icons/icon-arrow-right.svg';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';

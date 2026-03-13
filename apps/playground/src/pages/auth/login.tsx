@@ -3,7 +3,8 @@ import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 import { m } from 'framer-motion';
 import Link from 'next/link';
-import { FC, useEffect, useState } from 'react';
+import type { FC } from 'react';
+import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 
 import AppleAuthButton from '@/components/auth/identityProvider/apple/AppleAuthButton';

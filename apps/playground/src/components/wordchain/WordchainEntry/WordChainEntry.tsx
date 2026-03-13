@@ -4,7 +4,7 @@ import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 import { Flex } from '@toss/emotion-utils';
 import Link from 'next/link';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import { useGetEntryWordchain } from '@/api/endpoint/wordchain/getWordchain';
 import { ADS } from '@/components/common/Banner/AdsBanner/constants/ads';
@@ -87,8 +87,8 @@ const WordChainEntry: FC<WordChainEntryProps> = ({ className }) => {
                                   </Flex>
                                   {lastWinner ? (
                                     <GotoWordChainSub>
-                                      이번 우승자는 <LastWord>{lastWinner?.winner.name}</LastWord>님 입니다! '
-                                      {data.nextSyllable}'(으)로 시작하는 단어는?
+                                      이번 우승자는 <LastWord>{lastWinner?.winner.name}</LastWord>님 입니다! &apos;
+                                      {data.nextSyllable}&apos;(으)로 시작하는 단어는?
                                     </GotoWordChainSub>
                                   ) : (
                                     <GotoWordChainSub>우승하고 명예의 전당에 올라가보세요!</GotoWordChainSub>
@@ -109,8 +109,8 @@ const WordChainEntry: FC<WordChainEntryProps> = ({ className }) => {
                               </Flex>
                               {lastWinner ? (
                                 <GotoWordChainSub>
-                                  이번 우승자는 <LastWord>{lastWinner?.winner.name}</LastWord>님 입니다! '
-                                  {data.nextSyllable}'(으)로 시작하는 단어는?
+                                  이번 우승자는 <LastWord>{lastWinner?.winner.name}</LastWord>님 입니다! &apos;
+                                  {data.nextSyllable}&apos;(으)로 시작하는 단어는?
                                 </GotoWordChainSub>
                               ) : (
                                 <GotoWordChainSub>우승하고 명예의 전당에 올라가보세요!</GotoWordChainSub>

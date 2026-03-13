@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
-import { PropsWithChildren } from 'react';
+import type { PropsWithChildren } from 'react';
 
 interface ProjectFilterChipProps {
   checked: boolean;

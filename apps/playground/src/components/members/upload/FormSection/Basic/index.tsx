@@ -3,7 +3,8 @@ import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 import { Button, TextArea, TextField, useToast } from '@sopt-makers/ui';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ChangeEvent, MouseEvent, ReactNode, useState } from 'react';
+import type { ChangeEvent, MouseEvent, ReactNode } from 'react';
+import { useState } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 
 import { useCreatePhoneAuth } from '@/api/endpoint/auth/createPhoneAuth';
@@ -19,7 +20,7 @@ import { formatTime } from '@/components/members/upload/format';
 import FormHeader from '@/components/members/upload/forms/FormHeader';
 import FormItem from '@/components/members/upload/forms/FormItem';
 import { MemberFormSection as FormSection } from '@/components/members/upload/forms/FormSection';
-import { MemberUploadForm } from '@/components/members/upload/types';
+import type { MemberUploadForm } from '@/components/members/upload/types';
 import IconCamera from '@/public/icons/icon-camera.svg';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 export default function MemberBasicFormSection() {
@@ -171,7 +172,7 @@ export default function MemberBasicFormSection() {
           <StyledTextField
             disabled
             {...register('name')}
-            isError={errors.hasOwnProperty('name')}
+            isError={Object.prototype.hasOwnProperty.call(errors, 'name')}
             errorMessage={errors.name?.message}
             placeholder='이름 입력'
           />
@@ -181,21 +182,21 @@ export default function MemberBasicFormSection() {
             <StyledTextField
               {...register('birthday.year')}
               placeholder='년도'
-              isError={errors.birthday?.hasOwnProperty('year')}
+              isError={Object.prototype.hasOwnProperty.call(errors.birthday ?? {}, 'year')}
               type='number'
               pattern='\d*'
             />
             <StyledTextField
               {...register('birthday.month')}
               placeholder='월'
-              isError={errors.birthday?.hasOwnProperty('month')}
+              isError={Object.prototype.hasOwnProperty.call(errors.birthday ?? {}, 'month')}
               type='number'
               pattern='\d*'
             />
             <StyledTextField
               {...register('birthday.day')}
               placeholder='일'
-              isError={errors.birthday?.hasOwnProperty('day')}
+              isError={Object.prototype.hasOwnProperty.call(errors.birthday ?? {}, 'day')}
               type='number'
               pattern='\d*'
             />
@@ -216,11 +217,11 @@ export default function MemberBasicFormSection() {
               {...register('phone')}
               placeholder='010XXXXXXXX'
               maxLength={11}
-              isError={errors.hasOwnProperty('phone')}
+              isError={Object.prototype.hasOwnProperty.call(errors, 'phone')}
               noMargin
             />
             <StyledButton
-              disabled={!dirtyFields.phone || errors.hasOwnProperty('phone')}
+              disabled={!dirtyFields.phone || Object.prototype.hasOwnProperty.call(errors, 'phone')}
               onClick={handleCreatePhoneAuth}
             >
               인증번호 받기
@@ -263,7 +264,7 @@ export default function MemberBasicFormSection() {
             {...register('email')}
             type='email'
             placeholder='이메일 입력'
-            isError={errors.hasOwnProperty('email')}
+            isError={Object.prototype.hasOwnProperty.call(errors, 'email')}
           />
         </FormItem>
         <FormItem

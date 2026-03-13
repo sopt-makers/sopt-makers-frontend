@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 import { IconAlertTriangle, IconBirthdaySecondary, IconMail, IconPhone, IconUser, IconUserX } from '@sopt-makers/icons';
@@ -7,10 +8,9 @@ import dayjs from 'dayjs';
 import { uniq } from 'lodash-es';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { playgroundLink } from '@sopt/ui';
 import EditIcon from 'public/icons/icon-edit.svg';
 
-import { ProfileDetail } from '@/api/endpoint_LEGACY/members/type';
+import type { ProfileDetail } from '@/api/endpoint_LEGACY/members/type';
 import ResizedImage from '@/components/common/ResizedImage';
 import Responsive from '@/components/common/Responsive';
 import useEventLogger from '@/components/eventLogger/hooks/useEventLogger';

@@ -3,7 +3,7 @@ import { colors } from '@sopt-makers/colors';
 import { Button } from '@sopt-makers/ui';
 import { m } from 'framer-motion';
 import { useRouter } from 'next/router';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import { LoggingClick } from '@/components/eventLogger/components/LoggingClick';
 import { playgroundLink } from '@/constants/links';
@@ -12,7 +12,7 @@ import { textStyles } from '@/styles/typography';
 
 interface UploadSuccessProps {}
 
-const UploadSuccess: FC<UploadSuccessProps> = ({}) => {
+const UploadSuccess: FC<UploadSuccessProps> = () => {
   const router = useRouter();
 
   return (

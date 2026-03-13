@@ -1,19 +1,20 @@
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
 import { Button, useToast } from '@sopt-makers/ui';
+import { useRouter } from 'next/router';
 
+import { useGetResolution } from '@/api/endpoint/resolution/getResolution';
 import { useGetResolutionValidation } from '@/api/endpoint/resolution/getResolutionValidation';
-import Modal, { ModalProps } from '@/components/common/Modal';
+import { ModalBottomSheet } from '@/components/common/BottomSheet/ModalBottomSheet';
+import type { ModalProps } from '@/components/common/Modal';
+import Modal from '@/components/common/Modal';
 import { ModalContent, ModalFooter } from '@/components/common/Modal/parts';
+import Responsive from '@/components/common/Responsive';
 import { LoggingClick } from '@/components/eventLogger/components/LoggingClick';
 import useImageDownload from '@/components/resolution/read/hooks/useImageDownload';
 import ResolutionMessage from '@/components/resolution/read/ResolutionMessage';
 import { MB_MID_MEDIA_QUERY, MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 import { zIndex } from '@/styles/zIndex';
-import { useGetResolution } from '@/api/endpoint/resolution/getResolution';
-import Responsive from '@/components/common/Responsive';
-import { ModalBottomSheet } from '@/components/common/BottomSheet/ModalBottomSheet';
-import { useRouter } from 'next/router';
 
 const ResolutionReadModal = ({ isOpen, onClose }: ModalProps) => {
   const { ref: imageRef, onClick: onDownloadButtonClick } = useImageDownload('at-sopt-다짐메시지');
