@@ -25,8 +25,6 @@ export interface ModalProps extends PropsWithChildren<HTMLAttributes<HTMLDivElem
   onClose: () => void;
 }
 
-
-
 const Modal: FC<ModalProps> = (props) => {
   const { confirmIcon, children, title = '', content, isOpen, onClose, width, ...restProps } = props;
   const modalRef = useRef<HTMLDivElement>(null);

@@ -37,7 +37,9 @@ export const usePostCommentMutation = (postId: string) => {
   return useMutation({
     mutationFn: (reqeustBody: RequestBody) => postComment.request(postId, reqeustBody),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: useGetPostsInfiniteQuery.getKey('') });
+      queryClient.invalidateQueries({
+        queryKey: useGetPostsInfiniteQuery.getKey(''),
+      });
       queryClient.invalidateQueries({ queryKey: getRecentPosts.cacheKey() });
     },
   });

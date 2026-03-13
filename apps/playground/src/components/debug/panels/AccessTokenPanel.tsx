@@ -51,7 +51,9 @@ const AccessTokenPanel: FC = () => {
     if (!accessToken) {
       return null;
     }
-    copyToClipboard(accessToken, { onSuccess: () => toast.show({ message: '토큰이 복사되었습니다.' }) });
+    copyToClipboard(accessToken, {
+      onSuccess: () => toast.show({ message: '토큰이 복사되었습니다.' }),
+    });
   };
 
   return (

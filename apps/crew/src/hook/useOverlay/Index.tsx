@@ -1,7 +1,9 @@
 import { useContext, useEffect, useMemo, useRef, useState } from 'react';
+
+import type { OverlayControlRef } from './OverlayController';
+import { OverlayController } from './OverlayController';
 import { OverlayContext } from './OverlayProvider';
-import { OverlayController, OverlayControlRef } from './OverlayController';
-import { CreateOverlayElement } from './types';
+import type { CreateOverlayElement } from './types';
 
 let elementId = 1;
 
@@ -35,13 +37,13 @@ export function useOverlay() {
             onExit={() => {
               unmount(id);
             }}
-          />
+          />,
         );
       },
       close: () => {
         overlayRef.current?.close();
       },
     }),
-    [id, mount, unmount]
+    [id, mount, unmount],
   );
 }

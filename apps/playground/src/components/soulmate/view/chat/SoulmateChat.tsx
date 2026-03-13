@@ -53,9 +53,9 @@ const submitIcon = (
         width='14.9833'
         height='17.538'
         filterUnits='userSpaceOnUse'
-        color-interpolation-filters='sRGB'
+        colorInterpolationFilters='sRGB'
       >
-        <feFlood flood-opacity='0' result='BackgroundImageFix' />
+        <feFlood floodOpacity='0' result='BackgroundImageFix' />
         <feGaussianBlur in='BackgroundImageFix' stdDeviation='0.727273' />
         <feComposite in2='SourceAlpha' operator='in' result='effect1_backgroundBlur_6244_90835' />
         <feBlend mode='normal' in='SourceGraphic' in2='effect1_backgroundBlur_6244_90835' result='shape' />

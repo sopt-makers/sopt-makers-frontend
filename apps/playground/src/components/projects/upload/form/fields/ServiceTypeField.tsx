@@ -62,7 +62,9 @@ const StyledLabel = styled.label<{ checked?: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.2s, color 0.2s;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
   border-radius: 100px;
   background-color: ${colors.gray700};
   cursor: pointer;

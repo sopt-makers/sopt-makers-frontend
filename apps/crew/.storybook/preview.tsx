@@ -1,5 +1,5 @@
 import type { Preview } from '@storybook/react';
-import { OverlayProvider } from '../src/hooks/useOverlay/OverlayProvider';
+import { OverlayProvider } from '../src/hook/useOverlay/OverlayProvider';
 import React from 'react';
 import '../styles/globals.css';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -24,7 +24,7 @@ const preview: Preview = {
     },
   },
   decorators: [
-    Story => {
+    (Story) => {
       const queryClient = new QueryClient();
 
       return (

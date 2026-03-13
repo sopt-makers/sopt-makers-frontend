@@ -24,7 +24,14 @@ const RecentCard = ({ recentPosts }: RecentCardProps) => {
   const router = useRouter();
 
   return (
-    <LoggingClick eventKey='feedCard' param={{ feedId: String(id), category: categoryName, referral: 'category_HOT' }}>
+    <LoggingClick
+      eventKey='feedCard'
+      param={{
+        feedId: String(id),
+        category: categoryName,
+        referral: 'category_HOT',
+      }}
+    >
       <CardContainer href={`/?category=${categoryId}&feed=${id}`}>
         <CardContent>
           <TitleStyle>

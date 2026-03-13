@@ -1,4 +1,3 @@
-import { ampli } from '@/ampli';
 import { useMeetingQueryOption } from '@api/meeting/query';
 import { useMutationPostPostWithMention } from '@api/mention/mutation';
 import { postPost } from '@api/post';
@@ -9,7 +8,8 @@ import useModal from '@hook/useModal';
 import useThrottle from '@hook/useThrottle';
 import { zodResolver } from '@hookform/resolvers/zod';
 import ConfirmModal from '@shared/modal/ConfirmModal';
-import ModalContainer, { ModalContainerProps } from '@shared/modal/ModalContainer';
+import type { ModalContainerProps } from '@shared/modal/ModalContainer';
+import ModalContainer from '@shared/modal/ModalContainer';
 import { parseMentionedUserIds } from '@shared/util/parseMentionedUserIds';
 import { useToast } from '@sopt-makers/ui';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -17,12 +17,17 @@ import { formatDate } from '@util/dayjs';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+import type { SubmitHandler } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 import { styled } from 'stitches.config';
-import FeedFormPresentation from './FeedFormPresentation';
-import { FormCreateType, feedCreateSchema } from './feedSchema';
 
-const DevTool = dynamic(() => import('@hookform/devtools').then(module => module.DevTool), {
+import { ampli } from '@/ampli';
+
+import FeedFormPresentation from './FeedFormPresentation';
+import type { FormCreateType } from './feedSchema';
+import { feedCreateSchema } from './feedSchema';
+
+const DevTool = dynamic(() => import('@hookform/devtools').then((module) => module.DevTool), {
   ssr: false,
 });
 
@@ -59,7 +64,7 @@ function FeedCreateModal({ isModalOpened, meetingId, handleModalClose }: CreateM
 
   const { mutateAsync: mutateCreateFeed, isPending: isSubmitting } = useMutation({
     mutationFn: (formData: FormCreateType) => postPost(formData),
-    onSuccess: res => {
+    onSuccess: (res) => {
       queryClient.invalidateQueries({ queryKey: PostQueryKey.all() });
       alert('피드를 작성했습니다.');
       const mentionedOrgIds = parseMentionedUserIds(formMethods.getValues().contents);
@@ -124,7 +129,7 @@ function FeedCreateModal({ isModalOpened, meetingId, handleModalClose }: CreateM
               imageUrl: detailData?.imageURL[THUMBNAIL_IMAGE_INDEX]?.url || '',
               category: detailData?.category || '',
             }}
-            title="피드 작성"
+            title='피드 작성'
             handleDeleteImage={handleDeleteImage}
             handleModalClose={handleModalClose}
             onSubmit={formMethods.handleSubmit(handleSubmitClick)}
@@ -136,8 +141,8 @@ function FeedCreateModal({ isModalOpened, meetingId, handleModalClose }: CreateM
         isModalOpened={exitModal.isModalOpened}
         message={`피드 작성을 그만두시겠어요?\n지금까지 쓴 내용이 지워져요.`}
         handleModalClose={exitModal.handleModalClose}
-        cancelButton="돌아가기"
-        confirmButton="그만두기"
+        cancelButton='돌아가기'
+        confirmButton='그만두기'
         handleConfirm={() => {
           exitModal.handleModalClose();
           handleModalClose();
@@ -145,10 +150,10 @@ function FeedCreateModal({ isModalOpened, meetingId, handleModalClose }: CreateM
       />
       <ConfirmModal
         isModalOpened={submitModal.isModalOpened}
-        message="게시글을 작성하시겠습니까?"
+        message='게시글을 작성하시겠습니까?'
         handleModalClose={submitModal.handleModalClose}
-        cancelButton="돌아가기"
-        confirmButton="확인"
+        cancelButton='돌아가기'
+        confirmButton='확인'
         handleConfirm={onSubmit}
       />
       {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
@@ -161,18 +166,18 @@ function FeedCreateModal({ isModalOpened, meetingId, handleModalClose }: CreateM
 export default FeedCreateModal;
 
 const SDialogWrapper = styled('div', {
-  position: 'fixed',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  zIndex: '$2',
-  borderRadius: '20px',
-  backgroundColor: '$gray700',
-  width: '100%',
-  maxWidth: '$768',
-  boxShadow: '0px 4px 4px rgba(0,0,0,0.25)',
-  maxHeight: '100vh',
-  overflow: 'visible',
+  'position': 'fixed',
+  'top': '50%',
+  'left': '50%',
+  'transform': 'translate(-50%, -50%)',
+  'zIndex': '$2',
+  'borderRadius': '20px',
+  'backgroundColor': '$gray700',
+  'width': '100%',
+  'maxWidth': '$768',
+  'boxShadow': '0px 4px 4px rgba(0,0,0,0.25)',
+  'maxHeight': '100vh',
+  'overflow': 'visible',
   '&::-webkit-scrollbar': {
     display: 'none',
   },

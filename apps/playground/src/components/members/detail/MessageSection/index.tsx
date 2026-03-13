@@ -31,7 +31,9 @@ export default function MessageSection({ memberId, profile }: MessageSectionProp
 
   const handleClickMessageButton = () => {
     if (isEmptyPhone) {
-      toast.show({ message: `해당 유저는 전화번호를 등록하지 않아 쪽지를 보낼 수 없어요.` });
+      toast.show({
+        message: `해당 유저는 전화번호를 등록하지 않아 쪽지를 보낼 수 없어요.`,
+      });
     } else {
       onOpenMessageModal();
       logClickEvent('messageBadge');

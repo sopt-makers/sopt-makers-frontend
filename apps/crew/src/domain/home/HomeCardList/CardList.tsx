@@ -28,7 +28,7 @@ const CardList = ({ label, isMore = false, onMoreClick = () => {}, meetingIds }:
       <SCardWrapper>
         {isTablet ? (
           <>
-            {data.map(d => (
+            {data.map((d) => (
               <MobileCard
                 key={d.id}
                 id={d.id}
@@ -46,7 +46,7 @@ const CardList = ({ label, isMore = false, onMoreClick = () => {}, meetingIds }:
           </>
         ) : (
           <>
-            {data.map(d => (
+            {data.map((d) => (
               <DesktopCard
                 key={d.id}
                 id={d.id}
@@ -71,11 +71,11 @@ const CardList = ({ label, isMore = false, onMoreClick = () => {}, meetingIds }:
 export default CardList;
 
 const SCardListWrapper = styled('section', {
-  display: 'flex',
-  flexDirection: 'column',
+  'display': 'flex',
+  'flexDirection': 'column',
 
-  width: '100%',
-  paddingBottom: '$80',
+  'width': '100%',
+  'paddingBottom': '$80',
 
   '@tablet': {
     paddingBottom: '$40',
@@ -83,13 +83,13 @@ const SCardListWrapper = styled('section', {
 });
 
 const SGradationRight = styled('div', {
-  width: '80px',
-  height: '346px',
-  background: 'linear-gradient(270deg, #0F0F12 0%, rgba(15, 15, 18, 0.00) 50%)',
+  'width': '80px',
+  'height': '346px',
+  'background': 'linear-gradient(270deg, #0F0F12 0%, rgba(15, 15, 18, 0.00) 50%)',
 
-  position: 'absolute',
-  right: '-1px',
-  pointerEvents: 'none',
+  'position': 'absolute',
+  'right': '-1px',
+  'pointerEvents': 'none',
 
   '@media (min-width: 1259px)': {
     display: 'none',
@@ -109,10 +109,10 @@ const STitleWrapper = styled('div', {
 });
 
 const STitleStyle = styled('p', {
-  padding: '4px 0 8px',
+  'padding': '4px 0 8px',
 
-  fontStyle: 'H1',
-  color: '$white',
+  'fontStyle': 'H1',
+  'color': '$white',
 
   '@mobile': {
     ...fontsObject.TITLE_6_16_SB,
@@ -125,8 +125,8 @@ const SMoreBtn = styled('button', {
 });
 
 const SCardWrapper = styled('div', {
-  display: 'flex',
-  gap: '20px',
+  'display': 'flex',
+  'gap': '20px',
 
   '@tablet': {
     flexDirection: 'column',

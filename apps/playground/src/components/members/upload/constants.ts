@@ -4,7 +4,13 @@ import { MemberUploadForm } from '@/components/members/upload/types';
 
 export const UNSELECTED = '선택 안 함';
 
-export const DEFAULT_CAREER = { title: '', companyName: '', isCurrent: false, startDate: '', endDate: '' } as const;
+export const DEFAULT_CAREER = {
+  title: '',
+  companyName: '',
+  isCurrent: false,
+  startDate: '',
+  endDate: '',
+} as const;
 export const DEFAULT_ACTIVITY = { generation: '', part: '', team: '' };
 export const DEFAULT_LINK = { title: '', url: '' };
 export const DEFAULT_FAVOR = {
@@ -33,7 +39,14 @@ export const MEMBER_DEFAULT_VALUES: DefaultValues<MemberUploadForm> = {
   isPhoneBlind: false,
   careers: [DEFAULT_CAREER],
   mbti: null,
-  favor: { peach: null, alcohol: null, fishBread: null, tteokbokki: null, sweetAndSourPork: null, mintChocolate: null },
+  favor: {
+    peach: null,
+    alcohol: null,
+    fishBread: null,
+    tteokbokki: null,
+    sweetAndSourPork: null,
+    mintChocolate: null,
+  },
 };
 
 export const PARTS = [

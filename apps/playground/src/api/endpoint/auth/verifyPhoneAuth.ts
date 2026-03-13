@@ -25,6 +25,10 @@ const verifyPhoneAuth = createEndpoint({
 export const useVerifyPhoneAuth = () => {
   return useMutation({
     mutationFn: (data: { name: string; phone: string; code: string }) =>
-      verifyPhoneAuth.request({ name: data.name, phone: data.phone, code: data.code }),
+      verifyPhoneAuth.request({
+        name: data.name,
+        phone: data.phone,
+        code: data.code,
+      }),
   });
 };

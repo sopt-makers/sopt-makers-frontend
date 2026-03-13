@@ -176,7 +176,12 @@ const MentionDropdown = ({ parentRef, searchedMemberList, onSelect, mentionPosit
       aria-label='멘션할 멤버 선택'
     >
       <Wrapper ref={scrollRef}>
-        <div style={{ height: rowVirtualizer.getTotalSize(), position: 'relative' }}>
+        <div
+          style={{
+            height: rowVirtualizer.getTotalSize(),
+            position: 'relative',
+          }}
+        >
           {rowVirtualizer.getVirtualItems().map((virtualRow) => {
             const member = searchedMemberList[virtualRow.index];
             if (!member) return null;

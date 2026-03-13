@@ -2,6 +2,7 @@ import { useMapListInfiniteQueryOption } from '@api/map/query';
 import Filter from '@domain/map/Filter';
 import { useInfiniteScroll } from '@hook/useInfiniteScroll';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
+
 import MapList from '../MapList';
 
 const MobileMapContainer = () => {
@@ -9,7 +10,7 @@ const MobileMapContainer = () => {
 
   const ref = useInfiniteScroll({ hasNextPage, fetchNextPage });
 
-  const allMaps = data.pages.flatMap(page => page.soptMaps);
+  const allMaps = data.pages.flatMap((page) => page.soptMaps);
   const totalCount = data.pages[0]?.meta.itemCount ?? 0;
 
   return (

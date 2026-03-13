@@ -527,8 +527,8 @@ const Comment = ({
       setReplyState({
         member: {
           id: memberId ? memberId : ANONYMOUS_MEMBER_ID,
-          name: isBlindWriter ? anonymousProfile?.nickname ?? '익명' : name ?? '삭제된 댓글',
-          generation: info ? Number(info.split(' ')[0]?.replace(/기$/, '')) ?? 0 : 0, //TODO: generation 데이터 필요
+          name: isBlindWriter ? (anonymousProfile?.nickname ?? '익명') : (name ?? '삭제된 댓글'),
+          generation: info ? (Number(info.split(' ')[0]?.replace(/기$/, '')) ?? 0) : 0, //TODO: generation 데이터 필요
           profileImage: profileImage ?? null,
         },
         replyTargetCommentId: commentId,
@@ -541,7 +541,14 @@ const Comment = ({
     <StyledComment>
       <Flex css={{ gap: 8, minWidth: 0 }}>
         {isReply ? (
-          <IconFlipForward style={{ width: 24, height: 24, color: colors.gray500, transform: 'scale(1, -1)' }} />
+          <IconFlipForward
+            style={{
+              width: 24,
+              height: 24,
+              color: colors.gray500,
+              transform: 'scale(1, -1)',
+            }}
+          />
         ) : null}
         {isDeleted && hasReplies ? (
           <Text typography='SUIT_14_M' color={colors.gray500} css={{ whiteSpace: 'nowrap' }}>
@@ -803,7 +810,10 @@ const Input = ({ value, onChange, isBlindChecked, onChangeIsBlindChecked, isPend
           textareaRef.current.innerHTML = '';
           setTextareaValue('');
         }
-        handleSelectMention({ member: replyTargetMember, isReply: !!replyTargetMember });
+        handleSelectMention({
+          member: replyTargetMember,
+          isReply: !!replyTargetMember,
+        });
         prevReplyTargetCommentIdRef.current = replyTargetCommentId;
       }
     }
@@ -853,14 +863,32 @@ const Input = ({ value, onChange, isBlindChecked, onChangeIsBlindChecked, isPend
         </Flex>
         {replyTargetMember && (
           <IconXClose
-            style={{ width: 16, height: 16, color: colors.gray50, cursor: 'pointer' }}
-            onClick={() => setReplyState({ member: null, replyTargetCommentId: null, parentCommentId: null })}
+            style={{
+              width: 16,
+              height: 16,
+              color: colors.gray50,
+              cursor: 'pointer',
+            }}
+            onClick={() =>
+              setReplyState({
+                member: null,
+                replyTargetCommentId: null,
+                parentCommentId: null,
+              })
+            }
           />
         )}
       </Flex>
       <Flex align='flex-center' css={{ gap: '16px', width: '100%' }} ref={parentRef}>
         {replyTargetCommentId !== null && (
-          <IconFlipForward style={{ width: 24, height: 24, color: colors.gray500, transform: 'scale(1, -1)' }} />
+          <IconFlipForward
+            style={{
+              width: 24,
+              height: 24,
+              color: colors.gray500,
+              transform: 'scale(1, -1)',
+            }}
+          />
         )}
 
         <TextAreaWrapper>

@@ -4,6 +4,10 @@
   "private": true,
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch"
+  },
   "dependencies": {
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
@@ -11,16 +15,12 @@
     "@sopt-makers/fonts": "^2.0.2",
     "framer-motion": "^8.1.3"
   },
-  "peerDependencies": {
-    "react": ">=16.8.0",
-    "react-dom": ">=16.8.0"
-  },
-  "scripts": {
-    "build": "tsup",
-    "dev": "tsup --watch"
-  },
   "devDependencies": {
     "tsup": "^7.1.0",
     "typescript": "^4.9.5"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
   }
 }

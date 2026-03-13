@@ -107,15 +107,13 @@ export const handleTokenError = async (error: AxiosError<unknown>) => {
     }
 
     try {
-      const { data } = await axiosAuthInstance.post<{ data: { accessToken: string } }>(
-        `/api/v1/auth/refresh/web`,
-        null,
-        {
-          headers: {
-            Authorization: `Bearer ${tokenStorage.get()}`,
-          },
+      const { data } = await axiosAuthInstance.post<{
+        data: { accessToken: string };
+      }>(`/api/v1/auth/refresh/web`, null, {
+        headers: {
+          Authorization: `Bearer ${tokenStorage.get()}`,
         },
-      );
+      });
       if (!originRequest.headers) {
         originRequest.headers = new AxiosHeaders();
       }

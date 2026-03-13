@@ -75,7 +75,10 @@ const CrewFeedList = ({ categoryId, onScrollChange }: CrewFeedListProps) => {
       data={flattenData}
       ref={virtuoso}
       rangeChanged={({ startIndex, endIndex }) => {
-        setMap((map) => ({ ...map, [categoryId ?? '']: (startIndex + endIndex) / 2 }));
+        setMap((map) => ({
+          ...map,
+          [categoryId ?? '']: (startIndex + endIndex) / 2,
+        }));
       }}
       useWindowScroll
       endReached={() => {

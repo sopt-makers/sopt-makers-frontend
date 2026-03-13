@@ -86,7 +86,9 @@ export const usePutMemberProfileMutation = () => {
     mutationFn: (body: ProfileRequest) => putMemberProfile.request(body),
     onSuccess: (response) => {
       queryClient.invalidateQueries({ queryKey: ['getMemberProfileOfMe'] });
-      queryClient.invalidateQueries({ queryKey: ['getMemberProfileById', response.id] });
+      queryClient.invalidateQueries({
+        queryKey: ['getMemberProfileById', response.id],
+      });
       queryClient.invalidateQueries({ queryKey: ['getMemberProfile'] });
       queryClient.invalidateQueries({ queryKey: ['getMemberOfMe'] });
       queryClient.invalidateQueries({ queryKey: ['getMembersCoffeeChat'] });

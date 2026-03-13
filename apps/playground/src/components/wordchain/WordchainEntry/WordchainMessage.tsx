@@ -29,7 +29,8 @@ export default function WordchainMessage(props: WordchainMessageProps) {
     <Container>
       <MessageBox>
         <Word>
-          <LastWord isWhite={props.type === 'startWord'}>'{props.word}'</LastWord>(으)로 시작하는 단어는?
+          <LastWord isWhite={props.type === 'startWord'}>'{props.word}'</LastWord>
+          (으)로 시작하는 단어는?
         </Word>
       </MessageBox>
       {props.type === 'word' && (

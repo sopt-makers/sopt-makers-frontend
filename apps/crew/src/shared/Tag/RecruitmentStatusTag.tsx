@@ -1,6 +1,6 @@
 import { RECRUITMENT_STATUS } from '@constant/option';
 import { fontsObject } from '@sopt-makers/fonts';
-import { HTMLAttributes } from 'react';
+import type { HTMLAttributes } from 'react';
 import { styled } from 'stitches.config';
 
 interface RecruitmentStatusTagProps extends HTMLAttributes<HTMLDivElement> {
@@ -20,7 +20,7 @@ const RecruitmentStatusTag = ({ status, ...props }: RecruitmentStatusTagProps) =
 export default RecruitmentStatusTag;
 
 const CustomTag = styled('div', {
-  variants: {
+  'variants': {
     variant: {
       default: {
         background: '$gray700',
@@ -37,12 +37,12 @@ const CustomTag = styled('div', {
     },
   },
 
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
+  'display': 'flex',
+  'alignItems': 'center',
+  'justifyContent': 'center',
 
-  padding: '$3 $8',
-  borderRadius: '$4',
+  'padding': '$3 $8',
+  'borderRadius': '$4',
 
   '@mobile': {
     padding: '$3 $6',

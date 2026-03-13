@@ -61,15 +61,32 @@ const OAuthLoginCallback: FC<OAuthLoginCallbackProps> = ({ oauthKey: oauthType, 
 
   if (!data.success) {
     if (data.error === 'invalidNonce') {
-      return <LoginCallbackView mode={{ type: 'error', errorMessage: '잘못된 접근입니다. (INVALID_NONCE)' }} />;
+      return (
+        <LoginCallbackView
+          mode={{
+            type: 'error',
+            errorMessage: '잘못된 접근입니다. (INVALID_NONCE)',
+          }}
+        />
+      );
     } else if (data.error === 'notMember') {
       return (
         <LoginCallbackView
-          mode={{ type: 'error', errorMessage: 'SOPT.org 회원이 아닙니다.\n먼저 회원 가입후, 다시 로그인해주세요.' }}
+          mode={{
+            type: 'error',
+            errorMessage: 'SOPT.org 회원이 아닙니다.\n먼저 회원 가입후, 다시 로그인해주세요.',
+          }}
         />
       );
     } else if (data.error === 'invalidURL') {
-      return <LoginCallbackView mode={{ type: 'error', errorMessage: '잘못된 접근입니다. (INVALID_URL)' }} />;
+      return (
+        <LoginCallbackView
+          mode={{
+            type: 'error',
+            errorMessage: '잘못된 접근입니다. (INVALID_URL)',
+          }}
+        />
+      );
     } else {
       return <LoginCallbackView mode={{ type: 'error', errorMessage: '알 수 없는 오류입니다.' }} />;
     }

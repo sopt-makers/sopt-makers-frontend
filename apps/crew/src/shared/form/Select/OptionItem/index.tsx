@@ -1,6 +1,7 @@
-import { Fragment } from 'react';
 import { Listbox } from '@headlessui/react';
-import { CSSType, styled } from 'stitches.config';
+import { Fragment } from 'react';
+import type { CSSType } from 'stitches.config';
+import { styled } from 'stitches.config';
 
 export interface Option {
   label: string;
@@ -39,14 +40,14 @@ function OptionItem({ css, option }: OptionItemProps) {
 export default OptionItem;
 
 const SOptionItem = styled('div', {
-  cursor: 'pointer',
-  display: 'flex',
-  alignItems: 'center',
-  padding: '12px 16px',
-  background: '$gray800',
-  fontAg: '18_medium_100',
-  borderRadius: '8px',
-  variants: {
+  'cursor': 'pointer',
+  'display': 'flex',
+  'alignItems': 'center',
+  'padding': '12px 16px',
+  'background': '$gray800',
+  'fontAg': '18_medium_100',
+  'borderRadius': '8px',
+  'variants': {
     selected: {
       true: {
         background: '$gray600',

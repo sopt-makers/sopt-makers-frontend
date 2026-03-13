@@ -60,7 +60,10 @@ export const parseMentionsToJSX = (text: string, router: ReturnType<typeof useRo
         key={`${name}-${id}-${match.index}`}
         data-id={id}
         contentEditable={false}
-        style={{ color: colors.success, cursor: id !== String(ANONYMOUS_MEMBER_ID) ? 'pointer' : 'default' }}
+        style={{
+          color: colors.success,
+          cursor: id !== String(ANONYMOUS_MEMBER_ID) ? 'pointer' : 'default',
+        }}
         onClick={() => (id !== String(ANONYMOUS_MEMBER_ID) ? router.push(playgroundLink.memberDetail(id)) : null)}
       >
         @{name}

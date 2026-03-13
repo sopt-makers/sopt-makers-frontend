@@ -27,7 +27,10 @@ export const useGetReviewsInfiniteQuery = () => {
   return useInfiniteQuery({
     queryKey: useGetReviewsInfiniteQuery.getKey(),
     queryFn: async ({ pageParam = 0 }) => {
-      const response = await getReviews.request({ page: pageParam, size: SIZE });
+      const response = await getReviews.request({
+        page: pageParam,
+        size: SIZE,
+      });
       return response;
     },
     initialPageParam: 0,

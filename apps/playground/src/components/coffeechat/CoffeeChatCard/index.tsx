@@ -173,7 +173,11 @@ export default function CoffeeChatCard({
   );
 }
 
-const Container = styled(m.div)<{ isEmptyData?: boolean; isBlurred?: boolean; isMine?: boolean }>`
+const Container = styled(m.div)<{
+  isEmptyData?: boolean;
+  isBlurred?: boolean;
+  isMine?: boolean;
+}>`
   display: flex;
   flex-direction: column;
   gap: 11px;

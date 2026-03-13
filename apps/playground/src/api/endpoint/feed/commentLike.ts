@@ -29,7 +29,9 @@ export const useCommentLikeMutation = () => {
       commentLike.request(postId, commentId),
 
     onMutate: async ({ postId }) => {
-      await queryClient.cancelQueries({ queryKey: getComment.cacheKey(String(postId)) });
+      await queryClient.cancelQueries({
+        queryKey: getComment.cacheKey(String(postId)),
+      });
       const previousCommentData = queryClient.getQueryData(getComment.cacheKey(String(postId)));
 
       queryClient.setQueryData(
@@ -49,7 +51,9 @@ export const useCommentLikeMutation = () => {
     },
 
     onSettled: (_, __, variables, ___) => {
-      queryClient.invalidateQueries({ queryKey: getComment.cacheKey(String(variables.postId)) });
+      queryClient.invalidateQueries({
+        queryKey: getComment.cacheKey(String(variables.postId)),
+      });
     },
   });
 };
@@ -62,7 +66,9 @@ export const useCommentUnLikeMutation = () => {
       commentUnlike.request(postId, commentId),
 
     onMutate: async ({ postId }) => {
-      await queryClient.cancelQueries({ queryKey: getComment.cacheKey(String(postId)) });
+      await queryClient.cancelQueries({
+        queryKey: getComment.cacheKey(String(postId)),
+      });
       const previousCommentData = queryClient.getQueryData(getComment.cacheKey(String(postId)));
 
       queryClient.setQueryData(
@@ -82,7 +88,9 @@ export const useCommentUnLikeMutation = () => {
     },
 
     onSettled: (_, __, variables, ___) => {
-      queryClient.invalidateQueries({ queryKey: getComment.cacheKey(String(variables.postId)) });
+      queryClient.invalidateQueries({
+        queryKey: getComment.cacheKey(String(variables.postId)),
+      });
     },
   });
 };

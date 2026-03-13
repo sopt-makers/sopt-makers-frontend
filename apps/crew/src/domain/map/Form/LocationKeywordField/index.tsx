@@ -17,7 +17,7 @@ const LocationKeywordField = () => {
       <Label required={true}>장소 태그</Label>
       <HelpMessage>장소의 카테고리를 선택해주세요</HelpMessage>
       <FormController
-        name="category"
+        name='category'
         defaultValue={{ label: '', value: '' }}
         render={({ field: { value, onChange }, fieldState: { error } }) => {
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -25,7 +25,7 @@ const LocationKeywordField = () => {
           return (
             <>
               <SChipContainer>
-                {mapCategories.map(option => {
+                {mapCategories.map((option) => {
                   const isSelected = value.value === option.value;
                   return (
                     <Chip key={option.value} active={isSelected} onClick={() => onChange(option)}>
@@ -48,9 +48,9 @@ const LocationKeywordField = () => {
 export default LocationKeywordField;
 
 const SChipContainer = styled('div', {
-  display: 'flex',
-  gap: '$10',
-  flexWrap: 'wrap',
+  'display': 'flex',
+  'gap': '$10',
+  'flexWrap': 'wrap',
 
   '@media(max-width: 430px)': {
     maxWidth: '320px',

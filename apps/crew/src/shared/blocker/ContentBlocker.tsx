@@ -11,16 +11,16 @@ const ContentBlocker = () => {
 export default ContentBlocker;
 
 const Container = styled('div', {
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
+  'display': 'flex',
+  'justifyContent': 'center',
+  'alignItems': 'center',
 
-  padding: '$20 $20 $28 $20',
-  height: '180px',
-  width: '380px',
+  'padding': '$20 $20 $28 $20',
+  'height': '180px',
+  'width': '380px',
 
-  background: '$gray900',
-  borderRadius: '12px',
+  'background': '$gray900',
+  'borderRadius': '12px',
 
   '@media (max-width: 768px)': {
     padding: '$24 0 $28 0',

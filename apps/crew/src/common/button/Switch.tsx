@@ -1,6 +1,7 @@
 import { Switch as HeadlessSwitch } from '@headlessui/react';
 import { Fragment } from 'react';
-import { CSSType, styled } from 'stitches.config';
+import type { CSSType } from 'stitches.config';
+import { styled } from 'stitches.config';
 
 export interface SwitchProps {
   css?: CSSType;
@@ -12,7 +13,7 @@ function Switch({ css, checked, onChange }: SwitchProps) {
   return (
     <HeadlessSwitch as={Fragment} checked={checked} onChange={onChange}>
       {({ checked }) => (
-        <SSwitch type="button" css={{ ...css }} checked={checked}>
+        <SSwitch type='button' css={{ ...css }} checked={checked}>
           <SThumb />
         </SSwitch>
       )}
@@ -33,7 +34,7 @@ const SSwitch = styled('button', {
   variants: {
     checked: {
       true: {
-        backgroundColor: '$success',
+        'backgroundColor': '$success',
         '& > div': {
           transform: 'translate3d(12px,0,0)',
         },

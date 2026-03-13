@@ -15,7 +15,10 @@ interface BottomSheetCloseProps {
   onSelect: (option: { value: string; label: string }) => void;
 }
 const BottomSheetSelect = ({ placeholder, options, value, onSelect }: BottomSheetCloseProps) => {
-  const [temporaryValue, setTemporaryValue] = useState<{ value: string; label: string }>();
+  const [temporaryValue, setTemporaryValue] = useState<{
+    value: string;
+    label: string;
+  }>();
   const [isOpen, setIsOpen] = useState(false);
 
   const handleClose = () => setIsOpen(false);

@@ -10,20 +10,20 @@ const TargetField = () => {
     <div>
       <SLabelCheckboxWrapper>
         <SLabelWrapper>
-          <Label required={true} size="small">
+          <Label required={true} size='small'>
             모집 대상
           </Label>
         </SLabelWrapper>
       </SLabelCheckboxWrapper>
       <HelpMessage>모임장을 제외한 인원 수를 입력해주세요</HelpMessage>
       <FormController
-        name="detail.targetDesc"
+        name='detail.targetDesc'
         render={() => {
           return (
             <STargetFieldWrapper>
               <STargetChipContainer>
                 <FormController
-                  name="detail.joinableParts"
+                  name='detail.joinableParts'
                   render={({ field: { value, onChange } }) => <JoinablePartsField value={value} onChange={onChange} />}
                 ></FormController>
               </STargetChipContainer>
@@ -48,18 +48,18 @@ const SLabelCheckboxWrapper = styled('div', {
 });
 
 const STargetFieldWrapper = styled('div', {
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '$12',
+  'display': 'flex',
+  'flexDirection': 'column',
+  'gap': '$12',
   '@mobile': {
     gap: '$16',
   },
 });
 
 const STargetChipContainer = styled('div', {
-  display: 'flex',
-  gap: '$10',
-  flexWrap: 'wrap',
+  'display': 'flex',
+  'gap': '$10',
+  'flexWrap': 'wrap',
 
   '@media(max-width: 430px)': {
     maxWidth: '320px',

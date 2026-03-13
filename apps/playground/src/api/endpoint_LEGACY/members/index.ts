@@ -50,12 +50,20 @@ export const getMemberProfileOfMe = async () => {
 };
 
 export const postMemberProfile = async (body: ProfileRequest): Promise<Profile> => {
-  const { data } = await axiosInstance.request({ method: 'POST', url: 'api/v1/members/profile', data: body });
+  const { data } = await axiosInstance.request({
+    method: 'POST',
+    url: 'api/v1/members/profile',
+    data: body,
+  });
   return data;
 };
 
 export const putMemberProfile = async (body: ProfileRequest): Promise<Profile> => {
-  const { data } = await axiosInstance.request({ method: 'PUT', url: 'api/v1/members/profile', data: body });
+  const { data } = await axiosInstance.request({
+    method: 'PUT',
+    url: 'api/v1/members/profile',
+    data: body,
+  });
   return data;
 };
 

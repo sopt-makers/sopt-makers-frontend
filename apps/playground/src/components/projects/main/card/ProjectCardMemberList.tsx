@@ -23,7 +23,7 @@ const ProjectCardMemberList = ({ memberList }: ProjectCardMemberListProps) => {
       <Flex align='center' css={{ position: 'relative' }}>
         {memberList.slice(0, 3).map((member, index) => (
           <MemberCircle
-            key={member.id}
+            key={`${member.id}-${index}`}
             css={{ right: MEMBER_CIRCLE_WIDTH * index + index * -9 }}
             profileImage={member.profileImage}
           />
@@ -88,8 +88,8 @@ const DefaultProfileImage = () => (
     <rect width='30' height='30' rx='15' fill='#2C2D2E' />
     <g filter='url(#filter0_b_237_2250)'>
       <path
-        fill-rule='evenodd'
-        clip-rule='evenodd'
+        fillRule='evenodd'
+        clipRule='evenodd'
         d='M11.5713 11.7806C11.5713 13.6718 13.0966 15.1873 14.9999 15.1873C16.9025 15.1873 18.4285 13.6718 18.4285 11.7806C18.4285 9.88952 16.9025 8.37402 14.9999 8.37402C13.0966 8.37402 11.5713 9.88952 11.5713 11.7806ZM20.7144 19.4928C20.7144 17.502 18.082 17.004 15.0001 17.004C11.9014 17.004 9.28577 17.5192 9.28577 19.5115C9.28577 21.5023 11.9181 22.0003 15.0001 22.0003C18.0988 22.0003 20.7144 21.4851 20.7144 19.4928Z'
         fill='#606265'
       />
@@ -102,7 +102,7 @@ const DefaultProfileImage = () => (
         width='23.9295'
         height='26.127'
         filterUnits='userSpaceOnUse'
-        color-interpolation-filters='sRGB'
+        colorInterpolationFilters='sRGB'
       >
         <feFlood floodOpacity='0' result='BackgroundImageFix' />
         <feGaussianBlur in='BackgroundImageFix' stdDeviation='3.12521' />

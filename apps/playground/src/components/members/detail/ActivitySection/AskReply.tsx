@@ -58,7 +58,7 @@ export default function AskReply({ question, answererName, profileImage, isMyPro
     setIsExpanded(!isExpanded);
   };
 
-   const renderParsedContent = (text: string) => {
+  const renderParsedContent = (text: string) => {
     const parsedMentions = parseMentionsToJSX(text, router);
     return parsedMentions.map((fragment, index) => parseTextToLink(fragment));
   };
@@ -91,13 +91,27 @@ export default function AskReply({ question, answererName, profileImage, isMyPro
     <AskReplyContainer>
       <AskReplyHeader>
         <HeaderLeft>
-          <IconFlipForward style={{ width: 16, height: 16, color: colors.white, transform: 'scale(1, -1)' }} />
+          <IconFlipForward
+            style={{
+              width: 16,
+              height: 16,
+              color: colors.white,
+              transform: 'scale(1, -1)',
+            }}
+          />
           <ProfileWrapper>
             <ImageBox>
               {profileImage ? (
                 <ProfileImage src={profileImage} width={32} height={32} />
               ) : (
-                <IconUser style={{ width: 22, height: 22, color: `${colors.gray400}`, paddingTop: '2px' }} />
+                <IconUser
+                  style={{
+                    width: 22,
+                    height: 22,
+                    color: `${colors.gray400}`,
+                    paddingTop: '2px',
+                  }}
+                />
               )}
             </ImageBox>
             <AnswerName>{answererName}</AnswerName>

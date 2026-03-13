@@ -18,8 +18,16 @@ interface MenuEntry {
 const MENU_ENTRY_LIST: MenuEntry[] = [
   { icon: <CrewIcon />, label: '모임', href: playgroundLink.groupList() },
   { icon: <MemberIcon />, label: '멤버', href: playgroundLink.memberList() },
-  { icon: <ProjectIcon />, label: '프로젝트', href: playgroundLink.projectList() },
-  { icon: <CoffeeChatIcon />, label: '커피솝', href: playgroundLink.coffeechat() },
+  {
+    icon: <ProjectIcon />,
+    label: '프로젝트',
+    href: playgroundLink.projectList(),
+  },
+  {
+    icon: <CoffeeChatIcon />,
+    label: '커피솝',
+    href: playgroundLink.coffeechat(),
+  },
 ];
 
 interface MenuEntryIconsProps {

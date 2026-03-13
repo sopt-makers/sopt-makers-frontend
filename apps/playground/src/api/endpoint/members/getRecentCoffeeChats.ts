@@ -12,14 +12,14 @@ export const getRecentCoffeeChat = createEndpoint({
     coffeeChatList: z.array(
       z.object({
         memberId: z.number().nullable(),
-        bio:z.string().nullable(),
-        topicTypeList:z.array(z.string()).nullable(),
-        profileImage:z.string().nullable(),
+        bio: z.string().nullable(),
+        topicTypeList: z.array(z.string()).nullable(),
+        profileImage: z.string().nullable(),
         name: z.string().nullable(),
-        career:z.string().nullable(),
+        career: z.string().nullable(),
         organization: z.string().nullable(),
-        companyJob:z.string().nullable(),
-        soptActivities:z.array(z.string()).nullable()
+        companyJob: z.string().nullable(),
+        soptActivities: z.array(z.string()).nullable(),
       }),
     ),
   }),

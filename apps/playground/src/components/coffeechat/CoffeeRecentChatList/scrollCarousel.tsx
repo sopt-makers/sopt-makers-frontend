@@ -26,7 +26,7 @@ export default function ScrollCarousel({ itemList, limit, className, renderItemC
       const scrollPosition = carouselElement.scrollLeft;
       const itemWidth = carouselElement.clientWidth; // 현재 보이는 영역의 너비
       const newPage = Math.floor(scrollPosition / itemWidth);
-      
+
       // 페이지 변경 시 상태 업데이트
       if (newPage !== currentPage) {
         setCurrentPage(newPage);
@@ -72,11 +72,7 @@ export default function ScrollCarousel({ itemList, limit, className, renderItemC
         {Array(totalPageSize)
           .fill(null)
           .map((_, index) => (
-            <Indicator 
-              isActive={index === currentPage} 
-              key={index} 
-              onClick={() => handleIndicatorClick(index)}
-            />
+            <Indicator isActive={index === currentPage} key={index} onClick={() => handleIndicatorClick(index)} />
           ))}
       </Indicators>
     </Container>
@@ -87,8 +83,8 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   max-width: 860px;
-  media ${PCTA_SM_MEDIA_QUERY}{
-    max-width:420px;
+  media ${PCTA_SM_MEDIA_QUERY} {
+    max-width: 420px;
   }
 `;
 
@@ -108,8 +104,8 @@ const Slide = styled.div<{ limit: number }>`
   flex: 0 0 ${({ limit }) => 100 / limit}%;
   padding: 0 8px;
   scroll-snap-align: start;
-  @media ${PCTA_S_MEDIA_QUERY}{
-    padding:0;
+  @media ${PCTA_S_MEDIA_QUERY} {
+    padding: 0;
   }
 `;
 
@@ -118,7 +114,7 @@ const Indicators = styled.div`
   grid-area: indicators;
   gap: 4px;
   justify-content: center;
-  margin-top:20px;
+  margin-top: 20px;
 `;
 
 const Indicator = styled.div<{ isActive?: boolean }>`

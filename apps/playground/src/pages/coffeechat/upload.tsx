@@ -63,7 +63,9 @@ const CoffeechatUpload = () => {
           queryClient.refetchQueries({ queryKey: ['getRecentCoffeeChat'] });
           queryClient.refetchQueries({ queryKey: ['getMembersCoffeeChat'] });
           queryClient.invalidateQueries({ queryKey: ['getMemberOfMe'] });
-          queryClient.invalidateQueries({ queryKey: getCoffeechatDetail.cacheKey(String(me?.id)) });
+          queryClient.invalidateQueries({
+            queryKey: getCoffeechatDetail.cacheKey(String(me?.id)),
+          });
 
           logSubmitEvent('openCoffeechat', {
             career: memberInfo.career
@@ -74,7 +76,7 @@ const CoffeechatUpload = () => {
             organization:
               profile?.careers && profile?.careers.length > 0
                 ? profile?.careers[0].companyName
-                : profile?.university ?? '',
+                : (profile?.university ?? ''),
             job: profile?.careers && profile?.careers.length > 0 ? profile?.careers[0].title : '',
             bio: memberInfo.introduction ?? '',
             section: coffeeChatInfo.sections ?? [],
@@ -86,7 +88,10 @@ const CoffeechatUpload = () => {
             generation: generations ?? [],
             part: part ?? [],
           });
-          await toastOpen({ icon: 'success', content: '커피챗이 오픈됐어요! 경험을 나눠주셔서 감사해요.' });
+          await toastOpen({
+            icon: 'success',
+            content: '커피챗이 오픈됐어요! 경험을 나눠주셔서 감사해요.',
+          });
           await router.push(playgroundLink.coffeechat());
         },
         onError: (error) => {

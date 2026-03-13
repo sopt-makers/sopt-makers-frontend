@@ -51,8 +51,12 @@ export type LoadOptionsWithEnvironment = LoadOptionsBase & {
   environment: Environment;
   client?: { configuration?: BrowserOptions };
 };
-export type LoadOptionsWithApiKey = LoadOptionsBase & { client: { apiKey: string; configuration?: BrowserOptions } };
-export type LoadOptionsWithClientInstance = LoadOptionsBase & { client: { instance: BrowserClient } };
+export type LoadOptionsWithApiKey = LoadOptionsBase & {
+  client: { apiKey: string; configuration?: BrowserOptions };
+};
+export type LoadOptionsWithClientInstance = LoadOptionsBase & {
+  client: { instance: BrowserClient };
+};
 
 export type LoadOptions = LoadOptionsWithEnvironment | LoadOptionsWithApiKey | LoadOptionsWithClientInstance;
 

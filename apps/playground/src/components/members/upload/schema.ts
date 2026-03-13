@@ -64,14 +64,18 @@ export const memberFormSchema = yup.object().shape({
     .of(
       yup.object().shape({
         title: yup.lazy(() =>
-          yup
-            .string()
-            .when('url', { is: (url: string) => url, then: (schema) => schema.required('링크를 선택해주세요.') }),
+          yup.string().when('url', {
+            is: (url: string) => url,
+            then: (schema) => schema.required('링크를 선택해주세요.'),
+          }),
         ),
         url: yup.lazy(() =>
           yup
             .string()
-            .when('title', { is: (title: string) => title, then: (schema) => schema.required('링크를 입력해주세요.') })
+            .when('title', {
+              is: (title: string) => title,
+              then: (schema) => schema.required('링크를 입력해주세요.'),
+            })
             .url('url 형태로 입력해주세요.'),
         ),
       }),

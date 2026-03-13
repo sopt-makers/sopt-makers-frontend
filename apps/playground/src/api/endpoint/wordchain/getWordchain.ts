@@ -131,9 +131,15 @@ export const useGetActiveWordchain = (
       const activeWordchainData = data.rooms[0];
       const activeWordchain: ActiveWordchain = {
         id: activeWordchainData.roomId,
-        initial: { userName: activeWordchainData.startUser.name, word: activeWordchainData.startWord },
+        initial: {
+          userName: activeWordchainData.startUser.name,
+          word: activeWordchainData.startWord,
+        },
         order: activeWordchainData.roomId,
-        wordList: activeWordchainData.words.map(({ word, user }) => ({ user, content: word })),
+        wordList: activeWordchainData.words.map(({ word, user }) => ({
+          user,
+          content: word,
+        })),
       };
       return activeWordchain;
     },

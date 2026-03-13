@@ -2,6 +2,7 @@ import { useMapEventQueryOption } from '@api/map/query';
 import { Suspense } from '@suspensive/react';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { useState } from 'react';
+
 import ResultEvent from './ResultEvent';
 import ShakeEvent from './ShakeEvent';
 import SuccessEvent from './SuccessEvent';

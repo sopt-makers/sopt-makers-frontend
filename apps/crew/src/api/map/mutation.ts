@@ -1,12 +1,14 @@
-import { FormType } from '@domain/map/Form/type';
+import type { FormType } from '@domain/map/Form/type';
 import { useToast } from '@sopt-makers/ui';
-import { InfiniteData, useMutation, useQueryClient } from '@tanstack/react-query';
+import type { InfiniteData } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { produce } from 'immer';
 import router from 'next/router';
+
 import { deleteMap, postSoptMap, putMapRecommendation, putSoptMap } from '.';
 import MapQueryKey from './MapQueryKey';
 import { serializeSoptMapData } from './serialize';
-import { GetMapList } from './type';
+import type { GetMapList } from './type';
 import { visitMapCache } from './util';
 
 export const usePostSoptMapMutation = () => {
@@ -66,17 +68,19 @@ export const useRecommendMapMutation = () => {
   return useMutation({
     mutationFn: (mapId: number) => putMapRecommendation(mapId),
 
-    onMutate: async targetMapId => {
+    onMutate: async (targetMapId) => {
       await queryClient.cancelQueries({ queryKey: MapQueryKey.all() });
 
-      const previousData = queryClient.getQueriesData({ queryKey: MapQueryKey.all() });
+      const previousData = queryClient.getQueriesData({
+        queryKey: MapQueryKey.all(),
+      });
 
-      queryClient.setQueriesData<MapCacheData>({ queryKey: MapQueryKey.all() }, oldData => {
+      queryClient.setQueriesData<MapCacheData>({ queryKey: MapQueryKey.all() }, (oldData) => {
         if (!oldData) return undefined;
 
-        return produce(oldData, draft => {
-          visitMapCache(draft, soptMaps => {
-            const target = soptMaps.find(map => map.id === targetMapId);
+        return produce(oldData, (draft) => {
+          visitMapCache(draft, (soptMaps) => {
+            const target = soptMaps.find((map) => map.id === targetMapId);
             if (target) {
               target.isRecommended = !target.isRecommended;
               target.recommendCount = (target.recommendCount ?? 0) + (target.isRecommended ? 1 : -1);

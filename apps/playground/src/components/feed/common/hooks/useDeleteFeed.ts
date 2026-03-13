@@ -47,7 +47,9 @@ export const useDeleteFeed = () => {
           queryClient.invalidateQueries({
             queryKey: useGetPostsInfiniteQuery.getKey(categoryId),
           });
-          queryClient.invalidateQueries({ queryKey: getRecentPosts.cacheKey() });
+          queryClient.invalidateQueries({
+            queryKey: getRecentPosts.cacheKey(),
+          });
         },
       });
     }

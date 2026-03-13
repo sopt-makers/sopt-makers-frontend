@@ -16,7 +16,10 @@ export const useTooltip = (positionRef: RefObject<HTMLAnchorElement>, storageKey
   const updateTooltipPosition = useCallback(() => {
     if (positionRef.current) {
       const rect = positionRef.current.getBoundingClientRect();
-      const parentRect = positionRef.current.offsetParent?.getBoundingClientRect() || { top: 0, left: 0 };
+      const parentRect = positionRef.current.offsetParent?.getBoundingClientRect() || {
+        top: 0,
+        left: 0,
+      };
 
       setTooltipPosition({
         top: rect.bottom - parentRect.top,

@@ -1,0 +1,5 @@
+{
+  "apps/crew/**/*.{ts,tsx}": ["eslint --fix", "yarn workspace crew typecheck"],
+  "apps/playground/**/*.{ts,tsx}": ["eslint --fix", "yarn workspace playground typecheck"],
+  "**/*.{ts,tsx,js,jsx,json,css,md}": "prettier --write --ignore-path .prettierignore"
+}

@@ -1,8 +1,9 @@
 import styled from '@emotion/styled';
 import * as AspectRatio from '@radix-ui/react-aspect-ratio';
 import { colors } from '@sopt-makers/colors';
-import { IconUser } from '@sopt-makers/icons';
 import { m } from 'framer-motion';
+
+import { IconUser } from '@sopt-makers/icons';
 
 import ResizedImage from '@/components/common/ResizedImage';
 import Responsive from '@/components/common/Responsive';

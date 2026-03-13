@@ -3,8 +3,8 @@ import FormController from '@shared/form/FormController';
 import HelpMessage from '@shared/form/HelpMessage';
 import Label from '@shared/form/Label';
 import ImagePreview from '@shared/form/Presentation/ImageField/ImagePreview';
-import { FileChangeHandler } from '@shared/form/Presentation/ImageField/useImageHandler';
-import { ChangeEvent } from 'react';
+import type { FileChangeHandler } from '@shared/form/Presentation/ImageField/useImageHandler';
+import type { ChangeEvent } from 'react';
 import { styled } from 'stitches.config';
 
 type ImageFieldProps = {
@@ -20,7 +20,7 @@ const ImageField = ({ onChangeFile, onDeleteFile, onAddFiles }: ImageFieldProps)
       <HelpMessage>6개까지 첨부 가능해요. 파일은 5MB 이내로 가로 760px, 세로 520px 사이즈를 권장해요.</HelpMessage>
       <SFileInputWrapper>
         <FormController
-          name="files"
+          name='files'
           defaultValue={[]}
           render={({ field: { value: imageUrls, onChange, onBlur }, fieldState: { error } }) => (
             <>
@@ -47,9 +47,9 @@ const ImageField = ({ onChangeFile, onDeleteFile, onAddFiles }: ImageFieldProps)
 export default ImageField;
 
 const SFileInputWrapper = styled('div', {
-  display: 'grid',
-  gridTemplateColumns: 'repeat(3, 1fr)',
-  gap: '16px',
+  'display': 'grid',
+  'gridTemplateColumns': 'repeat(3, 1fr)',
+  'gap': '16px',
 
   '@media (max-width: 768px)': {
     gridTemplateColumns: 'repeat(2, 1fr)',

@@ -1,4 +1,4 @@
-import { CSSType } from 'stitches.config';
+import type { CSSType } from 'stitches.config';
 
 export interface CSSProps {
   css?: CSSType;

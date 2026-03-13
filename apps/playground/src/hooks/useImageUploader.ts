@@ -41,7 +41,9 @@ export default function useImageUploader({
       await Promise.all(
         Array.from(files).map(async (file) => {
           try {
-            const { filename, signedUrl } = await getPresignedUrl.request({ filename: file.name });
+            const { filename, signedUrl } = await getPresignedUrl.request({
+              filename: file.name,
+            });
             if (!signedUrl) {
               throw new Error('presigned-url을 받아오는데 실패하였습니다.');
             }

@@ -89,7 +89,10 @@ const FeedListItems: FC<FeedListItemsProps> = ({ categoryId, renderFeedDetailLin
         data={flattenData}
         ref={virtuoso}
         rangeChanged={({ startIndex, endIndex }) => {
-          setMap((map) => ({ ...map, [categoryId ?? '']: (startIndex + endIndex) / 2 }));
+          setMap((map) => ({
+            ...map,
+            [categoryId ?? '']: (startIndex + endIndex) / 2,
+          }));
         }}
         useWindowScroll
         endReached={() => {
@@ -141,7 +144,11 @@ const FeedListItems: FC<FeedListItemsProps> = ({ categoryId, renderFeedDetailLin
                               categoryId: post.categoryId,
                               categoryName: post.categoryName,
                               member: {
-                                activity: post.member?.activity ?? { generation: 0, part: '', team: null },
+                                activity: post.member?.activity ?? {
+                                  generation: 0,
+                                  part: '',
+                                  team: null,
+                                },
                                 careers: post.member?.careers ?? null,
                               },
                             })}

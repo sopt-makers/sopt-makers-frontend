@@ -13,6 +13,7 @@ import { colors } from '@sopt-makers/colors';
 import { fontsObject } from '@sopt-makers/fonts';
 import React, { useRef } from 'react';
 import { styled } from 'stitches.config';
+
 import DescriptionField from './DescriptionField';
 interface PresentationProps {
   submitButtonLabel: React.ReactNode;
@@ -79,9 +80,9 @@ function Presentation({
 export default Presentation;
 
 const SForm = styled('form', {
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '120px',
+  'display': 'flex',
+  'flexDirection': 'column',
+  'gap': '120px',
   '@media (max-width: 430px)': {
     gap: '40px',
   },
@@ -89,10 +90,10 @@ const SForm = styled('form', {
 
 const SFormSectionDivider = styled('div', {
   ...fontsObject.HEADING_4_24_B,
-  paddingBottom: '12px',
-  display: 'flex',
-  gap: '8px',
-  alignItems: 'center',
+  'paddingBottom': '12px',
+  'display': 'flex',
+  'gap': '8px',
+  'alignItems': 'center',
 
   '@media (max-width: 768px)': {
     ...fontsObject.HEADING_5_20_B,
@@ -100,9 +101,9 @@ const SFormSectionDivider = styled('div', {
 });
 
 const SFormSectionContainer = styled('div', {
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '60px',
+  'display': 'flex',
+  'flexDirection': 'column',
+  'gap': '60px',
 
   '@media (max-width: 768px)': {
     gap: '56px',
@@ -111,7 +112,7 @@ const SFormSectionContainer = styled('div', {
 
 const SFormSectionDividerOptionText = styled('p', {
   ...fontsObject.HEADING_4_24_B,
-  color: `${colors.gray400}`,
+  'color': `${colors.gray400}`,
 
   '@media (max-width: 768px)': {
     ...fontsObject.HEADING_5_20_B,

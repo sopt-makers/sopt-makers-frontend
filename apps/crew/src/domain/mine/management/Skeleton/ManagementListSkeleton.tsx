@@ -13,10 +13,10 @@ const ManagementListSkeleton = () => {
 export default ManagementListSkeleton;
 
 const SItemSkeleton = styled('div', {
-  height: '$80',
-  borderRadius: '20px',
-  background: '$gray800',
-  mb: '$16',
+  'height': '$80',
+  'borderRadius': '20px',
+  'background': '$gray800',
+  'mb': '$16',
 
   '@media (max-width: 768px)': {
     height: '$56',

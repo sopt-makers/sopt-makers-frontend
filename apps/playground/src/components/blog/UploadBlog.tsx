@@ -56,8 +56,12 @@ const UploadBlog: FC<UploadBlogProps> = ({ state, errorMessage, onSubmit }) => {
       ...(selectedBlogOption === BLOG_OPTIONS[0].value &&
         selectedActivities.length > 0 && { subActivities: selectedActivities }),
       ...(selectedBlogOption === BLOG_OPTIONS[1].value &&
-        selectedRecruitOption && { subRecruiting: selectedRecruitOption as RequestBody['subRecruiting'] }),
-      ...(profile?.profileImage && { authorProfileImageUrl: profile.profileImage }),
+        selectedRecruitOption && {
+          subRecruiting: selectedRecruitOption as RequestBody['subRecruiting'],
+        }),
+      ...(profile?.profileImage && {
+        authorProfileImageUrl: profile.profileImage,
+      }),
     };
 
     onSubmit(requestBody);
@@ -128,7 +132,13 @@ const UploadBlog: FC<UploadBlogProps> = ({ state, errorMessage, onSubmit }) => {
                   </SelectV2.Trigger>
                   <SelectV2.Menu>
                     {property?.generation.map((gen, index) => (
-                      <SelectV2.MenuItem key={gen} option={{ value: gen, label: `${gen}기 ${property.part[index]}` }} />
+                      <SelectV2.MenuItem
+                        key={gen}
+                        option={{
+                          value: gen,
+                          label: `${gen}기 ${property.part[index]}`,
+                        }}
+                      />
                     ))}
                   </SelectV2.Menu>
                 </SelectV2.Root>

@@ -45,7 +45,15 @@ export default function useCarousel({ limit, itemList }: { limit: number; itemLi
     }
   }, [totalPageSize, page, move]);
 
-  return { page, direction, moveNext, movePrevious, currentItemList, totalPageSize, move };
+  return {
+    page,
+    direction,
+    moveNext,
+    movePrevious,
+    currentItemList,
+    totalPageSize,
+    move,
+  };
 }
 
 export type CarouselDirection = 'previous' | 'next';

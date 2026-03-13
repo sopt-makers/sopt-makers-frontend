@@ -1,4 +1,5 @@
-import { ComponentProps, Suspense, useEffect, useState } from 'react';
+import type { ComponentProps } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 
 type Props = ComponentProps<typeof Suspense>;
 

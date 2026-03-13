@@ -145,7 +145,10 @@ const StyledModalDescription = styled.div`
     font-size: 14px;
   }
 `;
-const StyledFooter = styled.div<{ align: 'left' | 'right' | 'stretch'; stack?: 'horizontal' | 'vertical' }>`
+const StyledFooter = styled.div<{
+  align: 'left' | 'right' | 'stretch';
+  stack?: 'horizontal' | 'vertical';
+}>`
   display: grid;
   margin-top: 36px;
 

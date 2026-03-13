@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import AvatarGroup from './AvatarGroup';
 import Avatar from './Avatar';
+import AvatarGroup from './AvatarGroup';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction
 const meta: Meta<typeof AvatarGroup> = {
@@ -18,18 +18,21 @@ export const Default: Story = {
   args: {
     children: [
       <Avatar
-        src="https://mui.com/static/images/avatar/1.jpg"
-        alt="sample iamge"
+        key='1'
+        src='https://mui.com/static/images/avatar/1.jpg'
+        alt='sample iamge'
         sx={{ width: '48px', height: '48px' }}
       />,
       <Avatar
-        src="https://mui.com/static/images/avatar/2.jpg"
-        alt="sample iamge"
+        key='2'
+        src='https://mui.com/static/images/avatar/2.jpg'
+        alt='sample iamge'
         sx={{ width: '48px', height: '48px' }}
       />,
       <Avatar
-        src="https://mui.com/static/images/avatar/3.jpg"
-        alt="sample iamge"
+        key='3'
+        src='https://mui.com/static/images/avatar/3.jpg'
+        alt='sample iamge'
         sx={{ width: '48px', height: '48px' }}
       />,
     ],

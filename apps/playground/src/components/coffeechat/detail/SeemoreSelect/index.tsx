@@ -76,11 +76,17 @@ export default function SeemoreSelect({ memberId }: SeemoreSelectProp) {
             queryClient.invalidateQueries({ queryKey: ['getMemberOfMe'] }),
           ]);
 
-          await toastOpen({ icon: 'success', content: '커피챗이 삭제되었어요. 다음에 또 만나요!' });
+          await toastOpen({
+            icon: 'success',
+            content: '커피챗이 삭제되었어요. 다음에 또 만나요!',
+          });
           await router.push(playgroundLink.coffeechat());
         } catch (error) {
           console.error('쿼리 무효화 실패:', error);
-          await toastOpen({ icon: 'success', content: '커피챗이 삭제되었어요. 다음에 또 만나요!' });
+          await toastOpen({
+            icon: 'success',
+            content: '커피챗이 삭제되었어요. 다음에 또 만나요!',
+          });
           await router.push(playgroundLink.coffeechat());
         }
       },

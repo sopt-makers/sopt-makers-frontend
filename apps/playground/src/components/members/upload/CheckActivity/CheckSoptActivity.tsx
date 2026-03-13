@@ -34,7 +34,9 @@ export default function CheckSoptActivity() {
     return sorted;
   })();
 
-  const formMethods = useForm<{ activities: SoptActivity[] }>({ mode: 'onChange' });
+  const formMethods = useForm<{ activities: SoptActivity[] }>({
+    mode: 'onChange',
+  });
   const {
     handleSubmit,
     getValues,
@@ -69,7 +71,10 @@ export default function CheckSoptActivity() {
       const data = {
         ...profile,
         activities: activities.map((activity) => {
-          const newActivity: SoptActivity = { ...activity, generation: activity.generation.replace(/기/g, '') };
+          const newActivity: SoptActivity = {
+            ...activity,
+            generation: activity.generation.replace(/기/g, ''),
+          };
           if (activity.team === UNSELECTED || activity.team === '') {
             return { ...newActivity, team: null };
           }

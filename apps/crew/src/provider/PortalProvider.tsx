@@ -1,4 +1,5 @@
-import React, { createContext, ReactNode, useState } from 'react';
+import type { ReactNode } from 'react';
+import React, { createContext, useState } from 'react';
 import { createPortal } from 'react-dom';
 
 export const PortalContext = createContext<HTMLDivElement | null>(null);
@@ -14,7 +15,7 @@ export function PortalProvider({ children }: PortalProviderProps) {
     <PortalContext.Provider value={portalContainerRef}>
       {children}
       <div
-        ref={elem => {
+        ref={(elem) => {
           if (portalContainerRef !== null || elem === null) {
             return;
           }
@@ -33,7 +34,7 @@ interface PortalConsumerProps {
 export function PortalConsumer({ children }: PortalConsumerProps) {
   return (
     <PortalContext.Consumer>
-      {portalContainerRef => {
+      {(portalContainerRef) => {
         if (portalContainerRef === null || typeof window === 'undefined') {
           return null;
         }

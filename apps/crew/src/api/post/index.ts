@@ -1,4 +1,4 @@
-import {
+import type {
   GetPostDetailResponse,
   GetPostListResponse,
   PostPostLikeResponse,
@@ -6,11 +6,14 @@ import {
   PostViewsResponse,
   PutPostResponse,
 } from '@api/post/type';
-import { FormCreateType, FormEditType } from '@shared/feed/Modal/feedSchema';
+import type { FormCreateType, FormEditType } from '@shared/feed/Modal/feedSchema';
+
 import { api } from '..';
 
 export const getPostList = async (page: number, take: number, meetingId?: number) => {
-  const { data } = await api.get<GetPostListResponse>('/post/v2', { params: { page, take, meetingId } });
+  const { data } = await api.get<GetPostListResponse>('/post/v2', {
+    params: { page, take, meetingId },
+  });
   return data;
 };
 

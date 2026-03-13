@@ -22,7 +22,9 @@ export function usePageQueryParams(
   const addQueryParamsToUrl = useCallback(
     (queryParams: NextRouter['query']) => {
       const mergedParams = { ...router.query, ...queryParams };
-      const _queryParams = { ...(skipNull ? omitBy(mergedParams, isEmpty) : mergedParams) };
+      const _queryParams = {
+        ...(skipNull ? omitBy(mergedParams, isEmpty) : mergedParams),
+      };
 
       router.push(
         `${router.pathname}${qs.stringify(_queryParams, {

@@ -1,4 +1,4 @@
-import { AdvertisementCategoryType } from '@type/advertisement';
+import type { AdvertisementCategoryType } from '@type/advertisement';
 
 const AdvertisementQueryKey = {
   all: () => ['advertisement'] as const,
