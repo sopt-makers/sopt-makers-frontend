@@ -14,8 +14,8 @@ module.exports = {
   plugins: ['@typescript-eslint', 'simple-import-sort'],
   extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'prettier'],
   rules: {
-    // TypeScript
     'no-unused-vars': 'off',
+    // TypeScript
     '@typescript-eslint/no-unused-vars': [
       'warn',
       {
@@ -24,6 +24,8 @@ module.exports = {
         caughtErrors: 'all',
       },
     ],
+    '@typescript-eslint/no-empty-function': 'off',
+    '@typescript-eslint/no-empty-interface': 'off',
     '@typescript-eslint/no-empty-object-type': 'off',
     '@typescript-eslint/ban-ts-comment': 'off',
     '@typescript-eslint/consistent-type-imports': 'error',
