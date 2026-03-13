@@ -6,9 +6,11 @@
       "outputs": [".next/**", "!.next/cache/**", "out/**", "dist/**"]
     },
     "lint": {
+      "cache": false,
       "outputs": []
     },
     "stylelint": {
+      "cache": false,
       "outputs": []
     },
     "format": {
@@ -16,6 +18,7 @@
       "outputs": []
     },
     "typecheck": {
+      "cache": false,
       "outputs": []
     },
     "test:ci": {
