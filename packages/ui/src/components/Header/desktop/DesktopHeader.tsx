@@ -1,14 +1,14 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
-import { FC } from 'react';
+import type { FC } from 'react';
 
+import { textStyles } from '../../../styles/typography';
+import { SOPT_MAKRES_LOGO_SVG } from '../imageData';
+import type { LinkRenderer, PathMatcher } from '../types';
 import ProfileButton from './ProfileButton';
 import ProfileDropdown from './ProfileDropdown';
-import { SOPT_MAKRES_LOGO_SVG } from '../imageData';
-import { LinkRenderer, PathMatcher } from '../types';
-import { playgroundLink } from '@sopt/constant';
-import { textStyles } from '../../../styles/typography';
 
 interface DesktopHeaderProps {
   user: {

@@ -1,14 +1,15 @@
 import styled from '@emotion/styled';
 import * as Dialog from '@radix-ui/react-dialog';
+import { MAKERS_TEAM_URL, playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import dynamic from 'next/dynamic';
-import { FC, ReactNode, useState } from 'react';
+import type { FC, ReactNode } from 'react';
+import { useState } from 'react';
 
-import { DEFAULT_PROFILE_IMAGE_MOBILE_SVG, RIGHT_ARROW_SVG } from '../imageData';
-import { LinkRenderer, PathMatcher } from '../types';
-import ResizedImage from '../../ResizedImage';
-import { MAKERS_TEAM_URL, playgroundLink } from '@sopt/constant';
 import { textStyles } from '../../../styles/typography';
+import ResizedImage from '../../ResizedImage';
+import { DEFAULT_PROFILE_IMAGE_MOBILE_SVG, RIGHT_ARROW_SVG } from '../imageData';
+import type { LinkRenderer, PathMatcher } from '../types';
 
 const DialogPortal = dynamic<Dialog.DialogPortalProps>(
   () => import('@radix-ui/react-dialog').then((r) => r.DialogPortal),

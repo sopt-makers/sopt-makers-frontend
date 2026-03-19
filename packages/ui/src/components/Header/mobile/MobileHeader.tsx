@@ -1,11 +1,11 @@
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import { MENU_SVG, SOPT_MAKRES_LOGO_SVG } from '../imageData';
+import type { LinkRenderer, PathMatcher } from '../types';
 import MobileSideBar from './MobileSideBar';
-import { LinkRenderer, PathMatcher } from '../types';
-import { playgroundLink } from '@sopt/constant';
 
 interface MobileHeaderProps {
   user: {

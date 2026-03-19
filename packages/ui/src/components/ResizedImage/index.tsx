@@ -1,4 +1,5 @@
-import { FC, ComponentProps, useCallback, useRef, useState, SyntheticEvent } from 'react';
+import type { ComponentProps, FC, SyntheticEvent } from 'react';
+import { useCallback, useRef, useState } from 'react';
 
 import useEnterScreen from '../../hooks/useEnterScreen';
 

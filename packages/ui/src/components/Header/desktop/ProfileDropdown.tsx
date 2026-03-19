@@ -2,11 +2,12 @@ import styled from '@emotion/styled';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { colors } from '@sopt-makers/colors';
 import dynamic from 'next/dynamic';
-import { FC, ReactNode, useState } from 'react';
+import type { FC, ReactNode } from 'react';
+import { useState } from 'react';
 
-import { LinkRenderer } from '../types';
 import { textStyles } from '../../../styles/typography';
 import { zIndex } from '../../../styles/zIndex';
+import type { LinkRenderer } from '../types';
 
 const DropdownPortal = dynamic<DropdownMenu.DropdownMenuPortalProps>(
   () => import('@radix-ui/react-dropdown-menu').then((r) => r.DropdownMenuPortal),

@@ -1,10 +1,11 @@
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
-import { ButtonHTMLAttributes, forwardRef } from 'react';
+import type { ButtonHTMLAttributes } from 'react';
+import { forwardRef } from 'react';
 
-import { DEFAULT_PROFILE_IMAGE_DESKTOP_SVG } from '../imageData';
-import ResizedImage from '../../ResizedImage';
 import { textStyles } from '../../../styles/typography';
+import ResizedImage from '../../ResizedImage';
+import { DEFAULT_PROFILE_IMAGE_DESKTOP_SVG } from '../imageData';
 
 interface ProfileButtonProps {
   name: string;
