@@ -7,6 +7,9 @@
   "exports": {
     ".": "./src/index.ts"
   },
+  "scripts": {
+    "lint": "yarn run -T eslint \"src/**/*.{ts,tsx}\""
+  },
   "dependencies": {
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
@@ -17,6 +20,7 @@
     "@sopt/constant": "workspace:*"
   },
   "devDependencies": {
+    "@sopt-makers/eslint-config": "workspace:^",
     "typescript": "^4.9.5"
   },
   "peerDependencies": {
