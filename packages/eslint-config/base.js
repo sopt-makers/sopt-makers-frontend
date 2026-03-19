@@ -33,9 +33,5 @@ module.exports = {
     // Import 정렬
     'simple-import-sort/imports': 'warn',
     'simple-import-sort/exports': 'warn',
-
-    // React Hooks
-    'react-hooks/rules-of-hooks': 'error',
-    'react-hooks/exhaustive-deps': 'warn',
   },
 };
