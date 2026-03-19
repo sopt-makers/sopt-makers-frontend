@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { crewLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import { IconChevronLeft } from '@sopt-makers/icons';
 import { Button, Callout } from '@sopt-makers/ui';
@@ -36,7 +37,6 @@ import UsingRules from '@/components/feed/upload/UsingRules';
 import VoteModal from '@/components/feed/upload/voteModal';
 import VotePreview from '@/components/feed/upload/votePreview';
 import VoteUploadButton from '@/components/feed/upload/voteUploadButton';
-import { crewLink } from '@/constants/links';
 import useImageUploader from '@/hooks/useImageUploader';
 import BackArrow from '@/public/icons/icon_chevron_left.svg';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';

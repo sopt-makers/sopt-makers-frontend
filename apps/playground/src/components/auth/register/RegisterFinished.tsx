@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
 import Link from 'next/link';
 import type { FC } from 'react';
 
 import SquareLink from '@/components/common/SquareLink';
-import { playgroundLink } from '@/constants/links';
 import { textStyles } from '@/styles/typography';
 
 const RegisterFinished: FC = () => {

@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 import { m } from 'framer-motion';
@@ -13,7 +14,6 @@ import GoogleAuthButton from '@/components/auth/identityProvider/google/GoogleAu
 import useGoogleAuth from '@/components/auth/identityProvider/google/useGoogleAuth';
 import { lastLoginMethodAtom } from '@/components/auth/states/lastLoginMethodAtom';
 import useEventLogger from '@/components/eventLogger/hooks/useEventLogger';
-import { playgroundLink } from '@/constants/links';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 import { setLayout } from '@/utils/layout';
 

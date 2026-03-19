@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import * as Tabs from '@radix-ui/react-tabs';
+import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import Link from 'next/link';
 import type { FC } from 'react';
@@ -9,7 +10,6 @@ import useAuth from '@/components/auth/useAuth';
 import type { MakersGeneration } from '@/components/makers/data/types';
 import TeamBlock from '@/components/makers/TeamBlock';
 import MemberBlock from '@/components/members/common/MemberBlock';
-import { playgroundLink } from '@/constants/links';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 import { textStyles } from '@/styles/typography';
 

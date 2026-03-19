@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import * as Dialog from '@radix-ui/react-dialog';
+import { MAKERS_TEAM_URL, playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import dynamic from 'next/dynamic';
 import type { FC, ReactNode } from 'react';
@@ -8,7 +9,6 @@ import { useState } from 'react';
 import { DEFAULT_PROFILE_IMAGE_MOBILE_SVG, RIGHT_ARROW_SVG } from '@/components/common/Header/imageData';
 import type { LinkRenderer, PathMatcher } from '@/components/common/Header/types';
 import ResizedImage from '@/components/common/ResizedImage';
-import { MAKERS_TEAM_URL, playgroundLink } from '@/constants/links';
 import useKakao from '@/hooks/useKakao';
 import { textStyles } from '@/styles/typography';
 

@@ -1,5 +1,6 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 import { IconSwitchVertical } from '@sopt-makers/icons';
@@ -39,7 +40,6 @@ import {
 import MemberListFilter from '@/components/members/main/MemberList/filters/MemberListFilter';
 import { MemberListOrder } from '@/components/members/main/MemberList/filters/MemberListOrder';
 import { LATEST_GENERATION } from '@/constants/generation';
-import { playgroundLink } from '@/constants/links';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 import { usePageQueryParams } from '@/hooks/usePageQueryParams';
 import { useRunOnce } from '@/hooks/useRunOnce';

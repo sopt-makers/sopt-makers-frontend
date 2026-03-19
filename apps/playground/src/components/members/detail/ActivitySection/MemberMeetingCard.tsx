@@ -1,11 +1,11 @@
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 import Link from 'next/link';
 import type { FC } from 'react';
 
 import ContentsCard from '@/components/common/ContentsCard';
-import { playgroundLink } from '@/constants/links';
 import { dateIntoPeriod, isTodayInPeriod } from '@/utils/parseDate';
 
 interface MemberMeetingCardProps {

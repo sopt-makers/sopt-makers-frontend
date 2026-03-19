@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 
@@ -7,7 +8,7 @@ import useByPhone from '@/components/auth/register/verify/useByPhone';
 import VerifyFrame from '@/components/auth/register/verify/VerifyFrame';
 import ByPhoneView from '@/components/auth/register/verify/view/ByPhoneView';
 import useEventLogger from '@/components/eventLogger/hooks/useEventLogger';
-import { MEMBER_REQUEST_FORM_URL, playgroundLink } from '@/constants/links';
+import { MEMBER_REQUEST_FORM_URL } from '@/constants/links';
 
 interface VerifyProps {}
 

@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import { Button } from '@sopt-makers/ui';
 import { m } from 'framer-motion';
@@ -6,7 +7,6 @@ import { useRouter } from 'next/router';
 import type { FC } from 'react';
 
 import { LoggingClick } from '@/components/eventLogger/components/LoggingClick';
-import { playgroundLink } from '@/constants/links';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 import { textStyles } from '@/styles/typography';
 

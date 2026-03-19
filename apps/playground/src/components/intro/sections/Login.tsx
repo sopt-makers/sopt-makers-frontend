@@ -1,10 +1,10 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import Link from 'next/link';
 import type { FC } from 'react';
 
-import { playgroundLink } from '@/constants/links';
 import useScroll from '@/hooks/useScroll';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 import { textStyles } from '@/styles/typography';

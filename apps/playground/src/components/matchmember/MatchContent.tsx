@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import { Button } from '@sopt-makers/ui';
 import { Spacing } from '@toss/emotion-utils';
@@ -12,7 +13,6 @@ import useEventLogger from '@/components/eventLogger/hooks/useEventLogger';
 import type { BalanceGameValue, ChoiceSide, QuestionKey } from '@/components/matchmember/constant';
 import { convertAnswersToApiPayload, QUESTIONS } from '@/components/matchmember/constant';
 import { MemberCard } from '@/components/matchmember/MemberCard';
-import { playgroundLink } from '@/constants/links';
 import promotion from '@/public/icons/img/popup/member_match.png';
 
 interface MatchContentProps {

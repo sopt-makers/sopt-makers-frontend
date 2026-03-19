@@ -1,5 +1,6 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import { IconEye, IconFlipForward, IconHeart, IconMessageDots } from '@sopt-makers/icons';
 import { IconSend } from '@sopt-makers/icons';
@@ -47,7 +48,6 @@ import { commentAtomFamily } from '@/components/feed/detail/FeedDetailInput';
 import FeedImageSlider from '@/components/feed/detail/slider/FeedImageSlider';
 import FeedUrlCard from '@/components/feed/list/FeedUrlCard';
 import Vote from '@/components/vote';
-import { playgroundLink } from '@/constants/links';
 import IconMessageDotsAction from '@/public/icons/icon-message-dots-action.svg';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 import { textStyles } from '@/styles/typography';

@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import { IconDotsVertical } from '@sopt-makers/icons';
 import { IconEye } from '@sopt-makers/icons';
@@ -17,7 +18,6 @@ import FeedLike from '@/components/feed/common/FeedLike';
 import { IconMember } from '@/components/feed/common/Icon';
 import { parseMentionsToJSX } from '@/components/feed/common/utils/parseMention';
 import FeedUrlCard from '@/components/feed/list/FeedUrlCard';
-import { playgroundLink } from '@/constants/links';
 import { textStyles } from '@/styles/typography';
 interface RandomProfile {
   nickname: string;

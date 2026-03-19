@@ -1,3 +1,4 @@
+import { playgroundLink } from '@sopt/constant';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
@@ -7,7 +8,6 @@ import OAuthLoginCallback from '@/components/auth/callback/OAuthLoginCallback';
 import useAppleAuth from '@/components/auth/identityProvider/apple/useAppleAuth';
 import { lastLoginMethodAtom } from '@/components/auth/states/lastLoginMethodAtom';
 import { registerTokenAtom } from '@/components/auth/states/registerTokenAtom';
-import { playgroundLink } from '@/constants/links';
 
 const AppleRegisterCallbackPage: FC = () => {
   const router = useRouter();

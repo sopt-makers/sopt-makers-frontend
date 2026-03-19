@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import { m } from 'framer-motion';
 import Link from 'next/link';
@@ -15,7 +16,6 @@ import {
   SOPTIcon,
 } from '@/components/intro/sections/CatchPhrase/icons';
 import Typer from '@/components/intro/sections/CatchPhrase/Typer';
-import { playgroundLink } from '@/constants/links';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 import { textStyles } from '@/styles/typography';
 

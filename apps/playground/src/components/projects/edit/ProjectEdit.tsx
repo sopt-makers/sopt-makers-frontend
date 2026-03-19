@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
@@ -16,7 +17,6 @@ import type { ProjectFormType } from '@/components/projects/upload/form/schema';
 import { getProjectListQueryKey } from '@/components/projects/upload/hooks/useGetProjectListQuery';
 import { getProjectQueryKey } from '@/components/projects/upload/hooks/useGetProjectQuery';
 import { convertProjectToFormType, convertToProjectData } from '@/components/projects/utils';
-import { playgroundLink } from '@/constants/links';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 interface ProjectEditProps {

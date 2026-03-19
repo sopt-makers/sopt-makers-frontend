@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 import { useRouter } from 'next/router';
@@ -11,7 +12,6 @@ import { postReview } from '@/api/endpoint/review/postReview';
 import AuthRequired from '@/components/auth/AuthRequired';
 import UploadBlog from '@/components/blog/UploadBlog';
 import useEventLogger from '@/components/eventLogger/hooks/useEventLogger';
-import { playgroundLink } from '@/constants/links';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 import { setLayout } from '@/utils/layout';
 

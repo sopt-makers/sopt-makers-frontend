@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { crewLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import { useRouter } from 'next/router';
 import { useRef } from 'react';
@@ -11,7 +12,6 @@ import { useGetMemberOfMe } from '@/api/endpoint/members/getMemberOfMe';
 import CrewFeedListItem from '@/components/feed/list/CrewFeedList/CrewFeedListItem';
 import FeedSkeleton from '@/components/feed/list/FeedSkeleton';
 import { useNavigateBack } from '@/components/navigation/useNavigateBack';
-import { crewLink } from '@/constants/links';
 import { textStyles } from '@/styles/typography';
 
 interface CrewFeedListProps {

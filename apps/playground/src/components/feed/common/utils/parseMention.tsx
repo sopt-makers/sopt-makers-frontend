@@ -1,8 +1,8 @@
+import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import type { useRouter } from 'next/router';
 
 import { ANONYMOUS_MEMBER_ID } from '@/components/feed/constants';
-import { playgroundLink } from '@/constants/links';
 
 // -1은 익명 멤버 id를 의미
 // eslint-disable-next-line no-useless-escape -- [ and ] must be escaped in character class for literal match

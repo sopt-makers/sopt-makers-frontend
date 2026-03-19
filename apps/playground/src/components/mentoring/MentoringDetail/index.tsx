@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
@@ -14,7 +15,6 @@ import CareerItems from '@/components/members/detail/CareerSection';
 import MessageModal, { MessageCategory } from '@/components/members/detail/MessageSection/MessageModal';
 import { mentoringProvider } from '@/components/mentoring/data';
 import InfoItem from '@/components/mentoring/MentoringDetail/InfoItem';
-import { playgroundLink } from '@/constants/links';
 import { useRunOnce } from '@/hooks/useRunOnce';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 import { textStyles } from '@/styles/typography';

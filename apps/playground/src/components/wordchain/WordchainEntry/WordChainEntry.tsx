@@ -1,5 +1,6 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 import { Flex } from '@toss/emotion-utils';
@@ -14,7 +15,6 @@ import useEventLogger from '@/components/eventLogger/hooks/useEventLogger';
 import WordchainMessage from '@/components/wordchain/WordchainEntry/WordchainMessage';
 import WordchainSkeleton from '@/components/wordchain/WordchainEntry/WordchainSkeleton';
 import { useWordchainWinnersQuery } from '@/components/wordchain/WordchainWinners/hooks/useWordchainWinnersQuery';
-import { playgroundLink } from '@/constants/links';
 import IconMessageChat from '@/public/icons/icon-message-chat.svg';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 import { textStyles } from '@/styles/typography';

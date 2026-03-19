@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 import { useVirtualizer } from '@tanstack/react-virtual';
@@ -13,7 +14,6 @@ import ResizedImage from '@/components/common/ResizedImage';
 import Text from '@/components/common/Text';
 import MemberMeetingCard from '@/components/members/detail/ActivitySection/MemberMeetingCard';
 import EmptyProfile from '@/components/members/detail/EmptyProfile';
-import { playgroundLink } from '@/constants/links';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 interface GroupSectionProps {

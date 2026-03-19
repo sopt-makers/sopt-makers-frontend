@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import dayjs from 'dayjs';
 import Link from 'next/link';
@@ -15,7 +16,6 @@ import { MemberRoleInfo } from '@/components/projects/constants';
 import ProjectImageSlider from '@/components/projects/main/ProjectImageSlider';
 import useGetProjectListQuery from '@/components/projects/upload/hooks/useGetProjectListQuery';
 import useGetProjectQuery from '@/components/projects/upload/hooks/useGetProjectQuery';
-import { playgroundLink } from '@/constants/links';
 import IconTrashcan from '@/public/icons/icon-trashcan.svg';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 import { textStyles } from '@/styles/typography';

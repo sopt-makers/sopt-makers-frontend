@@ -1,3 +1,4 @@
+import { playgroundLink } from '@sopt/constant';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useEffect } from 'react';
@@ -5,7 +6,6 @@ import { useRecoilValue } from 'recoil';
 
 import { accessTokenAtom } from '@/components/auth/states/accessTokenAtom';
 import Intro from '@/components/intro';
-import { playgroundLink } from '@/constants/links';
 
 interface IntroPageProps {}
 

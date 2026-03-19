@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 import { useDialog, useToast } from '@sopt-makers/ui';
@@ -14,7 +15,6 @@ import ResizedImage from '@/components/common/ResizedImage';
 import { IconMember } from '@/components/feed/common/Icon';
 import { getRelativeTime } from '@/components/feed/common/utils';
 import AskFormPage from '@/components/members/ask/AskFormPage';
-import { playgroundLink } from '@/constants/links';
 import useStringRouterQuery from '@/hooks/useStringRouterQuery';
 import { setLayout } from '@/utils/layout';
 

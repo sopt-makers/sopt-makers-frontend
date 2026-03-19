@@ -1,3 +1,4 @@
+import { playgroundLink } from '@sopt/constant';
 import { useQueryClient } from '@tanstack/react-query';
 import { ImpressionArea } from '@toss/impression-area';
 import Link from 'next/link';
@@ -13,7 +14,6 @@ import FeedDetail from '@/components/feed/detail/FeedDetail';
 import FeedList from '@/components/feed/list/FeedList';
 import DesktopCommunityLayout from '@/components/feed/page/layout/DesktopCommunityLayout';
 import MobileCommunityLayout from '@/components/feed/page/layout/MobileCommunityLayout';
-import { playgroundLink } from '@/constants/links';
 
 const CommunityPage: FC = () => {
   const queryClient = useQueryClient();

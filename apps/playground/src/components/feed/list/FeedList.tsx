@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { ErrorBoundary } from '@toss/error-boundary';
@@ -16,7 +17,6 @@ import CategorySkeleton from '@/components/feed/list/CategorySkeleton';
 import CrewFeedList from '@/components/feed/list/CrewFeedList';
 import FeedListItems from '@/components/feed/list/FeedListItems';
 import { layoutCSSVariable } from '@/components/layout/utils';
-import { playgroundLink } from '@/constants/links';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 interface FeedListProps {

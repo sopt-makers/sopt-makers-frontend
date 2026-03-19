@@ -1,4 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
+import { playgroundLink } from '@sopt/constant';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -31,7 +32,6 @@ import SoptActivityFormSection from '@/components/members/upload/FormSection/Sop
 import TmiFormSection from '@/components/members/upload/FormSection/Tmi';
 import { memberFormSchema } from '@/components/members/upload/schema';
 import type { MemberUploadForm, SoptActivity } from '@/components/members/upload/types';
-import { playgroundLink } from '@/constants/links';
 import { setLayout } from '@/utils/layout';
 
 import { useGetMemberOfMe } from '../../api/endpoint/members/getMemberOfMe';

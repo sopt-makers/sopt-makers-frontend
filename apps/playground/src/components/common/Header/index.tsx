@@ -1,3 +1,4 @@
+import { playgroundLink } from '@sopt/constant';
 import type { LinkRenderer } from '@sopt/ui';
 import { DesktopHeader, MobileHeader } from '@sopt/ui';
 import Link from 'next/link';
@@ -8,7 +9,6 @@ import { useGetMemberOfMe } from '@/api/endpoint/members/getMemberOfMe';
 import useAuth from '@/components/auth/useAuth';
 import Responsive from '@/components/common/Responsive';
 import useEventLogger from '@/components/eventLogger/hooks/useEventLogger';
-import { playgroundLink } from '@/constants/links';
 import useKakao from '@/hooks/useKakao';
 
 const Header: FC = () => {
