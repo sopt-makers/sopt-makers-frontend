@@ -12,7 +12,6 @@
     "build": "turbo run build",
     "build:crew": "turbo run build --filter=crew",
     "build:playground": "turbo run build --filter=playground",
-    "clean": "turbo clean",
     "dev": "turbo run dev",
     "dev:crew": "turbo run dev --filter=crew",
     "dev:playground": "turbo run dev --filter=playground",
