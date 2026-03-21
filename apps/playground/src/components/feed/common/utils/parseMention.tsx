@@ -1,12 +1,14 @@
+import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
-import { useRouter } from 'next/router';
+import type { useRouter } from 'next/router';
 
 import { ANONYMOUS_MEMBER_ID } from '@/components/feed/constants';
-import { playgroundLink } from '@/constants/links';
 
 // -1은 익명 멤버 id를 의미
+// eslint-disable-next-line no-useless-escape -- [ and ] must be escaped in character class for literal match
 export const mentionRegex = /@([^\[\]@]+?)\[((?:-1|\d+))\]/g;
 const mentionSpanRegex = /<span[^>]*data-id="((?:-1|\d+))"[^>]*>@([^<]+)<\/span>/g;
+// eslint-disable-next-line no-useless-escape -- [ and ] must be escaped in character class for literal match
 export const anonymouseMentionRegex = /@([^\[\]@]+?)\[((?:-1))\]/g;
 
 export const extractAnonymousMentionNames = (text: string) => {

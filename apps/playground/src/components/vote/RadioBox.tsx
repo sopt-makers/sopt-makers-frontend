@@ -1,9 +1,10 @@
-import Text from '@/components/common/Text';
-import styled from '@emotion/styled';
 import { keyframes } from '@emotion/react';
+import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
-import { IconCheck } from '@sopt-makers/icons';
 import { fonts } from '@sopt-makers/fonts';
+import { IconCheck } from '@sopt-makers/icons';
+
+import Text from '@/components/common/Text';
 
 interface RadioBoxProps {
   content: string;

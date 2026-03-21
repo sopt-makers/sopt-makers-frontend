@@ -1,11 +1,12 @@
+import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import { IconAlertTriangle, IconTrash, IconWrite } from '@sopt-makers/icons';
 import { useQueryClient } from '@tanstack/react-query';
 import { Flex } from '@toss/emotion-utils';
 import { ErrorBoundary } from '@toss/error-boundary';
 import Link from 'next/link';
-import { playgroundLink } from '@sopt/ui';
-import { createContext, ReactNode, useRef } from 'react';
+import type { ReactNode } from 'react';
+import { createContext, useRef } from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
 

@@ -1,13 +1,13 @@
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
+import { Chip } from '@sopt-makers/ui';
 
 import useCategory from '@/components/feed/common/hooks/useCategory';
-import { FeedDataType } from '@/components/feed/upload/types';
+import { PART_CATEGORY_ID } from '@/components/feed/constants';
+import type { FeedDataType } from '@/components/feed/upload/types';
 import Arrow from '@/public/icons/icon-select-arrow.svg';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 import { textStyles } from '@/styles/typography';
-import { PART_CATEGORY_ID } from '@/components/feed/constants';
-import { Chip } from '@sopt-makers/ui';
 
 interface CategoryHeaderProp {
   feedData: FeedDataType;

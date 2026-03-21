@@ -1,9 +1,11 @@
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 import { m } from 'framer-motion';
 import Link from 'next/link';
-import { FC, useEffect, useState } from 'react';
+import type { FC } from 'react';
+import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 
 import AppleAuthButton from '@/components/auth/identityProvider/apple/AppleAuthButton';
@@ -12,7 +14,6 @@ import GoogleAuthButton from '@/components/auth/identityProvider/google/GoogleAu
 import useGoogleAuth from '@/components/auth/identityProvider/google/useGoogleAuth';
 import { lastLoginMethodAtom } from '@/components/auth/states/lastLoginMethodAtom';
 import useEventLogger from '@/components/eventLogger/hooks/useEventLogger';
-import { playgroundLink } from '@/constants/links';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 import { setLayout } from '@/utils/layout';
 

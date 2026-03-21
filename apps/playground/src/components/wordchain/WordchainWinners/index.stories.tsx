@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import { Fragment } from 'react';
 
 import WordchainWinners from '@/components/wordchain/WordchainWinners';

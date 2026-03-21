@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 import { createEndpoint } from '@/api/typedAxios';
-import { CoffeechatFormContent } from '@/components/coffeechat/upload/CoffeechatForm/types';
+import type { CoffeechatFormContent } from '@/components/coffeechat/upload/CoffeechatForm/types';
 
 export const uploadCoffeechat = createEndpoint({
   request: (reqeustBody: CoffeechatFormContent) => ({

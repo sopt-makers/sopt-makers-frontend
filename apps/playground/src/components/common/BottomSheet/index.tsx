@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
-import { ComponentProps, FC, PropsWithChildren, ReactNode } from 'react';
+import type { ComponentProps, FC, PropsWithChildren, ReactNode } from 'react';
 import Sheet from 'react-modal-sheet';
 
 export interface BottomSheetProps extends PropsWithChildren<ComponentProps<typeof Sheet>> {

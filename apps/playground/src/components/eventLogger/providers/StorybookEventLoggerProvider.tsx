@@ -1,4 +1,5 @@
-import { FC, ReactNode, useMemo } from 'react';
+import type { FC, ReactNode } from 'react';
+import { useMemo } from 'react';
 
 import { EventLoggerContext } from '@/components/eventLogger/context';
 import { createStorybookActionController } from '@/components/eventLogger/controllers/storybookAction';

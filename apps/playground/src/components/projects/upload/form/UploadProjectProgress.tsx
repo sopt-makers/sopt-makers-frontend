@@ -1,9 +1,10 @@
 import styled from '@emotion/styled';
-import { FC } from 'react';
-import { FormState } from 'react-hook-form';
+import type { FC } from 'react';
+import type { FormState } from 'react-hook-form';
 
-import FormProgress, { FormProgressItem } from '@/components/common/form/FormProgress';
-import { ProjectFormType } from '@/components/projects/upload/form/schema';
+import type { FormProgressItem } from '@/components/common/form/FormProgress';
+import FormProgress from '@/components/common/form/FormProgress';
+import type { ProjectFormType } from '@/components/projects/upload/form/schema';
 
 interface UploadProjectProgressProps {
   formState: FormState<ProjectFormType>;

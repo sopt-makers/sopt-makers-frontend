@@ -5,6 +5,7 @@ const nextConfig = {
   output: 'export',
   reactStrictMode: true,
   swcMinify: true,
+  transpilePackages: ['@sopt/ui', '@sopt/constant'],
   webpack: (config) => {
     config.module.rules.push({
       test: /\.svg$/,

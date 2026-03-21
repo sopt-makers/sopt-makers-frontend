@@ -1,13 +1,13 @@
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
+import { fonts } from '@sopt-makers/fonts';
+import { Flex } from '@toss/emotion-utils';
 import dayjs from 'dayjs';
-import { FC } from 'react';
+import type { FC } from 'react';
 
-import { Career } from '@/components/members/detail/types';
+import type { Career } from '@/components/members/detail/types';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 import { textStyles } from '@/styles/typography';
-import { Flex } from '@toss/emotion-utils';
-import { fonts } from '@sopt-makers/fonts';
 
 type CareerItemProps = {
   career: Career;

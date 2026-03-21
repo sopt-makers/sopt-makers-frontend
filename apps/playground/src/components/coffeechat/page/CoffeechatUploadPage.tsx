@@ -1,12 +1,13 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { FieldValues, FormProvider, useForm } from 'react-hook-form';
+import type { FieldValues } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 
 import DesktopCoffeechatUploadLayout from '@/components/coffeechat/page/layout/DesktopCoffeechatUploadLayout';
 import MobileCoffeechatUploadLayout from '@/components/coffeechat/page/layout/MobileCoffeechatUploadLayout';
 import CoffeechatForm from '@/components/coffeechat/upload/CoffeechatForm';
 import { coffeeChatchema } from '@/components/coffeechat/upload/CoffeechatForm/schema';
 import SubmitDialog from '@/components/coffeechat/upload/CoffeechatForm/SubmitDialog';
-import { CoffeechatFormContent } from '@/components/coffeechat/upload/CoffeechatForm/types';
+import type { CoffeechatFormContent } from '@/components/coffeechat/upload/CoffeechatForm/types';
 import UploadButton from '@/components/coffeechat/upload/CoffeechatForm/UploadButton';
 import ProgressBox from '@/components/coffeechat/upload/ProgressBox';
 import UploadHeader from '@/components/coffeechat/upload/UploadHeader';

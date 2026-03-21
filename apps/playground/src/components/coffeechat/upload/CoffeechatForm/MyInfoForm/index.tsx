@@ -5,7 +5,7 @@ import { Controller, useFormContext } from 'react-hook-form';
 import { COFFEECHAT_MOBILE_MEDIA_QUERY } from '@/components/coffeechat/mediaQuery';
 import BottomSheetSelect from '@/components/coffeechat/upload/CoffeechatForm/BottomSheetSelect';
 import { CAREER_LEVEL_OPTIONS } from '@/components/coffeechat/upload/CoffeechatForm/constants';
-import { CoffeechatFormContent } from '@/components/coffeechat/upload/CoffeechatForm/types';
+import type { CoffeechatFormContent } from '@/components/coffeechat/upload/CoffeechatForm/types';
 import FormItem from '@/components/common/form/FormItem';
 import FormTitle from '@/components/common/form/FormTitle';
 import TextFieldLineBreak from '@/components/common/form/TextFieldLineBreak';

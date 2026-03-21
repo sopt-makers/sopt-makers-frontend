@@ -1,19 +1,15 @@
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
 import { Button, Callout, Chip, SelectV2, TextField } from '@sopt-makers/ui';
-import { FC, FormEvent, useState } from 'react';
+import type { FC, FormEvent } from 'react';
+import { useState } from 'react';
 
 import { useGetMemberOfMe } from '@/api/endpoint/members/getMemberOfMe';
 import { useGetMemberProperty } from '@/api/endpoint/members/getMemberProperty';
-import { RequestBody } from '@/api/endpoint/review/postReview';
+import type { RequestBody } from '@/api/endpoint/review/postReview';
 import BottomSheetSelect from '@/components/blog/BottomSheetSelect';
-import {
-  ACTIVITY_OPTIONS,
-  BLOG_OPTIONS,
-  BlogOptionValue,
-  PART_KR_TO_ENUM,
-  RECRUIT_OPTIONS,
-} from '@/components/blog/constants';
+import type { BlogOptionValue } from '@/components/blog/constants';
+import { ACTIVITY_OPTIONS, BLOG_OPTIONS, PART_KR_TO_ENUM, RECRUIT_OPTIONS } from '@/components/blog/constants';
 import Responsive from '@/components/common/Responsive';
 import Text from '@/components/common/Text';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';

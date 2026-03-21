@@ -1,4 +1,4 @@
-import { Meta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
 import ProfileSection from '@/components/members/detail/ProfileSection';
 

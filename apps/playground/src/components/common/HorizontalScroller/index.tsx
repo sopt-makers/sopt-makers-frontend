@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
-import { forwardRef, MouseEvent, ReactNode, useEffect, useRef, useState } from 'react';
+import type { MouseEvent, ReactNode } from 'react';
+import { forwardRef, useEffect, useRef, useState } from 'react';
 
 interface HorizontalScrollerProps {
   className?: string;

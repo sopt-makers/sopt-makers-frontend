@@ -1,5 +1,5 @@
 import { validateAuthToken } from '@api/auth';
-import { playgroundLink } from '@sopt-makers/playground-common';
+import { playgroundLink } from '@sopt/constant';
 
 import { authToken } from '@/store/tokenStore';
 

@@ -1,7 +1,9 @@
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
-import { FC, useEffect } from 'react';
+import type { FC } from 'react';
+import { useEffect } from 'react';
 
 import { useGetMemberOfMe } from '@/api/endpoint/members/getMemberOfMe';
 import { getProjectById, putProject } from '@/api/endpoint_LEGACY/projects';
@@ -11,11 +13,10 @@ import useConfirm from '@/components/common/Modal/useConfirm';
 import useToast from '@/components/common/Toast/useToast';
 import useEventLogger from '@/components/eventLogger/hooks/useEventLogger';
 import ProjectForm from '@/components/projects/upload/form/ProjectForm';
-import { ProjectFormType } from '@/components/projects/upload/form/schema';
+import type { ProjectFormType } from '@/components/projects/upload/form/schema';
 import { getProjectListQueryKey } from '@/components/projects/upload/hooks/useGetProjectListQuery';
 import { getProjectQueryKey } from '@/components/projects/upload/hooks/useGetProjectQuery';
 import { convertProjectToFormType, convertToProjectData } from '@/components/projects/utils';
-import { playgroundLink } from '@/constants/links';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 interface ProjectEditProps {

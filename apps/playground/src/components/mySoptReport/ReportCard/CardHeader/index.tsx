@@ -2,9 +2,9 @@ import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 import { useToast } from '@sopt-makers/ui';
-import { StaticImageData } from 'next/image';
+import type { StaticImageData } from 'next/image';
 
-import { getCardConfig } from '@/components/mySoptReport/constants';
+import { getCardConfig, type Value } from '@/components/mySoptReport/constants';
 import useImageDownload from '@/components/resolution/read/hooks/useImageDownload';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
@@ -12,11 +12,11 @@ interface CardHeaderProps {
   title?: string;
   image?: StaticImageData;
   type?: string;
-  value?: any;
+  value?: Value;
 }
 
 const CardHeader = ({ title = 'SOPT Playground', image, type, value }: CardHeaderProps) => {
-  const cardConfig = (type && getCardConfig(type, value)) || null;
+  const cardConfig = (type && value !== undefined && getCardConfig(type, value)) || null;
   const { open } = useToast();
 
   const { ref: imageRef, onClick: onDownloadButtonClick } = useImageDownload(`마이 플그 데이터 ${cardConfig?.index}`);

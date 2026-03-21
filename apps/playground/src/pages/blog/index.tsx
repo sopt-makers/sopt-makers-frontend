@@ -1,16 +1,17 @@
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import { FC } from 'react';
+import type { FC } from 'react';
 import { z } from 'zod';
 
 import { useGetMemberOfMe } from '@/api/endpoint/members/getMemberOfMe';
-import { postReview, RequestBody } from '@/api/endpoint/review/postReview';
+import type { RequestBody } from '@/api/endpoint/review/postReview';
+import { postReview } from '@/api/endpoint/review/postReview';
 import AuthRequired from '@/components/auth/AuthRequired';
 import UploadBlog from '@/components/blog/UploadBlog';
 import useEventLogger from '@/components/eventLogger/hooks/useEventLogger';
-import { playgroundLink } from '@/constants/links';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 import { setLayout } from '@/utils/layout';
 

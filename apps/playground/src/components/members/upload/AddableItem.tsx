@@ -1,7 +1,8 @@
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
 import WarningIcon from 'public/icons/icon-warning.svg';
-import { HTMLAttributes, ReactNode, useState } from 'react';
+import type { HTMLAttributes, ReactNode } from 'react';
+import { useState } from 'react';
 
 import Responsive from '@/components/common/Responsive';
 import Text from '@/components/common/Text';

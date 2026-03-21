@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import Notifier from '@/components/makers/Notifier';
 import LogoMakersFull from '@/public/logos/logo-makers-full.svg';

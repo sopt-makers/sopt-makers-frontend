@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { Button, Dialog } from '@sopt-makers/ui';
-import { FieldValues, useFormContext } from 'react-hook-form';
+import type { FieldValues } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 
 import Responsive from '@/components/common/Responsive';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';

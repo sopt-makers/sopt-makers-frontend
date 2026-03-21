@@ -17,7 +17,7 @@ import FlashAbout from '@domain/detail/MeetingController/FlashAbout';
 import MeetingAbout from '@domain/detail/MeetingController/MeetingAbout';
 import useModal from '@hook/useModal';
 import DefaultModal from '@shared/modal/DefaultModal';
-import { playgroundLink } from '@sopt-makers/playground-common';
+import { playgroundLink } from '@sopt/constant';
 import { useDialog } from '@sopt-makers/ui';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import type { AxiosResponse } from 'axios';

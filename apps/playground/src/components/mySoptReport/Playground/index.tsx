@@ -7,7 +7,7 @@ import CoffeeSopt from '@/components/mySoptReport/Playground/CoffeeSopt';
 import Community from '@/components/mySoptReport/Playground/Community';
 import MBTI from '@/components/mySoptReport/Playground/MBTI';
 import MeetingStudy from '@/components/mySoptReport/Playground/MeetingStudy';
-import { PlaygroundReportDataType } from '@/components/mySoptReport/types';
+import type { PlaygroundReportDataType } from '@/components/mySoptReport/types';
 import CalendarIcon from '@/public/logos/img_calendar.svg';
 import ConfettiIcon from '@/public/logos/img_confetti.svg';
 

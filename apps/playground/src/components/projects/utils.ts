@@ -9,7 +9,7 @@ import type {
   ServiceType,
 } from '@/api/endpoint_LEGACY/projects/type';
 import { DEFAULT_IMAGE_URL } from '@/components/projects/upload/form/constants';
-import { ProjectFormType } from '@/components/projects/upload/form/schema';
+import type { ProjectFormType } from '@/components/projects/upload/form/schema';
 
 dayjs.extend(customParseFormat);
 

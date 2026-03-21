@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 import { useDialog } from '@sopt-makers/ui';
 import { useRouter } from 'next/router';
-import { playgroundLink } from '@sopt/ui';
 import { useEffect, useMemo } from 'react';
 
 import { useGetCoffeechatDetail } from '@/api/endpoint/coffeechat/getCoffeechatDetail';
@@ -41,7 +41,7 @@ export default function CoffeechatDetail({ memberId }: CoffeechatDetailProp) {
   }, [profile?.soptActivities]);
 
   useEffect(() => {
-    isError &&
+    if (isError) {
       open({
         title: `커피챗 정보를 확인할 수 없는 유저입니다.`,
         description: `${error.message}`,
@@ -53,7 +53,8 @@ export default function CoffeechatDetail({ memberId }: CoffeechatDetailProp) {
           },
         },
       });
-  }, [isError]);
+    }
+  }, [isError, error, open, router]);
 
   return (
     <DetailPageLayout>

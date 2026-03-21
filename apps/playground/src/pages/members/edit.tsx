@@ -1,11 +1,12 @@
 import { yupResolver } from '@hookform/resolvers/yup';
+import { playgroundLink } from '@sopt/constant';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import { usePutMemberProfileMutation } from '@/api/endpoint/members/putMemberProfile';
 import { useGetMemberProfileOfMe } from '@/api/endpoint_LEGACY/hooks';
-import { ProfileRequest } from '@/api/endpoint_LEGACY/members/type';
+import type { ProfileRequest } from '@/api/endpoint_LEGACY/members/type';
 import AuthRequired from '@/components/auth/AuthRequired';
 import useLastUnauthorized from '@/components/auth/util/useLastUnauthorized';
 import useToast from '@/components/common/Toast/useToast';
@@ -30,8 +31,7 @@ import CareerFormSection from '@/components/members/upload/FormSection/Career';
 import SoptActivityFormSection from '@/components/members/upload/FormSection/SoptActivity';
 import TmiFormSection from '@/components/members/upload/FormSection/Tmi';
 import { memberFormSchema } from '@/components/members/upload/schema';
-import { MemberUploadForm, SoptActivity } from '@/components/members/upload/types';
-import { playgroundLink } from '@/constants/links';
+import type { MemberUploadForm, SoptActivity } from '@/components/members/upload/types';
 import { setLayout } from '@/utils/layout';
 
 import { useGetMemberOfMe } from '../../api/endpoint/members/getMemberOfMe';
@@ -64,7 +64,9 @@ export default function MemberEditPage() {
     }
 
     if (!isDirty) {
-      me && router.push(playgroundLink.memberDetail(me.id.toString()));
+      if (me) {
+        router.push(playgroundLink.memberDetail(me.id.toString()));
+      }
       return;
     }
 

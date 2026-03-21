@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
 import Link from 'next/link';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import Panel from '@/components/debug/Panel';
 import { ActionBox, ActionButton } from '@/components/debug/styles';
-import { playgroundLink } from '@/constants/links';
 
 const NavigationPanel: FC = () => {
   return (

@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { FC, PropsWithChildren, ReactChild } from 'react';
+import type { FC, PropsWithChildren, ReactChild } from 'react';
 
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 

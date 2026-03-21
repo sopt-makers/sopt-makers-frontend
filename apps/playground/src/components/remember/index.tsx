@@ -1,3 +1,8 @@
+import styled from '@emotion/styled';
+import { colors } from '@sopt-makers/colors';
+import { fonts } from '@sopt-makers/fonts';
+import { useRouter } from 'next/router';
+
 import { useGetMemberOfMe } from '@/api/endpoint/members/getMemberOfMe';
 import Responsive from '@/components/common/Responsive';
 import ReviewInput from '@/components/remember/ReviewInput';
@@ -5,10 +10,6 @@ import Reviews from '@/components/remember/reviews';
 import { LATEST_GENERATION } from '@/constants/generation';
 import BackArrow from '@/public/icons/icon_chevron_left.svg';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
-import styled from '@emotion/styled';
-import { colors } from '@sopt-makers/colors';
-import { fonts } from '@sopt-makers/fonts';
-import { useRouter } from 'next/router';
 
 export default function RememberPage() {
   const router = useRouter();

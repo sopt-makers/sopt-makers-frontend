@@ -1,7 +1,8 @@
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
 import Head from 'next/head';
-import React, { FC } from 'react';
+import type { FC } from 'react';
+import React from 'react';
 
 import BannerLeft from '@/components/common/Banner/AppJamBanner/assets/banner-left.svg';
 import BannerRight from '@/components/common/Banner/AppJamBanner/assets/banner-right.svg';

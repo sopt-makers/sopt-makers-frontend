@@ -1,4 +1,4 @@
-import { Meta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
 import PeriodField from '@/components/projects/upload/form/fields/PeriodField';
 

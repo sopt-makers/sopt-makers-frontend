@@ -42,6 +42,7 @@
     "@sopt-makers/fonts": "1.0.0",
     "@sopt-makers/icons": "^1.1.0",
     "@sopt-makers/ui": "2.8.9",
+    "@sopt/constant": "workspace:*",
     "@sopt/ui": "workspace:*",
     "@tanstack/react-query": "^5",
     "@tanstack/react-virtual": "^3.13.12",
@@ -89,6 +90,7 @@
     "@emotion/babel-preset-css-prop": "^11.11.0",
     "@mdx-js/react": "^1.6.22",
     "@next/bundle-analyzer": "^13.1.1",
+    "@sopt-makers/eslint-config": "workspace:^",
     "@storybook/addon-actions": "^7.6.20",
     "@storybook/addon-docs": "^7.6.20",
     "@storybook/addon-essentials": "^7.6.20",
@@ -136,7 +138,6 @@
     "ts-node": "^10.9.1",
     "tsconfig-paths-webpack-plugin": "^3.5.2",
     "tsup": "^7.1.0",
-    "typescript": "^4.9.5",
     "url-loader": "^4.1.1",
     "webpack": "^5.72.0",
     "wrangler": "^3.0.0"

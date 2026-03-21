@@ -1,10 +1,11 @@
+import { playgroundLink } from '@sopt/constant';
 import { useRouter } from 'next/router';
-import { FC, ReactNode, useCallback, useEffect, useRef } from 'react';
+import type { FC, ReactNode } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 
 import { tokenStorage } from '@/components/auth/util/accessToken';
 import useLastUnauthorized from '@/components/auth/util/useLastUnauthorized';
 import { IS_DEV } from '@/constants/env';
-import { playgroundLink } from '@/constants/links';
 
 interface AuthRequiredProps {
   children: ReactNode;

@@ -1,9 +1,9 @@
 import '@sopt-makers/ui/dist/index.css';
-import { desktopVariables, mobileVariables } from '@sopt-makers/ui';
 
 import { css } from '@emotion/react';
 import { colors } from '@sopt-makers/colors';
 import { fontBase } from '@sopt-makers/fonts';
+import { desktopVariables, mobileVariables } from '@sopt-makers/ui';
 
 import font from '@/styles/font';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';

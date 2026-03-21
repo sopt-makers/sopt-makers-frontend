@@ -1,7 +1,7 @@
 import ProfileDefaultIcon from '@assets/svg/profile_default.svg?rect';
 import { playgroundURL } from '@constant/url';
+import { playgroundLink } from '@sopt/constant';
 import { fontsObject } from '@sopt-makers/fonts';
-import { playgroundLink } from '@sopt-makers/playground-common';
 import { styled } from 'stitches.config';
 
 import { ampli } from '@/ampli';

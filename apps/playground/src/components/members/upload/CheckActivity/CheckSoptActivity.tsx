@@ -1,9 +1,9 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 import { useRouter } from 'next/router';
-import { playgroundLink } from '@sopt/ui';
 import { useEffect, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
@@ -15,7 +15,7 @@ import SoptActivitySection from '@/components/members/detail/SoptActivitySection
 import useRegisterModal from '@/components/members/hooks/useRegisterModal';
 import { UNSELECTED } from '@/components/members/upload/constants';
 import MemberSoptActivityFormSection from '@/components/members/upload/FormSection/SoptActivity';
-import { SoptActivity } from '@/components/members/upload/types';
+import type { SoptActivity } from '@/components/members/upload/types';
 
 export default function CheckSoptActivity() {
   const router = useRouter();

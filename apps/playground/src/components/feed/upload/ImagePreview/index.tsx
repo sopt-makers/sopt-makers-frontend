@@ -1,5 +1,6 @@
-import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 import styled from '@emotion/styled';
+
+import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 interface ImagePreviewProps {
   images: string[];

@@ -1,4 +1,5 @@
-import { css, SerializedStyles } from '@emotion/react';
+import type { SerializedStyles } from '@emotion/react';
+import { css } from '@emotion/react';
 import { colors } from '@sopt-makers/colors';
 
 export type ButtonStyle = 'default' | 'primary' | 'danger';

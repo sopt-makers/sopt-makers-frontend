@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
 import Link from 'next/link';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import { cardStyle } from '@/components/soulmate/view/common/commonStyles';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';

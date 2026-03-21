@@ -2,8 +2,8 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { produce } from 'immer';
 import { z } from 'zod';
 
+import type { activeCommentSchemaWithReplies } from '@/api/endpoint/feed/getComment';
 import { getComment } from '@/api/endpoint/feed/getComment';
-import { activeCommentSchemaWithReplies } from '@/api/endpoint/feed/getComment';
 import { createEndpoint } from '@/api/typedAxios';
 export const commentLike = createEndpoint({
   request: (postId: number, commentId: number) => ({

@@ -17,7 +17,6 @@ import imgMember from '@/public/icons/img/mySoptReport/img_member@3x.png';
 import imgNew from '@/public/icons/img/mySoptReport/img_new@3x.png';
 import imgProject from '@/public/icons/img/mySoptReport/img_project@3x.png';
 import imgWordchain from '@/public/icons/img/mySoptReport/img_wordchain@3x.png';
-
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 const cardData = {

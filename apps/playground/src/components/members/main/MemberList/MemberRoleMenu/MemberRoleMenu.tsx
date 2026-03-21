@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
-import { FC, ReactNode } from 'react';
+import type { FC, ReactNode } from 'react';
 
 import Text from '@/components/common/Text';
 import { MENUS } from '@/components/members/main/MemberList/MemberRoleMenu/constants';

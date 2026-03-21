@@ -1,10 +1,10 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { produce } from 'immer';
-import { Params } from 'next/dist/shared/lib/router/utils/route-matcher';
+import type { Params } from 'next/dist/shared/lib/router/utils/route-matcher';
 import { z } from 'zod';
 
-import { PostType } from '@/api/endpoint/feed/getPost';
-import { PostsType } from '@/api/endpoint/feed/getPosts';
+import type { PostType } from '@/api/endpoint/feed/getPost';
+import type { PostsType } from '@/api/endpoint/feed/getPosts';
 import { createEndpoint } from '@/api/typedAxios';
 
 export const postLike = createEndpoint({

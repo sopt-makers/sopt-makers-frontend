@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import RegisterFinished from '@/components/auth/register/RegisterFinished';
 import { setLayout } from '@/utils/layout';

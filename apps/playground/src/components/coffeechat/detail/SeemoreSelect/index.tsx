@@ -1,14 +1,15 @@
 import styled from '@emotion/styled';
 import * as Dialog from '@radix-ui/react-dialog';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 import { IconDotsVertical, IconEdit, IconTrash } from '@sopt-makers/icons';
-import { DialogOptionType, useDialog, useToast } from '@sopt-makers/ui';
+import type { DialogOptionType } from '@sopt-makers/ui';
+import { useDialog, useToast } from '@sopt-makers/ui';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
-import { playgroundLink } from '@sopt/ui';
 import { useState } from 'react';
 
 import { deleteCoffeechat } from '@/api/endpoint/coffeechat/deleteCoffeechat';

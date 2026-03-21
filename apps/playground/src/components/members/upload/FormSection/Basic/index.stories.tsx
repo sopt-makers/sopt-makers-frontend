@@ -1,11 +1,11 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Meta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import { MEMBER_DEFAULT_VALUES } from '@/components/members/upload/constants';
 import MemberBasicFormSection from '@/components/members/upload/FormSection/Basic';
 import { memberFormSchema } from '@/components/members/upload/schema';
-import { MemberUploadForm } from '@/components/members/upload/types';
+import type { MemberUploadForm } from '@/components/members/upload/types';
 
 type PickBasicForm = Pick<
   MemberUploadForm,

@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
-import { FC, useEffect } from 'react';
+import type { FC } from 'react';
+import { useEffect } from 'react';
 import { useSetRecoilState } from 'recoil';
 
 import { postRegistrationInfo } from '@/api/endpoint_LEGACY/auth';

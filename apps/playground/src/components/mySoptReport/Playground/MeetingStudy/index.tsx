@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 import { IconChevronRight } from '@sopt-makers/icons';
 import { Button } from '@sopt-makers/ui';
 import router from 'next/router';
-import { playgroundLink } from '@sopt/ui';
 
 import Responsive from '@/components/common/Responsive';
 import { LoggingClick } from '@/components/eventLogger/components/LoggingClick';
@@ -12,7 +12,7 @@ import LabelButton from '@/components/mySoptReport/common/LabelButton';
 import ReportCard from '@/components/mySoptReport/common/ReportCard';
 import ReportText from '@/components/mySoptReport/common/ReportTitle/ReportText';
 import Tooltip from '@/components/mySoptReport/common/Tooltip';
-import { PlaygroundReportDataType } from '@/components/mySoptReport/types';
+import type { PlaygroundReportDataType } from '@/components/mySoptReport/types';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 export default function MeetingStudy({ reportData }: { reportData: PlaygroundReportDataType }) {

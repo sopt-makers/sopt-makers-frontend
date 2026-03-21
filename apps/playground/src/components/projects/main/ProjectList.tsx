@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 import { Flex, width100 } from '@toss/emotion-utils';
@@ -21,7 +22,6 @@ import ProjectCategorySelect from '@/components/projects/main/ProjectCategorySel
 import ProjectFilterChip from '@/components/projects/main/ProjectFilterChip';
 import ProjectSearch from '@/components/projects/main/ProjectSearch';
 import useGetProjectListQuery from '@/components/projects/upload/hooks/useGetProjectListQuery';
-import { playgroundLink } from '@/constants/links';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 type ProjectCategory = 'APPJAM' | 'SOPKATHON' | 'SOPTERM' | 'STUDY' | 'ETC';

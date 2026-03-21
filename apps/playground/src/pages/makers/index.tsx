@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
-import { GetStaticProps } from 'next';
-import { FC } from 'react';
+import type { GetStaticProps } from 'next';
+import type { FC } from 'react';
 import { RemoveScroll } from 'react-remove-scroll';
 
 import { getMakersProfile } from '@/api/endpoint/makers/getMakersProfile';

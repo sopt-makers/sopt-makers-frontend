@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import Text from '@/components/common/Text';
 import MemberDetailSection from '@/components/members/detail/ActivitySection/MemberDetailSection';

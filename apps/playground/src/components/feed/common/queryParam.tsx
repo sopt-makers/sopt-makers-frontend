@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { ParsedUrlQuery } from 'querystring';
-import { ComponentPropsWithoutRef, forwardRef } from 'react';
+import type { ComponentPropsWithoutRef } from 'react';
+import { forwardRef } from 'react';
 import { StringParam, useQueryParam, withDefault } from 'use-query-params';
 
 /**

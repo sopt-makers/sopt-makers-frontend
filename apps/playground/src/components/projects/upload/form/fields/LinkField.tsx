@@ -1,13 +1,15 @@
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
 import { isEmpty } from 'lodash-es';
-import React, { FC, useMemo, useState } from 'react';
+import type { FC } from 'react';
+import React, { useMemo, useState } from 'react';
 
 import Input from '@/components/common/Input';
 import ErrorMessage from '@/components/common/Input/ErrorMessage';
 import Select from '@/components/common/Select';
 import useToast from '@/components/common/Toast/useToast';
-import { linkTitles, LinkType } from '@/components/projects/upload/form/constants';
+import type { LinkType } from '@/components/projects/upload/form/constants';
+import { linkTitles } from '@/components/projects/upload/form/constants';
 import IconTrash from '@/public/icons/icon-trash.svg';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 import { textStyles } from '@/styles/typography';

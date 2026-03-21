@@ -1,8 +1,9 @@
-import Responsive from '@/components/common/Responsive';
-import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 import styled from '@emotion/styled';
 import { Button } from '@sopt-makers/ui';
 import React from 'react';
+
+import Responsive from '@/components/common/Responsive';
+import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 interface PopupProps {
   isOpen: boolean;

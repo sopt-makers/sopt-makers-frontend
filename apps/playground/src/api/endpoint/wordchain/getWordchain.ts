@@ -1,16 +1,11 @@
-import {
-  QueryKey,
-  useInfiniteQuery,
-  UseInfiniteQueryOptions,
-  useQuery,
-  UseQueryOptions,
-  UseQueryResult,
-} from '@tanstack/react-query';
+import type { QueryKey, UseInfiniteQueryOptions, UseQueryOptions, UseQueryResult } from '@tanstack/react-query';
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { z } from 'zod';
 
-import { createEndpoint, GetResponseType } from '@/api/typedAxios';
-import { ActiveWordchain, FinishedWordchain } from '@/components/wordchain/WordchainChatting/types';
-import { EntryWordchain } from '@/components/wordchain/WordchainEntry/types';
+import type { GetResponseType } from '@/api/typedAxios';
+import { createEndpoint } from '@/api/typedAxios';
+import type { ActiveWordchain, FinishedWordchain } from '@/components/wordchain/WordchainChatting/types';
+import type { EntryWordchain } from '@/components/wordchain/WordchainEntry/types';
 
 const userSchema = z.object({
   id: z.number(),

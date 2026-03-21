@@ -1,5 +1,6 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 import { IconSwitchVertical } from '@sopt-makers/icons';
@@ -8,10 +9,11 @@ import { Spacing } from '@toss/emotion-utils';
 import { debounce, uniq } from 'lodash-es';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { ChangeEvent, FC, ReactNode, useEffect, useMemo, useState } from 'react';
+import type { ChangeEvent, FC, ReactNode } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 import { useGetMemberOfMe } from '@/api/endpoint/members/getMemberOfMe';
-import { Profile } from '@/api/endpoint_LEGACY/members/type';
+import type { Profile } from '@/api/endpoint_LEGACY/members/type';
 import BottomSheetSelect from '@/components/coffeechat/upload/CoffeechatForm/BottomSheetSelect';
 import EmptyView from '@/components/common/EmptyView';
 import Responsive from '@/components/common/Responsive';
@@ -22,13 +24,13 @@ import BestOBMemberForAsk from '@/components/members/main/AskOBMemberList';
 import { DESKTOP_ONE_MEDIA_QUERY, DESKTOP_TWO_MEDIA_QUERY } from '@/components/members/main/contants';
 import { useMemberProfileQuery } from '@/components/members/main/hooks/useMemberProfileQuery';
 import MemberCard from '@/components/members/main/MemberCard';
+import type { Option } from '@/components/members/main/MemberList/filters/constants';
 import {
   EMPLOYED_OPTIONS,
   FILTER_DEFAULT_OPTION,
   GENERATION_DEFAULT_OPTION,
   GENERATION_OPTIONS,
   MBTI_OPTIONS,
-  Option,
   ORDER_OPTIONS,
   PART_DEFAULT_OPTION,
   PART_OPTIONS,
@@ -38,7 +40,6 @@ import {
 import MemberListFilter from '@/components/members/main/MemberList/filters/MemberListFilter';
 import { MemberListOrder } from '@/components/members/main/MemberList/filters/MemberListOrder';
 import { LATEST_GENERATION } from '@/constants/generation';
-import { playgroundLink } from '@/constants/links';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 import { usePageQueryParams } from '@/hooks/usePageQueryParams';
 import { useRunOnce } from '@/hooks/useRunOnce';

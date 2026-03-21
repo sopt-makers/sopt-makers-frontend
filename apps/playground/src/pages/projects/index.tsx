@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import AuthRequired from '@/components/auth/AuthRequired';
 import ProjectList from '@/components/projects/main/ProjectList';

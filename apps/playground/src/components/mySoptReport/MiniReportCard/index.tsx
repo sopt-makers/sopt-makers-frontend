@@ -1,7 +1,9 @@
-import { CardConfig, getCardConfig, Value, WordChainGameStats } from '@/components/mySoptReport/constants';
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
+
+import type { CardConfig, Value, WordChainGameStats } from '@/components/mySoptReport/constants';
+import { getCardConfig } from '@/components/mySoptReport/constants';
 
 interface MiniReportCardProps {
   type: string;

@@ -5,7 +5,8 @@ import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
 import dayjs from 'dayjs';
 import { useState } from 'react';
-import Slider, { CustomArrowProps, Settings } from 'react-slick';
+import type { CustomArrowProps, Settings } from 'react-slick';
+import Slider from 'react-slick';
 
 import { useBannersImages } from '@/api/endpoint/homeBanner/getBannersImages';
 import { useGetMemberOfMe } from '@/api/endpoint/members/getMemberOfMe';

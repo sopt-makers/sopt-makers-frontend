@@ -1,7 +1,8 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
-import { forwardRef, TextareaHTMLAttributes, useState } from 'react';
+import type { TextareaHTMLAttributes } from 'react';
+import { forwardRef, useState } from 'react';
 
 import Text from '@/components/common/Text';
 import { textStyles } from '@/styles/typography';

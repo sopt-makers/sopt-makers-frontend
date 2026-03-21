@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 
-import { SlideUpController } from '@/components/common/SlideUp/types';
+import type { SlideUpController } from '@/components/common/SlideUp/types';
 
 export const SlideUpContext = createContext<SlideUpController>(createUninitializedController());
 

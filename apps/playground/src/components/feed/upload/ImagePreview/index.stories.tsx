@@ -1,7 +1,7 @@
-import { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 
+import type index from './index';
 import ImagePreview from './index';
-import index from './index';
 
 const meta = {
   component: ImagePreview,

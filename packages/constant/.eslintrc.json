@@ -1,0 +1,4 @@
+{
+  "root": true,
+  "extends": ["@sopt-makers/eslint-config/base"]
+}

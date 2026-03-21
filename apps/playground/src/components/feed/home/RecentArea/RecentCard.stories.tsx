@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { RecentPosts } from '@/api/endpoint/feed/getRecentPosts';
+import type { RecentPosts } from '@/api/endpoint/feed/getRecentPosts';
 
 import RecentCard from './RecentCard';
 

@@ -1,4 +1,4 @@
-import { Meta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
 import { BottomSheet } from '@/components/common/BottomSheet';
 import Button from '@/components/common/Button';

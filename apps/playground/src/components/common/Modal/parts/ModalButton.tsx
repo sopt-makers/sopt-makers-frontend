@@ -1,10 +1,11 @@
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import * as Dialog from '@radix-ui/react-dialog';
 import { colors } from '@sopt-makers/colors';
-import { ComponentPropsWithoutRef, forwardRef } from 'react';
+import type { ComponentPropsWithoutRef } from 'react';
+import { forwardRef } from 'react';
 
 import { textStyles } from '@/styles/typography';
-import { css } from '@emotion/react';
 
 interface ModalCloseButtonProps extends ComponentPropsWithoutRef<typeof Dialog.Close> {
   action?: 'normal' | 'close';

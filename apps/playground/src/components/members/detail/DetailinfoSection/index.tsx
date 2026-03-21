@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
 
-import { ProfileDetail } from '@/api/endpoint_LEGACY/members/type';
+import type { ProfileDetail } from '@/api/endpoint_LEGACY/members/type';
 import MemberDetailSection from '@/components/members/detail/ActivitySection/MemberDetailSection';
 import InfoItem from '@/components/members/detail/InfoItem';
 

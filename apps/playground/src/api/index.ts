@@ -1,4 +1,5 @@
-import axios, { AxiosError, AxiosHeaders } from 'axios';
+import type { AxiosError } from 'axios';
+import axios, { AxiosHeaders } from 'axios';
 
 import { tokenStorage } from '@/components/auth/util/accessToken';
 import { ADMIN_API_KEY, ADMIN_API_URL, API_URL, AUTH_API_URL, CREW_API_URL, OPERATION_API_URL } from '@/constants/env';

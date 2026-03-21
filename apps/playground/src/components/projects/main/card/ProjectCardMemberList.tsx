@@ -1,10 +1,11 @@
-import ResizedImage from '@/components/common/ResizedImage';
-import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 import { Flex } from '@toss/emotion-utils';
 import { useState } from 'react';
+
+import ResizedImage from '@/components/common/ResizedImage';
+import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 const MEMBER_CIRCLE_WIDTH = 30;
 

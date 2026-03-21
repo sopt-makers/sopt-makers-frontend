@@ -3,7 +3,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 import { TextArea, TextField, useToast } from '@sopt-makers/ui';
-import { FC, useState } from 'react';
+import type { FC } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
@@ -70,32 +71,28 @@ const MessageModal: FC<MessageModalProps> = ({ receiverId, phone, ...props }) =>
       zIndex: zIndex.헤더 + 102,
       width: 400,
     });
-    try {
-      if (result) {
-        await mutateAsync({
-          senderPhone: phone,
-          content,
-          receiverId,
-          category: '커피챗',
-        });
-        logSubmitEvent('sendCoffeechat', {
-          content: content,
-          receiverId,
-          senderId,
-        });
-        open({
-          icon: 'success',
-          content: '커피챗 제안이 잘 전달되었어요!',
-          style: {
-            content: {
-              whiteSpace: 'pre-wrap',
-            },
+    if (result) {
+      await mutateAsync({
+        senderPhone: phone,
+        content,
+        receiverId,
+        category: '커피챗',
+      });
+      logSubmitEvent('sendCoffeechat', {
+        content: content,
+        receiverId,
+        senderId,
+      });
+      open({
+        icon: 'success',
+        content: '커피챗 제안이 잘 전달되었어요!',
+        style: {
+          content: {
+            whiteSpace: 'pre-wrap',
           },
-        });
-        props.onClose();
-      }
-    } catch (error) {
-      throw error;
+        },
+      });
+      props.onClose();
     }
   };
 
