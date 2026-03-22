@@ -111,7 +111,7 @@ const TimecapsopSubmitModalContent: FC<TimecapsopSubmitModalProps> = ({ userName
       <ModalBody>
         <TitleTextWrapper>
           <Description typography='SUIT_14_M' color={colors.gray200}>
-            SOPT 37기를 시작하는 나를 응원하며
+            SOPT 38기를 시작하는 나를 응원하며
           </Description>
           <Text typography='SUIT_20_SB'>타임캡솝을 만들어볼까요?</Text>
         </TitleTextWrapper>
