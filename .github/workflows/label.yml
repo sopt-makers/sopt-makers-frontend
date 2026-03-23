@@ -8,71 +8,14 @@ jobs:
   label:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
       pull-requests: write
+
     steps:
-      - name: Label PR
-        run: |
-          PR=${{ github.event.pull_request.number }}
-          REPO="${{ github.repository }}"
-          changed_files=$(gh api "repos/${{ github.repository }}/pulls/$PR/files" --paginate -q '.[].filename')
+      - uses: actions/checkout@v4
 
-          current_labels=$(gh pr view "$PR" --repo "$REPO" --json labels -q '.labels[].name' || true)
-
-          target_labels=()
-          add_target_label() {
-            target_labels+=("$1")
-          }
-
-          # 변경된 파일을 기준으로 필요한 target label 계산
-          if echo "$changed_files" | grep -q "^apps/crew/"; then
-            add_target_label "🥐 Crew"
-          fi
-          if echo "$changed_files" | grep -q "^apps/playground/"; then
-            add_target_label "⚡️ Playground"
-          fi
-          if echo "$changed_files" | grep -qE "^[^/]+$|^\.github/"; then
-            add_target_label "🔗 Root"
-          fi
-
-          changed_packages=$(echo "$changed_files" | awk -F'/' '$1=="packages"{print $2}' | sort -u)
-          for pkg in $changed_packages; do
-            add_target_label "🔗 Packages:$pkg"
-          done
-
-          mapfile -t target_labels < <(printf '%s\n' "${target_labels[@]}" | sort -u)
-
-          # 자동으로 붙이는 라벨 중에서 현재 라벨과 비교하여 diff 처리
-          auto_labels_current=()
-          for l in "🥐 Crew" "⚡️ Playground" "🔗 Root"; do
-            if echo "$current_labels" | grep -Fxq "$l"; then
-              auto_labels_current+=("$l")
-            fi
-          done
-
-          while IFS= read -r label; do
-            if [ -n "$label" ]; then
-              auto_labels_current+=("$label")
-            fi
-          done < <(printf '%s\n' "$current_labels" | grep "^🔗 Packages:" || true)
-
-          # diff 기준: target_labels에 없는 라벨만 제거
-          for label in "${auto_labels_current[@]}"; do
-            if ! printf '%s\n' "${target_labels[@]}" | grep -Fxq "$label"; then
-              gh pr edit "$PR" --repo "$REPO" --remove-label "$label"
-            fi
-          done
-
-          # diff 기준: target_labels에 있고 현재엔 없는 라벨만 추가
-          while IFS= read -r label; do
-            if [ -z "$label" ]; then
-              continue
-            fi
-
-            if ! echo "$current_labels" | grep -Fxq "$label"; then
-              gh label create "$label" --repo "$REPO" 2>/dev/null || true
-              gh pr edit "$PR" --repo "$REPO" --add-label "$label"
-            fi
-          done < <(printf '%s\n' "${target_labels[@]}")
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Sync PR labels
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const { default: syncLabels } = await import('${{ github.workspace }}/.github/scripts/label.ts');
+            await syncLabels({ github, context, core });
