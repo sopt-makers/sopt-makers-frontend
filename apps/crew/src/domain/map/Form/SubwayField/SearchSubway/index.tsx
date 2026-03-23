@@ -44,8 +44,8 @@ const SearchSubway = ({ value: selectedStations = [], onChange, error }: SearchS
     setSearchKeyword('');
   };
 
-  const handleDeleteStation = (index: number) => {
-    const updatedStations = selectedStations.filter((_, i) => i !== index);
+  const handleDeleteStation = (name?: string) => {
+    const updatedStations = selectedStations.filter((station) => station.name !== name);
     onChange(updatedStations);
   };
 
@@ -73,8 +73,8 @@ const SearchSubway = ({ value: selectedStations = [], onChange, error }: SearchS
             {/* 검색 결과 드롭다운 */}
             {searchKeyword && (selectedStations.length > 0 || unselectedSubwayStations.length > 0) && (
               <SearchResultDropdown>
-                {selectedStations.map((station: SubwayStationDataType, idx: number) => (
-                  <SelectedStationItem key={station.name} onClick={() => handleDeleteStation(idx)}>
+                {selectedStations.map((station: SubwayStationDataType) => (
+                  <SelectedStationItem key={station.name} onClick={() => handleDeleteStation(station.name)}>
                     <SelectedStationContent>
                       <StationName>{station.name}</StationName>
                       <SubwayLines>{renderSubwayLines(station.subwayLines)}</SubwayLines>
@@ -96,10 +96,10 @@ const SearchSubway = ({ value: selectedStations = [], onChange, error }: SearchS
 
         {/*추가된 지하철역 렌더링 */}
         <AddedStationsWrapper>
-          {selectedStations?.map((station, idx) => (
+          {selectedStations?.map((station) => (
             <Station key={station.name}>
               <StationName>{station.name}</StationName>
-              <DeleteButton type={'button'} onClick={() => handleDeleteStation(idx)}>
+              <DeleteButton type={'button'} onClick={() => handleDeleteStation(station.name)}>
                 <StyledIconXClose />
               </DeleteButton>
             </Station>
