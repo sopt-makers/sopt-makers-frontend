@@ -70,7 +70,7 @@ jobs:
             fi
 
             if ! echo "$current_labels" | grep -Fxq "$label"; then
-              gh label create "$label" --repo "$REPO" --color "ffffff" 2>/dev/null || true
+              gh label create "$label" --repo "$REPO" 2>/dev/null || true
               gh pr edit "$PR" --repo "$REPO" --add-label "$label"
             fi
           done < <(printf '%s\n' "${target_labels[@]}")
