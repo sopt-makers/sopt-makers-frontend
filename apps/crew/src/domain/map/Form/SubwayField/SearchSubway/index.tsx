@@ -69,14 +69,14 @@ const SearchSubway = ({ value: selectedStations = [], onChange, error }: SearchS
                   <SelectedStationItem key={station.name} onClick={() => handleDeleteStation(station.name)}>
                     <SelectedStationContent>
                       <StationName>{station.name}</StationName>
-                      <SubwayLines>
+                      <SubwayLineList>
                         {station.subwayLines?.map((line, index, subwayLines) => (
-                          <SubwayLine key={line}>
+                          <SubwayLineItem key={line}>
                             {line}
                             {index < subwayLines.length - 1 ? COMMA_SPACE : ''}
-                          </SubwayLine>
+                          </SubwayLineItem>
                         ))}
-                      </SubwayLines>
+                      </SubwayLineList>
                     </SelectedStationContent>
                     <SelectedCheckIcon />
                   </SelectedStationItem>
@@ -85,14 +85,14 @@ const SearchSubway = ({ value: selectedStations = [], onChange, error }: SearchS
                 {unselectedSubwayStations.map((station: SubwayStationDataType) => (
                   <StationItem key={station.name} onClick={() => handleStationSelect(station)}>
                     <StationName>{station.name}</StationName>
-                    <SubwayLines>
+                    <SubwayLineList>
                       {station.subwayLines?.map((line, index, subwayLines) => (
-                        <SubwayLine key={line}>
+                        <SubwayLineItem key={line}>
                           {line}
                           {index < subwayLines.length - 1 ? COMMA_SPACE : ''}
-                        </SubwayLine>
+                        </SubwayLineItem>
                       ))}
-                    </SubwayLines>
+                    </SubwayLineList>
                   </StationItem>
                 ))}
               </SearchResultDropdown>
@@ -248,12 +248,12 @@ const SelectedStationContent = styled('div', {
   alignItems: 'flex-start',
 });
 
-const SubwayLines = styled('div', {
+const SubwayLineList = styled('div', {
   display: 'flex',
   flexWrap: 'wrap',
 });
 
-const SubwayLine = styled('span', {
+const SubwayLineItem = styled('span', {
   fontSize: '12px',
   color: '$gray200',
   whiteSpace: 'nowrap',
