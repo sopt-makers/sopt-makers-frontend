@@ -18,13 +18,7 @@ export const checkToken = (config: InternalAxiosRequestConfig) => {
   return config;
 };
 
-let lock = false;
-
-const checkLock = () => lock;
-
-const setLock = (value: boolean) => {
-  lock = value;
-};
+let refreshPromise: Promise<string> | null = null;
 
 export const refreshToken = async (error: AxiosError<unknown>, instance: AxiosInstance) => {
   const originRequest = error.config;
@@ -34,30 +28,34 @@ export const refreshToken = async (error: AxiosError<unknown>, instance: AxiosIn
   const { status } = error.response;
 
   if (status === 401) {
-    if (checkLock()) return instance(originRequest);
-    setLock(true);
-
-    const currentToken = getAuthToken();
-    try {
-      const { data } = await authApi.post<{ data: { accessToken: string } }>(`/api/v1/auth/refresh/web`, null, {
-        headers: {
-          Authorization: `Bearer ${currentToken}`,
-        },
-      });
-      originRequest.headers.Authorization = `Bearer ${data.data.accessToken}`;
-      localStorage.setItem(ACCESS_TOKEN_KEY, data.data.accessToken);
-      instance.defaults.headers.common['Authorization'] = `Bearer ${data.data.accessToken}`;
-
-      return instance(originRequest);
-    } catch (error) {
-      console.error(error);
-      localStorage.removeItem(ACCESS_TOKEN_KEY);
-      redirectToLoginPage();
-
-      throw new Error('토큰 갱신에 실패하였습니다.');
-    } finally {
-      setLock(false);
+    if (!refreshPromise) {
+      const currentToken = getAuthToken();
+      refreshPromise = authApi
+        .post<{ data: { accessToken: string } }>(`/api/v1/auth/refresh/web`, null, {
+          headers: {
+            Authorization: `Bearer ${currentToken}`,
+          },
+        })
+        .then(({ data }) => {
+          const newToken = data.data.accessToken;
+          localStorage.setItem(ACCESS_TOKEN_KEY, newToken);
+          authToken.set(newToken);
+          return newToken;
+        })
+        .catch((err) => {
+          console.error(err);
+          localStorage.removeItem(ACCESS_TOKEN_KEY);
+          redirectToLoginPage();
+          throw new Error('토큰 갱신에 실패하였습니다.');
+        })
+        .finally(() => {
+          refreshPromise = null;
+        });
     }
+
+    const newToken = await refreshPromise;
+    originRequest.headers.Authorization = `Bearer ${newToken}`;
+    return instance(originRequest);
   }
 
   return Promise.reject(error);
