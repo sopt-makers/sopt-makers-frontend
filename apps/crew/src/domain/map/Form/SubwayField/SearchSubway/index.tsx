@@ -16,6 +16,16 @@ interface SearchSubwayProps {
   error: string | undefined;
 }
 
+const COMMA_SPACE = ',\u00A0';
+
+const renderSubwayLines = (subwayLines?: string[]) =>
+  subwayLines?.map((line, index) => (
+    <SubwayLine key={line}>
+      {line}
+      {index < subwayLines.length - 1 ? COMMA_SPACE : ''}
+    </SubwayLine>
+  ));
+
 const SearchSubway = ({ value: selectedStations = [], onChange, error }: SearchSubwayProps) => {
   const [searchKeyword, setSearchKeyword] = useState('');
   const { data: subwayStationsData } = useQuery(useSearchSubwayQueryOption(searchKeyword));
@@ -64,27 +74,19 @@ const SearchSubway = ({ value: selectedStations = [], onChange, error }: SearchS
             {searchKeyword && (selectedStations.length > 0 || unselectedSubwayStations.length > 0) && (
               <SearchResultDropdown>
                 {selectedStations.map((station: SubwayStationDataType, idx: number) => (
-                  <SelectedStationItem key={`${station.name}-selected-${idx}`} onClick={() => handleDeleteStation(idx)}>
+                  <SelectedStationItem key={station.name} onClick={() => handleDeleteStation(idx)}>
                     <SelectedStationContent>
                       <StationName>{station.name}</StationName>
-                      <SubwayLines>
-                        {station.subwayLines?.map((line: string, lineIdx: number) => (
-                          <SubwayLine key={lineIdx}>{lineIdx === 0 ? line : `, ${line}`}</SubwayLine>
-                        ))}
-                      </SubwayLines>
+                      <SubwayLines>{renderSubwayLines(station.subwayLines)}</SubwayLines>
                     </SelectedStationContent>
                     <SelectedCheckIcon />
                   </SelectedStationItem>
                 ))}
 
-                {unselectedSubwayStations.map((station: SubwayStationDataType, idx: number) => (
-                  <StationItem key={`${station.name}-${idx}`} onClick={() => handleStationSelect(station)}>
+                {unselectedSubwayStations.map((station: SubwayStationDataType) => (
+                  <StationItem key={station.name} onClick={() => handleStationSelect(station)}>
                     <StationName>{station.name}</StationName>
-                    <SubwayLines>
-                      {station.subwayLines?.map((line: string, lineIdx: number) => (
-                        <SubwayLine key={lineIdx}>{lineIdx === 0 ? line : `, ${line}`}</SubwayLine>
-                      ))}
-                    </SubwayLines>
+                    <SubwayLines>{renderSubwayLines(station.subwayLines)}</SubwayLines>
                   </StationItem>
                 ))}
               </SearchResultDropdown>
@@ -95,7 +97,7 @@ const SearchSubway = ({ value: selectedStations = [], onChange, error }: SearchS
         {/*추가된 지하철역 렌더링 */}
         <AddedStationsWrapper>
           {selectedStations?.map((station, idx) => (
-            <Station key={`${station.name}-${idx}`}>
+            <Station key={station.name}>
               <StationName>{station.name}</StationName>
               <DeleteButton type={'button'} onClick={() => handleDeleteStation(idx)}>
                 <StyledIconXClose />
@@ -248,6 +250,7 @@ const SubwayLines = styled('div', {
 const SubwayLine = styled('span', {
   fontSize: '12px',
   color: '$gray200',
+  whiteSpace: 'nowrap',
 });
 
 const DeleteButton = styled('button', {
