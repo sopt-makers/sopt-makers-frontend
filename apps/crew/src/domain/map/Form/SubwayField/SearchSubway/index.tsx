@@ -18,14 +18,6 @@ interface SearchSubwayProps {
 
 const COMMA_SPACE = ',\u00A0';
 
-const renderSubwayLines = (subwayLines?: string[]) =>
-  subwayLines?.map((line, index) => (
-    <SubwayLine key={line}>
-      {line}
-      {index < subwayLines.length - 1 ? COMMA_SPACE : ''}
-    </SubwayLine>
-  ));
-
 const SearchSubway = ({ value: selectedStations = [], onChange, error }: SearchSubwayProps) => {
   const [searchKeyword, setSearchKeyword] = useState('');
   const { data: subwayStationsData } = useQuery(useSearchSubwayQueryOption(searchKeyword));
@@ -77,7 +69,14 @@ const SearchSubway = ({ value: selectedStations = [], onChange, error }: SearchS
                   <SelectedStationItem key={station.name} onClick={() => handleDeleteStation(station.name)}>
                     <SelectedStationContent>
                       <StationName>{station.name}</StationName>
-                      <SubwayLines>{renderSubwayLines(station.subwayLines)}</SubwayLines>
+                      <SubwayLines>
+                        {station.subwayLines?.map((line, index, subwayLines) => (
+                          <SubwayLine key={line}>
+                            {line}
+                            {index < subwayLines.length - 1 ? COMMA_SPACE : ''}
+                          </SubwayLine>
+                        ))}
+                      </SubwayLines>
                     </SelectedStationContent>
                     <SelectedCheckIcon />
                   </SelectedStationItem>
@@ -86,7 +85,14 @@ const SearchSubway = ({ value: selectedStations = [], onChange, error }: SearchS
                 {unselectedSubwayStations.map((station: SubwayStationDataType) => (
                   <StationItem key={station.name} onClick={() => handleStationSelect(station)}>
                     <StationName>{station.name}</StationName>
-                    <SubwayLines>{renderSubwayLines(station.subwayLines)}</SubwayLines>
+                    <SubwayLines>
+                      {station.subwayLines?.map((line, index, subwayLines) => (
+                        <SubwayLine key={line}>
+                          {line}
+                          {index < subwayLines.length - 1 ? COMMA_SPACE : ''}
+                        </SubwayLine>
+                      ))}
+                    </SubwayLines>
                   </StationItem>
                 ))}
               </SearchResultDropdown>
