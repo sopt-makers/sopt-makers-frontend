@@ -40,7 +40,7 @@ const SInputWrapper = styled('label', {
   height: '100%',
   maxHeight: '178px',
   aspectRatio: '40 / 27',
-  background: '$gray700',
+  background: '$gray800',
   color: '$gray400',
   borderRadius: '10px',
   cursor: 'pointer',
