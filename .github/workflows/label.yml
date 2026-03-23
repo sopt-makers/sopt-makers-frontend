@@ -11,8 +11,6 @@ jobs:
       contents: read
       pull-requests: write
     steps:
-      - uses: actions/checkout@v4
-
       - name: Label PR
         run: |
           PR=${{ github.event.pull_request.number }}
@@ -21,7 +19,7 @@ jobs:
           current_labels=$(gh pr view $PR --json labels -q '.labels[].name')
 
           add_label() {
-            gh label create "$1" --color "0075ca" 2>/dev/null || true
+            gh label create "$1" --color "ffffff" 2>/dev/null || true
             gh pr edit $PR --add-label "$1"
           }
 
@@ -34,7 +32,6 @@ jobs:
           remove_label_if_exists "🥐 Crew"
           remove_label_if_exists "⚡️ Playground"
           remove_label_if_exists "🔗 Root"
-          remove_label_if_exists "🔗 Workflows"
 
           echo "$current_labels" | grep "^🔗 Packages:" | while read -r label; do
             gh pr edit $PR --remove-label "$label"
