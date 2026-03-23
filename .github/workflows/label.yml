@@ -54,14 +54,14 @@ jobs:
             fi
           done < <(printf '%s\n' "$current_labels" | grep "^🔗 Packages:" || true)
 
-          # target_labels에 없는 라벨만 제거
+          # diff 기준: target_labels에 없는 라벨만 제거
           for label in "${auto_labels_current[@]}"; do
             if ! printf '%s\n' "${target_labels[@]}" | grep -Fxq "$label"; then
               gh pr edit "$PR" --remove-label "$label"
             fi
           done
 
-          # target_labels에 있고 현재엔 없는 라벨만 추가
+          # diff 기준: target_labels에 있고 현재엔 없는 라벨만 추가
           while IFS= read -r label; do
             if [ -z "$label" ]; then
               continue
