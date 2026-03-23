@@ -8,7 +8,6 @@ jobs:
   label:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
       pull-requests: write
     steps:
       - name: Label PR
@@ -16,7 +15,7 @@ jobs:
           PR=${{ github.event.pull_request.number }}
           changed_files=$(gh api "repos/${{ github.repository }}/pulls/$PR/files" --paginate -q '.[].filename')
 
-          current_labels=$(gh pr view $PR --json labels -q '.labels[].name')
+          current_labels=$(gh pr view "$PR" --json labels -q '.labels[].name' || true)
 
           target_labels=()
           add_target_label() {
@@ -39,7 +38,7 @@ jobs:
             add_target_label "🔗 Packages:$pkg"
           done
 
-          target_labels="$(printf '%s\n' "${target_labels[@]}" | sort -u)"
+          mapfile -t target_labels < <(printf '%s\n' "${target_labels[@]}" | sort -u)
 
           # 자동으로 붙이는 라벨 중에서 현재 라벨과 비교하여 diff 처리
           auto_labels_current=()
@@ -57,21 +56,21 @@ jobs:
 
           # target_labels에 없는 라벨만 제거
           for label in "${auto_labels_current[@]}"; do
-            if ! echo "$target_labels" | grep -Fxq "$label"; then
-              gh pr edit $PR --remove-label "$label"
+            if ! printf '%s\n' "${target_labels[@]}" | grep -Fxq "$label"; then
+              gh pr edit "$PR" --remove-label "$label"
             fi
           done
 
           # target_labels에 있고 현재엔 없는 라벨만 추가
-          printf '%s\n' "$target_labels" | while IFS= read -r label; do
+          while IFS= read -r label; do
             if [ -z "$label" ]; then
               continue
             fi
 
             if ! echo "$current_labels" | grep -Fxq "$label"; then
               gh label create "$label" --color "ffffff" 2>/dev/null || true
-              gh pr edit $PR --add-label "$label"
+              gh pr edit "$PR" --add-label "$label"
             fi
-          done
+          done < <(printf '%s\n' "${target_labels[@]}")
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
