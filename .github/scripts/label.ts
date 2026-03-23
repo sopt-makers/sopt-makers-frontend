@@ -4,6 +4,7 @@ type SyncLabelsParams = Pick<AsyncFunctionArguments, 'github' | 'context' | 'cor
 
 type RepoContext = {
   github: AsyncFunctionArguments['github'];
+  core: AsyncFunctionArguments['core'];
   owner: string;
   repo: string;
 };
@@ -75,31 +76,21 @@ async function prepareLabels(repoContext: RepoContext, labels: string[]) {
   );
 }
 
-async function addLabels(
-  repoContext: RepoContext,
-  prNumber: number,
-  labels: string[],
-  core: AsyncFunctionArguments['core'],
-) {
+async function addLabels(repoContext: RepoContext, prNumber: number, labels: string[]) {
   if (labels.length === 0) return;
 
-  await prepareLabels(repoContext, labels);
   await repoContext.github.rest.issues.addLabels({ ...repoContext, issue_number: prNumber, labels });
-
-  core.info(`Added labels: ${JSON.stringify(labels)}`);
+  repoContext.core.info(`Added labels: ${JSON.stringify(labels)}`);
 }
 
-async function removeLabels(
-  repoContext: RepoContext,
-  prNumber: number,
-  labels: string[],
-  core: AsyncFunctionArguments['core'],
-) {
+async function removeLabels(repoContext: RepoContext, prNumber: number, labels: string[]) {
+  if (labels.length === 0) return;
+
   await Promise.all(
     labels.map((label) =>
       repoContext.github.rest.issues
         .removeLabel({ ...repoContext, issue_number: prNumber, name: label })
-        .then(() => core.info(`Removed label: ${label}`)),
+        .then(() => repoContext.core.info(`Removed label: ${label}`)),
     ),
   );
 }
@@ -107,15 +98,16 @@ async function removeLabels(
 async function syncLabels({ github, context, core }: SyncLabelsParams) {
   const prNumber = context.payload.pull_request!.number;
   const { owner, repo } = context.repo;
-  const repoContext: RepoContext = { github, owner, repo };
+  const repoContext: RepoContext = { github, core, owner, repo };
 
   const filenames = await getChangedFilenames(repoContext, prNumber);
   const targetLabels = collectTargetLabels(filenames);
   const currentLabels = await getCurrentLabels(repoContext, prNumber);
   const { toAdd, toRemove } = computeLabelDiff(targetLabels, currentLabels);
 
-  await addLabels(repoContext, prNumber, toAdd, core);
-  await removeLabels(repoContext, prNumber, toRemove, core);
+  await prepareLabels(repoContext, toAdd);
+  await addLabels(repoContext, prNumber, toAdd);
+  await removeLabels(repoContext, prNumber, toRemove);
 }
 
 export default syncLabels;
