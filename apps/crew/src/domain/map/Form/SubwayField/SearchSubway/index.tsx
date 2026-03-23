@@ -1,6 +1,6 @@
 import { useSearchSubwayQueryOption } from '@api/map/query';
 import { fontsObject } from '@sopt-makers/fonts';
-import { IconSearch, IconXCircle, IconXClose } from '@sopt-makers/icons';
+import { IconCheck, IconSearch, IconXCircle, IconXClose } from '@sopt-makers/icons';
 import { useQuery } from '@tanstack/react-query';
 import { useRef, useState } from 'react';
 import { styled } from 'stitches.config';
@@ -23,6 +23,9 @@ const SearchSubway = ({ value: selectedStations = [], onChange, error }: SearchS
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const subwayStations = subwayStationsData?.stations ?? [];
+  const unselectedSubwayStations = subwayStations.filter(
+    (station) => !selectedStations.some((selectedStation) => selectedStation.name === station.name),
+  );
 
   const handleStationSelect = (station: SubwayStationDataType) => {
     if (selectedStations.length < 3 && !selectedStations.some((s) => s.name === station.name)) {
@@ -48,31 +51,38 @@ const SearchSubway = ({ value: selectedStations = [], onChange, error }: SearchS
               onChange={(e) => setSearchKeyword(e.target.value)}
               placeholder='지하철역 검색'
             />
-            {searchKeyword ? (
+            {searchKeyword && (
               <StyledIconXCircle
                 onClick={() => {
                   setSearchKeyword('');
                 }}
               />
-            ) : (
-              <StyledIconSearch
-                style={{
-                  position: 'absolute',
-                  right: '10px',
-                  top: '50%',
-                  transform: 'translateY(-50%)',
-                }}
-              />
             )}
+            <StyledIconSearch isActive={searchKeyword !== ''} />
+
             {/* 검색 결과 드롭다운 */}
-            {searchKeyword && subwayStations.length > 0 && (
+            {searchKeyword && (selectedStations.length > 0 || unselectedSubwayStations.length > 0) && (
               <SearchResultDropdown>
-                {subwayStations.map((station: SubwayStationDataType, idx: number) => (
+                {selectedStations.map((station: SubwayStationDataType, idx: number) => (
+                  <SelectedStationItem key={`${station.name}-selected-${idx}`} onClick={() => handleDeleteStation(idx)}>
+                    <SelectedStationContent>
+                      <StationName>{station.name}</StationName>
+                      <SubwayLines>
+                        {station.subwayLines?.map((line: string, lineIdx: number) => (
+                          <SubwayLine key={lineIdx}>{lineIdx === 0 ? line : `, ${line}`}</SubwayLine>
+                        ))}
+                      </SubwayLines>
+                    </SelectedStationContent>
+                    <SelectedCheckIcon />
+                  </SelectedStationItem>
+                ))}
+
+                {unselectedSubwayStations.map((station: SubwayStationDataType, idx: number) => (
                   <StationItem key={`${station.name}-${idx}`} onClick={() => handleStationSelect(station)}>
                     <StationName>{station.name}</StationName>
                     <SubwayLines>
                       {station.subwayLines?.map((line: string, lineIdx: number) => (
-                        <SubwayLine key={lineIdx}>{line}</SubwayLine>
+                        <SubwayLine key={lineIdx}>{lineIdx === 0 ? line : `, ${line}`}</SubwayLine>
                       ))}
                     </SubwayLines>
                   </StationItem>
@@ -83,7 +93,7 @@ const SearchSubway = ({ value: selectedStations = [], onChange, error }: SearchS
         )}
 
         {/*추가된 지하철역 렌더링 */}
-        <StationsWrapper>
+        <AddedStationsWrapper>
           {selectedStations?.map((station, idx) => (
             <Station key={`${station.name}-${idx}`}>
               <StationName>{station.name}</StationName>
@@ -92,7 +102,7 @@ const SearchSubway = ({ value: selectedStations = [], onChange, error }: SearchS
               </DeleteButton>
             </Station>
           ))}
-        </StationsWrapper>
+        </AddedStationsWrapper>
       </StationsContainer>
 
       {error && <ErrorMessage>{error}</ErrorMessage>}
@@ -112,7 +122,7 @@ const StationsContainer = styled('div', {
   },
 });
 
-const StationsWrapper = styled('div', {
+const AddedStationsWrapper = styled('div', {
   'display': 'flex',
   'justifyContent': 'center',
   'alignItems': 'center',
@@ -162,6 +172,7 @@ const StationName = styled('span', {
 
 const SearchInput = styled('input', {
   'flex': 1,
+  'minWidth': 0,
   'background': 'transparent',
   'border': 'none',
   'outline': 'none',
@@ -176,43 +187,67 @@ const SearchInput = styled('input', {
 });
 
 const SearchResultDropdown = styled('div', {
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '5px',
   position: 'absolute',
   top: 'calc(100% + 4px)',
   left: 0,
-  right: 0,
+  width: '248px',
   maxHeight: '210px',
   overflowY: 'auto',
+  padding: '8px',
   backgroundColor: '$gray800',
   borderRadius: '10px',
   border: '1px solid $gray600',
+  scrollbarWidth: 'none',
   zIndex: 10,
 });
 
 const StationItem = styled('div', {
-  'padding': '12px 16px',
+  'padding': '8px 12px',
   'cursor': 'pointer',
   'display': 'flex',
+  'flexDirection': 'column',
   'justifyContent': 'space-between',
-  'alignItems': 'center',
+  'alignItems': 'flex-start',
   '&:hover': {
     backgroundColor: '$gray700',
   },
-  '&:not(:last-child)': {
-    borderBottom: '1px solid $gray600',
+  'borderRadius': '8px',
+});
+
+const SelectedStationItem = styled('div', {
+  'display': 'flex',
+  'width': '100%',
+  'justifyContent': 'space-between',
+  'alignItems': 'center',
+  'gap': '12px',
+  'padding': '8px 12px',
+  'borderRadius': '8px',
+  'cursor': 'pointer',
+  '&:hover': {
+    backgroundColor: '$gray700',
   },
+});
+
+const SelectedStationContent = styled('div', {
+  display: 'flex',
+  flex: 1,
+  minWidth: 0,
+  flexDirection: 'column',
+  justifyContent: 'space-between',
+  alignItems: 'flex-start',
 });
 
 const SubwayLines = styled('div', {
   display: 'flex',
-  gap: '4px',
+  flexWrap: 'wrap',
 });
 
 const SubwayLine = styled('span', {
   fontSize: '12px',
-  color: '$gray300',
-  padding: '2px 6px',
-  backgroundColor: '$gray700',
-  borderRadius: '4px',
+  color: '$gray200',
 });
 
 const DeleteButton = styled('button', {
@@ -231,11 +266,10 @@ const DeleteButton = styled('button', {
 const InputBox = styled('div', {
   position: 'relative',
   flexShrink: 0,
-  width: '210px',
+  width: '248px',
   height: '100%',
   display: 'flex',
   padding: '11px 16px',
-  justifyContent: 'space-between',
   alignItems: 'center',
   borderRadius: '10px',
   backgroundColor: '$gray800',
@@ -260,14 +294,26 @@ const ErrorMessage = styled('div', {
 const StyledIconXCircle = styled(IconXCircle, {
   width: '24px',
   height: '24px',
+  color: '$white',
   cursor: 'pointer',
+  flexShrink: 0,
 });
 
 const StyledIconSearch = styled(IconSearch, {
   width: '24px',
   height: '24px',
-  color: '$gray300',
-  //모바일에선 input에 다른 뷰 필요 (현재는 구현 x)
+  marginLeft: '8px',
+  flexShrink: 0,
+  variants: {
+    isActive: {
+      true: {
+        color: '$white',
+      },
+      false: {
+        color: '$gray300',
+      },
+    },
+  },
 });
 
 const StyledIconXClose = styled(IconXClose, {
@@ -276,4 +322,11 @@ const StyledIconXClose = styled(IconXClose, {
   color: '#9D9DA4',
   strokeWidth: '1.5',
   cursor: 'pointer',
+});
+
+const SelectedCheckIcon = styled(IconCheck, {
+  width: '24px',
+  height: '24px',
+  color: '$success',
+  flexShrink: 0,
 });
