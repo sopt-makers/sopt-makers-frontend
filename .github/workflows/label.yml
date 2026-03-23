@@ -18,40 +18,60 @@ jobs:
 
           current_labels=$(gh pr view $PR --json labels -q '.labels[].name')
 
-          add_label() {
-            gh label create "$1" --color "ffffff" 2>/dev/null || true
-            gh pr edit $PR --add-label "$1"
+          target_labels=()
+          add_target_label() {
+            target_labels+=("$1")
           }
 
-          remove_label_if_exists() {
-            if echo "$current_labels" | grep -qF "$1"; then
-              gh pr edit $PR --remove-label "$1"
-            fi
-          }
+          # 변경된 파일을 기준으로 필요한 target label 계산
+          if echo "$changed_files" | grep -q "^apps/crew/"; then
+            add_target_label "🥐 Crew"
+          fi
+          if echo "$changed_files" | grep -q "^apps/playground/"; then
+            add_target_label "⚡️ Playground"
+          fi
+          if echo "$changed_files" | grep -qE "^[^/]+$|^\.github/"; then
+            add_target_label "🔗 Root"
+          fi
 
-          remove_label_if_exists "🥐 Crew"
-          remove_label_if_exists "⚡️ Playground"
-          remove_label_if_exists "🔗 Root"
-
-          echo "$current_labels" | grep "^🔗 Packages:" | while read -r label; do
-            gh pr edit $PR --remove-label "$label"
+          changed_packages=$(echo "$changed_files" | awk -F'/' '$1=="packages"{print $2}' | sort -u)
+          for pkg in $changed_packages; do
+            add_target_label "🔗 Packages:$pkg"
           done
 
-          if echo "$changed_files" | grep -q "^apps/crew/"; then
-            add_label "🥐 Crew"
-          fi
+          target_labels="$(printf '%s\n' "${target_labels[@]}" | sort -u)"
 
-          if echo "$changed_files" | grep -q "^apps/playground/"; then
-            add_label "⚡️ Playground"
-          fi
+          # 자동으로 붙이는 라벨 중에서 현재 라벨과 비교하여 diff 처리
+          auto_labels_current=()
+          for l in "🥐 Crew" "⚡️ Playground" "🔗 Root"; do
+            if echo "$current_labels" | grep -Fxq "$l"; then
+              auto_labels_current+=("$l")
+            fi
+          done
 
-          if echo "$changed_files" | grep -qE "^[^/]+$|^\.github/"; then
-            add_label "🔗 Root"
-          fi
+          while IFS= read -r label; do
+            if [ -n "$label" ]; then
+              auto_labels_current+=("$label")
+            fi
+          done < <(printf '%s\n' "$current_labels" | grep "^🔗 Packages:" || true)
 
-          changed_packages=$(echo "$changed_files" | grep "^packages/" | awk -F'/' '{print $2}' | sort -u)
-          for pkg in $changed_packages; do
-            add_label "🔗 Packages:$pkg"
+          # target_labels에 없는 라벨만 제거
+          for label in "${auto_labels_current[@]}"; do
+            if ! echo "$target_labels" | grep -Fxq "$label"; then
+              gh pr edit $PR --remove-label "$label"
+            fi
+          done
+
+          # target_labels에 있고 현재엔 없는 라벨만 추가
+          printf '%s\n' "$target_labels" | while IFS= read -r label; do
+            if [ -z "$label" ]; then
+              continue
+            fi
+
+            if ! echo "$current_labels" | grep -Fxq "$label"; then
+              gh label create "$label" --color "ffffff" 2>/dev/null || true
+              gh pr edit $PR --add-label "$label"
+            fi
           done
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
