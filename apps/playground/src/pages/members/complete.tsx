@@ -25,6 +25,8 @@ import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
  */
 import { setLayout } from '@/utils/layout';
 
+const GENERATION_NAME = "LET'S";
+
 const CompletePage: FC = () => {
   const router = useRouter();
   const { data: profile } = useGetMemberProfileOfMe();
@@ -74,7 +76,7 @@ const CompletePage: FC = () => {
             <Responsive only='desktop'>
               {isLastGeneration && isResolutionOpen ? (
                 <BottomSection>
-                  <p>LET&apos;S SOPT만을 위한 타임캡솝을 준비했어요</p>
+                  <p>{GENERATION_NAME} SOPT만을 위한 타임캡솝을 준비했어요</p>
                   <LoggingClick eventKey='profileUploadTimeCapsule'>
                     <ResolutionButton onClick={handleResolutionModalOpen}>타임캡솝 만들기</ResolutionButton>
                   </LoggingClick>
@@ -100,7 +102,7 @@ const CompletePage: FC = () => {
           <Responsive only='mobile'>
             {isLastGeneration && isResolutionOpen ? (
               <BottomSection>
-                <p>LET&apos;S SOPT만을 위한 타임캡솝을 준비했어요</p>
+                <p>{GENERATION_NAME} SOPT만을 위한 타임캡솝을 준비했어요</p>
                 <LoggingClick eventKey='profileUploadTimeCapsule'>
                   <ResolutionButton onClick={handleResolutionModalOpen}>타임캡솝 만들기</ResolutionButton>
                 </LoggingClick>
