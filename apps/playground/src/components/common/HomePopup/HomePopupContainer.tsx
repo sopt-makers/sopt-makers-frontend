@@ -12,7 +12,7 @@ const HomePopupContainer = () => {
     return null;
   }
 
-  const { startDate, endDate } = homePopupData;
+  const { startDate, endDate, pcImageUrl, mobileImageUrl, linkUrl, openInNewTab } = homePopupData;
 
   // 팝업 표시 기간 설정
   const now = new Date();
