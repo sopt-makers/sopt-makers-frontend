@@ -5,20 +5,19 @@ import { LATEST_GENERATION } from '@/constants/generation';
 
 const HomePopupContainer = () => {
   const { data: myData } = useGetMemberOfMe();
-  // const { data: homePopupData } = useGetHomePopup();
+  const { data: homePopupData } = useGetHomePopup();
   const isLastGeneration = myData?.generation === LATEST_GENERATION;
 
-  // if (!homePopupData || typeof homePopupData === 'string') {
-  //   return null;
-  // }
+  if (!homePopupData || typeof homePopupData === 'string') {
+    return null;
+  }
 
-  // const { startDate, endDate, pcImageUrl, mobileImageUrl, linkUrl, openInNewTab, showOnlyToRecentGeneration } =
-  //   homePopupData;
+  const { startDate, endDate } = homePopupData;
 
   // 팝업 표시 기간 설정
   const now = new Date();
-  const popupStart = new Date(`2026-03-23T00:00:00+09:00`);
-  const popupEnd = new Date(`2026-04-11T23:59:59+09:00`);
+  const popupStart = new Date(`${startDate}T00:00:00+09:00`);
+  const popupEnd = new Date(`${endDate}T23:59:59+09:00`);
   const isWithinPeriod = now >= popupStart && now <= popupEnd;
 
   //팝업 표시 기간이 아닌 경우
