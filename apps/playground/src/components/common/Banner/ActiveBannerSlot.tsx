@@ -8,10 +8,11 @@ import { ClosingBanner } from '@/components/common/Banner/ClosingBanner';
 import WelcomeBannerContainer from '@/components/common/Banner/WelcomeBanner/WelcomeBannerContainer';
 interface ActiveBannerSlotProps {}
 
+const isTimecapsopOpen = true; // 타임캡솝 오픈 기간에만 이 값을 true로 변경
+const isBalanceGameOpen = false;
+
 const ActiveBannerSlot: FC<ActiveBannerSlotProps> = () => {
-  const isTimecapsopOpen = true; // 타임캡솝 오픈 기간에만 이 값을 true로 변경
   const { data: myData } = useGetMemberOfMe();
-  const isBalanceGameOpen = false;
 
   return (
     <StyledActiveBanner>
