@@ -1,13 +1,13 @@
 import styled from '@emotion/styled';
 
-import AtSoptLogo from '@/public/logos/dive-sopt.svg';
+import LetsSoptLogo from '@/public/logos/lets-sopt.svg';
 
 interface CardBackProps {
   isLastGeneration: boolean;
 }
 
 const CardBack = ({ isLastGeneration }: CardBackProps) => {
-  const Logo = isLastGeneration ? <AtSoptLogo /> : <PlaygroundLogo />;
+  const Logo = isLastGeneration ? <LetsSoptLogo /> : <PlaygroundLogo />;
   return (
     <MemberCard>
       <ImageHolder>{Logo}</ImageHolder>

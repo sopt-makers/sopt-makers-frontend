@@ -16,6 +16,7 @@ import type { ModalProps } from '@/components/members/detail/MessageSection/Moda
 import type { TimecapsopTag } from '@/components/resolution/constants';
 import { TAG } from '@/components/resolution/constants';
 import { useConfirmResolution } from '@/components/resolution/submit/useConfirmResolution';
+import { LATEST_GENERATION } from '@/constants/generation';
 import { pgColors } from '@/styles/colors';
 import { MOBILE_MAX_WIDTH, MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
@@ -111,7 +112,7 @@ const TimecapsopSubmitModalContent: FC<TimecapsopSubmitModalProps> = ({ userName
       <ModalBody>
         <TitleTextWrapper>
           <Description typography='SUIT_14_M' color={colors.gray200}>
-            SOPT 37기를 시작하는 나를 응원하며
+            SOPT {LATEST_GENERATION}기를 시작하는 나를 응원하며
           </Description>
           <Text typography='SUIT_20_SB'>타임캡솝을 만들어볼까요?</Text>
         </TitleTextWrapper>
