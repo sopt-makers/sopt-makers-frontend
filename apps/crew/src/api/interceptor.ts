@@ -30,6 +30,12 @@ export const refreshToken = async (error: AxiosError<unknown>, instance: AxiosIn
   if (status === 401) {
     if (!refreshPromise) {
       const currentToken = getAuthToken();
+
+      if (!currentToken) {
+        redirectToLoginPage();
+        return Promise.reject(error);
+      }
+
       refreshPromise = authApi
         .post<{ data: { accessToken: string } }>(`/api/v1/auth/refresh/web`, null, {
           headers: {
