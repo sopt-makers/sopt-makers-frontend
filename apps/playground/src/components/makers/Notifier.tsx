@@ -13,7 +13,7 @@ interface NotifierProps {
 const RECRUITING_URL = 'https://sopt-makers.notion.site/38-2fd76042aac280f39548e46b98e2a06a?pvs=73';
 // 'https://makers.sopt.org/recruit?utm_source=playground&utm_medium=depth2_button&utm_campaign=recruiting&utm_id=3rd_makers';
 
-const Notifier: FC<NotifierProps> = ({ className }) => {
+const Notifier = ({ className }: NotifierProps) => {
   return (
     <StyledJoinNotifier className={className}>
       {/* MEMO: 39기 모집 시작 시 주석 해제 */}
