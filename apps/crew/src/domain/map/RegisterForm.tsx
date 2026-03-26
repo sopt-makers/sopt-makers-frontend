@@ -30,7 +30,7 @@ const emptyValues: FormType = {
 };
 
 interface RegisterFormProps {
-  onFirstRegistered?: (id?: number) => void;
+  // onFirstRegistered?: (id?: number) => void;
   edit?: {
     isEdit?: boolean;
     defaultValues?: FormType;
@@ -39,7 +39,7 @@ interface RegisterFormProps {
 }
 
 const RegisterForm = ({
-  onFirstRegistered,
+  // onFirstRegistered,
   edit: { isEdit = false, defaultValues = undefined, soptMapId = 0 } = {},
 }: RegisterFormProps) => {
   const formMethods = useForm<FormType>({
@@ -60,12 +60,14 @@ const RegisterForm = ({
     }
 
     mutateCreateMap(formData, {
-      onSuccess: (data) => {
-        if (data.firstRegistered) {
-          onFirstRegistered?.(data.id);
-          return;
-        }
+      onSuccess: () => {
+        // onSuccess: (data) => {
+        // if (data.firstRegistered) {
+        //   onFirstRegistered?.(data.id);
+        //   return;
+        // }
 
+        // Event flow is disabled. Redirect to the map page immediately after create.
         router.push('/map');
       },
     });
