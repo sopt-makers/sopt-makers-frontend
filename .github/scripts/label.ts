@@ -9,6 +9,13 @@ type RepoContext = {
   repo: string;
 };
 
+const LABEL_COLOR: Record<string, string> = {
+  '⚡️ Playground': 'a01c0e',
+  '🥐 Crew': 'e1bf84',
+  '🔗 Root': '4939bb',
+  'Packages': '4939bb',
+};
+
 /** NOTE: app label 추가 시 여기에 추가 */
 const APP_LABELS = [
   { prefix: 'apps/crew/', label: '🥐 Crew' },
@@ -88,7 +95,15 @@ async function initializeLabels(repoContext: RepoContext, labels: string[]) {
       } catch (error) {
         if ((error as { status?: number }).status !== 404) throw error;
 
-        await github.rest.issues.createLabel({ owner, repo, name });
+        const color = isPackageLabel(name) ? LABEL_COLOR['Packages'] : LABEL_COLOR[name];
+        if (!color) throw new Error(`Unknown label color for: ${name}`);
+
+        await github.rest.issues.createLabel({
+          owner,
+          repo,
+          name,
+          color,
+        });
       }
     }),
   );
