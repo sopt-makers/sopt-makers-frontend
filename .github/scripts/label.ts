@@ -28,6 +28,8 @@ const PACKAGE_LABEL_PREFIX = '🔗 Packages:';
 const AUTO_LABELS = [...APP_LABELS.map((r) => r.label), ROOT_LABEL];
 
 const PAGINATION_PER_PAGE = 100;
+const VALIDATION_FAILED_STATUS = 422;
+const NOT_FOUND_STATUS = 404;
 
 const isRootFile = (file: string) => !file.includes('/') || file.startsWith('.github/');
 const isPackageLabel = (label: string) => label.startsWith(PACKAGE_LABEL_PREFIX);
@@ -85,6 +87,28 @@ function computeLabelDiff(targetLabels: string[], currentLabels: { all: string[]
   };
 }
 
+async function ensureLabelExists(repoContext: RepoContext, name: string) {
+  const { github, owner, repo } = repoContext;
+  const color = isPackageLabel(name) ? LABEL_COLOR['Packages'] : LABEL_COLOR[name];
+  if (!color) throw new Error(`Unknown label color for: ${name}`);
+
+  try {
+    await github.rest.issues.createLabel({
+      owner,
+      repo,
+      name,
+      color,
+    });
+  } catch (error) {
+    // 동시 실행 중 다른 작업이 먼저 같은 라벨을 생성한 경우
+    if ((error as { status?: number }).status === VALIDATION_FAILED_STATUS) {
+      repoContext.core.info(`Skip creating label (already exists): ${name}`);
+      return;
+    }
+    throw error;
+  }
+}
+
 async function initializeLabels(repoContext: RepoContext, labels: string[]) {
   const { github, owner, repo } = repoContext;
 
@@ -93,17 +117,8 @@ async function initializeLabels(repoContext: RepoContext, labels: string[]) {
       try {
         await github.rest.issues.getLabel({ owner, repo, name });
       } catch (error) {
-        if ((error as { status?: number }).status !== 404) throw error;
-
-        const color = isPackageLabel(name) ? LABEL_COLOR['Packages'] : LABEL_COLOR[name];
-        if (!color) throw new Error(`Unknown label color for: ${name}`);
-
-        await github.rest.issues.createLabel({
-          owner,
-          repo,
-          name,
-          color,
-        });
+        if ((error as { status?: number }).status !== NOT_FOUND_STATUS) throw error;
+        await ensureLabelExists(repoContext, name);
       }
     }),
   );
@@ -112,13 +127,26 @@ async function initializeLabels(repoContext: RepoContext, labels: string[]) {
 async function addLabels(repoContext: RepoContext, prNumber: number, labels: string[]) {
   if (labels.length === 0) return;
 
-  await repoContext.github.rest.issues.addLabels({
-    owner: repoContext.owner,
-    repo: repoContext.repo,
-    issue_number: prNumber,
-    labels,
-  });
-  repoContext.core.info(`Added labels: ${JSON.stringify(labels)}`);
+  const addLabelsToPR = () =>
+    repoContext.github.rest.issues.addLabels({
+      owner: repoContext.owner,
+      repo: repoContext.repo,
+      issue_number: prNumber,
+      labels,
+    });
+
+  try {
+    await addLabelsToPR();
+    repoContext.core.info(`Added labels: ${JSON.stringify(labels)}`);
+  } catch (error) {
+    // 계산 이후 라벨이 수동 삭제되면 422(Validation failed)가 발생할 수 있어 1회 복구 재시도
+    if ((error as { status?: number }).status !== VALIDATION_FAILED_STATUS) throw error;
+    repoContext.core.info('addLabels failed with 422, re-initialize labels and retry once.');
+
+    await initializeLabels(repoContext, labels);
+    await addLabelsToPR();
+    repoContext.core.info(`Added labels after retry: ${JSON.stringify(labels)}`);
+  }
 }
 
 async function removeLabels(repoContext: RepoContext, prNumber: number, labels: string[]) {
@@ -126,13 +154,21 @@ async function removeLabels(repoContext: RepoContext, prNumber: number, labels: 
 
   await Promise.all(
     labels.map(async (label) => {
-      await repoContext.github.rest.issues.removeLabel({
-        owner: repoContext.owner,
-        repo: repoContext.repo,
-        issue_number: prNumber,
-        name: label,
-      });
-      repoContext.core.info(`Removed label: ${label}`);
+      try {
+        await repoContext.github.rest.issues.removeLabel({
+          owner: repoContext.owner,
+          repo: repoContext.repo,
+          issue_number: prNumber,
+          name: label,
+        });
+        repoContext.core.info(`Removed label: ${label}`);
+      } catch (error) {
+        if ((error as { status?: number }).status === NOT_FOUND_STATUS) {
+          repoContext.core.info(`Skip removing label (already removed): ${label}`);
+          return;
+        }
+        throw error;
+      }
     }),
   );
 }
