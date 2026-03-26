@@ -97,7 +97,12 @@ async function initializeLabels(repoContext: RepoContext, labels: string[]) {
 async function addLabels(repoContext: RepoContext, prNumber: number, labels: string[]) {
   if (labels.length === 0) return;
 
-  await repoContext.github.rest.issues.addLabels({ ...repoContext, issue_number: prNumber, labels });
+  await repoContext.github.rest.issues.addLabels({
+    owner: repoContext.owner,
+    repo: repoContext.repo,
+    issue_number: prNumber,
+    labels,
+  });
   repoContext.core.info(`Added labels: ${JSON.stringify(labels)}`);
 }
 
@@ -107,7 +112,8 @@ async function removeLabels(repoContext: RepoContext, prNumber: number, labels: 
   await Promise.all(
     labels.map(async (label) => {
       await repoContext.github.rest.issues.removeLabel({
-        ...repoContext,
+        owner: repoContext.owner,
+        repo: repoContext.repo,
         issue_number: prNumber,
         name: label,
       });
