@@ -181,9 +181,7 @@ const TimecapsopSubmitModalContent: FC<TimecapsopSubmitModalProps> = ({ userName
                 ref={textareaRef}
                 fixedHeight={156}
                 maxLength={300}
-                placeholder={
-                  '(예시) 드디어 솝트 37기 시작! 이걸 보고 있다면 37기 종무식을 하고 있겠지?\n세미나 과제랑 스터디 진짜진짜 열심히 해서 많이 배우고, 앱잼 팀원과 좋은 프로덕트 꼭 만들어보자. 팟팅!'
-                }
+                placeholder={`(예시) 드디어 솝트 ${LATEST_GENERATION}기 시작! 이걸 보고 있다면 ${LATEST_GENERATION}기 종무식을 하고 있겠지?\n세미나 과제랑 스터디 진짜진짜 열심히 해서 많이 배우고, 앱잼 팀원과 좋은 프로덕트 꼭 만들어보자. 팟팅!`}
                 errorMessage={fieldState.error?.message}
                 isError={!!fieldState.error}
                 value={field.value ?? ''}
