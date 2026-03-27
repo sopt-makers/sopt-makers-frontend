@@ -59,3 +59,6 @@ apps/crew/src/__generated__/open-api-specification.json
 
 # playwright
 .playwright-cli
+
+# omc
+.omc
