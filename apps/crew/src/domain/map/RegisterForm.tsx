@@ -66,8 +66,6 @@ const RegisterForm = ({
         //   onFirstRegistered?.(data.id);
         //   return;
         // }
-
-        // Event flow is disabled. Redirect to the map page immediately after create.
         router.push('/map');
       },
     });
