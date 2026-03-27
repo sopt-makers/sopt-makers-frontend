@@ -10,6 +10,7 @@ install-state.gz
 
 # dependencies
 node_modules
+.github/scripts/package-lock.json
 
 # next.js
 .next/

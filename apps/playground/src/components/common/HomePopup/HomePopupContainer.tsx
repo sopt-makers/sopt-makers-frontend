@@ -1,11 +1,6 @@
-import { useEffect, useState } from 'react';
-
 import { useGetHomePopup } from '@/api/endpoint/homePopup/getHomePopup';
 import { useGetMemberOfMe } from '@/api/endpoint/members/getMemberOfMe';
 import { HomePopup } from '@/components/common/HomePopup';
-import useModalState from '@/components/common/Modal/useModalState';
-import { useMatchMemberEvent } from '@/components/matchmember/hooks/useMatchMemberEvent';
-import MatchMemberModal from '@/components/matchmember/MatchMemberModal';
 import { LATEST_GENERATION } from '@/constants/generation';
 
 const HomePopupContainer = () => {
@@ -17,8 +12,7 @@ const HomePopupContainer = () => {
     return null;
   }
 
-  const { startDate, endDate, pcImageUrl, mobileImageUrl, linkUrl, openInNewTab, showOnlyToRecentGeneration } =
-    homePopupData;
+  const { startDate, endDate, pcImageUrl, mobileImageUrl, linkUrl, openInNewTab } = homePopupData;
 
   // 팝업 표시 기간 설정
   const now = new Date();
@@ -32,19 +26,19 @@ const HomePopupContainer = () => {
   }
 
   //최신 기수만 보기 옵션이 활성화인 경우
-  if (showOnlyToRecentGeneration && !isLastGeneration) {
+  if (!isLastGeneration) {
     return null;
   }
 
   return (
     <>
-      <HomePopup
+      {/* <HomePopup
         pcImageUrl={pcImageUrl}
         mobileImageUrl={mobileImageUrl}
         linkUrl={linkUrl}
         openInNewTab={openInNewTab}
-      />
-      {/* <HomePopup pcImageUrl='/icons/img/popup/PC.png' mobileImageUrl='/icons/img/popup/MO.png' openInNewTab={false} /> */}
+      /> */}
+      <HomePopup pcImageUrl='/icons/img/popup/PC.png' mobileImageUrl='/icons/img/popup/MO.png' openInNewTab={false} />
     </>
   );
 };

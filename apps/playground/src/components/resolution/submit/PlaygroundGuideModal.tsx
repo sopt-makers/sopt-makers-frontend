@@ -217,4 +217,5 @@ const StyledButton = styled.button<{ color: string }>`
 const MobileContentWrapper = styled.div`
   touch-action: pan-y;
   text-align: center;
+  overflow-y: scroll;
 `;
