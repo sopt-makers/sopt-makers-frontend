@@ -136,9 +136,6 @@ gh pr list --head ${CURRENT_BRANCH} --json number,url,state
 
 ## 📸 스크린샷
 
-{UI 변경(컴포넌트, 스타일, 레이아웃)이 diff에 보이면 테이블 유지}
-{순수 로직/타입/설정 변경이면 섹션 자체를 "해당 없음"으로}
-
 | As-is | To-be |
 |-------|-------|
 |       |       |
