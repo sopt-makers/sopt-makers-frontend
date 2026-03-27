@@ -1,10 +1,9 @@
 import { colors } from '@sopt-makers/colors';
+import { useToast } from '@sopt-makers/ui';
 
 import { useDeleteMemberQuestion, useDeleteMemberQuestionAnswer } from '@/api/endpoint/members/deleteMemberQuestion';
 import useConfirm from '@/components/common/Modal/useConfirm';
 import { zIndex } from '@/styles/zIndex';
-import { useToast } from '@sopt-makers/ui';
-
 
 interface Options {
   questionId: number;
@@ -33,9 +32,9 @@ export const useDeleteQuestion = () => {
         onSuccess: () => {
           options.onSuccess?.();
           open({
-              icon: 'success',
-              content: '글이 성공적으로 삭제되었어요.',
-            });
+            icon: 'success',
+            content: '글이 성공적으로 삭제되었어요.',
+          });
         },
       });
     }
@@ -44,14 +43,13 @@ export const useDeleteQuestion = () => {
   return { handleDeleteQuestion };
 };
 
-
 interface AnswerOptions {
   answerId: number;
   onSuccess?: () => void;
 }
 
 export const useDeleteQuestionAnswer = () => {
-  const {open} = useToast();
+  const { open } = useToast();
   const { mutate } = useDeleteMemberQuestionAnswer();
   const { confirm } = useConfirm();
 

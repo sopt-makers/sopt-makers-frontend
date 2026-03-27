@@ -2,8 +2,8 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { produce } from 'immer';
 import { z } from 'zod';
 
+import type { activeCommentSchemaWithReplies } from '@/api/endpoint/feed/getComment';
 import { getComment } from '@/api/endpoint/feed/getComment';
-import { activeCommentSchemaWithReplies } from '@/api/endpoint/feed/getComment';
 import { createEndpoint } from '@/api/typedAxios';
 export const commentLike = createEndpoint({
   request: (postId: number, commentId: number) => ({
@@ -29,7 +29,9 @@ export const useCommentLikeMutation = () => {
       commentLike.request(postId, commentId),
 
     onMutate: async ({ postId }) => {
-      await queryClient.cancelQueries({ queryKey: getComment.cacheKey(String(postId)) });
+      await queryClient.cancelQueries({
+        queryKey: getComment.cacheKey(String(postId)),
+      });
       const previousCommentData = queryClient.getQueryData(getComment.cacheKey(String(postId)));
 
       queryClient.setQueryData(
@@ -49,7 +51,9 @@ export const useCommentLikeMutation = () => {
     },
 
     onSettled: (_, __, variables, ___) => {
-      queryClient.invalidateQueries({ queryKey: getComment.cacheKey(String(variables.postId)) });
+      queryClient.invalidateQueries({
+        queryKey: getComment.cacheKey(String(variables.postId)),
+      });
     },
   });
 };
@@ -62,7 +66,9 @@ export const useCommentUnLikeMutation = () => {
       commentUnlike.request(postId, commentId),
 
     onMutate: async ({ postId }) => {
-      await queryClient.cancelQueries({ queryKey: getComment.cacheKey(String(postId)) });
+      await queryClient.cancelQueries({
+        queryKey: getComment.cacheKey(String(postId)),
+      });
       const previousCommentData = queryClient.getQueryData(getComment.cacheKey(String(postId)));
 
       queryClient.setQueryData(
@@ -82,7 +88,9 @@ export const useCommentUnLikeMutation = () => {
     },
 
     onSettled: (_, __, variables, ___) => {
-      queryClient.invalidateQueries({ queryKey: getComment.cacheKey(String(variables.postId)) });
+      queryClient.invalidateQueries({
+        queryKey: getComment.cacheKey(String(variables.postId)),
+      });
     },
   });
 };

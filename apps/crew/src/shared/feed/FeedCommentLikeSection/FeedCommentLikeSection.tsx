@@ -1,9 +1,9 @@
-import { styled } from 'stitches.config';
 import CommentIcon from 'public/assets/svg/comment.svg';
 import CommentHoverIcon from 'public/assets/svg/comment_hover.svg';
 import LikeIcon from 'public/assets/svg/like.svg';
-import LikeHoverIcon from 'public/assets/svg/like_hover.svg';
 import LikeFillIcon from 'public/assets/svg/like_fill.svg';
+import LikeHoverIcon from 'public/assets/svg/like_hover.svg';
+import { styled } from 'stitches.config';
 
 interface FeedCommentLikeSectionProps {
   isLiked: boolean;
@@ -49,11 +49,11 @@ const Divider = styled('div', {
   height: '24px',
 });
 const CommentWrapper = styled('button', {
-  width: '400px',
-  display: 'flex',
-  flexType: 'center',
-  color: '$gray300',
-  fontStyle: 'T5',
+  'width': '400px',
+  'display': 'flex',
+  'flexType': 'center',
+  'color': '$gray300',
+  'fontStyle': 'T5',
   '@media (max-width: 768px)': {
     width: '50%',
     fontStyle: 'T6',
@@ -72,9 +72,9 @@ const StyledCommentHoverIcon = styled(CommentHoverIcon, {
   display: 'none',
 });
 const LikeWrapper = styled(CommentWrapper, {
-  cursor: 'pointer',
-  userSelect: 'none',
-  variants: {
+  'cursor': 'pointer',
+  'userSelect': 'none',
+  'variants': {
     isLiked: {
       true: {
         '&:hover svg:first-of-type': {

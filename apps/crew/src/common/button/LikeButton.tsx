@@ -21,11 +21,11 @@ export default function LikeButton({ isLiked, likeCount, onClickLike }: LikeButt
 }
 
 const SLikeButton = styled('button', {
-  display: 'flex',
-  alignItems: 'center',
-  fontStyle: 'H5',
+  'display': 'flex',
+  'alignItems': 'center',
+  'fontStyle': 'H5',
 
-  variants: {
+  'variants': {
     like: {
       true: {
         color: '$red',

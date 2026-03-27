@@ -18,7 +18,7 @@ function ShakeEventContent({ onEndShake }: ShakeEventProps) {
   return (
     <SContainer>
       <SShakeTitle>두구두구두구...</SShakeTitle>
-      <SImage src="/group/assets/images/mapEvent/crew_event_shake_final.gif" alt="첫 솝맵 등록 축하 선물" />
+      <SImage src='/group/assets/images/mapEvent/crew_event_shake_final.gif' alt='첫 솝맵 등록 축하 선물' />
     </SContainer>
   );
 }
@@ -43,8 +43,8 @@ function ShakeEvent({ onEndShake }: ShakeEventProps) {
         <STitle>{`첫 솝맵 등록\n축하 선물이 도착했어요 💝`}</STitle>
         <SDescription>랜덤으로 15명에게 CU 기프티콘을 드려요</SDescription>
       </STitleContainer>
-      <SImage src="/group/assets/images/mapEvent/crew_event_shake_final.png" alt="첫 솝맵 등록 축하 선물" />
-      <SButton onClick={() => setIsShaking(true)} size="lg" variant="fill" color="primary">
+      <SImage src='/group/assets/images/mapEvent/crew_event_shake_final.png' alt='첫 솝맵 등록 축하 선물' />
+      <SButton onClick={() => setIsShaking(true)} size='lg' variant='fill' color='primary'>
         선물 확인하기
       </SButton>
     </SContainer>
@@ -54,13 +54,13 @@ function ShakeEvent({ onEndShake }: ShakeEventProps) {
 export default ShakeEvent;
 
 const SContainer = styled('section', {
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  gap: '$40',
+  'display': 'flex',
+  'flexDirection': 'column',
+  'alignItems': 'center',
+  'gap': '$40',
 
-  margin: '80px auto',
-  width: '100%',
+  'margin': '80px auto',
+  'width': '100%',
 
   '@mobile': {
     margin: '48px auto',
@@ -76,18 +76,18 @@ const STitleContainer = styled('div', {
 });
 
 const STitle = styled('h1', {
-  whiteSpace: 'pre-line',
-  textAlign: 'center',
+  'whiteSpace': 'pre-line',
+  'textAlign': 'center',
 
   ...fontsObject.HEADING_3_28_B,
 
   '@mobile': {
     ...fontsObject.HEADING_4_24_B,
   },
-  lineHeight: '42px',
-  letterSpacing: '-0.56px',
+  'lineHeight': '42px',
+  'letterSpacing': '-0.56px',
 
-  color: '$gray10',
+  'color': '$gray10',
 });
 
 const SDescription = styled('p', {
@@ -97,14 +97,14 @@ const SDescription = styled('p', {
     ...fontsObject.BODY_2_16_M,
   },
 
-  lineHeight: '30px',
-  letterSpacing: '-0.27px',
+  'lineHeight': '30px',
+  'letterSpacing': '-0.27px',
 
-  color: '$gray300',
+  'color': '$gray300',
 });
 
 const SButton = styled(Button, {
-  width: '560px',
+  'width': '560px',
 
   '@mobile': {
     width: '320px',
@@ -121,8 +121,8 @@ const SShakeTitle = styled('h1', {
 });
 
 const SImage = styled('img', {
-  width: '440px',
-  height: '440px',
+  'width': '440px',
+  'height': '440px',
 
   '@mobile': {
     width: '360px',

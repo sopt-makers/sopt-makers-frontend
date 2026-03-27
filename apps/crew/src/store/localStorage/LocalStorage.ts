@@ -1,4 +1,4 @@
-import LocalStorageKey from '@/store/localStorage/LocalStorageKey';
+import type LocalStorageKey from '@/store/localStorage/LocalStorageKey';
 
 class LocalStorage {
   static getItem(key: LocalStorageKey) {

@@ -38,8 +38,12 @@ export const useDeleteComment = () => {
       if (result) {
         mutate(options.commentId, {
           onSuccess: async () => {
-            await queryClient.invalidateQueries({ queryKey: useGetPostsInfiniteQuery.getKey(categoryId) });
-            await queryClient.invalidateQueries({ queryKey: getRecentPosts.cacheKey() });
+            await queryClient.invalidateQueries({
+              queryKey: useGetPostsInfiniteQuery.getKey(categoryId),
+            });
+            await queryClient.invalidateQueries({
+              queryKey: getRecentPosts.cacheKey(),
+            });
 
             open({
               icon: 'success',

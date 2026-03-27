@@ -1,4 +1,4 @@
-import { CategorySelectType } from '@/components/feed/upload/Category/types';
+import type { CategorySelectType } from '@/components/feed/upload/Category/types';
 
 export const categories: CategorySelectType = [
   {

@@ -1,4 +1,4 @@
-import { Meta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
 import CareerItem from '@/components/members/detail/CareerSection/CareerItem';
 
@@ -22,7 +22,13 @@ export const Default = {
 
 export const Current = {
   args: {
-    career: { companyName: 'LINE PLUS', isCurrent: true, title: 'FE Developer', startDate: '2023-03', endDate: null },
+    career: {
+      companyName: 'LINE PLUS',
+      isCurrent: true,
+      title: 'FE Developer',
+      startDate: '2023-03',
+      endDate: null,
+    },
   },
 
   name: '재직 중',

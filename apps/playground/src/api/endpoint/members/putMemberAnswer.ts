@@ -30,8 +30,9 @@ export const usePutMemberAnswer = () => {
     mutationFn: (params: PutMemberAnswerRequest) => putMemberAnswer.request(params),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['getMemberQuestions'] });
-      queryClient.invalidateQueries({ queryKey: ['getUnansweredQuestionCount'] });
+      queryClient.invalidateQueries({
+        queryKey: ['getUnansweredQuestionCount'],
+      });
     },
   });
 };
-

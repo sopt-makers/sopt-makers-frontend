@@ -1,4 +1,5 @@
-import { Children, PropsWithChildren } from 'react';
+import type { PropsWithChildren } from 'react';
+import { Children } from 'react';
 import { styled } from 'stitches.config';
 
 export default function AvatarGroup({ children }: PropsWithChildren) {

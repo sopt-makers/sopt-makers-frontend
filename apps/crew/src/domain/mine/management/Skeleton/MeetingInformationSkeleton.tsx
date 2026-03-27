@@ -15,11 +15,11 @@ const MeetingInformationSkeleton = () => {
 export default MeetingInformationSkeleton;
 
 const SMeetingInformationSkeleton = styled('div', {
-  background: '$gray800',
-  padding: '$32',
-  borderRadius: '20px',
-  mt: '$64',
-  flexType: 'verticalCenter',
+  'background': '$gray800',
+  'padding': '$32',
+  'borderRadius': '20px',
+  'mt': '$64',
+  'flexType': 'verticalCenter',
 
   '@media (max-width: 768px)': {
     padding: '$0',
@@ -30,10 +30,10 @@ const SMeetingInformationSkeleton = styled('div', {
 });
 
 const SImage = styled('div', {
-  background: '$gray600',
-  borderRadius: '14px',
-  width: '$167',
-  height: '$109',
+  'background': '$gray600',
+  'borderRadius': '14px',
+  'width': '$167',
+  'height': '$109',
 
   '@media (max-width: 768px)': {
     display: 'none',
@@ -41,7 +41,7 @@ const SImage = styled('div', {
 });
 
 const STextArea = styled('div', {
-  ml: '$24',
+  'ml': '$24',
 
   '@media (max-width: 768px)': {
     display: 'none',

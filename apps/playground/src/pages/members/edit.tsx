@@ -1,11 +1,12 @@
 import { yupResolver } from '@hookform/resolvers/yup';
+import { playgroundLink } from '@sopt/constant';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import { usePutMemberProfileMutation } from '@/api/endpoint/members/putMemberProfile';
 import { useGetMemberProfileOfMe } from '@/api/endpoint_LEGACY/hooks';
-import { ProfileRequest } from '@/api/endpoint_LEGACY/members/type';
+import type { ProfileRequest } from '@/api/endpoint_LEGACY/members/type';
 import AuthRequired from '@/components/auth/AuthRequired';
 import useLastUnauthorized from '@/components/auth/util/useLastUnauthorized';
 import useToast from '@/components/common/Toast/useToast';
@@ -30,8 +31,7 @@ import CareerFormSection from '@/components/members/upload/FormSection/Career';
 import SoptActivityFormSection from '@/components/members/upload/FormSection/SoptActivity';
 import TmiFormSection from '@/components/members/upload/FormSection/Tmi';
 import { memberFormSchema } from '@/components/members/upload/schema';
-import { MemberUploadForm, SoptActivity } from '@/components/members/upload/types';
-import { playgroundLink } from '@/constants/links';
+import type { MemberUploadForm, SoptActivity } from '@/components/members/upload/types';
 import { setLayout } from '@/utils/layout';
 
 import { useGetMemberOfMe } from '../../api/endpoint/members/getMemberOfMe';
@@ -64,7 +64,9 @@ export default function MemberEditPage() {
     }
 
     if (!isDirty) {
-      me && router.push(playgroundLink.memberDetail(me.id.toString()));
+      if (me) {
+        router.push(playgroundLink.memberDetail(me.id.toString()));
+      }
       return;
     }
 
@@ -106,7 +108,10 @@ export default function MemberEditPage() {
       mbtiDescription,
       interest,
       activities: activities.map((activity) => {
-        const newActivity: SoptActivity = { ...activity, generation: activity.generation.replace(/기/g, '') };
+        const newActivity: SoptActivity = {
+          ...activity,
+          generation: activity.generation.replace(/기/g, ''),
+        };
         if (activity.team === UNSELECTED || activity.team === '') {
           return { ...newActivity, team: null };
         }
@@ -194,32 +199,32 @@ export default function MemberEditPage() {
                 myProfile.workPreference.ideationStyle === '즉흥'
                   ? '즉흥'
                   : myProfile.workPreference.ideationStyle === '숙고'
-                  ? '숙고'
-                  : null,
+                    ? '숙고'
+                    : null,
               workTime:
                 myProfile.workPreference.workTime === '아침'
                   ? '아침'
                   : myProfile.workPreference.workTime === '밤'
-                  ? '밤'
-                  : null,
+                    ? '밤'
+                    : null,
               communicationStyle:
                 myProfile.workPreference.communicationStyle === '몰아서'
                   ? '몰아서'
                   : myProfile.workPreference.communicationStyle === '나눠서'
-                  ? '나눠서'
-                  : null,
+                    ? '나눠서'
+                    : null,
               workPlace:
                 myProfile.workPreference.workPlace === '카공'
                   ? '카공'
                   : myProfile.workPreference.workPlace === '집콕'
-                  ? '집콕'
-                  : null,
+                    ? '집콕'
+                    : null,
               feedbackStyle:
                 myProfile.workPreference.feedbackStyle === '직설적'
                   ? '직설적'
                   : myProfile.workPreference.feedbackStyle === '돌려서'
-                  ? '돌려서'
-                  : null,
+                    ? '돌려서'
+                    : null,
             }
           : {
               ideationStyle: null,
@@ -234,34 +239,34 @@ export default function MemberEditPage() {
                 myProfile.userFavor.isPourSauceLover === null
                   ? null
                   : myProfile.userFavor.isPourSauceLover
-                  ? '부먹'
-                  : '찍먹',
+                    ? '부먹'
+                    : '찍먹',
               peach:
                 myProfile.userFavor.isHardPeachLover === null
                   ? null
                   : myProfile.userFavor.isHardPeachLover
-                  ? '딱복'
-                  : '물복',
+                    ? '딱복'
+                    : '물복',
               alcohol:
                 myProfile.userFavor.isSojuLover === null ? null : myProfile.userFavor.isSojuLover ? '소주' : '맥주',
               fishBread:
                 myProfile.userFavor.isRedBeanFishBreadLover === null
                   ? null
                   : myProfile.userFavor.isRedBeanFishBreadLover
-                  ? '팥붕'
-                  : '슈붕',
+                    ? '팥붕'
+                    : '슈붕',
               mintChocolate:
                 myProfile.userFavor.isMintChocoLover === null
                   ? null
                   : myProfile.userFavor.isMintChocoLover
-                  ? '민초'
-                  : '반민초',
+                    ? '민초'
+                    : '반민초',
               tteokbokki:
                 myProfile.userFavor.isRiceTteokLover === null
                   ? null
                   : myProfile.userFavor.isRiceTteokLover
-                  ? '쌀떡'
-                  : '밀떡',
+                    ? '쌀떡'
+                    : '밀떡',
             }
           : DEFAULT_FAVOR,
         longIntroduction: myProfile.selfIntroduction,

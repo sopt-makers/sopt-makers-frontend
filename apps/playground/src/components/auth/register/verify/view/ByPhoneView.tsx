@@ -1,7 +1,8 @@
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
 import { AnimatePresence, m } from 'framer-motion';
-import { FC, FormEvent, ReactNode, useState } from 'react';
+import type { FC, FormEvent, ReactNode } from 'react';
+import { useState } from 'react';
 
 import { PHONE_REGEX, PHONE_REGEX_SHORT } from '@/components/auth/register/verify/regex';
 import VerifySubmitButton from '@/components/auth/register/verify/VerifySubmitButton';
@@ -83,7 +84,10 @@ const ByPhoneView: FC<ByPhoneProps> = (props) => {
               initial='hide'
               animate='show'
               exit='hide'
-              variants={{ hide: { height: 0, transition: { delay: 0.2 } }, show: { height: 'auto' } }}
+              variants={{
+                hide: { height: 0, transition: { delay: 0.2 } },
+                show: { height: 'auto' },
+              }}
             >
               <StyledCodeInput
                 placeholder='인증번호를 입력해주세요.'
@@ -103,7 +107,10 @@ const ByPhoneView: FC<ByPhoneProps> = (props) => {
               initial='hide'
               animate='show'
               exit='hide'
-              variants={{ hide: { height: 0, opacity: 0 }, show: { height: 'auto', opacity: 1 } }}
+              variants={{
+                hide: { height: 0, opacity: 0 },
+                show: { height: 'auto', opacity: 1 },
+              }}
             >
               <ErrorMessage message={props.message} />
             </ErrorMessageHolder>

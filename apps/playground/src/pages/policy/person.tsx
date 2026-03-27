@@ -1,5 +1,7 @@
+/* eslint-disable no-irregular-whitespace -- whitespace is intentionally used for markdown formatting */
+
 import styled from '@emotion/styled';
-import { FC } from 'react';
+import type { FC } from 'react';
 import ReactMarkdown from 'react-markdown';
 
 import { setLayout } from '@/utils/layout';

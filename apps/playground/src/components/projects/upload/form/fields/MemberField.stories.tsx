@@ -1,4 +1,4 @@
-import { Meta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 import { useState } from 'react';
 
 import { DEFAULT_MEMBER } from '@/components/projects/upload/form/constants';

@@ -4,9 +4,11 @@ import 'swiper/css/thumbs';
 
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
-import { FC, useRef, useState } from 'react';
+import type { FC } from 'react';
+import { useRef, useState } from 'react';
 import { Navigation, Thumbs } from 'swiper';
-import { Swiper, SwiperClass, SwiperSlide } from 'swiper/react';
+import type { SwiperClass } from 'swiper/react';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
 import Responsive from '@/components/common/Responsive';
 import useMediaQuery from '@/hooks/useMediaQuery';
@@ -34,7 +36,9 @@ const ProjectImageSlider: FC<ProjectImageSliderProps> = ({ images, className }) 
           </NextNavigationButton>
         </Responsive>
         <StyledSwiper
-          thumbs={{ swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null }}
+          thumbs={{
+            swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null,
+          }}
           modules={[Navigation, Thumbs]}
           navigation={
             isMobile

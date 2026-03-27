@@ -1,11 +1,11 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 import { Tag } from '@sopt-makers/ui';
 import { m } from 'framer-motion';
 import { useRouter } from 'next/router';
-import { playgroundLink } from '@sopt/ui';
 import { useState } from 'react';
 
 import Divider from '@/components/common/Divider/Divider';
@@ -173,7 +173,11 @@ export default function CoffeeChatCard({
   );
 }
 
-const Container = styled(m.div)<{ isEmptyData?: boolean; isBlurred?: boolean; isMine?: boolean }>`
+const Container = styled(m.div)<{
+  isEmptyData?: boolean;
+  isBlurred?: boolean;
+  isMine?: boolean;
+}>`
   display: flex;
   flex-direction: column;
   gap: 11px;

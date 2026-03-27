@@ -2,7 +2,8 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
 import { m } from 'framer-motion';
-import React, { ReactNode, useCallback, useState } from 'react';
+import type { ReactNode } from 'react';
+import React, { useCallback, useState } from 'react';
 
 // 기존 Modal 컴포넌트 가져오기
 import Modal from '@/components/common/Modal';
@@ -29,9 +30,7 @@ const useCustomConfirm = () => {
     okButtonText: 'Confirm',
   });
 
-  const [resolvePromise, setResolvePromise] = useState<(value: boolean) => void>(() => {
-    undefined;
-  });
+  const [resolvePromise, setResolvePromise] = useState<(value: boolean) => void>(() => () => {});
 
   const confirm = useCallback((options: ConfirmOptions): Promise<boolean> => {
     setOptions(options);
@@ -145,7 +144,10 @@ const StyledModalDescription = styled.div`
     font-size: 14px;
   }
 `;
-const StyledFooter = styled.div<{ align: 'left' | 'right' | 'stretch'; stack?: 'horizontal' | 'vertical' }>`
+const StyledFooter = styled.div<{
+  align: 'left' | 'right' | 'stretch';
+  stack?: 'horizontal' | 'vertical';
+}>`
   display: grid;
   margin-top: 36px;
 

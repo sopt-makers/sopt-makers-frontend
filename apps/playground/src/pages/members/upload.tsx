@@ -6,7 +6,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 
 import { useGetMemberProfileOfMe } from '@/api/endpoint_LEGACY/hooks';
 import { postMemberProfile } from '@/api/endpoint_LEGACY/members';
-import { ProfileRequest } from '@/api/endpoint_LEGACY/members/type';
+import type { ProfileRequest } from '@/api/endpoint_LEGACY/members/type';
 import AuthRequired from '@/components/auth/AuthRequired';
 import useLastUnauthorized from '@/components/auth/util/useLastUnauthorized';
 import { MEMBER_DEFAULT_VALUES, UNSELECTED } from '@/components/members/upload/constants';
@@ -18,7 +18,7 @@ import CareerFormSection from '@/components/members/upload/FormSection/Career';
 import SoptActivityFormSection from '@/components/members/upload/FormSection/SoptActivity';
 import TmiFormSection from '@/components/members/upload/FormSection/Tmi';
 import { memberFormSchema } from '@/components/members/upload/schema';
-import { MemberUploadForm, SoptActivity } from '@/components/members/upload/types';
+import type { MemberUploadForm, SoptActivity } from '@/components/members/upload/types';
 import { setLayout } from '@/utils/layout';
 
 export default function MemberUploadPage() {
@@ -78,7 +78,10 @@ export default function MemberUploadPage() {
       mbtiDescription,
       interest,
       activities: activities.map((activity) => {
-        const newActivity: SoptActivity = { ...activity, generation: activity.generation.replace(/기/g, '') };
+        const newActivity: SoptActivity = {
+          ...activity,
+          generation: activity.generation.replace(/기/g, ''),
+        };
         if (activity.team === UNSELECTED || activity.team === '') {
           return { ...newActivity, team: null };
         }

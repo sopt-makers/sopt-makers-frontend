@@ -3,14 +3,17 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { fontsObject } from '@sopt-makers/fonts';
 import { Button } from '@sopt-makers/ui';
 import router from 'next/router';
-import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+import type { SubmitHandler } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 import { styled } from 'stitches.config';
+
 import DescriptionField from './Form/DescriptionField';
 import LinkField from './Form/LinkField';
 import LocationKeywordField from './Form/LocationKeywordField';
 import NameField from './Form/NameField';
 import SubwayField from './Form/SubwayField';
-import { FormType, formSchema } from './Form/type';
+import type { FormType } from './Form/type';
+import { formSchema } from './Form/type';
 
 const emptyValues: FormType = {
   name: '',
@@ -27,7 +30,7 @@ const emptyValues: FormType = {
 };
 
 interface RegisterFormProps {
-  onFirstRegistered?: (id?: number) => void;
+  // onFirstRegistered?: (id?: number) => void;
   edit?: {
     isEdit?: boolean;
     defaultValues?: FormType;
@@ -36,7 +39,7 @@ interface RegisterFormProps {
 }
 
 const RegisterForm = ({
-  onFirstRegistered,
+  // onFirstRegistered,
   edit: { isEdit = false, defaultValues = undefined, soptMapId = 0 } = {},
 }: RegisterFormProps) => {
   const formMethods = useForm<FormType>({
@@ -50,19 +53,19 @@ const RegisterForm = ({
   const { mutate: mutateCreateMap } = usePostSoptMapMutation();
   const { mutate: mutateUpdateMap } = usePutSoptMapMutation(soptMapId);
 
-  const onSubmit: SubmitHandler<FormType> = async formData => {
+  const onSubmit: SubmitHandler<FormType> = async (formData) => {
     if (isEdit) {
       mutateUpdateMap(formData);
       return;
     }
 
     mutateCreateMap(formData, {
-      onSuccess: data => {
-        if (data.firstRegistered) {
-          onFirstRegistered?.(data.id);
-          return;
-        }
-
+      onSuccess: () => {
+        // onSuccess: (data) => {
+        // if (data.firstRegistered) {
+        //   onFirstRegistered?.(data.id);
+        //   return;
+        // }
         router.push('/map');
       },
     });
@@ -83,7 +86,7 @@ const RegisterForm = ({
             <LocationKeywordField />
             <LinkField />
             <ButtonContainer>
-              <Button type="submit" size="lg" disabled={isSubmitDisabled}>
+              <Button type='submit' size='lg' disabled={isSubmitDisabled}>
                 등록하기
               </Button>
             </ButtonContainer>
@@ -95,18 +98,18 @@ const RegisterForm = ({
 };
 
 const SForm = styled('form', {
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '60px',
+  'display': 'flex',
+  'flexDirection': 'column',
+  'gap': '60px',
   '@tablet': {
     gap: '56px',
   },
 });
 
 const SContainer = styled('div', {
-  margin: '80px 0',
-  display: 'flex',
-  gap: '30px',
+  'margin': '80px 0',
+  'display': 'flex',
+  'gap': '30px',
 
   '@tablet': {
     margin: 0,
@@ -114,9 +117,9 @@ const SContainer = styled('div', {
 });
 
 const SFormContainer = styled('div', {
-  width: '100%',
-  padding: '36px 40px 56px',
-  borderRadius: '15px',
+  'width': '100%',
+  'padding': '36px 40px 56px',
+  'borderRadius': '15px',
 
   '@tablet': {
     padding: '40px 0',
@@ -126,8 +129,8 @@ const SFormContainer = styled('div', {
 
 const SFormName = styled('h1', {
   ...fontsObject.HEADING_2_32_B,
-  color: '$gray10',
-  marginBottom: '20px',
+  'color': '$gray10',
+  'marginBottom': '20px',
 
   '@tablet': {
     ...fontsObject.HEADING_4_24_B,
@@ -135,13 +138,13 @@ const SFormName = styled('h1', {
 });
 
 const ButtonContainer = styled('div', {
-  display: 'flex',
-  justifyContent: 'end',
+  'display': 'flex',
+  'justifyContent': 'end',
   '& button': {
     width: '220px',
   },
   '@tablet': {
-    width: '100%',
+    'width': '100%',
     '& button': {
       width: '100%',
     },

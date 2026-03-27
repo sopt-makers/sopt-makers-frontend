@@ -1,9 +1,10 @@
 import { useUserProfileQueryOption } from '@api/user/query';
 import { ACCESS_TOKEN_KEY } from '@shared/util/auth';
-import { DesktopHeader, MobileHeader, playgroundLink } from '@sopt-makers/playground-common';
+import { playgroundLink } from '@sopt/constant';
+import { DesktopHeader, MobileHeader } from '@sopt/ui';
 import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
-import { FC, ReactNode } from 'react';
+import type { FC, ReactNode } from 'react';
 import { styled } from 'stitches.config';
 
 // TODO: playground 팀에서 type export하면 제거할 예정
@@ -24,7 +25,7 @@ const Header: FC = () => {
 
   const renderLink = ({ href, children }: LinkRendererParams) => {
     if (href.startsWith(playgroundLink.groupList())) {
-      return <Link href="/">{children}</Link>;
+      return <Link href='/'>{children}</Link>;
     }
     return <a href={href}>{children}</a>;
   };
@@ -56,7 +57,7 @@ const HeaderWrapper = styled('div', {
 });
 
 const SDesktopHeaderWrapper = styled(HeaderWrapper, {
-  display: 'block',
+  'display': 'block',
 
   '@tablet': {
     display: 'none',
@@ -64,9 +65,9 @@ const SDesktopHeaderWrapper = styled(HeaderWrapper, {
 });
 
 const SMobileHeaderWrapper = styled(HeaderWrapper, {
-  display: 'none',
+  'display': 'none',
 
-  img: {
+  'img': {
     width: '100%',
   },
 

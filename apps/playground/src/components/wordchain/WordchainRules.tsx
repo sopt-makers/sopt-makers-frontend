@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
-import { FC, ReactNode, useState } from 'react';
+import type { FC, ReactNode } from 'react';
+import { useState } from 'react';
 
 import Modal from '@/components/common/Modal';
 import Text from '@/components/common/Text';

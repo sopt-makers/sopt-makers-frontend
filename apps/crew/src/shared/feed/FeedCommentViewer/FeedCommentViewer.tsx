@@ -1,19 +1,20 @@
-import { GetCommentListResponse } from '@api/comment/type';
+import type { GetCommentListResponse } from '@api/comment/type';
 import LikeHoverIcon from '@assets/svg/like_hover_in_comment.svg';
 import MessageIcon from '@assets/svg/message-dots.svg';
 import ReCommentHoverIcon from '@assets/svg/Recomment_Hover_Icon.svg';
 import Avatar from '@common/avatar/Avatar';
 import { playgroundURL } from '@constant/url';
 import { Menu } from '@headlessui/react';
+import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import { fontsObject } from '@sopt-makers/fonts';
-import { playgroundLink } from '@sopt-makers/playground-common';
 import { fromNow } from '@util/dayjs';
 import MenuIcon from 'public/assets/svg/ic_menu.svg';
 import LikeFillIcon from 'public/assets/svg/like_fill_in_comment.svg';
 import LikeIcon from 'public/assets/svg/like_in_comment.svg';
 import React, { useContext } from 'react';
 import { styled } from 'stitches.config';
+
 import { MentionContext } from '../Mention/MentionContext';
 
 interface FeedCommentViewerProps {
@@ -41,7 +42,10 @@ export default function FeedCommentViewer({
     setIsReCommentClicked(true);
     //commentParentId: 본인의 부모 댓글의 id, parentComment: 본인이 부모 댓글 여부
     if (commentParentId) {
-      setParentComment({ parentComment: false, parentCommentId: commentParentId });
+      setParentComment({
+        parentComment: false,
+        parentCommentId: commentParentId,
+      });
     } else {
       setParentComment({ parentComment: false, parentCommentId: comment.id });
     }
@@ -59,14 +63,14 @@ export default function FeedCommentViewer({
           </Name>
           <Date>{fromNow(comment.createdDate)}</Date>
         </AuthorWrapper>
-        <Menu as="div" style={{ position: 'relative' }}>
+        <Menu as='div' style={{ position: 'relative' }}>
           <Menu.Button>
             <MenuIcon />
           </Menu.Button>
           <MenuItems>
             {Actions.map((Action, index) => (
-              <SMenuItemContainer>
-                <Menu.Item key={index}>{Action}</Menu.Item>
+              <SMenuItemContainer key={index}>
+                <Menu.Item>{Action}</Menu.Item>
               </SMenuItemContainer>
             ))}
           </MenuItems>
@@ -141,11 +145,11 @@ const MenuItems = styled(Menu.Items, {
   background: '$gray800',
 });
 const SMenuItemContainer = styled('div', {
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  width: '80px',
-  background: '$gray800',
+  'display': 'flex',
+  'alignItems': 'center',
+  'justifyContent': 'center',
+  'width': '80px',
+  'background': '$gray800',
 
   '&:hover': {
     background: '$gray700',
@@ -187,18 +191,18 @@ const SLikeHoverIcon = styled(LikeHoverIcon, {
   display: 'none',
 });
 const LikeIconWrapper = styled('div', {
-  width: '20px',
-  height: '20px',
-  color: '$gray300',
-  display: 'flex',
-  flexType: 'center',
+  'width': '20px',
+  'height': '20px',
+  'color': '$gray300',
+  'display': 'flex',
+  'flexType': 'center',
   '&:hover svg:first-of-type': {
     display: 'none',
   },
   '&:hover svg:nth-of-type(2)': {
     display: 'block',
   },
-  variants: {
+  'variants': {
     isLiked: {
       true: {
         '&:hover svg:first-of-type': {
@@ -221,11 +225,11 @@ const ReCommentWrapper = styled('div', {
   ...fontsObject.LABEL_4_12_SB,
 });
 const MessageIconWrapper = styled('div', {
-  width: '20px',
-  height: '20px',
-  color: '$gray300',
-  display: 'flex',
-  flexType: 'center',
+  'width': '20px',
+  'height': '20px',
+  'color': '$gray300',
+  'display': 'flex',
+  'flexType': 'center',
   '&:hover svg:first-of-type': {
     display: 'none',
   },

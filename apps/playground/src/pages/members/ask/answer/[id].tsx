@@ -1,8 +1,10 @@
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import { useToast } from '@sopt-makers/ui';
 import Link from 'next/link';
-import { FC, useEffect, useMemo, useState } from 'react';
+import type { FC } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import type { MemberQuestion } from '@/api/endpoint/members/getMemberQuestions';
 import { usePostMemberQuestionAnswer } from '@/api/endpoint/members/postMemberAnswer';
@@ -13,7 +15,6 @@ import useEventLogger from '@/components/eventLogger/hooks/useEventLogger';
 import { IconMember } from '@/components/feed/common/Icon';
 import { getRelativeTime } from '@/components/feed/common/utils';
 import AskFormPage from '@/components/members/ask/AskFormPage';
-import { playgroundLink } from '@/constants/links';
 import useStringRouterQuery from '@/hooks/useStringRouterQuery';
 import { setLayout } from '@/utils/layout';
 
@@ -73,7 +74,9 @@ const AskAnswerPage: FC = () => {
     window.history.back();
   };
 
-  const askerName = question.isAnonymous ? question.anonymousProfile?.nickname ?? '익명' : question.askerName ?? '익명';
+  const askerName = question.isAnonymous
+    ? (question.anonymousProfile?.nickname ?? '익명')
+    : (question.askerName ?? '익명');
 
   return (
     <AuthRequired>
@@ -117,7 +120,8 @@ const AskAnswerPage: FC = () => {
                 <NameRow>
                   <Text typography='SUIT_14_SB'>{askerName}</Text>
                   <Text typography='SUIT_12_SB' color={colors.gray400}>
-                    {!question.isAnonymous && <>{question.askerLatestGeneration}∙</>}{getRelativeTime(question.createdAt)}
+                    {!question.isAnonymous && <>{question.askerLatestGeneration}∙</>}
+                    {getRelativeTime(question.createdAt)}
                   </Text>
                 </NameRow>
               </HeaderText>

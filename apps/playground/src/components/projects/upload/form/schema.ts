@@ -1,4 +1,4 @@
-import { DefaultValues } from 'react-hook-form';
+import type { DefaultValues } from 'react-hook-form';
 import * as z from 'zod';
 
 import { DEFAULT_MEMBER } from '@/components/projects/upload/form/constants';
@@ -12,7 +12,9 @@ export const uploadSchema = z.object({
     startAt: dateStringSchema,
     endAt: dateStringSchema.nullable(),
   }),
-  category: z.string({ required_error: '프로젝트를 어디서 진행했는지 선택해주세요.' }),
+  category: z.string({
+    required_error: '프로젝트를 어디서 진행했는지 선택해주세요.',
+  }),
   members: z
     .array(
       z.object({

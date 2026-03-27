@@ -1,0 +1,22 @@
+name: Label
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+jobs:
+  label:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      issues: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Sync PR labels
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const { default: syncLabels } = await import('${{ github.workspace }}/.github/scripts/label.ts');
+            await syncLabels({ github, context, core });

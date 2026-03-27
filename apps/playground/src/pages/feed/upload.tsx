@@ -1,7 +1,7 @@
+import { playgroundLink } from '@sopt/constant';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
-import { playgroundLink } from '@sopt/ui';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import { getCategory } from '@/api/endpoint/feed/getCategory';
 import { useGetPostsInfiniteQuery } from '@/api/endpoint/feed/getPosts';
@@ -11,7 +11,7 @@ import AuthRequired from '@/components/auth/AuthRequired';
 import Loading from '@/components/common/Loading';
 import useEventLogger from '@/components/eventLogger/hooks/useEventLogger';
 import FeedUploadPage, { LoadingWrapper } from '@/components/feed/page/FeedUploadPage';
-import { PostedFeedDataType } from '@/components/feed/upload/types';
+import type { PostedFeedDataType } from '@/components/feed/upload/types';
 import { setLayout } from '@/utils/layout';
 
 const FeedUpload: FC = () => {
@@ -54,10 +54,15 @@ const FeedUpload: FC = () => {
             category,
             isBlindWriter: data.isBlindWriter,
             vote: !!data.vote,
+            /* eslint-disable-next-line no-useless-escape -- [ and ] must be escaped for literal match */
             mention: /@([^\[\]\s@]+)\[(\d+)\]/.test(data.content),
           });
-          queryClient.invalidateQueries({ queryKey: useGetPostsInfiniteQuery.getKey('') });
-          queryClient.invalidateQueries({ queryKey: getRecentPosts.cacheKey() });
+          queryClient.invalidateQueries({
+            queryKey: useGetPostsInfiniteQuery.getKey(''),
+          });
+          queryClient.invalidateQueries({
+            queryKey: getRecentPosts.cacheKey(),
+          });
           await router.push(playgroundLink.feedList());
         },
       },

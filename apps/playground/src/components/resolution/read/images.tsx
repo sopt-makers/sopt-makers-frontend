@@ -30,9 +30,9 @@ export const Background0 = () => {
           width='900'
           height='919.85'
           filterUnits='userSpaceOnUse'
-          color-interpolation-filters='sRGB'
+          colorInterpolationFilters='sRGB'
         >
-          <feFlood flood-opacity='0' result='BackgroundImageFix' />
+          <feFlood floodOpacity='0' result='BackgroundImageFix' />
           <feBlend mode='normal' in='SourceGraphic' in2='BackgroundImageFix' result='shape' />
           <feGaussianBlur stdDeviation='100' result='effect1_foregroundBlur_2432_1014' />
         </filter>
@@ -106,9 +106,9 @@ export const Background1 = () => {
           width='900'
           height='919.85'
           filterUnits='userSpaceOnUse'
-          color-interpolation-filters='sRGB'
+          colorInterpolationFilters='sRGB'
         >
-          <feFlood flood-opacity='0' result='BackgroundImageFix' />
+          <feFlood floodOpacity='0' result='BackgroundImageFix' />
           <feBlend mode='normal' in='SourceGraphic' in2='BackgroundImageFix' result='shape' />
           <feGaussianBlur stdDeviation='100' result='effect1_foregroundBlur_2432_1019' />
         </filter>
@@ -182,9 +182,9 @@ export const Background2 = () => {
           width='900'
           height='919.85'
           filterUnits='userSpaceOnUse'
-          color-interpolation-filters='sRGB'
+          colorInterpolationFilters='sRGB'
         >
-          <feFlood flood-opacity='0' result='BackgroundImageFix' />
+          <feFlood floodOpacity='0' result='BackgroundImageFix' />
           <feBlend mode='normal' in='SourceGraphic' in2='BackgroundImageFix' result='shape' />
           <feGaussianBlur stdDeviation='100' result='effect1_foregroundBlur_2432_1016' />
         </filter>
@@ -258,9 +258,9 @@ export const Background3 = () => {
           width='900'
           height='919.85'
           filterUnits='userSpaceOnUse'
-          color-interpolation-filters='sRGB'
+          colorInterpolationFilters='sRGB'
         >
-          <feFlood flood-opacity='0' result='BackgroundImageFix' />
+          <feFlood floodOpacity='0' result='BackgroundImageFix' />
           <feBlend mode='normal' in='SourceGraphic' in2='BackgroundImageFix' result='shape' />
           <feGaussianBlur stdDeviation='100' result='effect1_foregroundBlur_2432_1017' />
         </filter>
@@ -334,9 +334,9 @@ export const Background4 = () => {
           width='900'
           height='919.85'
           filterUnits='userSpaceOnUse'
-          color-interpolation-filters='sRGB'
+          colorInterpolationFilters='sRGB'
         >
-          <feFlood flood-opacity='0' result='BackgroundImageFix' />
+          <feFlood floodOpacity='0' result='BackgroundImageFix' />
           <feBlend mode='normal' in='SourceGraphic' in2='BackgroundImageFix' result='shape' />
           <feGaussianBlur stdDeviation='100' result='effect1_foregroundBlur_2432_1018' />
         </filter>
@@ -410,9 +410,9 @@ export const Background5 = () => {
           width='900'
           height='919.85'
           filterUnits='userSpaceOnUse'
-          color-interpolation-filters='sRGB'
+          colorInterpolationFilters='sRGB'
         >
-          <feFlood flood-opacity='0' result='BackgroundImageFix' />
+          <feFlood floodOpacity='0' result='BackgroundImageFix' />
           <feBlend mode='normal' in='SourceGraphic' in2='BackgroundImageFix' result='shape' />
           <feGaussianBlur stdDeviation='100' result='effect1_foregroundBlur_2432_1019' />
         </filter>

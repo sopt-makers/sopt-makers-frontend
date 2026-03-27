@@ -1,10 +1,11 @@
-import { styled } from 'stitches.config';
-import ModalContainer from './ModalContainer';
 import useEmblaCarousel from 'embla-carousel-react';
 import ArrowLeft from 'public/assets/svg/arrow_big_left.svg';
 import ArrowRight from 'public/assets/svg/arrow_big_right.svg';
 import CloseIcon from 'public/assets/svg/x_big.svg';
 import { useEffect, useState } from 'react';
+import { styled } from 'stitches.config';
+
+import ModalContainer from './ModalContainer';
 
 interface ImageCarouselModalProps {
   isOpen: boolean;
@@ -31,7 +32,6 @@ export default function ImageCarouselModal({ isOpen, close, images, startIndex =
       <ModalWrapper>
         <Container>
           {/* top 고정 요소 */}
-          {/* eslint-disable-next-line prettier/prettier */}
           <Counter>
             {currentIndex} / {images.length}
           </Counter>
@@ -44,8 +44,8 @@ export default function ImageCarouselModal({ isOpen, close, images, startIndex =
           </ArrowButton>
           <CarouselContainer ref={emblaRef}>
             <CarouselScrollContainer>
-              {images.map(image => (
-                <CarouselItem>
+              {images.map((image) => (
+                <CarouselItem key={image}>
                   <Image src={image} />
                 </CarouselItem>
               ))}
@@ -79,12 +79,12 @@ const Container = styled('div', {
   justifyContent: 'space-between',
 });
 const Counter = styled('div', {
-  position: 'absolute',
-  top: '28px',
-  left: '48px',
-  zIndex: '$1',
-  color: 'white',
-  fontStyle: 'T1',
+  'position': 'absolute',
+  'top': '28px',
+  'left': '48px',
+  'zIndex': '$1',
+  'color': 'white',
+  'fontStyle': 'T1',
   '@media (max-width: 768px)': {
     top: '8px',
     left: '16px',
@@ -93,14 +93,14 @@ const Counter = styled('div', {
   },
 });
 const CloseButton = styled('button', {
-  position: 'absolute',
-  top: '32px',
-  right: '48px',
-  zIndex: '$1',
-  width: '24px',
-  height: '24px',
-  border: 'none',
-  outline: 'none',
+  'position': 'absolute',
+  'top': '32px',
+  'right': '48px',
+  'zIndex': '$1',
+  'width': '24px',
+  'height': '24px',
+  'border': 'none',
+  'outline': 'none',
   '@media (max-width: 768px)': {
     top: '10px',
     right: '13px',
@@ -132,12 +132,12 @@ const Image = styled('img', {
   objectFit: 'contain',
 });
 const ArrowButton = styled('button', {
-  flexType: 'center',
-  width: '72px',
-  height: '72px',
-  flexShrink: 0,
-  borderRadius: '20px',
-  background: '$gray800',
+  'flexType': 'center',
+  'width': '72px',
+  'height': '72px',
+  'flexShrink': 0,
+  'borderRadius': '20px',
+  'background': '$gray800',
   '@media (max-width: 768px)': {
     display: 'none',
   },

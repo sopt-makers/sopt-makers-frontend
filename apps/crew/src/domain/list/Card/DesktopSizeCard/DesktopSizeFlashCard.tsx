@@ -1,5 +1,5 @@
 import { useFlashQueryOption } from '@api/flash/query';
-import { MeetingData } from '@api/meeting/type';
+import type { MeetingData } from '@api/meeting/type';
 import DesktopSizeCard from '@domain/list/Card/DesktopSizeCard';
 import { FlashInformation } from '@domain/list/Card/DesktopSizeCard/constant';
 import { useQuery } from '@tanstack/react-query';

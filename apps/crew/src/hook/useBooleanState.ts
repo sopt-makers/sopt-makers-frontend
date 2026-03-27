@@ -12,7 +12,7 @@ export default function useBooleanState(defaultValue = false) {
   }, []);
 
   const toggle = useCallback(() => {
-    setBool(b => !b);
+    setBool((b) => !b);
   }, []);
 
   return { bool, setTrue, setFalse, toggle };

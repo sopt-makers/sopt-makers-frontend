@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 import { COFFEECHAT_MOBILE_MEDIA_QUERY } from '@/components/coffeechat/mediaQuery';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';

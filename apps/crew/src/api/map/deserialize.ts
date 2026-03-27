@@ -1,5 +1,6 @@
-import { FormType } from '@domain/map/Form/type';
-import { GetMapDetail } from './type';
+import type { FormType } from '@domain/map/Form/type';
+
+import type { GetMapDetail } from './type';
 
 const TAG_LABEL_MAP: Record<string, string> = {
   CAFE: '카페',
@@ -13,7 +14,7 @@ export const deserializeSoptMapData = (data: GetMapDetail['response']): FormType
 
   return {
     name: data.placeName ?? '',
-    subwayStations: data.stationNames?.map(station => ({ name: station })) ?? [],
+    subwayStations: data.stationNames?.map((station) => ({ name: station })) ?? [],
     description: data.description ?? '',
     category: {
       label,

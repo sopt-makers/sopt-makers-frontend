@@ -1,8 +1,9 @@
+import { playgroundLink } from '@sopt/constant';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+
 import CheckModal from '@/components/members/upload/CheckActivity/Modal/CheckModal';
 import CheckPopup from '@/components/members/upload/CheckActivity/Modal/CheckPopup';
-import { useRouter } from 'next/router';
-import { playgroundLink } from '@sopt/ui';
-import { useEffect, useState } from 'react';
 import useMediaQuery from '@/hooks/useMediaQuery';
 import { MOBILE_MAX_WIDTH } from '@/styles/mediaQuery';
 

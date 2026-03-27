@@ -1,7 +1,8 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
-import { FC, useEffect, useRef, useState } from 'react';
+import type { FC } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { getPresignedUrl, putPresignedUrl } from '@/api/endpoint/common/image';
 import IconImage from '@/public/icons/icon-image.svg';
@@ -43,7 +44,9 @@ const ImageUploaderLegacy: FC<ImageUploaderProps> = ({
       if (files == null || files.length === 0) return;
       const file = files[0];
       try {
-        const { filename, signedUrl } = await getPresignedUrl.request({ filename: file.name });
+        const { filename, signedUrl } = await getPresignedUrl.request({
+          filename: file.name,
+        });
         if (!signedUrl) {
           throw new Error('presigned-url을 받아오는데 실패하였습니다.');
         }

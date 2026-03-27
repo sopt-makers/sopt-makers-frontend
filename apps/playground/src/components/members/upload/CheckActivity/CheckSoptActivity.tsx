@@ -1,9 +1,9 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 import { useRouter } from 'next/router';
-import { playgroundLink } from '@sopt/ui';
 import { useEffect, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
@@ -15,7 +15,7 @@ import SoptActivitySection from '@/components/members/detail/SoptActivitySection
 import useRegisterModal from '@/components/members/hooks/useRegisterModal';
 import { UNSELECTED } from '@/components/members/upload/constants';
 import MemberSoptActivityFormSection from '@/components/members/upload/FormSection/SoptActivity';
-import { SoptActivity } from '@/components/members/upload/types';
+import type { SoptActivity } from '@/components/members/upload/types';
 
 export default function CheckSoptActivity() {
   const router = useRouter();
@@ -34,7 +34,9 @@ export default function CheckSoptActivity() {
     return sorted;
   })();
 
-  const formMethods = useForm<{ activities: SoptActivity[] }>({ mode: 'onChange' });
+  const formMethods = useForm<{ activities: SoptActivity[] }>({
+    mode: 'onChange',
+  });
   const {
     handleSubmit,
     getValues,
@@ -69,7 +71,10 @@ export default function CheckSoptActivity() {
       const data = {
         ...profile,
         activities: activities.map((activity) => {
-          const newActivity: SoptActivity = { ...activity, generation: activity.generation.replace(/기/g, '') };
+          const newActivity: SoptActivity = {
+            ...activity,
+            generation: activity.generation.replace(/기/g, ''),
+          };
           if (activity.team === UNSELECTED || activity.team === '') {
             return { ...newActivity, team: null };
           }

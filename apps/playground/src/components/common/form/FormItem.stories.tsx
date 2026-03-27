@@ -1,4 +1,4 @@
-import { Meta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
 import Input from '@/components/common/Input';
 import TextArea from '@/components/common/TextArea';

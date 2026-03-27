@@ -1,7 +1,8 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
-import { FC, useState } from 'react';
+import type { FC } from 'react';
+import { useState } from 'react';
 
 import Checkbox from '@/components/common/Checkbox';
 import SoulmateIcon from '@/components/soulmate/icons/SoulmateIcon';
@@ -29,7 +30,7 @@ const requiresData = [
   },
 ];
 
-const Register: FC<RegisterProps> = ({}) => {
+const Register: FC<RegisterProps> = () => {
   const [checked, setChecked] = useState(requiresData.map(() => false));
   const allChecked = checked.every((v) => v);
 

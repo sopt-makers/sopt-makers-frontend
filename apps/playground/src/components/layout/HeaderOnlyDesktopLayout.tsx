@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { FC, ReactNode } from 'react';
+import type { FC, ReactNode } from 'react';
 import { RemoveScroll } from 'react-remove-scroll';
 
 import Header from '@/components/common/Header';

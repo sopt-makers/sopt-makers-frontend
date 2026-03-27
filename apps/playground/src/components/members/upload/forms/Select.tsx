@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { SelectV2 } from '@sopt-makers/ui';
-import { PropsWithChildren } from 'react';
+import type { PropsWithChildren } from 'react';
 
 export type Option<T = string> = {
   value: T;

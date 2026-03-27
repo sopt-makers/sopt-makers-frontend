@@ -2,7 +2,8 @@ import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
 import { useQueryClient } from '@tanstack/react-query';
 import PaperAirplaneIcon from 'public/icons/icon-paper-airplane.svg';
-import { FormEvent, useCallback, useEffect, useRef, useState } from 'react';
+import type { FormEvent } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import {
   useGetActiveWordchain,

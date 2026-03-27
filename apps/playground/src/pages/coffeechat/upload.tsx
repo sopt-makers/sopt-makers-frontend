@@ -1,9 +1,10 @@
-import { DialogOptionType, useDialog, useToast } from '@sopt-makers/ui';
+import { playgroundLink } from '@sopt/constant';
+import type { DialogOptionType } from '@sopt-makers/ui';
+import { useDialog, useToast } from '@sopt-makers/ui';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
-import { playgroundLink } from '@sopt/ui';
 import { useMemo } from 'react';
-import { FieldValues } from 'react-hook-form';
+import type { FieldValues } from 'react-hook-form';
 
 import { getCoffeechatDetail } from '@/api/endpoint/coffeechat/getCoffeechatDetail';
 import { uploadCoffeechat } from '@/api/endpoint/coffeechat/uploadCoffeechat';
@@ -12,7 +13,7 @@ import { useGetMemberProfileById } from '@/api/endpoint_LEGACY/hooks';
 import AuthRequired from '@/components/auth/AuthRequired';
 import CoffeechatLoading from '@/components/coffeechat/Loading';
 import CoffeechatUploadPage from '@/components/coffeechat/page/CoffeechatUploadPage';
-import { CoffeechatFormContent } from '@/components/coffeechat/upload/CoffeechatForm/types';
+import type { CoffeechatFormContent } from '@/components/coffeechat/upload/CoffeechatForm/types';
 import useEventLogger from '@/components/eventLogger/hooks/useEventLogger';
 import { setLayout } from '@/utils/layout';
 
@@ -63,7 +64,9 @@ const CoffeechatUpload = () => {
           queryClient.refetchQueries({ queryKey: ['getRecentCoffeeChat'] });
           queryClient.refetchQueries({ queryKey: ['getMembersCoffeeChat'] });
           queryClient.invalidateQueries({ queryKey: ['getMemberOfMe'] });
-          queryClient.invalidateQueries({ queryKey: getCoffeechatDetail.cacheKey(String(me?.id)) });
+          queryClient.invalidateQueries({
+            queryKey: getCoffeechatDetail.cacheKey(String(me?.id)),
+          });
 
           logSubmitEvent('openCoffeechat', {
             career: memberInfo.career
@@ -74,7 +77,7 @@ const CoffeechatUpload = () => {
             organization:
               profile?.careers && profile?.careers.length > 0
                 ? profile?.careers[0].companyName
-                : profile?.university ?? '',
+                : (profile?.university ?? ''),
             job: profile?.careers && profile?.careers.length > 0 ? profile?.careers[0].title : '',
             bio: memberInfo.introduction ?? '',
             section: coffeeChatInfo.sections ?? [],
@@ -86,7 +89,10 @@ const CoffeechatUpload = () => {
             generation: generations ?? [],
             part: part ?? [],
           });
-          await toastOpen({ icon: 'success', content: '커피챗이 오픈됐어요! 경험을 나눠주셔서 감사해요.' });
+          await toastOpen({
+            icon: 'success',
+            content: '커피챗이 오픈됐어요! 경험을 나눠주셔서 감사해요.',
+          });
           await router.push(playgroundLink.coffeechat());
         },
         onError: (error) => {

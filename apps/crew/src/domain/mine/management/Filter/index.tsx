@@ -1,4 +1,4 @@
-import { FilterType } from '@constant/option';
+import type { FilterType } from '@constant/option';
 import FilterSelect from '@domain/list/Filter/Select';
 import { Flex } from '@shared/util/layout/Flex';
 
@@ -13,7 +13,7 @@ const FILTERS: FilterType[] = [
 function Filter() {
   return (
     <Flex>
-      {FILTERS.map(filter => (
+      {FILTERS.map((filter) => (
         <FilterSelect key={filter.label} filter={filter} />
       ))}
     </Flex>

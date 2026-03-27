@@ -1,4 +1,4 @@
-import { Meta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
 import TitleInput from '@/components/feed/upload/Input/TitleInput';
 

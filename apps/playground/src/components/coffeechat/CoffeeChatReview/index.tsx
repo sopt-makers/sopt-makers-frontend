@@ -1,7 +1,8 @@
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
-import { ReactNode, startTransition, useEffect, useState } from 'react';
+import type { ReactNode } from 'react';
+import { startTransition, useEffect, useState } from 'react';
 
 import { useGetRecentCoffeeChatReview } from '@/api/endpoint/coffeechat/getRecentCoffeechatReview';
 import CoffeeChatReviewCard from '@/components/coffeechat/CoffeeChatReview/CoffeeChatReviewCard';

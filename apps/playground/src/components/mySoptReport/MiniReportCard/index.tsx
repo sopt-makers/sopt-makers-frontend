@@ -1,7 +1,9 @@
-import { CardConfig, getCardConfig, Value, WordChainGameStats } from '@/components/mySoptReport/constants';
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
+
+import type { CardConfig, Value, WordChainGameStats } from '@/components/mySoptReport/constants';
+import { getCardConfig } from '@/components/mySoptReport/constants';
 
 interface MiniReportCardProps {
   type: string;
@@ -118,7 +120,11 @@ const TypeValue = styled.p<{ $isSecondLine?: boolean }>`
   font-size: 42px;
 `;
 
-const ReportValue = styled.p<{ $marginTop?: number; $fontSize?: string; $color: string }>`
+const ReportValue = styled.p<{
+  $marginTop?: number;
+  $fontSize?: string;
+  $color: string;
+}>`
   margin-top: ${({ $marginTop }) => $marginTop}px;
   ${fonts.HEADING_16_B};
 

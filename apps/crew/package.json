@@ -3,18 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "typecheck": "tsc --noemit -p .",
-    "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
+    "dev": "next dev",
+    "format": "prettier --write . --ignore-path ../../.prettierignore",
+    "generate-types": "cat ./src/__generated__/schema1.d.ts ./src/__generated__/schema2.d.ts > ./src/__generated__/schema.d.ts",
     "generate-types-v1": "openapi-typescript https://crew.api.dev.sopt.org/api-docs-json -o ./src/__generated__/schema1.d.ts",
     "generate-types-v2": "openapi-typescript https://crew.api.dev.sopt.org/api-docs/json -o ./src/__generated__/schema2.d.ts",
-    "generate-types": "cat ./src/__generated__/schema1.d.ts ./src/__generated__/schema2.d.ts > ./src/__generated__/schema.d.ts",
-    "wrangler": "wrangler",
-    "where": "sh -c 'export IP=`ipconfig getifaddr en0` && echo [info] we are in ... http://${IP}:3000'"
+    "lint": "next lint",
+    "start": "next start",
+    "storybook": "storybook dev -p 6006",
+    "typecheck": "tsc --noemit -p .",
+    "where": "sh -c 'export IP=`ipconfig getifaddr en0` && echo [info] we are in ... http://${IP}:3000'",
+    "wrangler": "wrangler"
   },
   "dependencies": {
     "@amplitude/ampli": "^1.35.0",
@@ -27,8 +28,8 @@
     "@radix-ui/react-dropdown-menu": "^2.1.1",
     "@sentry/nextjs": "^7.0.0",
     "@sopt-makers/icons": "^1.1.0",
-    "@sopt-makers/playground-common": "^1.7.3",
     "@sopt-makers/ui": "^2.10.2",
+    "@sopt/constant": "workspace:*",
     "@sopt/ui": "workspace:*",
     "@stitches/react": "^1.2.8",
     "@suspensive/react": "^3.10.1",
@@ -50,14 +51,10 @@
   "devDependencies": {
     "@emotion/server": "^11.9.0",
     "@hookform/devtools": "^4.3.1",
+    "@sopt-makers/eslint-config": "workspace:^",
     "@types/react-mentions": "4.1.13",
     "@types/react-responsive": "^8.0.5",
-    "eslint": "^8.57.0",
-    "eslint-plugin-import": "^2.32.0",
-    "eslint-plugin-prettier": "^5.5.5",
-    "eslint-plugin-react-hooks": "^7.0.1",
     "openapi-typescript": "^6.3.9",
-    "prettier": "^3.0.0",
     "wrangler": "^3.0.0"
   }
 }

@@ -17,15 +17,15 @@ const ItemDescriptionBox = () => {
 export default ItemDescriptionBox;
 
 const SItemDescriptionBox = styled('div', {
-  minWidth: 'fit-content',
-  border: '1px solid $gray600',
-  borderRadius: '15px',
-  padding: '$19 0',
-  mb: '$28',
-  flexType: 'verticalCenter',
-  justifyContent: 'space-between',
-  color: '$gray400',
-  fontAg: '16_bold_100',
+  'minWidth': 'fit-content',
+  'border': '1px solid $gray600',
+  'borderRadius': '15px',
+  'padding': '$19 0',
+  'mb': '$28',
+  'flexType': 'verticalCenter',
+  'justifyContent': 'space-between',
+  'color': '$gray400',
+  'fontAg': '16_bold_100',
 
   '@media (max-width: 768px)': {
     display: 'none',

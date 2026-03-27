@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import { createRef } from 'react';
 
 import ResponsiveProvider from '@/components/common/Responsive/ResponsiveProvider';

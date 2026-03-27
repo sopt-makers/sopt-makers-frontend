@@ -1,5 +1,6 @@
 import { isEmpty, omitBy } from 'lodash-es';
-import { NextRouter, useRouter } from 'next/router';
+import type { NextRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import qs from 'qs';
 import { useCallback } from 'react';
 
@@ -22,7 +23,9 @@ export function usePageQueryParams(
   const addQueryParamsToUrl = useCallback(
     (queryParams: NextRouter['query']) => {
       const mergedParams = { ...router.query, ...queryParams };
-      const _queryParams = { ...(skipNull ? omitBy(mergedParams, isEmpty) : mergedParams) };
+      const _queryParams = {
+        ...(skipNull ? omitBy(mergedParams, isEmpty) : mergedParams),
+      };
 
       router.push(
         `${router.pathname}${qs.stringify(_queryParams, {

@@ -1,7 +1,8 @@
 import BubblePointIcon from '@assets/svg/bubble_point.svg';
 import { fontsObject } from '@sopt-makers/fonts';
 import { IconAlertCircle } from '@sopt-makers/icons';
-import { DialogOptionType, useDialog } from '@sopt-makers/ui';
+import type { DialogOptionType } from '@sopt-makers/ui';
+import { useDialog } from '@sopt-makers/ui';
 import { useEffect, useRef, useState } from 'react';
 import { styled } from 'stitches.config';
 
@@ -34,7 +35,11 @@ const OfficialScheduleTooltip = () => {
   const { open } = useDialog();
 
   const handleSoptScheduleOpen = (isOpen: boolean) => {
-    window.innerWidth <= 768 ? open(soptScheduleDialogOption) : setIsSoptScheduleOpen(isOpen);
+    if (window.innerWidth <= 768) {
+      open(soptScheduleDialogOption);
+    } else {
+      setIsSoptScheduleOpen(isOpen);
+    }
   };
 
   useEffect(() => {
@@ -60,7 +65,14 @@ const OfficialScheduleTooltip = () => {
     >
       <div style={{ display: 'flex', gap: '4px', marginRight: '16px' }}>
         <SoptNotice>SOPT 공식 일정 확인하기</SoptNotice>
-        <IconAlertCircle style={{ width: '16px', height: '16px', color: 'gray', cursor: 'pointer' }} />
+        <IconAlertCircle
+          style={{
+            width: '16px',
+            height: '16px',
+            color: 'gray',
+            cursor: 'pointer',
+          }}
+        />
       </div>
       {isSoptScheduleOpen && (
         <ToolTipDiv>

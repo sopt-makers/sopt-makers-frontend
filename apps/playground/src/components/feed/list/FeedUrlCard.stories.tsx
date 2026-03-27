@@ -1,5 +1,5 @@
-import { Decorator, Meta } from '@storybook/react';
-import { ComponentProps } from 'react';
+import type { Decorator, Meta } from '@storybook/react';
+import type { ComponentProps } from 'react';
 
 import FeedUrlCard from '@/components/feed/list/FeedUrlCard';
 
@@ -15,8 +15,7 @@ export default meta;
 
 const withMaxWidth =
   (width: string): Decorator =>
-  (Story, { args }) =>
-    <div style={{ maxWidth: width }}>{Story(args)}</div>;
+  (Story, { args }) => <div style={{ maxWidth: width }}>{Story(args)}</div>;
 
 const baseArgs: FeedUrlCardProps = {
   title: '내가 26살에 메이커스 플레이그라운드 프론트엔드 개발자가 될 수 있었던 이유',

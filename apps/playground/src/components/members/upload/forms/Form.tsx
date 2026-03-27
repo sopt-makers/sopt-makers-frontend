@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 import { textStyles } from '@/styles/typography';
@@ -101,7 +101,9 @@ const SubmitButton = styled.button<{ isDisabled: boolean }>`
   align-items: center;
   align-self: flex-end;
   justify-content: center;
-  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+  transition:
+    background-color 0.2s ease-in-out,
+    color 0.2s ease-in-out;
   margin-top: 26px;
   border-radius: 31px;
   background-color: ${colors.white};

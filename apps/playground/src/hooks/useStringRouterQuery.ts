@@ -1,7 +1,9 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
-type TupleKeyObject<T extends readonly string[]> = { [key in T[number]]: string };
+type TupleKeyObject<T extends readonly string[]> = {
+  [key in T[number]]: string;
+};
 
 type RouterQueryResult<Keys extends readonly string[]> =
   | {
@@ -20,7 +22,10 @@ type RouterQueryResult<Keys extends readonly string[]> =
 const useStringRouterQuery = <Keys extends readonly string[]>(expectedQueryKeys: Keys): RouterQueryResult<Keys> => {
   const router = useRouter();
 
-  const [result, setResult] = useState<RouterQueryResult<Keys>>({ status: 'loading', query: null });
+  const [result, setResult] = useState<RouterQueryResult<Keys>>({
+    status: 'loading',
+    query: null,
+  });
 
   useEffect(() => {
     if (router.isReady) {

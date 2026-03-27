@@ -1,7 +1,9 @@
-import FooterHeightProvider from '@/components/feed/upload/layout/provider/FooterHeightProvider';
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
-import { ReactNode, useLayoutEffect, useRef, useState } from 'react';
+import type { ReactNode } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
+
+import FooterHeightProvider from '@/components/feed/upload/layout/provider/FooterHeightProvider';
 
 interface MobileFeedUploadLayoutProps {
   header: ReactNode;

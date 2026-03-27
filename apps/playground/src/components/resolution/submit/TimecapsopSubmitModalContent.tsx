@@ -3,7 +3,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { colors } from '@sopt-makers/colors';
 import { IconAlertCircle } from '@sopt-makers/icons';
 import { TextArea } from '@sopt-makers/ui';
-import { FC, useState } from 'react';
+import type { FC } from 'react';
+import { useState } from 'react';
 import { useEffect, useRef } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import * as yup from 'yup';
@@ -11,9 +12,11 @@ import * as yup from 'yup';
 import RHFControllerFormItem from '@/components/common/form/RHFControllerFormItem';
 import Loading from '@/components/common/Loading';
 import Text from '@/components/common/Text';
-import { ModalProps } from '@/components/members/detail/MessageSection/Modal';
-import { TAG, TimecapsopTag } from '@/components/resolution/constants';
+import type { ModalProps } from '@/components/members/detail/MessageSection/Modal';
+import type { TimecapsopTag } from '@/components/resolution/constants';
+import { TAG } from '@/components/resolution/constants';
 import { useConfirmResolution } from '@/components/resolution/submit/useConfirmResolution';
+import { LATEST_GENERATION } from '@/constants/generation';
 import { pgColors } from '@/styles/colors';
 import { MOBILE_MAX_WIDTH, MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
@@ -54,19 +57,15 @@ const TimecapsopSubmitModalContent: FC<TimecapsopSubmitModalProps> = ({ userName
   };
 
   const submit = async ({ content }: TimecapsopForm) => {
-    try {
-      if (!isValid) return;
-      handleConfirmResolution({
-        content,
-        tags: selectedTag,
-        onSuccess: () => {
-          props.onClose();
-          props.onSuccess();
-        },
-      });
-    } catch (error) {
-      throw error;
-    }
+    if (!isValid) return;
+    handleConfirmResolution({
+      content,
+      tags: selectedTag,
+      onSuccess: () => {
+        props.onClose();
+        props.onSuccess();
+      },
+    });
   };
 
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -113,7 +112,7 @@ const TimecapsopSubmitModalContent: FC<TimecapsopSubmitModalProps> = ({ userName
       <ModalBody>
         <TitleTextWrapper>
           <Description typography='SUIT_14_M' color={colors.gray200}>
-            SOPT 37기를 시작하는 나를 응원하며
+            SOPT {LATEST_GENERATION}기를 시작하는 나를 응원하며
           </Description>
           <Text typography='SUIT_20_SB'>타임캡솝을 만들어볼까요?</Text>
         </TitleTextWrapper>
@@ -182,9 +181,7 @@ const TimecapsopSubmitModalContent: FC<TimecapsopSubmitModalProps> = ({ userName
                 ref={textareaRef}
                 fixedHeight={156}
                 maxLength={300}
-                placeholder={
-                  '(예시) 드디어 솝트 37기 시작! 이걸 보고 있다면 37기 종무식을 하고 있겠지?\n세미나 과제랑 스터디 진짜진짜 열심히 해서 많이 배우고, 앱잼 팀원과 좋은 프로덕트 꼭 만들어보자. 팟팅!'
-                }
+                placeholder={`(예시) 드디어 솝트 ${LATEST_GENERATION}기 시작! 이걸 보고 있다면 ${LATEST_GENERATION}기 종무식을 하고 있겠지?\n세미나 과제랑 스터디 진짜진짜 열심히 해서 많이 배우고, 앱잼 팀원과 좋은 프로덕트 꼭 만들어보자. 팟팅!`}
                 errorMessage={fieldState.error?.message}
                 isError={!!fieldState.error}
                 value={field.value ?? ''}

@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import AppleAuthButton from '@/components/auth/identityProvider/apple/AppleAuthButton';
 import useAppleAuth from '@/components/auth/identityProvider/apple/useAppleAuth';

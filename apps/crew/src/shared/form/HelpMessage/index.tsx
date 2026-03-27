@@ -1,6 +1,6 @@
-import { styled } from 'stitches.config';
-import React from 'react';
 import { fontsObject } from '@sopt-makers/fonts';
+import React from 'react';
+import { styled } from 'stitches.config';
 
 interface HelpMessageProps {
   children?: React.ReactNode;

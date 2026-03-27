@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 import { Button, Callout, SelectV2, Tag, TextArea, useDialog, useToast } from '@sopt-makers/ui';
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
-import { playgroundLink } from '@sopt/ui';
 import { useState } from 'react';
 
 import { useGetCoffeechatHistory } from '@/api/endpoint/coffeechat/getCoffeechatHistory';

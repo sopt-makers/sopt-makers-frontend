@@ -1,19 +1,15 @@
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
 import { Button, Callout, Chip, SelectV2, TextField } from '@sopt-makers/ui';
-import { FC, FormEvent, useState } from 'react';
+import type { FC, FormEvent } from 'react';
+import { useState } from 'react';
 
 import { useGetMemberOfMe } from '@/api/endpoint/members/getMemberOfMe';
 import { useGetMemberProperty } from '@/api/endpoint/members/getMemberProperty';
-import { RequestBody } from '@/api/endpoint/review/postReview';
+import type { RequestBody } from '@/api/endpoint/review/postReview';
 import BottomSheetSelect from '@/components/blog/BottomSheetSelect';
-import {
-  ACTIVITY_OPTIONS,
-  BLOG_OPTIONS,
-  BlogOptionValue,
-  PART_KR_TO_ENUM,
-  RECRUIT_OPTIONS,
-} from '@/components/blog/constants';
+import type { BlogOptionValue } from '@/components/blog/constants';
+import { ACTIVITY_OPTIONS, BLOG_OPTIONS, PART_KR_TO_ENUM, RECRUIT_OPTIONS } from '@/components/blog/constants';
 import Responsive from '@/components/common/Responsive';
 import Text from '@/components/common/Text';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
@@ -56,8 +52,12 @@ const UploadBlog: FC<UploadBlogProps> = ({ state, errorMessage, onSubmit }) => {
       ...(selectedBlogOption === BLOG_OPTIONS[0].value &&
         selectedActivities.length > 0 && { subActivities: selectedActivities }),
       ...(selectedBlogOption === BLOG_OPTIONS[1].value &&
-        selectedRecruitOption && { subRecruiting: selectedRecruitOption as RequestBody['subRecruiting'] }),
-      ...(profile?.profileImage && { authorProfileImageUrl: profile.profileImage }),
+        selectedRecruitOption && {
+          subRecruiting: selectedRecruitOption as RequestBody['subRecruiting'],
+        }),
+      ...(profile?.profileImage && {
+        authorProfileImageUrl: profile.profileImage,
+      }),
     };
 
     onSubmit(requestBody);
@@ -128,7 +128,13 @@ const UploadBlog: FC<UploadBlogProps> = ({ state, errorMessage, onSubmit }) => {
                   </SelectV2.Trigger>
                   <SelectV2.Menu>
                     {property?.generation.map((gen, index) => (
-                      <SelectV2.MenuItem key={gen} option={{ value: gen, label: `${gen}기 ${property.part[index]}` }} />
+                      <SelectV2.MenuItem
+                        key={gen}
+                        option={{
+                          value: gen,
+                          label: `${gen}기 ${property.part[index]}`,
+                        }}
+                      />
                     ))}
                   </SelectV2.Menu>
                 </SelectV2.Root>

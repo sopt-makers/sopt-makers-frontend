@@ -1,7 +1,8 @@
+import { playgroundLink } from '@sopt/constant';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
-import { playgroundLink } from '@sopt/ui';
-import { FC, useMemo } from 'react';
+import type { FC } from 'react';
+import { useMemo } from 'react';
 
 import { editFeed } from '@/api/endpoint/feed/editFeed';
 import { getPost, useGetPostQuery } from '@/api/endpoint/feed/getPost';
@@ -14,7 +15,7 @@ import useEventLogger from '@/components/eventLogger/hooks/useEventLogger';
 import { getParentCategoryIdById } from '@/components/feed/common/utils';
 import EditImpossibleModal from '@/components/feed/edit/EditImpossibleModal';
 import FeedUploadPage, { LoadingWrapper } from '@/components/feed/page/FeedUploadPage';
-import { FeedDataType } from '@/components/feed/upload/types';
+import type { FeedDataType } from '@/components/feed/upload/types';
 import useStringRouterQuery from '@/hooks/useStringRouterQuery';
 import { setLayout } from '@/utils/layout';
 
@@ -41,11 +42,19 @@ const FeedEdit: FC = () => {
           const parentId = getParentCategoryIdById(data.categoryId);
 
           const promises = [
-            queryClient.invalidateQueries({ queryKey: useGetPostsInfiniteQuery.getKey(parentId?.toString()) }),
-            queryClient.invalidateQueries({ queryKey: useGetPostsInfiniteQuery.getKey('') }),
-            queryClient.invalidateQueries({ queryKey: getRecentPosts.cacheKey() }),
+            queryClient.invalidateQueries({
+              queryKey: useGetPostsInfiniteQuery.getKey(parentId?.toString()),
+            }),
+            queryClient.invalidateQueries({
+              queryKey: useGetPostsInfiniteQuery.getKey(''),
+            }),
+            queryClient.invalidateQueries({
+              queryKey: getRecentPosts.cacheKey(),
+            }),
             editingId
-              ? queryClient.invalidateQueries({ queryKey: getPost.cacheKey(`${editingId}`) })
+              ? queryClient.invalidateQueries({
+                  queryKey: getPost.cacheKey(`${editingId}`),
+                })
               : Promise.resolve(),
           ];
 
@@ -60,7 +69,12 @@ const FeedEdit: FC = () => {
     if (!data) return null;
 
     const voteData = data.posts.vote;
-    return voteData ? { isMultiple: voteData.isMultiple, voteOptions: voteData.options.map((o) => o.content) } : null;
+    return voteData
+      ? {
+          isMultiple: voteData.isMultiple,
+          voteOptions: voteData.options.map((o) => o.content),
+        }
+      : null;
   }, [data]);
 
   if (isPending) {

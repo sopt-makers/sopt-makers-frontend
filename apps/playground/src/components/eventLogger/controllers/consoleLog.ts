@@ -1,4 +1,4 @@
-import { EventLoggerController } from '@/components/eventLogger/types';
+import type { EventLoggerController } from '@/components/eventLogger/types';
 
 export function createConsoleLogController(): EventLoggerController {
   return {

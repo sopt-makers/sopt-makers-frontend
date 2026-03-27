@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { ParsedUrlQuery } from 'querystring';
-import { ComponentPropsWithoutRef, forwardRef } from 'react';
+import type { ComponentPropsWithoutRef } from 'react';
+import { forwardRef } from 'react';
 import { StringParam, useQueryParam, withDefault } from 'use-query-params';
 
 /**
@@ -50,6 +51,10 @@ function createLinkComponent<T extends string>({ paramKey }: { paramKey: T }) {
   return [ParamLink, useParam] as const;
 }
 
-export const [CategoryLink, useCategoryParam] = createLinkComponent({ paramKey: 'category' });
+export const [CategoryLink, useCategoryParam] = createLinkComponent({
+  paramKey: 'category',
+});
 
-export const [FeedDetailLink, useFeedDetailParam] = createLinkComponent({ paramKey: 'feed' });
+export const [FeedDetailLink, useFeedDetailParam] = createLinkComponent({
+  paramKey: 'feed',
+});

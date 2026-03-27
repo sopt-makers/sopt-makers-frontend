@@ -3,7 +3,8 @@ import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { colors } from '@sopt-makers/colors';
 import { m } from 'framer-motion';
 import dynamic from 'next/dynamic';
-import React, { PropsWithChildren, ReactNode } from 'react';
+import type { PropsWithChildren, ReactNode } from 'react';
+import React from 'react';
 
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 

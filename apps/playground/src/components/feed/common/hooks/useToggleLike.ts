@@ -1,4 +1,4 @@
-import { Params } from 'next/dist/shared/lib/router/utils/route-matcher';
+import type { Params } from 'next/dist/shared/lib/router/utils/route-matcher';
 
 import { useToggleLikeMutation } from '@/api/endpoint/feed/postLike';
 

@@ -17,9 +17,9 @@ const LinkField = () => {
           <span>네이버지도</span>
         </Title>
         <FormController
-          name="links.naverMapLink"
+          name='links.naverMapLink'
           render={({ field, fieldState: { error } }) => (
-            <TextInput placeholder="네이버지도 링크" error={error?.message} {...field} />
+            <TextInput placeholder='네이버지도 링크' error={error?.message} {...field} />
           )}
         ></FormController>
       </LinkFieldContainer>
@@ -29,9 +29,9 @@ const LinkField = () => {
           <span>카카오맵</span>
         </Title>
         <FormController
-          name="links.kakaoMapLink"
+          name='links.kakaoMapLink'
           render={({ field, fieldState: { error } }) => (
-            <TextInput placeholder="카카오맵 링크" error={error?.message} {...field} />
+            <TextInput placeholder='카카오맵 링크' error={error?.message} {...field} />
           )}
         ></FormController>
       </LinkFieldContainer>

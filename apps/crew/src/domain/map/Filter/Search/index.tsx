@@ -16,9 +16,9 @@ function Search() {
 
   return (
     <SSearchField
-      placeholder="주변 지하철역을 검색해 보세요"
+      placeholder='주변 지하철역을 검색해 보세요'
       value={inputValue}
-      onChange={e => {
+      onChange={(e) => {
         setInputValue(e.target.value);
       }}
       onSubmit={() => {
@@ -34,12 +34,12 @@ function Search() {
 }
 
 const SSearchField = styled(SearchField, {
-  width: '335px',
-  display: 'flex',
-  padding: '$11 $16',
-  alignItems: 'center',
-  borderRadius: '10px',
-  background: '$gray800',
+  'width': '335px',
+  'display': 'flex',
+  'padding': '$11 $16',
+  'alignItems': 'center',
+  'borderRadius': '10px',
+  'background': '$gray800',
 
   '@media (max-width: 767px)': {
     width: '100%',

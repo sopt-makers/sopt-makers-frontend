@@ -1,14 +1,15 @@
 import styled from '@emotion/styled';
 import * as Dialog from '@radix-ui/react-dialog';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 import { IconDotsVertical, IconEdit, IconTrash } from '@sopt-makers/icons';
-import { DialogOptionType, useDialog, useToast } from '@sopt-makers/ui';
+import type { DialogOptionType } from '@sopt-makers/ui';
+import { useDialog, useToast } from '@sopt-makers/ui';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
-import { playgroundLink } from '@sopt/ui';
 import { useState } from 'react';
 
 import { deleteCoffeechat } from '@/api/endpoint/coffeechat/deleteCoffeechat';
@@ -76,11 +77,17 @@ export default function SeemoreSelect({ memberId }: SeemoreSelectProp) {
             queryClient.invalidateQueries({ queryKey: ['getMemberOfMe'] }),
           ]);
 
-          await toastOpen({ icon: 'success', content: '커피챗이 삭제되었어요. 다음에 또 만나요!' });
+          await toastOpen({
+            icon: 'success',
+            content: '커피챗이 삭제되었어요. 다음에 또 만나요!',
+          });
           await router.push(playgroundLink.coffeechat());
         } catch (error) {
           console.error('쿼리 무효화 실패:', error);
-          await toastOpen({ icon: 'success', content: '커피챗이 삭제되었어요. 다음에 또 만나요!' });
+          await toastOpen({
+            icon: 'success',
+            content: '커피챗이 삭제되었어요. 다음에 또 만나요!',
+          });
           await router.push(playgroundLink.coffeechat());
         }
       },

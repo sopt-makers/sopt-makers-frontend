@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
-import { FC, HTMLAttributes, PropsWithChildren } from 'react';
+import type { FC, HTMLAttributes, PropsWithChildren } from 'react';
 
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
-import { Typography } from '@/styles/typography';
+import type { Typography } from '@/styles/typography';
 
 export interface FormTitleProps extends HTMLAttributes<HTMLDivElement> {
   essential?: boolean;

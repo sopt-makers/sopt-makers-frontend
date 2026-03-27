@@ -2,7 +2,7 @@ import { keyframes, styled } from 'stitches.config';
 
 const ButtonLoader = () => {
   return (
-    <SLoaderWrapper aria-label="로딩 중" aria-live="polite" aria-busy="true">
+    <SLoaderWrapper aria-label='로딩 중' aria-live='polite' aria-busy='true'>
       <span />
       <span />
       <span />
@@ -19,11 +19,11 @@ const jump = keyframes({
 });
 
 const SLoaderWrapper = styled('div', {
-  position: 'absoulte',
-  top: '50%',
-  left: '50%',
+  'position': 'absoulte',
+  'top': '50%',
+  'left': '50%',
 
-  span: {
+  'span': {
     display: 'inline-block',
     margin: '$2',
     width: '$15',

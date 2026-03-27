@@ -1,20 +1,21 @@
+import { playgroundLink } from '@sopt/constant';
+import type { LinkRenderer } from '@sopt/ui';
+import { DesktopHeader, MobileHeader } from '@sopt/ui';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import { useGetMemberOfMe } from '@/api/endpoint/members/getMemberOfMe';
 import useAuth from '@/components/auth/useAuth';
-import DesktopHeader from '@/components/common/Header/desktop/DesktopHeader';
-import MobileHeader from '@/components/common/Header/mobile/MobileHeader';
-import { LinkRenderer } from '@/components/common/Header/types';
 import Responsive from '@/components/common/Responsive';
 import useEventLogger from '@/components/eventLogger/hooks/useEventLogger';
-import { playgroundLink } from '@/constants/links';
+import useKakao from '@/hooks/useKakao';
 
 const Header: FC = () => {
   const router = useRouter();
   const { logout } = useAuth();
   const { logClickEvent } = useEventLogger();
+  const { handleKakaoChat } = useKakao();
 
   const { data: me } = useGetMemberOfMe();
 
@@ -45,7 +46,13 @@ const Header: FC = () => {
   return (
     <>
       <Responsive only='mobile'>
-        <MobileHeader user={user} onLogout={logout} renderLink={renderLink} activePathMatcher={activePathMatcher} />
+        <MobileHeader
+          user={user}
+          onLogout={logout}
+          renderLink={renderLink}
+          activePathMatcher={activePathMatcher}
+          onKakaoChat={handleKakaoChat}
+        />
       </Responsive>
       <Responsive only='desktop'>
         <DesktopHeader user={user} onLogout={logout} renderLink={renderLink} activePathMatcher={activePathMatcher} />

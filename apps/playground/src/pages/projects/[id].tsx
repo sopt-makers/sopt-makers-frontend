@@ -1,5 +1,5 @@
 import { NextSeo } from 'next-seo';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import AuthRequired from '@/components/auth/AuthRequired';
 import ProjectDetail from '@/components/projects/main/ProjectDetail';

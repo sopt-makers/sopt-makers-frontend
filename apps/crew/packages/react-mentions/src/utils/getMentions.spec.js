@@ -1,10 +1,10 @@
-import getMentions from './getMentions'
-import markupToRegex from './markupToRegex'
+import getMentions from './getMentions';
+import markupToRegex from './markupToRegex';
 
 describe('#getMentions', () => {
-  const userMarkup = '@[__display__](user:__id__)'
-  const emailMarkup = '@[__display__](email:__id__)'
-  const defaultDisplayTransform = (id, display) => display
+  const userMarkup = '@[__display__](user:__id__)';
+  const emailMarkup = '@[__display__](email:__id__)';
+  const defaultDisplayTransform = (id, display) => display;
   const config = [
     {
       markup: userMarkup,
@@ -16,15 +16,15 @@ describe('#getMentions', () => {
       regex: markupToRegex(emailMarkup),
       displayTransform: defaultDisplayTransform,
     },
-  ]
+  ];
 
   const value =
-    "Hi @[John Doe](user:johndoe), \n\nlet's add @[joe@smoe.com](email:joe@smoe.com) to this conversation..."
+    "Hi @[John Doe](user:johndoe), \n\nlet's add @[joe@smoe.com](email:joe@smoe.com) to this conversation...";
 
-  const displayTransform = id => `<--${id}-->`
+  const displayTransform = (id) => `<--${id}-->`;
 
   it('should return an array of all mentions in the provided value', () => {
-    const mentions = getMentions(value, config)
+    const mentions = getMentions(value, config);
     expect(mentions).toEqual([
       {
         id: 'johndoe',
@@ -40,14 +40,14 @@ describe('#getMentions', () => {
         index: 42,
         plainTextIndex: 25,
       },
-    ])
-  })
+    ]);
+  });
 
   it('should take into account the displayTransform if passed', () => {
     const mentions = getMentions(
       value,
-      config.map(c => ({ ...c, displayTransform }))
-    )
+      config.map((c) => ({ ...c, displayTransform })),
+    );
     expect(mentions).toEqual([
       {
         id: 'johndoe',
@@ -63,6 +63,6 @@ describe('#getMentions', () => {
         index: 42,
         plainTextIndex: 30,
       },
-    ])
-  })
-})
+    ]);
+  });
+});

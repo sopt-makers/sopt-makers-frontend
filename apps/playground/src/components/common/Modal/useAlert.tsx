@@ -1,7 +1,8 @@
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
 import { useOverlay } from '@toss/use-overlay';
-import { ReactNode, useCallback } from 'react';
+import type { ReactNode } from 'react';
+import { useCallback } from 'react';
 
 import Modal from '@/components/common/Modal';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
@@ -51,7 +52,10 @@ const useAlert = () => {
 
 export default useAlert;
 
-const StyledButton = styled(Modal.Button)<{ color?: string; backgroundColor?: string }>`
+const StyledButton = styled(Modal.Button)<{
+  color?: string;
+  backgroundColor?: string;
+}>`
   background-color: ${(props) => props.backgroundColor ?? colors.gray700};
   width: max-content;
   color: ${(props) => props.color ?? colors.gray10};

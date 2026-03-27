@@ -1,6 +1,6 @@
 import { useDeleteCommentMutation, usePostCommentReportMutation, usePutCommentMutation } from '@api/comment/mutation';
-import { GetCommentListResponse } from '@api/comment/type';
-import { PostCommentWithMentionRequest } from '@api/mention';
+import type { GetCommentListResponse } from '@api/comment/type';
+import type { PostCommentWithMentionRequest } from '@api/mention';
 import { useMutationPostCommentWithMention } from '@api/mention/mutation';
 import { useUserProfileQueryOption } from '@api/user/query';
 import AlertIcon from '@assets/svg/alert-triangle.svg';
@@ -13,6 +13,7 @@ import { parseTextToLink } from '@shared/util/parseTextToLink';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+
 import FeedActionButton from '../FeedActionButton/FeedActionButton';
 import FeedCommentEditor from '../FeedCommentEditor/FeedCommentEditor';
 import FeedCommentViewer from '../FeedCommentViewer/FeedCommentViewer';
@@ -51,19 +52,19 @@ const FeedReCommentContainer = ({ comment, reply, postUserId, onClickLike }: Fee
         Actions={
           isMine
             ? [
-                <FeedActionButton onClick={() => setReplyEditMode(true)}>
+                <FeedActionButton key='edit' onClick={() => setReplyEditMode(true)}>
                   <ReWriteIcon />
                   수정
                 </FeedActionButton>,
                 <FeedActionButton
+                  key='delete'
                   onClick={() =>
                     overlay.open(({ isOpen, close }) => (
-                      // eslint-disable-next-line prettier/prettier
                       <ConfirmModal
                         isModalOpened={isOpen}
-                        message="댓글을 삭제하시겠습니까?"
-                        cancelButton="돌아가기"
-                        confirmButton="삭제하기"
+                        message='댓글을 삭제하시겠습니까?'
+                        cancelButton='돌아가기'
+                        confirmButton='삭제하기'
                         handleModalClose={close}
                         handleConfirm={() => {
                           mutateDeleteComment(reply.id);
@@ -79,14 +80,14 @@ const FeedReCommentContainer = ({ comment, reply, postUserId, onClickLike }: Fee
               ]
             : [
                 <FeedActionButton
+                  key='report'
                   onClick={() => {
                     overlay.open(({ isOpen, close }) => (
-                      // eslint-disable-next-line prettier/prettier
                       <ConfirmModal
                         isModalOpened={isOpen}
-                        message="댓글을 신고하시겠습니까?"
-                        cancelButton="돌아가기"
-                        confirmButton="신고하기"
+                        message='댓글을 신고하시겠습니까?'
+                        cancelButton='돌아가기'
+                        confirmButton='신고하기'
                         handleModalClose={close}
                         handleConfirm={() => {
                           mutateReportComment(reply.id);

@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import ValueCard from '@/components/intro/sections/ValueSection/ValueCard';
 import Value1Content from '@/components/intro/sections/ValueSection/valueContents/Value1';
@@ -11,7 +11,7 @@ import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 interface ValueSectionProps {}
 
-const ValueSection: FC<ValueSectionProps> = ({}) => {
+const ValueSection: FC<ValueSectionProps> = () => {
   return (
     <Container>
       <div>

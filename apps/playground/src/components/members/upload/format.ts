@@ -1,8 +1,8 @@
 import dayjs from 'dayjs';
 
-import { SOJU_CAPACITY_RANGE } from '@/components/members/upload/constants';
+import type { SOJU_CAPACITY_RANGE } from '@/components/members/upload/constants';
 import { isMbti } from '@/components/members/upload/FormSection/Tmi/types';
-import { Birthday } from '@/components/members/upload/types';
+import type { Birthday } from '@/components/members/upload/types';
 
 export const formatBirthday = (birthday: Birthday) => {
   const { year, month, day } = birthday;

@@ -1,3 +1,3 @@
-const getSuggestionHtmlId = (prefix, id) => `${prefix}-${id}`
+const getSuggestionHtmlId = (prefix, id) => `${prefix}-${id}`;
 
-export default getSuggestionHtmlId
+export default getSuggestionHtmlId;

@@ -1,26 +1,23 @@
-import lettersDiacritics from './diacritics'
+import lettersDiacritics from './diacritics';
 
-const removeAccents = str => {
-  let formattedStr = str
+const removeAccents = (str) => {
+  let formattedStr = str;
 
-  lettersDiacritics.forEach(letterDiacritics => {
-    formattedStr = formattedStr.replace(
-      letterDiacritics.letters,
-      letterDiacritics.base
-    )
-  })
+  lettersDiacritics.forEach((letterDiacritics) => {
+    formattedStr = formattedStr.replace(letterDiacritics.letters, letterDiacritics.base);
+  });
 
-  return formattedStr
-}
+  return formattedStr;
+};
 
-export const normalizeString = str => removeAccents(str).toLowerCase()
+export const normalizeString = (str) => removeAccents(str).toLowerCase();
 
 const getSubstringIndex = (str, substr, ignoreAccents) => {
   if (!ignoreAccents) {
-    return str.toLowerCase().indexOf(substr.toLowerCase())
+    return str.toLowerCase().indexOf(substr.toLowerCase());
   }
 
-  return normalizeString(str).indexOf(normalizeString(substr))
-}
+  return normalizeString(str).indexOf(normalizeString(substr));
+};
 
-export default getSubstringIndex
+export default getSubstringIndex;

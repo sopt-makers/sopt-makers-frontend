@@ -1,16 +1,11 @@
-import {
-  QueryKey,
-  useInfiniteQuery,
-  UseInfiniteQueryOptions,
-  useQuery,
-  UseQueryOptions,
-  UseQueryResult,
-} from '@tanstack/react-query';
+import type { QueryKey, UseInfiniteQueryOptions, UseQueryOptions, UseQueryResult } from '@tanstack/react-query';
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { z } from 'zod';
 
-import { createEndpoint, GetResponseType } from '@/api/typedAxios';
-import { ActiveWordchain, FinishedWordchain } from '@/components/wordchain/WordchainChatting/types';
-import { EntryWordchain } from '@/components/wordchain/WordchainEntry/types';
+import type { GetResponseType } from '@/api/typedAxios';
+import { createEndpoint } from '@/api/typedAxios';
+import type { ActiveWordchain, FinishedWordchain } from '@/components/wordchain/WordchainChatting/types';
+import type { EntryWordchain } from '@/components/wordchain/WordchainEntry/types';
 
 const userSchema = z.object({
   id: z.number(),
@@ -131,9 +126,15 @@ export const useGetActiveWordchain = (
       const activeWordchainData = data.rooms[0];
       const activeWordchain: ActiveWordchain = {
         id: activeWordchainData.roomId,
-        initial: { userName: activeWordchainData.startUser.name, word: activeWordchainData.startWord },
+        initial: {
+          userName: activeWordchainData.startUser.name,
+          word: activeWordchainData.startWord,
+        },
         order: activeWordchainData.roomId,
-        wordList: activeWordchainData.words.map(({ word, user }) => ({ user, content: word })),
+        wordList: activeWordchainData.words.map(({ word, user }) => ({
+          user,
+          content: word,
+        })),
       };
       return activeWordchain;
     },

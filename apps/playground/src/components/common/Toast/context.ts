@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 
-import { ToastController } from '@/components/common/Toast/types';
+import type { ToastController } from '@/components/common/Toast/types';
 
 export const ToastContext = createContext<ToastController>(createUninitializedController());
 

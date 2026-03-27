@@ -2,15 +2,15 @@ import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 import { useRouter } from 'next/router';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 import { ModalBottomSheet } from '@/components/common/BottomSheet/ModalBottomSheet';
 import Modal from '@/components/common/Modal';
 import Responsive from '@/components/common/Responsive';
 import Text from '@/components/common/Text';
-import { ClickEvents } from '@/components/eventLogger/events';
+import type { ClickEvents } from '@/components/eventLogger/events';
 import useEventLogger from '@/components/eventLogger/hooks/useEventLogger';
-import { ModalProps } from '@/components/members/detail/MessageSection/Modal';
+import type { ModalProps } from '@/components/members/detail/MessageSection/Modal';
 import TimecapsopDelteButton from '@/components/resolution/delete';
 import { cards } from '@/components/resolution/submit/constants/cards';
 import { DEBUG } from '@/constants/env';
@@ -217,4 +217,5 @@ const StyledButton = styled.button<{ color: string }>`
 const MobileContentWrapper = styled.div`
   touch-action: pan-y;
   text-align: center;
+  overflow-y: scroll;
 `;

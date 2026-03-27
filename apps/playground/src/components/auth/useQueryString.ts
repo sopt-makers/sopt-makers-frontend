@@ -1,7 +1,9 @@
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 
-type TupleKeyObject<T extends readonly string[]> = { [key in T[number]]: string };
+type TupleKeyObject<T extends readonly string[]> = {
+  [key in T[number]]: string;
+};
 
 /** @deprecated */
 const useQueryStringParam = <Keys extends readonly string[]>(

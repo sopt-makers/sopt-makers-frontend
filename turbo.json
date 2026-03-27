@@ -6,13 +6,20 @@
       "outputs": [".next/**", "!.next/cache/**", "out/**", "dist/**"]
     },
     "lint": {
-      "dependsOn": ["^lint"]
-    },
-    "typecheck": {
-      "dependsOn": ["^build"]
+      "cache": false,
+      "outputs": []
     },
     "stylelint": {
-      "dependsOn": ["^build"]
+      "cache": false,
+      "outputs": []
+    },
+    "format": {
+      "cache": false,
+      "outputs": []
+    },
+    "typecheck": {
+      "cache": false,
+      "outputs": []
     },
     "test:ci": {
       "dependsOn": ["^build"],
@@ -32,15 +39,12 @@
     },
     "generate-types": {
       "dependsOn": ["generate-types-v1", "generate-types-v2"],
+      "cache": false,
       "outputs": ["src/__generated__/schema.d.ts"]
     },
     "dev": {
       "cache": false,
       "persistent": true
-    },
-    "deploy": {
-      "dependsOn": ["build", "lint"],
-      "cache": false
     }
   }
 }

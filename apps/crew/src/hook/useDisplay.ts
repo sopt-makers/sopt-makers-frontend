@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
+
 import useIsomorphicLayoutEffect from './useIsomorphicLayoutEffect';
 
 export function useDisplay() {

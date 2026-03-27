@@ -1,11 +1,11 @@
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import Link from 'next/link';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import useAuth from '@/components/auth/useAuth';
 import Header from '@/components/common/Header';
-import { playgroundLink } from '@/constants/links';
 import IconBack from '@/public/icons/icon-back.svg';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 

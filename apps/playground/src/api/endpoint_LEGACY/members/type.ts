@@ -1,5 +1,5 @@
-import { ProjectCategory } from '@/api/endpoint_LEGACY/projects/type';
-import { ServiceType } from '@/components/projects/types';
+import type { ProjectCategory } from '@/api/endpoint_LEGACY/projects/type';
+import type { ServiceType } from '@/components/projects/types';
 
 export type Profile = {
   id: number;

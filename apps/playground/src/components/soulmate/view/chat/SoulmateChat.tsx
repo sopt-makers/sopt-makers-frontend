@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import * as ScrollArea from '@radix-ui/react-scroll-area';
 import { colors } from '@sopt-makers/colors';
-import { FC, FormEvent, ReactNode } from 'react';
+import type { FC, FormEvent, ReactNode } from 'react';
 
 import { cardStyle } from '@/components/soulmate/view/common/commonStyles';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
@@ -53,9 +53,9 @@ const submitIcon = (
         width='14.9833'
         height='17.538'
         filterUnits='userSpaceOnUse'
-        color-interpolation-filters='sRGB'
+        colorInterpolationFilters='sRGB'
       >
-        <feFlood flood-opacity='0' result='BackgroundImageFix' />
+        <feFlood floodOpacity='0' result='BackgroundImageFix' />
         <feGaussianBlur in='BackgroundImageFix' stdDeviation='0.727273' />
         <feComposite in2='SourceAlpha' operator='in' result='effect1_backgroundBlur_6244_90835' />
         <feBlend mode='normal' in='SourceGraphic' in2='effect1_backgroundBlur_6244_90835' result='shape' />

@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { useOverlay } from '@toss/use-overlay';
-import { ReactNode, useCallback } from 'react';
+import type { ReactNode } from 'react';
+import { useCallback } from 'react';
 
 import Modal from '@/components/common/Modal';
 

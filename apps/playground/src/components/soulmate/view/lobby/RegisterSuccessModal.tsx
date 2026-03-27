@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import SoulmateIcon from '@/components/soulmate/icons/SoulmateIcon';
 import SoulmateModal from '@/components/soulmate/view/common/SoulmateModal';

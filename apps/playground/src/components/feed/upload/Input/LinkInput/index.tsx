@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { TextField } from '@sopt-makers/ui';
-import { ChangeEvent, KeyboardEvent } from 'react';
+import type { ChangeEvent, KeyboardEvent } from 'react';
 
 interface LinkInputProps {
   onChange: (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) => void;

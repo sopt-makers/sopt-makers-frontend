@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 
-import { UserMbtiRankType } from '@/components/mySoptReport/types';
+import type { UserMbtiRankType } from '@/components/mySoptReport/types';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 export default function MBTI({ UserMbtiRankTable }: { UserMbtiRankTable: UserMbtiRankType[] }) {
@@ -45,12 +45,12 @@ const MbtiRank = styled.div<{ rank: number }>`
           color: ${colors.white};
         `
       : props.rank === 2
-      ? css`
-          color: ${colors.gray100};
-        `
-      : css`
-          color: ${colors.gray200};
-        `}
+        ? css`
+            color: ${colors.gray100};
+          `
+        : css`
+            color: ${colors.gray200};
+          `}
 
   @media ${MOBILE_MEDIA_QUERY} {
     ${fonts.TITLE_18_SB};

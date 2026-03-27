@@ -1,4 +1,4 @@
-import { paths } from '@/__generated__/schema2';
+import type { paths } from '@/__generated__/schema2';
 
 export type GetPresignedUrl = {
   request: paths['/meeting/v2/presigned-url']['get']['parameters']['query'];

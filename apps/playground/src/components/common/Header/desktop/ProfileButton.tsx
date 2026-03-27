@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
-import { ButtonHTMLAttributes, forwardRef } from 'react';
+import type { ButtonHTMLAttributes } from 'react';
+import { forwardRef } from 'react';
 
 import { DEFAULT_PROFILE_IMAGE_DESKTOP_SVG } from '@/components/common/Header/imageData';
 import ResizedImage from '@/components/common/ResizedImage';

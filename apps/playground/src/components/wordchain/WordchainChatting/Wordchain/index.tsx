@@ -9,7 +9,7 @@ import { useNewGameMutation } from '@/api/endpoint/wordchain/newGame';
 import useConfirm from '@/components/common/Modal/useConfirm';
 import useEventLogger from '@/components/eventLogger/hooks/useEventLogger';
 import StartWordChatMessage from '@/components/wordchain/WordchainChatting/StartWordChatMessage';
-import { Word } from '@/components/wordchain/WordchainChatting/types';
+import type { Word } from '@/components/wordchain/WordchainChatting/types';
 import WordChatMessage from '@/components/wordchain/WordchainChatting/WordChatMessage';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 import { textStyles } from '@/styles/typography';

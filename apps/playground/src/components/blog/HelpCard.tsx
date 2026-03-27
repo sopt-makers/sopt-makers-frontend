@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 import { textStyles } from '@/styles/typography';
@@ -31,7 +31,9 @@ const StyledHelpCard = styled.a<{ highlight?: boolean }>`
   display: flex;
   flex-direction: column;
   gap: 10px;
-  transition: background-color 0.3s, box-shadow 0.3s;
+  transition:
+    background-color 0.3s,
+    box-shadow 0.3s;
   margin-top: 35px;
   border-radius: 10px;
   background-color: ${colors.gray700};

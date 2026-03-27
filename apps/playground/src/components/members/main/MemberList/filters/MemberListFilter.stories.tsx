@@ -1,4 +1,4 @@
-import { Meta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
 import { GENERATION_DEFAULT_OPTION, GENERATION_OPTIONS } from '@/components/members/main/MemberList/filters/constants';
 

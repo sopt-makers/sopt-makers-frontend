@@ -2,7 +2,8 @@ import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 import { useVirtualizer } from '@tanstack/react-virtual';
-import { RefObject, useCallback, useEffect, useRef, useState } from 'react';
+import type { RefObject } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
 
 import { getMemberProfileById } from '@/api/endpoint_LEGACY/members';
@@ -176,7 +177,12 @@ const MentionDropdown = ({ parentRef, searchedMemberList, onSelect, mentionPosit
       aria-label='멘션할 멤버 선택'
     >
       <Wrapper ref={scrollRef}>
-        <div style={{ height: rowVirtualizer.getTotalSize(), position: 'relative' }}>
+        <div
+          style={{
+            height: rowVirtualizer.getTotalSize(),
+            position: 'relative',
+          }}
+        >
           {rowVirtualizer.getVirtualItems().map((virtualRow) => {
             const member = searchedMemberList[virtualRow.index];
             if (!member) return null;

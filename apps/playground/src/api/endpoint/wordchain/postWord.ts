@@ -1,8 +1,10 @@
-import { useMutation, UseMutationOptions } from '@tanstack/react-query';
-import { AxiosError } from 'axios';
+import type { UseMutationOptions } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
+import type { AxiosError } from 'axios';
 import { z } from 'zod';
 
-import { createEndpoint, GetResponseType } from '@/api/typedAxios';
+import type { GetResponseType } from '@/api/typedAxios';
+import { createEndpoint } from '@/api/typedAxios';
 
 export const postWord = createEndpoint({
   request: (wordchainId: number, word: string) => ({

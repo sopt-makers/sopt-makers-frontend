@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 
-import { ServiceCategoryRankType } from '@/components/mySoptReport/types';
+import type { ServiceCategoryRankType } from '@/components/mySoptReport/types';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 export default function ServiceCategoryRankBox({
@@ -84,22 +84,22 @@ const ServiceCategoryRank = styled.div<{ rank: number }>`
           }
         `
       : props.rank === 2
-      ? css`
-          line-height: 38px; /* 190% */
-          letter-spacing: -0.3px;
-          font-family: SUIT, sans-serif;
-          font-size: 20px;
-          font-weight: 500;
-          font-style: normal;
+        ? css`
+            line-height: 38px; /* 190% */
+            letter-spacing: -0.3px;
+            font-family: SUIT, sans-serif;
+            font-size: 20px;
+            font-weight: 500;
+            font-style: normal;
 
-          @media ${MOBILE_MEDIA_QUERY} {
+            @media ${MOBILE_MEDIA_QUERY} {
+              ${fonts.BODY_18_M};
+            }
+          `
+        : css`
             ${fonts.BODY_18_M};
-          }
-        `
-      : css`
-          ${fonts.BODY_18_M};
-          @media ${MOBILE_MEDIA_QUERY} {
-            ${fonts.BODY_16_M};
-          }
-        `}
+            @media ${MOBILE_MEDIA_QUERY} {
+              ${fonts.BODY_16_M};
+            }
+          `}
 `;

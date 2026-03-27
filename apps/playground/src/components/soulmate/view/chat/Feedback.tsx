@@ -1,13 +1,13 @@
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import SoulmateIconHeart from '@/components/soulmate/icons/SoulmateIconHeart';
 import { textStyles } from '@/styles/typography';
 
 interface FeedbackProps {}
 
-const Feedback: FC<FeedbackProps> = ({}) => {
+const Feedback: FC<FeedbackProps> = () => {
   return (
     <Container>
       <Title>소울메이트 사용 후기 보내기</Title>

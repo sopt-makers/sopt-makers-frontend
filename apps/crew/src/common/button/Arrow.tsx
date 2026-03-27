@@ -1,8 +1,8 @@
 import ArrowBigRight from '@assets/svg/arrow_big_right.svg?rect';
 import { styled } from '@stitches/react';
 import { mergeCss } from '@util/styles';
-import { MouseEventHandler } from 'react';
-import { CSSType } from 'stitches.config';
+import type { MouseEventHandler } from 'react';
+import type { CSSType } from 'stitches.config';
 
 interface ArrowProps {
   size?: number;
@@ -57,8 +57,12 @@ export const Arrow = ({
   return (
     <SArrow
       css={mergeCss(
-        { width: `${size}px`, height: `${size}px`, path: { strokeWidth: strokeWidth, stroke: color } },
-        { ...css }
+        {
+          width: `${size}px`,
+          height: `${size}px`,
+          path: { strokeWidth: strokeWidth, stroke: color },
+        },
+        { ...css },
       )}
       direction={direction}
       {...props}

@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 
 import MbtiToggle from '@/components/members/upload/FormSection/Tmi/MbtiToggle';
-import { Mbti, MbtiIndicator } from '@/components/members/upload/FormSection/Tmi/types';
+import type { Mbti, MbtiIndicator } from '@/components/members/upload/FormSection/Tmi/types';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 interface MbtiSelectorProps {
