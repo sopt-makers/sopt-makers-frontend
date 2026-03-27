@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import * as Dialog from '@radix-ui/react-dialog';
 import { colors } from '@sopt-makers/colors';
 import dynamic from 'next/dynamic';
-import { FC, ReactNode } from 'react';
+import type { FC, ReactNode } from 'react';
 
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 

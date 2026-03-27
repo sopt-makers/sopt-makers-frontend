@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
 import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 
@@ -8,11 +9,10 @@ import useConfirm from '@/components/common/Modal/useConfirm';
 import useSlideUp from '@/components/common/SlideUp/useToast';
 import useEventLogger from '@/components/eventLogger/hooks/useEventLogger';
 import ProjectForm from '@/components/projects/upload/form/ProjectForm';
-import { ProjectFormType } from '@/components/projects/upload/form/schema';
+import type { ProjectFormType } from '@/components/projects/upload/form/schema';
 import useCreateProjectMutation from '@/components/projects/upload/hooks/useCreateProjectMutation';
 import { getProjectListQueryKey } from '@/components/projects/upload/hooks/useGetProjectListQuery';
 import { convertToProjectData } from '@/components/projects/utils';
-import { playgroundLink } from '@/constants/links';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 import { setLayout } from '@/utils/layout';
 

@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import Link from 'next/link';
-import { playgroundLink } from '@sopt/ui';
 import ProfileIcon from 'public/icons/icon-profile.svg';
 
 import Button from '@/components/common/Button';

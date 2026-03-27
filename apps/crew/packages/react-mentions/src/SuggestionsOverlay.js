@@ -1,11 +1,11 @@
-import React, { Children, useState, useEffect } from 'react'
-import PropTypes from 'prop-types'
-import { inline } from 'substyle'
-import { defaultStyle } from './utils'
+import React, { Children, useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { inline } from 'substyle';
+import { defaultStyle } from './utils';
 
-import { getSuggestionHtmlId } from './utils'
-import Suggestion from './Suggestion'
-import LoadingIndicator from './LoadingIndicator'
+import { getSuggestionHtmlId } from './utils';
+import Suggestion from './Suggestion';
+import LoadingIndicator from './LoadingIndicator';
 
 function SuggestionsOverlay({
   id,
@@ -28,61 +28,48 @@ function SuggestionsOverlay({
   onMouseDown,
   onMouseEnter,
 }) {
-  const [ulElement, setUlElement] = useState(undefined)
+  const [ulElement, setUlElement] = useState(undefined);
 
   useEffect(() => {
-    if (
-      !ulElement ||
-      ulElement.offsetHeight >= ulElement.scrollHeight ||
-      !scrollFocusedIntoView
-    ) {
-      return
+    if (!ulElement || ulElement.offsetHeight >= ulElement.scrollHeight || !scrollFocusedIntoView) {
+      return;
     }
-    const scrollTop = ulElement.scrollTop
+    const scrollTop = ulElement.scrollTop;
 
-    let { top, bottom } = ulElement.children[focusIndex].getBoundingClientRect()
-    const { top: topContainer } = ulElement.getBoundingClientRect()
-    top = top - topContainer + scrollTop
-    bottom = bottom - topContainer + scrollTop
+    let { top, bottom } = ulElement.children[focusIndex].getBoundingClientRect();
+    const { top: topContainer } = ulElement.getBoundingClientRect();
+    top = top - topContainer + scrollTop;
+    bottom = bottom - topContainer + scrollTop;
 
     if (top < scrollTop) {
-      ulElement.scrollTop = top
+      ulElement.scrollTop = top;
     } else if (bottom > ulElement.offsetHeight) {
-      ulElement.scrollTop = bottom - ulElement.offsetHeight
+      ulElement.scrollTop = bottom - ulElement.offsetHeight;
     }
-  }, [focusIndex, scrollFocusedIntoView, ulElement])
+  }, [focusIndex, scrollFocusedIntoView, ulElement]);
 
   const renderSuggestions = () => {
     const suggestionsToRender = (
-      <ul
-        ref={setUlElement}
-        id={id}
-        role="listbox"
-        aria-label={a11ySuggestionsListLabel}
-        {...style('list')}
-      >
+      <ul ref={setUlElement} id={id} role='listbox' aria-label={a11ySuggestionsListLabel} {...style('list')}>
         {Object.values(suggestions).reduce(
           (accResults, { results, queryInfo }) => [
             ...accResults,
-            ...results.map((result, index) =>
-              renderSuggestion(result, queryInfo, accResults.length + index)
-            ),
+            ...results.map((result, index) => renderSuggestion(result, queryInfo, accResults.length + index)),
           ],
-          []
+          [],
         )}
       </ul>
-    )
+    );
 
-    if (customSuggestionsContainer)
-      return customSuggestionsContainer(suggestionsToRender)
-    return suggestionsToRender
-  }
+    if (customSuggestionsContainer) return customSuggestionsContainer(suggestionsToRender);
+    return suggestionsToRender;
+  };
 
   //여기서 엔터를 눌렀을 때 해당 값 설정되도록 만들수는 없을까?
   const renderSuggestion = (result, queryInfo, index) => {
-    const isFocused = index === focusIndex
-    const { childIndex, query } = queryInfo
-    const { renderSuggestion } = Children.toArray(children)[childIndex].props
+    const isFocused = index === focusIndex;
+    const { childIndex, query } = queryInfo;
+    const { renderSuggestion } = Children.toArray(children)[childIndex].props;
 
     return (
       <Suggestion
@@ -98,36 +85,36 @@ function SuggestionsOverlay({
         onClick={() => select(result, queryInfo)}
         onMouseEnter={() => handleMouseEnter(index)}
       />
-    )
-  }
+    );
+  };
 
   const renderLoadingIndicator = () => {
     if (!isLoading) {
-      return
+      return;
     }
 
-    return <LoadingIndicator style={style('loadingIndicator')} />
-  }
+    return <LoadingIndicator style={style('loadingIndicator')} />;
+  };
 
   const handleMouseEnter = (index, ev) => {
     if (onMouseEnter) {
-      onMouseEnter(index)
+      onMouseEnter(index);
     }
-  }
+  };
 
   const select = (suggestion, queryInfo) => {
-    onSelect(suggestion, queryInfo)
-  }
+    onSelect(suggestion, queryInfo);
+  };
 
   const getID = (suggestion) => {
     if (typeof suggestion === 'string') {
-      return suggestion
+      return suggestion;
     }
-    return suggestion.id
-  }
+    return suggestion.id;
+  };
 
   if (!isOpened) {
-    return null
+    return null;
   }
 
   return (
@@ -139,7 +126,7 @@ function SuggestionsOverlay({
       {renderSuggestions()}
       {renderLoadingIndicator()}
     </div>
-  )
+  );
 }
 
 SuggestionsOverlay.propTypes = {
@@ -160,13 +147,10 @@ SuggestionsOverlay.propTypes = {
   containerRef: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.shape({
-      current:
-        typeof Element === 'undefined'
-          ? PropTypes.any
-          : PropTypes.instanceOf(Element),
+      current: typeof Element === 'undefined' ? PropTypes.any : PropTypes.instanceOf(Element),
     }),
   ]),
-}
+};
 
 const styled = defaultStyle({
   zIndex: 1,
@@ -179,6 +163,6 @@ const styled = defaultStyle({
     padding: 0,
     listStyleType: 'none',
   },
-})
+});
 
-export default styled(SuggestionsOverlay)
+export default styled(SuggestionsOverlay);

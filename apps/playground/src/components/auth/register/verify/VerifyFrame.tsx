@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
-import { FC, ReactNode } from 'react';
+import type { FC, ReactNode } from 'react';
 
 import Stepper from '@/components/auth/register/Stepper';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';

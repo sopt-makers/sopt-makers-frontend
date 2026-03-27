@@ -1,5 +1,5 @@
-import { Meta } from '@storybook/react';
-import { ComponentProps } from 'react';
+import type { Meta } from '@storybook/react';
+import type { ComponentProps } from 'react';
 
 import FeedLike from '@/components/feed/common/FeedLike';
 

@@ -836,12 +836,12 @@ export interface components {
     };
     S3GetPresignedUrlResponseFieldsDto: {
       'Content-Type': string;
-      key: string;
-      bucket: string;
+      'key': string;
+      'bucket': string;
       'X-Amz-Algorithm': string;
       'X-Amz-Credential': string;
       'X-Amz-Date': string;
-      Policy: string;
+      'Policy': string;
       'X-Amz-Signature': string;
     };
     MeetingV1GetPresignedUrlResponseDto: {

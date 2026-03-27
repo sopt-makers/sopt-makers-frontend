@@ -1,8 +1,10 @@
 import styled from '@emotion/styled';
+import { crewLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import { useRouter } from 'next/router';
 import { useRef } from 'react';
-import { Virtuoso, VirtuosoHandle } from 'react-virtuoso';
+import type { VirtuosoHandle } from 'react-virtuoso';
+import { Virtuoso } from 'react-virtuoso';
 import { atom, useRecoilState } from 'recoil';
 
 import { useGetCrewPostInfiniteQuery } from '@/api/crew/getCrewPost';
@@ -10,7 +12,6 @@ import { useGetMemberOfMe } from '@/api/endpoint/members/getMemberOfMe';
 import CrewFeedListItem from '@/components/feed/list/CrewFeedList/CrewFeedListItem';
 import FeedSkeleton from '@/components/feed/list/FeedSkeleton';
 import { useNavigateBack } from '@/components/navigation/useNavigateBack';
-import { crewLink } from '@/constants/links';
 import { textStyles } from '@/styles/typography';
 
 interface CrewFeedListProps {
@@ -75,7 +76,10 @@ const CrewFeedList = ({ categoryId, onScrollChange }: CrewFeedListProps) => {
       data={flattenData}
       ref={virtuoso}
       rangeChanged={({ startIndex, endIndex }) => {
-        setMap((map) => ({ ...map, [categoryId ?? '']: (startIndex + endIndex) / 2 }));
+        setMap((map) => ({
+          ...map,
+          [categoryId ?? '']: (startIndex + endIndex) / 2,
+        }));
       }}
       useWindowScroll
       endReached={() => {

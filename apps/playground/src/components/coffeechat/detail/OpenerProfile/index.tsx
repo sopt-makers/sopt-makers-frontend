@@ -77,7 +77,7 @@ export default function OpenerProfile({ memberId }: OpenerProfileProps) {
             ) : (
               <RegisterCoffeechatButton
                 onClick={() => {
-                  openerProfile.isCoffeeChatActivate ? onOpenMessageModal() : handleImpossibleToRegister();
+                  (openerProfile.isCoffeeChatActivate ? onOpenMessageModal : handleImpossibleToRegister)();
                 }}
               />
             )}

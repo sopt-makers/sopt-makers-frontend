@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 import Link from 'next/link';
-import { playgroundLink } from '@sopt/ui';
 
-import { ProfileDetail } from '@/api/endpoint_LEGACY/members/type';
+import type { ProfileDetail } from '@/api/endpoint_LEGACY/members/type';
 import ResizedImage from '@/components/common/ResizedImage';
 import Text from '@/components/common/Text';
 import useEventLogger from '@/components/eventLogger/hooks/useEventLogger';

@@ -1,7 +1,8 @@
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
-import { AnimationProps, m } from 'framer-motion';
-import { FC, PropsWithChildren } from 'react';
+import type { AnimationProps } from 'framer-motion';
+import { m } from 'framer-motion';
+import type { FC, PropsWithChildren } from 'react';
 
 import Portal from '@/components/common/Portal';
 

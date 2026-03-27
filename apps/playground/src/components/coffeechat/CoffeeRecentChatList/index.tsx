@@ -1,10 +1,11 @@
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 import { Button, useDialog } from '@sopt-makers/ui';
 import { useRouter } from 'next/router';
-import { playgroundLink } from '@sopt/ui';
-import { ReactNode, startTransition, useEffect, useState } from 'react';
+import type { ReactNode } from 'react';
+import { startTransition, useEffect, useState } from 'react';
 
 import { useGetMemberOfMe } from '@/api/endpoint/members/getMemberOfMe';
 import { useGetRecentCoffeeChat } from '@/api/endpoint/members/getRecentCoffeeChats';
@@ -158,7 +159,7 @@ export default function CoffeeChatList() {
                 size='lg'
                 theme='white'
                 onClick={() => {
-                  me?.hasCoffeeChat ? alreadyOpenedOption() : startOpenOption();
+                  (me?.hasCoffeeChat ? alreadyOpenedOption : startOpenOption)();
                 }}
               >
                 커피챗 오픈하기
@@ -171,7 +172,7 @@ export default function CoffeeChatList() {
                 size='md'
                 theme='white'
                 onClick={() => {
-                  me?.hasCoffeeChat ? alreadyOpenedOption() : startOpenOption();
+                  (me?.hasCoffeeChat ? alreadyOpenedOption : startOpenOption)();
                 }}
               >
                 커피챗 오픈하기

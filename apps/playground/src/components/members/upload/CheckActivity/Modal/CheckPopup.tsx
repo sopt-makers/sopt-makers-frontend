@@ -1,10 +1,11 @@
-import * as Dialog from '@radix-ui/react-dialog';
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import * as Dialog from '@radix-ui/react-dialog';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
-import BubbleTip from '@/public/icons/polygon.svg';
 import dynamic from 'next/dynamic';
-import { css } from '@emotion/react';
+
+import BubbleTip from '@/public/icons/polygon.svg';
 
 const DialogPortal = dynamic(() => import('@radix-ui/react-dialog').then(({ Portal }) => Portal), { ssr: false });
 

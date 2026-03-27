@@ -1,11 +1,12 @@
-import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 import { Flex } from '@toss/emotion-utils';
-import { PropsWithChildren } from 'react';
+import type { PropsWithChildren } from 'react';
 
-const ProjectCardStatus = ({ children }: PropsWithChildren<{}>) => {
+import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
+
+const ProjectCardStatus = ({ children }: PropsWithChildren<unknown>) => {
   return (
     <Flex css={{ gap: 4 }} align='center'>
       <IconCircleSuccess />

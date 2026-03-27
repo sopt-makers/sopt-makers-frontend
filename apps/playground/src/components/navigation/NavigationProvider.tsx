@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
-import { FC, ReactNode, useEffect, useRef } from 'react';
+import type { FC, ReactNode } from 'react';
+import { useEffect, useRef } from 'react';
 
 import { NavigationContext } from '@/components/navigation/navigationContext';
 

@@ -1,7 +1,9 @@
 import styled from '@emotion/styled';
-import { ButtonHTMLAttributes, forwardRef } from 'react';
+import type { ButtonHTMLAttributes } from 'react';
+import { forwardRef } from 'react';
 
-import { ButtonSize, buttonSize, ButtonStyle, buttonStyles } from '@/components/common/Button/style';
+import type { ButtonSize, ButtonStyle } from '@/components/common/Button/style';
+import { buttonSize, buttonStyles } from '@/components/common/Button/style';
 import { textStyles } from '@/styles/typography';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {

@@ -1,7 +1,8 @@
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
 import { IconAlertCircle, IconCheckSquare, IconDotsVertical, IconTrash, IconWrite } from '@sopt-makers/icons';
-import { DialogContext, DialogOptionType } from '@sopt-makers/ui';
+import type { DialogOptionType } from '@sopt-makers/ui';
+import { DialogContext } from '@sopt-makers/ui';
 import { Flex } from '@toss/emotion-utils';
 import { useContext } from 'react';
 

@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { z } from 'zod';
 
-import { ProfileRequest } from '@/api/endpoint_LEGACY/members/type';
+import type { ProfileRequest } from '@/api/endpoint_LEGACY/members/type';
 import { createEndpoint } from '@/api/typedAxios';
 
 /**
@@ -86,7 +86,9 @@ export const usePutMemberProfileMutation = () => {
     mutationFn: (body: ProfileRequest) => putMemberProfile.request(body),
     onSuccess: (response) => {
       queryClient.invalidateQueries({ queryKey: ['getMemberProfileOfMe'] });
-      queryClient.invalidateQueries({ queryKey: ['getMemberProfileById', response.id] });
+      queryClient.invalidateQueries({
+        queryKey: ['getMemberProfileById', response.id],
+      });
       queryClient.invalidateQueries({ queryKey: ['getMemberProfile'] });
       queryClient.invalidateQueries({ queryKey: ['getMemberOfMe'] });
       queryClient.invalidateQueries({ queryKey: ['getMembersCoffeeChat'] });

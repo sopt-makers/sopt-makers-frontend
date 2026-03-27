@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 

@@ -1,6 +1,7 @@
-import { MOBILE_MEDIA_QUERY, TABLET_MEDIA_QUERY } from '@/styles/mediaQuery';
 import styled from '@emotion/styled';
 import { fonts } from '@sopt-makers/fonts';
+
+import { MOBILE_MEDIA_QUERY, TABLET_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 interface ReviewCardProp {
   id: number;

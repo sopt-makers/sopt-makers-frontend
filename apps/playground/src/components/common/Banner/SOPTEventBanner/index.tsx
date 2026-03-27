@@ -6,7 +6,9 @@ import Responsive from '@/components/common/Responsive';
 
 import { EVENT_LINK } from './constants';
 import MobileEventBanner from './MobileEventBanner';
-const DesktopEventBanner = dynamic(() => import('./DesktopEventBanner'), { ssr: false });
+const DesktopEventBanner = dynamic(() => import('./DesktopEventBanner'), {
+  ssr: false,
+});
 
 interface SOPTEventBannerProps {
   className?: string;

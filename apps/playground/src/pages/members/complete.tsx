@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 import { Button } from '@sopt-makers/ui';
 import { useRouter } from 'next/router';
-import { playgroundLink } from '@sopt/ui';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import { useGetMemberOfMe } from '@/api/endpoint/members/getMemberOfMe';
 import { useGetMemberProfileOfMe } from '@/api/endpoint_LEGACY/hooks';
@@ -24,6 +24,8 @@ import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
  * @desc 신규 프로필 등록 후 다짐 메시지를 유도하는 페이지입니다. 다짐메시지 기간 이외에는 홈으로 가는 CTA만 존재합니다.
  */
 import { setLayout } from '@/utils/layout';
+
+const GENERATION_NAME = "LET'S";
 
 const CompletePage: FC = () => {
   const router = useRouter();
@@ -74,7 +76,7 @@ const CompletePage: FC = () => {
             <Responsive only='desktop'>
               {isLastGeneration && isResolutionOpen ? (
                 <BottomSection>
-                  <p>DIVE SOPT만을 위한 타임캡솝을 준비했어요</p>
+                  <p>{GENERATION_NAME} SOPT만을 위한 타임캡솝을 준비했어요</p>
                   <LoggingClick eventKey='profileUploadTimeCapsule'>
                     <ResolutionButton onClick={handleResolutionModalOpen}>타임캡솝 만들기</ResolutionButton>
                   </LoggingClick>
@@ -100,7 +102,7 @@ const CompletePage: FC = () => {
           <Responsive only='mobile'>
             {isLastGeneration && isResolutionOpen ? (
               <BottomSection>
-                <p>DIVE SOPT만을 위한 타임캡솝을 준비했어요</p>
+                <p>{GENERATION_NAME} SOPT만을 위한 타임캡솝을 준비했어요</p>
                 <LoggingClick eventKey='profileUploadTimeCapsule'>
                   <ResolutionButton onClick={handleResolutionModalOpen}>타임캡솝 만들기</ResolutionButton>
                 </LoggingClick>

@@ -1,7 +1,8 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
-import { FC, useMemo, useReducer } from 'react';
+import type { FC } from 'react';
+import { useMemo, useReducer } from 'react';
 import { useRecoilState } from 'recoil';
 
 import { accessTokenAtom } from '@/components/auth/states/accessTokenAtom';
@@ -51,7 +52,9 @@ const AccessTokenPanel: FC = () => {
     if (!accessToken) {
       return null;
     }
-    copyToClipboard(accessToken, { onSuccess: () => toast.show({ message: '토큰이 복사되었습니다.' }) });
+    copyToClipboard(accessToken, {
+      onSuccess: () => toast.show({ message: '토큰이 복사되었습니다.' }),
+    });
   };
 
   return (

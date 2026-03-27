@@ -1,6 +1,7 @@
-import { createEndpoint } from '@/api/typedAxios';
 import { useQuery } from '@tanstack/react-query';
 import { z } from 'zod';
+
+import { createEndpoint } from '@/api/typedAxios';
 
 const serverResponseScheme = z.object({
   myType: z.string(),

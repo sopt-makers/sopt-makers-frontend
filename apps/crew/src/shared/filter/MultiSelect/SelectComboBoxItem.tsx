@@ -16,15 +16,15 @@ function SelectComboBoxItem({ value, isChecked, onCheck, onRemove }: SelectCombo
 
   return (
     <Flex
-      as="li"
+      as='li'
       onClick={toggle}
-      align="center"
+      align='center'
       css={{
         width: '100%',
         height: '50px',
       }}
     >
-      <SCheckbox type="checkbox" checked={isChecked} id={value} name={value} />
+      <SCheckbox type='checkbox' checked={isChecked} id={value} name={value} />
       <label htmlFor={value}>{value}</label>
     </Flex>
   );
@@ -32,11 +32,11 @@ function SelectComboBoxItem({ value, isChecked, onCheck, onRemove }: SelectCombo
 export default SelectComboBoxItem;
 
 const SCheckbox = styled('input', {
-  width: '16px',
-  height: '16px',
-  border: '1px solid $gray10',
-  borderRadius: '4px',
-  mr: '$10',
+  'width': '16px',
+  'height': '16px',
+  'border': '1px solid $gray10',
+  'borderRadius': '4px',
+  'mr': '$10',
   '& + label': {
     cursor: 'pointer',
     fontAg: '18_medium_100',
@@ -47,7 +47,7 @@ const SCheckbox = styled('input', {
       fontAg: '16_medium_100',
     },
   },
-  variants: {
+  'variants': {
     checked: {
       true: {
         background: 'url(/group/assets/svg/checkBox/selected.svg) left top no-repeat',

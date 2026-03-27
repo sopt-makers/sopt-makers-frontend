@@ -1,10 +1,10 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Meta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import { coffeeChatchema } from '@/components/coffeechat/upload/CoffeechatForm/schema';
 import SubmitDialog from '@/components/coffeechat/upload/CoffeechatForm/SubmitDialog';
-import { CoffeechatFormContent } from '@/components/coffeechat/upload/CoffeechatForm/types';
+import type { CoffeechatFormContent } from '@/components/coffeechat/upload/CoffeechatForm/types';
 
 const form = {
   memberInfo: {

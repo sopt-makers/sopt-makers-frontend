@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
+import { crewLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import { IconChevronRight } from '@sopt-makers/icons';
 import { useRouter } from 'next/router';
 
 import Text from '@/components/common/Text';
-import { crewLink } from '@/constants/links';
 import { textStyles } from '@/styles/typography';
 
 interface CrewMeetingLinkRowProps {

@@ -1,4 +1,5 @@
-import { ReactNode, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import type { ReactNode } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 
 interface FooterHeightProviderProps {
   children: (footerRef: React.RefObject<HTMLElement>, ready: boolean) => ReactNode;

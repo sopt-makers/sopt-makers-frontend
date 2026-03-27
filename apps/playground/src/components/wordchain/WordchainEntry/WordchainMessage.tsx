@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 import Link from 'next/link';
 import ProfileIcon from 'public/icons/icon-profile.svg';
 
-import { playgroundLink } from '@/constants/links';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 import { textStyles } from '@/styles/typography';
 
@@ -29,7 +29,8 @@ export default function WordchainMessage(props: WordchainMessageProps) {
     <Container>
       <MessageBox>
         <Word>
-          <LastWord isWhite={props.type === 'startWord'}>'{props.word}'</LastWord>(으)로 시작하는 단어는?
+          <LastWord isWhite={props.type === 'startWord'}>&apos;{props.word}&apos;</LastWord>
+          (으)로 시작하는 단어는?
         </Word>
       </MessageBox>
       {props.type === 'word' && (

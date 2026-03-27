@@ -1,5 +1,6 @@
-import { playgroundLink } from '@sopt/ui';
-import { FC, useContext } from 'react';
+import { playgroundLink } from '@sopt/constant';
+import type { FC } from 'react';
+import { useContext } from 'react';
 import { atomFamily, useRecoilState } from 'recoil';
 
 import { useGetCommentQuery } from '@/api/endpoint/feed/getComment';
@@ -26,6 +27,7 @@ export const commentAtomFamily = atomFamily({
   key: 'commentAtomFamily',
   default: () => ({ text: '', isBlindWriter: false }),
 });
+// eslint-disable-next-line no-useless-escape -- [ and ] must be escaped in character class for literal match
 export const anonymouseMentionRegex = /@([^\[\]@]+?)\[((?:-1))\]/g;
 
 const FeedDetailInput: FC<FeedDetailInputProps> = ({
@@ -84,7 +86,11 @@ const FeedDetailInput: FC<FeedDetailInputProps> = ({
       {
         onSuccess: async () => {
           setCommentData((prev) => ({ ...prev, text: '' }));
-          setReplyState({ member: null, replyTargetCommentId: null, parentCommentId: null });
+          setReplyState({
+            member: null,
+            replyTargetCommentId: null,
+            parentCommentId: null,
+          });
           const { isSuccess } = await refetchCommentQuery();
           if (isSuccess) {
             const loggingCategory = hasChildren ? `${category}_${tag}` : `${category}`;
@@ -93,6 +99,7 @@ const FeedDetailInput: FC<FeedDetailInputProps> = ({
               referral,
               isBlindWriter: commentData.isBlindWriter,
               category: loggingCategory,
+              // eslint-disable-next-line no-useless-escape -- [ and ] must be escaped for literal match
               mention: /@([^\[\]\s@]+)\[(\d+)\]/.test(commentData.text),
             });
             onSubmitted();

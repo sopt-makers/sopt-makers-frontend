@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
-import { FC } from 'react';
+import type { FC } from 'react';
 
-import { SlideUpOption } from '@/components/common/SlideUp/types';
+import type { SlideUpOption } from '@/components/common/SlideUp/types';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 import { textStyles } from '@/styles/typography';
 

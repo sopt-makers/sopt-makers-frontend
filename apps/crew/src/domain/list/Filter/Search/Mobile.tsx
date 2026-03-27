@@ -2,7 +2,8 @@ import SearchIcon from '@assets/svg/search.svg';
 import { useSearchParams } from '@hook/queryString/custom';
 import useBooleanState from '@hook/useBooleanState';
 import { Flex } from '@shared/util/layout/Flex';
-import { FieldValues, useForm } from 'react-hook-form';
+import type { FieldValues } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { styled } from 'stitches.config';
 
 function SearchMobile() {
@@ -22,15 +23,15 @@ function SearchMobile() {
 
   return (
     <>
-      <SearchIcon onClick={toggle} className="search-button" />
+      <SearchIcon onClick={toggle} className='search-button' />
       <SLayout onSubmit={handleSubmit(onSubmit)} isVisible={isVisible}>
-        <Flex align="center" justify="between">
+        <Flex align='center' justify='between'>
           <SForm>
-            <SSearchWrapper align="center" justify="start">
-              <button type="submit">
+            <SSearchWrapper align='center' justify='start'>
+              <button type='submit'>
                 <SearchIcon />
               </button>
-              <SSearchInput type="text" placeholder="모임 검색" {...register('search')} autoComplete="off" />
+              <SSearchInput type='text' placeholder='모임 검색' {...register('search')} autoComplete='off' />
             </SSearchWrapper>
           </SForm>
           <SCancelButton onClick={handleCancel}>취소</SCancelButton>
@@ -81,10 +82,10 @@ const SSearchWrapper = styled(Flex, {
 });
 
 const SSearchInput = styled('input', {
-  width: '100%',
-  color: '$gray10',
-  fontAg: '16_medium_100',
-  ml: '$10',
+  'width': '100%',
+  'color': '$gray10',
+  'fontAg': '16_medium_100',
+  'ml': '$10',
   '&::placeholder': {
     fontAg: '16_medium_100',
   },

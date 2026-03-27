@@ -1,8 +1,10 @@
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import { m } from 'framer-motion';
 import Link from 'next/link';
-import { FC, useCallback, useState } from 'react';
+import type { FC } from 'react';
+import { useCallback, useState } from 'react';
 
 import {
   AndroidIcon,
@@ -14,7 +16,6 @@ import {
   SOPTIcon,
 } from '@/components/intro/sections/CatchPhrase/icons';
 import Typer from '@/components/intro/sections/CatchPhrase/Typer';
-import { playgroundLink } from '@/constants/links';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 import { textStyles } from '@/styles/typography';
 
@@ -22,7 +23,7 @@ interface CatchPhraseSectionProps {}
 
 const shineColorList = ['#5DDBFF', '#FDBBF9', '#FFCA00'];
 
-const CatchPhraseSection: FC<CatchPhraseSectionProps> = ({}) => {
+const CatchPhraseSection: FC<CatchPhraseSectionProps> = () => {
   const [shineColor, setShineColor] = useState(shineColorList[0]);
 
   const handleSentenceChange = useCallback((_: unknown, idx: number) => {

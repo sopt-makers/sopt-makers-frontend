@@ -1,11 +1,13 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
-import { CSSProperties, FC, HTMLAttributes, PropsWithChildren } from 'react';
+import type { CSSProperties, FC, HTMLAttributes, PropsWithChildren } from 'react';
 
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
-import { space, SpaceProps } from '@/styles/spacing';
-import { baseTextStyles, textStyles, Typography } from '@/styles/typography';
+import type { SpaceProps } from '@/styles/spacing';
+import { space } from '@/styles/spacing';
+import type { Typography } from '@/styles/typography';
+import { baseTextStyles, textStyles } from '@/styles/typography';
 const TEXT_TAGS = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'b', 'small', 'i', 'span', 'del', 'em', 'blockquote'] as const;
 type As = keyof Pick<JSX.IntrinsicElements, (typeof TEXT_TAGS)[number]>;
 interface TextProps extends HTMLAttributes<HTMLSpanElement>, SpaceProps {

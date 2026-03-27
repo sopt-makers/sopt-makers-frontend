@@ -2,7 +2,8 @@ import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 import { useOverlay } from '@toss/use-overlay';
-import { ReactNode, useCallback } from 'react';
+import type { ReactNode } from 'react';
+import { useCallback } from 'react';
 
 import Modal from '@/components/common/Modal';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
@@ -67,7 +68,10 @@ const StyledModalContent = styled(Modal.Content)<{ maxWidth?: number }>`
   }
 `;
 
-const StyledOkButton = styled(Modal.Button)<{ color?: string; okButtonTextColor?: string }>`
+const StyledOkButton = styled(Modal.Button)<{
+  color?: string;
+  okButtonTextColor?: string;
+}>`
   background: ${(props) => props.color ?? colors.white};
   color: ${(props) => props.okButtonTextColor ?? colors.black};
 `;

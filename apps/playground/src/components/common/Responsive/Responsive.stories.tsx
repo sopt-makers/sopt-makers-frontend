@@ -1,4 +1,4 @@
-import { Meta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
 import Responsive from '@/components/common/Responsive/Responsive';
 import ResponsiveProvider from '@/components/common/Responsive/ResponsiveProvider';

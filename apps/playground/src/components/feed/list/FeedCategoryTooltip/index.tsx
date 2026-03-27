@@ -1,7 +1,8 @@
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
 import { IconXClose } from '@sopt-makers/icons';
-import React, { createContext, ReactNode } from 'react';
+import type { ReactNode } from 'react';
+import React, { createContext } from 'react';
 
 import Text from '@/components/common/Text';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';

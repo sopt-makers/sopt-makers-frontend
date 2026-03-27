@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 interface DividerProps {
   className?: string;
@@ -17,5 +17,5 @@ const StyledDivider = styled.hr<Pick<DividerProps, 'color'>>`
   background-color: ${({ color }) => color};
   width: 100%;
   height: 1.5px;
-  min-height: 1.5px;;
+  min-height: 1.5px;
 `;

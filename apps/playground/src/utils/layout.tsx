@@ -1,5 +1,5 @@
-import { NextPage } from 'next';
-import { FC, ReactNode } from 'react';
+import type { NextPage } from 'next';
+import type { FC, ReactNode } from 'react';
 
 import { preDefinedLayouts } from '@/components/layout';
 

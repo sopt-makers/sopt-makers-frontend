@@ -1,11 +1,13 @@
+import 'slick-carousel/slick/slick.css';
+
 import { useFlashListQueryOption } from '@api/flash/query';
 import Loader from '@common/loader/Loader';
 import { Suspense } from '@suspensive/react';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { useEffect, useRef, useState } from 'react';
 import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
 import { styled } from 'stitches.config';
+
 import GroupBrowsingCard from '../GroupBrowsingCard/GroupBrowsingCard';
 import NextArrow from './NextArrow';
 
@@ -19,14 +21,16 @@ const Carousel = () => {
   const componentRef = useRef(null);
 
   useEffect(() => {
-    const resizeObserver = new ResizeObserver(entries => {
+    const resizeObserver = new ResizeObserver((entries) => {
       // eslint-disable-next-line prefer-const
       for (let entry of entries) {
         setWidth(entry.contentRect.width);
       }
     });
 
-    componentRef.current && resizeObserver.observe(componentRef.current);
+    if (componentRef.current) {
+      resizeObserver.observe(componentRef.current);
+    }
 
     return () => resizeObserver.disconnect();
   }, []);
@@ -40,14 +44,14 @@ const Carousel = () => {
       <SBlankArrow></SBlankArrow>
     ) : (
       <SPrevArrowContainer>
-        <NextArrow className="prev" total={cardListLength} />
+        <NextArrow className='prev' total={cardListLength} />
       </SPrevArrowContainer>
     ),
     nextArrow: isLastPage ? (
       <SBlankArrow></SBlankArrow>
     ) : (
       <SNextArrowContainer>
-        <NextArrow className="next" total={cardListLength} />
+        <NextArrow className='next' total={cardListLength} />
       </SNextArrowContainer>
     ),
     speed: 500,
@@ -62,7 +66,7 @@ const Carousel = () => {
   return (
     <SCarousel ref={componentRef}>
       <Slider {...settings}>
-        {cardList.map(card => (
+        {cardList.map((card) => (
           <GroupBrowsingCard key={card.id} {...card}></GroupBrowsingCard>
         ))}
       </Slider>
@@ -79,13 +83,13 @@ export default () => {
 };
 
 const SCarousel = styled('div', {
-  position: 'relative',
+  'position': 'relative',
 
   '.slick-slider': {
-    flexType: 'center',
-    position: 'relative',
-    maxWidth: '1328px',
-    width: '100vw',
+    'flexType': 'center',
+    'position': 'relative',
+    'maxWidth': '1328px',
+    'width': '100vw',
 
     '@laptop': {
       width: '100%',
@@ -95,16 +99,16 @@ const SCarousel = styled('div', {
   },
 
   '.slick-list': {
-    width: '1200px',
-    minWidth: '1200px',
+    'width': '1200px',
+    'minWidth': '1200px',
 
     '& a': {
       flexType: 'center',
     },
 
     '@laptop': {
-      width: '732px',
-      minWidth: '732px',
+      'width': '732px',
+      'minWidth': '732px',
 
       '&:after': {
         content: '""',
@@ -126,7 +130,7 @@ const SCarousel = styled('div', {
   },
 
   '.slick-next': {
-    transform: 'rotate(180deg)',
+    'transform': 'rotate(180deg)',
     '@laptop': {
       right: '-10px',
     },

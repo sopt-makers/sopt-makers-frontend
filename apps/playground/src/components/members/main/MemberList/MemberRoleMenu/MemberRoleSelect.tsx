@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
-import React, { FC } from 'react';
+import type { FC } from 'react';
+import React from 'react';
 
 import Select from '@/components/members/common/select/Select';
 import { MENUS } from '@/components/members/main/MemberList/MemberRoleMenu/constants';

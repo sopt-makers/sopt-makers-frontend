@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
-import React, { FC, PropsWithChildren } from 'react';
+import type { FC, PropsWithChildren } from 'react';
+import React from 'react';
 
 import Text from '@/components/common/Text';
 import IconWarning from '@/public/icons/icon-warning.svg';

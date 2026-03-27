@@ -2,7 +2,8 @@ import styled from '@emotion/styled';
 import * as Select from '@radix-ui/react-select';
 import { colors } from '@sopt-makers/colors';
 import dynamic from 'next/dynamic';
-import React, { FC, PropsWithChildren, ReactNode, useEffect, useState } from 'react';
+import type { FC, PropsWithChildren, ReactNode } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Text from '@/components/common/Text';
 import { SelectContext, useSelectContext } from '@/components/members/common/select/context';

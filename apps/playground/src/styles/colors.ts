@@ -2,6 +2,6 @@
  * @deprecated sopt-makers/colors 를 이용해주세요.
  */
 export const pgColors = {
-  mainGradient: 'linear-gradient(90deg, #FFEEF1 0%, #FF92A5 86.54%)',
-  mainHover: '#E791A0',
+  mainGradient: 'linear-gradient(90deg, #C2F2FF 0%, #84E1FA 86.54%)',
+  mainHover: '#4DB4D0',
 };

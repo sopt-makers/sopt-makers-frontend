@@ -3,11 +3,11 @@ import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 import Link from 'next/link';
 
-import { RecentSopticleType } from '@/api/endpoint/feed/getRecentSopticle';
+import type { RecentSopticleType } from '@/api/endpoint/feed/getRecentSopticle';
 import Text from '@/components/common/Text';
+import { getMemberInfo } from '@/components/feed/common/utils';
 import { SOPTICLE_CATEGORY_ID } from '@/components/feed/constants';
 import FeedUrlCard from '@/components/feed/list/FeedUrlCard';
-import { getMemberInfo } from '@/components/feed/common/utils';
 
 interface SopticleCardProps {
   sopticle: RecentSopticleType;
@@ -24,11 +24,15 @@ const SopticleCard = ({ sopticle }: SopticleCardProps) => {
         <UserNameStyle>{member.name}</UserNameStyle>
         <DotStyle>•</DotStyle>
         <SubTextStyle>
-         {getMemberInfo({
+          {getMemberInfo({
             categoryId: 21,
             categoryName: '솝티클',
             member: {
-              activity: member?.activity ?? { generation: 0, part: '', team: null },
+              activity: member?.activity ?? {
+                generation: 0,
+                part: '',
+                team: null,
+              },
               careers: member?.careers ?? null,
             },
           })}

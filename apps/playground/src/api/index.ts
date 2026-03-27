@@ -1,4 +1,5 @@
-import axios, { AxiosError, AxiosHeaders } from 'axios';
+import type { AxiosError } from 'axios';
+import axios, { AxiosHeaders } from 'axios';
 
 import { tokenStorage } from '@/components/auth/util/accessToken';
 import { ADMIN_API_KEY, ADMIN_API_URL, API_URL, AUTH_API_URL, CREW_API_URL, OPERATION_API_URL } from '@/constants/env';
@@ -107,15 +108,13 @@ export const handleTokenError = async (error: AxiosError<unknown>) => {
     }
 
     try {
-      const { data } = await axiosAuthInstance.post<{ data: { accessToken: string } }>(
-        `/api/v1/auth/refresh/web`,
-        null,
-        {
-          headers: {
-            Authorization: `Bearer ${tokenStorage.get()}`,
-          },
+      const { data } = await axiosAuthInstance.post<{
+        data: { accessToken: string };
+      }>(`/api/v1/auth/refresh/web`, null, {
+        headers: {
+          Authorization: `Bearer ${tokenStorage.get()}`,
         },
-      );
+      });
       if (!originRequest.headers) {
         originRequest.headers = new AxiosHeaders();
       }

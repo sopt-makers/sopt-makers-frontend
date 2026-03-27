@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import Checkbox from '@/components/common/Checkbox';
 import Input from '@/components/common/Input';

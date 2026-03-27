@@ -1,7 +1,8 @@
-import { isClientSide } from '@/utils';
 import styled from '@emotion/styled';
 import { Button } from '@sopt-makers/ui';
 import { useEffect, useState } from 'react';
+
+import { isClientSide } from '@/utils';
 
 const BalanceOpenButton = () => {
   const [isOpen, setIsOpen] = useState(false);

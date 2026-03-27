@@ -1,4 +1,5 @@
 import { useState } from 'react';
+
 import useIsomorphicLayoutEffect from './useIsomorphicLayoutEffect';
 
 function useSessionStorage<T>(key: string, initialValue: T): [T, (value: T) => void] {

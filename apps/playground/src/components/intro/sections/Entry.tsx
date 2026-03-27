@@ -1,14 +1,14 @@
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
 import Link from 'next/link';
-import { FC } from 'react';
+import type { FC } from 'react';
 
-import { playgroundLink } from '@/constants/links';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 import { textStyles } from '@/styles/typography';
 
 interface EntryProps {}
 
-const Entry: FC<EntryProps> = ({}) => {
+const Entry: FC<EntryProps> = () => {
   return (
     <Container>
       <Title>

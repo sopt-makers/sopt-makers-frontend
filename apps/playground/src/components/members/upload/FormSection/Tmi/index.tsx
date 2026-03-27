@@ -13,7 +13,7 @@ import { MemberFormSection } from '@/components/members/upload/forms/FormSection
 import Select from '@/components/members/upload/forms/Select';
 import FavorToggle from '@/components/members/upload/FormSection/Tmi/FavorToggle';
 import MbtiSelector from '@/components/members/upload/FormSection/Tmi/MbtiSelector';
-import {
+import type {
   CommunicationStyle,
   FavorAlcohol,
   FavorFishBread,
@@ -27,7 +27,7 @@ import {
   WorkPlace,
   WorkTime,
 } from '@/components/members/upload/FormSection/Tmi/types';
-import { MemberUploadForm } from '@/components/members/upload/types';
+import type { MemberUploadForm } from '@/components/members/upload/types';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 export default function TmiFormSection() {

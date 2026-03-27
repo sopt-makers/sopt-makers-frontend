@@ -1,7 +1,8 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
-import { FC, useEffect, useRef, useState } from 'react';
+import type { FC } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import ErrorMessage from '@/components/common/Input/ErrorMessage';
 import { MAX_FEED_IMAGE_LENGTH } from '@/components/feed/upload/ImageUploadButton';

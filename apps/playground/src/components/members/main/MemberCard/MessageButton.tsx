@@ -3,7 +3,7 @@ import * as Tooltip from '@radix-ui/react-tooltip';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 import { IconSend } from '@sopt-makers/icons';
-import { FC, MouseEvent } from 'react';
+import type { FC, MouseEvent } from 'react';
 
 interface MessageButtonProps {
   className?: string;
@@ -19,7 +19,7 @@ const MessageButton: FC<MessageButtonProps> = ({ className, name, onClick }) => 
           <Button
             className={className}
             onClick={(e) => {
-              onClick && onClick(e);
+              onClick?.(e);
             }}
           >
             <StyledIconSend />

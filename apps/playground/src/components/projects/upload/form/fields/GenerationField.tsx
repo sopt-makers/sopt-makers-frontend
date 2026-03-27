@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
-import React, { FC } from 'react';
+import type { FC } from 'react';
+import React from 'react';
 
 import Checkbox from '@/components/common/Checkbox';
 import ErrorMessage from '@/components/common/Input/ErrorMessage';

@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { colors } from '@sopt-makers/colors';
-import { FC, ReactNode } from 'react';
+import type { FC, ReactNode } from 'react';
 import { Controller, useFieldArray, useForm, useFormState, useWatch } from 'react-hook-form';
 
 import Button from '@/components/common/Button';
@@ -12,7 +12,8 @@ import ErrorMessage from '@/components/common/Input/ErrorMessage';
 import Responsive from '@/components/common/Responsive';
 import Text from '@/components/common/Text';
 import TextArea from '@/components/common/TextArea';
-import { categoryLabel, CategoryType } from '@/components/projects/upload/form/constants';
+import type { CategoryType } from '@/components/projects/upload/form/constants';
+import { categoryLabel } from '@/components/projects/upload/form/constants';
 import { DEFAULT_IMAGE_URL, DEFAULT_LINK, DEFAULT_MEMBER } from '@/components/projects/upload/form/constants';
 import CategoryField from '@/components/projects/upload/form/fields/CategoryField';
 import GenerationField from '@/components/projects/upload/form/fields/GenerationField';
@@ -23,7 +24,8 @@ import ServiceTypeField from '@/components/projects/upload/form/fields/ServiceTy
 import StatusField from '@/components/projects/upload/form/fields/StatusField';
 import ListImageUploader from '@/components/projects/upload/form/ListImageUploader';
 import FormEntry from '@/components/projects/upload/form/presenter/FormEntry';
-import { defaultUploadValues, ProjectFormType, uploadSchema } from '@/components/projects/upload/form/schema';
+import type { ProjectFormType } from '@/components/projects/upload/form/schema';
+import { defaultUploadValues, uploadSchema } from '@/components/projects/upload/form/schema';
 import UploadProjectProgress from '@/components/projects/upload/form/UploadProjectProgress';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 import { textStyles } from '@/styles/typography';

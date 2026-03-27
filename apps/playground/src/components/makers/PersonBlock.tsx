@@ -2,7 +2,8 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
 import Link from 'next/link';
-import { FC, useState } from 'react';
+import type { FC } from 'react';
+import { useState } from 'react';
 
 import ResizedImage from '@/components/common/ResizedImage';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';

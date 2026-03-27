@@ -3,7 +3,8 @@ import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 import { IconChevronDown } from '@sopt-makers/icons';
 import { Skeleton } from '@sopt-makers/ui';
-import { createContext, ReactNode, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import type { ReactNode } from 'react';
+import { createContext, useContext, useEffect, useMemo, useRef, useState } from 'react';
 
 import { BottomSheet } from '@/components/common/BottomSheet';
 import Responsive from '@/components/common/Responsive';
@@ -12,7 +13,7 @@ import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 import { textStyles } from '@/styles/typography';
 
 import SelectMeetingOptionItem from './SelectMeetingOptionItem';
-import { MeetingInfo } from './types';
+import type { MeetingInfo } from './types';
 
 export interface SelectContextType {
   isSelectOpen: boolean;
@@ -117,17 +118,17 @@ export function SelectTrigger({ placeholder = '모임을 선택해주세요' }: 
 export function SelectContent({ meetingList }: SelectContentProps) {
   const { isSelectOpen, selectMeeting, closeSelect } = useSelect();
 
+  const meetingItems = useMemo(
+    () =>
+      meetingList?.map((meetingInfo) => (
+        <SelectMeetingOptionItem key={meetingInfo.id} meetingInfo={meetingInfo} onClick={selectMeeting} />
+      )) ?? [],
+    [meetingList, selectMeeting],
+  );
+
   if (!meetingList || meetingList.length === 0) {
     return <Skeleton />;
   }
-
-  const meetingItems = useMemo(
-    () =>
-      meetingList.map((meetingInfo) => (
-        <SelectMeetingOptionItem key={meetingInfo.id} meetingInfo={meetingInfo} onClick={selectMeeting} />
-      )),
-    [meetingList, selectMeeting],
-  );
 
   return (
     <>

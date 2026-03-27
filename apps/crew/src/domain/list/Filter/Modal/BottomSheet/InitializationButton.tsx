@@ -2,7 +2,8 @@ import ResetIcon from '@assets/svg/reset.svg?rect';
 import { Flex } from '@shared/util/layout/Flex';
 import { mergeCss } from '@util/styles';
 import { useRouter } from 'next/router';
-import { CSSType, styled } from 'stitches.config';
+import type { CSSType } from 'stitches.config';
+import { styled } from 'stitches.config';
 interface InitializationButtonProp {
   css?: CSSType;
   withText?: boolean;
@@ -18,13 +19,13 @@ function InitializationButton({ css, withText = true, size = 16 }: Initializatio
         },
       },
       undefined,
-      { shallow: true }
+      { shallow: true },
     );
   };
   return (
     <Flex
-      className="initialize-button"
-      as="button"
+      className='initialize-button'
+      as='button'
       css={mergeCss(
         {
           '@media (max-width: 768px)': {
@@ -32,7 +33,7 @@ function InitializationButton({ css, withText = true, size = 16 }: Initializatio
             marginTop: '16px',
           },
         },
-        css
+        css,
       )}
       onClick={onClickInitialization}
     >
@@ -45,10 +46,10 @@ function InitializationButton({ css, withText = true, size = 16 }: Initializatio
 export default InitializationButton;
 
 const InitializationText = styled('span', {
-  fontAg: '18_medium_100',
-  color: '$gray10',
-  ml: '$6',
-  whiteSpace: 'nowrap',
+  'fontAg': '18_medium_100',
+  'color': '$gray10',
+  'ml': '$6',
+  'whiteSpace': 'nowrap',
   '@media (max-width: 768px)': {
     display: 'none',
   },

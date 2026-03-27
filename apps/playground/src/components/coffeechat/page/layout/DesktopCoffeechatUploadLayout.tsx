@@ -1,6 +1,7 @@
-import { COFFEECHAT_TABLET_MEDIA_QUERY } from '@/components/coffeechat/mediaQuery';
 import styled from '@emotion/styled';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
+
+import { COFFEECHAT_TABLET_MEDIA_QUERY } from '@/components/coffeechat/mediaQuery';
 
 interface DesktopCoffeechatUploadLayoutProps {
   main: ReactNode;

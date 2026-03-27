@@ -1,4 +1,5 @@
-import React, { createContext, useState, Dispatch, SetStateAction } from 'react';
+import type { Dispatch, SetStateAction } from 'react';
+import React, { createContext, useState } from 'react';
 
 interface SearchMentionProviderProps {
   children: React.ReactNode;

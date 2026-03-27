@@ -1,9 +1,9 @@
-import { MeetingData } from '@api/meeting/type';
+import type { MeetingData } from '@api/meeting/type';
 import { ACTION_STATUS } from '@constant/option';
 import { getResizedImage } from '@util/image';
 import dayjs from 'dayjs';
 import Link from 'next/link';
-import { FC } from 'react';
+import type { FC } from 'react';
 import { styled } from 'stitches.config';
 
 const getNewStatus = (status: number, mstartDate: string, isGroupActive: boolean) => {

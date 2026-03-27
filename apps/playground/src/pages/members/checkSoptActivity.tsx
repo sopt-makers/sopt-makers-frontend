@@ -1,7 +1,8 @@
+import styled from '@emotion/styled';
+
 import AuthRequired from '@/components/auth/AuthRequired';
 import CheckSoptActivity from '@/components/members/upload/CheckActivity/CheckSoptActivity';
 import { setLayout } from '@/utils/layout';
-import styled from '@emotion/styled';
 
 export default function CheckSoptActivityPage() {
   return (

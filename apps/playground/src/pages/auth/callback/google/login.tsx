@@ -1,8 +1,9 @@
 import { useRouter } from 'next/router';
-import { FC } from 'react';
+import type { FC } from 'react';
 import { useSetRecoilState } from 'recoil';
 
-import OAuthLoginCallback, { ProcessParamFn } from '@/components/auth/callback/OAuthLoginCallback';
+import type { ProcessParamFn } from '@/components/auth/callback/OAuthLoginCallback';
+import OAuthLoginCallback from '@/components/auth/callback/OAuthLoginCallback';
 import useGoogleAuth from '@/components/auth/identityProvider/google/useGoogleAuth';
 import { lastLoginMethodAtom } from '@/components/auth/states/lastLoginMethodAtom';
 import useLastUnauthorized from '@/components/auth/util/useLastUnauthorized';

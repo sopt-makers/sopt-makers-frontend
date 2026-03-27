@@ -1,4 +1,5 @@
-import { FC, useEffect, useState } from 'react';
+import type { FC } from 'react';
+import { useEffect, useState } from 'react';
 
 import OAuthCallback from '@/components/auth/oauth/OAuthCallback';
 import Loading from '@/components/common/Loading';

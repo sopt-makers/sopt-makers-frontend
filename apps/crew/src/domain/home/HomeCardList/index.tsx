@@ -29,8 +29,8 @@ export default () => {
 };
 
 const SWrapper = styled('div', {
-  position: 'relative',
-  width: '894px',
+  'position': 'relative',
+  'width': '894px',
 
   '@laptop': {
     width: '100%',

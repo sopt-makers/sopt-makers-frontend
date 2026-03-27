@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
@@ -14,7 +15,6 @@ import CareerItems from '@/components/members/detail/CareerSection';
 import MessageModal, { MessageCategory } from '@/components/members/detail/MessageSection/MessageModal';
 import { mentoringProvider } from '@/components/mentoring/data';
 import InfoItem from '@/components/mentoring/MentoringDetail/InfoItem';
-import { playgroundLink } from '@/constants/links';
 import { useRunOnce } from '@/hooks/useRunOnce';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 import { textStyles } from '@/styles/typography';
@@ -42,7 +42,11 @@ export default function MentoringDetail({ mentorId }: MentoringDetailProps) {
     clickMentorProfileCareer: () => logClickEvent('mentorProfileCareer', { mentorId }),
     clickMentoringApplicationButton: () => logClickEvent('mentoringApplicationButton', { mentorId }),
     submitMentoringApplication: (receiverId: number, category: string) =>
-      logSubmitEvent('sendMessage', { receiverId, category, referral: 'mentoringDetail' }),
+      logSubmitEvent('sendMessage', {
+        receiverId,
+        category,
+        referral: 'mentoringDetail',
+      }),
     pageView: () => logPageViewEvent('mentoringDetail', { mentorId }),
   };
 
@@ -132,7 +136,7 @@ export default function MentoringDetail({ mentorId }: MentoringDetailProps) {
           </Section>
         </Main>
       </Container>
-       {/* NOTE: 현재 사용되지 않는 기능에서 타입 에러가 나서 주석처리 합니다. */}
+      {/* NOTE: 현재 사용되지 않는 기능에서 타입 에러가 나서 주석처리 합니다. */}
       {/* {isOpenMessageModal && (
         <MessageModal
           receiverId={mentorId.toString()}

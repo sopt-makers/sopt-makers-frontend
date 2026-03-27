@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 import { IconAlertTriangle, IconBirthdaySecondary, IconMail, IconPhone, IconUser, IconUserX } from '@sopt-makers/icons';
@@ -7,10 +8,9 @@ import dayjs from 'dayjs';
 import { uniq } from 'lodash-es';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { playgroundLink } from '@sopt/ui';
 import EditIcon from 'public/icons/icon-edit.svg';
 
-import { ProfileDetail } from '@/api/endpoint_LEGACY/members/type';
+import type { ProfileDetail } from '@/api/endpoint_LEGACY/members/type';
 import ResizedImage from '@/components/common/ResizedImage';
 import Responsive from '@/components/common/Responsive';
 import useEventLogger from '@/components/eventLogger/hooks/useEventLogger';
@@ -90,10 +90,24 @@ const ProfileSection = ({ profile, memberId }: ProfileSectionProps) => {
             ) : (
               <EmptyProfileImage>
                 <Responsive only='desktop'>
-                  <IconUser style={{ width: 130, height: 130, color: `${colors.gray400}`, paddingTop: '20px' }} />
+                  <IconUser
+                    style={{
+                      width: 130,
+                      height: 130,
+                      color: `${colors.gray400}`,
+                      paddingTop: '20px',
+                    }}
+                  />
                 </Responsive>
                 <Responsive only='mobile'>
-                  <IconUser style={{ width: 60, height: 60, color: `${colors.gray400}`, paddingTop: '10px' }} />
+                  <IconUser
+                    style={{
+                      width: 60,
+                      height: 60,
+                      color: `${colors.gray400}`,
+                      paddingTop: '10px',
+                    }}
+                  />
                 </Responsive>
               </EmptyProfileImage>
             )}

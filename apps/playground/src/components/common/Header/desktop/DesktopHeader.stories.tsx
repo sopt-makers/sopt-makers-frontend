@@ -1,4 +1,4 @@
-import { Meta, StoryFn } from '@storybook/react';
+import type { Meta, StoryFn } from '@storybook/react';
 import Link from 'next/link';
 
 import DesktopHeader from '@/components/common/Header/desktop/DesktopHeader';

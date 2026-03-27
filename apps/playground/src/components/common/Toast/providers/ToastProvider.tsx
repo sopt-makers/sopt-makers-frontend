@@ -1,10 +1,11 @@
 import styled from '@emotion/styled';
-import { FC, ReactNode, useMemo, useState } from 'react';
+import type { FC, ReactNode } from 'react';
+import { useMemo, useState } from 'react';
 
 import Portal from '@/components/common/Portal';
 import { ToastContext } from '@/components/common/Toast/context';
 import ToastEntry from '@/components/common/Toast/ToastEntry';
-import { ToastController, ToastEntryData, ToastOption } from '@/components/common/Toast/types';
+import type { ToastController, ToastEntryData, ToastOption } from '@/components/common/Toast/types';
 import useAtomicTimeout from '@/components/common/Toast/useAtomicTimeout';
 import { zIndex } from '@/styles/zIndex';
 

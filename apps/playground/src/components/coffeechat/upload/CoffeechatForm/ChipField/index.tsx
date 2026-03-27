@@ -1,8 +1,9 @@
 import styled from '@emotion/styled';
 import { Chip } from '@sopt-makers/ui';
-import { Controller, ControllerRenderProps, useFormContext } from 'react-hook-form';
+import type { ControllerRenderProps } from 'react-hook-form';
+import { Controller, useFormContext } from 'react-hook-form';
 
-import { CoffeechatFormContent, CoffeechatFormPaths } from '@/components/coffeechat/upload/CoffeechatForm/types';
+import type { CoffeechatFormContent, CoffeechatFormPaths } from '@/components/coffeechat/upload/CoffeechatForm/types';
 import FormItem from '@/components/common/form/FormItem';
 import Responsive from '@/components/common/Responsive';
 

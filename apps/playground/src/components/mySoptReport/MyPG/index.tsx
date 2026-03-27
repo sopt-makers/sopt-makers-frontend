@@ -1,7 +1,8 @@
-import ReportTitle from '@/components/mySoptReport/common/ReportTitle';
-import { CommunityStats, CrewStats, ProfileStats, WordChainGameStats } from '@/components/mySoptReport/constants';
-import MyReport from '@/components/mySoptReport/MyReport';
 import styled from '@emotion/styled';
+
+import ReportTitle from '@/components/mySoptReport/common/ReportTitle';
+import type { CommunityStats, CrewStats, ProfileStats, WordChainGameStats } from '@/components/mySoptReport/constants';
+import MyReport from '@/components/mySoptReport/MyReport';
 
 export interface MyPgData {
   myType: string;

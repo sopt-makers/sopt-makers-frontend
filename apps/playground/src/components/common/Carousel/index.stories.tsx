@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
-import { Meta } from '@storybook/react';
-import { ReactNode } from 'react';
+import type { Meta } from '@storybook/react';
+import type { ReactNode } from 'react';
 
 import Carousel from '@/components/common/Carousel';
 import MentoringCard from '@/components/mentoring/MentoringCard';

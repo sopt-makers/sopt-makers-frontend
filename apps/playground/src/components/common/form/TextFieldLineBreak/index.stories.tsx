@@ -1,5 +1,6 @@
+import type { Meta } from '@storybook/react';
+
 import TextFieldLineBreak from '@/components/common/form/TextFieldLineBreak';
-import { Meta } from '@storybook/react';
 
 export default {
   component: TextFieldLineBreak,

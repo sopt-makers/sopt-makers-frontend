@@ -11,7 +11,7 @@ const config: StorybookConfig = {
     autodocs: 'tag',
   },
   webpackFinal(config) {
-    const imageRule = config.module!.rules!.find(rule => {
+    const imageRule = config.module!.rules!.find((rule) => {
       if (rule && typeof rule !== 'string' && rule.test instanceof RegExp) {
         return rule.test.test('.svg');
       }

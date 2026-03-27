@@ -1,4 +1,5 @@
-import { createContext, ReactNode, useContext } from 'react';
+import type { ReactNode } from 'react';
+import { createContext, useContext } from 'react';
 type Size = 'medium' | 'small';
 
 export type SelectContextValue = {

@@ -1,7 +1,7 @@
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { z } from 'zod';
 
 import { createEndpoint } from '@/api/typedAxios';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 interface RequestBody {
   content: string;

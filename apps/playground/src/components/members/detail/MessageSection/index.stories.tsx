@@ -1,4 +1,4 @@
-import { Meta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
 import ToastProvider from '@/components/common/Toast/providers/ToastProvider';
 import MessageSection from '@/components/members/detail/MessageSection';

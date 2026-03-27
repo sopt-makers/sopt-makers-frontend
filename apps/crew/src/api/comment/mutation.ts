@@ -1,8 +1,9 @@
 import { deleteComment, postComment, postCommentLike, postCommentReport, putComment } from '@api/comment';
 import CommentQueryKey from '@api/comment/CommentQueryKey';
-import { GetCommentListResponse, PostCommentListRequest } from '@api/comment/type';
+import type { GetCommentListResponse, PostCommentListRequest } from '@api/comment/type';
 import { useToast } from '@sopt-makers/ui';
-import { InfiniteData, useMutation, useQueryClient } from '@tanstack/react-query';
+import type { InfiniteData } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { produce } from 'immer';
 import { useRouter } from 'next/router';
 
@@ -28,19 +29,21 @@ export function usePostCommentLikeMutation() {
   return useMutation({
     mutationKey: ['/comment/v1/{commentId}/like'],
     mutationFn: (commentId: number) => postCommentLike(commentId),
-    onMutate: async commentId => {
-      await queryClient.cancelQueries({ queryKey: CommentQueryKey.list(Number(query.id)) });
+    onMutate: async (commentId) => {
+      await queryClient.cancelQueries({
+        queryKey: CommentQueryKey.list(Number(query.id)),
+      });
 
       const previousComments = queryClient.getQueryData(CommentQueryKey.list(Number(query.id)));
 
       type Comments = GetCommentListResponse['comments'];
       queryClient.setQueryData<InfiniteData<{ comments: Comments }>>(
         CommentQueryKey.list(Number(query.id)),
-        oldData => {
-          const newData = produce(oldData, draft => {
+        (oldData) => {
+          const newData = produce(oldData, (draft) => {
             //todo: pages 제거 작업 필요
-            draft?.pages?.forEach(page => {
-              page.comments.forEach(comment => {
+            draft?.pages?.forEach((page) => {
+              page.comments.forEach((comment) => {
                 if (comment.id === commentId) {
                   comment.isLiked = !comment.isLiked;
                   comment.likeCount = comment.isLiked ? comment.likeCount + 1 : comment.likeCount - 1;
@@ -49,7 +52,7 @@ export function usePostCommentLikeMutation() {
             });
           });
           return newData;
-        }
+        },
       );
       return { previousComments };
     },
@@ -57,7 +60,9 @@ export function usePostCommentLikeMutation() {
       queryClient.setQueryData(CommentQueryKey.list(Number(query.id)), context?.previousComments);
     },
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: CommentQueryKey.list(Number(query.id)) });
+      queryClient.invalidateQueries({
+        queryKey: CommentQueryKey.list(Number(query.id)),
+      });
     },
   });
 }
@@ -88,7 +93,9 @@ export const useDeleteCommentMutation = (queryId: string) => {
   return useMutation({
     mutationFn: (commentId: number) => deleteComment(commentId),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: CommentQueryKey.list(Number(queryId)) });
+      queryClient.invalidateQueries({
+        queryKey: CommentQueryKey.list(Number(queryId)),
+      });
     },
   });
 };

@@ -1,8 +1,9 @@
-import { DialogOptionType, useDialog, useToast } from '@sopt-makers/ui';
+import { playgroundLink } from '@sopt/constant';
+import type { DialogOptionType } from '@sopt-makers/ui';
+import { useDialog, useToast } from '@sopt-makers/ui';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
-import { playgroundLink } from '@sopt/ui';
-import { FieldValues } from 'react-hook-form';
+import type { FieldValues } from 'react-hook-form';
 
 import { editCoffeechat } from '@/api/endpoint/coffeechat/editCoffeechat';
 import { getCoffeechatDetail, useGetCoffeechatDetail } from '@/api/endpoint/coffeechat/getCoffeechatDetail';
@@ -10,7 +11,7 @@ import { useGetMemberOfMe } from '@/api/endpoint/members/getMemberOfMe';
 import AuthRequired from '@/components/auth/AuthRequired';
 import CoffeechatLoading from '@/components/coffeechat/Loading';
 import CoffeechatUploadPage from '@/components/coffeechat/page/CoffeechatUploadPage';
-import { CoffeechatFormContent } from '@/components/coffeechat/upload/CoffeechatForm/types';
+import type { CoffeechatFormContent } from '@/components/coffeechat/upload/CoffeechatForm/types';
 import useEventLogger from '@/components/eventLogger/hooks/useEventLogger';
 import useStringRouterQuery from '@/hooks/useStringRouterQuery';
 import { setLayout } from '@/utils/layout';
@@ -45,10 +46,15 @@ const CoffeechatEdit = () => {
         onSuccess: async () => {
           logSubmitEvent('editCoffeechat');
           queryClient.invalidateQueries({ queryKey: ['getMemberOfMe'] });
-          queryClient.invalidateQueries({ queryKey: getCoffeechatDetail.cacheKey(memberId) });
+          queryClient.invalidateQueries({
+            queryKey: getCoffeechatDetail.cacheKey(memberId),
+          });
           queryClient.refetchQueries({ queryKey: ['getRecentCoffeeChat'] });
           queryClient.refetchQueries({ queryKey: ['getMembersCoffeeChat'] });
-          await toastOpen({ icon: 'success', content: '커피챗이 수정됐어요! 경험을 나눠주셔서 감사해요.' });
+          await toastOpen({
+            icon: 'success',
+            content: '커피챗이 수정됐어요! 경험을 나눠주셔서 감사해요.',
+          });
           await router.push(playgroundLink.coffeechatDetail(me?.id ?? ''));
         },
         onError: (error) => {

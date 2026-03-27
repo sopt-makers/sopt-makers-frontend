@@ -1,5 +1,7 @@
-import { ClickEvents } from '@/components/eventLogger/events';
-import { playgroundLink } from '@/constants/links';
+import { playgroundLink } from '@sopt/constant';
+
+import type { ClickEvents } from '@/components/eventLogger/events';
+import { LATEST_GENERATION } from '@/constants/generation';
 import CoffeeIcon from '@/public/logos/playgroundGuide/img_coffee.svg';
 import GroupIcon from '@/public/logos/playgroundGuide/img_group.svg';
 import MemberIcon from '@/public/logos/playgroundGuide/img_member.svg';
@@ -35,7 +37,7 @@ export const cards: TimecapsuleCard[] = [
   {
     id: 2,
     name: '멤버',
-    description: '나와 함께 활동할 37기 사람들이 궁금해요',
+    description: `나와 함께 활동할 ${LATEST_GENERATION}기 사람들이 궁금해요`,
     color: '#5CDBFE',
     hover: '#4194AB',
     icon: <MemberIcon />,

@@ -1,5 +1,5 @@
 import { colors } from '@sopt-makers/colors';
-import { Meta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 import { Stack } from '@toss/emotion-utils';
 import { useState } from 'react';
 
@@ -24,7 +24,7 @@ const 노트북당근 =
 
 const IMAGES = [주우재먹방, 당근데탑큰것, 노트북당근, 사과점수];
 
-export const 기본 = () => {
+export const Default = () => {
   const [opened, setOpened] = useState(false);
 
   return (
@@ -40,7 +40,7 @@ export const 기본 = () => {
   );
 };
 
-export const 이미지한개 = () => {
+export const SingleImage = () => {
   const [opened, setOpened] = useState(false);
 
   return (

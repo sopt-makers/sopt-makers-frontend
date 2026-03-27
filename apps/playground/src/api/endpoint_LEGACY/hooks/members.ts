@@ -1,9 +1,10 @@
-import { useMutation, useQuery, UseQueryOptions } from '@tanstack/react-query';
-import { AxiosError } from 'axios';
+import type { UseQueryOptions } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import type { AxiosError } from 'axios';
 
 import { getMembersSearchByName } from '@/api/endpoint/members/getMembersSearchByName';
 import { getMemberProfileById, getMemberProfileOfMe, postMemberMessage } from '@/api/endpoint_LEGACY/members';
-import { PostMemberMessageVariables, ProfileDetail } from '@/api/endpoint_LEGACY/members/type';
+import type { PostMemberMessageVariables, ProfileDetail } from '@/api/endpoint_LEGACY/members/type';
 
 // 멤버 프로필 조회
 export const useGetMemberProfileById = (

@@ -1,10 +1,13 @@
-import { InfiniteData, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import type { InfiniteData } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { produce } from 'immer';
 import { z } from 'zod';
 
 import { getCategory } from '@/api/endpoint/feed/getCategory';
-import { getPost, PostType } from '@/api/endpoint/feed/getPost';
-import { PostsType, useGetPostsInfiniteQuery } from '@/api/endpoint/feed/getPosts';
+import type { PostType } from '@/api/endpoint/feed/getPost';
+import { getPost } from '@/api/endpoint/feed/getPost';
+import type { PostsType } from '@/api/endpoint/feed/getPosts';
+import { useGetPostsInfiniteQuery } from '@/api/endpoint/feed/getPosts';
 import { getRecentPosts } from '@/api/endpoint/feed/getRecentPosts';
 import { createEndpoint } from '@/api/typedAxios';
 import { getParentCategoryId } from '@/components/feed/common/utils';

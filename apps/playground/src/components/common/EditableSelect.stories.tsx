@@ -1,4 +1,4 @@
-import { Meta, StoryFn } from '@storybook/react';
+import type { Meta, StoryFn } from '@storybook/react';
 
 import MemberSelectOptions from '@/components/members/upload/forms/SelectOptions';
 

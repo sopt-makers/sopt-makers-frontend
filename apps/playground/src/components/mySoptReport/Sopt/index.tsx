@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 import { IconChevronRight } from '@sopt-makers/icons';
 import { Button, Tag } from '@sopt-makers/ui';
 import router from 'next/router';
-import { playgroundLink } from '@sopt/ui';
 
 import { useGetMemberOfMe } from '@/api/endpoint/members/getMemberOfMe';
 import { useGetMemberProperty } from '@/api/endpoint/members/getMemberProperty';
@@ -16,7 +16,7 @@ import ReportTitle from '@/components/mySoptReport/common/ReportTitle';
 import ReportText from '@/components/mySoptReport/common/ReportTitle/ReportText';
 import PopularMeetingSpotRank from '@/components/mySoptReport/Sopt/PopularMeetingSpotRank';
 import ServiceCategoryRankBox from '@/components/mySoptReport/Sopt/ServiceCategoryRankBox';
-import { SoptReportDataType } from '@/components/mySoptReport/types';
+import type { SoptReportDataType } from '@/components/mySoptReport/types';
 import NewMemberIcon from '@/public/logos/img_member.svg';
 import ServiceIcon from '@/public/logos/img_service.svg';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';

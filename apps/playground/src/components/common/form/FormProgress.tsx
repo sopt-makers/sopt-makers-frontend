@@ -1,7 +1,8 @@
 import styled from '@emotion/styled';
 import * as Progress from '@radix-ui/react-progress';
 import { colors } from '@sopt-makers/colors';
-import { FC, useMemo } from 'react';
+import type { FC } from 'react';
+import { useMemo } from 'react';
 
 import FormTitle from '@/components/common/form/FormTitle';
 import Text from '@/components/common/Text';

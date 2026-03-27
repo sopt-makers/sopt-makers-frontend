@@ -2,7 +2,8 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import * as Collapsible from '@radix-ui/react-collapsible';
 import { colors } from '@sopt-makers/colors';
-import { FC, ReactNode, useState } from 'react';
+import type { FC, ReactNode } from 'react';
+import { useState } from 'react';
 
 import { textStyles } from '@/styles/typography';
 

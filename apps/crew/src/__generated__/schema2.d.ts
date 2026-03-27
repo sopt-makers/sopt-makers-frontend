@@ -1998,12 +1998,12 @@ export interface components {
        * @description key
        * @example key 값
        */
-      key: string;
+      'key': string;
       /**
        * @description bucket
        * @example bucket 값
        */
-      bucket: string;
+      'bucket': string;
       /**
        * @description algorithm
        * @example algorithm 값
@@ -2023,7 +2023,7 @@ export interface components {
        * @description policy
        * @example policy 값
        */
-      Policy: string;
+      'Policy': string;
       /**
        * @description X-Amz-Signature
        * @example X-Amz-Signature 값

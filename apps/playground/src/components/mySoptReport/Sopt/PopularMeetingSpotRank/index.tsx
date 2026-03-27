@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 
-import { PopularMeetingSpotRankType } from '@/components/mySoptReport/types';
+import type { PopularMeetingSpotRankType } from '@/components/mySoptReport/types';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 export default function PopularMeetingSpotRank({

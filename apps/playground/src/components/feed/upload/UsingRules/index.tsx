@@ -1,9 +1,9 @@
+import styled from '@emotion/styled';
 import { useState } from 'react';
 
 import UsingRulesButton from '@/components/feed/upload/UsingRules/UsingRulesButton';
 import UsingRulesDetail from '@/components/feed/upload/UsingRules/UsingRulesDetail';
 import UsingRulesPreview from '@/components/feed/upload/UsingRules/UsingRulesPreview';
-import styled from '@emotion/styled';
 
 interface UsingRulesProps {
   isPreviewOpen: boolean;

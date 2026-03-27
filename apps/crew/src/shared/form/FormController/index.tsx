@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
-import { Controller, ControllerProps, useFormContext } from 'react-hook-form';
-import { Option } from '../Select/OptionItem';
+import type { ControllerProps } from 'react-hook-form';
+import { Controller, useFormContext } from 'react-hook-form';
+
+import type { Option } from '../Select/OptionItem';
 
 interface FormControllerProps {
   name: string;

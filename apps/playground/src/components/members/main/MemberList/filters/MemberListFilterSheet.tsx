@@ -1,7 +1,8 @@
 import styled from '@emotion/styled';
 import { Slot } from '@radix-ui/react-slot';
 import { colors } from '@sopt-makers/colors';
-import { FC, PropsWithChildren, ReactNode, useMemo, useState } from 'react';
+import type { FC, PropsWithChildren, ReactNode } from 'react';
+import { useMemo, useState } from 'react';
 import ReactModalSheet from 'react-modal-sheet';
 
 import Text from '@/components/common/Text';

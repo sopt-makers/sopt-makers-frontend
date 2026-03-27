@@ -4,7 +4,7 @@ const THROTTLE_DEFAULT_TIME = 1 * 1000;
 
 const useThrottle = <T extends () => void>(
   callback: T,
-  throttleTime: number | undefined = THROTTLE_DEFAULT_TIME
+  throttleTime: number | undefined = THROTTLE_DEFAULT_TIME,
 ): (() => void) => {
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
 

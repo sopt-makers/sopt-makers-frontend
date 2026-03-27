@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
-import { ChangeEvent, FC } from 'react';
+import type { ChangeEvent, FC } from 'react';
 
 import Switch from '@/components/common/Switch';
 import Text from '@/components/common/Text';

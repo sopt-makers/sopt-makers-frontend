@@ -1,4 +1,4 @@
-import { ProfileDetail, SoptActivity } from '@/api/endpoint_LEGACY/members/type';
+import type { ProfileDetail, SoptActivity } from '@/api/endpoint_LEGACY/members/type';
 import CareerSection from '@/components/members/detail/CareerSection';
 import DetailInfoSection from '@/components/members/detail/DetailinfoSection';
 import GroupSection from '@/components/members/detail/GroupSection';

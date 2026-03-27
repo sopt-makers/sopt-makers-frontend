@@ -1,8 +1,9 @@
-import React, { ReactElement, useCallback } from 'react';
+import type { ReactElement } from 'react';
+import React, { useCallback } from 'react';
 
-import { ClickEvents } from '@/components/eventLogger/events';
+import type { ClickEvents } from '@/components/eventLogger/events';
 import useEventLogger from '@/components/eventLogger/hooks/useEventLogger';
-import { ParamTuple } from '@/components/eventLogger/types';
+import type { ParamTuple } from '@/components/eventLogger/types';
 
 type LoggingClickProps<Key extends keyof ClickEvents> = {
   eventKey: Key;

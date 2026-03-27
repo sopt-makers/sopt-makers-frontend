@@ -1,5 +1,5 @@
 import { css, Global } from '@emotion/react';
-import { FC, ReactNode } from 'react';
+import type { FC, ReactNode } from 'react';
 
 import { ResponsiveContext } from '@/components/common/Responsive/context';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';

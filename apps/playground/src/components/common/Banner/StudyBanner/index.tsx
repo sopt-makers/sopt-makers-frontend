@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 
 import Responsive from '@/components/common/Responsive';
-import { playgroundLink } from '@/constants/links';
 
 import { CLOSE_DATE, OPEN_DATE } from './constants';
 import MobileStudyBanner from './MobileStudyBanner';

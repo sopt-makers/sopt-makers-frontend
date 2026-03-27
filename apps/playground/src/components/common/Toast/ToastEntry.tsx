@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import ToastMDSEntry from '@/components/common/Toast/ToastMDSEntry';
 import IconCheck from '@/public/icons/icon-check.svg';

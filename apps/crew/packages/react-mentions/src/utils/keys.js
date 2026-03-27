@@ -1,5 +1,5 @@
-const keys = obj => {
-  return obj === Object(obj) ? Object.keys(obj) : []
-}
+const keys = (obj) => {
+  return obj === Object(obj) ? Object.keys(obj) : [];
+};
 
-export default keys
+export default keys;

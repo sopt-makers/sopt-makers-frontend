@@ -5,8 +5,8 @@ import { useQuery } from '@tanstack/react-query';
 
 import { getCategory } from '@/api/endpoint/feed/getCategory';
 import { GROUP_CATEGORY_ID } from '@/components/feed/constants';
-import { BasicCategory } from '@/components/feed/upload/Category/types';
-import { FeedDataType } from '@/components/feed/upload/types';
+import type { BasicCategory } from '@/components/feed/upload/Category/types';
+import type { FeedDataType } from '@/components/feed/upload/types';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 import { textStyles } from '@/styles/typography';
 

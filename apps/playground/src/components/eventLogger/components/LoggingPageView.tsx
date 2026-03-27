@@ -1,8 +1,8 @@
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
-import { PageViewEvents } from '@/components/eventLogger/events';
+import type { PageViewEvents } from '@/components/eventLogger/events';
 import useEventLogger from '@/components/eventLogger/hooks/useEventLogger';
-import { ParamTuple } from '@/components/eventLogger/types';
+import type { ParamTuple } from '@/components/eventLogger/types';
 import { useRunOnce } from '@/hooks/useRunOnce';
 
 type LoggingPageViewProps<Key extends keyof PageViewEvents> = {

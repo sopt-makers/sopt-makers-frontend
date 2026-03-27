@@ -4,7 +4,8 @@ import * as ScrollArea from '@radix-ui/react-scroll-area';
 import * as Select from '@radix-ui/react-select';
 import { colors } from '@sopt-makers/colors';
 import dynamic from 'next/dynamic';
-import { FC, PropsWithChildren, ReactNode, useEffect, useState } from 'react';
+import type { FC, PropsWithChildren, ReactNode } from 'react';
+import { useEffect, useState } from 'react';
 
 import { SelectContext, useSelectContext } from '@/components/members/common/select/context';
 import { Overlay } from '@/components/members/common/select/Overlay';

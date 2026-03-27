@@ -4,7 +4,8 @@ import * as Select from '@radix-ui/react-select';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 import dynamic from 'next/dynamic';
-import { PropsWithChildren, ReactNode, useEffect, useState } from 'react';
+import type { PropsWithChildren, ReactNode } from 'react';
+import { useEffect, useState } from 'react';
 
 import { SelectContext, useSelectContext } from '@/components/members/common/select/context';
 import { Overlay } from '@/components/members/common/select/Overlay';

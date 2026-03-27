@@ -1,10 +1,11 @@
+import { MasonryInfiniteGrid } from '@egjs/react-infinitegrid';
+import styled from '@emotion/styled';
+
 import { useGetReviewsInfiniteQuery } from '@/api/endpoint/remember/getReviews';
 import Loading from '@/components/common/Loading';
 import Responsive from '@/components/common/Responsive';
 import ReviewCard from '@/components/remember/reviews/ReviewCard';
 import useEnterScreen from '@/hooks/useEnterScreen';
-import { MasonryInfiniteGrid } from '@egjs/react-infinitegrid';
-import styled from '@emotion/styled';
 
 export default function Reviews() {
   const { ref } = useEnterScreen({

@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import dayjs from 'dayjs';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import Timer from '@/components/common/Banner/Timer';
 import Responsive from '@/components/common/Responsive';
@@ -13,7 +13,7 @@ const LINK =
   'https://docs.google.com/forms/d/e/1FAIpQLScrbpnL6Fas7hzHoKLFCoeQw4I-XYO5V8S_lpP7v5rzU64BfA/viewform?usp=sf_link';
 const TARGET_DATE = dayjs('2023-05-11T15:00:00.000Z').toDate(); // 한국시간 2023-05-12 00:00
 
-const SOPTMATEBanner: FC<SOPTMATEBannerProps> = ({}) => {
+const SOPTMATEBanner: FC<SOPTMATEBannerProps> = () => {
   return (
     <Container href={LINK} target='_blank'>
       <Responsive only='desktop'>

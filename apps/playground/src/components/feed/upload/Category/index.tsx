@@ -3,12 +3,12 @@ import { useMemo } from 'react';
 
 import { getCategory } from '@/api/endpoint/feed/getCategory';
 import { useGetMemberProfileOfMe } from '@/api/endpoint_LEGACY/hooks';
+import { PART_CATEGORY_ID } from '@/components/feed/constants';
 import CategoryHeader from '@/components/feed/upload/Category/CategoryHeader';
 import CategorySelector from '@/components/feed/upload/Category/CategorySelector';
 import TagSelector from '@/components/feed/upload/Category/TagSelector';
 import { useCategorySelect } from '@/components/feed/upload/hooks/useCategorySelect';
-import { FeedDataType } from '@/components/feed/upload/types';
-import { PART_CATEGORY_ID } from '@/components/feed/constants';
+import type { FeedDataType } from '@/components/feed/upload/types';
 
 interface CateogryProps {
   feedData: FeedDataType;

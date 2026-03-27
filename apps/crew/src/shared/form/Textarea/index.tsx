@@ -1,7 +1,9 @@
 import HelpMessage from '@shared/form/HelpMessage';
 import Label from '@shared/form/Label';
-import React, { HTMLAttributes } from 'react';
+import type { HTMLAttributes } from 'react';
+import React from 'react';
 import { styled } from 'stitches.config';
+
 import ErrorMessage from '../ErrorMessage';
 
 interface TextareaProps extends HTMLAttributes<HTMLTextAreaElement> {
@@ -30,7 +32,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
         </SBottomContainer>
       </SContainer>
     );
-  }
+  },
 );
 
 export default Textarea;
@@ -40,16 +42,16 @@ const SContainer = styled('div', {
   flexDirection: 'column',
 });
 const STextarea = styled('textarea', {
-  boxSizing: 'border-box',
-  width: '100%',
-  minHeight: '157px',
-  padding: '16px 20px 20px 16px',
-  fontAg: '16_medium_150',
-  color: '$gray10',
-  background: '$gray800',
-  border: 'none',
-  resize: 'none',
-  borderRadius: 10,
+  'boxSizing': 'border-box',
+  'width': '100%',
+  'minHeight': '157px',
+  'padding': '16px 20px 20px 16px',
+  'fontAg': '16_medium_150',
+  'color': '$gray10',
+  'background': '$gray800',
+  'border': 'none',
+  'resize': 'none',
+  'borderRadius': 10,
   '&::placeholder': {
     whiteSpace: 'pre-wrap',
     color: '$gray300',

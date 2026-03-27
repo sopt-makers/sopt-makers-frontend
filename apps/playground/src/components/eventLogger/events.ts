@@ -183,7 +183,12 @@ export interface ClickEvents {
   gotoCoffeechat: GotoCoffeechat;
 
   // 광고
-  ads: { id: number | undefined; bannerId: number; pageUrl: string; timeStamp: string };
+  ads: {
+    id: number | undefined;
+    bannerId: number;
+    pageUrl: string;
+    timeStamp: string;
+  };
   coffeechatSection: {
     section: string;
   };

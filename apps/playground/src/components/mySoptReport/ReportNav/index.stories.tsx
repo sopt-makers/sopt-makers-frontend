@@ -1,5 +1,6 @@
+import type { Meta } from '@storybook/react';
+
 import ReportNav from '@/components/mySoptReport/ReportNav';
-import { Meta } from '@storybook/react';
 
 export default {
   component: ReportNav,

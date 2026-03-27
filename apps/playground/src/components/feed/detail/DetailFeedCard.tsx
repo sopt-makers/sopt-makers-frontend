@@ -1,5 +1,6 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import { IconEye, IconFlipForward, IconHeart, IconMessageDots } from '@sopt-makers/icons';
 import { IconSend } from '@sopt-makers/icons';
@@ -9,7 +10,8 @@ import { Flex, Stack } from '@toss/emotion-utils';
 import { m } from 'framer-motion';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { forwardRef, PropsWithChildren, ReactNode, useCallback, useEffect, useId, useRef, useState } from 'react';
+import type { PropsWithChildren, ReactNode } from 'react';
+import { forwardRef, useCallback, useEffect, useId, useRef, useState } from 'react';
 import { useContext } from 'react';
 import { useResetRecoilState } from 'recoil';
 
@@ -23,7 +25,8 @@ import Text from '@/components/common/Text';
 import FeedLike from '@/components/feed/common/FeedLike';
 import useBlindWriterPromise from '@/components/feed/common/hooks/useBlindWriterPromise';
 import { useCursorPosition } from '@/components/feed/common/hooks/useCursorPosition';
-import useMention, { Member } from '@/components/feed/common/hooks/useMention';
+import type { Member } from '@/components/feed/common/hooks/useMention';
+import useMention from '@/components/feed/common/hooks/useMention';
 import {
   IconChevronLeft,
   IconChevronRight,
@@ -45,7 +48,6 @@ import { commentAtomFamily } from '@/components/feed/detail/FeedDetailInput';
 import FeedImageSlider from '@/components/feed/detail/slider/FeedImageSlider';
 import FeedUrlCard from '@/components/feed/list/FeedUrlCard';
 import Vote from '@/components/vote';
-import { playgroundLink } from '@/constants/links';
 import IconMessageDotsAction from '@/public/icons/icon-message-dots-action.svg';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 import { textStyles } from '@/styles/typography';
@@ -527,8 +529,8 @@ const Comment = ({
       setReplyState({
         member: {
           id: memberId ? memberId : ANONYMOUS_MEMBER_ID,
-          name: isBlindWriter ? anonymousProfile?.nickname ?? '익명' : name ?? '삭제된 댓글',
-          generation: info ? Number(info.split(' ')[0]?.replace(/기$/, '')) ?? 0 : 0, //TODO: generation 데이터 필요
+          name: isBlindWriter ? (anonymousProfile?.nickname ?? '익명') : (name ?? '삭제된 댓글'),
+          generation: info ? (Number(info.split(' ')[0]?.replace(/기$/, '')) ?? 0) : 0, //TODO: generation 데이터 필요
           profileImage: profileImage ?? null,
         },
         replyTargetCommentId: commentId,
@@ -541,7 +543,14 @@ const Comment = ({
     <StyledComment>
       <Flex css={{ gap: 8, minWidth: 0 }}>
         {isReply ? (
-          <IconFlipForward style={{ width: 24, height: 24, color: colors.gray500, transform: 'scale(1, -1)' }} />
+          <IconFlipForward
+            style={{
+              width: 24,
+              height: 24,
+              color: colors.gray500,
+              transform: 'scale(1, -1)',
+            }}
+          />
         ) : null}
         {isDeleted && hasReplies ? (
           <Text typography='SUIT_14_M' color={colors.gray500} css={{ whiteSpace: 'nowrap' }}>
@@ -769,7 +778,7 @@ const Input = ({ value, onChange, isBlindChecked, onChangeIsBlindChecked, isPend
 
   const handleCheckBlindWriter = (isBlindWriter: boolean) => {
     if (sessionStorage.getItem('hasSeenBlindWriterAlert') === null) {
-      isBlindWriter && handleShowBlindWriterPromise();
+      if (isBlindWriter) handleShowBlindWriterPromise();
       sessionStorage.setItem('hasSeenBlindWriterAlert', 'seen');
     }
     onChangeIsBlindChecked(isBlindWriter);
@@ -803,7 +812,10 @@ const Input = ({ value, onChange, isBlindChecked, onChangeIsBlindChecked, isPend
           textareaRef.current.innerHTML = '';
           setTextareaValue('');
         }
-        handleSelectMention({ member: replyTargetMember, isReply: !!replyTargetMember });
+        handleSelectMention({
+          member: replyTargetMember,
+          isReply: !!replyTargetMember,
+        });
         prevReplyTargetCommentIdRef.current = replyTargetCommentId;
       }
     }
@@ -853,14 +865,32 @@ const Input = ({ value, onChange, isBlindChecked, onChangeIsBlindChecked, isPend
         </Flex>
         {replyTargetMember && (
           <IconXClose
-            style={{ width: 16, height: 16, color: colors.gray50, cursor: 'pointer' }}
-            onClick={() => setReplyState({ member: null, replyTargetCommentId: null, parentCommentId: null })}
+            style={{
+              width: 16,
+              height: 16,
+              color: colors.gray50,
+              cursor: 'pointer',
+            }}
+            onClick={() =>
+              setReplyState({
+                member: null,
+                replyTargetCommentId: null,
+                parentCommentId: null,
+              })
+            }
           />
         )}
       </Flex>
       <Flex align='flex-center' css={{ gap: '16px', width: '100%' }} ref={parentRef}>
         {replyTargetCommentId !== null && (
-          <IconFlipForward style={{ width: 24, height: 24, color: colors.gray500, transform: 'scale(1, -1)' }} />
+          <IconFlipForward
+            style={{
+              width: 24,
+              height: 24,
+              color: colors.gray500,
+              transform: 'scale(1, -1)',
+            }}
+          />
         )}
 
         <TextAreaWrapper>

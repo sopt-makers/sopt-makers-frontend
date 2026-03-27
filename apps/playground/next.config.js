@@ -10,6 +10,7 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 const nextConfig = {
   output: 'export',
   reactStrictMode: true,
+  transpilePackages: ['@sopt/ui', '@sopt/constant'],
   // https://nextjs.org/docs/api-reference/next.config.js/custom-page-extensions
   pageExtensions: ['tsx', 'ts', 'jsx', 'js'],
   webpack: (config) => {
@@ -44,9 +45,6 @@ const nextConfig = {
   },
   experimental: {
     scrollRestoration: true,
-  },
-  eslint: {
-    dirs: ['api', 'components', 'constants', 'hooks', 'pages', 'styles', 'types', 'utils'],
   },
 
   // well-known 형식 파일 정상제공하도록 헤더 추가

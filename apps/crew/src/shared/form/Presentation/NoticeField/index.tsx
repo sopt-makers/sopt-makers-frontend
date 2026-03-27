@@ -5,9 +5,9 @@ import Textarea from '@shared/form/Textarea';
 const NoticeField = () => {
   return (
     <div>
-      <Label size="small">유의사항</Label>
+      <Label size='small'>유의사항</Label>
       <FormController
-        name="detail.note"
+        name='detail.note'
         render={({ field, fieldState: { error } }) => (
           <Textarea
             placeholder={`ex.\n• 신청 전 알아두어야 할 공지`}

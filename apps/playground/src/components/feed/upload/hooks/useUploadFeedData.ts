@@ -7,18 +7,22 @@ import {
   QUESTION_CATEGORY_ID,
   SOPTICLE_CATEGORY_ID,
 } from '@/components/feed/constants';
-import { MeetingInfo } from '@/components/feed/upload/select/types';
-import { PostedFeedDataType } from '@/components/feed/upload/types';
+import type { MeetingInfo } from '@/components/feed/upload/select/types';
+import type { PostedFeedDataType } from '@/components/feed/upload/types';
 
 export default function useUploadFeedData(defaultValue: PostedFeedDataType) {
   const [feedData, setFeedData] = useState(defaultValue);
   const { findParentCategory } = useCategory();
 
   const resetIsBlindWriter = (categoryId: number) => {
-    const isQuestion = findParentCategory(categoryId)?.id === QUESTION_CATEGORY_ID;
-    isQuestion && setFeedData((feedData) => ({ ...feedData, isBlindWriter: true }));
-
-    !findParentCategory(categoryId)?.hasBlind && setFeedData((feedData) => ({ ...feedData, isBlindWriter: false }));
+    const parentCategory = findParentCategory(categoryId);
+    const isQuestion = parentCategory?.id === QUESTION_CATEGORY_ID;
+    if (isQuestion) {
+      setFeedData((feedData) => ({ ...feedData, isBlindWriter: true }));
+    }
+    if (!parentCategory?.hasBlind) {
+      setFeedData((feedData) => ({ ...feedData, isBlindWriter: false }));
+    }
   };
 
   const handleSaveCategory = (categoryId: number) => {
@@ -58,7 +62,10 @@ export default function useUploadFeedData(defaultValue: PostedFeedDataType) {
   };
 
   const saveImageUrls = (urls: string[]) => {
-    setFeedData((feedData) => ({ ...feedData, images: [...feedData.images, ...urls] }));
+    setFeedData((feedData) => ({
+      ...feedData,
+      images: [...feedData.images, ...urls],
+    }));
   };
 
   const removeImage = (index: number) => {

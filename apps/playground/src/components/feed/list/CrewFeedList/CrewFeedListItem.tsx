@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { crewLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import { IconAlertTriangle, IconShare } from '@sopt-makers/icons';
 import { Flex } from '@toss/emotion-utils';
@@ -12,7 +13,6 @@ import { useReportFeed } from '@/components/feed/common/hooks/useReportFeed';
 import { getMemberInfo, getRelativeTime } from '@/components/feed/common/utils';
 import CrewMeetingLinkRow from '@/components/feed/list/CrewFeedList/CrewMeetingLinkRow';
 import FeedCard from '@/components/feed/list/FeedCard';
-import { crewLink } from '@/constants/links';
 
 interface CrewFeedListItemProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

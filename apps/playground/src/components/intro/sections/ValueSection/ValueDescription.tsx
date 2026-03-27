@@ -1,7 +1,8 @@
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
 import { m, useInView } from 'framer-motion';
-import { FC, ReactNode, useRef } from 'react';
+import type { FC, ReactNode } from 'react';
+import { useRef } from 'react';
 
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 import { textStyles } from '@/styles/typography';

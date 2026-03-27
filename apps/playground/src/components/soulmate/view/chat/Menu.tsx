@@ -1,7 +1,8 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
-import { FC, ReactNode, useState } from 'react';
+import type { FC, ReactNode } from 'react';
+import { useState } from 'react';
 
 import SoulmateIconFlag from '@/components/soulmate/icons/SoulmateIconFlag';
 import SoulmateIconHeart from '@/components/soulmate/icons/SoulmateIconHeart';

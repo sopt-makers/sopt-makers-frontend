@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 import IconPlus from '@/public/icons/icon-plus.svg';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';

@@ -3,7 +3,7 @@ import * as yup from 'yup';
 import { PHONE_REGEX_SHORT } from '@/components/auth/register/verify/regex';
 
 const PHONE_REG_EXP = /^01([0|1|5|6|7|8|9])-([0-9]{3,4})-([0-9]{4})$/;
-const EMAIL_REG_EXP = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+const EMAIL_REG_EXP = /^[a-zA-Z0-9+\-_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
 const YEAR_REG_EXP = /^\d{4}$/;
 const MONTH_REG_EXP = /^0?[1-9]{1}$|^1{1}[0-2]{1}$/;
 const DAY_REG_EXP = /^0?[1-9]{1}$|^[1-2]{1}[0-9]{1}$|^3{1}[0-1]{1}$/;
@@ -64,14 +64,18 @@ export const memberFormSchema = yup.object().shape({
     .of(
       yup.object().shape({
         title: yup.lazy(() =>
-          yup
-            .string()
-            .when('url', { is: (url: string) => url, then: (schema) => schema.required('링크를 선택해주세요.') }),
+          yup.string().when('url', {
+            is: (url: string) => url,
+            then: (schema) => schema.required('링크를 선택해주세요.'),
+          }),
         ),
         url: yup.lazy(() =>
           yup
             .string()
-            .when('title', { is: (title: string) => title, then: (schema) => schema.required('링크를 입력해주세요.') })
+            .when('title', {
+              is: (title: string) => title,
+              then: (schema) => schema.required('링크를 입력해주세요.'),
+            })
             .url('url 형태로 입력해주세요.'),
         ),
       }),

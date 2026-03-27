@@ -1,11 +1,11 @@
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
+import { colors } from '@sopt-makers/colors';
 import { useRouter } from 'next/router';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import ByPhoneView from '@/components/auth/register/verify/view/ByPhoneView';
 import useResetLogin from '@/components/auth/reset/useResetLogin';
-import { playgroundLink } from '@/constants/links';
-import { colors } from '@sopt-makers/colors';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 import { textStyles } from '@/styles/typography';
 

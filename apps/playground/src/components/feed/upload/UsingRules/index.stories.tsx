@@ -1,4 +1,4 @@
-import { Meta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
 import UsingRules from '@/components/feed/upload/UsingRules';
 

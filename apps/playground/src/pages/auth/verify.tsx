@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import Verify from '@/components/auth/register/verify/Verify';
 import { setLayout } from '@/utils/layout';

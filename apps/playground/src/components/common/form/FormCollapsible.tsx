@@ -2,7 +2,8 @@ import styled from '@emotion/styled';
 import * as Collapsible from '@radix-ui/react-collapsible';
 import { colors } from '@sopt-makers/colors';
 import { AnimatePresence, m } from 'framer-motion';
-import { FC, PropsWithChildren, useState } from 'react';
+import type { FC, PropsWithChildren } from 'react';
+import { useState } from 'react';
 
 import Text from '@/components/common/Text';
 import { textStyles } from '@/styles/typography';

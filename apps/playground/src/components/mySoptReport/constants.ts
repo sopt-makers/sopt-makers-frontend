@@ -1,5 +1,5 @@
 import { colors } from '@sopt-makers/colors';
-import { StaticImageData } from 'next/image';
+import type { StaticImageData } from 'next/image';
 
 import gameOff from '@/public/icons/img/mySoptReport/game_off.png';
 import gameOn from '@/public/icons/img/mySoptReport/game_on.png';
@@ -21,8 +21,18 @@ export const menuList: {
   id: 'sopt' | 'playground' | 'my-pg';
 }[] = [
   { title: '솝트', mainColor: 'blue400', textColor: 'white', id: 'sopt' },
-  { title: '플레이그라운드', mainColor: 'orange400', textColor: 'white', id: 'playground' },
-  { title: '마이 플그', mainColor: 'yellow400', textColor: 'black', id: 'my-pg' },
+  {
+    title: '플레이그라운드',
+    mainColor: 'orange400',
+    textColor: 'white',
+    id: 'playground',
+  },
+  {
+    title: '마이 플그',
+    mainColor: 'yellow400',
+    textColor: 'black',
+    id: 'my-pg',
+  },
 ];
 
 export interface CommunityStats {
@@ -61,6 +71,7 @@ interface WordLists {
   wordList: string[];
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any -- flexible object for card config
 export type Value = string | CommunityStats | ProfileStats | CrewStats | WordChainGameStats | { [key: string]: any };
 
 export const getCardConfig = (type: string, value: Value): CardConfig => {

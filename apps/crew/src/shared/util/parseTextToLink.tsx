@@ -9,7 +9,7 @@ export const parseTextToLink = (content: string) => {
     if (urlRegex.test(fragment)) {
       const url = fragment.startsWith('https') ? fragment : `https://${fragment}`;
       return (
-        <a key={index} href={url} target="_blank" rel="noopener noreferrer">
+        <a key={index} href={url} target='_blank' rel='noopener noreferrer'>
           {fragment}
         </a>
       );
@@ -33,7 +33,7 @@ export const parseTextToLink = (content: string) => {
         content.push(
           <a href={host + '/members/' + matches[2]}>
             <p style={{ color: colors.success, display: 'inline' }}>@{matches[1]}</p>
-          </a>
+          </a>,
         );
         lastIndex = regex.lastIndex;
       }

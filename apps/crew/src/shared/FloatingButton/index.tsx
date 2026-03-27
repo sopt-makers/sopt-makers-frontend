@@ -1,16 +1,17 @@
-import { ampli } from '@/ampli';
 import { useUserMeetingListMutation } from '@api/user/mutation';
 import PlusIcon from '@assets/svg/plus.svg';
 import Plus from '@assets/svg/plus.svg?rect';
 import { useDisplay } from '@hook/useDisplay';
 import { useOverlay } from '@hook/useOverlay/Index';
-import KakaoFloatingButton from '@shared/FloatingButton/kakaoFloatingButton/KakaoFloatingButton';
 import FeedCreateWithSelectMeetingModal from '@shared/feed/Modal/FeedCreateWithSelectMeetingModal';
+import KakaoFloatingButton from '@shared/FloatingButton/kakaoFloatingButton/KakaoFloatingButton';
 import FloatingButtonModal from '@shared/modal/FloatingButtonModal';
 import NoJoinedGroupModal from '@shared/modal/NoJoinedGroupModal';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { styled } from 'stitches.config';
+
+import { ampli } from '@/ampli';
 
 function FloatingButton() {
   const [isActive, setIsActive] = useState(false);
@@ -24,13 +25,13 @@ function FloatingButton() {
     if (!isActive) {
       ampli.clickFeedAction();
     }
-    setIsActive(isActive => !isActive);
+    setIsActive((isActive) => !isActive);
   };
 
   useEffect(() => {
     if (modal === 'create-feed') {
       fetchUserAttendMeetingListMutate(undefined, {
-        onSuccess: data => {
+        onSuccess: (data) => {
           setIsActive(false);
           router.push('/', undefined, { shallow: true });
           if (data.length === 0) {
@@ -76,14 +77,14 @@ function FloatingButton() {
 export default FloatingButton;
 
 const Container = styled('div', {
-  maxWidth: '142px',
-  height: '56px',
-  borderRadius: '20px',
-  flexType: 'center',
-  background: '$white',
-  zIndex: '$2',
-  transition: 'all 0.3s ease',
-  variants: {
+  'maxWidth': '142px',
+  'height': '56px',
+  'borderRadius': '20px',
+  'flexType': 'center',
+  'background': '$white',
+  'zIndex': '$2',
+  'transition': 'all 0.3s ease',
+  'variants': {
     isActive: {
       true: {
         background: '$gray500',
@@ -117,13 +118,13 @@ const OptionOpenButton = styled('button', {
 });
 
 const Icon = styled(Plus, {
-  width: '30px',
-  height: '30px',
+  'width': '30px',
+  'height': '30px',
   '& path': {
     strokeWidth: '1.3px',
   },
-  transition: 'all 0.3s ease',
-  variants: {
+  'transition': 'all 0.3s ease',
+  'variants': {
     isActive: {
       true: {
         '& path': {
@@ -139,12 +140,12 @@ const Icon = styled(Plus, {
 });
 
 const SMakeMeetingButton = styled('button', {
-  width: '100%',
-  height: '100%',
-  flexType: 'verticalCenter',
-  padding: '$16 $24 $16 $20',
-  background: '$gray10',
-  borderRadius: '20px',
+  'width': '100%',
+  'height': '100%',
+  'flexType': 'verticalCenter',
+  'padding': '$16 $24 $16 $20',
+  'background': '$gray10',
+  'borderRadius': '20px',
   '&:hover': {
     background: '$gray50',
   },
@@ -162,14 +163,14 @@ const SMakeMeetingButton = styled('button', {
 });
 
 const ButtonWrapper = styled('button', {
-  position: 'fixed',
-  bottom: '5%',
-  right: '5%',
+  'position': 'fixed',
+  'bottom': '5%',
+  'right': '5%',
 
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'flex-end',
-  gap: '$20',
+  'display': 'flex',
+  'flexDirection': 'column',
+  'alignItems': 'flex-end',
+  'gap': '$20',
   '@mobile': {
     gap: '$16',
   },

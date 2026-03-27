@@ -1,10 +1,11 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { colors } from '@sopt-makers/colors';
 import { AnimatePresence, m } from 'framer-motion';
-import { FC, useState } from 'react';
+import type { FC } from 'react';
+import { useState } from 'react';
 
 import { cardStyle } from '@/components/soulmate/view/common/commonStyles';
-import { colors } from '@sopt-makers/colors';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 import { textStyles } from '@/styles/typography';
 

@@ -1,5 +1,5 @@
 import { api } from '@api/index';
-import {
+import type {
   GetMapDetail,
   GetMapEvent,
   GetMapEventGift,

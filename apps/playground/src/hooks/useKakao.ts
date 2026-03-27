@@ -2,8 +2,7 @@ import { useEffect } from 'react';
 
 export default function useKakao() {
   useEffect(() => {
-    if (window.Kakao && window.Kakao.isInitialized()) {
-    } else {
+    if (!(window.Kakao && window.Kakao.isInitialized())) {
       const checkKakao = setInterval(() => {
         if (window.Kakao && window.Kakao.isInitialized()) {
           clearInterval(checkKakao);

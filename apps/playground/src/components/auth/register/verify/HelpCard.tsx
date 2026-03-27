@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import IconArrowRight from '@/public/icons/icon-arrow-right.svg';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
@@ -33,7 +33,9 @@ const StyledHelpCard = styled.a<{ highlight?: boolean }>`
   display: flex;
   flex-direction: column;
   gap: 10px;
-  transition: background-color 0.3s, box-shadow 0.3s;
+  transition:
+    background-color 0.3s,
+    box-shadow 0.3s;
   border-radius: 6px;
   background-color: ${colors.gray700};
   cursor: pointer;

@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import { getCategory } from '@/api/endpoint/feed/getCategory';
 import { useGetCommentQuery } from '@/api/endpoint/feed/getComment';

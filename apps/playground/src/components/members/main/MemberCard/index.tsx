@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import { m } from 'framer-motion';
 import { useRouter } from 'next/router';
-import { playgroundLink } from '@sopt/ui';
-import { FC, SyntheticEvent } from 'react';
+import type { FC, SyntheticEvent } from 'react';
 
 import Responsive from '@/components/common/Responsive';
 import Text from '@/components/common/Text';

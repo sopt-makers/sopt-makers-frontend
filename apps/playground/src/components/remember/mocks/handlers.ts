@@ -1,5 +1,6 @@
-import { API_URL } from '@/constants/env';
 import { http, HttpResponse } from 'msw';
+
+import { API_URL } from '@/constants/env';
 
 export const REVIEW_LIST = [
   { id: 1, content: '솝트해서 좋았다!' },

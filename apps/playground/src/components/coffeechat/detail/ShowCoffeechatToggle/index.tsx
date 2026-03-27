@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 import { Toggle } from '@sopt-makers/ui';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
-import { playgroundLink } from '@sopt/ui';
 
 import { getCoffeechatDetail } from '@/api/endpoint/coffeechat/getCoffeechatDetail';
 import { changeIsBlindCoffeechat } from '@/api/endpoint/coffeechat/postCoffeechatIsBlind';
@@ -36,7 +36,9 @@ export default function ShowCoffeechatToggle({ isBlind, memberId }: ShowCoffeech
         queryClient.refetchQueries({ queryKey: ['getRecentCoffeeChat'] });
         queryClient.refetchQueries({ queryKey: ['getMembersCoffeeChat'] });
         queryClient.invalidateQueries({ queryKey: ['getMemberOfMe'] });
-        queryClient.invalidateQueries({ queryKey: getCoffeechatDetail.cacheKey(memberId) });
+        queryClient.invalidateQueries({
+          queryKey: getCoffeechatDetail.cacheKey(memberId),
+        });
 
         await router.push(playgroundLink.coffeechatDetail(memberId));
       },

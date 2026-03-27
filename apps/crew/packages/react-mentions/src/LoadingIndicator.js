@@ -1,9 +1,9 @@
-import React from 'react'
-import useStyles from 'substyle'
+import React from 'react';
+import useStyles from 'substyle';
 
 function LoadingIndicator({ style, className, classNames }) {
-  const styles = useStyles(defaultstyle, { style, className, classNames })
-  const spinnerStyles = styles('spinner')
+  const styles = useStyles(defaultstyle, { style, className, classNames });
+  const spinnerStyles = styles('spinner');
   return (
     <div {...styles}>
       <div {...spinnerStyles}>
@@ -14,9 +14,9 @@ function LoadingIndicator({ style, className, classNames }) {
         <div {...spinnerStyles(['element', 'element5'])} />
       </div>
     </div>
-  )
+  );
 }
 
-const defaultstyle = {}
+const defaultstyle = {};
 
-export default LoadingIndicator
+export default LoadingIndicator;

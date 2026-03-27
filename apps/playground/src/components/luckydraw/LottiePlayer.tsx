@@ -10,7 +10,7 @@ interface Props {
 }
 
 const LottiePlayer = ({ src, keyId, style, onComplete }: Props) => {
-  const playerRef = useRef<any>(null);
+  const playerRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     import('@dotlottie/player-component').then(() => {
@@ -28,7 +28,9 @@ const LottiePlayer = ({ src, keyId, style, onComplete }: Props) => {
     });
   }, [onComplete]);
 
-  return <dotlottie-player key={keyId} ref={playerRef} src={src} autoplay style={style} />;
+  return (
+    <dotlottie-player key={keyId} ref={playerRef as React.RefObject<HTMLElement>} src={src} autoplay style={style} />
+  );
 };
 
 export default LottiePlayer;

@@ -1,10 +1,10 @@
-import { playgroundLink } from '@sopt/ui';
+import { playgroundLink } from '@sopt/constant';
 
-import { SoptActivity } from '@/api/endpoint_LEGACY/members/type';
+import type { SoptActivity } from '@/api/endpoint_LEGACY/members/type';
 import { isProjectCategory } from '@/api/endpoint_LEGACY/projects/type';
 import MemberDetailSection from '@/components/members/detail/ActivitySection/MemberDetailSection';
 import PartItem from '@/components/members/detail/PartItem';
-import { Category } from '@/components/projects/types';
+import type { Category } from '@/components/projects/types';
 
 interface SoptActivitySectionProps {
   soptActivities: SoptActivity[];
@@ -48,8 +48,9 @@ function convertProjectType(typeCode: Category) {
       return '솝텀 프로젝트';
     case 'STUDY':
       return '스터디';
-    default:
+    default: {
       const exhaustiveCheck: never = typeCode;
       throw new Error(`project category ${exhaustiveCheck} type error`);
+    }
   }
 }

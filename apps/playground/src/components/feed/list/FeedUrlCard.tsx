@@ -44,7 +44,10 @@ const FeedUrlCard = ({
 
 export default FeedUrlCard;
 
-const FeedUrlCardBox = styled.div<{ isDetailFeedCard?: boolean; isFull?: boolean }>`
+const FeedUrlCardBox = styled.div<{
+  isDetailFeedCard?: boolean;
+  isFull?: boolean;
+}>`
   display: flex;
   gap: 16px;
   transition: background-color 0.2s ease;

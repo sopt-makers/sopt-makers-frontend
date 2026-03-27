@@ -1,4 +1,4 @@
-import { GetMeetingList, GetMeetingMemberList } from '@api/meeting/type';
+import type { GetMeetingList, GetMeetingMemberList } from '@api/meeting/type';
 
 const MeetingQueryKey = {
   all: () => ['meeting'] as const,

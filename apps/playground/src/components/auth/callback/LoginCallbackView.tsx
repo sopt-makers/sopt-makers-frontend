@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
 import Link from 'next/link';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import Loading from '@/components/common/Loading';
-import { playgroundLink } from '@/constants/links';
 
 interface LoginCallbackViewProps {
   mode:

@@ -1,7 +1,8 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
-import { forwardRef, SelectHTMLAttributes } from 'react';
+import type { SelectHTMLAttributes } from 'react';
+import { forwardRef } from 'react';
 
 import { textStyles } from '@/styles/typography';
 

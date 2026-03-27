@@ -1,9 +1,10 @@
-import { ImpressionArea, ImpressionAreaProps } from '@toss/impression-area';
-import { PropsWithChildren, ReactNode } from 'react';
+import type { ImpressionAreaProps } from '@toss/impression-area';
+import { ImpressionArea } from '@toss/impression-area';
+import type { PropsWithChildren, ReactNode } from 'react';
 
-import { ImpressionEvents } from '@/components/eventLogger/events';
+import type { ImpressionEvents } from '@/components/eventLogger/events';
 import useEventLogger from '@/components/eventLogger/hooks/useEventLogger';
-import { ParamTuple } from '@/components/eventLogger/types';
+import type { ParamTuple } from '@/components/eventLogger/types';
 
 type LoggingImpressionProps<Key extends keyof ImpressionEvents> = {
   eventKey: Key;

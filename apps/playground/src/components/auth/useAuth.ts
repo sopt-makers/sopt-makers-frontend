@@ -1,10 +1,10 @@
+import { playgroundLink } from '@sopt/constant';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useRecoilValue, useResetRecoilState } from 'recoil';
 
 import { accessTokenAtom } from '@/components/auth/states/accessTokenAtom';
 import { IS_DEV } from '@/constants/env';
-import { playgroundLink } from '@/constants/links';
 
 const useAuth = () => {
   const router = useRouter();

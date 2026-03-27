@@ -1,6 +1,7 @@
+import ArrowBigLeftIcon from '@assets/svg/arrow_big_left.svg';
 import React from 'react';
 import { styled } from 'stitches.config';
-import ArrowBigLeftIcon from '@assets/svg/arrow_big_left.svg';
+
 import { ampli } from '@/ampli';
 
 interface NextArrowProps {
@@ -16,7 +17,7 @@ const NextArrow = ({ className, onClick, total }: NextArrowProps) => {
   };
 
   return (
-    <SButton className={className} onClick={e => handleClick(e)}>
+    <SButton className={className} onClick={(e) => handleClick(e)}>
       <ArrowBigLeftIcon />
     </SButton>
   );
@@ -25,9 +26,9 @@ const NextArrow = ({ className, onClick, total }: NextArrowProps) => {
 export default NextArrow;
 
 const SButton = styled('button', {
-  width: '$72',
-  height: '$72',
-  cursor: 'pointer',
+  'width': '$72',
+  'height': '$72',
+  'cursor': 'pointer',
 
   '@mobile': {
     display: 'none',

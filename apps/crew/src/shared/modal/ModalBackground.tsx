@@ -1,4 +1,4 @@
-import { ComponentProps } from 'react';
+import type { ComponentProps } from 'react';
 import { styled } from 'stitches.config';
 
 type ModalBackgroundProps = ComponentProps<typeof SModalBackground>;

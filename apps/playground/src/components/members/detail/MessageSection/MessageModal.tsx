@@ -1,9 +1,10 @@
 import styled from '@emotion/styled';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { colors } from '@sopt-makers/colors';
-import IconPlane from '@/public/icons/icon_plane.svg';
+import { fonts } from '@sopt-makers/fonts';
 import { Button, DialogContext, TextArea, TextField } from '@sopt-makers/ui';
-import { ComponentType, FC, SVGProps, useContext, useState } from 'react';
+import type { ComponentType, FC, SVGProps } from 'react';
+import { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
@@ -12,14 +13,15 @@ import RHFControllerFormItem from '@/components/common/form/RHFControllerFormIte
 import Loading from '@/components/common/Loading';
 import useCustomConfirm from '@/components/common/Modal/useCustomConfirm';
 import Text from '@/components/common/Text';
-import Modal, { ModalProps } from '@/components/members/detail/MessageSection/Modal';
+import type { ModalProps } from '@/components/members/detail/MessageSection/Modal';
+import Modal from '@/components/members/detail/MessageSection/Modal';
+import IconPlane from '@/public/icons/icon_plane.svg';
+import IconAppjam from '@/public/icons/icon-appjam-build.svg';
+import IconNetwork from '@/public/icons/icon-network.svg';
+import IconEtc from '@/public/icons/icon-postnote-etc.svg';
+import IconProject from '@/public/icons/icon-project-suggest.svg';
 import { MB_BIG_MEDIA_QUERY } from '@/styles/mediaQuery';
 import { zIndex } from '@/styles/zIndex';
-import IconNetwork from '@/public/icons/icon-network.svg';
-import IconAppjam from '@/public/icons/icon-appjam-build.svg';
-import IconProject from '@/public/icons/icon-project-suggest.svg';
-import IconEtc from '@/public/icons/icon-postnote-etc.svg';
-import { fonts } from '@sopt-makers/fonts';
 
 export enum MessageCategory {
   NETWORK = '친목',
@@ -111,38 +113,34 @@ const MessageModal: FC<MessageModalProps> = ({
       zIndex: zIndex.헤더 + 102,
       width: 400,
     });
-    try {
-      if (!selectedCategory) {
-        return;
-      }
-      if (result) {
-        await mutateAsync({
-          senderPhone: phone,
-          content,
-          category: selectedCategory,
-          receiverId,
-        });
+    if (!selectedCategory) {
+      return;
+    }
+    if (result) {
+      await mutateAsync({
+        senderPhone: phone,
+        content,
+        category: selectedCategory,
+        receiverId,
+      });
 
-        onLog?.({ category: selectedCategory });
+      onLog?.({ category: selectedCategory });
 
-        openDialog({
-          title: '쪽지 전송이 완료됐어요.',
-          description: (
-            <>
-              쪽지는 {name}님의 문자로 안전히 전달되었어요.
-              <br />
-              좋은 대화로 이어지길 기대할게요.
-            </>
-          ),
-          type: 'single',
-          typeOptions: {
-            approveButtonText: '완료',
-            buttonFunction: closeDialog,
-          },
-        });
-      }
-    } catch (error) {
-      throw error;
+      openDialog({
+        title: '쪽지 전송이 완료됐어요.',
+        description: (
+          <>
+            쪽지는 {name}님의 문자로 안전히 전달되었어요.
+            <br />
+            좋은 대화로 이어지길 기대할게요.
+          </>
+        ),
+        type: 'single',
+        typeOptions: {
+          approveButtonText: '완료',
+          buttonFunction: closeDialog,
+        },
+      });
     }
   };
 

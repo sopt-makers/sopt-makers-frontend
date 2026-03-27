@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { Meta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
 import { BottomSheet } from '@/components/common/BottomSheet';
 import Button from '@/components/common/Button';
@@ -9,7 +9,7 @@ import SquareLink from '@/components/common/SquareLink';
 import useCategory from '@/components/feed/common/hooks/useCategory';
 import { categories } from '@/components/feed/upload/Category/constants';
 import TagSelector from '@/components/feed/upload/Category/TagSelector';
-import { BasicCategory } from '@/components/feed/upload/Category/types';
+import type { BasicCategory } from '@/components/feed/upload/Category/types';
 import CheckIcon from '@/public/icons/icon_check.svg';
 import BackArrow from '@/public/icons/icon_chevron_left.svg';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';

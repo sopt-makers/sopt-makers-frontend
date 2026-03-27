@@ -1,7 +1,7 @@
-import isPlainObject from './isPlainObject'
+import isPlainObject from './isPlainObject';
 
 describe('isPlainObject', () => {
-  ;[
+  [
     { input: {}, expected: true },
     { input: { a: 1 }, expected: true },
     { input: new Object(), expected: true }, // eslint-disable-line no-new-object
@@ -10,9 +10,9 @@ describe('isPlainObject', () => {
     { input: 2, expected: false },
     { input: 'Name', expected: false },
     { input: new Date(), expected: false },
-  ].forEach(x => {
+  ].forEach((x) => {
     it('should check if input is object', () => {
-      expect(isPlainObject(x.input)).toBe(x.expected)
-    })
-  })
-})
+      expect(isPlainObject(x.input)).toBe(x.expected);
+    });
+  });
+});

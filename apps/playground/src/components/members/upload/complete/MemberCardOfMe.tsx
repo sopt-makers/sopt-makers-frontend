@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
 import { IconUser } from '@sopt-makers/icons';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import ResizedImage from '@/components/common/ResizedImage';
 import Text from '@/components/common/Text';
@@ -27,7 +27,14 @@ const MemberCardOfMe: FC<MemberCardOfMeProps> = ({ name, belongs, badges, intro,
           {imageUrl ? (
             <Image className='image' src={imageUrl} width={180} alt='member_image' />
           ) : (
-            <IconUser style={{ width: 115, height: 115, color: `${colors.gray400}`, paddingTop: '10px' }} />
+            <IconUser
+              style={{
+                width: 115,
+                height: 115,
+                color: `${colors.gray400}`,
+                paddingTop: '10px',
+              }}
+            />
           )}
         </ImageHolder>
       </StyledImageArea>

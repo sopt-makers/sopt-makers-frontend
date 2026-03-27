@@ -1,12 +1,14 @@
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import { IconAlertTriangle, IconShare, IconTrash, IconWrite } from '@sopt-makers/icons';
 import { useQuery } from '@tanstack/react-query';
 import { Flex } from '@toss/emotion-utils';
 import Link from 'next/link';
-import { playgroundLink } from '@sopt/ui';
-import { FC, ReactNode, useRef } from 'react';
-import { Virtuoso, VirtuosoHandle } from 'react-virtuoso';
+import type { FC, ReactNode } from 'react';
+import { useRef } from 'react';
+import type { VirtuosoHandle } from 'react-virtuoso';
+import { Virtuoso } from 'react-virtuoso';
 import { atom, useRecoilState } from 'recoil';
 
 import { getCategory } from '@/api/endpoint/feed/getCategory';
@@ -89,7 +91,10 @@ const FeedListItems: FC<FeedListItemsProps> = ({ categoryId, renderFeedDetailLin
         data={flattenData}
         ref={virtuoso}
         rangeChanged={({ startIndex, endIndex }) => {
-          setMap((map) => ({ ...map, [categoryId ?? '']: (startIndex + endIndex) / 2 }));
+          setMap((map) => ({
+            ...map,
+            [categoryId ?? '']: (startIndex + endIndex) / 2,
+          }));
         }}
         useWindowScroll
         endReached={() => {
@@ -141,7 +146,11 @@ const FeedListItems: FC<FeedListItemsProps> = ({ categoryId, renderFeedDetailLin
                               categoryId: post.categoryId,
                               categoryName: post.categoryName,
                               member: {
-                                activity: post.member?.activity ?? { generation: 0, part: '', team: null },
+                                activity: post.member?.activity ?? {
+                                  generation: 0,
+                                  part: '',
+                                  team: null,
+                                },
                                 careers: post.member?.careers ?? null,
                               },
                             })}

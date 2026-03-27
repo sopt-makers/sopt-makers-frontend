@@ -12,8 +12,8 @@ import TeamLeaderCard from '@/components/members/main/TeamLeaderCard';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 import { setLayout } from '@/utils/layout';
 type SelectedPart = 'APP' | 'WEB';
-import { useGetTLMember } from '@/api/endpoint/members/getTeamLeaderMember';
 import { useGetMemberOfMe } from '@/api/endpoint/members/getMemberOfMe';
+import { useGetTLMember } from '@/api/endpoint/members/getTeamLeaderMember';
 const cardComponentWidth = 316;
 
 const TeamLeadersPage = () => {

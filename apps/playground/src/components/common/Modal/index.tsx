@@ -4,7 +4,7 @@ import * as Dialog from '@radix-ui/react-dialog';
 import { colors } from '@sopt-makers/colors';
 import { m } from 'framer-motion';
 import dynamic from 'next/dynamic';
-import { FC, HTMLAttributes, PropsWithChildren, ReactNode } from 'react';
+import type { FC, HTMLAttributes, PropsWithChildren, ReactNode } from 'react';
 
 import { ModalButton, ModalContent, ModalDescription, ModalFooter, ModalTitle } from '@/components/common/Modal/parts';
 import IconModalClose from '@/public/icons/icon-modal-close.svg';
@@ -26,6 +26,11 @@ export interface ModalProps extends PropsWithChildren<HTMLAttributes<HTMLDivElem
 const ModalComponent: FC<ModalProps> = (props) => {
   const { children, hideCloseButton, isOpen, onClose, onOpenAutoFocus, ...restProps } = props;
 
+  const handleClose = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    onClose();
+  };
+
   if (!isOpen) {
     return null;
   }
@@ -39,7 +44,7 @@ const ModalComponent: FC<ModalProps> = (props) => {
               <m.div initial={{ scale: 0.9 }} animate={{ scale: 1 }} transition={{ duration: 0.2 }}>
                 {children}
                 {!hideCloseButton && (
-                  <StyledCloseButton>
+                  <StyledCloseButton type='button' onClick={handleClose}>
                     <StyledIconClose />
                   </StyledCloseButton>
                 )}

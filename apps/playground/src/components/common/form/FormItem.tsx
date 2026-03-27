@@ -1,7 +1,8 @@
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
 import { IconAlertCircle } from '@sopt-makers/icons';
-import React, { FC, HTMLAttributes, PropsWithChildren } from 'react';
+import type { FC, HTMLAttributes, PropsWithChildren } from 'react';
+import React from 'react';
 
 import Text from '@/components/common/Text';
 import { textStyles } from '@/styles/typography';

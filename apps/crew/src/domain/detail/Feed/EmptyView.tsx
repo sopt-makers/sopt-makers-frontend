@@ -39,22 +39,22 @@ const EmptyView = ({ isMember }: EmptyViewProps) => {
 export default EmptyView;
 
 const SContent = styled('div', {
-  flexType: 'center',
-  flexDirection: 'column',
-  color: '$gray200',
-  fontStyle: 'T1',
+  'flexType': 'center',
+  'flexDirection': 'column',
+  'color': '$gray200',
+  'fontStyle': 'T1',
 
   '@media (max-width: 768px)': {
     fontStyle: 'H4',
   },
 
-  button: {
-    background: '$gray600',
-    color: '$white',
-    mt: '$48',
-    padding: '16px 35.5px',
-    borderRadius: '14px',
-    fontStyle: 'H2',
+  'button': {
+    'background': '$gray600',
+    'color': '$white',
+    'mt': '$48',
+    'padding': '16px 35.5px',
+    'borderRadius': '14px',
+    'fontStyle': 'H2',
 
     '@media (max-width: 768px)': {
       mt: '$32',
@@ -66,7 +66,7 @@ const SContent = styled('div', {
 });
 
 const SEmoji = styled('p', {
-  mb: '$20',
+  'mb': '$20',
 
   '@media (max-width: 768px)': {
     mb: '$12',

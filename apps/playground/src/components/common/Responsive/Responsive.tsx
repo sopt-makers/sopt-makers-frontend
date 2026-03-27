@@ -1,5 +1,6 @@
 import { Slot } from '@radix-ui/react-slot';
-import { FC, ReactNode, startTransition, useContext, useEffect, useState } from 'react';
+import type { FC, ReactNode } from 'react';
+import { startTransition, useContext, useEffect, useState } from 'react';
 
 import { ResponsiveContext } from '@/components/common/Responsive/context';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';

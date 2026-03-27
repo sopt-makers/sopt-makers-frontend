@@ -1,13 +1,13 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import ProfileButton from '@/components/common/Header/desktop/ProfileButton';
 import ProfileDropdown from '@/components/common/Header/desktop/ProfileDropdown';
 import { SOPT_MAKRES_LOGO_SVG } from '@/components/common/Header/imageData';
-import { LinkRenderer, PathMatcher } from '@/components/common/Header/types';
-import { playgroundLink } from '@/constants/links';
+import type { LinkRenderer, PathMatcher } from '@/components/common/Header/types';
 import { textStyles } from '@/styles/typography';
 
 interface DesktopHeaderProps {

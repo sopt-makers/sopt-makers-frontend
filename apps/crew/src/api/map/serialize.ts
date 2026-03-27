@@ -1,5 +1,6 @@
-import { FormType } from '@domain/map/Form/type';
-import { PostSoptMap } from './type';
+import type { FormType } from '@domain/map/Form/type';
+
+import type { PostSoptMap } from './type';
 
 const TAG_MAP: Record<string, PostSoptMap['request']['tags'][number]> = {
   카페: 'CAFE',
@@ -9,7 +10,7 @@ const TAG_MAP: Record<string, PostSoptMap['request']['tags'][number]> = {
 
 export const serializeSoptMapData = (formData: FormType): PostSoptMap['request'] => {
   const stationNames = (formData.subwayStations ?? [])
-    .map(station => station?.name?.trim())
+    .map((station) => station?.name?.trim())
     .filter((name): name is string => Boolean(name));
 
   const tagValue = TAG_MAP[formData.category?.value];

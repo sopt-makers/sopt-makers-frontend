@@ -1,9 +1,11 @@
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 import ArrowDiagonalIcon from 'public/icons/icon-diagonal-arrow.svg';
-import { ReactNode, startTransition, useEffect, useState } from 'react';
+import type { ReactNode } from 'react';
+import { startTransition, useEffect, useState } from 'react';
 
 import { getMemberProfileById } from '@/api/endpoint_LEGACY/members';
 import Carousel from '@/components/common/Carousel';
@@ -11,7 +13,7 @@ import Responsive from '@/components/common/Responsive';
 import useEventLogger from '@/components/eventLogger/hooks/useEventLogger';
 import { mentoringProvider } from '@/components/mentoring/data';
 import MentoringCard from '@/components/mentoring/MentoringCard';
-import { MENTOR_APPLICATION_URL, playgroundLink } from '@/constants/links';
+import { MENTOR_APPLICATION_URL } from '@/constants/links';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 import { textStyles } from '@/styles/typography';
 import { getScreenMaxWidthMediaQuery } from '@/utils';

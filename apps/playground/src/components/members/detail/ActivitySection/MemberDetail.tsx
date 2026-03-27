@@ -3,7 +3,8 @@ import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 import { Tag } from '@sopt-makers/ui';
 import { useRouter } from 'next/router';
-import { FC, useMemo } from 'react';
+import type { FC } from 'react';
+import { useMemo } from 'react';
 
 import { useGetMemberOfMe } from '@/api/endpoint/members/getMemberOfMe';
 import { useGetUnansweredQuestionCount } from '@/api/endpoint/members/getUnansweredQuestionCount';

@@ -1,5 +1,6 @@
 import { fontsObject } from '@sopt-makers/fonts';
-import { DialogOptionType, useDialog } from '@sopt-makers/ui';
+import type { DialogOptionType } from '@sopt-makers/ui';
+import { useDialog } from '@sopt-makers/ui';
 import { useRouter } from 'next/router';
 import { styled } from 'stitches.config';
 
@@ -33,12 +34,12 @@ const SubmitPresentationButton = ({ cancelButtonLabel, submitButtonLabel, disabl
   return (
     <ButtonContainer>
       {cancelButtonLabel && (
-        <Button type="button" onClick={() => router.back()}>
+        <Button type='button' onClick={() => router.back()}>
           {cancelButtonLabel}
         </Button>
       )}
       <SubmitButton
-        type="button"
+        type='button'
         onClick={() => {
           open(dialogOption);
         }}
@@ -53,7 +54,7 @@ const SubmitPresentationButton = ({ cancelButtonLabel, submitButtonLabel, disabl
 export default SubmitPresentationButton;
 
 const ButtonContainer = styled('div', {
-  display: 'none',
+  'display': 'none',
 
   '@media (max-width: 1024px)': {
     display: 'flex',
@@ -90,8 +91,8 @@ const Button = styled('button', {
 });
 
 const SubmitButton = styled(Button, {
-  background: '$gray10',
-  color: '$gray950',
+  'background': '$gray10',
+  'color': '$gray950',
   '&:disabled': {
     cursor: 'not-allowed',
     opacity: 0.35,

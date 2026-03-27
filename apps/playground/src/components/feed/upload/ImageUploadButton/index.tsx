@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
-import { Ref } from 'react';
+import type { Ref } from 'react';
 
 import { textStyles } from '@/styles/typography';
 

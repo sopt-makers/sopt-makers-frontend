@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import { useRouter } from 'next/router';
-import { playgroundLink } from '@sopt/ui';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import { ModalBottomSheet } from '@/components/common/BottomSheet/ModalBottomSheet';
 import Modal from '@/components/common/Modal';

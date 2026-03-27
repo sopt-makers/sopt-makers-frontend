@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
-import { IntersectionObserverProps, useInView } from 'react-intersection-observer';
+import type { IntersectionObserverProps } from 'react-intersection-observer';
+import { useInView } from 'react-intersection-observer';
 
 interface UseInfiniteScrollProps extends Omit<IntersectionObserverProps, 'children'> {
   hasNextPage: boolean | undefined;

@@ -1,18 +1,19 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import { useRouter } from 'next/router';
-import { playgroundLink } from '@sopt/ui';
 import { useState } from 'react';
+
 import { ModalBottomSheet } from '@/components/common/BottomSheet/ModalBottomSheet';
 import Modal from '@/components/common/Modal';
 import Responsive from '@/components/common/Responsive';
-import { zIndex } from '@/styles/zIndex';
-import { MB_BIG_MEDIA_QUERY } from '@/styles/mediaQuery';
-import bgImg from '@/public/icons/img/popup/member_match_bg.png';
-import { MatchContent } from '@/components/matchmember/MatchContent';
-import { BalanceGameValue, ChoiceSide, QuestionKey } from '@/components/matchmember/constant';
 import { LoggingImpression } from '@/components/eventLogger/components/LoggingImpression';
+import type { BalanceGameValue, ChoiceSide, QuestionKey } from '@/components/matchmember/constant';
+import { MatchContent } from '@/components/matchmember/MatchContent';
+import bgImg from '@/public/icons/img/popup/member_match_bg.png';
+import { MB_BIG_MEDIA_QUERY } from '@/styles/mediaQuery';
+import { zIndex } from '@/styles/zIndex';
 
 interface MatchMemberModalProps {
   onClose: () => void;

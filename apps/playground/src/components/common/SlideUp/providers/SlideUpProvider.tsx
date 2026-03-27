@@ -1,10 +1,11 @@
 import styled from '@emotion/styled';
-import { FC, ReactNode, useMemo, useState } from 'react';
+import type { FC, ReactNode } from 'react';
+import { useMemo, useState } from 'react';
 
 import Portal from '@/components/common/Portal';
 import { SlideUpContext } from '@/components/common/SlideUp/context';
 import SlideUpEntry from '@/components/common/SlideUp/SlideUpEntry';
-import { SlideUpController, SlideUpEntryData, SlideUpOption } from '@/components/common/SlideUp/types';
+import type { SlideUpController, SlideUpEntryData, SlideUpOption } from '@/components/common/SlideUp/types';
 import useAtomicTimeout from '@/components/common/Toast/useAtomicTimeout';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 import { zIndex } from '@/styles/zIndex';

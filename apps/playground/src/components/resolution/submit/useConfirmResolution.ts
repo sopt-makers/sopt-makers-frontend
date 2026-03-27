@@ -1,6 +1,7 @@
 import { useCallback } from 'react';
 
-import { ResolutionRequestBody, usePostResolutionMutation } from '@/api/endpoint/resolution/postResolution';
+import type { ResolutionRequestBody } from '@/api/endpoint/resolution/postResolution';
+import { usePostResolutionMutation } from '@/api/endpoint/resolution/postResolution';
 import useEventLogger from '@/components/eventLogger/hooks/useEventLogger';
 
 interface Options extends ResolutionRequestBody {

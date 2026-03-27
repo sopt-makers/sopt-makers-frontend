@@ -1,14 +1,16 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
-import { FC, ReactNode, useEffect, useRef, useState } from 'react';
+import type { FC, ReactNode } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import ErrorMessage from '@/components/common/Input/ErrorMessage';
 import useImageUploader from '@/hooks/useImageUploader';
 import IconCancel from '@/public/icons/icon-cancel.svg';
 import IconPencil from '@/public/icons/icon-pencil.svg';
 import { textStyles } from '@/styles/typography';
-import { buildCSSWithLength, CSSValueWithLength } from '@/utils';
+import type { CSSValueWithLength } from '@/utils';
+import { buildCSSWithLength } from '@/utils';
 
 interface ImageUploaderProps {
   src?: string;
@@ -41,7 +43,9 @@ const ListImageUploader: FC<ImageUploaderProps> = ({
     setPreviewImage(s3Url[0]);
     onChange?.(s3Url[0]);
   };
-  const { imageInputRef, handleClickImageInput } = useImageUploader({ onSuccess: handleChangeImageInput });
+  const { imageInputRef, handleClickImageInput } = useImageUploader({
+    onSuccess: handleChangeImageInput,
+  });
 
   const previewImageSrc = value || previewImage || src;
 

@@ -3,7 +3,8 @@ import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 import { IconCheck, IconChevronDown } from '@sopt-makers/icons';
 import { Button } from '@sopt-makers/ui';
-import { ReactNode, useEffect, useState } from 'react';
+import type { ReactNode } from 'react';
+import { useEffect, useState } from 'react';
 
 import Portal from '@/components/common/Portal';
 import { zIndex } from '@/styles/zIndex';

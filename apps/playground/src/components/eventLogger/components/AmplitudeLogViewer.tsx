@@ -5,8 +5,8 @@ interface LogEntry {
   id: string;
   type: 'clickEvent' | 'submitEvent' | 'pageViewEvent' | 'impressionEvent' | 'userProperties';
   key?: string;
-  params?: any[];
-  properties?: any;
+  params?: unknown[];
+  properties?: Record<string, unknown>;
   timestamp: Date;
 }
 
@@ -28,7 +28,7 @@ const AmplitudeLogViewer = ({ isDev = false }: AmplitudeLogViewerProps) => {
     }
 
     // console.log 오버라이드
-    console.log = (...args: any[]) => {
+    console.log = (...args: unknown[]) => {
       originalConsole.current?.(...args);
 
       // EventLogger 로그만 캡처
@@ -42,9 +42,9 @@ const AmplitudeLogViewer = ({ isDev = false }: AmplitudeLogViewerProps) => {
           };
 
           if (logType === 'userProperties') {
-            newLog.properties = args[1];
+            newLog.properties = args[1] as Record<string, unknown>;
           } else {
-            newLog.key = args[1];
+            newLog.key = args[1] as string;
             newLog.params = args.slice(2);
           }
 

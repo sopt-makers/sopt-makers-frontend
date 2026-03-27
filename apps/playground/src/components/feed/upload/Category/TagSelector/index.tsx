@@ -3,13 +3,13 @@ import styled from '@emotion/styled';
 import { BottomSheet } from '@/components/common/BottomSheet';
 import Responsive from '@/components/common/Responsive';
 import useCategory from '@/components/feed/common/hooks/useCategory';
+import { PART_CATEGORY_ID } from '@/components/feed/constants';
 import { DropDown } from '@/components/feed/upload/Category/DropDown';
 import TagSelectOptions from '@/components/feed/upload/Category/TagSelector/TagSelectOptions';
-import { FeedDataType } from '@/components/feed/upload/types';
+import type { FeedDataType } from '@/components/feed/upload/types';
 import BackArrow from '@/public/icons/icon_chevron_left.svg';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 import { textStyles } from '@/styles/typography';
-import { PART_CATEGORY_ID } from '@/components/feed/constants';
 
 interface TagSelectorProps {
   isOpen?: boolean;

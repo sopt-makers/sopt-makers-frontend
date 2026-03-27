@@ -1,4 +1,4 @@
-import { Meta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 import { Controller, useForm } from 'react-hook-form';
 
 import ImageUploader from '.';

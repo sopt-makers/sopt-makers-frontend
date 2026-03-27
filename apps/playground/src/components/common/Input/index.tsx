@@ -1,7 +1,8 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
-import { ChangeEvent, FocusEvent, forwardRef } from 'react';
+import type { ChangeEvent, FocusEvent } from 'react';
+import { forwardRef } from 'react';
 
 import ErrorMessage from '@/components/common/Input/ErrorMessage';
 import Text from '@/components/common/Text';

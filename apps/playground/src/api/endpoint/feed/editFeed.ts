@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 import { createEndpoint } from '@/api/typedAxios';
-import { EditFeedDataType } from '@/components/feed/upload/types';
+import type { EditFeedDataType } from '@/components/feed/upload/types';
 
 export const editFeed = createEndpoint({
   request: (requestBody: EditFeedDataType) => ({

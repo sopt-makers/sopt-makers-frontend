@@ -1,14 +1,15 @@
-import { FC, useEffect, useMemo, useState } from 'react';
+import { useDialog } from '@sopt-makers/ui';
 import { useRouter } from 'next/router';
+import type { FC } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
+import { usePutMemberQuestion } from '@/api/endpoint/members/putMemberQuestion';
 import AuthRequired from '@/components/auth/AuthRequired';
 import AskFormPage from '@/components/members/ask/AskFormPage';
 import useStringRouterQuery from '@/hooks/useStringRouterQuery';
 import { setLayout } from '@/utils/layout';
-import { usePutMemberQuestion } from '@/api/endpoint/members/putMemberQuestion';
-import { useDialog } from '@sopt-makers/ui';
 
-type AskDraft = { content: string; isAnonymous: boolean, receiverId: number };
+type AskDraft = { content: string; isAnonymous: boolean; receiverId: number };
 
 const AskEditPage: FC = () => {
   const router = useRouter();
@@ -44,7 +45,6 @@ const AskEditPage: FC = () => {
     } catch {
       // ignore
     }
-
   }, [status, storageKey]);
 
   useEffect(() => {
@@ -73,7 +73,11 @@ const AskEditPage: FC = () => {
         approveButtonText: '수정하기',
         buttonFunction: async () => {
           try {
-            await putQuestion({ questionId: questionIdNum, content, isAnonymous });
+            await putQuestion({
+              questionId: questionIdNum,
+              content,
+              isAnonymous,
+            });
 
             sessionStorage.removeItem(storageKey);
 

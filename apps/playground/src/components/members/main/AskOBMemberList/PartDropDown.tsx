@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { colors } from '@sopt-makers/colors';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 import { PART_OPTIONS } from '@/components/members/main/AskOBMemberList';
 interface PartDropdownProps {

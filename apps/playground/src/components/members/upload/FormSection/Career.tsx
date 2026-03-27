@@ -3,8 +3,9 @@ import { colors } from '@sopt-makers/colors';
 import { TextField } from '@sopt-makers/ui';
 import { TextArea } from '@sopt-makers/ui';
 import dayjs from 'dayjs';
-import { FormEvent, ReactNode } from 'react';
-import { Controller, FieldError, useFieldArray, useFormContext, useWatch } from 'react-hook-form';
+import type { FormEvent, ReactNode } from 'react';
+import type { FieldError } from 'react-hook-form';
+import { Controller, useFieldArray, useFormContext, useWatch } from 'react-hook-form';
 
 import BottomSheetSelect from '@/components/coffeechat/upload/CoffeechatForm/BottomSheetSelect';
 import EditableSelect from '@/components/common/EditableSelect';
@@ -20,7 +21,7 @@ import MemberFormItem from '@/components/members/upload/forms/FormItem';
 import { MemberFormSection as FormSection } from '@/components/members/upload/forms/FormSection';
 import Select from '@/components/members/upload/forms/Select';
 import MemberSelectOptions from '@/components/members/upload/forms/SelectOptions';
-import { MemberUploadForm } from '@/components/members/upload/types';
+import type { MemberUploadForm } from '@/components/members/upload/types';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 import { textStyles } from '@/styles/typography';
 
@@ -68,9 +69,9 @@ export default function CareerFormSection({ header }: CareerFormSectionProps) {
       | undefined,
   ) => {
     if (!careerError) return;
-    if (careerError.hasOwnProperty('title')) return careerError.title?.message;
-    if (careerError.hasOwnProperty('companyName')) return careerError.companyName?.message;
-    if (careerError.hasOwnProperty('startDate')) return careerError.startDate?.message;
+    if (Object.prototype.hasOwnProperty.call(careerError, 'title')) return careerError.title?.message;
+    if (Object.prototype.hasOwnProperty.call(careerError, 'companyName')) return careerError.companyName?.message;
+    if (Object.prototype.hasOwnProperty.call(careerError, 'startDate')) return careerError.startDate?.message;
     return careerError.endDate?.message;
   };
 
@@ -85,7 +86,7 @@ export default function CareerFormSection({ header }: CareerFormSectionProps) {
       | undefined,
   ) => {
     if (!linksError) return;
-    if (linksError.hasOwnProperty('title')) return linksError.title?.message;
+    if (Object.prototype.hasOwnProperty.call(linksError, 'title')) return linksError.title?.message;
     return linksError.url?.message;
   };
 
@@ -220,7 +221,7 @@ export default function CareerFormSection({ header }: CareerFormSectionProps) {
                   />
                   <StyledTextField
                     {...register(`links.${index}.url`)}
-                    isError={errors?.links?.[index]?.hasOwnProperty('url')}
+                    isError={Object.prototype.hasOwnProperty.call(errors?.links?.[index] ?? {}, 'url')}
                     placeholder='https://'
                     className='link'
                   />

@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 import { Skeleton, useToast } from '@sopt-makers/ui';
@@ -11,7 +12,6 @@ import { useGetRecommendations } from '@/api/endpoint/members/getRecommendations
 import ResizedImage from '@/components/common/ResizedImage';
 import Text from '@/components/common/Text';
 import useEventLogger from '@/components/eventLogger/hooks/useEventLogger';
-import { playgroundLink } from '@/constants/links';
 import NonIcon from '@/public/icons/img/popup/member_match_search.svg';
 
 export const MemberCard = () => {
@@ -25,13 +25,21 @@ export const MemberCard = () => {
 
   useEffect(() => {
     if (member) {
-      logImpressionEvent('memberCard', { id: member.id, name: member.name, screen: 'recommended' });
+      logImpressionEvent('memberCard', {
+        id: member.id,
+        name: member.name,
+        screen: 'recommended',
+      });
     }
   }, [member, logImpressionEvent]);
 
   const handleClickCard = () => {
     if (member) {
-      logClickEvent('memberCard', { id: member.id, name: member.name, screen: 'recommended' });
+      logClickEvent('memberCard', {
+        id: member.id,
+        name: member.name,
+        screen: 'recommended',
+      });
       router.push(playgroundLink.memberDetail(member.id));
     }
   };

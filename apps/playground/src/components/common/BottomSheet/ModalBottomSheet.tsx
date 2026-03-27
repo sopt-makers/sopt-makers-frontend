@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
-import { ComponentProps, FC, PropsWithChildren } from 'react';
+import type { ComponentProps, FC, PropsWithChildren } from 'react';
 import Sheet from 'react-modal-sheet';
 
 import IconModalClose from '@/public/icons/icon-modal-close.svg';

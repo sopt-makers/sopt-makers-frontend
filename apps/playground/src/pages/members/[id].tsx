@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { NextSeo } from 'next-seo';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import AuthRequired from '@/components/auth/AuthRequired';
 import MemberDetail from '@/components/members/detail/ActivitySection/MemberDetail';

@@ -1,6 +1,7 @@
 import { useDialog } from '@sopt-makers/ui';
 import { useRouter } from 'next/router';
-import { FC, useMemo } from 'react';
+import type { FC } from 'react';
+import { useMemo } from 'react';
 
 import { usePostMemberAsk } from '@/api/endpoint/members/postMemberQuestion';
 import AuthRequired from '@/components/auth/AuthRequired';

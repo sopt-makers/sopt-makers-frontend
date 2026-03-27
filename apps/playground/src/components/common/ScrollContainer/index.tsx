@@ -1,7 +1,8 @@
 import styled from '@emotion/styled';
 import * as ScrollArea from '@radix-ui/react-scroll-area';
 import { colors } from '@sopt-makers/colors';
-import { forwardRef, ReactNode } from 'react';
+import type { ReactNode } from 'react';
+import { forwardRef } from 'react';
 
 interface Props {
   className?: string;

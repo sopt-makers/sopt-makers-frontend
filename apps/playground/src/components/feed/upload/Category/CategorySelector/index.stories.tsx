@@ -1,13 +1,13 @@
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
-import { Meta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
 import Button from '@/components/common/Button';
 import useModalState from '@/components/common/Modal/useModalState';
 import CategorySelector from '@/components/feed/upload/Category/CategorySelector';
 import { categories } from '@/components/feed/upload/Category/constants';
 import { DropDown } from '@/components/feed/upload/Category/DropDown';
-import { BasicCategory } from '@/components/feed/upload/Category/types';
+import type { BasicCategory } from '@/components/feed/upload/Category/types';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 import { textStyles } from '@/styles/typography';
 

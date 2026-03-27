@@ -1,4 +1,4 @@
-import { Meta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
 import UploadButton from '@/components/coffeechat/upload/CoffeechatForm/UploadButton';
 

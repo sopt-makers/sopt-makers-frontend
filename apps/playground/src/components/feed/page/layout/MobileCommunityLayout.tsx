@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
-import { FC, ReactNode } from 'react';
+import type { FC, ReactNode } from 'react';
 import { RemoveScroll } from 'react-remove-scroll';
 
 import MenuEntryIcons from '@/components/feed/list/MenuEntryIcons/MenuEntryIcons';

@@ -1,7 +1,7 @@
+import { useInfiniteQuery } from '@tanstack/react-query';
 import { z } from 'zod';
 
 import { createEndpoint } from '@/api/typedAxios';
-import { useInfiniteQuery } from '@tanstack/react-query';
 
 const ReviewSchema = z.object({
   reviews: z.array(
@@ -27,7 +27,10 @@ export const useGetReviewsInfiniteQuery = () => {
   return useInfiniteQuery({
     queryKey: useGetReviewsInfiniteQuery.getKey(),
     queryFn: async ({ pageParam = 0 }) => {
-      const response = await getReviews.request({ page: pageParam, size: SIZE });
+      const response = await getReviews.request({
+        page: pageParam,
+        size: SIZE,
+      });
       return response;
     },
     initialPageParam: 0,

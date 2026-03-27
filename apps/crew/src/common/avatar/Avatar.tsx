@@ -1,6 +1,6 @@
 import ProfileDefaultIcon from '@assets/svg/profile_default.svg?rect';
 import { getResizedImage } from '@util/image';
-import { CSSProperties } from 'react';
+import type { CSSProperties } from 'react';
 import { styled } from 'stitches.config';
 
 interface AvatarProps {

@@ -1,4 +1,4 @@
-import { paths } from '@/__generated__/schema2';
+import type { paths } from '@/__generated__/schema2';
 
 export type GetUser = paths['/user/v2']['get']['responses']['200']['content']['application/json;charset=UTF-8'];
 

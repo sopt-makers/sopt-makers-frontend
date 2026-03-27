@@ -1,11 +1,12 @@
 import { to } from 'await-to-js';
-import axios, { AxiosError } from 'axios';
+import type { AxiosError } from 'axios';
+import axios from 'axios';
 import { useRef, useState } from 'react';
 
 import { changeSMSCode } from '@/api/endpoint/auth/changeSMSCode';
 import { changeSMSToken } from '@/api/endpoint/auth/changeSMSToken';
 import { PHONE_REGEX, PHONE_REGEX_SHORT } from '@/components/auth/register/verify/regex';
-import { ByPhoneStates } from '@/components/auth/register/verify/view/ByPhoneView';
+import type { ByPhoneStates } from '@/components/auth/register/verify/view/ByPhoneView';
 
 interface ErrorResponse {
   success: boolean;

@@ -1,14 +1,14 @@
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
+import { Fragment } from 'react';
 
 import Responsive from '@/components/common/Responsive';
 import SquareLink from '@/components/common/SquareLink';
 import useCategory from '@/components/feed/common/hooks/useCategory';
-import { BasicCategory } from '@/components/feed/upload/Category/types';
-import { FeedDataType } from '@/components/feed/upload/types';
+import type { BasicCategory } from '@/components/feed/upload/Category/types';
+import type { FeedDataType } from '@/components/feed/upload/types';
 import CheckIcon from '@/public/icons/icon_check.svg';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
-import { Fragment } from 'react';
 
 interface TagSelectOptionsProp {
   onClose: () => void;

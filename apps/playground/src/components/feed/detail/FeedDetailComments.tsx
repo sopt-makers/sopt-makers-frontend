@@ -2,11 +2,11 @@ import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
 import { IconAlertTriangle, IconTrash } from '@sopt-makers/icons';
 import { Flex } from '@toss/emotion-utils';
-import { FC } from 'react';
-import { z } from 'zod';
+import type { FC } from 'react';
+import type { z } from 'zod';
 
+import type { recursiveCommentSchema } from '@/api/endpoint/feed/getComment';
 import { useGetCommentQuery } from '@/api/endpoint/feed/getComment';
-import { recursiveCommentSchema } from '@/api/endpoint/feed/getComment';
 import { useGetPostQuery } from '@/api/endpoint/feed/getPost';
 import FeedDropdown from '@/components/feed/common/FeedDropdown';
 import { useDeleteComment } from '@/components/feed/common/hooks/useDeleteComment';
@@ -78,7 +78,12 @@ const FeedDetailComments: FC<FeedDetailCommentsProps> = ({ postId }) => {
                   ) : null}
                   {!comment.isMine ? (
                     <FeedDropdown.Item
-                      onClick={() => handleReportComment({ commentId: `${comment.id}`, postId: postId })}
+                      onClick={() =>
+                        handleReportComment({
+                          commentId: `${comment.id}`,
+                          postId: postId,
+                        })
+                      }
                     >
                       <Flex align='center' css={{ gap: '10px', color: `${colors.gray10}` }}>
                         <IconAlertTriangle css={{ width: '16px', height: '16px' }} />
@@ -135,7 +140,12 @@ const FeedDetailComments: FC<FeedDetailCommentsProps> = ({ postId }) => {
                         ) : null}
                         {!comment.isMine ? (
                           <FeedDropdown.Item
-                            onClick={() => handleReportComment({ commentId: `${comment.id}`, postId: postId })}
+                            onClick={() =>
+                              handleReportComment({
+                                commentId: `${comment.id}`,
+                                postId: postId,
+                              })
+                            }
                           >
                             <Flex align='center' css={{ gap: '10px', color: `${colors.gray10}` }}>
                               <IconAlertTriangle css={{ width: '16px', height: '16px' }} />
@@ -197,7 +207,12 @@ const FeedDetailComments: FC<FeedDetailCommentsProps> = ({ postId }) => {
                         {!replyComment.isMine ? (
                           <FeedDropdown.Item
                             type='danger'
-                            onClick={() => handleReportComment({ commentId: `${replyComment.id}`, postId: postId })}
+                            onClick={() =>
+                              handleReportComment({
+                                commentId: `${replyComment.id}`,
+                                postId: postId,
+                              })
+                            }
                           >
                             <Flex align='center' css={{ gap: '10px', color: `${colors.gray10}` }}>
                               <IconAlertTriangle css={{ width: '16px', height: '16px' }} />
@@ -262,7 +277,12 @@ const FeedDetailComments: FC<FeedDetailCommentsProps> = ({ postId }) => {
                   {!comment.isMine ? (
                     <FeedDropdown.Item
                       type='danger'
-                      onClick={() => handleReportComment({ commentId: `${comment.id}`, postId: postId })}
+                      onClick={() =>
+                        handleReportComment({
+                          commentId: `${comment.id}`,
+                          postId: postId,
+                        })
+                      }
                     >
                       <Flex align='center' css={{ gap: '10px', color: `${colors.gray10}` }}>
                         <IconAlertTriangle css={{ width: '16px', height: '16px' }} />
@@ -318,7 +338,12 @@ const FeedDetailComments: FC<FeedDetailCommentsProps> = ({ postId }) => {
                         ) : null}
                         {!replyComment.isMine ? (
                           <FeedDropdown.Item
-                            onClick={() => handleReportComment({ commentId: `${replyComment.id}`, postId: postId })}
+                            onClick={() =>
+                              handleReportComment({
+                                commentId: `${replyComment.id}`,
+                                postId: postId,
+                              })
+                            }
                           >
                             <Flex align='center' css={{ gap: '10px', color: `${colors.gray10}` }}>
                               <IconAlertTriangle css={{ width: '16px', height: '16px' }} />
@@ -380,7 +405,12 @@ const FeedDetailComments: FC<FeedDetailCommentsProps> = ({ postId }) => {
                         {!replyComment.isMine ? (
                           <FeedDropdown.Item
                             type='danger'
-                            onClick={() => handleReportComment({ commentId: `${replyComment.id}`, postId: postId })}
+                            onClick={() =>
+                              handleReportComment({
+                                commentId: `${replyComment.id}`,
+                                postId: postId,
+                              })
+                            }
                           >
                             <Flex align='center' css={{ gap: '10px', color: `${colors.gray10}` }}>
                               <IconAlertTriangle css={{ width: '16px', height: '16px' }} />
@@ -453,7 +483,12 @@ const FeedDetailComments: FC<FeedDetailCommentsProps> = ({ postId }) => {
                         ) : null}
                         {!replyComment.isMine ? (
                           <FeedDropdown.Item
-                            onClick={() => handleReportComment({ commentId: `${replyComment.id}`, postId: postId })}
+                            onClick={() =>
+                              handleReportComment({
+                                commentId: `${replyComment.id}`,
+                                postId: postId,
+                              })
+                            }
                           >
                             <Flex align='center' css={{ gap: '10px', color: `${colors.gray10}` }}>
                               <IconAlertTriangle css={{ width: '16px', height: '16px' }} />
@@ -515,7 +550,12 @@ const FeedDetailComments: FC<FeedDetailCommentsProps> = ({ postId }) => {
                         {!replyComment.isMine ? (
                           <FeedDropdown.Item
                             type='danger'
-                            onClick={() => handleReportComment({ commentId: `${replyComment.id}`, postId: postId })}
+                            onClick={() =>
+                              handleReportComment({
+                                commentId: `${replyComment.id}`,
+                                postId: postId,
+                              })
+                            }
                           >
                             <Flex align='center' css={{ gap: '10px', color: `${colors.gray10}` }}>
                               <IconAlertTriangle css={{ width: '16px', height: '16px' }} />

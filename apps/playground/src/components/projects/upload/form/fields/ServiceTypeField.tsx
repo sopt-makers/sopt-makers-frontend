@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
-import { ChangeEvent, FC } from 'react';
+import type { ChangeEvent, FC } from 'react';
 
 import ErrorMessage from '@/components/common/Input/ErrorMessage';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
@@ -62,7 +62,9 @@ const StyledLabel = styled.label<{ checked?: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.2s, color 0.2s;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
   border-radius: 100px;
   background-color: ${colors.gray700};
   cursor: pointer;

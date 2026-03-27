@@ -93,7 +93,11 @@ export const useGetPostsInfiniteQuery = ({ categoryId }: { categoryId?: string }
   return useInfiniteQuery({
     queryKey: useGetPostsInfiniteQuery.getKey(categoryId),
     queryFn: async ({ pageParam }) => {
-      return await getPosts.request({ limit: 30, categoryId, cursor: pageParam });
+      return await getPosts.request({
+        limit: 30,
+        categoryId,
+        cursor: pageParam,
+      });
     },
     initialPageParam: 0,
     getNextPageParam: (lastPage) => {

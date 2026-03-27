@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
-import { ChangeEvent, forwardRef, ReactElement, ReactNode, useState } from 'react';
+import type { ChangeEvent, ReactElement, ReactNode } from 'react';
+import { forwardRef, useState } from 'react';
 
 import Select from '@/components/common/Select';
 import { textStyles } from '@/styles/typography';

@@ -1,7 +1,9 @@
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { FC, useEffect, useState } from 'react';
+import type { FC } from 'react';
+import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 
 import { postSSOCode } from '@/api/endpoint_LEGACY/auth';
@@ -9,7 +11,6 @@ import { REDIRECT_URI_WHITELISTS } from '@/components/auth/oauth/whitelists';
 import { accessTokenAtom } from '@/components/auth/states/accessTokenAtom';
 import useLastUnauthorized from '@/components/auth/util/useLastUnauthorized';
 import Loading from '@/components/common/Loading';
-import { playgroundLink } from '@/constants/links';
 
 interface OAuthCallbackProps {
   url: URL;
@@ -30,13 +31,19 @@ const OAuthCallback: FC<OAuthCallbackProps> = ({ url }) => {
 
       if (!redirectUri) {
         console.error('redirect_uri 가 설정되지 않았습니다.');
-        setMode({ type: 'error', message: `redirect_uri 가 설정되지 않았습니다.\nReceived: ${url.href}` });
+        setMode({
+          type: 'error',
+          message: `redirect_uri 가 설정되지 않았습니다.\nReceived: ${url.href}`,
+        });
         return;
       }
 
       if (!REDIRECT_URI_WHITELISTS.includes(redirectUri)) {
         console.error('허용되지 않은 redirect_uri 입니다.');
-        setMode({ type: 'error', message: `허용되지 않은 redirect_uri 입니다.\nReceived: ${redirectUri}` });
+        setMode({
+          type: 'error',
+          message: `허용되지 않은 redirect_uri 입니다.\nReceived: ${redirectUri}`,
+        });
         return;
       }
 

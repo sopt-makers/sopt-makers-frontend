@@ -1,4 +1,4 @@
-import { Meta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 import { useState } from 'react';
 
 import { menuValue } from '@/components/members/main/MemberList/MemberRoleMenu/constants';

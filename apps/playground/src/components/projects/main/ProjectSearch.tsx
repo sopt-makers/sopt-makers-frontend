@@ -1,9 +1,9 @@
-import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
-
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 import { Flex, width100 } from '@toss/emotion-utils';
+
+import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 interface ProjectSearchProps {
   defaultValue?: string;

@@ -1,4 +1,5 @@
-import { keepPreviousData, QueryKey, useInfiniteQuery } from '@tanstack/react-query';
+import type { QueryKey } from '@tanstack/react-query';
+import { keepPreviousData, useInfiniteQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import qs from 'qs';
 

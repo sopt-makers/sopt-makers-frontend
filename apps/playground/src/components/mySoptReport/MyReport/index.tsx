@@ -3,30 +3,27 @@ import 'swiper/css/effect-cards';
 import 'swiper/css/navigation';
 
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
+import { fonts } from '@sopt-makers/fonts';
+import { Button, useToast } from '@sopt-makers/ui';
 import { useEffect, useState } from 'react';
 import { EffectCards } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import ReportCard from '@/components/mySoptReport/ReportCard';
-import { MB_BIG_MEDIA_QUERY, MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
-
-import { Button, useToast } from '@sopt-makers/ui';
-
+import type { Value } from '@/components/mySoptReport/constants';
+import { indicatorIcons } from '@/components/mySoptReport/constants';
 import MiniReportCard from '@/components/mySoptReport/MiniReportCard';
-import { MyPgData } from '@/components/mySoptReport/MyPG';
-
+import type { MyPgData } from '@/components/mySoptReport/MyPG';
+import Popup from '@/components/mySoptReport/PopUp';
+import ReportCard from '@/components/mySoptReport/ReportCard';
+import useImageDownload from '@/components/resolution/read/hooks/useImageDownload';
+import { PLAYGROUND_ORIGIN } from '@/constants/links';
 import particle_mo from '@/public/icons/img/mySoptReport/particle_mo.png';
 import particle_pc from '@/public/icons/img/mySoptReport/particle_pc.png';
 import particle_ta from '@/public/icons/img/mySoptReport/particle_ta.png';
 import personOff from '@/public/icons/img/mySoptReport/person_off.png';
 import personOn from '@/public/icons/img/mySoptReport/person_on.png';
-
-import { indicatorIcons, Value } from '@/components/mySoptReport/constants';
-import Popup from '@/components/mySoptReport/PopUp';
-import useImageDownload from '@/components/resolution/read/hooks/useImageDownload';
-import { PLAYGROUND_ORIGIN } from '@/constants/links';
-import { fonts } from '@sopt-makers/fonts';
-import { playgroundLink } from '@sopt/ui';
+import { MB_BIG_MEDIA_QUERY, MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 interface MyReportProps {
   myPgData: MyPgData;
@@ -37,7 +34,7 @@ interface Card {
   value: Value;
 }
 
-const index = ({ myPgData }: MyReportProps) => {
+const MyReport = ({ myPgData }: MyReportProps) => {
   const { open } = useToast();
   const [activeIndex, setActiveIndex] = useState(0);
   const [cardsArray, setCardsArray] = useState<Card[]>([]);
@@ -131,7 +128,9 @@ const index = ({ myPgData }: MyReportProps) => {
               key={index}
               isActive={index === activeIndex}
               onClick={() => {
-                const swiperElement = document.querySelector('.swiper') as HTMLElement & { swiper: any };
+                const swiperElement = document.querySelector('.swiper') as HTMLElement & {
+                  swiper?: { slideToLoop: (index: number) => void };
+                };
                 if (swiperElement?.swiper) {
                   swiperElement.swiper.slideToLoop(index);
                 }
@@ -178,7 +177,7 @@ const index = ({ myPgData }: MyReportProps) => {
   );
 };
 
-export default index;
+export default MyReport;
 
 const Container = styled.div`
   display: flex;

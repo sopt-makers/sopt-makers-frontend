@@ -6,7 +6,7 @@ import { Tag } from '@sopt-makers/ui';
 
 import Text from '@/components/common/Text';
 
-import { SelectMeetingOptionItemProps } from './types';
+import type { SelectMeetingOptionItemProps } from './types';
 
 export default function SelectMeetingOptionItem({ meetingInfo, onClick }: SelectMeetingOptionItemProps) {
   return (

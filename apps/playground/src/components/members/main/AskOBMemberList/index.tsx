@@ -3,17 +3,18 @@ import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 import { IconChevronDown } from '@sopt-makers/icons';
-import { ReactNode, startTransition, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import type { ReactNode } from 'react';
+import { startTransition, useEffect, useLayoutEffect, useRef, useState } from 'react';
 
+import { useGetMemberProperty } from '@/api/endpoint/members/getMemberProperty';
 import { useGetMembersAskList } from '@/api/endpoint/members/getMembersAskList';
 import Carousel from '@/components/common/Carousel';
+import Responsive from '@/components/common/Responsive';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 import { getScreenMaxWidthMediaQuery } from '@/utils';
 
 import OBMemberCard from './OBMemberCard';
 import PartDropdown from './PartDropDown';
-import Responsive from '@/components/common/Responsive';
-import { useGetMemberProperty } from '@/api/endpoint/members/getMemberProperty';
 type ListType = 'carousel-large' | 'carousel-small' | 'scroll' | 'tablet' | 'mobile' | undefined;
 
 const SCREEN_SIZE = {
@@ -50,14 +51,13 @@ export default function BestOBMemberForAsk() {
   useEffect(() => {
     if (didInitSelectedPart.current) return;
 
-  const parts = myProperty?.part ?? [];
-  const lastRealPart = [...parts].reverse().find((p) => p !== '메이커스');
+    const parts = myProperty?.part ?? [];
+    const lastRealPart = [...parts].reverse().find((p) => p !== '메이커스');
 
-  if (lastRealPart) {
-    setSelectedPart(lastRealPart);
-    didInitSelectedPart.current = true;
-  }
-
+    if (lastRealPart) {
+      setSelectedPart(lastRealPart);
+      didInitSelectedPart.current = true;
+    }
   }, [myProperty]);
 
   useEffect(() => {
@@ -140,7 +140,7 @@ export default function BestOBMemberForAsk() {
   if (isLoading) {
     return (
       <BestOBMemberWrapper>
-         <Responsive only='desktop'>
+        <Responsive only='desktop'>
           <TitleWrapper>
             <DropdownTrigger>
               {PART_OPTIONS.find((option) => option.value === selectedPart)?.label}

@@ -23,7 +23,9 @@ export const useDeleteMemberQuestion = () => {
     mutationFn: (questionId: number) => deleteMemberQuestion.request({ questionId }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['getMemberQuestions'] });
-      queryClient.invalidateQueries({ queryKey: ['getUnansweredQuestionCount'] });
+      queryClient.invalidateQueries({
+        queryKey: ['getUnansweredQuestionCount'],
+      });
     },
   });
 };

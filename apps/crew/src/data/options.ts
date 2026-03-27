@@ -1,4 +1,4 @@
-import { KeywordSettingOptionType } from '@api/user';
+import type { KeywordSettingOptionType } from '@api/user';
 
 export const numberOptionListDefault = { label: '10명씩 보기', value: '10' };
 
@@ -17,7 +17,7 @@ export const sortOptionList = [
 
 export const generationOptions = [
   { label: '전체 기수', value: null },
-  ...Array.from({ length: 31 }, (_, i) => i + 1).map(gen => ({
+  ...Array.from({ length: 31 }, (_, i) => i + 1).map((gen) => ({
     label: `${gen}기`,
     value: gen.toString(),
   })),

@@ -35,15 +35,39 @@ jobs:
       - name: Install Packages
         run: yarn install --immutable
 
-      - name: Check All
+      - name: Typecheck
         run: |
           set -o pipefail
-          yarn check | tee check.log
+          yarn typecheck 2>&1 | sed 's/\x1B\[[0-9;]*m//g' | tee typecheck.log
+
+      - name: Lint
+        if: always()
+        run: |
+          set -o pipefail
+          yarn lint 2>&1 | sed 's/\x1B\[[0-9;]*m//g' | tee lint.log
+
+      - name: Test
+        if: always()
+        run: |
+          set -o pipefail
+          yarn test:ci 2>&1 | sed 's/\x1B\[[0-9;]*m//g' | tee test.log
 
       - name: Print Summary
         if: always()
         run: |
           echo "## Check Result" >> $GITHUB_STEP_SUMMARY
+
+          echo "### Typecheck" >> $GITHUB_STEP_SUMMARY
           echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
-          echo "$(cat check.log)" >> $GITHUB_STEP_SUMMARY
+          cat typecheck.log 2>/dev/null >> $GITHUB_STEP_SUMMARY || echo 'skipped' >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+
+          echo "### Lint" >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+          cat lint.log 2>/dev/null >> $GITHUB_STEP_SUMMARY || echo 'skipped' >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+
+          echo "### Test" >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+          cat test.log 2>/dev/null >> $GITHUB_STEP_SUMMARY || echo 'skipped' >> $GITHUB_STEP_SUMMARY
           echo "\`\`\`" >> $GITHUB_STEP_SUMMARY

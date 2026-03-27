@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 import { SelectV2 } from '@sopt-makers/ui';
-import { PropsWithChildren } from 'react';
+import type { PropsWithChildren } from 'react';
 
-import { Option } from '@/components/members/main/MemberList/filters/constants';
+import type { Option } from '@/components/members/main/MemberList/filters/constants';
 
 interface MemberListFilterProps<T> {
   className?: string;

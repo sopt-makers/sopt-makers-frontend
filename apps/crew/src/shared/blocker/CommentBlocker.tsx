@@ -1,5 +1,5 @@
-import { styled } from 'stitches.config';
 import RecommentPointIcon from '@assets/svg/recomment_point_icon.svg';
+import { styled } from 'stitches.config';
 
 interface CommentBlockerProps {
   variant?: 'default' | 'secondary';
@@ -23,7 +23,7 @@ const Container = styled('div', {
         paddingLeft: '$40',
       },
       secondary: {
-        paddingLeft: '$16',
+        'paddingLeft': '$16',
         '@media (max-width: 768px)': {
           paddingLeft: '$12',
         },
@@ -33,8 +33,8 @@ const Container = styled('div', {
 });
 
 const BlockerMessage = styled('p', {
-  fontAg: '16_medium_150',
-  color: '$gray500',
+  'fontAg': '16_medium_150',
+  'color': '$gray500',
 
   '@media (max-width: 768px)': {
     fontAg: '14_medium_100',

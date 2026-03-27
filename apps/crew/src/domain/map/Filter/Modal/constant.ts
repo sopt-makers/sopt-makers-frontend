@@ -1,11 +1,16 @@
 import KakaoMapIcon from '@assets/svg/ic_kakao_map.svg';
 import NaverMapIcon from '@assets/svg/ic_naver_map.svg';
-import { SVGProps } from 'react';
-import { MapLinkKey } from './type';
+import type { SVGProps } from 'react';
 
-type IconComponent = (props: SVGProps<SVGSVGElement>) => JSX.Element;
+import type { MapLinkKey } from './type';
 
-export const LINK_OPTIONS: { key: MapLinkKey; label: string; Icon: IconComponent }[] = [
+type IconComponent = (props: SVGProps<SVGSVGElement>) => JSX.Element | null;
+
+export const LINK_OPTIONS: {
+  key: MapLinkKey;
+  label: string;
+  Icon: IconComponent;
+}[] = [
   { key: 'naverLink', label: '네이버 지도', Icon: NaverMapIcon },
   { key: 'kakaoLink', label: '카카오 맵', Icon: KakaoMapIcon },
 ];

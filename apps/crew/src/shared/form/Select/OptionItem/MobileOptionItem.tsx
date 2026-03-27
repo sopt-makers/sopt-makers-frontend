@@ -1,6 +1,6 @@
 import { Listbox } from '@headlessui/react';
 import SelectRadioItem from '@shared/filter/MultiSelect/SelectRadioItem';
-import { CSSType } from 'stitches.config';
+import type { CSSType } from 'stitches.config';
 
 interface Option {
   label: string;

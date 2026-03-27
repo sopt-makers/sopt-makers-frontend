@@ -2,7 +2,8 @@ import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
 import { IconXClose } from '@sopt-makers/icons';
 import FocusTrap from 'focus-trap-react';
-import { FC, HTMLAttributes, PropsWithChildren, ReactNode, useRef } from 'react';
+import type { FC, HTMLAttributes, PropsWithChildren, ReactNode } from 'react';
+import { useRef } from 'react';
 import { RemoveScroll } from 'react-remove-scroll';
 
 import Portal from '@/components/common/Portal';

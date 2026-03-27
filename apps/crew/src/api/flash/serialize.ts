@@ -1,5 +1,5 @@
-import { PutFlash } from '@api/flash/type';
-import { FlashFormType } from '@type/form';
+import type { PutFlash } from '@api/flash/type';
+import type { FlashFormType } from '@type/form';
 
 export const serializeFlashFormData = (formData: FlashFormType): PutFlash['request'] => {
   const convertedEndDate =

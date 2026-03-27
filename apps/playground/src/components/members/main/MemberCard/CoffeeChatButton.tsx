@@ -4,11 +4,11 @@ import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 import { Tag } from '@sopt-makers/ui';
 import { Flex } from '@toss/emotion-utils';
-import { FC, MouseEvent } from 'react';
+import type { FC, MouseEvent } from 'react';
 
+import { useGetMemberOfMe } from '@/api/endpoint/members/getMemberOfMe';
 import useEventLogger from '@/components/eventLogger/hooks/useEventLogger';
 import IconCoffee from '@/public/icons/icon-coffee.svg';
-import { useGetMemberOfMe } from '@/api/endpoint/members/getMemberOfMe';
 
 interface CoffeeChatButtonProps {
   className?: string;
@@ -27,7 +27,7 @@ const CoffeeChatButton: FC<CoffeeChatButtonProps> = ({ className, onClick, recei
           <Button
             className={className}
             onClick={(e) => {
-              onClick && onClick(e);
+              onClick?.(e);
               logClickEvent('coffeechatBadge');
             }}
           >

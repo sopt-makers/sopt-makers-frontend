@@ -1,11 +1,13 @@
-import ResizedImage from '@/components/common/ResizedImage';
-import ProjectCardMemberList, { MemberType } from '@/components/projects/main/card/ProjectCardMemberList';
-import ProjectCardStatus from '@/components/projects/main/card/ProjectCardStatus';
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 import { Flex, Stack } from '@toss/emotion-utils';
 import { Separated } from '@toss/react';
+
+import ResizedImage from '@/components/common/ResizedImage';
+import type { MemberType } from '@/components/projects/main/card/ProjectCardMemberList';
+import ProjectCardMemberList from '@/components/projects/main/card/ProjectCardMemberList';
+import ProjectCardStatus from '@/components/projects/main/card/ProjectCardStatus';
 
 interface MobileProjectCardProps {
   logoImage: string;

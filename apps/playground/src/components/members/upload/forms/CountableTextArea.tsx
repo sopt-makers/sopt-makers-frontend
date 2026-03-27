@@ -1,7 +1,9 @@
-import { css, SerializedStyles } from '@emotion/react';
+import type { SerializedStyles } from '@emotion/react';
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
-import { ChangeEvent, forwardRef } from 'react';
+import type { ChangeEvent } from 'react';
+import { forwardRef } from 'react';
 
 import Text from '@/components/common/Text';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';

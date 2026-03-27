@@ -1,5 +1,5 @@
-import { Member } from '@/api/endpoint_LEGACY/members/type';
-import { Category, LinkTitle } from '@/components/projects/types';
+import type { Member } from '@/api/endpoint_LEGACY/members/type';
+import type { Category, LinkTitle } from '@/components/projects/types';
 
 export type MemberFormType = {
   memberId: number;

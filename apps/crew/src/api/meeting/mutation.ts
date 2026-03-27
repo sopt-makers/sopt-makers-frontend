@@ -1,8 +1,9 @@
 import MeetingQueryKey from '@api/meeting/MeetingQueryKey';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { FormType } from '@type/form';
+import type { FormType } from '@type/form';
 import alertErrorMessage from '@util/alertErrorMessage';
 import { AxiosError } from 'axios';
+
 import {
   deleteMeeting,
   deleteMeetingApplication,
@@ -42,7 +43,9 @@ export const usePutMeetingMutation = (meetingId: number) => {
   return useMutation({
     mutationFn: (formData: FormType) => putMeeting(meetingId, serializeMeetingData(formData)),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: MeetingQueryKey.detail(meetingId) });
+      queryClient.invalidateQueries({
+        queryKey: MeetingQueryKey.detail(meetingId),
+      });
     },
   });
 };

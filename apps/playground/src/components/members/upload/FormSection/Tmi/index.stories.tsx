@@ -1,11 +1,11 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Meta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 import { FormProvider, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
 import { MEMBER_DEFAULT_VALUES } from '@/components/members/upload/constants';
 import TmiFormSection from '@/components/members/upload/FormSection/Tmi';
-import { MemberUploadForm } from '@/components/members/upload/types';
+import type { MemberUploadForm } from '@/components/members/upload/types';
 
 const tmiSectionSchema = yup.object().shape({
   mbti: yup

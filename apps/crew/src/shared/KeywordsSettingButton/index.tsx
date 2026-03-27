@@ -1,4 +1,4 @@
-import { KeywordSettingOptionType } from '@api/user';
+import type { KeywordSettingOptionType } from '@api/user';
 import { useMutationInterestedKeywords } from '@api/user/mutation';
 import { useGetInterestedKeywordsQueryOption } from '@api/user/query';
 import AlarmSettingBottomSheet from '@domain/list/Alarm/BottomSheet/AlarmSettingBottomSheet';
@@ -18,8 +18,8 @@ const KeywordsSettingButton = () => {
   const [isSettingOpen, setIsSettingOpen] = useState(false);
 
   const handleKeywordClick = (value: KeywordSettingOptionType) => {
-    setSelectedAlarm(prev => {
-      const next = prev.includes(value) ? prev.filter(v => v !== value) : [...prev, value];
+    setSelectedAlarm((prev) => {
+      const next = prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value];
       mutateUserInterested(next);
       return next;
     });

@@ -1,10 +1,12 @@
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
 import { AnimatePresence, m } from 'framer-motion';
-import { ReactNode, useRef } from 'react';
+import type { ReactNode } from 'react';
+import { useRef } from 'react';
 
 import CarouselBody from '@/components/common/Carousel/Body';
-import useCarousel, { CarouselDirection } from '@/components/common/Carousel/useCarousel';
+import type { CarouselDirection } from '@/components/common/Carousel/useCarousel';
+import useCarousel from '@/components/common/Carousel/useCarousel';
 import LeftArrowIcon from '@/public/icons/icon-arrow-left.svg';
 interface CarouselProps {
   itemList: ReactNode[];

@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
 import dayjs from 'dayjs';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import { MakersLogoWhite } from '@/components/common/Banner/RecruitingBanner/icons';
 import Timer from '@/components/common/Banner/Timer';
@@ -15,7 +15,7 @@ const TARGET_DATE = dayjs('2023-08-07T14:59:00.000Z').toDate(); // 한국시간 
 
 interface RecruitingBannerProps {}
 
-const Recruiting3thBanner: FC<RecruitingBannerProps> = ({}) => {
+const Recruiting3thBanner: FC<RecruitingBannerProps> = () => {
   return (
     <a href={LINK} target='_blank'>
       <Container>

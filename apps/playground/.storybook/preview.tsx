@@ -25,7 +25,14 @@ if (!isChromatic) {
 }
 
 const queryClient = new QueryClient({
-  defaultOptions: { queries: { gcTime: 300000, refetchOnWindowFocus: false, staleTime: 300000, retry: 1 } },
+  defaultOptions: {
+    queries: {
+      gcTime: 300000,
+      refetchOnWindowFocus: false,
+      staleTime: 300000,
+      retry: 1,
+    },
+  },
 });
 
 export const parameters = {

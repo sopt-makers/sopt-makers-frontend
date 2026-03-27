@@ -4,7 +4,8 @@ import { fontsObject } from '@sopt-makers/fonts';
 import { keyframes, styled } from '@stitches/react';
 import DefaultProfile from 'public/assets/svg/mention_profile_default.svg';
 import React, { useCallback } from 'react';
-import { Mention, MentionsInput, SuggestionDataItem } from 'react-mentions';
+import type { SuggestionDataItem } from 'react-mentions';
+import { Mention, MentionsInput } from 'react-mentions';
 
 interface mentionableDataType {
   id: number;
@@ -42,7 +43,7 @@ const SearchMention = ({
       onUserSelect(user);
       setValue('');
     },
-    [onUserSelect, setValue]
+    [onUserSelect, setValue],
   );
 
   const filterUsersBySearchTerm = (searchTerm: string, users: mentionableDataType[]) => {
@@ -85,7 +86,7 @@ const SearchMention = ({
           >
             {(suggestion as mentionableDataType).profileImageUrl ? (
               <SImageWrapper>
-                <img src={(suggestion as mentionableDataType).profileImageUrl} alt="Img" />
+                <img src={(suggestion as mentionableDataType).profileImageUrl} alt='Img' />
               </SImageWrapper>
             ) : (
               <DefaultProfile />
@@ -102,7 +103,7 @@ const SearchMention = ({
         </>
       );
     },
-    [handleUserClick]
+    [handleUserClick],
   );
 
   return (
@@ -134,13 +135,17 @@ const SearchMention = ({
       }}
     >
       <Mention
-        trigger=""
+        trigger=''
         displayTransform={(_, display) => display}
-        data={search => {
+        data={(search) => {
           if (search.length < 1) return [];
           const data = getFilteredAndRandomUsers(
             search,
-            mentionUserList?.map((v: mentionableDataType) => ({ ...v, id: v.orgId, display: v.userName }))
+            mentionUserList?.map((v: mentionableDataType) => ({
+              ...v,
+              id: v.orgId,
+              display: v.userName,
+            })),
           );
           return data;
         }}
@@ -162,8 +167,8 @@ const SImageWrapper = styled('div', {
 });
 
 const FeedModalMentionStyle = {
-  width: '100%',
-  height: '100%',
+  'width': '100%',
+  'height': '100%',
   '&multiLine': {
     control: {
       fontWeight: 'normal',
@@ -209,11 +214,11 @@ const FeedModalMentionStyle = {
       zIndex: '1',
     },
   },
-  suggestions: {
+  'suggestions': {
     backgroundColor: 'transparent',
     item: {
-      minWidth: '154px',
-      borderRadius: '8px',
+      'minWidth': '154px',
+      'borderRadius': '8px',
       '&focused': {
         background: colors.gray800,
       },
@@ -227,21 +232,21 @@ const fadeIn = keyframes({
 });
 
 const SCustomSuggestionsContainer = styled('div', {
-  borderRadius: '13px',
-  boxSizing: 'border-box',
-  width: '210px',
-  height: '202px',
-  padding: '8px',
-  background: '#17181c',
-  position: 'absolute',
-  top: '18px',
-  left: '-24px',
-  border: `1px solid ${colors.gray700}`,
+  'borderRadius': '13px',
+  'boxSizing': 'border-box',
+  'width': '210px',
+  'height': '202px',
+  'padding': '8px',
+  'background': '#17181c',
+  'position': 'absolute',
+  'top': '18px',
+  'left': '-24px',
+  'border': `1px solid ${colors.gray700}`,
 
-  animation: `${fadeIn} 0.5s forwards`,
+  'animation': `${fadeIn} 0.5s forwards`,
 
-  overflowY: 'scroll',
-  overflowX: 'hidden',
+  'overflowY': 'scroll',
+  'overflowX': 'hidden',
 
   // 스크롤 스타일
   '&::-webkit-scrollbar-thumb': {
@@ -260,15 +265,15 @@ const SCustomSuggestionsContainer = styled('div', {
 });
 
 const SRenderSuggestion = styled('button', {
-  width: '100%',
-  boxSizing: 'border-box',
-  padding: '8px 12px',
-  gap: '12px',
-  display: 'flex',
-  alignItems: 'center',
-  borderRadius: '8px',
+  'width': '100%',
+  'boxSizing': 'border-box',
+  'padding': '8px 12px',
+  'gap': '12px',
+  'display': 'flex',
+  'alignItems': 'center',
+  'borderRadius': '8px',
   ...fontsObject.BODY_2_16_M,
-  color: colors.gray10,
+  'color': colors.gray10,
   '& > div > p': {
     ...fontsObject.BODY_4_13_R,
     color: colors.gray100,

@@ -1,21 +1,27 @@
 import styled from '@emotion/styled';
 import * as Tabs from '@radix-ui/react-tabs';
+import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import Link from 'next/link';
-import { FC, Fragment, useMemo } from 'react';
+import type { FC } from 'react';
+import { Fragment, useMemo } from 'react';
 
 import useAuth from '@/components/auth/useAuth';
-import { MakersGeneration } from '@/components/makers/data/types';
+import type { MakersGeneration } from '@/components/makers/data/types';
 import TeamBlock from '@/components/makers/TeamBlock';
 import MemberBlock from '@/components/members/common/MemberBlock';
-import { playgroundLink } from '@/constants/links';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 import { textStyles } from '@/styles/typography';
 
 interface MakersMembersProps {
   className?: string;
   generations: MakersGeneration[];
-  metadataList: { id: number; profileImage: string; currentCompany: string | null; generations: number[] }[];
+  metadataList: {
+    id: number;
+    profileImage: string;
+    currentCompany: string | null;
+    generations: number[];
+  }[];
 }
 
 const MakersMembers: FC<MakersMembersProps> = ({ className, generations, metadataList }) => {
@@ -100,7 +106,9 @@ const StyledMakersMembers = styled.div`
 `;
 
 const TabButton = styled.a`
-  transition: border-bottom-color 0.2s, color 0.2s;
+  transition:
+    border-bottom-color 0.2s,
+    color 0.2s;
   border: 2px solid transparent;
   cursor: pointer;
   padding: 12px 24px;

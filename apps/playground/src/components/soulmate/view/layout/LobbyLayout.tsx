@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { FC, ReactNode } from 'react';
+import type { FC, ReactNode } from 'react';
 
 import SoulmateIcon from '@/components/soulmate/icons/SoulmateIcon';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';

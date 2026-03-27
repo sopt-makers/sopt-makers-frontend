@@ -1,6 +1,6 @@
 'use client';
 import styled from '@emotion/styled';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import AuthRequired from '@/components/auth/AuthRequired';
 import RememberPage from '@/components/remember';

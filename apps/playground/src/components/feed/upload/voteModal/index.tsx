@@ -6,7 +6,8 @@ import { Button } from '@sopt-makers/ui';
 import { useEffect, useState } from 'react';
 
 import Checkbox from '@/components/common/Checkbox';
-import Modal, { ModalProps } from '@/components/common/Modal';
+import type { ModalProps } from '@/components/common/Modal';
+import Modal from '@/components/common/Modal';
 import CheckboxFormItem from '@/components/feed/upload/CheckboxFormItem';
 import { MAX_FIELDS, MAX_LENGTH, MIN_FIELDS } from '@/components/feed/upload/voteModal/constants';
 import VoteTextArea from '@/components/feed/upload/voteModal/VoteTextArea';

@@ -1,8 +1,9 @@
 import CheckedIcon from '@assets/svg/icon_progress_checked.svg';
 import UncheckedIcon from '@assets/svg/icon_progress_unchecked.svg';
 import { fontsObject } from '@sopt-makers/fonts';
-import { Button, DialogOptionType, useDialog } from '@sopt-makers/ui';
-import { FormType } from '@type/form';
+import type { DialogOptionType } from '@sopt-makers/ui';
+import { Button, useDialog } from '@sopt-makers/ui';
+import type { FormType } from '@type/form';
 import { useRouter } from 'next/router';
 import { useFormContext, useWatch } from 'react-hook-form';
 import { styled } from 'stitches.config';
@@ -91,7 +92,7 @@ function TableOfContents({ label, onSubmit, cancelButtonLabel, submitButtonLabel
 
       <SButtonContainer>
         <Button
-          size="lg"
+          size='lg'
           onClick={() => {
             open(dialogOption);
           }}
@@ -100,7 +101,7 @@ function TableOfContents({ label, onSubmit, cancelButtonLabel, submitButtonLabel
           {submitButtonLabel}
         </Button>
         {cancelButtonLabel && (
-          <Button size="lg" theme="black" type="button" onClick={() => router.back()}>
+          <Button size='lg' theme='black' type='button' onClick={() => router.back()}>
             {cancelButtonLabel}
           </Button>
         )}
@@ -112,14 +113,14 @@ function TableOfContents({ label, onSubmit, cancelButtonLabel, submitButtonLabel
 export default TableOfContents;
 
 const SContainer = styled('div', {
-  width: '300px',
-  flexShrink: 0,
-  height: 'fit-content',
-  padding: '50px 40px 60px',
-  border: '1px solid $gray700',
-  borderRadius: '15px',
-  position: 'sticky',
-  top: '$80',
+  'width': '300px',
+  'flexShrink': 0,
+  'height': 'fit-content',
+  'padding': '50px 40px 60px',
+  'border': '1px solid $gray700',
+  'borderRadius': '15px',
+  'position': 'sticky',
+  'top': '$80',
 
   // '@media (max-width: 768px)': {
   '@media (max-width: 1024px)': {

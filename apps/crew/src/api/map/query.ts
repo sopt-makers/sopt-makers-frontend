@@ -1,4 +1,4 @@
-import { FormType } from '@domain/map/Form/type';
+import type { FormType } from '@domain/map/Form/type';
 import {
   useCategoriesParams,
   usePageParams,
@@ -6,11 +6,12 @@ import {
   useStationKeywordParams,
 } from '@hook/queryString/custom';
 import { infiniteQueryOptions, queryOptions } from '@tanstack/react-query';
+
 import { getMapDetail, getMapEvent, getMapEventGift, getMapList, getSearchSubway } from '.';
 import { SERVER_CATEGORY_MAP } from './constant';
 import { deserializeSoptMapData } from './deserialize';
 import MapQueryKey from './MapQueryKey';
-import { GetMapDetail, GetMapEvent, GetMapEventGift, GetMapList } from './type';
+import type { GetMapDetail, GetMapEvent, GetMapEventGift, GetMapList } from './type';
 
 export const useSearchSubwayQueryOption = (query: string) => {
   return queryOptions({
@@ -29,7 +30,7 @@ export const useMapListQueryOption = () => {
   const { value: stationKeyword } = useStationKeywordParams();
   const { value: page } = usePageParams();
 
-  const convertedCategories = categories?.map(kor => SERVER_CATEGORY_MAP[kor]).filter(Boolean);
+  const convertedCategories = categories?.map((kor) => SERVER_CATEGORY_MAP[kor]).filter(Boolean);
 
   const params: MapListRequest = {
     page: Number(page) || 1,
@@ -44,7 +45,7 @@ export const useMapListQueryOption = () => {
   return queryOptions<GetMapList['response']>({
     queryKey: MapQueryKey.list(params),
     queryFn: () => getMapList(params),
-    placeholderData: prev => prev,
+    placeholderData: (prev) => prev,
   });
 };
 
@@ -53,7 +54,7 @@ export const useMapListInfiniteQueryOption = () => {
   const { value: sortType } = useSortTypeParams();
   const { value: stationKeyword } = useStationKeywordParams();
 
-  const convertedCategories = categories?.map(kor => SERVER_CATEGORY_MAP[kor]).filter(Boolean);
+  const convertedCategories = categories?.map((kor) => SERVER_CATEGORY_MAP[kor]).filter(Boolean);
 
   const baseParams: Omit<MapListRequest, 'page'> = {
     take: TAKES_PER_PAGE,
@@ -95,6 +96,6 @@ export const useMapDetailQueryOption = (soptMapId: number) => {
   return queryOptions<GetMapDetail['response'], Error, FormType>({
     queryKey: MapQueryKey.detail(soptMapId),
     queryFn: () => getMapDetail({ soptMapId }),
-    select: res => deserializeSoptMapData(res),
+    select: (res) => deserializeSoptMapData(res),
   });
 };

@@ -5,12 +5,12 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { OverlayProvider } from '@toss/use-overlay';
 import { LazyMotion } from 'framer-motion';
-import NextAdapterPages from 'next-query-params/pages';
-import { NextSeo } from 'next-seo';
 import type { AppProps } from 'next/app';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import Router, { useRouter } from 'next/router';
+import NextAdapterPages from 'next-query-params/pages';
+import { NextSeo } from 'next-seo';
 import { useEffect } from 'react';
 import { RecoilRoot } from 'recoil';
 import { QueryParamProvider } from 'use-query-params';
@@ -27,10 +27,19 @@ import { AMPLITUDE_API_KEY, DEBUG, ORIGIN } from '@/constants/env';
 import GlobalStyle from '@/styles/GlobalStyle';
 import { getLayout } from '@/utils/layout';
 
-const Debugger = dynamic(() => import('@/components/debug/Debugger'), { ssr: false });
+const Debugger = dynamic(() => import('@/components/debug/Debugger'), {
+  ssr: false,
+});
 
 const queryClient = new QueryClient({
-  defaultOptions: { queries: { gcTime: 300000, refetchOnWindowFocus: false, staleTime: 300000, retry: 1 } },
+  defaultOptions: {
+    queries: {
+      gcTime: 300000,
+      refetchOnWindowFocus: false,
+      staleTime: 300000,
+      retry: 1,
+    },
+  },
 });
 
 const progress = new ProgressBar({ color: colors.success, size: 3 });

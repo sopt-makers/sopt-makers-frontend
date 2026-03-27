@@ -2,11 +2,13 @@ import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 import { Flex, Stack } from '@toss/emotion-utils';
-import { m } from 'framer-motion';
 import { Separated } from '@toss/react';
-import ProjectCardMemberList, { MemberType } from '@/components/projects/main/card/ProjectCardMemberList';
-import ProjectCardStatus from '@/components/projects/main/card/ProjectCardStatus';
+import { m } from 'framer-motion';
+
 import ResizedImage from '@/components/common/ResizedImage';
+import type { MemberType } from '@/components/projects/main/card/ProjectCardMemberList';
+import ProjectCardMemberList from '@/components/projects/main/card/ProjectCardMemberList';
+import ProjectCardStatus from '@/components/projects/main/card/ProjectCardStatus';
 
 interface ProjectCardProps {
   image: string;

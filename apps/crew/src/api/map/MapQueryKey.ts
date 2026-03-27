@@ -1,4 +1,4 @@
-import { GetMapList } from '@api/map/type';
+import type { GetMapList } from '@api/map/type';
 
 const MapQueryKey = {
   all: () => ['map'] as const,

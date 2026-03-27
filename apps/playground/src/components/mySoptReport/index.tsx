@@ -1,9 +1,9 @@
-import { useGetPGData } from '@/api/endpoint/mySoptReport/getMyPGData';
 import styled from '@emotion/styled';
 import { fonts } from '@sopt-makers/fonts';
 import { Button } from '@sopt-makers/ui';
 import { useEffect, useState } from 'react';
 
+import { useGetPGData } from '@/api/endpoint/mySoptReport/getMyPGData';
 import { useGetReportData } from '@/api/endpoint/mySoptReport/getReportData';
 import Loading from '@/components/common/Loading';
 import Responsive from '@/components/common/Responsive';
@@ -12,7 +12,7 @@ import MyPG from '@/components/mySoptReport/MyPG';
 import Playground from '@/components/mySoptReport/Playground';
 import ReportNav from '@/components/mySoptReport/ReportNav';
 import Sopt from '@/components/mySoptReport/Sopt';
-import { ActiveTabType } from '@/components/mySoptReport/types';
+import type { ActiveTabType } from '@/components/mySoptReport/types';
 import useMediaQuery from '@/hooks/useMediaQuery';
 import MySoptReportImg from '@/public/logos/my-sopt-report.svg';
 import MySoptReportImgPC from '@/public/logos/mysoptreport-pc.svg';

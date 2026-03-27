@@ -1,4 +1,4 @@
-import { playgroundLink } from '@sopt/ui';
+import { playgroundLink } from '@sopt/constant';
 
 import { useCopyText } from '@/hooks/useCopyText';
 

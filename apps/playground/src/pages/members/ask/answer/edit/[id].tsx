@@ -1,21 +1,22 @@
-import { FC, useEffect, useMemo, useState, useCallback } from 'react';
-import { useRouter } from 'next/router';
-
-import AuthRequired from '@/components/auth/AuthRequired';
-import AskFormPage from '@/components/members/ask/AskFormPage';
-import type { MemberQuestion } from '@/api/endpoint/members/getMemberQuestions';
-import useStringRouterQuery from '@/hooks/useStringRouterQuery';
-import { getRelativeTime } from '@/components/feed/common/utils';
-import { setLayout } from '@/utils/layout';
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
+import { useDialog, useToast } from '@sopt-makers/ui';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import type { FC } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+
+import type { MemberQuestion } from '@/api/endpoint/members/getMemberQuestions';
+import { usePutMemberAnswer } from '@/api/endpoint/members/putMemberAnswer';
+import AuthRequired from '@/components/auth/AuthRequired';
 import ResizedImage from '@/components/common/ResizedImage';
 import { IconMember } from '@/components/feed/common/Icon';
-import Link from 'next/link';
-import { playgroundLink } from '@/constants/links';
-import { usePutMemberAnswer } from '@/api/endpoint/members/putMemberAnswer';
-import { useDialog, useToast } from '@sopt-makers/ui';
+import { getRelativeTime } from '@/components/feed/common/utils';
+import AskFormPage from '@/components/members/ask/AskFormPage';
+import useStringRouterQuery from '@/hooks/useStringRouterQuery';
+import { setLayout } from '@/utils/layout';
 
 const STORAGE_PREFIX = 'ask-answer-edit-';
 
@@ -66,52 +67,52 @@ const AskAnswerEditPage: FC = () => {
     };
   }, [router.events, storageKey]);
 
-if (status === 'loading') return null;
-if (!answerId || !question || !question.answer) return null;
+  if (status === 'loading') return null;
+  if (!answerId || !question || !question.answer) return null;
 
-const runUpdate = async (content: string) => {
-  try {
-    await putAnswer({ answerId, content });
-    sessionStorage.removeItem(storageKey);
+  const runUpdate = async (content: string) => {
+    try {
+      await putAnswer({ answerId, content });
+      sessionStorage.removeItem(storageKey);
 
-    openToast({
-      icon: 'success',
-      content: '답변이 수정되었어요.',
-      style: { content: { whiteSpace: 'pre-wrap' } },
-    });
+      openToast({
+        icon: 'success',
+        content: '답변이 수정되었어요.',
+        style: { content: { whiteSpace: 'pre-wrap' } },
+      });
 
-    closeDialog();
-    router.back();
-  } catch {
-    openToast({
-      icon: 'error',
-      content: '수정에 실패했어요. 잠시 후 다시 시도해 주세요.',
-      style: { content: { whiteSpace: 'pre-wrap' } },
-    });
+      closeDialog();
+      router.back();
+    } catch {
+      openToast({
+        icon: 'error',
+        content: '수정에 실패했어요. 잠시 후 다시 시도해 주세요.',
+        style: { content: { whiteSpace: 'pre-wrap' } },
+      });
 
-    closeDialog();
-  }
-};
+      closeDialog();
+    }
+  };
 
-const handleSubmit = async ({ content }: { content: string; isAnonymous: boolean }) => {
-  openDialog({
-    title: '답변을 수정하시겠어요?',
-    description: '수정된 답변으로 변경됩니다.',
-    type: 'default',
-    typeOptions: {
-      cancelButtonText: '취소',
-      approveButtonText: isPending ? '처리중...' : '수정하기',
-      buttonFunction: async () => {
-        if (isPending) return;
-        await runUpdate(content);
+  const handleSubmit = async ({ content }: { content: string; isAnonymous: boolean }) => {
+    openDialog({
+      title: '답변을 수정하시겠어요?',
+      description: '수정된 답변으로 변경됩니다.',
+      type: 'default',
+      typeOptions: {
+        cancelButtonText: '취소',
+        approveButtonText: isPending ? '처리중...' : '수정하기',
+        buttonFunction: async () => {
+          if (isPending) return;
+          await runUpdate(content);
+        },
       },
-    },
-  });
-};
+    });
+  };
 
   const askerName = question.isAnonymous
-    ? question.anonymousProfile?.nickname ?? '익명'
-    : question.askerName ?? '익명';
+    ? (question.anonymousProfile?.nickname ?? '익명')
+    : (question.askerName ?? '익명');
 
   return (
     <AuthRequired>
@@ -155,7 +156,10 @@ const handleSubmit = async ({ content }: { content: string; isAnonymous: boolean
               <HeaderText>
                 <NameRow>
                   <Name>{askerName}</Name>
-                  <Meta>{!question.isAnonymous && <>{question.askerLatestGeneration}∙</>}{getRelativeTime(question.createdAt)}</Meta>
+                  <Meta>
+                    {!question.isAnonymous && <>{question.askerLatestGeneration}∙</>}
+                    {getRelativeTime(question.createdAt)}
+                  </Meta>
                 </NameRow>
               </HeaderText>
             </QuestionHeader>
@@ -245,4 +249,3 @@ const Divider = styled.hr`
   background: ${colors.gray800};
   height: 1px;
 `;
-

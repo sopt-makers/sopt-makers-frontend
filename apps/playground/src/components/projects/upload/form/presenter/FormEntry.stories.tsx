@@ -1,4 +1,4 @@
-import { Meta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
 import FormEntry from '@/components/projects/upload/form/presenter/FormEntry';
 

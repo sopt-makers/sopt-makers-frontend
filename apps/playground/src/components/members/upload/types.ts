@@ -1,5 +1,5 @@
-import { SOJU_CAPACITY_RANGE } from '@/components/members/upload/constants';
-import {
+import type { SOJU_CAPACITY_RANGE } from '@/components/members/upload/constants';
+import type {
   CommunicationStyle,
   FavorPeach,
   FavorTteokbokki,
@@ -10,7 +10,7 @@ import {
   WorkTime,
 } from '@/components/members/upload/FormSection/Tmi/types';
 
-import { FavorAlcohol, FavorFishBread, FavorMintChocolate, FavorSweetAndSourPork } from './FormSection/Tmi/types';
+import type { FavorAlcohol, FavorFishBread, FavorMintChocolate, FavorSweetAndSourPork } from './FormSection/Tmi/types';
 
 export interface MemberUploadForm {
   profileImage: string;

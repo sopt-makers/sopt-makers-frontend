@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
-import { ChangeEvent } from 'react';
+import type { ChangeEvent } from 'react';
 import TextareaAutosize from 'react-textarea-autosize';
 
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';

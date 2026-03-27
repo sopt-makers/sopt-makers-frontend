@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { produce } from 'immer';
 import { z } from 'zod';
 
-import { GetMemberQuestionsResponse } from '@/api/endpoint/members/getMemberQuestions';
+import type { GetMemberQuestionsResponse } from '@/api/endpoint/members/getMemberQuestions';
 import { createEndpoint } from '@/api/typedAxios';
 
 /**

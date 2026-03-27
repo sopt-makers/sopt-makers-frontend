@@ -1,7 +1,7 @@
 export const parseTextToLink = (content: string | React.ReactNode) => {
   if (typeof content !== 'string') return content;
 
-  const urlRegex = /(https?:\/\/[^\s\]\)]+)|(www\.[^\s\]\)]+)/g;
+  const urlRegex = /(https?:\/\/[^\s\])]+)|(www\.[^\s\])]+)/g;
   const fragmentList = content.split(urlRegex);
   return fragmentList.map((fragment, index) => {
     if (urlRegex.test(fragment)) {
