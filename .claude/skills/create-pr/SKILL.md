@@ -100,6 +100,19 @@ gh pr diff --name-only 2>/dev/null || git diff ${BASE_BRANCH}...HEAD --name-stat
 gh pr diff 2>/dev/null || git diff ${BASE_BRANCH}...HEAD
 ```
 
+### 4.4 대용량 diff
+
+**기본은 4.3 전체 diff**로 분석한다.
+
+**대용량으로 판단될 때만** 전체 raw diff를 끝까지 읽지 않고, 아래를 조합한다.
+
+- `git diff ${BASE_BRANCH}...HEAD --stat` (PR이 열려 있으면 `gh pr diff --stat` 지원 시 동일 목적)
+- 4.1 커밋 목록, 4.2 파일 목록
+- 필요 시 **핵심 경로만** 부분 diff: `git diff ${BASE_BRANCH}...HEAD -- path…`
+- PR 본문에 변경 범위가 크다는 점과, 요약이 파일·커밋 단위에 기댄 것임을 짧게 밝힌다.
+
+**대용량 판단:** `BASE_BRANCH`와 `HEAD` 사이에서 **변경된 파일이 30개 이상**이면 대용량으로 본다. 개수는 4.2 목록을 세거나 `git diff ${BASE_BRANCH}...HEAD --name-only | wc -l`로 확인한다.
+
 ---
 
 ## Step 5: 기존 PR 확인
