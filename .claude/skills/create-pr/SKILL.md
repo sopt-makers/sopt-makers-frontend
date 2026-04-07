@@ -199,11 +199,18 @@ gh pr create \
 ```
 
 ### 8.2 PR이 이미 있는 경우
-```bash
-gh pr edit ${EXISTING_PR_NUMBER} \
-  --title "${PR_TITLE}" \
-  --body-file /tmp/pr-body.md
-```
+
+`gh pr edit`에 `--body-file`을 주면 **기존 본문이 전부 교체**된다. 수동으로 적어 둔 설명을 지우지 않도록 **본문 덮어쓰기 전에 사용자에게 확인**한다.
+
+1. (선택) `gh pr view ${EXISTING_PR_NUMBER} --json body`로 기존 본문이 비어 있는지 참고한다. 비어 있으면 확인 생략해도 된다.
+2. **사용자에게 질문:** "기존 PR 본문을 이번에 생성한 내용으로 **전부 교체**할까요?"
+   - **예(본문 교체):**
+     ```bash
+     gh pr edit ${EXISTING_PR_NUMBER} \
+       --title "${PR_TITLE}" \
+       --body-file /tmp/pr-body.md
+     ```
+   - **아니오(본문 유지):** `gh pr edit`을 호출하지 않는다. PR 제목·본문은 GitHub에 있는 그대로 둔다.
 
 - 성공 시: "✅ PR 생성/업데이트됨: {URL}" 출력
 - 실패 시: 에러 메시지 표시 후 수동 생성 안내
