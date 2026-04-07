@@ -53,7 +53,7 @@ git rev-parse --abbrev-ref HEAD
 **브랜치 타입 추출:**
 - `CURRENT_BRANCH`에서 `/` 앞 세그먼트 추출 → `PR_TYPE` 저장
 - 예: `feat/login-page` → `feat`, `fix/token-expiry` → `fix`
-- 추출 불가 시 커밋 메시지에서 추론
+- 추출 불가 시 Step 6의 **커밋 메시지 추론 규칙** 적용
 
 **베이스 브랜치 결정:**
 ```bash
@@ -117,9 +117,17 @@ gh pr list --head ${CURRENT_BRANCH} --json number,url,state
 **형식:** `{PR_TYPE}: {한 줄 요약}`
 
 - `PR_TYPE`은 Step 2.2에서 브랜치명으로부터 이미 추출한 값 사용
-- 브랜치명에서 추출 불가 시 커밋 메시지에서 추론 (feat / fix / chore / refactor / docs 등)
+- 브랜치명에서 추출 불가 시 아래 **커밋 메시지 추론 규칙**으로 결정
 - 요약은 커밋 메시지와 diff를 바탕으로 한국어로 작성
 - 예시: `feat: 로그인 페이지 리디자인`, `fix: 토큰 만료 시 자동 로그아웃 처리`
+
+**커밋 메시지 추론 규칙** (`git log ${BASE_BRANCH}..HEAD` 범위)
+
+1. 각 커밋 메시지 첫 줄에서 conventional 타입을 파싱한다.
+2. `feat`, `fix`, `refactor`, `chore`, `docs` **다섯 가지 중** 커밋 범위에 **한 번이라도 등장한 것만** 남긴다. (등장 횟수·최빈값은 보지 않는다.)
+3. 남은 타입들 중 **아래 순서에서 가장 앞에 오는 하나**를 `PR_TYPE`으로 고른다:  
+   `feat` > `fix` > `refactor` > `chore` > `docs`
+4. 다섯 가지 중 어느 것도 등장하지 않으면 `chore`를 기본값으로 쓴다.
 
 ---
 
