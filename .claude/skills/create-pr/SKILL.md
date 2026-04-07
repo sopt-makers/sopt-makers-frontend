@@ -15,7 +15,15 @@ gh CLI로 diff를 분석해 변경 사항 요약, 변경 이유/배경, 스크�
 ```bash
 gh --version
 ```
-- 설치 안 되어 있으면 중단: "gh CLI가 필요합니다. 설치 후 다시 시도해주세요: https://cli.github.com/"
+- 설치 안 되어 있으면 중단:
+"GitHub CLI(gh)가 설치되어 있지 않습니다.
+   아래 명령어로 설치해주세요:
+
+   Mac:   brew install gh
+   Windows: winget install GitHub.cli
+
+   설치 직후에는 PATH가 반영되도록 터미널을 닫았다가 다시 열거나, 새 터미널 세션에서 진행해주세요.
+   이후 `gh auth login` 으로 GitHub 로그인을 해주세요."
 
 ### 1.2 gh CLI 인증 확인
 ```bash
@@ -27,7 +35,6 @@ gh auth status
 ```bash
 git rev-parse --git-dir
 ```
-- git 레포가 아니면 중단.
 
 ---
 
@@ -141,7 +148,7 @@ gh pr list --head ${CURRENT_BRANCH} --json number,url,state
 |       |       |
 
 ---
-> 🤖 made by [claude](https://claude.ai)
+🤖 made by [claude](https://claude.ai)
 ```
 
 **작성 가이드:**
