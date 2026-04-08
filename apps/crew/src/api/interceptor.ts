@@ -12,6 +12,7 @@ export const checkToken = (config: InternalAxiosRequestConfig) => {
     if (authToken.get() !== token) {
       authToken.set(token);
     }
+
     config.headers.Authorization = `Bearer ${token}`;
   }
 
