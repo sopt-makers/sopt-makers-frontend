@@ -347,11 +347,20 @@ const renderContent = (
   return parsed;
 };
 
+const FEED_CARD_SPACE = 16;
+
 const Image = ({ children }: PropsWithChildren<unknown>) => {
   return (
-    <HorizontalScroller>
+    <HorizontalScroller
+      css={{
+        marginLeft: -FEED_CARD_SPACE,
+        marginRight: -FEED_CARD_SPACE,
+      }}
+    >
       <Flex
         css={{
+          paddingLeft: FEED_CARD_SPACE,
+          paddingRight: FEED_CARD_SPACE,
           gap: '8px',
           whiteSpace: 'nowrap',
         }}
