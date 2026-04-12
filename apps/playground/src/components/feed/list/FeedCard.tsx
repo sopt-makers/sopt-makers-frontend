@@ -378,9 +378,18 @@ const Comment = ({ children }: PropsWithChildren<unknown>) => {
     <HorizontalScroller
       css={{
         marginTop: '4px',
+        marginLeft: -FEED_CARD_SIDE_SPACE,
+        marginRight: -FEED_CARD_SIDE_SPACE,
       }}
     >
-      <StyledComment>{children}</StyledComment>
+      <StyledComment
+        css={{
+          paddingLeft: FEED_CARD_SIDE_SPACE,
+          paddingRight: FEED_CARD_SIDE_SPACE,
+        }}
+      >
+        {children}
+      </StyledComment>
     </HorizontalScroller>
   );
 };
