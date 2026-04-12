@@ -46,7 +46,7 @@ const StyledFooter = styled.div<{ hide: boolean }>`
   position: fixed;
   bottom: 0;
   transition: transform 0.3s;
-  z-index: ${zIndex.헤더 + 1};
+  z-index: ${zIndex.푸터};
   border-top: 1px solid ${colors.gray600};
   background-color: ${colors.gray800};
   padding: 0 0 0 38px;
