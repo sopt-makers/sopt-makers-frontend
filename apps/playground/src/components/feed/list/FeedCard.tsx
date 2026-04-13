@@ -347,21 +347,20 @@ const renderContent = (
   return parsed;
 };
 
-const FEED_CARD_LEFT_SPACE = 58;
-const FEED_CARD_RIGHT_SPACE = 16;
+const FEED_CARD_SIDE_SPACE = 16;
 
 const Image = ({ children }: PropsWithChildren<unknown>) => {
   return (
     <HorizontalScroller
       css={{
-        marginLeft: -FEED_CARD_LEFT_SPACE,
-        marginRight: -FEED_CARD_RIGHT_SPACE,
+        marginLeft: -FEED_CARD_SIDE_SPACE,
+        marginRight: -FEED_CARD_SIDE_SPACE,
       }}
     >
       <Flex
         css={{
-          paddingLeft: FEED_CARD_LEFT_SPACE,
-          paddingRight: FEED_CARD_RIGHT_SPACE,
+          paddingLeft: FEED_CARD_SIDE_SPACE,
+          paddingRight: FEED_CARD_SIDE_SPACE,
           gap: '8px',
           whiteSpace: 'nowrap',
         }}
@@ -379,14 +378,14 @@ const Comment = ({ children }: PropsWithChildren<unknown>) => {
     <HorizontalScroller
       css={{
         marginTop: '4px',
-        marginLeft: -FEED_CARD_LEFT_SPACE,
-        marginRight: -FEED_CARD_RIGHT_SPACE,
+        marginLeft: -FEED_CARD_SIDE_SPACE,
+        marginRight: -FEED_CARD_SIDE_SPACE,
       }}
     >
       <StyledComment
         css={{
-          paddingLeft: FEED_CARD_LEFT_SPACE,
-          paddingRight: FEED_CARD_RIGHT_SPACE,
+          paddingLeft: FEED_CARD_SIDE_SPACE,
+          paddingRight: FEED_CARD_SIDE_SPACE,
         }}
       >
         {children}

@@ -127,6 +127,7 @@ const ScrollContainer = styled.div`
   display: flex;
   position: relative;
   overflow-x: scroll;
+  overflow-y: hidden;
   white-space: nowrap;
   scrollbar-width: none;
 
