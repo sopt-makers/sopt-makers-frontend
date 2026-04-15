@@ -32,13 +32,13 @@ const HomePopupContainer = () => {
 
   return (
     <>
-      {/* <HomePopup
+      <HomePopup
         pcImageUrl={pcImageUrl}
         mobileImageUrl={mobileImageUrl}
         linkUrl={linkUrl}
         openInNewTab={openInNewTab}
-      /> */}
-      <HomePopup pcImageUrl='/icons/img/popup/PC.png' mobileImageUrl='/icons/img/popup/MO.png' openInNewTab={false} />
+      />
+      {/* <HomePopup pcImageUrl='/icons/img/popup/PC.png' mobileImageUrl='/icons/img/popup/MO.png' openInNewTab={false} /> */}
     </>
   );
 };

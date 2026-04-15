@@ -113,14 +113,14 @@ export const HomePopup = ({ pcImageUrl, mobileImageUrl, linkUrl, openInNewTab }:
             <StPopupModal>
               <Responsive only='desktop'>
                 <LoggingClick eventKey='adPopupBody'>
-                  <StButton onClick={handleOpenModal}>
+                  <StButton onClick={handleClickPopup}>
                     <StImage src={pcImageUrl} />
                   </StButton>
                 </LoggingClick>
               </Responsive>
               <Responsive only='mobile'>
                 <LoggingClick eventKey='adPopupBody'>
-                  <StButton onClick={handleOpenModal}>
+                  <StButton onClick={handleClickPopup}>
                     <StImage src={mobileImageUrl} />
                   </StButton>
                 </LoggingClick>
