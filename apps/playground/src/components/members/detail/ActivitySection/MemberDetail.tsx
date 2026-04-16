@@ -99,24 +99,37 @@ const MemberDetail: FC<MemberDetailProps> = ({ memberId }) => {
       </Container>
     );
 
+  const getAskTabTag = () => {
+    if (isMyProfile && (unansweredCountData?.count ?? 0) > 0) {
+      return unansweredCountData?.count;
+    }
+    if (!isMyProfile && profile.hasRecentQuestion) {
+      return 'N';
+    }
+    return null;
+  };
+
   return (
     <Container>
       <Wrapper>
         <ProfileSection profile={profile} memberId={memberId} />
 
         <TabNavigation>
-          {TABS.map((tab) => (
-            <TabButton key={tab.id} isActive={currentTab === tab.id} onClick={() => handleTabChange(tab.id)}>
-              {tab.label}
-              {tab.id === 'ask' && isMyProfile && (unansweredCountData?.count ?? 0) > 0 && (
-                <TagWrapper>
-                  <StyledTag size='sm' variant='primary' shape='pill'>
-                    {unansweredCountData?.count}
-                  </StyledTag>
-                </TagWrapper>
-              )}
-            </TabButton>
-          ))}
+          {TABS.map((tab) => {
+            const askTabTag = tab.id === 'ask' ? getAskTabTag() : null;
+            return (
+              <TabButton key={tab.id} isActive={currentTab === tab.id} onClick={() => handleTabChange(tab.id)}>
+                {tab.label}
+                {askTabTag !== null && (
+                  <TagWrapper>
+                    <StyledTag size='sm' variant='primary' shape='pill'>
+                      {askTabTag}
+                    </StyledTag>
+                  </TagWrapper>
+                )}
+              </TabButton>
+            );
+          })}
         </TabNavigation>
 
         {(() => {
@@ -174,7 +187,7 @@ const Wrapper = styled.div`
   gap: 30px;
   width: 790px;
   @media ${MOBILE_MEDIA_QUERY} {
-    gap: 24px;
+    gap: 17px;
     width: 100%;
   }
 `;
