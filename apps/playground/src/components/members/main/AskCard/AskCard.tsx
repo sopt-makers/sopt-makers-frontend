@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
+import { IconUser } from '@sopt-makers/icons';
 import { Button } from '@sopt-makers/ui';
 
 import Responsive from '@/components/common/Responsive';
@@ -9,16 +10,22 @@ import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 interface AskCardProps {
   fromName: string;
   askContents: string;
-  imgSrc: string;
+  profileImageUrl?: string;
   handleClick: () => void;
 }
 
-const AskCard = ({ fromName, askContents, imgSrc, handleClick }: AskCardProps) => {
+const AskCard = ({ fromName, askContents, profileImageUrl, handleClick }: AskCardProps) => {
   return (
     <StyledContainer>
       <StyledTopContainer>
         <StyledAskTitleContainer>
-          <StyledAskProfileImage src={imgSrc} alt={`${fromName}님의 프로필 이미지`} />
+          {profileImageUrl ? (
+            <StyledAskProfileImage src={profileImageUrl} alt={`${fromName}님의 프로필 이미지`} />
+          ) : (
+            <StyledIconUser>
+              <IconUser style={{ width: 28, height: 28, color: `${colors.gray400}`, paddingTop: '4px' }} />
+            </StyledIconUser>
+          )}
           <StyledAskTitle>
             <StyledName>{fromName}</StyledName>님에게 온 에스크
           </StyledAskTitle>
@@ -46,6 +53,7 @@ export default AskCard;
 const StyledContainer = styled.article`
   display: flex;
   flex-direction: column;
+  width: 100%;
   gap: 20px;
   padding: 20px;
   border-radius: 12px;
@@ -76,6 +84,16 @@ const StyledAskProfileImage = styled.img`
   border-radius: 50%;
 `;
 
+const StyledIconUser = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: ${colors.gray700};
+`;
+
 const StyledAskTitle = styled.div`
   color: ${colors.gray100};
   ${fonts.BODY_16_M};
@@ -101,4 +119,5 @@ const StyledAskContents = styled.div`
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+  min-height: 2lh;
 `;
