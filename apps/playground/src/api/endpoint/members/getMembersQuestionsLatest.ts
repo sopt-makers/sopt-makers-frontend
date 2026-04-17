@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { z } from 'zod';
 
+import type { GetResponseType } from '@/api/typedAxios';
 import { createEndpoint } from '@/api/typedAxios';
 
 const getMembersQuestionsLatest = createEndpoint({
@@ -33,3 +34,5 @@ export const useGetMembersQuestionsLatest = () => {
     queryFn: () => getMembersQuestionsLatest.request(),
   });
 };
+
+export type MembersQuestionType = GetResponseType<typeof getMembersQuestionsLatest>['questions'][number];
