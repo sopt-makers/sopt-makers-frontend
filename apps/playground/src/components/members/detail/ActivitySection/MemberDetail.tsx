@@ -187,7 +187,7 @@ const Wrapper = styled.div`
   gap: 30px;
   width: 790px;
   @media ${MOBILE_MEDIA_QUERY} {
-    gap: 17px;
+    gap: 16px;
     width: 100%;
   }
 `;
