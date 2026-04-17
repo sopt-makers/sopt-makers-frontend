@@ -78,34 +78,30 @@ export default function Carousel({
   };
 
   return (
-    <Container className={className}>
+    <Container className={className} isButtonOutside={isButtonOutside}>
       {isArrow && (
         <LeftControl isButtonOutside={isButtonOutside} onClick={handleClickLeftControl}>
           <LeftArrowIcon />
         </LeftControl>
       )}
-      <SlideWrapper>
-        <SlideClip>
-          <AnimatePresence initial={false} custom={direction}>
-            <StyledMotionDiv
-              key={page}
-              custom={direction}
-              variants={variants}
-              initial='enter'
-              animate='center'
-              transition={{
-                x: { type: 'spring', stiffness: 300, damping: 30 },
-                opacity: { duration: 0.2 },
-              }}
-              onTouchStart={onTouchStart}
-              onTouchMove={onTouchMove}
-              onTouchEnd={onTouchEnd}
-            >
-              <CarouselBody currentItemList={currentItemList} renderContainer={renderItemContainer} />
-            </StyledMotionDiv>
-          </AnimatePresence>
-        </SlideClip>
-      </SlideWrapper>
+      <AnimatePresence initial={false} custom={direction}>
+        <StyledMotionDiv
+          key={page}
+          custom={direction}
+          variants={variants}
+          initial='enter'
+          animate='center'
+          transition={{
+            x: { type: 'spring', stiffness: 300, damping: 30 },
+            opacity: { duration: 0.2 },
+          }}
+          onTouchStart={onTouchStart}
+          onTouchMove={onTouchMove}
+          onTouchEnd={onTouchEnd}
+        >
+          <CarouselBody currentItemList={currentItemList} renderContainer={renderItemContainer} />
+        </StyledMotionDiv>
+      </AnimatePresence>
 
       {isArrow && (
         <RightControl isButtonOutside={isButtonOutside} onClick={handleClickRightControl}>
@@ -137,31 +133,21 @@ const variants = {
   },
 };
 
-const Container = styled.div`
+const Container = styled.div<{ isButtonOutside?: boolean }>`
   position: relative;
   display: grid;
   grid:
     [row1-start] 'left-control list right-control' max-content [row1-end]
     [row2-start] 'indicators indicators indicators' max-content [row2-end]
-    / min-content auto min-content;
+    / ${({ isButtonOutside }) => (isButtonOutside ? '0 auto 0' : 'min-content auto min-content')};
   row-gap: 24px;
   width: 100%;
   overflow: visible;
   user-select: none;
 `;
 
-const SlideWrapper = styled.div`
-  grid-area: list;
-  position: relative;
-  overflow: visible;
-`;
-
-const SlideClip = styled.div`
-  overflow: hidden;
-  width: 100%;
-`;
-
 const StyledMotionDiv = styled(m.div)`
+  grid-area: list;
   width: 100%;
 `;
 
