@@ -4,17 +4,16 @@ import { fonts } from '@sopt-makers/fonts';
 import { IconUser } from '@sopt-makers/icons';
 import { Button } from '@sopt-makers/ui';
 
-import Responsive from '@/components/common/Responsive';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 interface AskCardProps {
   fromName: string;
   askContents: string;
   profileImageUrl?: string;
-  handleClick: () => void;
+  onClick: () => void;
 }
 
-const AskCard = ({ fromName, askContents, profileImageUrl, handleClick }: AskCardProps) => {
+const AskCard = ({ fromName, askContents, profileImageUrl, onClick }: AskCardProps) => {
   return (
     <StyledContainer>
       <StyledTopContainer>
@@ -23,7 +22,7 @@ const AskCard = ({ fromName, askContents, profileImageUrl, handleClick }: AskCar
             <StyledAskProfileImage src={profileImageUrl} alt={`${fromName}님의 프로필 이미지`} />
           ) : (
             <StyledIconUser>
-              <IconUser style={{ width: 28, height: 28, color: `${colors.gray400}`, paddingTop: '4px' }} />
+              <IconUser style={{ width: 28, height: 28, paddingTop: '4px' }} />
             </StyledIconUser>
           )}
           <StyledAskTitle>
@@ -33,17 +32,11 @@ const AskCard = ({ fromName, askContents, profileImageUrl, handleClick }: AskCar
         <StyledAskContents>{askContents}</StyledAskContents>
       </StyledTopContainer>
 
-      <Responsive only='desktop'>
-        <Button size='md' onClick={handleClick} theme='black' style={{ width: '100%' }}>
+      <ButtonContainer>
+        <Button size='md' onClick={onClick} theme='black' style={{ width: '100%' }}>
           답변 보러가기
         </Button>
-      </Responsive>
-
-      <Responsive only='mobile'>
-        <Button size='sm' onClick={handleClick} theme='black' style={{ width: '100%' }}>
-          답변 보러가기
-        </Button>
-      </Responsive>
+      </ButtonContainer>
     </StyledContainer>
   );
 };
@@ -92,6 +85,7 @@ const StyledIconUser = styled.div`
   height: 28px;
   border-radius: 50%;
   background-color: ${colors.gray700};
+  color: ${colors.gray400};
 `;
 
 const StyledAskTitle = styled.div`
@@ -119,5 +113,16 @@ const StyledAskContents = styled.div`
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
-  min-height: 2lh;
+  min-height: 44px;
+`;
+
+const ButtonContainer = styled.div`
+  & button {
+    @media ${MOBILE_MEDIA_QUERY} {
+      ${fonts.LABEL_12_SB}
+      height: 36px;
+      padding: 9px 14px;
+      border-radius: 8px;
+    }
+  }
 `;
