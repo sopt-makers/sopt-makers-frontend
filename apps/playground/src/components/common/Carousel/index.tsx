@@ -16,7 +16,6 @@ interface CarouselProps {
   renderItemContainer: (children: ReactNode) => ReactNode;
   onMove?: () => void;
   isArrow?: boolean;
-  isButtonOutside?: boolean;
 }
 
 export default function Carousel({
@@ -26,7 +25,6 @@ export default function Carousel({
   renderItemContainer,
   onMove,
   isArrow = true,
-  isButtonOutside = false,
 }: CarouselProps) {
   const { page, direction, moveNext, movePrevious, currentItemList, totalPageSize, move } = useCarousel({
     limit,
@@ -78,9 +76,9 @@ export default function Carousel({
   };
 
   return (
-    <Container className={className} isButtonOutside={isButtonOutside}>
+    <Container className={className}>
       {isArrow && (
-        <LeftControl isButtonOutside={isButtonOutside} onClick={handleClickLeftControl}>
+        <LeftControl onClick={handleClickLeftControl}>
           <LeftArrowIcon />
         </LeftControl>
       )}
@@ -104,7 +102,7 @@ export default function Carousel({
       </AnimatePresence>
 
       {isArrow && (
-        <RightControl isButtonOutside={isButtonOutside} onClick={handleClickRightControl}>
+        <RightControl onClick={handleClickRightControl}>
           <RightArrowIcon />
         </RightControl>
       )}
@@ -133,13 +131,12 @@ const variants = {
   },
 };
 
-const Container = styled.div<{ isButtonOutside?: boolean }>`
+const Container = styled.div`
   position: relative;
   display: grid;
   grid:
     [row1-start] 'left-control list right-control' max-content [row1-end]
-    [row2-start] 'indicators indicators indicators' max-content [row2-end]
-    / ${({ isButtonOutside }) => (isButtonOutside ? '0 auto 0' : 'min-content auto min-content')};
+    [row2-start] 'indicators indicators indicators' max-content [row2-end] / 0 auto 0;
   row-gap: 24px;
   width: 100%;
   overflow: visible;
@@ -167,20 +164,22 @@ const Control = styled.button`
   }
 `;
 
-const LeftControl = styled(Control)<{ isButtonOutside?: boolean }>`
+const LeftControl = styled(Control)`
   display: flex;
   grid-area: left-control;
   align-items: center;
   justify-content: center;
-  ${({ isButtonOutside }) => (isButtonOutside ? `position: absolute; left: -58px;` : `margin-right: 16px;`)}
+  position: absolute;
+  left: -58px;
 `;
 
-const RightControl = styled(Control)<{ isButtonOutside?: boolean }>`
+const RightControl = styled(Control)`
   display: flex;
   grid-area: right-control;
   align-items: center;
   justify-content: center;
-  ${({ isButtonOutside }) => (isButtonOutside ? `position: absolute; right: -58px;` : `margin-left: 16px;`)}
+  position: absolute;
+  right: -58px;
 `;
 
 const RightArrowIcon = styled(LeftArrowIcon)`

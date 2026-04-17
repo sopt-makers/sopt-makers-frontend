@@ -45,7 +45,6 @@ const AskCardList = () => {
       <StyledTitle>요즘 이런 질문이 오가고 있어요</StyledTitle>
       <Carousel
         isArrow={!isMobile}
-        isButtonOutside
         itemList={
           askData?.questions.map((question) => (
             <AskCard
