@@ -726,7 +726,7 @@ const StyledMemberSearch = styled(SearchField)`
 const StyledAskCardList = styled.div`
   margin-bottom: 64px;
   @media ${MOBILE_MEDIA_QUERY} {
-    padding: 12px 20px 16px 20px;
+    padding: 12px 20px 16px;
   }
 `;
 
