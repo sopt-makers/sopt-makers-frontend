@@ -21,9 +21,7 @@ const AskCard = ({ fromName, askContents, profileImageUrl, onClick }: AskCardPro
           {profileImageUrl ? (
             <StyledAskProfileImage src={profileImageUrl} alt={`${fromName}님의 프로필 이미지`} />
           ) : (
-            <StyledIconUser>
-              <IconUser style={{ width: 28, height: 28, paddingTop: '4px' }} />
-            </StyledIconUser>
+            <StyledIconUser />
           )}
           <StyledAskTitle>
             <StyledName>{fromName}</StyledName>님에게 온 에스크
@@ -33,7 +31,7 @@ const AskCard = ({ fromName, askContents, profileImageUrl, onClick }: AskCardPro
       </StyledTopContainer>
 
       <ButtonContainer>
-        <Button size='md' onClick={onClick} theme='black' style={{ width: '100%' }}>
+        <Button size='md' onClick={onClick} theme='black'>
           답변 보러가기
         </Button>
       </ButtonContainer>
@@ -77,15 +75,13 @@ const StyledAskProfileImage = styled.img`
   border-radius: 50%;
 `;
 
-const StyledIconUser = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
+const StyledIconUser = styled(IconUser)`
   width: 28px;
   height: 28px;
   border-radius: 50%;
   background-color: ${colors.gray700};
   color: ${colors.gray400};
+  padding-top: 4px;
 `;
 
 const StyledAskTitle = styled.div`
@@ -118,6 +114,8 @@ const StyledAskContents = styled.div`
 
 const ButtonContainer = styled.div`
   & button {
+    width: 100%;
+
     @media ${MOBILE_MEDIA_QUERY} {
       ${fonts.LABEL_12_SB}
       height: 36px;
