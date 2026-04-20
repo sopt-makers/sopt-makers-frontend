@@ -7,6 +7,8 @@ import MessageSection from '@/components/members/detail/MessageSection';
 import ProjectSection from '@/components/members/detail/ProjectSection';
 import SoptActivitySection from '@/components/members/detail/SoptActivitySection';
 
+import MemberRecommendSection from '../MemberRecommendSection/MemberRecommendSection';
+
 interface ProfileTabContentProps {
   profile: ProfileDetail;
   memberId: string;
@@ -65,6 +67,7 @@ const ProfileTabContent = ({ profile, memberId, meId, sortedSoptActivities }: Pr
       )}
       <ProjectSection profile={profile} memberId={memberId} meId={meId} />
       <GroupSection profile={profile} meId={meId} memberId={memberId} />
+      <MemberRecommendSection memberId={memberId} name={profile.name} />
     </>
   );
 };
