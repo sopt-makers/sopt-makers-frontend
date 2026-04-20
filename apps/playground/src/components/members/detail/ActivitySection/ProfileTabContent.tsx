@@ -8,6 +8,7 @@ import ProjectSection from '@/components/members/detail/ProjectSection';
 import SoptActivitySection from '@/components/members/detail/SoptActivitySection';
 
 import MemberRecommendSection from '../MemberRecommendSection/MemberRecommendSection';
+import SameActivityMemberSection from '../SameActivityMemberSection/SameActivityMemberSection';
 
 interface ProfileTabContentProps {
   profile: ProfileDetail;
@@ -22,6 +23,7 @@ const ProfileTabContent = ({ profile, memberId, meId, sortedSoptActivities }: Pr
       <MessageSection profile={profile} memberId={memberId} />
       <DetailInfoSection profile={profile} />
       <SoptActivitySection soptActivities={sortedSoptActivities} isMine={profile.isMine} />
+      <SameActivityMemberSection memberId={memberId} name={profile.name} recentSoptActivity={sortedSoptActivities[0]} />
       <CareerSection
         careers={profile.careers}
         links={profile.links}
