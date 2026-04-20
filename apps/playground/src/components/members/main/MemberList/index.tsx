@@ -20,7 +20,6 @@ import Responsive from '@/components/common/Responsive';
 import Text from '@/components/common/Text';
 import useEventLogger from '@/components/eventLogger/hooks/useEventLogger';
 import MessageModal, { MessageCategory } from '@/components/members/detail/MessageSection/MessageModal';
-import BestOBMemberForAsk from '@/components/members/main/AskOBMemberList';
 import { DESKTOP_ONE_MEDIA_QUERY, DESKTOP_TWO_MEDIA_QUERY } from '@/components/members/main/contants';
 import { useMemberProfileQuery } from '@/components/members/main/hooks/useMemberProfileQuery';
 import MemberCard from '@/components/members/main/MemberCard';
@@ -39,6 +38,7 @@ import {
 } from '@/components/members/main/MemberList/filters/constants';
 import MemberListFilter from '@/components/members/main/MemberList/filters/MemberListFilter';
 import { MemberListOrder } from '@/components/members/main/MemberList/filters/MemberListOrder';
+import MemberRecommendSection from '@/components/members/main/MemberRecommendSection/MemberRecommendSection';
 import { LATEST_GENERATION } from '@/constants/generation';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 import { usePageQueryParams } from '@/hooks/usePageQueryParams';
@@ -246,7 +246,7 @@ const MemberList: FC<MemberListProps> = ({ banner }) => {
                 onReset={handleSearchReset}
               />
               <Spacing size={14} />
-              <BestOBMemberForAsk />
+              <MemberRecommendSection />
               {/* {isAppJamParticipant && (
                 <BannerWrapper>
                   <Banner
@@ -374,7 +374,7 @@ const MemberList: FC<MemberListProps> = ({ banner }) => {
 
             <StyledRightWrapper>
               <Responsive only='desktop'>
-                <BestOBMemberForAsk />
+                <MemberRecommendSection />
                 <StyledTopWrapper>
                   <div
                     css={css`
@@ -641,6 +641,7 @@ const StyledMain = styled.main`
   flex-direction: column;
   column-gap: 30px;
   align-items: center;
+  width: 100%;
   max-width: 1312px;
 
   @media ${MOBILE_MEDIA_QUERY} {
@@ -653,7 +654,7 @@ const StyledRightWrapper = styled.div`
   display: flex;
   flex: 1;
   flex-direction: column;
-  margin-top: 68px;
+  margin-top: 52px;
   width: 100%;
 
   @media ${MOBILE_MEDIA_QUERY} {
