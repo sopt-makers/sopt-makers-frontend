@@ -1,18 +1,21 @@
 import styled from '@emotion/styled';
+import * as Tooltip from '@radix-ui/react-tooltip';
 import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
+import { fonts } from '@sopt-makers/fonts';
+import { Tag } from '@sopt-makers/ui';
 import { m } from 'framer-motion';
 import { useRouter } from 'next/router';
-import type { FC, SyntheticEvent } from 'react';
 
+import type { QuestionPreview } from '@/api/endpoint_LEGACY/members/type';
 import Responsive from '@/components/common/Responsive';
 import Text from '@/components/common/Text';
 import { LoggingImpression } from '@/components/eventLogger/components/LoggingImpression';
 import { useVisibleBadges } from '@/components/members/main/hooks/useVisibleBadges';
 import CoffeeChatButton from '@/components/members/main/MemberCard/CoffeeChatButton';
-import MessageButton from '@/components/members/main/MemberCard/MessageButton';
+import useMediaQuery from '@/hooks/useMediaQuery';
 import IconCoffee from '@/public/icons/icon-coffee.svg';
-import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
+import { MOBILE_MAX_WIDTH, MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 import { shimmerEffect } from '../style';
 import MemberProfileImage from './MemberProfileImage';
@@ -25,29 +28,26 @@ interface MemberCardProps {
     content: string;
     isActive: boolean;
   }[];
-  email?: string;
   imageUrl?: string;
+  questionPreview?: QuestionPreview;
   isCoffeeChatActivate: boolean;
   isLoading?: boolean;
-
-  onMessage?: (e: SyntheticEvent) => void;
 }
 
 const ELLIPSIS_WIDTH = 26;
 const BADGE_GAP = 4;
 
-const MemberCard: FC<MemberCardProps> = ({
+const MemberCard = ({
   memberId,
   name,
   belongs,
   badges,
   intro,
-  email,
   imageUrl,
+  questionPreview,
   isCoffeeChatActivate,
   isLoading,
-  onMessage,
-}) => {
+}: MemberCardProps) => {
   const { visibleBadges, isBadgeOverflow, badgeRefs, badgeWrapperRef } = useVisibleBadges(
     badges,
     ELLIPSIS_WIDTH,
@@ -60,77 +60,100 @@ const MemberCard: FC<MemberCardProps> = ({
     router.push(playgroundLink.coffeechatDetail(memberId));
   };
 
+  const isMobile = useMediaQuery(MOBILE_MAX_WIDTH);
+
   return (
     <LoggingImpression eventKey='memberCard' param={{ id: memberId, name, screen: 'member' }}>
-      <MotionMemberCard whileHover='hover'>
-        <MemberProfileImage isLoading={isLoading} imageUrl={imageUrl || ''} />
+      <Tooltip.Provider>
+        <Tooltip.Root open={!!questionPreview}>
+          <Tooltip.Trigger asChild>
+            <MotionMemberCard whileHover='hover'>
+              <MemberProfileImage isLoading={isLoading} imageUrl={imageUrl || ''} />
 
-        {isLoading ? (
-          <></>
-        ) : (
-          <MobileCoffeeChatBadge only='mobile'>
-            {isCoffeeChatActivate && (
-              <IconCoffeeWrapper>
-                <IconCoffee />
-              </IconCoffeeWrapper>
-            )}
-          </MobileCoffeeChatBadge>
-        )}
-        <ContentArea>
-          <TitleBox>
-            {isLoading ? (
-              <LoadingTitleBox />
-            ) : (
-              <>
-                <Name typography='SUIT_18_SB'>{name}</Name>
-                <Belongs typography='SUIT_12_SB'>{belongs}</Belongs>
-              </>
-            )}
-          </TitleBox>
-          {isLoading ? (
-            <></>
-          ) : (
-            <BadgesBox ref={badgeWrapperRef}>
-              <Badges>
-                {visibleBadges.map((badge, idx) => (
-                  <Badge
-                    ref={(el: HTMLDivElement) => (badgeRefs.current[idx] = el)}
-                    isActive={badge.isActive}
-                    key={idx}
-                  >
-                    {badge.isActive && <BadgeActiveDot />}
-                    <Text typography='SUIT_11_SB' color={badge.isActive ? colors.secondary : colors.gray200}>
-                      {badge.content}
-                    </Text>
-                  </Badge>
-                ))}
-                {isBadgeOverflow && (
-                  <Badge isActive={false}>
-                    <Text typography='SUIT_11_SB'>...</Text>
-                  </Badge>
+              {isLoading ? (
+                <></>
+              ) : (
+                <MobileCoffeeChatBadge only='mobile'>
+                  {isCoffeeChatActivate && (
+                    <IconCoffeeWrapper>
+                      <IconCoffee />
+                    </IconCoffeeWrapper>
+                  )}
+                </MobileCoffeeChatBadge>
+              )}
+              <ContentArea>
+                <TitleBox>
+                  {isLoading ? (
+                    <LoadingTitleBox />
+                  ) : (
+                    <>
+                      <Name typography='SUIT_18_SB'>{name}</Name>
+                      <Belongs typography='SUIT_12_SB'>{belongs}</Belongs>
+                    </>
+                  )}
+                </TitleBox>
+                {isLoading ? (
+                  <></>
+                ) : (
+                  <BadgesBox ref={badgeWrapperRef}>
+                    <Badges>
+                      {visibleBadges.map((badge, idx) => (
+                        <Badge
+                          ref={(el: HTMLDivElement) => (badgeRefs.current[idx] = el)}
+                          isActive={badge.isActive}
+                          key={idx}
+                        >
+                          {badge.isActive && <BadgeActiveDot />}
+                          <Text typography='SUIT_11_SB' color={badge.isActive ? colors.secondary : colors.gray200}>
+                            {badge.content}
+                          </Text>
+                        </Badge>
+                      ))}
+                      {isBadgeOverflow && (
+                        <Badge isActive={false}>
+                          <Text typography='SUIT_11_SB'>...</Text>
+                        </Badge>
+                      )}
+                    </Badges>
+                  </BadgesBox>
                 )}
-              </Badges>
-            </BadgesBox>
-          )}
-          {isLoading ? (
-            <LoadingIntroBox />
-          ) : (
-            <Intro typography='SUIT_13_M' color={colors.gray200}>
-              {intro}
-            </Intro>
-          )}
-        </ContentArea>
-        {isLoading ? (
-          <LoadingSideWrapper only='desktop'>
-            <LoadingSideButton />
-          </LoadingSideWrapper>
-        ) : (
-          <SideButtons>
-            {isCoffeeChatActivate && <CoffeeChatButton onClick={onCoffeeChatButtonClick} receiver={name} />}
-            {email && email.length > 0 && <MessageButton name={name} onClick={onMessage} />}
-          </SideButtons>
-        )}
-      </MotionMemberCard>
+                {isLoading ? (
+                  <LoadingIntroBox />
+                ) : (
+                  <Intro typography='SUIT_13_M' color={colors.gray200}>
+                    {intro}
+                  </Intro>
+                )}
+              </ContentArea>
+              {isLoading ? (
+                <LoadingSideWrapper only='desktop'>
+                  <LoadingSideButton />
+                </LoadingSideWrapper>
+              ) : (
+                <SideButtons>
+                  {isCoffeeChatActivate && <CoffeeChatButton onClick={onCoffeeChatButtonClick} receiver={name} />}
+                </SideButtons>
+              )}
+            </MotionMemberCard>
+          </Tooltip.Trigger>
+          <Tooltip.Portal>
+            <TooltipContent
+              side='bottom'
+              sideOffset={isMobile ? -17 : -38}
+              align={isMobile ? 'start' : 'center'}
+              avoidCollisions={false}
+            >
+              <ContentWrapper>
+                <Tag size='sm' shape='rect' variant='primary' type='solid'>
+                  ASK
+                </Tag>
+                <Question>{questionPreview?.content}</Question>
+              </ContentWrapper>
+              <TooltipArrow />
+            </TooltipContent>
+          </Tooltip.Portal>
+        </Tooltip.Root>
+      </Tooltip.Provider>
     </LoggingImpression>
   );
 };
@@ -327,5 +350,55 @@ const LoadingIntroBox = styled.div`
     margin-top: 10px;
     max-width: 335px;
     height: 24px;
+  }
+`;
+
+const TooltipContent = styled(Tooltip.Content)`
+  position: relative;
+  max-width: 286px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background-color: ${colors.gray600};
+  box-shadow:
+    0 1px 4px 0 rgba(12, 12, 13, 0.05),
+    0 1px 4px 0 rgba(12, 12, 13, 0.1);
+
+  @media ${MOBILE_MEDIA_QUERY} {
+    max-width: 160px;
+    padding: 8px 10px;
+  }
+`;
+
+const ContentWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+`;
+
+const TooltipArrow = styled.div`
+  position: absolute;
+  top: -9px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-bottom: 12px solid ${colors.gray600};
+
+  @media ${MOBILE_MEDIA_QUERY} {
+    left: 16px;
+  }
+`;
+
+const Question = styled.span`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: ${colors.gray10};
+  ${fonts.BODY_14_R}
+
+  @media ${MOBILE_MEDIA_QUERY} {
+    ${fonts.LABEL_12_SB}
   }
 `;

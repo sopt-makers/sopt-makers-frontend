@@ -519,20 +519,8 @@ const MemberList: FC<MemberListProps> = ({ banner }) => {
                                 badges={badges}
                                 intro={profile.introduction}
                                 imageUrl={profile.profileImage}
+                                questionPreview={profile.questionPreview}
                                 isCoffeeChatActivate={profile.isCoffeeChatActivate}
-                                email={profile.email}
-                                onMessage={(e) => {
-                                  e.preventDefault();
-                                  logClickEvent('messageBadge');
-                                  setMessageModalState({
-                                    show: true,
-                                    data: {
-                                      targetId: `${profile.id}`,
-                                      name: profile.name,
-                                      profileUrl: profile.profileImage,
-                                    },
-                                  });
-                                }}
                               />
                               <Responsive only='mobile'>
                                 <HLine />
