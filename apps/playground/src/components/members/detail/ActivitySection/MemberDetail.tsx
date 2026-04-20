@@ -164,7 +164,7 @@ const Container = styled.div`
   padding: 120px 0 200px;
   @media ${MOBILE_MEDIA_QUERY} {
     padding: 16px 20px;
-    padding-bottom: 100px;
+    padding-bottom: 120px;
   }
 `;
 
