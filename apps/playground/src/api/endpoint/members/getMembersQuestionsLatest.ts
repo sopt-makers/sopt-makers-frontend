@@ -4,7 +4,7 @@ import { z } from 'zod';
 import type { GetResponseType } from '@/api/typedAxios';
 import { createEndpoint } from '@/api/typedAxios';
 
-const getMembersQuestionsLatest = createEndpoint({
+const getMembersQuestionsLatestEndpoint = createEndpoint({
   request: () => ({
     method: 'GET',
     url: 'api/v1/members/questions/latest',
@@ -30,9 +30,9 @@ const getMembersQuestionsLatest = createEndpoint({
 
 export const useGetMembersQuestionsLatest = () => {
   return useQuery({
-    queryKey: getMembersQuestionsLatest.cacheKey(),
-    queryFn: () => getMembersQuestionsLatest.request(),
+    queryKey: getMembersQuestionsLatestEndpoint.cacheKey(),
+    queryFn: () => getMembersQuestionsLatestEndpoint.request(),
   });
 };
 
-export type MembersQuestionType = GetResponseType<typeof getMembersQuestionsLatest>['questions'][number];
+export type MembersQuestionType = GetResponseType<typeof getMembersQuestionsLatestEndpoint>['questions'][number];
