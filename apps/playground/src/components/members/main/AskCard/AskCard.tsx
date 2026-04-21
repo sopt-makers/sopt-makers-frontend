@@ -7,24 +7,24 @@ import { Button } from '@sopt-makers/ui';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 interface AskCardProps {
-  fromName: string;
+  profileName: string;
   askContents: string;
   profileImageUrl?: string;
   onAnswerClick: () => void;
 }
 
-const AskCard = ({ fromName, askContents, profileImageUrl, onAnswerClick }: AskCardProps) => {
+const AskCard = ({ profileName, askContents, profileImageUrl, onAnswerClick }: AskCardProps) => {
   return (
     <StyledContainer>
       <StyledTopContainer>
         <StyledAskTitleContainer>
           {profileImageUrl ? (
-            <StyledAskProfileImage src={profileImageUrl} alt={`${fromName}님의 프로필 이미지`} />
+            <StyledAskProfileImage src={profileImageUrl} alt={`${profileName}님의 프로필 이미지`} />
           ) : (
             <StyledIconUser />
           )}
           <StyledAskTitle>
-            <StyledName>{fromName}</StyledName>님에게 온 에스크
+            <StyledName>{profileName}</StyledName>님에게 온 에스크
           </StyledAskTitle>
         </StyledAskTitleContainer>
         <StyledAskContents>{askContents}</StyledAskContents>

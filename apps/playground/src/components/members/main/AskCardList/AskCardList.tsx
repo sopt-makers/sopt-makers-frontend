@@ -49,7 +49,7 @@ const AskCardList = () => {
           askData?.questions.map((question) => (
             <AskCard
               key={question.questionId}
-              fromName={question.receiverName}
+              profileName={question.receiverName}
               askContents={question.content}
               profileImageUrl={question.receiverProfileImage ?? undefined}
               onAnswerClick={() => handleAnswerClick(question)}
