@@ -419,16 +419,7 @@ const MemberList: FC<MemberListProps> = ({ banner }) => {
                         defaultOption={FILTER_DEFAULT_OPTION}
                         value={team ?? undefined}
                         onDefaultClick={() => setTeam(undefined)}
-                      >
-                        <Link href={playgroundLink.makers()}>
-                          <div>
-                            <StyledMakersLink typography='SUIT_16_M'>
-                              메이커스
-                              <IconDiagonalArrow />
-                            </StyledMakersLink>
-                          </div>
-                        </Link>
-                      </MemberListFilter>
+                      ></MemberListFilter>
                       <MemberListFilter
                         placeholder='MBTI'
                         defaultOption={FILTER_DEFAULT_OPTION}
@@ -524,20 +515,8 @@ const MemberList: FC<MemberListProps> = ({ banner }) => {
                                 badges={badges}
                                 intro={profile.introduction}
                                 imageUrl={profile.profileImage}
+                                questionPreview={profile.questionPreview}
                                 isCoffeeChatActivate={profile.isCoffeeChatActivate}
-                                email={profile.email}
-                                onMessage={(e) => {
-                                  e.preventDefault();
-                                  logClickEvent('messageBadge');
-                                  setMessageModalState({
-                                    show: true,
-                                    data: {
-                                      targetId: `${profile.id}`,
-                                      name: profile.name,
-                                      profileUrl: profile.profileImage,
-                                    },
-                                  });
-                                }}
                               />
                               <Responsive only='mobile'>
                                 <HLine />
