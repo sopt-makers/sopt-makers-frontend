@@ -94,7 +94,7 @@ const StyledAskTitle = styled.div`
 `;
 
 const StyledName = styled.span`
-  color: ${colors.white};
+  color: ${colors.gray10};
   ${fonts.TITLE_16_SB};
 
   @media ${MOBILE_MEDIA_QUERY} {
