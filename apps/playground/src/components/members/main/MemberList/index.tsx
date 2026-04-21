@@ -2,14 +2,13 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
-import { fonts } from '@sopt-makers/fonts';
 import { IconSwitchVertical } from '@sopt-makers/icons';
 import { SearchField } from '@sopt-makers/ui';
 import { Spacing } from '@toss/emotion-utils';
 import { debounce, uniq } from 'lodash-es';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import type { ChangeEvent, FC, ReactNode } from 'react';
+import type { ChangeEvent, ReactNode } from 'react';
 import React, { useEffect, useMemo, useState } from 'react';
 
 import { useGetMemberOfMe } from '@/api/endpoint/members/getMemberOfMe';
@@ -65,7 +64,7 @@ export type MessageModalState =
       };
     };
 
-const MemberList: FC<MemberListProps> = ({ banner }) => {
+const MemberList = ({ banner }: MemberListProps) => {
   const [generation, setGeneration] = useState<Option | null | undefined>(null);
   const [part, setPart] = useState<Option | null | undefined>(null);
   const [employed, setEmployed] = useState<Option | null | undefined>(null);
