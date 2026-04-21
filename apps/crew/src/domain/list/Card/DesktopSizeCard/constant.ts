@@ -39,6 +39,12 @@ export const MeetingInformation = (
     value: () => meetingData.welcomeMessageTypes?.map((message) => `#${message}`).join(' '),
     isValid: !!meetingData.welcomeMessageTypes?.length,
   },
+  {
+    label: '참여 정보',
+    // TODO: 참여 정보 API가 나오면 수정 필요
+    value: () => meetingData.welcomeMessageTypes?.map((message) => `# ${message}`).join(' '),
+    isValid: !!meetingData.welcomeMessageTypes?.length,
+  },
 ];
 
 export const FlashInformation = (
