@@ -2,6 +2,7 @@ import type { MeetingData } from '@api/meeting/type';
 import ProfileDefaultIcon from '@assets/svg/profile_default.svg?rect';
 import type { CategoryKoType } from '@constant/option';
 import { CategoryChip } from '@domain/list/Card/DesktopSizeCard/CategoryChip';
+import type { CardInfoItem } from '@domain/list/Card/DesktopSizeCard/constant';
 import { MeetingInformation } from '@domain/list/Card/DesktopSizeCard/constant';
 import RecruitmentStatusTag from '@shared/Tag/RecruitmentStatusTag';
 import { Flex } from '@shared/util/layout/Flex';
@@ -12,20 +13,17 @@ import { styled } from 'stitches.config';
 interface CardProps {
   meetingData: MeetingData;
   isFlash?: boolean;
-  flashDetailInfo?: {
-    label: string;
-    value: () => string;
-    isValid: boolean;
-  }[];
+  flashDetailInfo?: CardInfoItem[];
   flashCount?: string;
 }
 
 const MOCK_DATA = {
-  subtitle: '3대 째 운영되는 온라인 독서모임이며 스장 존녜존잼 보장 제미나이야 일해라',
+  subtitle:
+    '3대 째 운영되는 온라인 독서모임이며 3대 째 운영되는 온라인 독서모임이며 3대 째 운영되는 온라인 독서모임이며 ',
 };
 
 function DesktopSizeCard({ meetingData, isFlash = false, flashDetailInfo, flashCount }: CardProps) {
-  const detailInfo = isFlash && flashDetailInfo ? flashDetailInfo : MeetingInformation(meetingData);
+  const detailInfo: CardInfoItem[] = isFlash && flashDetailInfo ? flashDetailInfo : MeetingInformation(meetingData);
 
   return (
     <>
@@ -63,14 +61,23 @@ function DesktopSizeCard({ meetingData, isFlash = false, flashDetailInfo, flashC
         </SProfileWrapper>
         <SName>{meetingData.user.name}</SName>
       </Flex>
+
       {detailInfo.map(({ label, value, isValid }) => (
         <SInfoRow key={label}>
-          {isValid ? (
+          {isValid && (
             <>
               <SKey>{label}</SKey>
-              <SValue>{value()}</SValue>
+              {Array.isArray(value) ? (
+                <SArrayValues>
+                  {value.map((tag) => (
+                    <span key={tag}>{tag}</span>
+                  ))}
+                </SArrayValues>
+              ) : (
+                <SValue>{value}</SValue>
+              )}
             </>
-          ) : null}
+          )}
         </SInfoRow>
       ))}
     </>
@@ -157,4 +164,11 @@ const SKey = styled(SInfo, {
 });
 const SValue = styled(SInfo, {
   color: '$gray300',
+});
+const SArrayValues = styled('div', {
+  display: 'flex',
+  gap: '$6',
+  flexWrap: 'wrap',
+  color: '$gray300',
+  fontStyle: 'B3',
 });

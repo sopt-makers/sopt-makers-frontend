@@ -1,11 +1,14 @@
 import ProfileDefaultIcon from '@assets/svg/profile_default.svg?rect';
 import RecruitmentStatusTag from '@shared/Tag/RecruitmentStatusTag';
-import { Divider } from '@shared/util/Divider';
 import { Flex } from '@shared/util/layout/Flex';
 import { getResizedImage } from '@util/image';
 import { styled } from 'stitches.config';
 
 import type { MobileSizeCardProps } from '.';
+
+const MOCK_DATA = {
+  subTitle: '3대 째 운영되는 온라인 독서모임이며 스장 존녜존잼 보장 제미나이야 일해라',
+};
 
 function ListType({ meetingData }: Omit<MobileSizeCardProps, 'mobileType'>) {
   return (
@@ -19,9 +22,14 @@ function ListType({ meetingData }: Omit<MobileSizeCardProps, 'mobileType'>) {
             }}
           />
         </ImageWrapper>
+
         <InfoGroup>
           <STitle>{meetingData.title}</STitle>
+          {/* @TODO subTitle api 연동 */}
+          <SSubTitle>{MOCK_DATA.subTitle}</SSubTitle>
           <Flex align='center'>
+            <SCategory>{meetingData.category}</SCategory>
+            <Divider>|</Divider>
             <SProfileWrapper>
               {meetingData.user.profileImage ? (
                 <SProfile src={getResizedImage(meetingData.user.profileImage, 120)} alt='' />
@@ -30,14 +38,13 @@ function ListType({ meetingData }: Omit<MobileSizeCardProps, 'mobileType'>) {
               )}
             </SProfileWrapper>
             <SUserInfo>{meetingData.user.name}</SUserInfo>
-            <SUserInfo>|</SUserInfo>
-            <SCategory>{meetingData.category}</SCategory>
           </Flex>
-          <Flex>
+          <TagWrapper>
             {meetingData.meetingKeywordTypes?.map((keyword) => (
               <WelcomeTag key={keyword}>{keyword}</WelcomeTag>
+              // @TODO: 참여 정보 # 000으로 표시 및 API 연동, 키워드 최대 2개 노출, 참여 정보 최대 2개 노출
             ))}
-          </Flex>
+          </TagWrapper>
         </InfoGroup>
       </Flex>
       <Divider />
@@ -54,8 +61,8 @@ const ImageWrapper = styled('div', {
   position: 'relative',
 });
 const SThumbnailImage = styled('div', {
-  width: '120px',
-  height: '82px',
+  width: '134px',
+  height: '92px',
   borderRadius: '$8',
   overflow: 'hidden',
   backgroundColor: '$gray800',
@@ -67,9 +74,9 @@ const SThumbnailImage = styled('div', {
 const InfoGroup = styled('div', {
   display: 'flex',
   flexDirection: 'column',
-  gap: '$8',
-
   ml: '$12',
+  minWidth: 0,
+  flex: 1,
 });
 
 const SProfileWrapper = styled('div', {
@@ -88,19 +95,33 @@ const SProfile = styled('img', {
 
 const STitle = styled('p', {
   fontStyle: 'H5',
-  maxWidth: 'calc(100vw - 32px - 12px - 120px)',
+  width: '100%',
   whiteSpace: 'nowrap',
   overflow: 'hidden',
   textOverflow: 'ellipsis',
-  wordBreak: 'break-all',
+  mb: '$4',
+  color: '$gray10',
+});
+
+const SSubTitle = styled('p', {
+  fontStyle: 'B4',
+  width: '100%',
+  whiteSpace: 'nowrap',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  mb: '$8',
+  color: '$gray200',
+});
+
+const Divider = styled('p', {
+  fontStyle: 'T6',
+  color: '$gray300',
+  mx: '$4',
 });
 
 const SUserInfo = styled('p', {
-  'fontStyle': 'B4',
-  'color': '$gray300',
-  '& + &': {
-    ml: '$4',
-  },
+  fontStyle: 'B4',
+  color: '$gray300',
 });
 
 const SCategory = styled(SUserInfo, {
@@ -119,4 +140,10 @@ const WelcomeTag = styled('span', {
 
   color: '$gray100',
   fontStyle: 'L2',
+});
+
+const TagWrapper = styled('div', {
+  display: 'flex',
+  gap: '$4',
+  mt: '$8',
 });
