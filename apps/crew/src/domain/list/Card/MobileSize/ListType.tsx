@@ -8,7 +8,8 @@ import { styled } from 'stitches.config';
 import type { MobileSizeCardProps } from '.';
 
 const MOCK_DATA = {
-  subTitle: '3대 째 운영되는 온라인 독서모임이며 스장 존녜존잼 보장 제미나이야 일해라',
+  subTitle:
+    '3대 째 운영되는 온라인 독서모임이며 3대 째 운영되는 온라인 독서모임이며 3대 째 운영되는 온라인 독서모임이며',
 };
 
 function ListType({ meetingData }: Omit<MobileSizeCardProps, 'mobileType'>) {
