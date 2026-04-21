@@ -28,7 +28,7 @@ const AskCardList = () => {
     return () => media.removeEventListener('change', handleChange);
   }, []);
 
-  const handleClick = (question: MembersQuestionType) => {
+  const handleAnswerClick = (question: MembersQuestionType) => {
     router.push({
       pathname: `/members/${question.receiverId}`,
       query: {
@@ -52,7 +52,7 @@ const AskCardList = () => {
               fromName={question.receiverName}
               askContents={question.content}
               profileImageUrl={question.receiverProfileImage ?? undefined}
-              onClick={() => handleClick(question)}
+              onAnswerClick={() => handleAnswerClick(question)}
             />
           )) ?? []
         }

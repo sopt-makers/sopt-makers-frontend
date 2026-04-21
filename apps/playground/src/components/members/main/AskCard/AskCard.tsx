@@ -10,10 +10,10 @@ interface AskCardProps {
   fromName: string;
   askContents: string;
   profileImageUrl?: string;
-  onClick: () => void;
+  onAnswerClick: () => void;
 }
 
-const AskCard = ({ fromName, askContents, profileImageUrl, onClick }: AskCardProps) => {
+const AskCard = ({ fromName, askContents, profileImageUrl, onAnswerClick }: AskCardProps) => {
   return (
     <StyledContainer>
       <StyledTopContainer>
@@ -31,7 +31,7 @@ const AskCard = ({ fromName, askContents, profileImageUrl, onClick }: AskCardPro
       </StyledTopContainer>
 
       <ButtonContainer>
-        <Button size='md' onClick={onClick} theme='black'>
+        <Button size='md' onClick={onAnswerClick} theme='black'>
           답변 보러가기
         </Button>
       </ButtonContainer>
