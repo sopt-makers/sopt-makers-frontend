@@ -21,12 +21,12 @@ const MemberRecommendSection = ({ memberId, name }: MemberRecommendSectionProps)
   const memberRecommendData = data?.members.slice(0, 3);
 
   return (
-    <Section>
-      <SectionHeader>
-        <SectionTitle>{name}님과 접점이 있는 멤버</SectionTitle>
+    <StyledSection>
+      <StyledSectionHeader>
+        <StyledSectionTitle>{name}님과 접점이 있는 멤버</StyledSectionTitle>
         <StyledRefreshIcon onClick={refetch} />
-      </SectionHeader>
-      <CardGrid>
+      </StyledSectionHeader>
+      <StyledCardGrid>
         {memberRecommendData?.map((member) => (
           <Link key={member.id} href={playgroundLink.memberDetail(member.id)}>
             <MemberRecommendCard
@@ -39,14 +39,14 @@ const MemberRecommendSection = ({ memberId, name }: MemberRecommendSectionProps)
             />
           </Link>
         ))}
-      </CardGrid>
-    </Section>
+      </StyledCardGrid>
+    </StyledSection>
   );
 };
 
 export default MemberRecommendSection;
 
-const Section = styled.section`
+const StyledSection = styled.section`
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -56,13 +56,13 @@ const Section = styled.section`
   }
 `;
 
-const SectionHeader = styled.div`
+const StyledSectionHeader = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
 `;
 
-const SectionTitle = styled.span`
+const StyledSectionTitle = styled.span`
   color: ${colors.gray10};
   ${fonts.HEADING_28_B}
 
@@ -83,7 +83,7 @@ const StyledRefreshIcon = styled(RefreshIcon)`
   }
 `;
 
-const CardGrid = styled.div`
+const StyledCardGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 12px;

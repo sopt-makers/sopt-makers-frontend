@@ -22,12 +22,12 @@ interface RecommendTypeChipProps {
 }
 
 const RecommendTypeChip = ({ recommendType }: RecommendTypeChipProps) => {
-  return <Container>{RECOMMEND_TYPE_LABEL[recommendType]}</Container>;
+  return <StyledContainer>{RECOMMEND_TYPE_LABEL[recommendType]}</StyledContainer>;
 };
 
 export default RecommendTypeChip;
 
-const Container = styled.div`
+const StyledContainer = styled.div`
   padding: 5px 5px 5px 8px;
   background-color: #fdbbf9;
   border-radius: 20px;

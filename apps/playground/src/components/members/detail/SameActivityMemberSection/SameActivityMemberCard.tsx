@@ -10,22 +10,22 @@ type SameActivityMemberCardProps = Omit<MemberGenerationPart, 'id'>;
 
 const SameActivityMemberCard = ({ profileImage, name, generation, part }: SameActivityMemberCardProps) => {
   return (
-    <Container>
-      {profileImage ? <Avatar src={profileImage} /> : <DefaultAvatar />}
-      <InfoWrapper>
-        <Name>{name}</Name>
-        <Meta>
+    <StyledContainer>
+      {profileImage ? <StyledAvatar src={profileImage} alt={`${name}님의 프로필 이미지`} /> : <StyledDefaultAvatar />}
+      <StyledInfoWrapper>
+        <StyledName>{name}</StyledName>
+        <StyledMeta>
           {generation}기 {part}
-        </Meta>
-      </InfoWrapper>
+        </StyledMeta>
+      </StyledInfoWrapper>
       <StyledChevronRight />
-    </Container>
+    </StyledContainer>
   );
 };
 
 export default SameActivityMemberCard;
 
-const Container = styled.div`
+const StyledContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
@@ -38,14 +38,14 @@ const Container = styled.div`
   }
 `;
 
-const Avatar = styled.img`
+const StyledAvatar = styled.img`
   display: block;
   width: 44px;
   height: 44px;
   border-radius: 50%;
 `;
 
-const DefaultAvatar = styled(IconUser)`
+const StyledDefaultAvatar = styled(IconUser)`
   display: block;
   width: 44px;
   height: 44px;
@@ -55,14 +55,14 @@ const DefaultAvatar = styled(IconUser)`
   padding-top: 6px;
 `;
 
-const InfoWrapper = styled.div`
+const StyledInfoWrapper = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
   gap: 2px;
 `;
 
-const Name = styled.span`
+const StyledName = styled.span`
   color: ${colors.gray10};
   ${fonts.TITLE_16_SB}
 
@@ -71,7 +71,7 @@ const Name = styled.span`
   }
 `;
 
-const Meta = styled.span`
+const StyledMeta = styled.span`
   color: ${colors.gray200};
   ${fonts.TITLE_14_SB}
 

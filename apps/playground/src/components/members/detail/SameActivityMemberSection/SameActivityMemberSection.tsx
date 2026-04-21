@@ -21,11 +21,11 @@ const SamePartMemberSection = ({ memberId, name, recentSoptActivity }: SamePartM
   const { data: memberGenerationPartData } = useGetMemberGenerationPart(memberId);
 
   return (
-    <Section>
-      <SectionTitle>
+    <StyledSection>
+      <StyledSectionTitle>
         {name}님과 같은 {recentSoptActivity.generation}기 {isMakers ? '메이커스' : `${recentSoptActivity.part}`}
-      </SectionTitle>
-      <CardGrid>
+      </StyledSectionTitle>
+      <StyledCardGrid>
         {memberGenerationPartData?.members.map((member) => (
           <Link key={member.id} href={playgroundLink.memberDetail(member.id)}>
             <SameActivityMemberCard
@@ -36,26 +36,26 @@ const SamePartMemberSection = ({ memberId, name, recentSoptActivity }: SamePartM
             />
           </Link>
         ))}
-      </CardGrid>
-    </Section>
+      </StyledCardGrid>
+    </StyledSection>
   );
 };
 
 export default SamePartMemberSection;
 
-const Section = styled.section`
+const StyledSection = styled.section`
   display: flex;
   flex-direction: column;
   gap: 12px;
   margin-top: 6px;
 `;
 
-const SectionTitle = styled.span`
+const StyledSectionTitle = styled.span`
   color: ${colors.gray10};
   ${fonts.HEADING_20_B}
 `;
 
-const CardGrid = styled.div`
+const StyledCardGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 8px;

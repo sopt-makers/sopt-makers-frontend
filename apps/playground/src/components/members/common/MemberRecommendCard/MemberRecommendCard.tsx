@@ -13,26 +13,26 @@ type RecommendCardProps = Omit<RecommendMemberOfMe | RecommendMemberById, 'id'>;
 
 const MemberRecommendCard = ({ profileImage, name, generation, part, recommendType }: RecommendCardProps) => {
   return (
-    <Container>
-      <AvatarWrapper>
-        {profileImage ? <Avatar src={profileImage} alt={`${name}님의 프로필 이미지`} /> : <DefaultAvatar />}
-        <ChipOverlay>
+    <StyledContainer>
+      <StyledAvatarWrapper>
+        {profileImage ? <StyledAvatar src={profileImage} alt={`${name}님의 프로필 이미지`} /> : <StyledDefaultAvatar />}
+        <StyledChipOverlay>
           <RecommendTypeChip recommendType={recommendType} />
-        </ChipOverlay>
-      </AvatarWrapper>
-      <InfoWrapper>
-        <Name>{name} &gt;</Name>
-        <Meta>
+        </StyledChipOverlay>
+      </StyledAvatarWrapper>
+      <StyledInfoWrapper>
+        <StyledName>{name} &gt;</StyledName>
+        <StyledMeta>
           {generation}기 {part}
-        </Meta>
-      </InfoWrapper>
-    </Container>
+        </StyledMeta>
+      </StyledInfoWrapper>
+    </StyledContainer>
   );
 };
 
 export default MemberRecommendCard;
 
-const Container = styled.div`
+const StyledContainer = styled.div`
   display: flex;
   gap: 16px;
   align-items: center;
@@ -48,11 +48,11 @@ const Container = styled.div`
   }
 `;
 
-const AvatarWrapper = styled.div`
+const StyledAvatarWrapper = styled.div`
   position: relative;
 `;
 
-const Avatar = styled.img`
+const StyledAvatar = styled.img`
   display: block;
   width: 80px;
   height: 80px;
@@ -64,7 +64,7 @@ const Avatar = styled.img`
   }
 `;
 
-const DefaultAvatar = styled(IconUser)`
+const StyledDefaultAvatar = styled(IconUser)`
   display: block;
   width: 80px;
   height: 80px;
@@ -80,14 +80,14 @@ const DefaultAvatar = styled(IconUser)`
   }
 `;
 
-const ChipOverlay = styled.div`
+const StyledChipOverlay = styled.div`
   position: absolute;
   top: -5px;
   left: 50%;
   transform: translateX(-50%);
 `;
 
-const InfoWrapper = styled.div`
+const StyledInfoWrapper = styled.div`
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
@@ -99,7 +99,7 @@ const InfoWrapper = styled.div`
   }
 `;
 
-const Name = styled.p`
+const StyledName = styled.p`
   color: ${colors.gray10};
   ${fonts.HEADING_20_B}
 
@@ -108,7 +108,7 @@ const Name = styled.p`
   }
 `;
 
-const Meta = styled.p`
+const StyledMeta = styled.p`
   color: ${colors.gray200};
   ${fonts.LABEL_14_SB}
 
