@@ -70,9 +70,7 @@ const MemberCard = ({
             <MotionMemberCard whileHover='hover'>
               <MemberProfileImage isLoading={isLoading} imageUrl={imageUrl || ''} />
 
-              {isLoading ? (
-                <></>
-              ) : (
+              {!isLoading && (
                 <MobileCoffeeChatBadge only='mobile'>
                   {isCoffeeChatActivate && (
                     <IconCoffeeWrapper>
@@ -81,6 +79,7 @@ const MemberCard = ({
                   )}
                 </MobileCoffeeChatBadge>
               )}
+
               <ContentArea>
                 <TitleBox>
                   {isLoading ? (
@@ -92,9 +91,8 @@ const MemberCard = ({
                     </>
                   )}
                 </TitleBox>
-                {isLoading ? (
-                  <></>
-                ) : (
+
+                {!isLoading && (
                   <BadgesBox ref={badgeWrapperRef}>
                     <Badges>
                       {visibleBadges.map((badge, idx) => (
@@ -117,6 +115,7 @@ const MemberCard = ({
                     </Badges>
                   </BadgesBox>
                 )}
+
                 {isLoading ? (
                   <LoadingIntroBox />
                 ) : (
@@ -125,6 +124,7 @@ const MemberCard = ({
                   </Intro>
                 )}
               </ContentArea>
+
               {isLoading ? (
                 <LoadingSideWrapper only='desktop'>
                   <LoadingSideButton />
