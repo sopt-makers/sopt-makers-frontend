@@ -648,6 +648,14 @@ const StyledMain = styled.main`
   align-items: center;
   max-width: 1312px;
 
+  @media ${DESKTOP_ONE_MEDIA_QUERY} {
+    max-width: 978px;
+  }
+
+  @media ${DESKTOP_TWO_MEDIA_QUERY} {
+    max-width: 644px;
+  }
+
   @media ${MOBILE_MEDIA_QUERY} {
     padding: 0 20px;
     width: 100%;
