@@ -1,5 +1,6 @@
 import ProfileDefaultIcon from '@assets/svg/profile_default.svg?rect';
 import RecruitmentStatusTag from '@shared/Tag/RecruitmentStatusTag';
+import { Divider } from '@shared/util/Divider';
 import { Flex } from '@shared/util/layout/Flex';
 import { getResizedImage } from '@util/image';
 import { styled } from 'stitches.config';
@@ -29,7 +30,7 @@ function ListType({ meetingData }: Omit<MobileSizeCardProps, 'mobileType'>) {
           <SSubTitle>{MOCK_DATA.subTitle}</SSubTitle>
           <Flex align='center'>
             <SCategory>{meetingData.category}</SCategory>
-            <Divider>|</Divider>
+            <SDivider>|</SDivider>
             <SProfileWrapper>
               {meetingData.user.profileImage ? (
                 <SProfile src={getResizedImage(meetingData.user.profileImage, 120)} alt='' />
@@ -113,9 +114,9 @@ const SSubTitle = styled('p', {
   color: '$gray200',
 });
 
-const Divider = styled('p', {
+const SDivider = styled('p', {
   fontStyle: 'T6',
-  color: '$gray300',
+  color: '$gray600',
   mx: '$4',
 });
 

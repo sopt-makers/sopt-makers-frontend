@@ -142,7 +142,7 @@ const STitle = styled('p', {
 });
 const SSubTitle = styled('p', {
   maxWidth: '380px',
-  fontStyle: 'B16',
+  fontStyle: 'B2',
   overflow: 'hidden',
   whiteSpace: 'nowrap',
   textOverflow: 'ellipsis',
