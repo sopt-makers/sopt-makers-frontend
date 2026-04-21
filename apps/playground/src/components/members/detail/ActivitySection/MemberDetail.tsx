@@ -3,7 +3,6 @@ import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 import { Tag } from '@sopt-makers/ui';
 import { useRouter } from 'next/router';
-import type { FC } from 'react';
 import { useMemo } from 'react';
 
 import { useGetMemberOfMe } from '@/api/endpoint/members/getMemberOfMe';
@@ -34,7 +33,7 @@ const TABS: Tab[] = [
   { id: 'ask', label: '에스크' },
 ];
 
-const MemberDetail: FC<MemberDetailProps> = ({ memberId }) => {
+const MemberDetail = ({ memberId }: MemberDetailProps) => {
   const router = useRouter();
   const { logPageViewEvent, logClickEvent } = useEventLogger();
 
@@ -44,7 +43,7 @@ const MemberDetail: FC<MemberDetailProps> = ({ memberId }) => {
 
   const { data: me } = useGetMemberOfMe();
 
-  const isMyProfile = me?.id !== undefined && String(me.id) === memberId;
+  const isMyProfile = me?.id === safeParseInt(memberId);
 
   const { data: unansweredCountData } = useGetUnansweredQuestionCount({
     enabled: isMyProfile,
@@ -99,15 +98,16 @@ const MemberDetail: FC<MemberDetailProps> = ({ memberId }) => {
       </Container>
     );
 
-  const getAskTabTag = () => {
-    if (isMyProfile && (unansweredCountData?.count ?? 0) > 0) {
-      return unansweredCountData?.count;
+  const unansweredCount = unansweredCountData?.count ?? 0;
+  let askNotificationBadge: number | 'N' | null = null;
+
+  if (isMyProfile) {
+    if (unansweredCount > 0) {
+      askNotificationBadge = unansweredCount;
     }
-    if (!isMyProfile && profile.hasRecentQuestion) {
-      return 'N';
-    }
-    return null;
-  };
+  } else if (profile.hasRecentQuestion) {
+    askNotificationBadge = 'N';
+  }
 
   return (
     <Container>
@@ -115,21 +115,18 @@ const MemberDetail: FC<MemberDetailProps> = ({ memberId }) => {
         <ProfileSection profile={profile} memberId={memberId} />
 
         <TabNavigation>
-          {TABS.map((tab) => {
-            const askTabTag = tab.id === 'ask' ? getAskTabTag() : null;
-            return (
-              <TabButton key={tab.id} isActive={currentTab === tab.id} onClick={() => handleTabChange(tab.id)}>
-                {tab.label}
-                {askTabTag !== null && (
-                  <TagWrapper>
-                    <StyledTag size='sm' variant='primary' shape='pill'>
-                      {askTabTag}
-                    </StyledTag>
-                  </TagWrapper>
-                )}
-              </TabButton>
-            );
-          })}
+          {TABS.map((tab) => (
+            <TabButton key={tab.id} isActive={currentTab === tab.id} onClick={() => handleTabChange(tab.id)}>
+              {tab.label}
+              {tab.id === 'ask' && askNotificationBadge !== null && (
+                <BadgeWrapper>
+                  <Badge size='sm' variant='primary' shape='pill'>
+                    {askNotificationBadge}
+                  </Badge>
+                </BadgeWrapper>
+              )}
+            </TabButton>
+          ))}
         </TabNavigation>
 
         {(() => {
@@ -242,11 +239,11 @@ const TabButton = styled.button<{ isActive: boolean }>`
   }
 `;
 
-const TagWrapper = styled.div`
+const BadgeWrapper = styled.div`
   display: flex;
   align-items: center;
 `;
 
-const StyledTag = styled(Tag)`
+const Badge = styled(Tag)`
   padding: 3px 8px;
 `;
