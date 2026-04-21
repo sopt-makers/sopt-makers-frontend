@@ -2,14 +2,13 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
-import { fonts } from '@sopt-makers/fonts';
 import { IconSwitchVertical } from '@sopt-makers/icons';
 import { SearchField } from '@sopt-makers/ui';
 import { Spacing } from '@toss/emotion-utils';
 import { debounce, uniq } from 'lodash-es';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import type { ChangeEvent, FC, ReactNode } from 'react';
+import type { ChangeEvent, ReactNode } from 'react';
 import React, { useEffect, useMemo, useState } from 'react';
 
 import { useGetMemberOfMe } from '@/api/endpoint/members/getMemberOfMe';
@@ -38,6 +37,7 @@ import {
 } from '@/components/members/main/MemberList/filters/constants';
 import MemberListFilter from '@/components/members/main/MemberList/filters/MemberListFilter';
 import { MemberListOrder } from '@/components/members/main/MemberList/filters/MemberListOrder';
+import MemberRecommendSection from '@/components/members/main/MemberRecommendSection/MemberRecommendSection';
 import { LATEST_GENERATION } from '@/constants/generation';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 import { usePageQueryParams } from '@/hooks/usePageQueryParams';
@@ -66,7 +66,7 @@ export type MessageModalState =
       };
     };
 
-const MemberList: FC<MemberListProps> = ({ banner }) => {
+const MemberList = ({ banner }: MemberListProps) => {
   const [generation, setGeneration] = useState<Option | null | undefined>(null);
   const [part, setPart] = useState<Option | null | undefined>(null);
   const [employed, setEmployed] = useState<Option | null | undefined>(null);
@@ -246,7 +246,8 @@ const MemberList: FC<MemberListProps> = ({ banner }) => {
                 onSubmit={() => handleSearchSubmit(search as string)}
                 onReset={handleSearchReset}
               />
-              <Spacing size={14} />
+              <Spacing size={8} />
+              <MemberRecommendSection />
               <StyledAskCardList>
                 <AskCardList />
               </StyledAskCardList>
@@ -377,6 +378,7 @@ const MemberList: FC<MemberListProps> = ({ banner }) => {
 
             <StyledRightWrapper>
               <Responsive only='desktop'>
+                <MemberRecommendSection />
                 <StyledAskCardList>
                   <AskCardList />
                 </StyledAskCardList>
@@ -625,6 +627,7 @@ const StyledMain = styled.main`
   flex-direction: column;
   column-gap: 30px;
   align-items: center;
+  width: 100%;
   max-width: 1312px;
 
   @media ${DESKTOP_ONE_MEDIA_QUERY} {
@@ -645,7 +648,7 @@ const StyledRightWrapper = styled.div`
   display: flex;
   flex: 1;
   flex-direction: column;
-  margin-top: 68px;
+  margin-top: 52px;
   width: 100%;
 
   @media ${MOBILE_MEDIA_QUERY} {
@@ -713,7 +716,8 @@ const StyledMemberSearch = styled(SearchField)`
 const StyledAskCardList = styled.div`
   margin-bottom: 64px;
   @media ${MOBILE_MEDIA_QUERY} {
-    padding: 12px 20px 16px;
+    padding: 12px 0 20px 0;
+    margin-bottom: 0;
   }
 `;
 
