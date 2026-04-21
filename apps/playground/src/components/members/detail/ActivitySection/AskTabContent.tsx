@@ -188,6 +188,7 @@ const AskTabContent = ({ memberId, memberName, meId, unansweredCount }: AskTabCo
 
   return (
     <Container>
+      <Info>익명으로도 편하게 물어볼 수 있어요 👀</Info>
       {!hasAnyQuestions ? (
         <EmptyContainer>
           <EmptyTitle>아직 질문이 없어요.</EmptyTitle>
@@ -491,6 +492,21 @@ const Container = styled.div`
   flex-direction: column;
   gap: 20px;
   max-width: 790px;
+`;
+
+const Info = styled.div`
+  margin-bottom: 10px;
+  padding: 16px 20px;
+  border-radius: 12px;
+  background-color: ${colors.gray900};
+  color: ${colors.gray200};
+  ${fonts.TITLE_16_SB};
+
+  @media ${MOBILE_MEDIA_QUERY} {
+    margin-bottom: 4px;
+    padding: 12px 20px;
+    ${fonts.BODY_14_M};
+  }
 `;
 
 const EmptyContainer = styled.div`

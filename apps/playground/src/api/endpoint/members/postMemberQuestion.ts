@@ -32,11 +32,12 @@ export const usePostMemberAsk = () => {
 
   return useMutation({
     mutationFn: (params: PostMemberAskRequest) => postMemberAsk.request(params),
-    onSuccess: () => {
+    onSuccess: (_, { receiverId }) => {
       queryClient.invalidateQueries({ queryKey: ['getMemberQuestions'] });
       queryClient.invalidateQueries({
         queryKey: ['getUnansweredQuestionCount'],
       });
+      queryClient.invalidateQueries({ queryKey: ['getMemberProfileById', receiverId] });
     },
   });
 };

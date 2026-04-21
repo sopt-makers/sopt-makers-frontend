@@ -3,7 +3,6 @@ import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 import { Tag } from '@sopt-makers/ui';
 import { useRouter } from 'next/router';
-import type { FC } from 'react';
 import { useMemo } from 'react';
 
 import { useGetMemberOfMe } from '@/api/endpoint/members/getMemberOfMe';
@@ -34,7 +33,7 @@ const TABS: Tab[] = [
   { id: 'ask', label: '에스크' },
 ];
 
-const MemberDetail: FC<MemberDetailProps> = ({ memberId }) => {
+const MemberDetail = ({ memberId }: MemberDetailProps) => {
   const router = useRouter();
   const { logPageViewEvent, logClickEvent } = useEventLogger();
 
@@ -44,7 +43,7 @@ const MemberDetail: FC<MemberDetailProps> = ({ memberId }) => {
 
   const { data: me } = useGetMemberOfMe();
 
-  const isMyProfile = me?.id !== undefined && String(me.id) === memberId;
+  const isMyProfile = me?.id === safeParseInt(memberId);
 
   const { data: unansweredCountData } = useGetUnansweredQuestionCount({
     enabled: isMyProfile,
@@ -99,6 +98,17 @@ const MemberDetail: FC<MemberDetailProps> = ({ memberId }) => {
       </Container>
     );
 
+  const unansweredCount = unansweredCountData?.count ?? 0;
+  let askNotificationBadge: number | 'N' | null = null;
+
+  if (isMyProfile) {
+    if (unansweredCount > 0) {
+      askNotificationBadge = unansweredCount;
+    }
+  } else if (profile.hasRecentQuestion) {
+    askNotificationBadge = 'N';
+  }
+
   return (
     <Container>
       <Wrapper>
@@ -108,12 +118,12 @@ const MemberDetail: FC<MemberDetailProps> = ({ memberId }) => {
           {TABS.map((tab) => (
             <TabButton key={tab.id} isActive={currentTab === tab.id} onClick={() => handleTabChange(tab.id)}>
               {tab.label}
-              {tab.id === 'ask' && isMyProfile && (unansweredCountData?.count ?? 0) > 0 && (
-                <TagWrapper>
-                  <StyledTag size='sm' variant='primary' shape='pill'>
-                    {unansweredCountData?.count}
-                  </StyledTag>
-                </TagWrapper>
+              {tab.id === 'ask' && askNotificationBadge !== null && (
+                <BadgeWrapper>
+                  <Badge size='sm' variant='primary' shape='pill'>
+                    {askNotificationBadge}
+                  </Badge>
+                </BadgeWrapper>
               )}
             </TabButton>
           ))}
@@ -174,7 +184,7 @@ const Wrapper = styled.div`
   gap: 30px;
   width: 790px;
   @media ${MOBILE_MEDIA_QUERY} {
-    gap: 24px;
+    gap: 16px;
     width: 100%;
   }
 `;
@@ -229,11 +239,11 @@ const TabButton = styled.button<{ isActive: boolean }>`
   }
 `;
 
-const TagWrapper = styled.div`
+const BadgeWrapper = styled.div`
   display: flex;
   align-items: center;
 `;
 
-const StyledTag = styled(Tag)`
+const Badge = styled(Tag)`
   padding: 3px 8px;
 `;
