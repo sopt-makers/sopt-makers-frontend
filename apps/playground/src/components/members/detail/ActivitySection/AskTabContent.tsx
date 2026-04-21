@@ -70,13 +70,13 @@ const AskTabContent = ({ memberId, memberName, meId, unansweredCount }: AskTabCo
 
   useEffect(() => {
     const questionTabFromQuery = router.query.questionTab as QuestionTab;
-    const scrollPageFromQuery = router.query.scrollPage ? Number(router.query.scrollPage) : null;
-    const scrollIndexFromQuery = router.query.scrollIndex != null ? Number(router.query.scrollIndex) : null;
+    const scrollPageFromQuery = router.query.scrollPage != null ? Number(router.query.scrollPage) : undefined;
+    const scrollIndexFromQuery = router.query.scrollIndex != null ? Number(router.query.scrollIndex) : undefined;
 
     if (questionTabFromQuery) {
       setSelectedTab(questionTabFromQuery);
       setCurrentPage(scrollPageFromQuery ?? 1);
-      if (scrollIndexFromQuery !== null) {
+      if (scrollIndexFromQuery != null) {
         setScrollTargetIndex(scrollIndexFromQuery);
       }
     } else if (!isMyProfile && answeredPeek && (answeredPeek.questions?.length ?? 0) === 0) {
