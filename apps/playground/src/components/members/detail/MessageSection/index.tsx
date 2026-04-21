@@ -82,12 +82,7 @@ export default function MessageSection({ memberId, profile }: MessageSectionProp
     return (
       <>
         <StyledMemberDetailSection>
-          <TitleWrapper>
-            <Title typography='SUIT_18_SB'>{name}님과 나누고 싶은 이야기가 있나요?</Title>
-            <Subtitle typography='SUIT_16_M' color={colors.gray300}>
-              궁금한 점에 대해 편하게 소통해보세요!
-            </Subtitle>
-          </TitleWrapper>
+          <Title typography='SUIT_18_SB'>{name}님과 가볍게 이야기 나누어보세요!</Title>
           <ButtonWrapper>
             {isCoffeeChatActivate && (
               <CoffeeChatButton size='sm' theme='black' onClick={handleClickCoffeeChatButton}>

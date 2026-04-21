@@ -46,6 +46,7 @@ import { useRunOnce } from '@/hooks/useRunOnce';
 import IconDiagonalArrow from '@/public/icons/icon-diagonal-arrow.svg';
 import { MB_BIG_MEDIA_QUERY } from '@/styles/mediaQuery';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
+
 const PAGE_LIMIT = 24;
 
 interface MemberListProps {
@@ -414,16 +415,7 @@ const MemberList: FC<MemberListProps> = ({ banner }) => {
                         defaultOption={FILTER_DEFAULT_OPTION}
                         value={team ?? undefined}
                         onDefaultClick={() => setTeam(undefined)}
-                      >
-                        <Link href={playgroundLink.makers()}>
-                          <div>
-                            <StyledMakersLink typography='SUIT_16_M'>
-                              메이커스
-                              <IconDiagonalArrow />
-                            </StyledMakersLink>
-                          </div>
-                        </Link>
-                      </MemberListFilter>
+                      ></MemberListFilter>
                       <MemberListFilter
                         placeholder='MBTI'
                         defaultOption={FILTER_DEFAULT_OPTION}
