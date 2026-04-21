@@ -9,7 +9,11 @@ import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 import RecommendTypeChip from './RecommendTypeChip';
 
-type RecommendCardProps = Omit<RecommendMemberOfMe | RecommendMemberById, 'id'>;
+// 두 API의 recommendType enum 값이 달라 유니온으로 수용
+type RecommendCardProps = Pick<
+  RecommendMemberOfMe | RecommendMemberById,
+  'profileImage' | 'name' | 'generation' | 'part' | 'recommendType'
+>;
 
 const MemberRecommendCard = ({ profileImage, name, generation, part, recommendType }: RecommendCardProps) => {
   return (

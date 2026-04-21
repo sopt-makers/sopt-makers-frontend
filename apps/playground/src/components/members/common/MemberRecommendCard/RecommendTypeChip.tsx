@@ -6,6 +6,7 @@ import type { RecommendMemberById } from '@/api/endpoint/members/getMemberRecomm
 import type { RecommendMemberOfMe } from '@/api/endpoint/members/getMemberRecommendOfMe';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
+// 두 API의 recommendType enum 값을 모두 수용
 type RecommendType = RecommendMemberOfMe['recommendType'] | RecommendMemberById['recommendType'];
 
 const RECOMMEND_TYPE_LABEL: Record<RecommendType, string> = {
