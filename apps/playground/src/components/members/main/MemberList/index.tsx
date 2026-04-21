@@ -246,7 +246,7 @@ const MemberList = ({ banner }: MemberListProps) => {
                 onSubmit={() => handleSearchSubmit(search as string)}
                 onReset={handleSearchReset}
               />
-              <Spacing size={14} />
+              <Spacing size={8} />
               <MemberRecommendSection />
               <StyledAskCardList>
                 <AskCardList />
@@ -716,7 +716,8 @@ const StyledMemberSearch = styled(SearchField)`
 const StyledAskCardList = styled.div`
   margin-bottom: 64px;
   @media ${MOBILE_MEDIA_QUERY} {
-    padding: 12px 20px 16px;
+    padding: 12px 0 20px 0;
+    margin-bottom: 0;
   }
 `;
 
