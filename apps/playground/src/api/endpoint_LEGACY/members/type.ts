@@ -67,6 +67,7 @@ export type ProfileDetail = {
   projects: MemberProject[];
   careers: Career[];
   allowOfficial: boolean;
+  hasRecentQuestion: boolean;
   isMine: boolean;
   isPhoneBlind: boolean;
   isCoffeeChatActivate: boolean;
