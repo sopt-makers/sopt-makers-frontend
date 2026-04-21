@@ -415,16 +415,7 @@ const MemberList: FC<MemberListProps> = ({ banner }) => {
                         defaultOption={FILTER_DEFAULT_OPTION}
                         value={team ?? undefined}
                         onDefaultClick={() => setTeam(undefined)}
-                      >
-                        <Link href={playgroundLink.makers()}>
-                          <div>
-                            <StyledMakersLink typography='SUIT_16_M'>
-                              메이커스
-                              <IconDiagonalArrow />
-                            </StyledMakersLink>
-                          </div>
-                        </Link>
-                      </MemberListFilter>
+                      ></MemberListFilter>
                       <MemberListFilter
                         placeholder='MBTI'
                         defaultOption={FILTER_DEFAULT_OPTION}
