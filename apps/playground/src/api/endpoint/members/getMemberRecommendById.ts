@@ -9,8 +9,7 @@ const memberRecommendSchema = z.object({
   profileImage: z.string().nullable(),
   generation: z.number(),
   part: z.string(),
-  // TODO: 서버 작업 이후 SAME_MBTI 삭제
-  recommendType: z.enum(['SAME_PART', 'SAME_CREW', 'SAME_PROJECT', 'SAME_MBTI', 'SAME_UNIVERSITY', 'SAME_GENERATION']),
+  recommendType: z.enum(['SAME_PART', 'SAME_CREW', 'SAME_PROJECT', 'SAME_UNIVERSITY', 'SAME_GENERATION']),
 });
 
 const getMemberRecommendByIdEndpoint = createEndpoint({
