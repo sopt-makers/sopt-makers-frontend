@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/ban-types */
 
-import { FontAg, FontStyle } from '@constant/font';
+import type { FontAg, FontStyle } from '@constant/font';
 import { colors } from '@sopt-makers/colors';
-import { createStitches, CSS, PropertyValue, ScaleValue } from '@stitches/react';
+import type { CSS, PropertyValue, ScaleValue } from '@stitches/react';
+import { createStitches } from '@stitches/react';
 const stitches = createStitches({
   theme: {
     colors: {
@@ -152,6 +153,7 @@ const stitches = createStitches({
       H: 700,
       T: 600,
       B: 500,
+      L: 600,
       C: 700,
     },
     sizes: {
