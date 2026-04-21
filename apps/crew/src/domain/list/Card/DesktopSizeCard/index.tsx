@@ -48,10 +48,10 @@ function DesktopSizeCard({ meetingData, isFlash = false, flashDetailInfo, flashC
         />
       </CategroyChipWrapper>
 
-      <TitleSection>
-        <Title>{meetingData.title}</Title>
-        <SubTitle>{MOCK_DATA.subtitle}</SubTitle>
-      </TitleSection>
+      <STitleSection>
+        <STitle>{meetingData.title}</STitle>
+        <SSubTitle>{MOCK_DATA.subtitle}</SSubTitle>
+      </STitleSection>
 
       <Flex css={{ mb: '$8' }} align='center'>
         <SProfileWrapper>
@@ -123,17 +123,17 @@ const SProfile = styled('img', {
 const SName = styled('p', {
   fontStyle: 'T5',
 });
-const TitleSection = styled('div', {
+const STitleSection = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   gap: '$4',
   mb: '$12',
 });
-const Title = styled('p', {
+const STitle = styled('p', {
   maxWidth: '380px',
   fontStyle: 'H2',
 });
-const SubTitle = styled('p', {
+const SSubTitle = styled('p', {
   maxWidth: '380px',
   fontStyle: 'B16',
   overflow: 'hidden',
