@@ -36,7 +36,7 @@ export const MeetingInformation = (
   },
   {
     label: '환영 태그',
-    value: () => meetingData.welcomeMessageTypes?.map((message) => `#${message}`).join(' '),
+    value: () => meetingData.welcomeMessageTypes?.map((message) => `# ${message}`).join(' '),
     isValid: !!meetingData.welcomeMessageTypes?.length,
   },
   {
