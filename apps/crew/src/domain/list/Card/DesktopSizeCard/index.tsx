@@ -20,11 +20,15 @@ interface CardProps {
   flashCount?: string;
 }
 
+const MOCK_DATA = {
+  subtitle: '3대 째 운영되는 온라인 독서모임이며 스장 존녜존잼 보장 제미나이야 일해라',
+};
+
 function DesktopSizeCard({ meetingData, isFlash = false, flashDetailInfo, flashCount }: CardProps) {
   const detailInfo = isFlash && flashDetailInfo ? flashDetailInfo : MeetingInformation(meetingData);
 
   return (
-    <div>
+    <>
       <ImageWrapper>
         <RecruitmentStatusTag status={meetingData.status} style={{ position: 'absolute', top: '16px', left: '16px' }} />
         <STag size='md' type='solid'>
@@ -37,15 +41,19 @@ function DesktopSizeCard({ meetingData, isFlash = false, flashDetailInfo, flashC
         />
       </ImageWrapper>
 
-      <STitleSection>
+      <CategroyChipWrapper>
         <CategoryChip
           category={meetingData.category as CategoryKoType}
           meetingKeywordTypes={meetingData.meetingKeywordTypes}
         />
-        <STitle>{meetingData.title}</STitle>
-      </STitleSection>
+      </CategroyChipWrapper>
 
-      <Flex css={{ mb: '$14' }} align='center'>
+      <TitleSection>
+        <Title>{meetingData.title}</Title>
+        <SubTitle>{MOCK_DATA.subtitle}</SubTitle>
+      </TitleSection>
+
+      <Flex css={{ mb: '$8' }} align='center'>
         <SProfileWrapper>
           {meetingData.user.profileImage ? (
             <SProfile src={getResizedImage(meetingData.user.profileImage, 120)} alt='' />
@@ -65,7 +73,7 @@ function DesktopSizeCard({ meetingData, isFlash = false, flashDetailInfo, flashC
           ) : null}
         </SInfoRow>
       ))}
-    </div>
+    </>
   );
 }
 
@@ -91,7 +99,7 @@ const SThumbnailImage = styled('div', {
   backgroundRepeat: 'no-repeat',
 });
 
-const STitleSection = styled('div', {
+const CategroyChipWrapper = styled('div', {
   'my': '$16',
   '@media (max-width: 768px)': {
     my: '$8',
@@ -115,10 +123,23 @@ const SProfile = styled('img', {
 const SName = styled('p', {
   fontStyle: 'T5',
 });
-const STitle = styled('p', {
+const TitleSection = styled('div', {
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '$4',
+  mb: '$12',
+});
+const Title = styled('p', {
   maxWidth: '380px',
   fontStyle: 'H2',
-  mt: '$8',
+});
+const SubTitle = styled('p', {
+  maxWidth: '380px',
+  fontStyle: 'B16',
+  overflow: 'hidden',
+  whiteSpace: 'nowrap',
+  textOverflow: 'ellipsis',
+  color: '$gray200',
 });
 const SInfoRow = styled(Flex, {
   '& + &': {
@@ -129,7 +150,7 @@ const SInfo = styled('p', {
   fontStyle: 'B3',
 });
 const SKey = styled(SInfo, {
-  width: '74px',
+  width: '52px',
   color: '$gray500',
   mr: '$12',
   whiteSpace: 'nowrap',
