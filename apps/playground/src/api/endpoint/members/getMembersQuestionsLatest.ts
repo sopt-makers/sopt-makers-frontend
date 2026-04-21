@@ -30,7 +30,7 @@ const getMembersQuestionsLatest = createEndpoint({
 
 export const useGetMembersQuestionsLatest = () => {
   return useQuery({
-    queryKey: ['getMembersQuestionsLatest'],
+    queryKey: getMembersQuestionsLatest.cacheKey(),
     queryFn: () => getMembersQuestionsLatest.request(),
   });
 };
