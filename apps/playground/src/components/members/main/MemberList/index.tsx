@@ -46,6 +46,8 @@ import { useRunOnce } from '@/hooks/useRunOnce';
 import IconDiagonalArrow from '@/public/icons/icon-diagonal-arrow.svg';
 import { MB_BIG_MEDIA_QUERY } from '@/styles/mediaQuery';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
+
+import EmptyMemberView from '../EmptyRecommendView/EmptyRecommendView';
 const PAGE_LIMIT = 24;
 
 interface MemberListProps {
@@ -375,6 +377,9 @@ const MemberList: FC<MemberListProps> = ({ banner }) => {
             <StyledRightWrapper>
               <Responsive only='desktop'>
                 <BestOBMemberForAsk />
+                <EmptyMemberView
+                  emptyContents={`아직 나와 맞는 멤버가 나타나지 않았어요.\n다른 멤버들을 살펴볼까요?`}
+                />
                 <StyledTopWrapper>
                   <div
                     css={css`
