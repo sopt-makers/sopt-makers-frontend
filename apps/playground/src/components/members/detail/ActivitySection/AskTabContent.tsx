@@ -70,15 +70,20 @@ const AskTabContent = ({ memberId, memberName, meId, unansweredCount }: AskTabCo
 
   useEffect(() => {
     const questionTabFromQuery = router.query.questionTab as QuestionTab;
+    const scrollPageFromQuery = router.query.scrollPage != null ? Number(router.query.scrollPage) : undefined;
+    const scrollIndexFromQuery = router.query.scrollIndex != null ? Number(router.query.scrollIndex) : undefined;
 
     if (questionTabFromQuery) {
       setSelectedTab(questionTabFromQuery);
-      setCurrentPage(1);
+      setCurrentPage(scrollPageFromQuery ?? 1);
+      if (scrollIndexFromQuery != null) {
+        setScrollTargetIndex(scrollIndexFromQuery);
+      }
     } else if (!isMyProfile && answeredPeek && (answeredPeek.questions?.length ?? 0) === 0) {
       // 본인 프로필이 아니고, 답변완료 탭에 글이 없으면 새질문 탭으로
       setSelectedTab('unanswered');
     }
-  }, [router.query.questionTab, answeredPeek, isMyProfile]);
+  }, [router.query.questionTab, router.query.scrollPage, router.query.scrollIndex, answeredPeek, isMyProfile]);
 
   const [scrollTargetIndex, setScrollTargetIndex] = useState<number | null>(null);
   const observedQuestionsRef = useRef<Set<number>>(new Set());
