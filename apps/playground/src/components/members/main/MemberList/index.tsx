@@ -247,10 +247,10 @@ const MemberList = ({ banner }: MemberListProps) => {
                 onReset={handleSearchReset}
               />
               <Spacing size={14} />
+              <MemberRecommendSection />
               <StyledAskCardList>
                 <AskCardList />
               </StyledAskCardList>
-              <MemberRecommendSection />
               {/* {isAppJamParticipant && (
                 <BannerWrapper>
                   <Banner
@@ -378,10 +378,10 @@ const MemberList = ({ banner }: MemberListProps) => {
 
             <StyledRightWrapper>
               <Responsive only='desktop'>
+                <MemberRecommendSection />
                 <StyledAskCardList>
                   <AskCardList />
                 </StyledAskCardList>
-                <MemberRecommendSection />
                 <StyledTopWrapper>
                   <div
                     css={css`
