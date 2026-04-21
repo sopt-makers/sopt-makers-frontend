@@ -20,7 +20,6 @@ import Responsive from '@/components/common/Responsive';
 import Text from '@/components/common/Text';
 import useEventLogger from '@/components/eventLogger/hooks/useEventLogger';
 import MessageModal, { MessageCategory } from '@/components/members/detail/MessageSection/MessageModal';
-import BestOBMemberForAsk from '@/components/members/main/AskOBMemberList';
 import { DESKTOP_ONE_MEDIA_QUERY, DESKTOP_TWO_MEDIA_QUERY } from '@/components/members/main/contants';
 import { useMemberProfileQuery } from '@/components/members/main/hooks/useMemberProfileQuery';
 import MemberCard from '@/components/members/main/MemberCard';
@@ -47,8 +46,9 @@ import IconDiagonalArrow from '@/public/icons/icon-diagonal-arrow.svg';
 import { MB_BIG_MEDIA_QUERY } from '@/styles/mediaQuery';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
-const PAGE_LIMIT = 24;
+import AskCardList from '../AskCardList/AskCardList';
 
+const PAGE_LIMIT = 24;
 interface MemberListProps {
   banner: ReactNode;
 }
@@ -247,7 +247,9 @@ const MemberList: FC<MemberListProps> = ({ banner }) => {
                 onReset={handleSearchReset}
               />
               <Spacing size={14} />
-              <BestOBMemberForAsk />
+              <StyledAskCardList>
+                <AskCardList />
+              </StyledAskCardList>
               {/* {isAppJamParticipant && (
                 <BannerWrapper>
                   <Banner
@@ -375,7 +377,9 @@ const MemberList: FC<MemberListProps> = ({ banner }) => {
 
             <StyledRightWrapper>
               <Responsive only='desktop'>
-                <BestOBMemberForAsk />
+                <StyledAskCardList>
+                  <AskCardList />
+                </StyledAskCardList>
                 <StyledTopWrapper>
                   <div
                     css={css`
@@ -623,6 +627,14 @@ const StyledMain = styled.main`
   align-items: center;
   max-width: 1312px;
 
+  @media ${DESKTOP_ONE_MEDIA_QUERY} {
+    max-width: 978px;
+  }
+
+  @media ${DESKTOP_TWO_MEDIA_QUERY} {
+    max-width: 644px;
+  }
+
   @media ${MOBILE_MEDIA_QUERY} {
     padding: 0 20px;
     width: 100%;
@@ -695,6 +707,13 @@ const StyledMemberSearch = styled(SearchField)`
   @media ${MOBILE_MEDIA_QUERY} {
     order: none;
     width: 100%;
+  }
+`;
+
+const StyledAskCardList = styled.div`
+  margin-bottom: 64px;
+  @media ${MOBILE_MEDIA_QUERY} {
+    padding: 12px 20px 16px;
   }
 `;
 
