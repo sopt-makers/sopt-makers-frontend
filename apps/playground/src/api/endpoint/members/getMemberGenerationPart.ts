@@ -11,7 +11,7 @@ const memberGenerationPartSchema = z.object({
   part: z.string(),
 });
 
-const getMemberGenerationPart = createEndpoint({
+const getMemberGenerationPartEndpoint = createEndpoint({
   request: (userId: string) => ({
     method: 'GET',
     url: `api/v1/members/recommend/${userId}/generation-part`,
@@ -23,8 +23,8 @@ const getMemberGenerationPart = createEndpoint({
 
 export const useGetMemberGenerationPart = (userId: string) => {
   return useQuery({
-    queryKey: getMemberGenerationPart.cacheKey(userId),
-    queryFn: () => getMemberGenerationPart.request(userId),
+    queryKey: getMemberGenerationPartEndpoint.cacheKey(userId),
+    queryFn: () => getMemberGenerationPartEndpoint.request(userId),
     staleTime: Infinity,
   });
 };

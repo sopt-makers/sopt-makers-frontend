@@ -12,7 +12,7 @@ const memberRecommendSchema = z.object({
   recommendType: z.enum(['SAME_PART', 'SAME_CREW', 'SAME_MBTI', 'SAME_UNIVERSITY', 'SAME_GENERATION']),
 });
 
-const getMemberRecommendOfMe = createEndpoint({
+const getMemberRecommendOfMeEndpoint = createEndpoint({
   request: () => ({
     method: 'GET',
     url: 'api/v1/members/recommend/me',
@@ -24,8 +24,8 @@ const getMemberRecommendOfMe = createEndpoint({
 
 export const useGetMemberRecommendOfMe = () => {
   return useQuery({
-    queryKey: getMemberRecommendOfMe.cacheKey(),
-    queryFn: () => getMemberRecommendOfMe.request(),
+    queryKey: getMemberRecommendOfMeEndpoint.cacheKey(),
+    queryFn: () => getMemberRecommendOfMeEndpoint.request(),
     staleTime: Infinity,
   });
 };
