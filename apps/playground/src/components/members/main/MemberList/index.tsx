@@ -45,8 +45,10 @@ import { useRunOnce } from '@/hooks/useRunOnce';
 import IconDiagonalArrow from '@/public/icons/icon-diagonal-arrow.svg';
 import { MB_BIG_MEDIA_QUERY } from '@/styles/mediaQuery';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
-const PAGE_LIMIT = 24;
 
+import AskCardList from '../AskCardList/AskCardList';
+
+const PAGE_LIMIT = 24;
 interface MemberListProps {
   banner: ReactNode;
 }
@@ -245,6 +247,9 @@ const MemberList = ({ banner }: MemberListProps) => {
                 onReset={handleSearchReset}
               />
               <Spacing size={14} />
+              <StyledAskCardList>
+                <AskCardList />
+              </StyledAskCardList>
               <MemberRecommendSection />
               {/* {isAppJamParticipant && (
                 <BannerWrapper>
@@ -373,6 +378,9 @@ const MemberList = ({ banner }: MemberListProps) => {
 
             <StyledRightWrapper>
               <Responsive only='desktop'>
+                <StyledAskCardList>
+                  <AskCardList />
+                </StyledAskCardList>
                 <MemberRecommendSection />
                 <StyledTopWrapper>
                   <div
@@ -413,16 +421,7 @@ const MemberList = ({ banner }: MemberListProps) => {
                         defaultOption={FILTER_DEFAULT_OPTION}
                         value={team ?? undefined}
                         onDefaultClick={() => setTeam(undefined)}
-                      >
-                        <Link href={playgroundLink.makers()}>
-                          <div>
-                            <StyledMakersLink typography='SUIT_16_M'>
-                              메이커스
-                              <IconDiagonalArrow />
-                            </StyledMakersLink>
-                          </div>
-                        </Link>
-                      </MemberListFilter>
+                      ></MemberListFilter>
                       <MemberListFilter
                         placeholder='MBTI'
                         defaultOption={FILTER_DEFAULT_OPTION}
@@ -518,20 +517,8 @@ const MemberList = ({ banner }: MemberListProps) => {
                                 badges={badges}
                                 intro={profile.introduction}
                                 imageUrl={profile.profileImage}
+                                questionPreview={profile.questionPreview}
                                 isCoffeeChatActivate={profile.isCoffeeChatActivate}
-                                email={profile.email}
-                                onMessage={(e) => {
-                                  e.preventDefault();
-                                  logClickEvent('messageBadge');
-                                  setMessageModalState({
-                                    show: true,
-                                    data: {
-                                      targetId: `${profile.id}`,
-                                      name: profile.name,
-                                      profileUrl: profile.profileImage,
-                                    },
-                                  });
-                                }}
                               />
                               <Responsive only='mobile'>
                                 <HLine />
@@ -643,6 +630,14 @@ const StyledMain = styled.main`
   width: 100%;
   max-width: 1312px;
 
+  @media ${DESKTOP_ONE_MEDIA_QUERY} {
+    max-width: 978px;
+  }
+
+  @media ${DESKTOP_TWO_MEDIA_QUERY} {
+    max-width: 644px;
+  }
+
   @media ${MOBILE_MEDIA_QUERY} {
     padding: 0 20px;
     width: 100%;
@@ -715,6 +710,13 @@ const StyledMemberSearch = styled(SearchField)`
   @media ${MOBILE_MEDIA_QUERY} {
     order: none;
     width: 100%;
+  }
+`;
+
+const StyledAskCardList = styled.div`
+  margin-bottom: 64px;
+  @media ${MOBILE_MEDIA_QUERY} {
+    padding: 12px 20px 16px;
   }
 `;
 
