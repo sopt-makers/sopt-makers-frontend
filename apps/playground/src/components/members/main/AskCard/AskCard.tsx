@@ -8,12 +8,12 @@ import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 interface AskCardProps {
   profileName: string;
-  askContents: string;
+  askContent: string;
   profileImageUrl?: string;
   onAnswerClick: () => void;
 }
 
-const AskCard = ({ profileName, askContents, profileImageUrl, onAnswerClick }: AskCardProps) => {
+const AskCard = ({ profileName, askContent, profileImageUrl, onAnswerClick }: AskCardProps) => {
   return (
     <StyledContainer>
       <StyledTopContainer>
@@ -27,7 +27,7 @@ const AskCard = ({ profileName, askContents, profileImageUrl, onAnswerClick }: A
             <StyledName>{profileName}</StyledName>님에게 온 에스크
           </StyledAskTitle>
         </StyledAskTitleContainer>
-        <StyledAskContents>{askContents}</StyledAskContents>
+        <StyledAskContents>{askContent}</StyledAskContents>
       </StyledTopContainer>
 
       <ButtonContainer>

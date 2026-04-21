@@ -50,7 +50,7 @@ const AskCardList = () => {
             <AskCard
               key={question.questionId}
               profileName={question.receiverName}
-              askContents={question.content}
+              askContent={question.content}
               profileImageUrl={question.receiverProfileImage ?? undefined}
               onAnswerClick={() => handleAnswerClick(question)}
             />
