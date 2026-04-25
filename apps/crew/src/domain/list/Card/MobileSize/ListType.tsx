@@ -7,11 +7,6 @@ import { styled } from 'stitches.config';
 
 import type { MobileSizeCardProps } from '.';
 
-const MOCK_DATA = {
-  subTitle:
-    '3대 째 운영되는 온라인 독서모임이며 3대 째 운영되는 온라인 독서모임이며 3대 째 운영되는 온라인 독서모임이며',
-};
-
 function ListType({ meetingData }: Omit<MobileSizeCardProps, 'mobileType'>) {
   return (
     <Container>
@@ -27,8 +22,7 @@ function ListType({ meetingData }: Omit<MobileSizeCardProps, 'mobileType'>) {
 
         <InfoGroup>
           <STitle>{meetingData.title}</STitle>
-          {/* @TODO subTitle api 연동 */}
-          <SSubTitle>{MOCK_DATA.subTitle}</SSubTitle>
+          <SSubTitle>{meetingData.subTitle}</SSubTitle>
           <Flex align='center'>
             <SCategory>{meetingData.category}</SCategory>
             <SDivider>|</SDivider>
@@ -43,9 +37,10 @@ function ListType({ meetingData }: Omit<MobileSizeCardProps, 'mobileType'>) {
           </Flex>
           <TagWrapper>
             {meetingData.meetingKeywordTypes?.map((keyword) => (
-              <WelcomeTag key={keyword}>{keyword}</WelcomeTag>
-              // @TODO: 참여 정보 # 000으로 표시 및 API 연동, 키워드 최대 2개 노출, 참여 정보 최대 2개 노출
+              <STag key={keyword}>{keyword}</STag>
             ))}
+            {meetingData.joinInfo?.meetingType && <STag>{meetingData.joinInfo?.meetingType}</STag>}
+            {meetingData.joinInfo?.meetingFrequency && <STag>{meetingData.joinInfo?.meetingFrequency}</STag>}
           </TagWrapper>
         </InfoGroup>
       </Flex>
@@ -130,7 +125,7 @@ const SCategory = styled(SUserInfo, {
   color: '$gray200',
 });
 
-const WelcomeTag = styled('span', {
+const STag = styled('span', {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
