@@ -17,11 +17,6 @@ interface CardProps {
   flashCount?: string;
 }
 
-const MOCK_DATA = {
-  subtitle:
-    '3대 째 운영되는 온라인 독서모임이며 3대 째 운영되는 온라인 독서모임이며 3대 째 운영되는 온라인 독서모임이며 ',
-};
-
 function DesktopSizeCard({ meetingData, isFlash = false, flashDetailInfo, flashCount }: CardProps) {
   const detailInfo: CardInfoItem[] = isFlash && flashDetailInfo ? flashDetailInfo : MeetingInformation(meetingData);
 
@@ -48,7 +43,7 @@ function DesktopSizeCard({ meetingData, isFlash = false, flashDetailInfo, flashC
 
       <STitleSection>
         <STitle>{meetingData.title}</STitle>
-        <SSubTitle>{MOCK_DATA.subtitle}</SSubTitle>
+        <SSubTitle>{meetingData.subTitle}</SSubTitle>
       </STitleSection>
 
       <Flex css={{ mb: '$8' }} align='center'>
