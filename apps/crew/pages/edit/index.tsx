@@ -9,7 +9,7 @@ import { colors } from '@sopt-makers/colors';
 import { fontsObject } from '@sopt-makers/fonts';
 import { useQuery } from '@tanstack/react-query';
 import type { FormType } from '@type/form';
-import { schema } from '@type/form';
+import { createSchema, schema } from '@type/form';
 import { formatCalendarDate } from '@util/dayjs';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
@@ -29,9 +29,12 @@ const EditPage = () => {
   const { data: formData } = useQuery(useMeetingQueryOption({ meetingId: Number(id) }));
   const { mutateAsync, isPending: isSubmitting } = usePutMeetingMutation(Number(id));
 
+  // TODO: 서버에서 isOldData 내려주면 formData?.isOldData 로 교체
+  const isOldData = true;
+
   const formMethods = useForm<FormType>({
     mode: 'onChange',
-    resolver: zodResolver(schema),
+    resolver: zodResolver(isOldData ? schema : createSchema),
     defaultValues: {
       detail: {
         coLeader: [],
@@ -116,6 +119,7 @@ const EditPage = () => {
             handleDeleteImage={handleDeleteImage}
             onSubmit={handleSubmit}
             disabled={isSubmitting || !isValid || Object.keys(errors).length > 0 || !isDirty}
+            isOldData={isOldData}
           />
         </SFormContainer>
         <TableOfContents

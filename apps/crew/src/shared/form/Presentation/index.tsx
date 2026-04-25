@@ -5,7 +5,9 @@ import ImageField from '@shared/form/Presentation/ImageField';
 import useImageHandler from '@shared/form/Presentation/ImageField/useImageHandler';
 import KeywordField from '@shared/form/Presentation/KeywordField';
 import LeaderDescriptionField from '@shared/form/Presentation/LeaderDescriptionField';
+import ParticipationInfoField from '@shared/form/Presentation/ParticipationInfoField';
 import SubmitPresentationButton from '@shared/form/Presentation/SubmitPresentationButton';
+import SubtitleField from '@shared/form/Presentation/SubtitleField';
 import TargetField from '@shared/form/Presentation/TargetField';
 import TitleField from '@shared/form/Presentation/TitleField';
 import WelcomeMessageField from '@shared/form/Presentation/WelcomeMessageField';
@@ -22,6 +24,7 @@ interface PresentationProps {
   handleDeleteImage: (index: number) => void;
   onSubmit: React.FormEventHandler<HTMLFormElement>;
   disabled?: boolean;
+  isOldData?: boolean;
 }
 
 function Presentation({
@@ -31,6 +34,7 @@ function Presentation({
   handleDeleteImage,
   onSubmit,
   disabled = true,
+  isOldData = false,
 }: PresentationProps) {
   const { handleChangeFile, handleDeleteFile, handleAddFiles } = useImageHandler({
     onChangeImage: handleChangeImage,
@@ -46,12 +50,14 @@ function Presentation({
         <SectionLine />
         <SFormSectionContainer>
           <TitleField />
+          {!isOldData && <SubtitleField />}
           <CategoryField />
           <KeywordField />
           <ImageField onChangeFile={handleChangeFile} onDeleteFile={handleDeleteFile} onAddFiles={handleAddFiles} />
           <DescriptionField />
           <ApplicationPeriodField />
           <TargetField />
+          {!isOldData && <ParticipationInfoField />}
         </SFormSectionContainer>
       </div>
 
@@ -64,7 +70,7 @@ function Presentation({
         <SFormSectionContainer>
           <CoLeaderField />
           <LeaderDescriptionField />
-          <WelcomeMessageField />
+          {isOldData && <WelcomeMessageField />}
         </SFormSectionContainer>
         <SubmitPresentationButton
           cancelButtonLabel={cancelButtonLabel}
