@@ -2,6 +2,7 @@ import type { GetMeeting } from '@api/meeting/type';
 import MentorTooltip from '@domain/detail/MeetingController/MentorTooltip';
 import ProfileAnchor from '@domain/detail/MeetingController/ProfileAnchor';
 import RecruitmentStatusTag from '@shared/Tag/RecruitmentStatusTag';
+import { fontsObject } from '@sopt-makers/fonts';
 import dayjs from 'dayjs';
 import { styled } from 'stitches.config';
 
@@ -29,6 +30,8 @@ const MeetingAbout = ({ detailData }: { detailData: GetMeeting['response'] }) =>
         <span>{category}</span>
         {title}
       </h1>
+      {/* TODO: subtitle api response로 변경 */}
+      <SSubTitle>AI 시대 살아남는 디자이너가 되기 위한 피그마 스터디</SSubTitle>
       <SHostWrapper>
         <ProfileAnchor
           profileData={{
@@ -72,11 +75,27 @@ const SAbout = styled('div', {
 
     'fontAg': '34_bold_140',
     'color': '$gray10',
-    'mb': '$20',
 
     '@media (max-width: 768px)': {
       fontStyle: 'H3',
     },
+  },
+});
+
+const SSubTitle = styled('p', {
+  // TODO: mds 적용
+  ...fontsObject.BODY_1_18_M,
+
+  'color': '$gray200',
+  'mb': '$20',
+
+  '@media (max-width: 1023px)': {
+    ...fontsObject.BODY_2_16_R,
+  },
+
+  '@mobile (max-width: 767px)': {
+    ...fontsObject.BODY_3_14_M,
+    mb: '$16',
   },
 });
 
