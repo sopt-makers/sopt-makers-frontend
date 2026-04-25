@@ -24,16 +24,23 @@ export const MeetingDetailList = (detailData: GetMeeting['response']) => [
                 {tag}
               </Chip>
             ))}
-            {detailData?.welcomeMessageTypes.map((tag) => (
+            {detailData?.welcomeMessageTypes?.map((tag) => (
               <Chip key={tag} style={{ boxShadow: 'none' }}>
                 {tag}
               </Chip>
             ))}
+            {/* TODO: 필드명 확인 후 주석 해제
+            {detailData?.participationTagTypes?.map((tag) => (
+              <Chip key={tag} style={{ boxShadow: 'none' }}>
+                {tag}
+              </Chip>
+            ))} */}
           </STarget>
           <SDescription>{parseTextToLink(detailData?.desc)}</SDescription>
         </>
       );
     },
+    // TODO: participationTagTypes 필드명 확인 후 isValid에도 추가
     isValid: detailData?.meetingKeywordTypes.length || detailData?.welcomeMessageTypes.length || detailData?.desc,
   },
   {
