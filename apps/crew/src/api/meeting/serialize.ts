@@ -10,6 +10,8 @@ export const serializeMeetingData = (formData: FormType): PostMeeting['request']
 
   return {
     title: formData.title,
+    subTitle: '',
+    // @TODO: 게시글 생성 PR 머지 후 Pull
     files: formData.files,
     category: formData.category.value,
     startDate: formData.dateRange[0] ?? '',
@@ -24,9 +26,10 @@ export const serializeMeetingData = (formData: FormType): PostMeeting['request']
     note: '',
     isMentorNeeded: formData.detail.isMentorNeeded ?? false,
     canJoinOnlyActiveGeneration: formData.detail.canJoinOnlyActiveGeneration ?? false,
+    joinInfo: {},
+    // @TODO: 게시글 생성 PR 머지 후 Pull
     joinableParts: refinedParts,
     coLeaderUserIds: formData.detail.coLeader?.map((user) => user.userId) ?? [],
-    welcomeMessageTypes: formData.welcomeMessageTypes === null ? undefined : formData.welcomeMessageTypes,
     meetingKeywordTypes: formData.meetingKeywordTypes === null ? undefined : formData.meetingKeywordTypes,
   };
 };
