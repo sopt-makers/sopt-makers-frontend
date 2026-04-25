@@ -17,6 +17,8 @@ const CardList = ({ label, isMore = false, onMoreClick = () => {}, meetingIds }:
   const { isTablet } = useDisplay();
   const data = useQuery(useRecommendMeetingListQuery({ meetingIds })).data?.meetings;
 
+  const Card = isTablet ? MobileCard : DesktopCard;
+
   if (!data) return null;
   return (
     <SCardListWrapper>
@@ -26,43 +28,23 @@ const CardList = ({ label, isMore = false, onMoreClick = () => {}, meetingIds }:
         {isMore && <SMoreBtn onClick={onMoreClick}>{'더보기 >'}</SMoreBtn>}
       </STitleWrapper>
       <SCardWrapper>
-        {isTablet ? (
-          <>
-            {data.map((d) => (
-              <MobileCard
-                key={d.id}
-                id={d.id}
-                imageURL={d.imageURL[0]?.url}
-                title={d.title}
-                ownerName={d.user.name}
-                ownerImage={d.user.profileImage}
-                approvedCount={d.approvedCount || 0}
-                capacity={d.capacity}
-                category={d.category}
-                canJoinOnlyActiveGeneration={d.canJoinOnlyActiveGeneration}
-                joinableParts={d.joinableParts}
-              />
-            ))}
-          </>
-        ) : (
-          <>
-            {data.map((d) => (
-              <DesktopCard
-                key={d.id}
-                id={d.id}
-                imageURL={d.imageURL[0]?.url}
-                title={d.title}
-                ownerName={d.user.name}
-                ownerImage={d.user.profileImage}
-                approvedCount={d.approvedCount || 0}
-                capacity={d.capacity}
-                category={d.category}
-                canJoinOnlyActiveGeneration={d.canJoinOnlyActiveGeneration}
-                joinableParts={d.joinableParts}
-              />
-            ))}
-          </>
-        )}
+        <>
+          {data.map((d) => (
+            <Card
+              key={d.id}
+              id={d.id}
+              imageURL={d.imageURL[0]?.url}
+              title={d.title}
+              ownerName={d.user.name}
+              ownerImage={d.user.profileImage}
+              approvedCount={d.approvedCount || 0}
+              capacity={d.capacity}
+              category={d.category}
+              canJoinOnlyActiveGeneration={d.canJoinOnlyActiveGeneration}
+              joinableParts={d.joinableParts}
+            />
+          ))}
+        </>
       </SCardWrapper>
     </SCardListWrapper>
   );
