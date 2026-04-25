@@ -35,6 +35,7 @@ const CardList = ({ label, isMore = false, onMoreClick = () => {}, meetingIds }:
               id={d.id}
               imageURL={d.imageURL[0]?.url}
               title={d.title}
+              subTitle={d.subTitle}
               ownerName={d.user.name}
               ownerImage={d.user.profileImage}
               approvedCount={d.approvedCount || 0}
@@ -93,8 +94,12 @@ const STitleWrapper = styled('div', {
 const STitleStyle = styled('p', {
   'padding': '4px 0 8px',
 
-  'fontStyle': 'H1',
+  ...fontsObject.HEADING_4_24_B,
   'color': '$white',
+
+  '@tablet': {
+    ...fontsObject.TITLE_4_20_SB,
+  },
 
   '@mobile': {
     ...fontsObject.TITLE_6_16_SB,

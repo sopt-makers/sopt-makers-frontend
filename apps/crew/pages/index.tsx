@@ -7,6 +7,7 @@ import Carousel from '@shared/groupBrowsing/Carousel/Carousel';
 import GroupBrowsingSlider from '@shared/groupBrowsingSlider/groupBrowsingSlider';
 import GuideButton from '@shared/GuideButton';
 import { Flex } from '@shared/util/layout/Flex';
+import { fontsObject } from '@sopt-makers/fonts';
 import type { NextPage } from 'next';
 import { styled } from 'stitches.config';
 
@@ -59,7 +60,7 @@ const Home: NextPage = () => {
 export default Home;
 
 const SContentTitle = styled('div', {
-  'fontStyle': 'H1',
+  ...fontsObject.HEADING_4_24_B,
   'color': '$white',
   'mb': '$20',
   'display': 'flex',

@@ -2,6 +2,7 @@ import UserIcon from '@assets/svg/user.svg?rect';
 import Avatar from '@common/avatar/Avatar';
 import { PART_NAME } from '@constant/option';
 import { Flex } from '@shared/util/layout/Flex';
+import { fontsObject } from '@sopt-makers/fonts';
 import Link from 'next/link';
 import { styled } from 'stitches.config';
 
@@ -9,6 +10,7 @@ type MobileCardProps = {
   id: number;
   imageURL?: string;
   title: string;
+  subTitle?: string;
   ownerName: string;
   ownerImage?: string;
   approvedCount: number;
@@ -17,10 +19,12 @@ type MobileCardProps = {
   canJoinOnlyActiveGeneration: boolean;
   joinableParts: string[];
 };
+
 const MobileCard = ({
   id,
   imageURL,
   title,
+  subTitle,
   ownerName,
   ownerImage,
   approvedCount,
@@ -37,24 +41,22 @@ const MobileCard = ({
       <SCardWrapper>
         <SThumbnailImage src={imageURL} />
         <SMetaWrapper>
-          <STitleStyle>{title}</STitleStyle>
-          <SMetaStyle></SMetaStyle>
-          <Flex>
-            <UserIcon width='16' height='16' style={{ alignContent: 'center', marginRight: '6px' }} />
+          <STitle>{title}</STitle>
+          <SSubTitle>{subTitle}</SSubTitle>
+
+          <SInfoWrapper>
+            <SUserIcon />
             <SInfoStyle style={{ whiteSpace: 'nowrap' }}>{`${approvedCount}/${capacity}명`}</SInfoStyle>
-            <SMetaSubStyle>·</SMetaSubStyle>
+            <SDot>·</SDot>
             <SInfoStyle>{`${canJoinOnlyActiveGeneration ? '활동 기수' : '전체 기수'} / ${displayParts}`}</SInfoStyle>
-          </Flex>
-          <Flex align='center'>
-            <Avatar
-              src={ownerImage}
-              alt={`${title} 모임장 프로필`}
-              sx={{ width: '18px', height: '18px', margin: '2px 6px 0 0' }}
-            />
-            <SMetaStyle>{ownerName}</SMetaStyle>
-            <SMetaSubStyle>|</SMetaSubStyle>
-            <SMetaStyle>{category}</SMetaStyle>
-          </Flex>
+          </SInfoWrapper>
+
+          <SUserInfoWrapper align='center'>
+            <SAvatar src={ownerImage} alt={`${title} 모임장 프로필`} />
+            <SMeta>{ownerName}</SMeta>
+            <SDivider>|</SDivider>
+            <SMeta>{category}</SMeta>
+          </SUserInfoWrapper>
         </SMetaWrapper>
       </SCardWrapper>
     </Link>
@@ -71,51 +73,131 @@ const SCardWrapper = styled('article', {
 });
 
 const SThumbnailImage = styled('img', {
-  width: '120px',
-  height: '82px',
+  'borderRadius': '$12',
 
-  borderRadius: '$12',
+  'backgroundColor': '$gray800',
+  'objectFit': 'cover',
+  'flexShrink': 0,
 
-  backgroundColor: '$gray800',
-  objectFit: 'cover',
-});
-
-const STitleStyle = styled('h3', {
-  width: '100%',
-
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
-  whiteSpace: 'nowrap',
-
-  fontSize: '14px',
-  fontWeight: '700',
-  lineHeight: '14px',
+  '@tablet': {
+    width: '158px',
+    height: '108px',
+  },
+  '@mobile': {
+    width: '123px',
+    height: '84px',
+  },
 });
 
 const SMetaWrapper = styled('div', {
+  'display': 'flex',
+  'flexDirection': 'column',
+
+  'overflow': 'hidden',
+  '@tablet': {
+    py: '$2',
+  },
+  '@mobile': {
+    py: '$0',
+  },
+});
+
+const STitle = styled('h3', {
+  'width': '100%',
+
+  'overflow': 'hidden',
+  'textOverflow': 'ellipsis',
+  'whiteSpace': 'nowrap',
+
+  '@tablet': {
+    ...fontsObject.HEADING_7_16_B,
+    mb: '$0',
+  },
+  '@mobile': {
+    fontStyle: 'H5',
+    mb: '$2',
+  },
+});
+
+const SSubTitle = styled('p', {
+  'width': '100%',
+
+  'overflow': 'hidden',
+  'textOverflow': 'ellipsis',
+  'whiteSpace': 'nowrap',
+  'color': '$gray100',
+  'mb': '$8',
+
+  '@tablet': {
+    ...fontsObject.BODY_3_14_M,
+  },
+  '@mobile': {
+    fontStyle: 'B4',
+  },
+});
+
+const SInfoWrapper = styled('div', {
   display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
+  alignItems: 'center',
 
-  gap: '$8',
-  width: 'calc(100% - 120px)',
-
-  overflow: 'hidden',
+  mb: '$8',
 });
 
-const SMetaStyle = styled('p', {
-  fontStyle: 'L2',
-  color: '$white',
-});
+const SUserIcon = styled(UserIcon, {
+  'alignContent': 'center',
+  'mr': '$6',
 
-const SMetaSubStyle = styled('span', {
-  padding: '0 $3',
+  '@tablet': {
+    width: '20px',
+    height: '20px',
+  },
 
-  fontStyle: 'L2',
-  color: '$gray500',
+  '@mobile': {
+    width: '16px',
+    height: '16px',
+  },
 });
 
 const SInfoStyle = styled('p', {
-  fontStyle: 'L1',
+  ...fontsObject.LABEL_4_12_SB,
   color: '$gray300',
+});
+
+const SDot = styled('span', {
+  color: '$gray300',
+  padding: '0 $3',
+});
+
+const SMeta = styled('p', {
+  'color': '$white',
+
+  '@tablet': {
+    ...fontsObject.LABEL_4_12_SB,
+  },
+  '@mobile': {
+    ...fontsObject.LABEL_5_11_SB,
+  },
+});
+
+const SDivider = styled('span', {
+  color: '$gray400',
+  padding: '0 $3',
+});
+
+const SUserInfoWrapper = styled(Flex, {
+  '@tablet': { mb: '$2' },
+  '@mobile': { mb: '$0' },
+});
+
+const SAvatar = styled(Avatar, {
+  '@tablet': {
+    width: '22px',
+    height: '22px',
+    margin: '0px 6px 0 0',
+  },
+  '@mobile': {
+    width: '18px',
+    height: '18px',
+    margin: '0px 6px 2 0',
+  },
 });
