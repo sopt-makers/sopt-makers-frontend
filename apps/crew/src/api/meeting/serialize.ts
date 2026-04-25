@@ -10,6 +10,7 @@ export const serializeMeetingData = (formData: FormType): PostMeeting['request']
 
   return {
     title: formData.title,
+    subTitle: '',
     files: formData.files,
     category: formData.category.value,
     startDate: formData.dateRange[0] ?? '',
@@ -24,9 +25,9 @@ export const serializeMeetingData = (formData: FormType): PostMeeting['request']
     note: '',
     isMentorNeeded: formData.detail.isMentorNeeded ?? false,
     canJoinOnlyActiveGeneration: formData.detail.canJoinOnlyActiveGeneration ?? false,
+    joinInfo: {},
     joinableParts: refinedParts,
     coLeaderUserIds: formData.detail.coLeader?.map((user) => user.userId) ?? [],
-    welcomeMessageTypes: formData.welcomeMessageTypes === null ? undefined : formData.welcomeMessageTypes,
     meetingKeywordTypes: formData.meetingKeywordTypes === null ? undefined : formData.meetingKeywordTypes,
   };
 };
