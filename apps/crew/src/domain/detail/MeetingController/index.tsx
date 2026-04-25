@@ -15,7 +15,6 @@ import { ERecruitmentStatus } from '@constant/option';
 import { CAPACITY } from '@domain/detail/MeetingController/constant';
 import FlashAbout from '@domain/detail/MeetingController/FlashAbout';
 import MeetingAbout from '@domain/detail/MeetingController/MeetingAbout';
-import { useDisplay } from '@hook/useDisplay';
 import useModal from '@hook/useModal';
 import DefaultModal from '@shared/modal/DefaultModal';
 import { playgroundLink } from '@sopt/constant';
@@ -34,6 +33,7 @@ import { ampli } from '@/ampli';
 
 import ProfileConfirmModal from './Modal/Confirm/ProfileConfirmModal';
 import ApplicationModalContent from './Modal/Content/ApplicationModalContent';
+import PartStatusModalContent from './Modal/Content/PartStatusModalContent';
 import RecruitmentStatusModalContent from './Modal/Content/RecruitmentStatusModalContent';
 
 interface DetailHeaderProps {
@@ -84,6 +84,15 @@ const MeetingController = ({ detailData }: DetailHeaderProps) => {
     ampli.clickMemberStatus({ crew_status: approved || isHost });
     handleDefaultModalOpen();
     setModalTitle(`모집 현황 (${CAPACITY(detailData)})`);
+  };
+
+  // TODO: API 연결 후 실제 활동 여부 및 파트명/기수로 교체
+  const isActiveUser = true;
+
+  const handlePartStatusModal = () => {
+    const title = isActiveUser ? '디자인 파트 신청 멤버' : '38기 신청 멤버';
+    handleDefaultModalOpen();
+    setModalTitle(title);
   };
 
   const handleHostModalOpen = () => {
@@ -266,10 +275,18 @@ const MeetingController = ({ detailData }: DetailHeaderProps) => {
         )}
         <div>
           <SStatusButtonWrapper>
-            <SPartStatusButton>
+            <SPartStatusButton onClick={handlePartStatusModal}>
               <span>
                 <SFireEmoji>🔥 </SFireEmoji>
-                <SPartName>디자인</SPartName> 파트 2명<SApplyingText> 신청중</SApplyingText>
+                {isActiveUser ? (
+                  <>
+                    <SPartName>디자인</SPartName> 파트 2명<SApplyingText> 신청중</SApplyingText>
+                  </>
+                ) : (
+                  <>
+                    38기 멤버 2명<SApplyingText> 신청 중</SApplyingText>
+                  </>
+                )}
               </span>
               <ArrowSmallRightIcon />
             </SPartStatusButton>
@@ -298,11 +315,13 @@ const MeetingController = ({ detailData }: DetailHeaderProps) => {
           )}
         </div>
       </SPanelWrapper>
+
       <ProfileConfirmModal
         isModalOpened={isProfileModalOpened}
         handleModalClose={handleProfileModalClose}
         handleConfirm={() => (window.location.href = `${playgroundLink.memberUpload()}`)}
       />
+
       <DefaultModal
         isModalOpened={isDefaultModalOpened}
         title={modalTitle}
@@ -321,6 +340,7 @@ const MeetingController = ({ detailData }: DetailHeaderProps) => {
             isApplied={isApplied}
           />
         )}
+        {modalTitle.includes('신청 멤버') && <PartStatusModalContent appliedInfo={appliedInfo} />}
       </DefaultModal>
     </>
   );
