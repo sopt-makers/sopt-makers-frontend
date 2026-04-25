@@ -15,9 +15,11 @@ import { ERecruitmentStatus } from '@constant/option';
 import { CAPACITY } from '@domain/detail/MeetingController/constant';
 import FlashAbout from '@domain/detail/MeetingController/FlashAbout';
 import MeetingAbout from '@domain/detail/MeetingController/MeetingAbout';
+import { useDisplay } from '@hook/useDisplay';
 import useModal from '@hook/useModal';
 import DefaultModal from '@shared/modal/DefaultModal';
 import { playgroundLink } from '@sopt/constant';
+import { fontsObject } from '@sopt-makers/fonts';
 import { useDialog } from '@sopt-makers/ui';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import type { AxiosResponse } from 'axios';
@@ -263,13 +265,22 @@ const MeetingController = ({ detailData }: DetailHeaderProps) => {
           <MeetingAbout detailData={detailData as GetMeeting['response']} />
         )}
         <div>
-          <SStatusButton onClick={handleRecruitmentStatusModal}>
-            <div>
-              <span>모집 현황</span>
-              <span>{CAPACITY(detailData)}</span>
-            </div>
-            <ArrowSmallRightIcon />
-          </SStatusButton>
+          <SStatusButtonWrapper>
+            <SPartStatusButton>
+              <span>
+                <SFireEmoji>🔥 </SFireEmoji>
+                <SPartName>디자인</SPartName> 파트 2명<SApplyingText> 신청중</SApplyingText>
+              </span>
+              <ArrowSmallRightIcon />
+            </SPartStatusButton>
+            <SStatusButton onClick={handleRecruitmentStatusModal}>
+              <div>
+                <span>모집 현황</span>
+                <span>{CAPACITY(detailData)}</span>
+              </div>
+              <ArrowSmallRightIcon />
+            </SStatusButton>
+          </SStatusButtonWrapper>
           {!isHost && (
             <SGuestButton
               disabled={!isRecruiting || isSubmitting}
@@ -324,12 +335,90 @@ const SPanelWrapper = styled('div', {
   'borderBottom': `2px solid $gray700`,
   'mb': '$40',
 
-  '@mobile': {
+  '@media (max-width: 767px)': {
     display: 'block',
     paddingBottom: '0',
     borderBottom: 'none',
     mb: '$64',
   },
+});
+
+const SStatusButtonWrapper = styled('div', {
+  'display': 'flex',
+  'flexDirection': 'column',
+  'gap': '$8',
+  'mb': '$16',
+
+  '@media (max-width: 767px)': {
+    flexDirection: 'row',
+    mt: '$36',
+    mb: '$10',
+  },
+});
+
+const SPartStatusButton = styled('button', {
+  'outline': 'solid 1px $gray700',
+  'display': 'grid',
+  'gridTemplateColumns': '1fr auto 1fr',
+  'alignItems': 'center',
+  'width': '$300',
+  'height': '$34',
+  'borderRadius': '999px',
+  'backgroundColor': '$gray800',
+  'padding': '0 $16',
+  'color': '$gray10',
+
+  '& > span': {
+    gridColumn: 2,
+    ...fontsObject.BODY_2_16_R,
+    whiteSpace: 'nowrap',
+  },
+
+  '& > svg': {
+    gridColumn: 3,
+    justifySelf: 'end',
+  },
+
+  // 모바일: flex + SStatusButton과 동일한 UI, 오른쪽 배치
+  '@media (max-width: 767px)': {
+    'outline': 'none',
+    'display': 'flex',
+    'flex': 1,
+    'height': '$46',
+    'width': 'auto',
+    'borderRadius': '8px',
+    'padding': '$13 0',
+    'justifyContent': 'center',
+    'order': 2,
+
+    '& > span': {
+      gridColumn: 'auto',
+      ...fontsObject.LABEL_3_14_SB,
+      whiteSpace: 'normal',
+      mr: '$6',
+      color: '$white',
+    },
+
+    '& > svg': {
+      gridColumn: 'auto',
+      justifySelf: 'auto',
+      ml: '$2',
+    },
+  },
+});
+
+const SFireEmoji = styled('span', {
+  '@media (max-width: 767px)': { display: 'none' },
+});
+
+const SPartName = styled('span', {
+  'color': '$orange400',
+  'fontWeight': 'bold',
+  '@media (max-width: 767px)': { color: 'inherit' },
+});
+
+const SApplyingText = styled('span', {
+  '@media (max-width: 767px)': { display: 'none' },
 });
 
 const Button = styled('button', {
@@ -343,19 +432,20 @@ const SStatusButton = styled(Button, {
   'flexType': 'verticalCenter',
   'justifyContent': 'space-between',
   'padding': '$21 $20',
-  'mb': '$16',
   'backgroundColor': '$gray800',
-  'fontAg': '18_semibold_100',
+  ...fontsObject.LABEL_1_18_SB,
 
-  '@mobile': {
-    width: '100%',
+  '@media (max-width: 767px)': {
+    flex: 1,
     height: '$46',
     padding: '$13 0',
-    mt: '$32',
-    mb: '$10',
+    ...fontsObject.LABEL_3_14_SB,
+
     textAlign: 'center',
     justifyContent: 'center',
     fontStyle: 'T5',
+
+    order: 1,
 
     svg: {
       ml: '$2',
@@ -372,11 +462,12 @@ const SGuestButton = styled(Button, {
   'display': 'flex',
   'justifyContent': 'center',
   'alignItems': 'center',
-  'fontAg': '20_bold_100',
+  ...fontsObject.LABEL_1_18_SB,
+
   'padding': '$20 0',
   'textAlign': 'center',
   'color': '$gray950',
-  '@mobile': {
+  '@media (max-width: 767px)': {
     width: '100%',
     height: '$46',
     fontStyle: 'T5',
