@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/ban-types */
 
-import { FontAg, FontStyle } from '@constant/font';
+import type { FontAg, FontStyle } from '@constant/font';
 import { colors } from '@sopt-makers/colors';
-import { createStitches, CSS, PropertyValue, ScaleValue } from '@stitches/react';
+import type { CSS, PropertyValue, ScaleValue } from '@stitches/react';
+import { createStitches } from '@stitches/react';
 const stitches = createStitches({
   theme: {
     colors: {
@@ -297,9 +298,12 @@ const stitches = createStitches({
     },
   },
   media: {
+    // @TODO 반응형 정리 필요
     small_mobile: '(max-width: 375px)',
     mobile: '(max-width: 430px)',
     tablet: '(max-width: 840px)',
+    mobile_only: '(max-width: 767px)',
+    tablet_only: '(min-width: 768px) and (max-width: 1023px)',
     desktop: '(min-width: 1024px) and (max-width: 1259px)',
     laptop: '(max-width: 1259px)',
     large_desktop: '(min-width: 1260px)',
