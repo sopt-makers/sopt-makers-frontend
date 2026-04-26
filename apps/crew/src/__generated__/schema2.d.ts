@@ -319,6 +319,13 @@ export interface paths {
      */
     get: operations['getAdvertisement'];
   };
+  '/advertisement/v2/meeting/top': {
+    /**
+     * 모임 상단 광고 조회
+     * @description 모임 탭 상단에 노출할 광고와 신청 모임 정보를 조회합니다.
+     */
+    get: operations['getMeetingTopAdvertisement'];
+  };
   '/meeting/v2/{meetingId}/apply': {
     /** 모임 지원 취소 */
     delete: operations['applyMeetingCancel'];
@@ -660,14 +667,14 @@ export interface components {
      * @description 참여 정보
      * @example {
      *   "meetingType": "온라인",
-     *   "meetingFrequency": "꾸준히"
+     *   "meetingFrequency": "적당히"
      * }
      */
     MeetingJoinInfo: {
       /** @enum {string} */
       meetingType?: '온라인' | '오프라인' | '온-오프';
       /** @enum {string} */
-      meetingFrequency?: '가볍게' | '꾸준히' | '몰입형';
+      meetingFrequency?: '가볍게' | '적당히' | '집중형';
     };
     /** @description 모임 생성 request body dto */
     MeetingV2CreateMeetingBodyDto: {
@@ -1733,6 +1740,7 @@ export interface components {
        * @example false
        */
       isMentorNeeded: boolean;
+      joinInfo?: components['schemas']['MeetingJoinInfo'];
       /**
        * Format: date-time
        * @description 모임 모집 시작일
@@ -2064,6 +2072,25 @@ export interface components {
        * @example 3
        */
       participantCount?: number;
+      /**
+       * @description 활동기수 여부
+       * @example true
+       */
+      isActiveGeneration?: boolean;
+      /**
+       * Format: int32
+       * @description 참여 정보 기준 기수
+       * @example 38
+       */
+      activeGeneration?: number;
+      /**
+       * @description 조건에 맞는 신청중/대기중 유저 이름 리스트
+       * @example [
+       *   "이지훈",
+       *   "김효준"
+       * ]
+       */
+      memberNames?: string[];
     };
     /** @description 모임 내 같은 파트 참여 멤버 리스트 조회 dto */
     MeetingV2GetMeetingPartMembersResponseDto: {
@@ -2246,6 +2273,11 @@ export interface components {
        */
       title: string;
       /**
+       * @description 모임 부제목
+       * @example 모임 부제목입니다
+       */
+      subTitle?: string;
+      /**
        * @description 모임 사진
        * @example [url] 형식
        */
@@ -2255,6 +2287,7 @@ export interface components {
        * @example 스터디
        */
       category: string;
+      joinInfo?: components['schemas']['MeetingJoinInfo'];
       /**
        * @description 모임 활성 여부
        * @example true
@@ -3064,6 +3097,101 @@ export interface components {
     AdvertisementsGetResponseDto: {
       /** @description 광고 구좌 이미지 리스트 */
       advertisements: components['schemas']['AdvertisementGetDto'][];
+    };
+    /** @description 파트별 모임 둘러보기 Dto */
+    AdvertisementMeetingTopBrowseActionDto: {
+      /**
+       * @description 기존 모임 목록 조회 query
+       * @example 38기 솝커톤
+       */
+      query: string;
+      /**
+       * Format: int32
+       * @description 기존 모임 목록 조회 page
+       * @example 1
+       */
+      page: number;
+    };
+    /** @description 모임 상단 광고 조회 응답 Dto */
+    AdvertisementMeetingTopGetResponseDto: {
+      /**
+       * @description 배너 노출 여부
+       * @example true
+       */
+      isDisplay: boolean;
+      /**
+       * @description 배너 이벤트 타입
+       * @example SOPKATHON
+       * @enum {string}
+       */
+      eventType?: 'SOPKATHON' | 'NETWORKING';
+      /**
+       * Format: int32
+       * @description 배너 id
+       * @example 3
+       */
+      advertisementId?: number;
+      /**
+       * @description [Desktop] 배너 이미지 url
+       * @example [pc 버전 url 형식]
+       */
+      desktopImageUrl?: string;
+      /**
+       * @description [Mobile] 배너 이미지 url
+       * @example [mobile 버전 url 형식]
+       */
+      mobileImageUrl?: string;
+      /**
+       * @description 배너 링크
+       * @example https://www.naver.com
+       */
+      advertisementLink?: string;
+      /**
+       * Format: int32
+       * @description 조회 기준 기수
+       * @example 38
+       */
+      generation?: number;
+      /**
+       * @description 조회 기준 파트
+       * @example 서버
+       */
+      part?: string;
+      /**
+       * Format: int32
+       * @description 신청 모임 id
+       * @example 123
+       */
+      meetingId?: number;
+      /**
+       * @description 신청 모임 제목
+       * @example [38기 솝커톤] 서버 파트 신청
+       */
+      title?: string;
+      /**
+       * @description 신청 모임 부제목
+       * @example 모임 부제목
+       */
+      subTitle?: string;
+      /**
+       * Format: date-time
+       * @description 모임 신청 시작 시간
+       */
+      startDate?: string;
+      /**
+       * Format: date-time
+       * @description 모임 신청 종료 시간
+       */
+      endDate?: string;
+      /**
+       * Format: int32
+       * @description 모임 상태, 0: 모집전, 1: 모집중, 2: 모집종료
+       * @example 1
+       */
+      status?: number;
+      joinInfo?: components['schemas']['MeetingJoinInfo'];
+      participatingPartInfo?: components['schemas']['MeetingV2ParticipatingPartInfoDto'];
+      browseAction?: components['schemas']['AdvertisementMeetingTopBrowseActionDto'];
     };
     SlackEmojiEventDeleteRequestDto: {
       identifiedPwd?: string;
@@ -4627,7 +4755,7 @@ export interface operations {
   getAdvertisement: {
     parameters: {
       query: {
-        category: 'POST' | 'MEETING';
+        category: 'POST' | 'MEETING' | 'MEETING_TOP';
       };
     };
     responses: {
@@ -4635,6 +4763,20 @@ export interface operations {
       200: {
         content: {
           'application/json;charset=UTF-8': components['schemas']['AdvertisementsGetResponseDto'];
+        };
+      };
+    };
+  };
+  /**
+   * 모임 상단 광고 조회
+   * @description 모임 탭 상단에 노출할 광고와 신청 모임 정보를 조회합니다.
+   */
+  getMeetingTopAdvertisement: {
+    responses: {
+      /** @description 성공 */
+      200: {
+        content: {
+          'application/json;charset=UTF-8': components['schemas']['AdvertisementMeetingTopGetResponseDto'];
         };
       };
     };
