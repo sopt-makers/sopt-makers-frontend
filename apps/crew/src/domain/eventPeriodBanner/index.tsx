@@ -1,6 +1,7 @@
 import { Flex } from '@shared/util/layout/Flex';
 import { fontsObject } from '@sopt-makers/fonts';
 import { Button } from '@sopt-makers/ui';
+import Link from 'next/link';
 import { styled } from 'stitches.config';
 
 import type { EventPeriodBannerData } from './type';
@@ -28,8 +29,19 @@ const EventPeriodBanner = ({ banner }: EventPeriodBannerProps) => {
         </Flex>
       </InfoSection>
       <CTASection>
-        <ApplyButton variant='fill'>{banner.applyButtronText}</ApplyButton>
-        <KeywordLink>{banner.keywordLinkText}</KeywordLink>
+        <ApplyButton
+          variant='fill'
+          onClick={() => {
+            //@TODO: 배너 클릭 시 이벤트 신청 페이지로 이동하는 로직 추가
+          }}
+        >
+          {banner.applyButtronText}
+        </ApplyButton>
+        {banner.keywordLinkText && (
+          <KeywordLink href={`/list?search=${banner.keywordLinkSearchText.replaceAll(' ', '+')}&page=1`}>
+            {banner.keywordLinkText}
+          </KeywordLink>
+        )}
       </CTASection>
     </Container>
   );
@@ -169,7 +181,7 @@ const ApplyButton = styled(Button, {
   '@new_laptop': {},
 });
 
-const KeywordLink = styled('a', {
+const KeywordLink = styled(Link, {
   'color': '$gray100',
   'textDecoration': 'underline',
   'textDecorationColor': '$gray100',

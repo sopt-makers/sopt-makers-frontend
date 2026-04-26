@@ -12,4 +12,5 @@ export const mockEventPeriodBannerData: EventPeriodBannerData = {
   subTitle: '우리만의 해커톤, 누구보다 빠르게 신청하세요!',
   applyButtronText: '내 파트 신청하기',
   keywordLinkText: '파트별 솝커톤 둘러보기 >',
+  keywordLinkSearchText: '37기 솝커톤',
 };

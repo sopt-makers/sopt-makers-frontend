@@ -9,4 +9,5 @@ export type EventPeriodBannerData = {
   subTitle: string;
   applyButtronText: string;
   keywordLinkText: string;
+  keywordLinkSearchText: string;
 };
