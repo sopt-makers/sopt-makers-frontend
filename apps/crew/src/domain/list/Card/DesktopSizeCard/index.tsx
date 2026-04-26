@@ -63,15 +63,11 @@ function DesktopSizeCard({ meetingData, isFlash = false, flashDetailInfo, flashC
           {isValid && (
             <>
               <SKey>{label}</SKey>
-              {Array.isArray(value) ? (
-                <SArrayValues>
-                  {value.map((tag) => (
-                    <span key={tag}>{tag}</span>
-                  ))}
-                </SArrayValues>
-              ) : (
-                <SValue>{value}</SValue>
-              )}
+              <SArrayValues>
+                {value.map((tag) => (
+                  <span key={tag}>{tag}</span>
+                ))}
+              </SArrayValues>
             </>
           )}
         </SInfoRow>
@@ -157,9 +153,6 @@ const SKey = styled(SInfo, {
   color: '$gray500',
   mr: '$12',
   whiteSpace: 'nowrap',
-});
-const SValue = styled(SInfo, {
-  color: '$gray300',
 });
 const SArrayValues = styled('div', {
   display: 'flex',

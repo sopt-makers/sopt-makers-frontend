@@ -5,7 +5,7 @@ import dayjs from 'dayjs';
 
 export type CardInfoItem = {
   label: string;
-  value: string | string[];
+  value: string[];
   isValid: boolean;
 };
 
@@ -18,23 +18,25 @@ const parsePartValueToLabel = (part: string) => {
 export const MeetingInformation = (meetingData: MeetingData): CardInfoItem[] => [
   {
     label: '모집 기간',
-    value: `${dayjs(meetingData.startDate).format('YY.MM.DD')} - ${dayjs(meetingData.endDate).format('YY.MM.DD')}`,
+    value: [`${dayjs(meetingData.startDate).format('YY.MM.DD')} - ${dayjs(meetingData.endDate).format('YY.MM.DD')}`],
     isValid: !!(meetingData.startDate && meetingData.endDate),
   },
   {
     label: '모집 대상',
-    value: (() => {
-      const isAllParts = meetingData.joinableParts?.length === 6 || meetingData.joinableParts === null;
-      const part = isAllParts
-        ? '전체 파트'
-        : meetingData.joinableParts
-            .map((part) => parsePartValueToLabel(part))
-            .filter((item) => item !== null)
-            .join(',');
-      return `${
-        meetingData.targetActiveGeneration ? `${meetingData.targetActiveGeneration}기` : '전체 기수'
-      } / ${part}`;
-    })(),
+    value: [
+      (() => {
+        const isAllParts = meetingData.joinableParts?.length === 6 || meetingData.joinableParts === null;
+        const part = isAllParts
+          ? '전체 파트'
+          : meetingData.joinableParts
+              .map((part) => parsePartValueToLabel(part))
+              .filter((item) => item !== null)
+              .join(',');
+        return `${
+          meetingData.targetActiveGeneration ? `${meetingData.targetActiveGeneration}기` : '전체 기수'
+        } / ${part}`;
+      })(),
+    ],
     isValid: !!(meetingData.targetActiveGeneration || meetingData.joinableParts),
   },
   {
@@ -44,33 +46,36 @@ export const MeetingInformation = (meetingData: MeetingData): CardInfoItem[] => 
   },
   {
     label: '참여 정보',
-    // TODO: 참여 정보 API가 나오면 수정 필요
-    value: meetingData.welcomeMessageTypes?.map((message) => `# ${message}`) ?? [],
-    isValid: !!meetingData.welcomeMessageTypes?.length,
+    value: [meetingData.joinInfo?.meetingType, meetingData.joinInfo?.meetingFrequency].flatMap((info) =>
+      info ? [info] : [],
+    ),
+    isValid: !!(meetingData.joinInfo?.meetingType || meetingData.joinInfo?.meetingFrequency),
   },
 ];
 
 export const FlashInformation = (flashData: GetFlash['response']): CardInfoItem[] => [
   {
     label: '진행 일자',
-    value: (() => {
-      const startDate = dayjs(flashData.activityStartDate).format('YY.MM.DD');
-      const endDate = dayjs(flashData.activityEndDate).format('YY.MM.DD');
+    value: [
+      (() => {
+        const startDate = dayjs(flashData.activityStartDate).format('YY.MM.DD');
+        const endDate = dayjs(flashData.activityEndDate).format('YY.MM.DD');
 
-      if (flashData.flashTimingType === '당일') return startDate;
+        if (flashData.flashTimingType === '당일') return startDate;
 
-      return `${startDate} - ${endDate} / 협의 후 결정`;
-    })(),
+        return `${startDate} - ${endDate} / 협의 후 결정`;
+      })(),
+    ],
     isValid: !!(flashData.activityStartDate && flashData.activityEndDate),
   },
   {
     label: '활동 장소',
-    value: flashData.flashPlace ?? '협의 후 결정',
+    value: [flashData.flashPlace ?? '협의 후 결정'],
     isValid: !!flashData.flashPlace,
   },
   {
     label: '환영 태그',
-    value: flashData.welcomeMessageTypes?.map((message) => `# ${message}`).join(' '),
+    value: flashData.welcomeMessageTypes?.map((message) => `# ${message}`) ?? [],
     isValid: !!flashData.welcomeMessageTypes?.length,
   },
 ];
