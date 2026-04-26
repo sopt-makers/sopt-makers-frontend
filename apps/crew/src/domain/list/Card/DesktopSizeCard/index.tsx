@@ -6,6 +6,7 @@ import type { CardInfoItem } from '@domain/list/Card/DesktopSizeCard/constant';
 import { MeetingInformation } from '@domain/list/Card/DesktopSizeCard/constant';
 import RecruitmentStatusTag from '@shared/Tag/RecruitmentStatusTag';
 import { Flex } from '@shared/util/layout/Flex';
+import { fontsObject } from '@sopt-makers/fonts';
 import { Tag } from '@sopt-makers/ui';
 import { getResizedImage } from '@util/image';
 import { styled } from 'stitches.config';
@@ -136,8 +137,8 @@ const STitle = styled('p', {
   fontStyle: 'H2',
 });
 const SSubTitle = styled('p', {
+  ...fontsObject.BODY_2_16_M,
   maxWidth: '380px',
-  fontStyle: 'B2',
   overflow: 'hidden',
   whiteSpace: 'nowrap',
   textOverflow: 'ellipsis',
