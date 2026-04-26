@@ -57,6 +57,7 @@ const Container = styled('div', {
   'backgroundPosition': 'center',
   'backgroundRepeat': 'no-repeat',
   'backgroundSize': 'cover',
+  'borderRadius': '$8',
   '@new_mobile': {
     py: '$28',
   },
