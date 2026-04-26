@@ -302,12 +302,15 @@ const stitches = createStitches({
     small_mobile: '(max-width: 375px)',
     mobile: '(max-width: 430px)',
     tablet: '(max-width: 840px)',
-    mobile_only: '(max-width: 767px)',
-    tablet_only: '(min-width: 768px) and (max-width: 1023px)',
-    tablet_to_desktop: '(min-width: 768px) and (max-width: 1259px)',
     desktop: '(min-width: 1024px) and (max-width: 1259px)',
     laptop: '(max-width: 1259px)',
     large_desktop: '(min-width: 1260px)',
+
+    new_small_mobile: '(max-width: 360px)',
+    new_mobile: '(max-width: 767px)',
+    new_tablet: '(min-width: 768px) and (max-width: 1023px)',
+    new_desktop: '(min-width: 1024px) and (max-width: 1259px)',
+    new_laptop: '(min-width: 1260px)',
     // default is desktop
   },
   utils: {
