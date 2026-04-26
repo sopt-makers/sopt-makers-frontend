@@ -44,7 +44,7 @@ function DesktopSizeCard({ meetingData, isFlash = false, flashDetailInfo, flashC
 
       <STitleSection>
         <STitle>{meetingData.title}</STitle>
-        <SSubTitle>{meetingData.subTitle}</SSubTitle>
+        {meetingData.subTitle && <SSubTitle>{meetingData.subTitle}</SSubTitle>}
       </STitleSection>
 
       <Flex css={{ mb: '$8' }} align='center'>

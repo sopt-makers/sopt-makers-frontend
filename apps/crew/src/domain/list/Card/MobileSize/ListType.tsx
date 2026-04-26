@@ -22,7 +22,7 @@ function ListType({ meetingData }: Omit<MobileSizeCardProps, 'mobileType'>) {
 
         <InfoGroup>
           <STitle>{meetingData.title}</STitle>
-          <SSubTitle>{meetingData.subTitle}</SSubTitle>
+          {meetingData.subTitle && <SSubTitle>{meetingData.subTitle}</SSubTitle>}
           <Flex align='center'>
             <SCategory>{meetingData.category}</SCategory>
             <SDivider>|</SDivider>
