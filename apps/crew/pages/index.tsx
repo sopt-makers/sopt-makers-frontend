@@ -1,3 +1,5 @@
+import EventPeriodBanner from '@domain/eventPeriodBanner';
+import { mockEventPeriodBannerData } from '@domain/eventPeriodBanner/mock';
 import HomeCardList from '@domain/home/HomeCardList';
 import QuickMenu from '@domain/home/QuickMenu';
 import { useDisplay } from '@hook/useDisplay';
@@ -18,15 +20,18 @@ const Home: NextPage = () => {
       <CrewTab>
         <GuideButton />
       </CrewTab>
+      <SEventPeriodBannerWrapper>
+        <EventPeriodBanner banner={mockEventPeriodBannerData} />
+      </SEventPeriodBannerWrapper>
       {isTablet ? (
         <>
-          <SContentTitle style={{ marginTop: '16px' }}>⚡ 솝트만의 일회성 모임, 번쩍</SContentTitle>
+          <SContentTitle>⚡ 솝트만의 일회성 모임, 번쩍</SContentTitle>
           <GroupBrowsingSlider />
         </>
       ) : (
         <>
           <Flex align='center' justify='center'>
-            <SContentTitle style={{ marginTop: '54px' }}>⚡ 솝트만의 일회성 모임, 번쩍</SContentTitle>
+            <SContentTitle>⚡ 솝트만의 일회성 모임, 번쩍</SContentTitle>
           </Flex>
           <GroupBrowsingCarouselContainer>
             <Carousel />
@@ -58,6 +63,21 @@ const Home: NextPage = () => {
 
 export default Home;
 
+const SEventPeriodBannerWrapper = styled('div', {
+  '@new_mobile': {
+    mt: '$30',
+  },
+  '@new_tablet': {
+    mt: '$45',
+  },
+  '@new_desktop': {
+    mt: '$45',
+  },
+  '@new_laptop': {
+    mt: '$65',
+  },
+});
+
 const SContentTitle = styled('div', {
   'fontStyle': 'H1',
   'color': '$white',
@@ -67,9 +87,19 @@ const SContentTitle = styled('div', {
   'alignItems': 'center',
   'width': '100%',
 
-  '@mobile': {
+  '@new_mobile': {
+    mt: '$40',
     display: 'flex',
     fontSize: '16px',
+  },
+  '@new_tablet': {
+    mt: '$40',
+  },
+  '@new_desktop': {
+    mt: '$60',
+  },
+  '@new_laptop': {
+    mt: '$72',
   },
 });
 
