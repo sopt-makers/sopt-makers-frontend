@@ -304,6 +304,7 @@ const stitches = createStitches({
     tablet: '(max-width: 840px)',
     mobile_only: '(max-width: 767px)',
     tablet_only: '(min-width: 768px) and (max-width: 1023px)',
+    tablet_to_desktop: '(min-width: 768px) and (max-width: 1259px)',
     desktop: '(min-width: 1024px) and (max-width: 1259px)',
     laptop: '(max-width: 1259px)',
     large_desktop: '(min-width: 1260px)',
