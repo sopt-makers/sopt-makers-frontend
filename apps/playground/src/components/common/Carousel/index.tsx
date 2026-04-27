@@ -83,24 +83,26 @@ export default function Carousel({
           <LeftArrowIcon />
         </LeftControl>
       )}
-      <AnimatePresence initial={false} custom={direction}>
-        <StyledMotionDiv
-          key={page}
-          custom={direction}
-          variants={variants}
-          initial='enter'
-          animate='center'
-          transition={{
-            x: { type: 'spring', stiffness: 300, damping: 30 },
-            opacity: { duration: 0.2 },
-          }}
-          onTouchStart={onTouchStart}
-          onTouchMove={onTouchMove}
-          onTouchEnd={onTouchEnd}
-        >
-          <CarouselBody currentItemList={currentItemList} renderContainer={renderItemContainer} />
-        </StyledMotionDiv>
-      </AnimatePresence>
+      <StyledListClip>
+        <AnimatePresence initial={false} custom={direction}>
+          <StyledMotionDiv
+            key={page}
+            custom={direction}
+            variants={variants}
+            initial='enter'
+            animate='center'
+            transition={{
+              x: { type: 'spring', stiffness: 300, damping: 30 },
+              opacity: { duration: 0.2 },
+            }}
+            onTouchStart={onTouchStart}
+            onTouchMove={onTouchMove}
+            onTouchEnd={onTouchEnd}
+          >
+            <CarouselBody currentItemList={currentItemList} renderContainer={renderItemContainer} />
+          </StyledMotionDiv>
+        </AnimatePresence>
+      </StyledListClip>
 
       {isArrow && (
         <RightControl onClick={handleClickRightControl}>
@@ -148,8 +150,15 @@ const Container = styled.div`
   }
 `;
 
-const StyledMotionDiv = styled(m.div)`
+const StyledListClip = styled.div`
   grid-area: list;
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+`;
+
+const StyledMotionDiv = styled(m.div)`
   width: 100%;
 `;
 
