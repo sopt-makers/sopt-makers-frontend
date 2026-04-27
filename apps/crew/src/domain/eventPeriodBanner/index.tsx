@@ -1,36 +1,34 @@
+import { useGetEventBannerInfoQueryOption } from '@api/advertisement/query';
 import { useDisplay } from '@hook/useDisplay';
 import { Flex } from '@shared/util/layout/Flex';
 import { fontsObject } from '@sopt-makers/fonts';
 import { Button } from '@sopt-makers/ui';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { styled } from 'stitches.config';
 
-import { mockEventPeriodBannerData } from './mock';
-import type { EventPeriodBannerData } from './type';
-
 const EventPeriodBanner = () => {
-  const banner: EventPeriodBannerData = mockEventPeriodBannerData;
-  const { isNewLaptop } = useDisplay();
+  const { isNewLaptop, isNewMobile } = useDisplay();
   const router = useRouter();
 
-  if (mockEventPeriodBannerData.isDisplay === false) {
+  const { data: banner } = useSuspenseQuery(useGetEventBannerInfoQueryOption());
+  const backgroundImageUrl = isNewMobile ? banner.mobileImageUrl : banner.desktopImageUrl;
+
+  if (banner.isDisplay === false) {
     return null;
   }
 
   return (
     <Container
       css={{
-        backgroundImage: `url(${banner.backgroundImageUrl})`,
+        backgroundImage: `url(${backgroundImageUrl})`,
       }}
     >
       <InfoSection>
-        <DateImage src={banner.dateImageUrl} alt='날짜 이미지' />
         <Flex align='center' justify='center' direction='column'>
           <TitleWrapper>
-            <STitle>{banner.title.prefix}</STitle>
-            <SHighlightTitle>{banner.title.highlight}</SHighlightTitle>
-            <STitle>{banner.title.suffix}</STitle>
+            <STitle>{banner.title}</STitle>
           </TitleWrapper>
           <SSubTitle>{banner.subTitle}</SSubTitle>
         </Flex>
@@ -40,14 +38,18 @@ const EventPeriodBanner = () => {
           size={isNewLaptop ? 'lg' : 'md'}
           variant='fill'
           onClick={() => {
+            if (!banner.meetingId) return;
+
             router.push(`/detail?id=${banner.meetingId}`);
           }}
         >
-          {banner.applyButtronText}
+          내 파트 신청하기
         </ApplyButton>
-        {banner.keywordLinkText && (
-          <KeywordLink href={`/list?search=${banner.keywordLinkSearchText.replaceAll(' ', '+')}&page=1`}>
-            {banner.keywordLinkText}
+        {banner.eventType === 'SOPKATHON' && (
+          <KeywordLink
+            href={`/list?search=${banner.browseAction?.query.replaceAll(' ', '+')}&page=${banner.browseAction?.page}`}
+          >
+            파트별 솝커톤 둘러보기
             <SUnderLine />
           </KeywordLink>
         )}
@@ -106,24 +108,6 @@ const InfoSection = styled('div', {
   },
 });
 
-const DateImage = styled('img', {
-  '@new_mobile': {
-    width: '63px',
-    height: '65px',
-  },
-  '@new_tablet': {
-    width: '56px',
-    height: '58px',
-  },
-  '@new_desktop': {
-    width: '56px',
-    height: '58px',
-  },
-  '@new_laptop': {
-    width: '70px',
-    height: '71px',
-  },
-});
 const TitleWrapper = styled('div', {
   display: 'flex',
   whiteSpace: 'pre-wrap',
@@ -143,10 +127,6 @@ const STitle = styled('p', {
   '@new_laptop': {
     ...fontsObject.HEADING_3_28_B,
   },
-});
-
-const SHighlightTitle = styled(STitle, {
-  color: '$secondary',
 });
 
 const SSubTitle = styled('p', {
