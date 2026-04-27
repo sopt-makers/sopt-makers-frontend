@@ -8,6 +8,7 @@ import CarouselBody from '@/components/common/Carousel/Body';
 import type { CarouselDirection } from '@/components/common/Carousel/useCarousel';
 import useCarousel from '@/components/common/Carousel/useCarousel';
 import LeftArrowIcon from '@/public/icons/icon-arrow-left.svg';
+import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 interface CarouselProps {
   itemList: ReactNode[];
@@ -137,10 +138,14 @@ const Container = styled.div`
   grid:
     [row1-start] 'left-control list right-control' max-content [row1-end]
     [row2-start] 'indicators indicators indicators' max-content [row2-end] / 0 auto 0;
-  row-gap: 24px;
+  row-gap: 20px;
   width: 100%;
   overflow: visible;
   user-select: none;
+
+  @media ${MOBILE_MEDIA_QUERY} {
+    row-gap: 16px;
+  }
 `;
 
 const StyledMotionDiv = styled(m.div)`
