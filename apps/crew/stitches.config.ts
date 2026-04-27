@@ -153,7 +153,6 @@ const stitches = createStitches({
       H: 700,
       T: 600,
       B: 500,
-      L: 600,
       C: 700,
     },
     sizes: {
