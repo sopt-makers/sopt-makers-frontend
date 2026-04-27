@@ -1,5 +1,4 @@
 import EventPeriodBanner from '@domain/eventPeriodBanner';
-import { mockEventPeriodBannerData } from '@domain/eventPeriodBanner/mock';
 import HomeCardList from '@domain/home/HomeCardList';
 import QuickMenu from '@domain/home/QuickMenu';
 import { useDisplay } from '@hook/useDisplay';
@@ -21,7 +20,7 @@ const Home: NextPage = () => {
         <GuideButton />
       </CrewTab>
       <SEventPeriodBannerWrapper>
-        <EventPeriodBanner banner={mockEventPeriodBannerData} />
+        <EventPeriodBanner />
       </SEventPeriodBannerWrapper>
       {isTablet ? (
         <>
