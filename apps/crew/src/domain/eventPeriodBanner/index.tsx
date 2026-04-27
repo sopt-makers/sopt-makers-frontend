@@ -1,16 +1,23 @@
+import { useDisplay } from '@hook/useDisplay';
 import { Flex } from '@shared/util/layout/Flex';
 import { fontsObject } from '@sopt-makers/fonts';
 import { Button } from '@sopt-makers/ui';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { styled } from 'stitches.config';
 
+import { mockEventPeriodBannerData } from './mock';
 import type { EventPeriodBannerData } from './type';
 
-interface EventPeriodBannerProps {
-  banner: EventPeriodBannerData;
-}
+const EventPeriodBanner = () => {
+  const banner: EventPeriodBannerData = mockEventPeriodBannerData;
+  const { isNewLaptop } = useDisplay();
+  const router = useRouter();
 
-const EventPeriodBanner = ({ banner }: EventPeriodBannerProps) => {
+  if (mockEventPeriodBannerData.isDisplay === false) {
+    return null;
+  }
+
   return (
     <Container
       css={{
@@ -30,9 +37,10 @@ const EventPeriodBanner = ({ banner }: EventPeriodBannerProps) => {
       </InfoSection>
       <CTASection>
         <ApplyButton
+          size={isNewLaptop ? 'lg' : 'md'}
           variant='fill'
           onClick={() => {
-            //@TODO: 배너 클릭 시 이벤트 신청 페이지로 이동하는 로직 추가
+            router.push(`/detail?id=${banner.meetingId}`);
           }}
         >
           {banner.applyButtronText}
@@ -40,6 +48,7 @@ const EventPeriodBanner = ({ banner }: EventPeriodBannerProps) => {
         {banner.keywordLinkText && (
           <KeywordLink href={`/list?search=${banner.keywordLinkSearchText.replaceAll(' ', '+')}&page=1`}>
             {banner.keywordLinkText}
+            <SUnderLine />
           </KeywordLink>
         )}
       </CTASection>
@@ -175,7 +184,21 @@ const CTASection = styled('div', {
 });
 
 const ApplyButton = styled(Button, {
-  'color': '$secondary',
+  '&&': {
+    backgroundColor: '$secondary',
+    color: '$white',
+    boxShadow: 'none',
+  },
+  '&&:hover': {
+    backgroundColor: '$secondary',
+    color: '$white',
+    boxShadow: 'none',
+  },
+  '&&:active': {
+    backgroundColor: '$secondary',
+    color: '$white',
+    boxShadow: 'none',
+  },
   '@new_mobile': {},
   '@new_tablet': {},
   '@new_desktop': {},
@@ -196,4 +219,8 @@ const KeywordLink = styled(Link, {
     ...fontsObject.BODY_4_13_M,
   },
   '@new_laptop': { ...fontsObject.BODY_3_14_M },
+});
+
+const SUnderLine = styled('div', {
+  borderBottom: '0.8px solid $gray100',
 });
