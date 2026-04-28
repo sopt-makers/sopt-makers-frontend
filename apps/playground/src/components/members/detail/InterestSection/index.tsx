@@ -132,7 +132,11 @@ const InterestSection: FC<InterestSectionProps> = ({
 export default InterestSection;
 
 const StyledMemberDetailSection = styled(MemberDetailSection)`
-  row-gap: 35px;
+  gap: 35px;
+
+  @media ${MOBILE_MEDIA_QUERY} {
+    gap: 30px;
+  }
 `;
 
 const StyledText = styled(Text)`
@@ -143,19 +147,15 @@ const StyledText = styled(Text)`
 `;
 
 const MBTI = styled(StyledText)`
-  display: block;
-  margin-top: 16px;
   ${textStyles.SUIT_18_B};
 
   @media ${MOBILE_MEDIA_QUERY} {
-    margin-top: 12px;
     ${textStyles.SUIT_16_B};
   }
 `;
 
 const MBTIDescription = styled(StyledText)`
   display: block;
-  margin-top: 10px;
   white-space: pre-line;
 
   ${textStyles.SUIT_18_M};
@@ -167,11 +167,9 @@ const MBTIDescription = styled(StyledText)`
 `;
 
 const Description = styled(StyledText)`
-  margin-top: 16px;
   ${textStyles.SUIT_18_M};
 
   @media ${MOBILE_MEDIA_QUERY} {
-    margin-top: 12px;
     ${textStyles.SUIT_16_M};
   }
 `;
@@ -185,11 +183,11 @@ const BalanceGameWrapper = styled.div`
   flex-wrap: wrap;
   gap: 8px;
   align-items: center;
-  margin-top: 16px;
+  margin-top: 12px;
 
   @media ${MOBILE_MEDIA_QUERY} {
-    margin-top: 12px;
     max-width: 265px;
+    margin-top: 8px;
   }
 `;
 
