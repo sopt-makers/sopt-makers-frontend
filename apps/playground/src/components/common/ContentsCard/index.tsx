@@ -36,6 +36,10 @@ const Card = styled.article`
   width: 100%;
   min-width: 0;
   height: 116px;
+
+  @media ${MOBILE_MEDIA_QUERY} {
+    padding: 14px;
+  }
 `;
 
 const Thumbnail = styled(ResizedImage)`

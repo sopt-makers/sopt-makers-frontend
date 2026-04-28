@@ -123,7 +123,11 @@ const GroupSection = ({ profile, meId, memberId }: GroupSectionProps) => {
 export default GroupSection;
 
 const Container = styled.section`
-  margin-top: 80px;
+  margin-top: 40px;
+
+  @media ${MOBILE_MEDIA_QUERY} {
+    margin-top: 24px;
+  }
 `;
 
 const ActivityTitle = styled.div`
@@ -135,7 +139,11 @@ const ActivityTitle = styled.div`
 `;
 
 const ActivityDisplay = styled.div`
-  margin-top: 32px;
+  margin-top: 20px;
+
+  @media ${MOBILE_MEDIA_QUERY} {
+    margin-top: 16px;
+  }
 `;
 
 const MemberMeetingCardWrapper = styled.div`
@@ -151,7 +159,7 @@ const MemberMeetingCardWrapper = styled.div`
   @media ${MOBILE_MEDIA_QUERY} {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 12px;
     padding-bottom: 0;
   }
 `;
@@ -198,10 +206,6 @@ const ActivityUploadButton = styled(Link)`
     margin-top: 50px;
     width: 100%;
   }
-`;
-
-const Target = styled.div`
-  width: 100%;
 `;
 
 const NudgeSubText = styled(Text)`

@@ -10,7 +10,6 @@ import CareerItem from '@/components/members/detail/CareerSection/CareerItem';
 import InfoItem from '@/components/members/detail/InfoItem';
 import type { Career } from '@/components/members/detail/types';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
-import { textStyles } from '@/styles/typography';
 
 interface CareerSectionProps {
   careers: Career[];
@@ -32,61 +31,40 @@ export default function CareerSection({ careers, links, skill, shouldNeedOnlyIte
 
   return hasCareerOrSkillOrLinks ? (
     <Container>
-      <>
-        {careers?.length > 0 && (
-          <InfoItem label='커리어'>
-            <CareerItems>
-              {careers.map((career, idx) => (
-                <CareerWrapper key={idx}>
-                  <CareerItemDecoration isCurrent={career.isCurrent} isEnd={idx === careers.length - 1}>
-                    <div className='circle' />
-                    <div className='line' />
-                  </CareerItemDecoration>
-                  <CareerItem career={career} isCurrent={career.isCurrent} />
-                </CareerWrapper>
+      {careers?.length > 0 && (
+        <InfoItem label='커리어'>
+          <CareerItems>
+            {careers.map((career, idx) => (
+              <CareerWrapper key={idx}>
+                <CareerItemDecoration isCurrent={career.isCurrent} isEnd={idx === careers.length - 1}>
+                  <div className='circle' />
+                  <div className='line' />
+                </CareerItemDecoration>
+                <CareerItem career={career} isCurrent={career.isCurrent} />
+              </CareerWrapper>
+            ))}
+          </CareerItems>
+        </InfoItem>
+      )}
+      {skill?.length > 0 && <InfoItem label='스킬' content={<SkillContent>{skill}</SkillContent>} />}
+      {links?.length > 0 && (
+        <InfoItem
+          label='링크'
+          content={
+            <LinkItems>
+              {links.map((item, idx) => (
+                <StyledLink href={item.url} key={idx} target='_blank'>
+                  <LinkIcon src={getLinkIcon(item.title)} alt={item.title} />
+                  <LinkTitle>{item.title}</LinkTitle>
+                </StyledLink>
               ))}
-            </CareerItems>
-          </InfoItem>
-        )}
-        {skill?.length > 0 && <InfoItem label='스킬' content={<SkillContent>{skill}</SkillContent>} />}
-        {links?.length > 0 && (
-          <InfoItem
-            label='링크'
-            content={
-              <LinkItems>
-                {links.map((item, idx) => (
-                  <StyledLink href={item.url} key={idx} target='_blank'>
-                    <LinkIcon src={getLinkIcon(item.title)} alt={item.title} />
-                    <LinkTitle>{item.title}</LinkTitle>
-                  </StyledLink>
-                ))}
-              </LinkItems>
-            }
-          />
-        )}
-      </>
+            </LinkItems>
+          }
+        />
+      )}
     </Container>
   ) : null;
 }
-
-const StyledLink = styled(Link)`
-  display: flex;
-  gap: 4px;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid ${colors.gray700};
-  border-radius: 9999px;
-  background: ${colors.gray800};
-  padding: 9px 14px;
-  height: 42px;
-`;
-
-const LinkTitle = styled.span`
-  line-height: 18px; /* 128.571% */
-  letter-spacing: -0.28px;
-  color: ${colors.gray300};
-  ${fonts.LABEL_14_SB}
-`;
 
 const getLinkIcon = (linkTitle: string) => {
   switch (linkTitle) {
@@ -108,26 +86,9 @@ const getLinkIcon = (linkTitle: string) => {
 const StyledMemberDetailSection = styled(MemberDetailSection)`
   position: relative;
   gap: 35px;
-`;
-
-const LinkItems = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-
-  & > a {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-  }
-
-  svg {
-    width: 26px;
-    height: auto;
-  }
 
   @media ${MOBILE_MEDIA_QUERY} {
-    gap: 6px;
+    gap: 30px;
   }
 `;
 
@@ -135,6 +96,17 @@ const CareerItems = styled.div`
   display: flex;
   flex-direction: column;
   gap: 24px;
+  margin-top: 16px;
+
+  @media ${MOBILE_MEDIA_QUERY} {
+    gap: 20px;
+    margin-top: 8px;
+  }
+`;
+
+const CareerWrapper = styled.div`
+  display: flex;
+  gap: 12px;
 `;
 
 const CareerItemDecoration = styled.div<{ isCurrent: boolean; isEnd: boolean }>`
@@ -166,9 +138,38 @@ const CareerItemDecoration = styled.div<{ isCurrent: boolean; isEnd: boolean }>`
   }
 `;
 
-const CareerWrapper = styled.div`
+const LinkItems = styled.div`
   display: flex;
-  gap: 12px;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+
+  & > a {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  svg {
+    width: 26px;
+    height: auto;
+  }
+
+  @media ${MOBILE_MEDIA_QUERY} {
+    margin-top: 8px;
+  }
+`;
+
+const StyledLink = styled(Link)`
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid ${colors.gray700};
+  border-radius: 9999px;
+  background: ${colors.gray800};
+  padding: 9px 14px;
+  height: 42px;
 `;
 
 const LinkIcon = styled.img`
@@ -177,44 +178,19 @@ const LinkIcon = styled.img`
   color: ${colors.gray300};
 `;
 
-const MoveButton = styled.div`
-  display: flex;
-  position: absolute;
-  top: 40px;
-  right: 40px;
-  gap: 4px;
-  align-items: center;
-  justify-content: center;
-  border-radius: 90px;
-  background-color: ${colors.gray10};
-  cursor: pointer;
-  padding: 12px 20px;
-  height: 42px;
-  color: ${colors.gray950};
-
-  &:hover {
-    background-color: ${colors.gray50};
-    color: ${colors.gray950};
-  }
-
-  ${textStyles.SUIT_15_SB}
-
-  @media ${MOBILE_MEDIA_QUERY} {
-    position: static;
-    border-radius: 10px;
-    ${textStyles.SUIT_16_SB};
-  }
-`;
-
-const WriteIcon = styled.img`
-  width: 20px;
-  height: 20px;
-`;
-
 const SkillContent = styled.div`
   width: 512px;
+  margin-top: 16px;
 
   @media ${MOBILE_MEDIA_QUERY} {
     width: 100%;
+    margin-top: 8px;
   }
+`;
+
+const LinkTitle = styled.span`
+  line-height: 18px; /* 128.571% */
+  letter-spacing: -0.28px;
+  color: ${colors.gray300};
+  ${fonts.LABEL_14_SB}
 `;

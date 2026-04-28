@@ -1,9 +1,7 @@
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
-import { Flex } from '@toss/emotion-utils';
 import dayjs from 'dayjs';
-import type { FC } from 'react';
 
 import type { Career } from '@/components/members/detail/types';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
@@ -14,13 +12,13 @@ type CareerItemProps = {
   isCurrent: boolean;
 };
 
-const CareerItem: FC<CareerItemProps> = ({ career, isCurrent }) => {
+const CareerItem = ({ career, isCurrent }: CareerItemProps) => {
   return (
     <div>
-      <Flex align='center' style={{ gap: 10, marginBottom: 10 }}>
+      <MainContent>
         <CompanyName>{career.companyName}</CompanyName>
         {isCurrent && <NowBadge>NOW</NowBadge>}
-      </Flex>
+      </MainContent>
       <SubContent>
         <div className='job-position'>{career.title}</div>
         <Divider />
@@ -33,6 +31,13 @@ const CareerItem: FC<CareerItemProps> = ({ career, isCurrent }) => {
 };
 
 export default CareerItem;
+
+const MainContent = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+`;
 
 const SubContent = styled.div`
   display: flex;

@@ -114,7 +114,7 @@ const MemberDetail = ({ memberId }: MemberDetailProps) => {
       <Wrapper>
         <ProfileSection profile={profile} memberId={memberId} />
 
-        <TabNavigation>
+        <TabNavigation isProfile={currentTab === 'profile'}>
           {TABS.map((tab) => (
             <TabButton key={tab.id} isActive={currentTab === tab.id} onClick={() => handleTabChange(tab.id)}>
               {tab.label}
@@ -189,7 +189,7 @@ const Wrapper = styled.div`
   }
 `;
 
-const TabNavigation = styled.div`
+const TabNavigation = styled.div<{ isProfile: boolean }>`
   display: flex;
   position: sticky;
   z-index: 10;
@@ -199,6 +199,7 @@ const TabNavigation = styled.div`
 
   @media ${MOBILE_MEDIA_QUERY} {
     top: 60px;
+    margin-bottom: ${(props) => (props.isProfile ? '8px' : '0')};
   }
 `;
 

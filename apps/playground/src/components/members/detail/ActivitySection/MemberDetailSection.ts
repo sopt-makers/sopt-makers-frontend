@@ -9,13 +9,13 @@ export const MemberDetailSection = styled.section`
   gap: 32px;
   border-radius: 20px;
   background: ${colors.gray900};
-  padding: 40px;
+  padding: 34px 40px;
   width: 100%;
 
   @media ${MOBILE_MEDIA_QUERY} {
-    gap: 30px;
+    gap: 20px;
     border-radius: 18px;
-    padding: 30px 20px;
+    padding: 24px 20px;
   }
 `;
 
