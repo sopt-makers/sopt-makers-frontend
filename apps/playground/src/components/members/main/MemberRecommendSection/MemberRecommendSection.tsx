@@ -86,11 +86,17 @@ const StyledRefreshIcon = styled(RefreshIcon)`
 
 const StyledCardGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 12px;
+
+  // TODO: random 로직으로 변경
+  & > *:nth-child(n + 5) {
+    display: none;
+  }
 
   @media ${DESKTOP_TWO_MEDIA_QUERY} {
     grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
 
     // TODO: random 로직으로 변경
     & > *:nth-child(n + 4) {
