@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import * as Tooltip from '@radix-ui/react-tooltip';
 import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
@@ -13,9 +12,9 @@ import Text from '@/components/common/Text';
 import { LoggingImpression } from '@/components/eventLogger/components/LoggingImpression';
 import { useVisibleBadges } from '@/components/members/main/hooks/useVisibleBadges';
 import CoffeeChatButton from '@/components/members/main/MemberCard/CoffeeChatButton';
-import useMediaQuery from '@/hooks/useMediaQuery';
 import IconCoffee from '@/public/icons/icon-coffee.svg';
-import { MOBILE_MAX_WIDTH, MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
+import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
+import { zIndex } from '@/styles/zIndex';
 
 import { shimmerEffect } from '../style';
 import MemberProfileImage from './MemberProfileImage';
@@ -60,100 +59,86 @@ const MemberCard = ({
     router.push(playgroundLink.coffeechatDetail(memberId));
   };
 
-  const isMobile = useMediaQuery(MOBILE_MAX_WIDTH);
-
   return (
     <LoggingImpression eventKey='memberCard' param={{ id: memberId, name, screen: 'member' }}>
-      <Tooltip.Provider>
-        <Tooltip.Root open={!!questionPreview}>
-          <Tooltip.Trigger asChild>
-            <MotionMemberCard whileHover='hover'>
-              <MemberProfileImage isLoading={isLoading} imageUrl={imageUrl || ''} />
+      <MotionMemberCard whileHover='hover'>
+        <MemberProfileImage isLoading={isLoading} imageUrl={imageUrl || ''} />
 
-              {!isLoading && (
-                <MobileCoffeeChatBadge only='mobile'>
-                  {isCoffeeChatActivate && (
-                    <IconCoffeeWrapper>
-                      <IconCoffee />
-                    </IconCoffeeWrapper>
-                  )}
-                </MobileCoffeeChatBadge>
-              )}
+        {!isLoading && (
+          <MobileCoffeeChatBadge only='mobile'>
+            {isCoffeeChatActivate && (
+              <IconCoffeeWrapper>
+                <IconCoffee />
+              </IconCoffeeWrapper>
+            )}
+          </MobileCoffeeChatBadge>
+        )}
 
-              <ContentArea>
-                <TitleBox>
-                  {isLoading ? (
-                    <LoadingTitleBox />
-                  ) : (
-                    <>
-                      <Name typography='SUIT_18_SB'>{name}</Name>
-                      <Belongs typography='SUIT_12_SB'>{belongs}</Belongs>
-                    </>
-                  )}
-                </TitleBox>
+        <ContentArea>
+          <TitleBox>
+            {isLoading ? (
+              <LoadingTitleBox />
+            ) : (
+              <>
+                <Name typography='SUIT_18_SB'>{name}</Name>
+                <Belongs typography='SUIT_12_SB'>{belongs}</Belongs>
+              </>
+            )}
+          </TitleBox>
 
-                {!isLoading && (
-                  <BadgesBox ref={badgeWrapperRef}>
-                    <Badges>
-                      {visibleBadges.map((badge, idx) => (
-                        <Badge
-                          ref={(el: HTMLDivElement) => (badgeRefs.current[idx] = el)}
-                          isActive={badge.isActive}
-                          key={idx}
-                        >
-                          {badge.isActive && <BadgeActiveDot />}
-                          <Text typography='SUIT_11_SB' color={badge.isActive ? colors.secondary : colors.gray200}>
-                            {badge.content}
-                          </Text>
-                        </Badge>
-                      ))}
-                      {isBadgeOverflow && (
-                        <Badge isActive={false}>
-                          <Text typography='SUIT_11_SB'>...</Text>
-                        </Badge>
-                      )}
-                    </Badges>
-                  </BadgesBox>
+          {!isLoading && (
+            <BadgesBox ref={badgeWrapperRef}>
+              <Badges>
+                {visibleBadges.map((badge, idx) => (
+                  <Badge
+                    ref={(el: HTMLDivElement) => (badgeRefs.current[idx] = el)}
+                    isActive={badge.isActive}
+                    key={idx}
+                  >
+                    {badge.isActive && <BadgeActiveDot />}
+                    <Text typography='SUIT_11_SB' color={badge.isActive ? colors.secondary : colors.gray200}>
+                      {badge.content}
+                    </Text>
+                  </Badge>
+                ))}
+                {isBadgeOverflow && (
+                  <Badge isActive={false}>
+                    <Text typography='SUIT_11_SB'>...</Text>
+                  </Badge>
                 )}
+              </Badges>
+            </BadgesBox>
+          )}
 
-                {isLoading ? (
-                  <LoadingIntroBox />
-                ) : (
-                  <Intro typography='SUIT_13_M' color={colors.gray200}>
-                    {intro}
-                  </Intro>
-                )}
-              </ContentArea>
+          {isLoading ? (
+            <LoadingIntroBox />
+          ) : (
+            <Intro typography='SUIT_13_M' color={colors.gray200}>
+              {intro}
+            </Intro>
+          )}
+        </ContentArea>
 
-              {isLoading ? (
-                <LoadingSideWrapper only='desktop'>
-                  <LoadingSideButton />
-                </LoadingSideWrapper>
-              ) : (
-                <SideButtons>
-                  {isCoffeeChatActivate && <CoffeeChatButton onClick={onCoffeeChatButtonClick} receiver={name} />}
-                </SideButtons>
-              )}
-            </MotionMemberCard>
-          </Tooltip.Trigger>
-          <Tooltip.Portal>
-            <TooltipContent
-              side='bottom'
-              sideOffset={isMobile ? -17 : -38}
-              align={isMobile ? 'start' : 'center'}
-              avoidCollisions={false}
-            >
-              <ContentWrapper>
-                <Tag size='sm' shape='rect' variant='primary' type='solid'>
-                  ASK
-                </Tag>
-                <Question>{questionPreview?.content}</Question>
-              </ContentWrapper>
-              <TooltipArrow />
-            </TooltipContent>
-          </Tooltip.Portal>
-        </Tooltip.Root>
-      </Tooltip.Provider>
+        {isLoading ? (
+          <LoadingSideWrapper only='desktop'>
+            <LoadingSideButton />
+          </LoadingSideWrapper>
+        ) : (
+          <SideButtons>
+            {isCoffeeChatActivate && <CoffeeChatButton onClick={onCoffeeChatButtonClick} receiver={name} />}
+          </SideButtons>
+        )}
+
+        {questionPreview && (
+          <StyledAskPreviewBubble>
+            <Tag size='sm' shape='rect' variant='primary' type='solid'>
+              ASK
+            </Tag>
+            <StyledAskPreviewContent>{questionPreview.content}</StyledAskPreviewContent>
+            <StyledBubbleTail />
+          </StyledAskPreviewBubble>
+        )}
+      </MotionMemberCard>
     </LoggingImpression>
   );
 };
@@ -353,8 +338,15 @@ const LoadingIntroBox = styled.div`
   }
 `;
 
-const TooltipContent = styled(Tooltip.Content)`
-  position: relative;
+const StyledAskPreviewBubble = styled.div`
+  position: absolute;
+  top: calc(100% - 38px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: ${zIndex.에스크_미리보기};
+  display: flex;
+  align-items: center;
+  gap: 8px;
   max-width: 286px;
   padding: 12px 14px;
   border-radius: 12px;
@@ -362,20 +354,18 @@ const TooltipContent = styled(Tooltip.Content)`
   box-shadow:
     0 1px 4px 0 rgba(12, 12, 13, 0.05),
     0 1px 4px 0 rgba(12, 12, 13, 0.1);
+  cursor: pointer;
 
   @media ${MOBILE_MEDIA_QUERY} {
+    top: calc(100% - 20px);
+    left: 0;
+    transform: none;
     max-width: 160px;
     padding: 8px 10px;
   }
 `;
 
-const ContentWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-`;
-
-const TooltipArrow = styled.div`
+const StyledBubbleTail = styled.div`
   position: absolute;
   top: -9px;
   left: 50%;
@@ -391,7 +381,7 @@ const TooltipArrow = styled.div`
   }
 `;
 
-const Question = styled.span`
+const StyledAskPreviewContent = styled.span`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
