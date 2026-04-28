@@ -47,7 +47,12 @@ const StyledSection = styled.section`
   display: flex;
   flex-direction: column;
   gap: 12px;
-  margin-top: 6px;
+  margin-bottom: 28px;
+
+  @media ${MOBILE_MEDIA_QUERY} {
+    gap: 8px;
+    margin-bottom: 24px;
+  }
 `;
 
 const StyledSectionTitle = styled.span`
