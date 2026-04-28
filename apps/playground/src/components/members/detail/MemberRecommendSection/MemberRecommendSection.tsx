@@ -50,9 +50,11 @@ const StyledSection = styled.section`
   display: flex;
   flex-direction: column;
   gap: 20px;
+  margin-top: 60px;
 
   @media ${MOBILE_MEDIA_QUERY} {
     gap: 12px;
+    margin-top: 40px;
   }
 `;
 
