@@ -1,3 +1,4 @@
+import styled from '@emotion/styled';
 import { playgroundLink } from '@sopt/constant';
 
 import type { SoptActivity } from '@/api/endpoint_LEGACY/members/type';
@@ -5,6 +6,7 @@ import { isProjectCategory } from '@/api/endpoint_LEGACY/projects/type';
 import MemberDetailSection from '@/components/members/detail/ActivitySection/MemberDetailSection';
 import PartItem from '@/components/members/detail/PartItem';
 import type { Category } from '@/components/projects/types';
+import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 interface SoptActivitySectionProps {
   soptActivities: SoptActivity[];
@@ -13,7 +15,7 @@ interface SoptActivitySectionProps {
 
 export default function SoptActivitySection({ soptActivities, isMine }: SoptActivitySectionProps) {
   return (
-    <MemberDetailSection>
+    <StyledMemberDetailSection>
       {soptActivities.map(({ generation, part, projects, team }, idx) => (
         <PartItem
           key={`${generation}-${part}-${team ?? ''}-${idx}`}
@@ -28,7 +30,7 @@ export default function SoptActivitySection({ soptActivities, isMine }: SoptActi
           isMine={isMine}
         />
       ))}
-    </MemberDetailSection>
+    </StyledMemberDetailSection>
   );
 }
 
@@ -54,3 +56,13 @@ function convertProjectType(typeCode: Category) {
     }
   }
 }
+
+const StyledMemberDetailSection = styled(MemberDetailSection)`
+  margin-bottom: 16px;
+
+  @media ${MOBILE_MEDIA_QUERY} {
+    padding-top: 20px;
+    gap: 25px;
+    margin-bottom: 4px;
+  }
+`;
