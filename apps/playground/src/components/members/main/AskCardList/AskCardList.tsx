@@ -31,7 +31,7 @@ const AskCardList = () => {
 
   const { logClickEvent } = useEventLogger();
   const handleAnswerClick = (question: MembersQuestionType) => {
-    logClickEvent('askContentCard', { id: question.receiverId, name: question.receiverName, referral: 'ask_content' });
+    logClickEvent('askContentCard', { id: question.receiverId, name: question.receiverName });
     router.push({
       pathname: `/members/${question.receiverId}`,
       query: {

@@ -249,7 +249,6 @@ export interface ClickEvents {
   askContentCard: {
     id: number;
     name: string;
-    referral: string;
   };
   memberAskPreview: {
     id: number;
