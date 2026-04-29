@@ -1,18 +1,7 @@
-import { string } from 'zod';
-
 type MemberCard = {
   id: number;
   name: string;
   screen?: 'recommended' | 'TL' | 'member';
-};
-
-type CommunityFeedData = {
-  categoryId: number;
-  title: string | null;
-  content: string;
-  isQuestion: boolean;
-  isBlindWriter: boolean;
-  images: string[];
 };
 
 export type UserProperties = {
@@ -238,6 +227,7 @@ export interface ClickEvents {
   TabAsk: {
     id: number;
     name: string;
+    hasRecentAsk: boolean;
   };
   TabProfile: {
     id: number;
@@ -247,6 +237,16 @@ export interface ClickEvents {
   AnswerUploadButton: undefined;
   AskLike: {
     feedId: number;
+  };
+
+  askContentCard: {
+    id: number;
+    name: string;
+    referral: string;
+  };
+  memberAskPreview: {
+    id: number;
+    name: string;
   };
 }
 
@@ -349,5 +349,10 @@ export interface ImpressionEvents {
   balancegame: undefined;
   AskCard: {
     feedId: number;
+  };
+
+  askContentCard: {
+    id: number;
+    name: string;
   };
 }
