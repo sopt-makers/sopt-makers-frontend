@@ -26,9 +26,12 @@ const EventPeriodBanner = () => {
       }}
     >
       <InfoSection>
+        <DateImage src={banner.calendarImageUrl} alt='날짜 이미지' />
         <Flex align='center' justify='center' direction='column'>
           <TitleWrapper>
-            <STitle>{banner.title}</STitle>
+            <STitle>{banner.title?.prefix} </STitle>
+            <SHighlightTitle>{banner.title?.highlight} </SHighlightTitle>
+            <STitle>{banner.title?.suffix}</STitle>
           </TitleWrapper>
           <SSubTitle>{banner.subTitle}</SSubTitle>
         </Flex>
@@ -38,17 +41,13 @@ const EventPeriodBanner = () => {
           size={isNewLaptop ? 'lg' : 'md'}
           variant='fill'
           onClick={() => {
-            if (!banner.meetingId) return;
-
-            router.push(`/detail?id=${banner.meetingId}`);
+            router.push(String(banner.bannerLink1));
           }}
         >
           내 파트 신청하기
         </ApplyButton>
-        {banner.eventType === 'SOPKATHON' && (
-          <KeywordLink
-            href={`/list?search=${banner.browseAction?.query.replaceAll(' ', '+')}&page=${banner.browseAction?.page}`}
-          >
+        {banner.eventType === 'SOPKATHON' && banner.bannerLink2 && (
+          <KeywordLink href={banner.bannerLink2}>
             파트별 솝커톤 둘러보기
             <SUnderLine />
           </KeywordLink>
@@ -108,6 +107,25 @@ const InfoSection = styled('div', {
   },
 });
 
+const DateImage = styled('img', {
+  '@new_mobile': {
+    width: '63px',
+    height: '65px',
+  },
+  '@new_tablet': {
+    width: '56px',
+    height: '58px',
+  },
+  '@new_desktop': {
+    width: '56px',
+    height: '58px',
+  },
+  '@new_laptop': {
+    width: '70px',
+    height: '71px',
+  },
+});
+
 const TitleWrapper = styled('div', {
   display: 'flex',
   whiteSpace: 'pre-wrap',
@@ -127,6 +145,10 @@ const STitle = styled('p', {
   '@new_laptop': {
     ...fontsObject.HEADING_3_28_B,
   },
+});
+
+const SHighlightTitle = styled(STitle, {
+  color: '$secondary',
 });
 
 const SSubTitle = styled('p', {
@@ -187,8 +209,7 @@ const ApplyButton = styled(Button, {
 
 const KeywordLink = styled(Link, {
   'color': '$gray100',
-  'textDecoration': 'underline',
-  'textDecorationColor': '$gray100',
+
   '@new_mobile': {
     ...fontsObject.BODY_4_13_M,
   },
