@@ -92,7 +92,8 @@ const StyledChipOverlay = styled.div`
 `;
 
 const StyledInfoWrapper = styled.div`
-  flex-shrink: 0;
+  flex: 1;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -104,6 +105,9 @@ const StyledInfoWrapper = styled.div`
 `;
 
 const StyledName = styled.p`
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   color: ${colors.gray10};
   ${fonts.HEADING_20_B}
 
@@ -113,6 +117,9 @@ const StyledName = styled.p`
 `;
 
 const StyledMeta = styled.p`
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   color: ${colors.gray200};
   ${fonts.LABEL_14_SB}
 
