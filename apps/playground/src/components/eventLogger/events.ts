@@ -400,6 +400,20 @@ export interface ImpressionEvents {
     name: string;
   };
 
+  // ==== 추천 카드 ====
+  memberRecommendCard: {
+    id: number;
+    name: string;
+    recommendationType:
+      | 'SAME_PART'
+      | 'SAME_CREW'
+      | 'SAME_MBTI'
+      | 'SAME_UNIVERSITY'
+      | 'SAME_GENERATION'
+      | 'SAME_PROJECT';
+    screen: 'memberTab' | 'profile';
+  };
+
   // ==== 기획경선 특집 ====
   balancegame: undefined;
 }
