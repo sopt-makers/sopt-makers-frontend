@@ -4,17 +4,49 @@ import { Flex } from '@shared/util/layout/Flex';
 import { fontsObject } from '@sopt-makers/fonts';
 import { IconChevronRight } from '@sopt-makers/icons';
 import { Button } from '@sopt-makers/ui';
-import { useSuspenseQuery } from '@tanstack/react-query';
+import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 import { styled } from 'stitches.config';
+
+import { ampli } from '@/ampli';
+import { useUserProfileQueryOption } from '@/api/user/query';
 
 const EventPeriodBanner = () => {
   const { isNewLaptop, isNewMobile } = useDisplay();
   const router = useRouter();
 
   const { data: banner } = useSuspenseQuery(useGetEventBannerInfoQueryOption());
+  const { data: me } = useQuery(useUserProfileQueryOption());
   const backgroundImageUrl = isNewMobile ? banner.mobileImageUrl : banner.desktopImageUrl;
+
+  const handleClickApplyButton = () => {
+    ampli.clickBanner({
+      banner_id: banner.advertisementId,
+      banner_url: banner.bannerLink1,
+      user_id: Number(me?.orgId),
+    });
+
+    router.push(String(banner.bannerLink1));
+  };
+
+  const handleClickKeywordLink = () => {
+    ampli.clickBanner({
+      banner_id: banner.advertisementId,
+      banner_url: banner.bannerLink2 ?? undefined,
+      user_id: Number(me?.orgId),
+    });
+  };
+
+  useEffect(() => {
+    if (banner.isDisplay === false) return;
+
+    ampli.impressionBanner({
+      banner_id: banner.advertisementId,
+      banner_url: banner.bannerLink1,
+    });
+  }, [banner.advertisementId, banner.bannerLink1, banner.isDisplay]);
 
   if (banner.isDisplay === false) {
     return null;
@@ -38,17 +70,11 @@ const EventPeriodBanner = () => {
         </Flex>
       </InfoSection>
       <CTASection>
-        <ApplyButton
-          size={isNewLaptop ? 'lg' : 'md'}
-          variant='fill'
-          onClick={() => {
-            router.push(String(banner.bannerLink1));
-          }}
-        >
+        <ApplyButton size={isNewLaptop ? 'lg' : 'md'} variant='fill' onClick={handleClickApplyButton}>
           내 파트 신청하기
         </ApplyButton>
         {banner.eventType === 'SOPKATHON' && banner.bannerLink2 && (
-          <KeywordLink href={banner.bannerLink2}>
+          <KeywordLink href={banner.bannerLink2} onClick={handleClickKeywordLink}>
             <KeywordLinkContent>
               파트별 솝커톤 둘러보기
               <SRightArrowIcon />
