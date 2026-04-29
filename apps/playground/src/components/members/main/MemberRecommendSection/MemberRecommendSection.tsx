@@ -17,7 +17,8 @@ const PC_MEDIA_WIDTH = 1200;
 const PC_MEDIA_QUERY = `screen and (min-width: ${PC_MEDIA_WIDTH}px)`;
 
 const MemberRecommendSection = () => {
-  const { data: memberRecommendData, refetch } = useGetMemberRecommendOfMe();
+  const { data, refetch } = useGetMemberRecommendOfMe();
+  const memberRecommendData = data?.members;
   const [isTooltipOpen, setIsTooltipOpen] = useState(true);
   const [isWideViewport, setIsWideViewport] = useState(false);
 
@@ -64,7 +65,7 @@ const MemberRecommendSection = () => {
         )}
       </StyledSectionHeader>
       <StyledCardGrid>
-        {memberRecommendData?.members.map((member) => (
+        {memberRecommendData?.map((member) => (
           <Link key={member.id} href={playgroundLink.memberDetail(member.id)}>
             <MemberRecommendCard
               key={member.id}
@@ -153,13 +154,17 @@ const TooltipArrow = styled.div`
 
 const StyledCardGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 12px;
+
+  & > *:nth-child(n + 5) {
+    display: none;
+  }
 
   @media ${DESKTOP_TWO_MEDIA_QUERY} {
     grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
 
-    // TODO: random 로직으로 변경
     & > *:nth-child(n + 4) {
       display: none;
     }

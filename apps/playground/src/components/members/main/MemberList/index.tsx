@@ -641,6 +641,7 @@ const StyledMain = styled.main`
   @media ${MOBILE_MEDIA_QUERY} {
     padding: 0 20px;
     width: 100%;
+    max-width: none;
   }
 `;
 
