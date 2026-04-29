@@ -131,7 +131,6 @@ const SUserIcon = styled(UserIcon, {
   height: '16px',
   mr: '$6',
   stroke: '$gray500',
-  // fill:
 });
 
 const SInfoStyle = styled('p', {
