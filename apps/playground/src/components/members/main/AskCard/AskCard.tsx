@@ -4,38 +4,42 @@ import { fonts } from '@sopt-makers/fonts';
 import { IconUser } from '@sopt-makers/icons';
 import { Button } from '@sopt-makers/ui';
 
+import { LoggingImpression } from '@/components/eventLogger/components/LoggingImpression';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 interface AskCardProps {
+  memberId: number;
   profileName: string;
   askContent: string;
   profileImageUrl?: string;
   onAnswerClick: () => void;
 }
 
-const AskCard = ({ profileName, askContent, profileImageUrl, onAnswerClick }: AskCardProps) => {
+const AskCard = ({ memberId, profileName, askContent, profileImageUrl, onAnswerClick }: AskCardProps) => {
   return (
-    <StyledContainer>
-      <StyledTopContainer>
-        <StyledAskTitleContainer>
-          {profileImageUrl ? (
-            <StyledAskProfileImage src={profileImageUrl} alt={`${profileName}님의 프로필 이미지`} />
-          ) : (
-            <StyledIconUser />
-          )}
-          <StyledAskTitle>
-            <StyledName>{profileName}</StyledName>님에게 온 에스크
-          </StyledAskTitle>
-        </StyledAskTitleContainer>
-        <StyledAskContents>{askContent}</StyledAskContents>
-      </StyledTopContainer>
+    <LoggingImpression eventKey='askContentCard' param={{ id: memberId, name: profileName }}>
+      <StyledContainer>
+        <StyledTopContainer>
+          <StyledAskTitleContainer>
+            {profileImageUrl ? (
+              <StyledAskProfileImage src={profileImageUrl} alt={`${profileName}님의 프로필 이미지`} />
+            ) : (
+              <StyledIconUser />
+            )}
+            <StyledAskTitle>
+              <StyledName>{profileName}</StyledName>님에게 온 에스크
+            </StyledAskTitle>
+          </StyledAskTitleContainer>
+          <StyledAskContents>{askContent}</StyledAskContents>
+        </StyledTopContainer>
 
-      <ButtonContainer>
-        <Button size='md' onClick={onAnswerClick} theme='black'>
-          답변 보러가기
-        </Button>
-      </ButtonContainer>
-    </StyledContainer>
+        <ButtonContainer>
+          <Button size='md' onClick={onAnswerClick} theme='black'>
+            답변 보러가기
+          </Button>
+        </ButtonContainer>
+      </StyledContainer>
+    </LoggingImpression>
   );
 };
 

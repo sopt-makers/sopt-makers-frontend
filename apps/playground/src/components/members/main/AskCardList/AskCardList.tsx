@@ -8,6 +8,7 @@ import {
   useGetMembersQuestionsLatest,
 } from '@/api/endpoint/members/getMembersQuestionsLatest';
 import Carousel from '@/components/common/Carousel';
+import useEventLogger from '@/components/eventLogger/hooks/useEventLogger';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 import AskCard from '../AskCard/AskCard';
@@ -28,7 +29,9 @@ const AskCardList = () => {
     return () => media.removeEventListener('change', handleChange);
   }, []);
 
+  const { logClickEvent } = useEventLogger();
   const handleAnswerClick = (question: MembersQuestionType) => {
+    logClickEvent('askContentCard', { id: question.receiverId, name: question.receiverName });
     router.push({
       pathname: `/members/${question.receiverId}`,
       query: {
@@ -49,6 +52,7 @@ const AskCardList = () => {
           askData?.questions.map((question) => (
             <AskCard
               key={question.questionId}
+              memberId={question.receiverId}
               profileName={question.receiverName}
               askContent={question.content}
               profileImageUrl={question.receiverProfileImage ?? undefined}

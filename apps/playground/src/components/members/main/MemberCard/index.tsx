@@ -10,6 +10,7 @@ import type { QuestionPreview } from '@/api/endpoint_LEGACY/members/type';
 import Responsive from '@/components/common/Responsive';
 import Text from '@/components/common/Text';
 import { LoggingImpression } from '@/components/eventLogger/components/LoggingImpression';
+import useEventLogger from '@/components/eventLogger/hooks/useEventLogger';
 import { useVisibleBadges } from '@/components/members/main/hooks/useVisibleBadges';
 import CoffeeChatButton from '@/components/members/main/MemberCard/CoffeeChatButton';
 import IconCoffee from '@/public/icons/icon-coffee.svg';
@@ -57,6 +58,14 @@ const MemberCard = ({
   const onCoffeeChatButtonClick = (e: React.MouseEvent<Element, MouseEvent>) => {
     e.preventDefault();
     router.push(playgroundLink.coffeechatDetail(memberId));
+  };
+
+  const { logClickEvent } = useEventLogger();
+  const handleAskPreviewClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+    e.preventDefault();
+    // TODO: 에스크탭으로 페이지네이션 로직 추가
+    logClickEvent('memberAskPreview', { id: memberId, name: name });
   };
 
   return (
@@ -130,7 +139,7 @@ const MemberCard = ({
         )}
 
         {questionPreview && (
-          <StyledAskPreviewBubble>
+          <StyledAskPreviewBubble onClick={handleAskPreviewClick}>
             <Tag size='sm' shape='rect' variant='primary' type='solid'>
               ASK
             </Tag>
