@@ -39,8 +39,8 @@ function ListType({ meetingData }: Omit<MobileSizeCardProps, 'mobileType'>) {
             {meetingData.meetingKeywordTypes?.map((keyword) => (
               <STag key={keyword}>{keyword}</STag>
             ))}
-            {meetingData.joinInfo?.meetingType && <STag>{meetingData.joinInfo?.meetingType}</STag>}
-            {meetingData.joinInfo?.meetingFrequency && <STag>{meetingData.joinInfo?.meetingFrequency}</STag>}
+            {meetingData.joinInfo?.meetingType && <STag># {meetingData.joinInfo.meetingType}</STag>}
+            {meetingData.joinInfo?.meetingFrequency && <STag># {meetingData.joinInfo.meetingFrequency}</STag>}
           </TagWrapper>
         </InfoGroup>
       </Flex>
@@ -141,6 +141,7 @@ const STag = styled('span', {
 
 const TagWrapper = styled('div', {
   display: 'flex',
+  flexWrap: 'wrap',
   gap: '$4',
   mt: '$8',
 });

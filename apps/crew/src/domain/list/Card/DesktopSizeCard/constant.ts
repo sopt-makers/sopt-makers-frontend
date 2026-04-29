@@ -47,7 +47,7 @@ export const MeetingInformation = (meetingData: MeetingData): CardInfoItem[] => 
   {
     label: '참여 정보',
     value: [meetingData.joinInfo?.meetingType, meetingData.joinInfo?.meetingFrequency].flatMap((info) =>
-      info ? [info] : [],
+      info ? [`# ${info}`] : [],
     ),
     isValid: !!(meetingData.joinInfo?.meetingType || meetingData.joinInfo?.meetingFrequency),
   },

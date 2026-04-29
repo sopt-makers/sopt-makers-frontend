@@ -58,20 +58,18 @@ function DesktopSizeCard({ meetingData, isFlash = false, flashDetailInfo, flashC
         <SName>{meetingData.user.name}</SName>
       </Flex>
 
-      {detailInfo.map(({ label, value, isValid }) => (
-        <SInfoRow key={label}>
-          {isValid && (
-            <>
-              <SKey>{label}</SKey>
-              <SArrayValues>
-                {value.map((tag) => (
-                  <span key={tag}>{tag}</span>
-                ))}
-              </SArrayValues>
-            </>
-          )}
-        </SInfoRow>
-      ))}
+      {detailInfo
+        .filter(({ isValid }) => isValid)
+        .map(({ label, value }) => (
+          <SInfoRow key={label}>
+            <SKey>{label}</SKey>
+            <SArrayValues>
+              {value.map((tag) => (
+                <span key={tag}>{tag}</span>
+              ))}
+            </SArrayValues>
+          </SInfoRow>
+        ))}
     </>
   );
 }
