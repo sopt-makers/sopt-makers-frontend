@@ -31,7 +31,7 @@ const EventPeriodBanner = () => {
     router.push(String(banner.bannerLink1));
   };
 
-  const handleClickKeywordLink = () => {
+  const handleClickMoreLink = () => {
     ampli.clickBanner({
       banner_id: banner.advertisementId,
       banner_url: banner.bannerLink2 ?? undefined,
@@ -74,13 +74,13 @@ const EventPeriodBanner = () => {
           내 파트 신청하기
         </ApplyButton>
         {banner.eventType === 'SOPKATHON' && banner.bannerLink2 && (
-          <KeywordLink href={banner.bannerLink2} onClick={handleClickKeywordLink}>
-            <KeywordLinkContent>
+          <MoreLink href={banner.bannerLink2} onClick={handleClickMoreLink}>
+            <MoreLinkContent>
               파트별 솝커톤 둘러보기
               <SRightArrowIcon />
-            </KeywordLinkContent>
+            </MoreLinkContent>
             <SUnderLine />
-          </KeywordLink>
+          </MoreLink>
         )}
       </CTASection>
     </Container>
@@ -237,7 +237,7 @@ const ApplyButton = styled(Button, {
   '@new_laptop': {},
 });
 
-const KeywordLink = styled(Link, {
+const MoreLink = styled(Link, {
   'color': '$gray100',
   'display': 'inline-flex',
   'flexDirection': 'column',
@@ -255,7 +255,7 @@ const KeywordLink = styled(Link, {
   '@new_laptop': { ...fontsObject.BODY_3_14_M },
 });
 
-const KeywordLinkContent = styled('span', {
+const MoreLinkContent = styled('span', {
   display: 'inline-flex',
   alignItems: 'center',
 });
