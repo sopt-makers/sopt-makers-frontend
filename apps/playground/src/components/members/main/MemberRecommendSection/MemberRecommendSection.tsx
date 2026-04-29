@@ -13,7 +13,7 @@ import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 import MemberRecommendCard from '../../common/MemberRecommendCard/MemberRecommendCard';
 import { DESKTOP_TWO_MEDIA_QUERY } from '../contants';
 
-const PC_MEDIA_WIDTH = 1920;
+const PC_MEDIA_WIDTH = 1200;
 const PC_MEDIA_QUERY = `screen and (min-width: ${PC_MEDIA_WIDTH}px)`;
 
 const MemberRecommendSection = () => {
