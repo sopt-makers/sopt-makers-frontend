@@ -12,7 +12,8 @@ import MemberRecommendCard from '../../common/MemberRecommendCard/MemberRecommen
 import { DESKTOP_TWO_MEDIA_QUERY } from '../contants';
 
 const MemberRecommendSection = () => {
-  const { data: memberRecommendData, refetch } = useGetMemberRecommendOfMe();
+  const { data, refetch } = useGetMemberRecommendOfMe();
+  const memberRecommendData = data?.members;
 
   return (
     <StyledSection>
@@ -21,7 +22,7 @@ const MemberRecommendSection = () => {
         <StyledRefreshIcon onClick={refetch} />
       </StyledSectionHeader>
       <StyledCardGrid>
-        {memberRecommendData?.members.map((member) => (
+        {memberRecommendData?.map((member) => (
           <Link key={member.id} href={playgroundLink.memberDetail(member.id)}>
             <MemberRecommendCard
               key={member.id}
@@ -89,7 +90,6 @@ const StyledCardGrid = styled.div`
   grid-template-columns: repeat(4, 1fr);
   gap: 12px;
 
-  // TODO: random 로직으로 변경
   & > *:nth-child(n + 5) {
     display: none;
   }
@@ -98,7 +98,6 @@ const StyledCardGrid = styled.div`
     grid-template-columns: repeat(3, 1fr);
     gap: 8px;
 
-    // TODO: random 로직으로 변경
     & > *:nth-child(n + 4) {
       display: none;
     }

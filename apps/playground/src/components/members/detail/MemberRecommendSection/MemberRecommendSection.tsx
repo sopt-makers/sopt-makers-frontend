@@ -17,7 +17,6 @@ interface MemberRecommendSectionProps {
 
 const MemberRecommendSection = ({ memberId, name }: MemberRecommendSectionProps) => {
   const { data, refetch } = useGetMemberRecommendById(memberId);
-  // TODO: random 로직으로 변경
   const memberRecommendData = data?.members.slice(0, 3);
 
   return (
