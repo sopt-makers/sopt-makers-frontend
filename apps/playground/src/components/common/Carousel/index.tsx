@@ -8,6 +8,7 @@ import CarouselBody from '@/components/common/Carousel/Body';
 import type { CarouselDirection } from '@/components/common/Carousel/useCarousel';
 import useCarousel from '@/components/common/Carousel/useCarousel';
 import LeftArrowIcon from '@/public/icons/icon-arrow-left.svg';
+import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 interface CarouselProps {
   itemList: ReactNode[];
@@ -82,24 +83,26 @@ export default function Carousel({
           <LeftArrowIcon />
         </LeftControl>
       )}
-      <AnimatePresence initial={false} custom={direction}>
-        <StyledMotionDiv
-          key={page}
-          custom={direction}
-          variants={variants}
-          initial='enter'
-          animate='center'
-          transition={{
-            x: { type: 'spring', stiffness: 300, damping: 30 },
-            opacity: { duration: 0.2 },
-          }}
-          onTouchStart={onTouchStart}
-          onTouchMove={onTouchMove}
-          onTouchEnd={onTouchEnd}
-        >
-          <CarouselBody currentItemList={currentItemList} renderContainer={renderItemContainer} />
-        </StyledMotionDiv>
-      </AnimatePresence>
+      <StyledListClip>
+        <AnimatePresence initial={false} custom={direction}>
+          <StyledMotionDiv
+            key={page}
+            custom={direction}
+            variants={variants}
+            initial='enter'
+            animate='center'
+            transition={{
+              x: { type: 'spring', stiffness: 300, damping: 30 },
+              opacity: { duration: 0.2 },
+            }}
+            onTouchStart={onTouchStart}
+            onTouchMove={onTouchMove}
+            onTouchEnd={onTouchEnd}
+          >
+            <CarouselBody currentItemList={currentItemList} renderContainer={renderItemContainer} />
+          </StyledMotionDiv>
+        </AnimatePresence>
+      </StyledListClip>
 
       {isArrow && (
         <RightControl onClick={handleClickRightControl}>
@@ -137,14 +140,25 @@ const Container = styled.div`
   grid:
     [row1-start] 'left-control list right-control' max-content [row1-end]
     [row2-start] 'indicators indicators indicators' max-content [row2-end] / 0 auto 0;
-  row-gap: 24px;
+  row-gap: 20px;
   width: 100%;
   overflow: visible;
   user-select: none;
+
+  @media ${MOBILE_MEDIA_QUERY} {
+    row-gap: 16px;
+  }
+`;
+
+const StyledListClip = styled.div`
+  grid-area: list;
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
 `;
 
 const StyledMotionDiv = styled(m.div)`
-  grid-area: list;
   width: 100%;
 `;
 
