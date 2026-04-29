@@ -6,19 +6,11 @@ import { IconChevronRight, IconUser } from '@sopt-makers/icons';
 import type { MemberGenerationPart } from '@/api/endpoint/members/getMemberGenerationPart';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
-type SameActivityMemberCardProps = Omit<MemberGenerationPart, 'id'> & {
-  handleSameGroupClick: () => void;
-};
+type SameActivityMemberCardProps = Omit<MemberGenerationPart, 'id'>;
 
-const SameActivityMemberCard = ({
-  profileImage,
-  name,
-  generation,
-  part,
-  handleSameGroupClick,
-}: SameActivityMemberCardProps) => {
+const SameActivityMemberCard = ({ profileImage, name, generation, part }: SameActivityMemberCardProps) => {
   return (
-    <StyledContainer onClick={handleSameGroupClick}>
+    <StyledContainer>
       {profileImage ? <StyledAvatar src={profileImage} alt={`${name}님의 프로필 이미지`} /> : <StyledDefaultAvatar />}
       <StyledInfoWrapper>
         <StyledName>{name}</StyledName>

@@ -4,10 +4,9 @@ import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 import Link from 'next/link';
 
-import type { MemberGenerationPart } from '@/api/endpoint/members/getMemberGenerationPart';
 import { useGetMemberGenerationPart } from '@/api/endpoint/members/getMemberGenerationPart';
 import type { SoptActivity } from '@/api/endpoint_LEGACY/members/type';
-import useEventLogger from '@/components/eventLogger/hooks/useEventLogger';
+import { LoggingClick } from '@/components/eventLogger/components/LoggingClick';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 import SameActivityMemberCard from './SameActivityMemberCard';
@@ -21,11 +20,6 @@ interface SamePartMemberSectionProps {
 const SamePartMemberSection = ({ memberId, name, recentSoptActivity }: SamePartMemberSectionProps) => {
   const isMakers = recentSoptActivity.team === '메이커스';
   const { data: memberGenerationPartData } = useGetMemberGenerationPart(memberId);
-  const { logClickEvent } = useEventLogger();
-
-  const handleSameGroupClick = (member: MemberGenerationPart) => {
-    logClickEvent('profileSameGroupCard', { id: member.id, name: member.name });
-  };
 
   return (
     <StyledSection>
@@ -34,15 +28,16 @@ const SamePartMemberSection = ({ memberId, name, recentSoptActivity }: SamePartM
       </StyledSectionTitle>
       <StyledCardGrid>
         {memberGenerationPartData?.members.map((member) => (
-          <Link key={member.id} href={playgroundLink.memberDetail(member.id)}>
-            <SameActivityMemberCard
-              profileImage={member.profileImage}
-              name={member.name}
-              generation={member.generation}
-              part={member.part}
-              handleSameGroupClick={() => handleSameGroupClick(member)}
-            />
-          </Link>
+          <LoggingClick key={member.id} eventKey='profileSameGroupCard' param={{ id: member.id, name: member.name }}>
+            <Link key={member.id} href={playgroundLink.memberDetail(member.id)}>
+              <SameActivityMemberCard
+                profileImage={member.profileImage}
+                name={member.name}
+                generation={member.generation}
+                part={member.part}
+              />
+            </Link>
+          </LoggingClick>
         ))}
       </StyledCardGrid>
     </StyledSection>

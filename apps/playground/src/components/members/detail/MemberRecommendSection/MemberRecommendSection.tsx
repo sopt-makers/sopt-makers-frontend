@@ -4,9 +4,8 @@ import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 import Link from 'next/link';
 
-import type { RecommendMemberById } from '@/api/endpoint/members/getMemberRecommendById';
 import { useGetMemberRecommendById } from '@/api/endpoint/members/getMemberRecommendById';
-import useEventLogger from '@/components/eventLogger/hooks/useEventLogger';
+import { LoggingClick } from '@/components/eventLogger/components/LoggingClick';
 import RefreshIcon from '@/public/icons/icon_refresh.svg';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
@@ -20,15 +19,6 @@ interface MemberRecommendSectionProps {
 const MemberRecommendSection = ({ memberId, name }: MemberRecommendSectionProps) => {
   const { data, refetch } = useGetMemberRecommendById(memberId);
   const memberRecommendData = data?.members.slice(0, 3);
-  const { logClickEvent } = useEventLogger();
-
-  const handleConnectionCardClick = (member: RecommendMemberById) => {
-    logClickEvent('profileConnectionCard', {
-      id: member.id,
-      name: member.name,
-      recommendationType: member.recommendType,
-    });
-  };
 
   return (
     <StyledSection>
@@ -38,17 +28,22 @@ const MemberRecommendSection = ({ memberId, name }: MemberRecommendSectionProps)
       </StyledSectionHeader>
       <StyledCardGrid>
         {memberRecommendData?.map((member) => (
-          <Link key={member.id} href={playgroundLink.memberDetail(member.id)}>
-            <MemberRecommendCard
-              key={member.id}
-              name={member.name}
-              profileImage={member.profileImage}
-              generation={member.generation}
-              part={member.part}
-              recommendType={member.recommendType}
-              handleConnectionCardClick={() => handleConnectionCardClick(member)}
-            />
-          </Link>
+          <LoggingClick
+            key={member.id}
+            eventKey='profileConnectionCard'
+            param={{ id: member.id, name: member.name, recommendationType: member.recommendType }}
+          >
+            <Link key={member.id} href={playgroundLink.memberDetail(member.id)}>
+              <MemberRecommendCard
+                key={member.id}
+                name={member.name}
+                profileImage={member.profileImage}
+                generation={member.generation}
+                part={member.part}
+                recommendType={member.recommendType}
+              />
+            </Link>
+          </LoggingClick>
         ))}
       </StyledCardGrid>
     </StyledSection>

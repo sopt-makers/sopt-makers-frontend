@@ -13,20 +13,11 @@ import RecommendTypeChip from './RecommendTypeChip';
 type RecommendCardProps = Pick<
   RecommendMemberOfMe | RecommendMemberById,
   'profileImage' | 'name' | 'generation' | 'part' | 'recommendType'
-> & {
-  handleConnectionCardClick?: () => void;
-};
+>;
 
-const MemberRecommendCard = ({
-  profileImage,
-  name,
-  generation,
-  part,
-  recommendType,
-  handleConnectionCardClick,
-}: RecommendCardProps) => {
+const MemberRecommendCard = ({ profileImage, name, generation, part, recommendType }: RecommendCardProps) => {
   return (
-    <StyledContainer onClick={handleConnectionCardClick}>
+    <StyledContainer>
       <StyledAvatarWrapper>
         {profileImage ? <StyledAvatar src={profileImage} alt={`${name}님의 프로필 이미지`} /> : <StyledDefaultAvatar />}
         <StyledChipOverlay>
