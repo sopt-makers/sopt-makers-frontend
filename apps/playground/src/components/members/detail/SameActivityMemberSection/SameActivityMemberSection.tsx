@@ -4,8 +4,10 @@ import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 import Link from 'next/link';
 
+import type { MemberGenerationPart } from '@/api/endpoint/members/getMemberGenerationPart';
 import { useGetMemberGenerationPart } from '@/api/endpoint/members/getMemberGenerationPart';
 import type { SoptActivity } from '@/api/endpoint_LEGACY/members/type';
+import useEventLogger from '@/components/eventLogger/hooks/useEventLogger';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 import SameActivityMemberCard from './SameActivityMemberCard';
@@ -19,6 +21,11 @@ interface SamePartMemberSectionProps {
 const SamePartMemberSection = ({ memberId, name, recentSoptActivity }: SamePartMemberSectionProps) => {
   const isMakers = recentSoptActivity.team === '메이커스';
   const { data: memberGenerationPartData } = useGetMemberGenerationPart(memberId);
+  const { logClickEvent } = useEventLogger();
+
+  const handleSameGroupClick = (member: MemberGenerationPart) => {
+    logClickEvent('profileSameGroupCard', { id: member.id, name: member.name });
+  };
 
   return (
     <StyledSection>
@@ -33,6 +40,7 @@ const SamePartMemberSection = ({ memberId, name, recentSoptActivity }: SamePartM
               name={member.name}
               generation={member.generation}
               part={member.part}
+              handleSameGroupClick={() => handleSameGroupClick(member)}
             />
           </Link>
         ))}

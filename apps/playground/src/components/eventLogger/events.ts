@@ -89,6 +89,10 @@ export interface ClickEvents {
     id: number;
     name: string;
   };
+  profileSameGroupCard: {
+    id: number;
+    name: string;
+  };
   // 프로필 편집
   editProfile: undefined;
 
