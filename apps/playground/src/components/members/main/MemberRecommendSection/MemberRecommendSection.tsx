@@ -21,7 +21,7 @@ const MemberRecommendSection = () => {
   const [isTooltipOpen, setIsTooltipOpen] = useState(true);
   const [isWideViewport, setIsWideViewport] = useState(false);
 
-  // viewpoint 판단은 추후 상위 컴포넌트로 이동
+  // TODO: viewpoint 판단은 추후 상위 컴포넌트로 이동
   useEffect(() => {
     const media = window.matchMedia(PC_MEDIA_QUERY);
     setIsWideViewport(media.matches);
@@ -41,7 +41,7 @@ const MemberRecommendSection = () => {
       <StyledSectionHeader>
         <StyledSectionTitle>나와 접점이 있는 멤버</StyledSectionTitle>
         {isWideViewport ? (
-          //추후 디자인 시스템 툴팁으로 변경
+          //TODO: 추후 디자인 시스템 툴팁으로 변경
           <Tooltip.Provider>
             <Tooltip.Root open={isTooltipOpen}>
               <Tooltip.Trigger asChild>
