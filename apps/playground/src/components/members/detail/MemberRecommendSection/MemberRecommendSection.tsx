@@ -4,7 +4,9 @@ import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 import Link from 'next/link';
 
+import type { RecommendMemberById } from '@/api/endpoint/members/getMemberRecommendById';
 import { useGetMemberRecommendById } from '@/api/endpoint/members/getMemberRecommendById';
+import useEventLogger from '@/components/eventLogger/hooks/useEventLogger';
 import RefreshIcon from '@/public/icons/icon_refresh.svg';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
@@ -18,6 +20,15 @@ interface MemberRecommendSectionProps {
 const MemberRecommendSection = ({ memberId, name }: MemberRecommendSectionProps) => {
   const { data, refetch } = useGetMemberRecommendById(memberId);
   const memberRecommendData = data?.members.slice(0, 3);
+  const { logClickEvent } = useEventLogger();
+
+  const handleConnectionCardClick = (member: RecommendMemberById) => {
+    logClickEvent('profileConnectionCard', {
+      id: member.id,
+      name: member.name,
+      recommendationType: member.recommendType,
+    });
+  };
 
   return (
     <StyledSection>
@@ -35,6 +46,7 @@ const MemberRecommendSection = ({ memberId, name }: MemberRecommendSectionProps)
               generation={member.generation}
               part={member.part}
               recommendType={member.recommendType}
+              handleConnectionCardClick={() => handleConnectionCardClick(member)}
             />
           </Link>
         ))}
