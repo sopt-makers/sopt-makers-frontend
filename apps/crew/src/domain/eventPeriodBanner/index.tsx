@@ -2,6 +2,7 @@ import { useGetEventBannerInfoQueryOption } from '@api/advertisement/query';
 import { useDisplay } from '@hook/useDisplay';
 import { Flex } from '@shared/util/layout/Flex';
 import { fontsObject } from '@sopt-makers/fonts';
+import { IconChevronRight } from '@sopt-makers/icons';
 import { Button } from '@sopt-makers/ui';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import Link from 'next/link';
@@ -48,7 +49,10 @@ const EventPeriodBanner = () => {
         </ApplyButton>
         {banner.eventType === 'SOPKATHON' && banner.bannerLink2 && (
           <KeywordLink href={banner.bannerLink2}>
-            파트별 솝커톤 둘러보기
+            <KeywordLinkContent>
+              파트별 솝커톤 둘러보기
+              <SRightArrowIcon />
+            </KeywordLinkContent>
             <SUnderLine />
           </KeywordLink>
         )}
@@ -209,6 +213,9 @@ const ApplyButton = styled(Button, {
 
 const KeywordLink = styled(Link, {
   'color': '$gray100',
+  'display': 'inline-flex',
+  'flexDirection': 'column',
+  'alignItems': 'center',
 
   '@new_mobile': {
     ...fontsObject.BODY_4_13_M,
@@ -222,6 +229,18 @@ const KeywordLink = styled(Link, {
   '@new_laptop': { ...fontsObject.BODY_3_14_M },
 });
 
+const KeywordLinkContent = styled('span', {
+  display: 'inline-flex',
+  alignItems: 'center',
+});
+
+const SRightArrowIcon = styled(IconChevronRight, {
+  color: '$gray100',
+  width: '16px',
+  height: '16px',
+});
+
 const SUnderLine = styled('div', {
+  width: '100%',
   borderBottom: '0.8px solid $gray100',
 });
