@@ -73,6 +73,7 @@ const MemberDetail = ({ memberId }: MemberDetailProps) => {
         logClickEvent('TabAsk', {
           id: Number(memberId),
           name: profile.name,
+          hasRecentAsk: profile.hasRecentQuestion,
         });
       } else if (tab === 'profile') {
         logClickEvent('TabProfile', {

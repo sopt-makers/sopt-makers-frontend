@@ -1,18 +1,7 @@
-import { string } from 'zod';
-
 type MemberCard = {
   id: number;
   name: string;
   screen?: 'recommended' | 'TL' | 'member';
-};
-
-type CommunityFeedData = {
-  categoryId: number;
-  title: string | null;
-  content: string;
-  isQuestion: boolean;
-  isBlindWriter: boolean;
-  images: string[];
 };
 
 export type UserProperties = {
@@ -57,22 +46,26 @@ type Vote = {
 };
 
 export interface ClickEvents {
-  memberCard: MemberCard;
-  projectCard: { id: number };
+  // ==== 인증 ====
   registerLink: undefined;
   registerWith: {
     method: 'facebook' | 'google' | 'apple';
   };
+
+  // ==== 온보딩 배너 ====
   onboardingBannerProjectUpload: undefined;
   onboardingBannerProfileUpload: undefined;
-  projectUpload: {
-    referral: string;
-  };
+
+  // ==== 네비게이션 ====
+  // 헤더
   myProfile: undefined;
   reviewUpload: undefined;
-  editProfile: undefined;
-  submitProfile: undefined;
+  // 푸터
   aboutMakers: undefined;
+
+  // ==== 멤버 ====
+  memberCard: MemberCard;
+  // 멤버 리스트 - 필터
   filterGeneration: {
     generation: string;
   };
@@ -91,7 +84,22 @@ export interface ClickEvents {
   filterOrderBy: {
     orderBy: string;
   };
-  mentoringCarouselButton: undefined;
+  // 멤버 상세
+  TabProfile: {
+    id: number;
+    name: string;
+  };
+  // 프로필 편집
+  editProfile: undefined;
+
+  // ==== 프로젝트 ====
+  projectCard: { id: number };
+  projectUpload: {
+    referral: string;
+  };
+  clickProjectShare: undefined;
+
+  // ==== 멘토링 ====
   mentoringCard: {
     mentorId: number;
   };
@@ -101,15 +109,19 @@ export interface ClickEvents {
   mentorProfileCareer: {
     mentorId: number;
   };
+  mentoringCarouselButton: undefined;
   mentoringApplicationButton: {
     mentorId: number;
   };
   mentorApplicationButton: undefined;
-  wordchainEntry: undefined;
+
+  // ==== 커뮤니티(피드) ====
+  // 글 작성
+  feedUploadButton: undefined;
   communityRulesClick: undefined;
   communityUploadCodeButton: undefined;
   quitUploadCommunity: undefined;
-  // 커뮤니티(피드)
+  // 리스트 / 카드
   feedListCategoryFilter: {
     category: string;
   };
@@ -129,7 +141,6 @@ export interface ClickEvents {
   feedCategoryChipLink: {
     feedId: string;
   };
-  feedUploadButton: undefined;
   feedLike: {
     feedId: string;
     category: string;
@@ -138,26 +149,11 @@ export interface ClickEvents {
     feedId: string;
     category: string;
   };
+  // 투표
+  vote: Vote;
+  voteResult: Vote;
 
-  //환영배너 타임캡솝 cta 버튼 클릭
-  bannerTimeCapsule: {
-    isAlreadySubmitted: boolean;
-  };
-  profileUploadTimeCapsule: undefined;
-
-  // 다짐메시지 노출
-  saveResolutionImage: undefined;
-  bannerOpenResolution: undefined;
-  bannerOpenMyReport: undefined;
-  luckyTimeCapsule: undefined;
-
-  // 프로젝트 등록 후 공유하러 가기
-  clickProjectShare: undefined;
-  coffeechatFilter: {
-    topic_tag: string | undefined;
-    career: string | undefined;
-    part: string | undefined;
-  };
+  // ==== 커피솝 ====
   coffeechatCard: {
     career: string | undefined;
     organization: string | undefined | null;
@@ -169,40 +165,34 @@ export interface ClickEvents {
     part: string[] | undefined;
     channel: string;
   };
-
+  coffeechatFilter: {
+    topic_tag: string | undefined;
+    career: string | undefined;
+    part: string | undefined;
+  };
+  coffeechatSection: {
+    section: string;
+  };
   coffeechatGuide: undefined;
   coffeechatBadge: undefined;
   coffeechatToggleOff: undefined;
   coffeechatToggleOn: undefined;
-  skillAdd: undefined;
+  coffeechatBanner: undefined;
+  coffeechatReviewCard: undefined;
+  gotoCoffeechat: GotoCoffeechat;
+  openCoffeechat: undefined;
+  sendCoffeechat: undefined;
+  senderPhone: undefined;
   messageBadge:
     | {
         isRecommended?: boolean;
       }
     | undefined;
-  gotoCoffeechat: GotoCoffeechat;
 
-  // 광고
-  ads: {
-    id: number | undefined;
-    bannerId: number;
-    pageUrl: string;
-    timeStamp: string;
-  };
-  coffeechatSection: {
-    section: string;
-  };
-  openCoffeechat: undefined;
-  senderPhone: undefined;
-  coffeechatBanner: undefined;
-  sendCoffeechat: undefined;
+  // ==== 끝말잇기 ====
+  wordchainEntry: undefined;
 
-  coffeechatReviewCard: undefined;
-
-  hideAdPopupToday: undefined;
-  adPopupBody: undefined;
-  adPopupClose: undefined;
-
+  // ==== 마이 솝트 리포트 ====
   clickMyReportNavbar: {
     myReportSection: string;
   };
@@ -210,27 +200,38 @@ export interface ClickEvents {
   clickMyReportGotoWordchain: undefined;
   clickMyReportGotoMoimFeed: undefined;
   clickMyReportGotoCoffeesopt: undefined;
+  bannerOpenMyReport: undefined;
 
+  // ==== 활동후기 ====
+  reviewGoToHomepage: undefined;
+
+  // ==== 타임캡솝 ====
+  bannerTimeCapsule: {
+    isAlreadySubmitted: boolean;
+  };
+  profileUploadTimeCapsule: undefined;
   // 다른 기능 이동 모달
   timeCapsuleGotoCrew: undefined;
   timeCapsuleGotoProject: undefined;
   timeCapsuleGotoMember: undefined;
   timeCapsuleGotoCoffeechat: undefined;
+  // 종무식
+  bannerOpenResolution: undefined;
+  luckyTimeCapsule: undefined;
+  saveResolutionImage: undefined;
 
-  reviewGoToHomepage: undefined; // 업로드한 활동후기 보러가기
+  // ==== 홈(광고) ====
+  ads: {
+    id: number | undefined;
+    bannerId: number;
+    pageUrl: string;
+    timeStamp: string;
+  };
+  hideAdPopupToday: undefined;
+  adPopupBody: undefined;
+  adPopupClose: undefined;
 
-  // 투표
-  vote: Vote;
-  voteResult: Vote;
-
-  // 기획경선 특집
-  balancegame: undefined;
-  newmember: undefined;
-
-  TL_list: undefined;
-  TL_introduce: undefined;
-  TL_appjam: undefined;
-  refreshmember: undefined;
+  // ==== 에스크 ====
   CTAAsk: {
     id: number;
     name: string;
@@ -238,31 +239,49 @@ export interface ClickEvents {
   TabAsk: {
     id: number;
     name: string;
-  };
-  TabProfile: {
-    id: number;
-    name: string;
+    hasRecentAsk: boolean;
   };
   AskUploadButton: undefined;
   AnswerUploadButton: undefined;
   AskLike: {
     feedId: number;
   };
+  askContentCard: {
+    id: number;
+    name: string;
+  };
+  memberAskPreview: {
+    id: number;
+    name: string;
+  };
+
+  // ==== 기획경선 특집 ====
+  balancegame: undefined;
+  newmember: undefined;
+  TL_list: undefined;
+  TL_introduce: undefined;
+  TL_appjam: undefined;
+  refreshmember: undefined;
 }
 
 export interface SubmitEvents {
-  searchMember: {
-    content: string;
-  };
-  editProfile: undefined;
+  // ==== 인증 ====
   verify: {
     by: 'phone' | 'email';
+  };
+
+  // ==== 멤버 ====
+  searchMember: {
+    content: string;
   };
   sendMessage: {
     category: string;
     receiverId: number;
     referral: 'mentoringDetail' | 'memberDetail' | 'memberList';
   };
+  editProfile: undefined;
+
+  // ==== 프로젝트 ====
   projectUpload: {
     writerId: string;
   };
@@ -270,10 +289,8 @@ export interface SubmitEvents {
     projectId: string;
     editorId: string;
   };
-  postWordchain: {
-    word: string;
-  };
-  wordchainNewGame: undefined;
+
+  // ==== 커뮤니티(피드) ====
   submitCommunity: {
     category: string | undefined;
     isBlindWriter: boolean;
@@ -281,7 +298,6 @@ export interface SubmitEvents {
     mention: boolean;
   };
   editCommunity: undefined;
-  // 커뮤니티(피드)
   postComment: {
     feedId: string;
     referral: 'more' | 'detail';
@@ -289,8 +305,8 @@ export interface SubmitEvents {
     category: string;
     mention: boolean;
   };
-  //타임캡솝 보관하기
-  makeTimeCapsule: undefined;
+
+  // ==== 커피솝 ====
   searchCoffeeChat: {
     search_content: string;
   };
@@ -304,50 +320,71 @@ export interface SubmitEvents {
   editCoffeechat: undefined;
   coffeechatReview: undefined;
 
-  reviewUpload: undefined; // 활동후기 업로드하기
+  // ==== 끝말잇기 ====
+  postWordchain: {
+    word: string;
+  };
+  wordchainNewGame: undefined;
 
-  // 행운 뽑기
+  // ==== 활동후기 ====
+  reviewUpload: undefined;
+
+  // ==== 타임캡솝 ====
+  makeTimeCapsule: undefined;
   luckyTimeCapsule: {
     event_winner: boolean;
   };
 
-  // 기획경선 특집
-  balancegame: undefined;
+  // ==== 에스크 ====
   submitAsk: {
     feedId: number;
   };
   submitAnswer: {
     feedId: number;
   };
+
+  // ==== 기획경선 특집 ====
+  balancegame: undefined;
 }
 
 export interface PageViewEvents {
+  // ==== 멤버 ====
   memberPageList: undefined;
   memberCard: MemberCard;
+
+  // ==== 멘토링 ====
   mentoringDetail: {
     mentorId: number;
   };
+
+  // ==== 끝말잇기 ====
   wordchain: undefined;
-  // 커뮤니티(피드)
-  feedList: undefined;
-  feedDetail: {
-    feedId: string;
-  };
 }
 
 export interface ImpressionEvents {
+  // ==== 멤버 ====
+  memberCard: MemberCard;
+
+  // ==== 커뮤니티(피드) ====
   feedCard: {
     feedId?: string;
     category?: string;
     screen?: '멤버' | '기획경선 홈팝업' | 'TL리스트';
   };
-  memberCard: MemberCard;
+
+  // ==== 홈(광고) ====
   ads: { bannerId: number; pageUrl: string; timeStamp: string };
   adPopup: undefined;
 
-  // 기획경선 특집
-  balancegame: undefined;
+  // ==== 에스크 ====
   AskCard: {
     feedId: number;
   };
+  askContentCard: {
+    id: number;
+    name: string;
+  };
+
+  // ==== 기획경선 특집 ====
+  balancegame: undefined;
 }
