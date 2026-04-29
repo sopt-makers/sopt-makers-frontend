@@ -1,24 +1,12 @@
 import UserIcon from '@assets/svg/user.svg?rect';
 import Avatar from '@common/avatar/Avatar';
 import { PART_NAME } from '@constant/option';
+import type { HomeMeetingCardProps } from '@domain/home/HomeCardList/type';
 import { fontsObject } from '@sopt-makers/fonts';
 import { getResizedImage } from '@util/image';
 import Link from 'next/link';
 import { styled } from 'stitches.config';
 
-type DesktopCardProps = {
-  id: number;
-  imageURL?: string;
-  title: string;
-  subTitle?: string;
-  ownerName: string;
-  ownerImage?: string;
-  approvedCount: number;
-  capacity: number;
-  category: string;
-  canJoinOnlyActiveGeneration: boolean;
-  joinableParts: string[];
-};
 const DesktopCard = ({
   id,
   imageURL,
@@ -31,7 +19,7 @@ const DesktopCard = ({
   category,
   canJoinOnlyActiveGeneration,
   joinableParts,
-}: DesktopCardProps) => {
+}: HomeMeetingCardProps) => {
   const isAllParts = joinableParts.length === 6 || joinableParts === null;
   const displayParts = isAllParts ? '전체 파트' : joinableParts.map((part) => PART_NAME[part]).join(', ');
 
