@@ -98,6 +98,11 @@ export interface ClickEvents {
     name: string;
     recommendationType: 'SAME_PART' | 'SAME_CREW' | 'SAME_PROJECT' | 'SAME_UNIVERSITY' | 'SAME_GENERATION';
   };
+  memberRecommendCard: {
+    id: number;
+    name: string;
+    recommendationType: 'SAME_PART' | 'SAME_CREW' | 'SAME_MBTI' | 'SAME_UNIVERSITY' | 'SAME_GENERATION';
+  };
 
   // 프로필 편집
   editProfile: undefined;

@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 import { useGetMemberRecommendOfMe } from '@/api/endpoint/members/getMemberRecommendOfMe';
+import { LoggingClick } from '@/components/eventLogger/components/LoggingClick';
 import RefreshIcon from '@/public/icons/icon_refresh.svg';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
@@ -66,16 +67,22 @@ const MemberRecommendSection = () => {
       </StyledSectionHeader>
       <StyledCardGrid>
         {memberRecommendData?.map((member) => (
-          <Link key={member.id} href={playgroundLink.memberDetail(member.id)}>
-            <MemberRecommendCard
-              key={member.id}
-              name={member.name}
-              profileImage={member.profileImage}
-              generation={member.generation}
-              part={member.part}
-              recommendType={member.recommendType}
-            />
-          </Link>
+          <LoggingClick
+            key={member.id}
+            eventKey='memberRecommendCard'
+            param={{ id: member.id, name: member.name, recommendationType: member.recommendType }}
+          >
+            <Link key={member.id} href={playgroundLink.memberDetail(member.id)}>
+              <MemberRecommendCard
+                key={member.id}
+                name={member.name}
+                profileImage={member.profileImage}
+                generation={member.generation}
+                part={member.part}
+                recommendType={member.recommendType}
+              />
+            </Link>
+          </LoggingClick>
         ))}
       </StyledCardGrid>
     </StyledSection>
