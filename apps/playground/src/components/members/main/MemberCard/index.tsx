@@ -343,7 +343,7 @@ const StyledAskPreviewBubble = styled.div`
   top: calc(100% - 38px);
   left: 50%;
   transform: translateX(-50%);
-  z-index: ${zIndex.에스크_미리보기};
+  z-index: ${zIndex.말풍선};
   display: flex;
   align-items: center;
   gap: 8px;
