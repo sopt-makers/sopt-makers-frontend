@@ -20,18 +20,18 @@ export const MeetingDetailList = (detailData: GetMeeting['response']) => [
         <>
           <STarget>
             {detailData?.meetingKeywordTypes.map((tag) => (
-              <Chip key={tag} style={{ boxShadow: 'none' }} active>
+              <Chip key={tag} style={{ boxShadow: 'none' }}>
                 {tag}
               </Chip>
             ))}
             {detailData?.welcomeMessageTypes?.map((tag) => (
-              <Chip key={tag} style={{ boxShadow: 'none' }}>
+              <Chip key={tag} style={{ boxShadow: 'none' }} active>
                 {tag}
               </Chip>
             ))}
             {detailData?.joinInfo &&
               (Object.values(detailData.joinInfo) as (string | undefined)[]).filter(Boolean).map((tag) => (
-                <Chip key={tag} style={{ boxShadow: 'none' }}>
+                <Chip key={tag} style={{ boxShadow: 'none' }} active>
                   {`#${tag}`}
                 </Chip>
               ))}
