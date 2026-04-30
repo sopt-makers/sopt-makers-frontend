@@ -49,14 +49,6 @@ export interface paths {
     /** 유저 관심 키워드 설정 */
     post: operations['updateUserInterestedKeyword'];
   };
-  '/slack/emoji': {
-    /** 이모지 이벤트 생성 */
-    post: operations['addEmoji'];
-    /** 이모지 이벤트 삭제 */
-    delete: operations['deleteEmoji'];
-    /** 이모지 이벤트 업데이트 */
-    patch: operations['updateEmoji'];
-  };
   '/post/v2': {
     /** 모임 게시글 목록 조회 */
     get: operations['getPosts'];
@@ -210,8 +202,8 @@ export interface paths {
   };
   '/meeting/v2/{meetingId}/members': {
     /**
-     * 모임 내 같은 파트 참여 멤버 리스트 조회
-     * @description 조회자와 같은 파트 기준으로 참여중인 멤버 리스트를 조회합니다.
+     * 모임 내 같은 파트/기수 멤버 리스트 조회
+     * @description 조회자 기준 파트/기수 조건에 맞는 참여중인 멤버 리스트를 조회합니다.
      */
     get: operations['getMeetingPartMembers'];
   };
@@ -558,16 +550,6 @@ export interface components {
     };
     UpdateUserInterestKeywordRequestDto: {
       keywords?: string[];
-    };
-    SlackEmojiEventRequestDto: {
-      identifiedPwd?: string;
-      callEmoji?: string;
-      username?: string;
-      userSlackId?: string;
-      team?: string;
-      /** Format: int32 */
-      generation?: number;
-      templateCd?: string;
     };
     /** @description 게시물 생성 request body dto */
     PostV2CreatePostBodyDto: {
@@ -995,11 +977,6 @@ export interface components {
        * @example https://map~~~~
        */
       kakaoLink?: string;
-    };
-    SlackUpdateEmojiEventRequestDto: {
-      identifiedPwd?: string;
-      originalCallEmoji?: string;
-      updateCallEmoji?: string;
     };
     /** @description 모임 부분 수정 request body dto */
     MeetingV2UpdateMeetingBodyDto: {
@@ -1951,6 +1928,11 @@ export interface components {
        */
       capacity: number;
       /**
+       * Format: date-time
+       * @description 모임 생성 시간
+       */
+      createdTimestamp: string;
+      /**
        * @description 모임 소개
        * @example 모임 소개 입니다.
        */
@@ -1991,7 +1973,6 @@ export interface components {
        */
       canJoinOnlyActiveGeneration: boolean;
       joinInfo?: components['schemas']['MeetingJoinInfo'];
-      participatingPartInfo?: components['schemas']['MeetingV2ParticipatingPartInfoDto'];
       /**
        * Format: int32
        * @description 개설 기수
@@ -2059,8 +2040,8 @@ export interface components {
       /** @description 모임 키워드 타입 목록 */
       meetingKeywordTypes: string[];
     };
-    /** @description 조회자와 같은 파트 참여 정보 */
-    MeetingV2ParticipatingPartInfoDto: {
+    /** @description 모임 내 같은 파트/기수 참여 멤버 리스트 조회 dto */
+    MeetingV2GetMeetingPartMembersResponseDto: {
       /**
        * @description 조회자 기준 파트
        * @example 서버
@@ -2068,8 +2049,8 @@ export interface components {
       part?: string;
       /**
        * Format: int32
-       * @description 참여중인 같은 파트 인원수
-       * @example 3
+       * @description 조건에 맞는 신청중/대기중 유저 수
+       * @example 2
        */
       participantCount?: number;
       /**
@@ -2084,35 +2065,29 @@ export interface components {
        */
       activeGeneration?: number;
       /**
-       * @description 조건에 맞는 신청중/대기중 유저 이름 리스트
+       * @description 유저 리스트의 index id
+       * @example [
+       *   1,
+       *   2
+       * ]
+       */
+      memberIds?: number[];
+      /**
+       * @description 유저 이름 리스트
        * @example [
        *   "이지훈",
        *   "김효준"
        * ]
        */
       memberNames?: string[];
-    };
-    /** @description 모임 내 같은 파트 참여 멤버 리스트 조회 dto */
-    MeetingV2GetMeetingPartMembersResponseDto: {
       /**
-       * @description 조회자 기준 파트
-       * @example 서버
-       */
-      part?: string;
-      /**
-       * Format: int32
-       * @description 참여중인 같은 파트 인원수
-       * @example 2
-       */
-      participantCount?: number;
-      /**
-       * @description 참여중인 같은 파트 멤버 이름 리스트
+       * @description 유저 프로필 이미지 리스트
        * @example [
-       *   "이지훈",
-       *   "김효준"
+       *   "https://example.com/profile.png",
+       *   null
        * ]
        */
-      memberNames?: string[];
+      memberProfileImages?: string[];
     };
     /** @description 모임 신청자 객체 Dto */
     ApplicantDto: {
@@ -3086,7 +3061,7 @@ export interface components {
        * @description 광고 구좌 링크
        * @example https://www.naver.com
        */
-      advertisementLink: string;
+      advertisementLink?: string;
       /**
        * Format: date-time
        * @description 광고 게시 시작일
@@ -3160,10 +3135,6 @@ export interface components {
        * @example  OPEN!
        */
       suffix?: string;
-    };
-    SlackEmojiEventDeleteRequestDto: {
-      identifiedPwd?: string;
-      callEmoji?: string;
     };
   };
   responses: never;
@@ -3468,54 +3439,6 @@ export interface operations {
       /** @description 성공 */
       200: {
         content: never;
-      };
-    };
-  };
-  /** 이모지 이벤트 생성 */
-  addEmoji: {
-    requestBody: {
-      content: {
-        'application/json;charset=UTF-8': components['schemas']['SlackEmojiEventRequestDto'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        content: {
-          'application/json;charset=UTF-8': string;
-        };
-      };
-    };
-  };
-  /** 이모지 이벤트 삭제 */
-  deleteEmoji: {
-    requestBody: {
-      content: {
-        'application/json;charset=UTF-8': components['schemas']['SlackEmojiEventDeleteRequestDto'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        content: {
-          'application/json;charset=UTF-8': string;
-        };
-      };
-    };
-  };
-  /** 이모지 이벤트 업데이트 */
-  updateEmoji: {
-    requestBody: {
-      content: {
-        'application/json;charset=UTF-8': components['schemas']['SlackUpdateEmojiEventRequestDto'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        content: {
-          'application/json;charset=UTF-8': string;
-        };
       };
     };
   };
@@ -4258,8 +4181,8 @@ export interface operations {
     };
   };
   /**
-   * 모임 내 같은 파트 참여 멤버 리스트 조회
-   * @description 조회자와 같은 파트 기준으로 참여중인 멤버 리스트를 조회합니다.
+   * 모임 내 같은 파트/기수 멤버 리스트 조회
+   * @description 조회자 기준 파트/기수 조건에 맞는 참여중인 멤버 리스트를 조회합니다.
    */
   getMeetingPartMembers: {
     parameters: {
@@ -4268,7 +4191,7 @@ export interface operations {
       };
     };
     responses: {
-      /** @description 모임 내 같은 파트 참여 멤버 리스트 조회 성공 */
+      /** @description 모임 내 같은 파트/기수 멤버 리스트 조회 성공 */
       200: {
         content: {
           'application/json;charset=UTF-8': components['schemas']['MeetingV2GetMeetingPartMembersResponseDto'];

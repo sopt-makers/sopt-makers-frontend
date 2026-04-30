@@ -7,6 +7,7 @@ import {
   usePostEventApplicationMutation,
   usePostMeetingApplicationMutation,
 } from '@api/meeting/mutation';
+import { useMeetingPartMembersQueryOption } from '@api/meeting/query';
 import type { GetMeeting } from '@api/meeting/type';
 import { useUserProfileQueryOption } from '@api/user/query';
 import ArrowSmallRightIcon from '@assets/svg/arrow_small_right.svg';
@@ -18,6 +19,7 @@ import MeetingAbout from '@domain/detail/MeetingController/MeetingAbout';
 import useModal from '@hook/useModal';
 import DefaultModal from '@shared/modal/DefaultModal';
 import { playgroundLink } from '@sopt/constant';
+import { fontsObject } from '@sopt-makers/fonts';
 import { useDialog } from '@sopt-makers/ui';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import type { AxiosResponse } from 'axios';
@@ -32,6 +34,7 @@ import { ampli } from '@/ampli';
 
 import ProfileConfirmModal from './Modal/Confirm/ProfileConfirmModal';
 import ApplicationModalContent from './Modal/Content/ApplicationModalContent';
+import PartStatusModalContent from './Modal/Content/PartStatusModalContent';
 import RecruitmentStatusModalContent from './Modal/Content/RecruitmentStatusModalContent';
 
 interface DetailHeaderProps {
@@ -62,6 +65,7 @@ const MeetingController = ({ detailData }: DetailHeaderProps) => {
 
   const { open: dialogOpen, close: dialogClose } = useDialog();
   const { data: me } = useQuery(useUserProfileQueryOption());
+  const { data: partMembersData } = useQuery(useMeetingPartMembersQueryOption({ meetingId: Number(meetingId) }));
   const queryClient = useQueryClient();
   const router = useRouter();
   const isRecruiting = status === ERecruitmentStatus.RECRUITING;
@@ -82,6 +86,16 @@ const MeetingController = ({ detailData }: DetailHeaderProps) => {
     ampli.clickMemberStatus({ crew_status: approved || isHost });
     handleDefaultModalOpen();
     setModalTitle(`모집 현황 (${CAPACITY(detailData)})`);
+  };
+
+  const isActiveGeneration = partMembersData?.isActiveGeneration ?? true;
+  const partLabel = isActiveGeneration
+    ? `${partMembersData?.part} 파트 신청 멤버`
+    : `${partMembersData?.activeGeneration}기 신청 멤버`;
+
+  const handlePartStatusModal = () => {
+    handleDefaultModalOpen();
+    setModalTitle(partLabel);
   };
 
   const handleHostModalOpen = () => {
@@ -263,13 +277,32 @@ const MeetingController = ({ detailData }: DetailHeaderProps) => {
           <MeetingAbout detailData={detailData as GetMeeting['response']} />
         )}
         <div>
-          <SStatusButton onClick={handleRecruitmentStatusModal}>
-            <div>
-              <span>모집 현황</span>
-              <span>{CAPACITY(detailData)}</span>
-            </div>
-            <ArrowSmallRightIcon />
-          </SStatusButton>
+          <SStatusButtonWrapper>
+            <SPartStatusButton onClick={handlePartStatusModal}>
+              <span>
+                <SFireEmoji>🔥 </SFireEmoji>
+                {isActiveGeneration ? (
+                  <>
+                    <SPartName>{partMembersData?.part} 파트</SPartName> {partMembersData?.participantCount ?? 0}명
+                    <SApplyingText> 신청 중</SApplyingText>
+                  </>
+                ) : (
+                  <>
+                    {partMembersData?.activeGeneration}기 멤버 {partMembersData?.participantCount ?? 0}명
+                    <SApplyingText> 신청 중</SApplyingText>
+                  </>
+                )}
+              </span>
+              <ArrowSmallRightIcon />
+            </SPartStatusButton>
+            <SStatusButton onClick={handleRecruitmentStatusModal}>
+              <div>
+                <span>모집 현황</span>
+                <span>{CAPACITY(detailData)}</span>
+              </div>
+              <ArrowSmallRightIcon />
+            </SStatusButton>
+          </SStatusButtonWrapper>
           {!isHost && (
             <SGuestButton
               disabled={!isRecruiting || isSubmitting}
@@ -287,11 +320,13 @@ const MeetingController = ({ detailData }: DetailHeaderProps) => {
           )}
         </div>
       </SPanelWrapper>
+
       <ProfileConfirmModal
         isModalOpened={isProfileModalOpened}
         handleModalClose={handleProfileModalClose}
         handleConfirm={() => (window.location.href = `${playgroundLink.memberUpload()}`)}
       />
+
       <DefaultModal
         isModalOpened={isDefaultModalOpened}
         title={modalTitle}
@@ -310,6 +345,9 @@ const MeetingController = ({ detailData }: DetailHeaderProps) => {
             isApplied={isApplied}
           />
         )}
+        {modalTitle.includes('신청 멤버') && partMembersData && (
+          <PartStatusModalContent partMembersData={partMembersData} />
+        )}
       </DefaultModal>
     </>
   );
@@ -324,12 +362,90 @@ const SPanelWrapper = styled('div', {
   'borderBottom': `2px solid $gray700`,
   'mb': '$40',
 
-  '@mobile': {
+  '@media (max-width: 767px)': {
     display: 'block',
     paddingBottom: '0',
     borderBottom: 'none',
     mb: '$64',
   },
+});
+
+const SStatusButtonWrapper = styled('div', {
+  'display': 'flex',
+  'flexDirection': 'column',
+  'gap': '$8',
+  'mb': '$16',
+
+  '@media (max-width: 767px)': {
+    flexDirection: 'row',
+    mt: '$36',
+    mb: '$10',
+  },
+});
+
+const SPartStatusButton = styled('button', {
+  'outline': 'solid 1px $gray700',
+  'display': 'grid',
+  'gridTemplateColumns': '1fr auto 1fr',
+  'alignItems': 'center',
+  'width': '$300',
+  'height': '$34',
+  'borderRadius': '999px',
+  'backgroundColor': '$gray800',
+  'padding': '0 $16',
+  'color': '$gray10',
+
+  '& > span': {
+    gridColumn: 2,
+    ...fontsObject.BODY_2_16_R,
+    whiteSpace: 'nowrap',
+  },
+
+  '& > svg': {
+    gridColumn: 3,
+    justifySelf: 'end',
+  },
+
+  // 모바일: flex + SStatusButton과 동일한 UI, 오른쪽 배치
+  '@media (max-width: 767px)': {
+    'outline': 'none',
+    'display': 'flex',
+    'flex': 1,
+    'height': '$46',
+    'width': 'auto',
+    'borderRadius': '8px',
+    'padding': '$13 0',
+    'justifyContent': 'center',
+    'order': 2,
+
+    '& > span': {
+      gridColumn: 'auto',
+      ...fontsObject.LABEL_3_14_SB,
+      whiteSpace: 'normal',
+      mr: '$6',
+      color: '$white',
+    },
+
+    '& > svg': {
+      gridColumn: 'auto',
+      justifySelf: 'auto',
+      ml: '$2',
+    },
+  },
+});
+
+const SFireEmoji = styled('span', {
+  '@media (max-width: 767px)': { display: 'none' },
+});
+
+const SPartName = styled('span', {
+  'color': '$orange400',
+  'fontWeight': 'bold',
+  '@media (max-width: 767px)': { color: 'inherit' },
+});
+
+const SApplyingText = styled('span', {
+  '@media (max-width: 767px)': { display: 'none' },
 });
 
 const Button = styled('button', {
@@ -343,19 +459,20 @@ const SStatusButton = styled(Button, {
   'flexType': 'verticalCenter',
   'justifyContent': 'space-between',
   'padding': '$21 $20',
-  'mb': '$16',
   'backgroundColor': '$gray800',
-  'fontAg': '18_semibold_100',
+  ...fontsObject.LABEL_1_18_SB,
 
-  '@mobile': {
-    width: '100%',
+  '@media (max-width: 767px)': {
+    flex: 1,
     height: '$46',
     padding: '$13 0',
-    mt: '$32',
-    mb: '$10',
+    ...fontsObject.LABEL_3_14_SB,
+
     textAlign: 'center',
     justifyContent: 'center',
     fontStyle: 'T5',
+
+    order: 1,
 
     svg: {
       ml: '$2',
@@ -372,11 +489,12 @@ const SGuestButton = styled(Button, {
   'display': 'flex',
   'justifyContent': 'center',
   'alignItems': 'center',
-  'fontAg': '20_bold_100',
+  ...fontsObject.LABEL_1_18_SB,
+
   'padding': '$20 0',
   'textAlign': 'center',
   'color': '$gray950',
-  '@mobile': {
+  '@media (max-width: 767px)': {
     width: '100%',
     height: '$46',
     fontStyle: 'T5',
