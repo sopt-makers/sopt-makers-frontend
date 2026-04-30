@@ -24,17 +24,17 @@ const EventPeriodBanner = () => {
   const handleClickApplyButton = () => {
     ampli.clickBanner({
       banner_id: banner.advertisementId,
-      banner_url: banner.bannerLink1,
+      banner_url: banner.bannerLink2 ?? undefined,
       user_id: Number(me?.orgId),
     });
 
-    router.push(String(banner.bannerLink1));
+    router.push(String(banner.bannerLink2));
   };
 
   const handleClickMoreLink = () => {
     ampli.clickBanner({
       banner_id: banner.advertisementId,
-      banner_url: banner.bannerLink2 ?? undefined,
+      banner_url: banner.bannerLink1,
       user_id: Number(me?.orgId),
     });
   };
@@ -44,9 +44,9 @@ const EventPeriodBanner = () => {
 
     ampli.impressionBanner({
       banner_id: banner.advertisementId,
-      banner_url: banner.bannerLink1,
+      banner_url: banner.bannerLink2 ?? undefined,
     });
-  }, [banner.advertisementId, banner.bannerLink1, banner.isDisplay]);
+  }, [banner.advertisementId, banner.bannerLink2, banner.isDisplay]);
 
   if (banner.isDisplay === false) {
     return null;
@@ -73,8 +73,8 @@ const EventPeriodBanner = () => {
         <ApplyButton size={isNewLaptop ? 'lg' : 'md'} variant='fill' onClick={handleClickApplyButton}>
           내 파트 신청하기
         </ApplyButton>
-        {banner.eventType === 'SOPKATHON' && banner.bannerLink2 && (
-          <MoreLink href={banner.bannerLink2} onClick={handleClickMoreLink}>
+        {banner.eventType === 'SOPKATHON' && banner.bannerLink1 && (
+          <MoreLink href={banner.bannerLink1} onClick={handleClickMoreLink}>
             <MoreLinkContent>
               파트별 솝커톤 둘러보기
               <SRightArrowIcon />
