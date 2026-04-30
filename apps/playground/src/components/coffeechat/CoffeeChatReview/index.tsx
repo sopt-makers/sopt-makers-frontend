@@ -124,6 +124,7 @@ export default function CoffeeChatReviewList() {
             <StyledCarousel
               itemList={coffeeChatRecentCardList}
               limit={3}
+              isArrow={true}
               renderItemContainer={(children: ReactNode) => <CardContainer>{children}</CardContainer>}
               className={SCREEN_SIZE.desktopLarge.className}
             />
@@ -132,6 +133,7 @@ export default function CoffeeChatReviewList() {
             <StyledCarousel
               itemList={coffeeChatRecentCardList}
               limit={2}
+              isArrow={true}
               renderItemContainer={(children: ReactNode) => <CardContainer>{children}</CardContainer>}
               className={SCREEN_SIZE.desktopSmall.className}
             />
@@ -267,10 +269,10 @@ const LoadingContainer = styled.div`
 
 const StyledCarousel = styled(Carousel)`
   padding-top: 8px;
-  width: 1417px;
+  width: 1289px;
 
   @media ${DESKTOP_LARGE_MEDIA_QUERY} {
-    width: 975px;
+    width: 847px;
   }
 `;
 const StyledScrollCarousel = styled(ScrollCarousel)`

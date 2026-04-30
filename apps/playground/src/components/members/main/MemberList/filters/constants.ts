@@ -23,6 +23,7 @@ export const TEAM_VALUE = {
   임원진: 'MAKERS',
   운영팀: 'OPERATION',
   미디어팀: 'MEDIA',
+  메이커스: 'MAKERS',
 } as const;
 
 export const PART_DEFAULT_OPTION: Option = {
@@ -70,8 +71,9 @@ export const GENERATION_OPTIONS = (() =>
 
 export const TEAM_OPTIONS: Option[] = [
   { value: '임원진', label: '임원진' },
-  { value: '운영팀', label: '운영팀' },
   { value: '미디어팀', label: '미디어팀' },
+  { value: '메이커스', label: '메이커스' },
+  { value: '운영팀', label: '운영팀' },
 ];
 
 export const MBTI = [

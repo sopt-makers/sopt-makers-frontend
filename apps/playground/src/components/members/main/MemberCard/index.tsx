@@ -1,18 +1,21 @@
 import styled from '@emotion/styled';
 import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
+import { fonts } from '@sopt-makers/fonts';
+import { Tag } from '@sopt-makers/ui';
 import { m } from 'framer-motion';
 import { useRouter } from 'next/router';
-import type { FC, SyntheticEvent } from 'react';
 
+import type { QuestionPreview } from '@/api/endpoint_LEGACY/members/type';
 import Responsive from '@/components/common/Responsive';
 import Text from '@/components/common/Text';
 import { LoggingImpression } from '@/components/eventLogger/components/LoggingImpression';
+import useEventLogger from '@/components/eventLogger/hooks/useEventLogger';
 import { useVisibleBadges } from '@/components/members/main/hooks/useVisibleBadges';
 import CoffeeChatButton from '@/components/members/main/MemberCard/CoffeeChatButton';
-import MessageButton from '@/components/members/main/MemberCard/MessageButton';
 import IconCoffee from '@/public/icons/icon-coffee.svg';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
+import { zIndex } from '@/styles/zIndex';
 
 import { shimmerEffect } from '../style';
 import MemberProfileImage from './MemberProfileImage';
@@ -25,29 +28,26 @@ interface MemberCardProps {
     content: string;
     isActive: boolean;
   }[];
-  email?: string;
   imageUrl?: string;
+  questionPreview?: QuestionPreview;
   isCoffeeChatActivate: boolean;
   isLoading?: boolean;
-
-  onMessage?: (e: SyntheticEvent) => void;
 }
 
 const ELLIPSIS_WIDTH = 26;
 const BADGE_GAP = 4;
 
-const MemberCard: FC<MemberCardProps> = ({
+const MemberCard = ({
   memberId,
   name,
   belongs,
   badges,
   intro,
-  email,
   imageUrl,
+  questionPreview,
   isCoffeeChatActivate,
   isLoading,
-  onMessage,
-}) => {
+}: MemberCardProps) => {
   const { visibleBadges, isBadgeOverflow, badgeRefs, badgeWrapperRef } = useVisibleBadges(
     badges,
     ELLIPSIS_WIDTH,
@@ -60,14 +60,20 @@ const MemberCard: FC<MemberCardProps> = ({
     router.push(playgroundLink.coffeechatDetail(memberId));
   };
 
+  const { logClickEvent } = useEventLogger();
+  const handleAskPreviewClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+    e.preventDefault();
+    // TODO: 에스크탭으로 페이지네이션 로직 추가
+    logClickEvent('memberAskPreview', { id: memberId, name: name });
+  };
+
   return (
     <LoggingImpression eventKey='memberCard' param={{ id: memberId, name, screen: 'member' }}>
       <MotionMemberCard whileHover='hover'>
         <MemberProfileImage isLoading={isLoading} imageUrl={imageUrl || ''} />
 
-        {isLoading ? (
-          <></>
-        ) : (
+        {!isLoading && (
           <MobileCoffeeChatBadge only='mobile'>
             {isCoffeeChatActivate && (
               <IconCoffeeWrapper>
@@ -76,6 +82,7 @@ const MemberCard: FC<MemberCardProps> = ({
             )}
           </MobileCoffeeChatBadge>
         )}
+
         <ContentArea>
           <TitleBox>
             {isLoading ? (
@@ -87,9 +94,8 @@ const MemberCard: FC<MemberCardProps> = ({
               </>
             )}
           </TitleBox>
-          {isLoading ? (
-            <></>
-          ) : (
+
+          {!isLoading && (
             <BadgesBox ref={badgeWrapperRef}>
               <Badges>
                 {visibleBadges.map((badge, idx) => (
@@ -112,6 +118,7 @@ const MemberCard: FC<MemberCardProps> = ({
               </Badges>
             </BadgesBox>
           )}
+
           {isLoading ? (
             <LoadingIntroBox />
           ) : (
@@ -120,6 +127,7 @@ const MemberCard: FC<MemberCardProps> = ({
             </Intro>
           )}
         </ContentArea>
+
         {isLoading ? (
           <LoadingSideWrapper only='desktop'>
             <LoadingSideButton />
@@ -127,8 +135,17 @@ const MemberCard: FC<MemberCardProps> = ({
         ) : (
           <SideButtons>
             {isCoffeeChatActivate && <CoffeeChatButton onClick={onCoffeeChatButtonClick} receiver={name} />}
-            {email && email.length > 0 && <MessageButton name={name} onClick={onMessage} />}
           </SideButtons>
+        )}
+
+        {questionPreview && (
+          <StyledAskPreviewBubble onClick={handleAskPreviewClick}>
+            <Tag size='sm' shape='rect' variant='primary' type='solid'>
+              ASK
+            </Tag>
+            <StyledAskPreviewContent>{questionPreview.content}</StyledAskPreviewContent>
+            <StyledBubbleTail />
+          </StyledAskPreviewBubble>
         )}
       </MotionMemberCard>
     </LoggingImpression>
@@ -327,5 +344,60 @@ const LoadingIntroBox = styled.div`
     margin-top: 10px;
     max-width: 335px;
     height: 24px;
+  }
+`;
+
+const StyledAskPreviewBubble = styled.div`
+  position: absolute;
+  top: calc(100% - 38px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: ${zIndex.말풍선};
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 286px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background-color: ${colors.gray600};
+  box-shadow:
+    0 1px 4px 0 rgba(12, 12, 13, 0.05),
+    0 1px 4px 0 rgba(12, 12, 13, 0.1);
+  cursor: pointer;
+
+  @media ${MOBILE_MEDIA_QUERY} {
+    top: calc(100% - 20px);
+    left: 0;
+    transform: none;
+    max-width: 160px;
+    padding: 8px 10px;
+  }
+`;
+
+const StyledBubbleTail = styled.div`
+  position: absolute;
+  top: -9px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-bottom: 12px solid ${colors.gray600};
+
+  @media ${MOBILE_MEDIA_QUERY} {
+    left: 16px;
+  }
+`;
+
+const StyledAskPreviewContent = styled.span`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: ${colors.gray10};
+  ${fonts.BODY_14_R}
+
+  @media ${MOBILE_MEDIA_QUERY} {
+    ${fonts.LABEL_12_SB}
   }
 `;

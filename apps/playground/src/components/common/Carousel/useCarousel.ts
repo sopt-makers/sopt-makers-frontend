@@ -41,7 +41,7 @@ export default function useCarousel({ limit, itemList }: { limit: number; itemLi
   );
 
   useEffect(() => {
-    if (totalPageSize < page) {
+    if (totalPageSize > 0 && page > totalPageSize) {
       move(totalPageSize);
     }
   }, [totalPageSize, page, move]);

@@ -9,6 +9,7 @@ export const serializeMeetingData = (formData: FormType): PostMeeting['request']
     .map((part) => part.value) as ('PM' | 'DESIGN' | 'IOS' | 'ANDROID' | 'SERVER' | 'WEB')[];
 
   return {
+    // @TODO: 게시글 생성 PR 머지 후 PULL
     title: formData.title,
     subTitle: '',
     files: formData.files,

@@ -1,3 +1,5 @@
+import styled from '@emotion/styled';
+
 import type { ProfileDetail, SoptActivity } from '@/api/endpoint_LEGACY/members/type';
 import CareerSection from '@/components/members/detail/CareerSection';
 import DetailInfoSection from '@/components/members/detail/DetailinfoSection';
@@ -6,6 +8,10 @@ import InterestSection from '@/components/members/detail/InterestSection';
 import MessageSection from '@/components/members/detail/MessageSection';
 import ProjectSection from '@/components/members/detail/ProjectSection';
 import SoptActivitySection from '@/components/members/detail/SoptActivitySection';
+import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
+
+import MemberRecommendSection from '../MemberRecommendSection/MemberRecommendSection';
+import SameActivityMemberSection from '../SameActivityMemberSection/SameActivityMemberSection';
 
 interface ProfileTabContentProps {
   profile: ProfileDetail;
@@ -16,10 +22,11 @@ interface ProfileTabContentProps {
 
 const ProfileTabContent = ({ profile, memberId, meId, sortedSoptActivities }: ProfileTabContentProps) => {
   return (
-    <>
+    <StyledContainer>
       <MessageSection profile={profile} memberId={memberId} />
       <DetailInfoSection profile={profile} />
       <SoptActivitySection soptActivities={sortedSoptActivities} isMine={profile.isMine} />
+      <SameActivityMemberSection memberId={memberId} name={profile.name} recentSoptActivity={sortedSoptActivities[0]} />
       <CareerSection
         careers={profile.careers}
         links={profile.links}
@@ -65,8 +72,19 @@ const ProfileTabContent = ({ profile, memberId, meId, sortedSoptActivities }: Pr
       )}
       <ProjectSection profile={profile} memberId={memberId} meId={meId} />
       <GroupSection profile={profile} meId={meId} memberId={memberId} />
-    </>
+      <MemberRecommendSection memberId={memberId} name={profile.name} />
+    </StyledContainer>
   );
 };
 
 export default ProfileTabContent;
+
+const StyledContainer = styled.section`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  @media ${MOBILE_MEDIA_QUERY} {
+    gap: 16px;
+  }
+`;

@@ -22,6 +22,7 @@ export type Profile = {
   links: MemberLink[];
   allowOfficial: boolean;
   careers: Career[];
+  questionPreview: QuestionPreview;
   isCoffeeChatActivate: boolean;
 };
 
@@ -67,6 +68,7 @@ export type ProfileDetail = {
   projects: MemberProject[];
   careers: Career[];
   allowOfficial: boolean;
+  hasRecentQuestion: boolean;
   isMine: boolean;
   isPhoneBlind: boolean;
   isCoffeeChatActivate: boolean;
@@ -126,6 +128,11 @@ type Career =
       endDate: string;
       isCurrent: false;
     };
+
+export type QuestionPreview = {
+  questionId: number;
+  content: string;
+};
 
 export interface ProfileRequest {
   name: string;

@@ -31,12 +31,11 @@ const Container = styled.div`
   }
 
   .content {
-    margin-top: 16px;
+    margin-top: 8px;
     line-height: 160%;
     font-size: 18px;
 
     @media ${MOBILE_MEDIA_QUERY} {
-      margin-top: 12px;
       line-height: 140%;
       font-size: 16px;
     }

@@ -70,15 +70,20 @@ const AskTabContent = ({ memberId, memberName, meId, unansweredCount }: AskTabCo
 
   useEffect(() => {
     const questionTabFromQuery = router.query.questionTab as QuestionTab;
+    const scrollPageFromQuery = router.query.scrollPage != null ? Number(router.query.scrollPage) : undefined;
+    const scrollIndexFromQuery = router.query.scrollIndex != null ? Number(router.query.scrollIndex) : undefined;
 
     if (questionTabFromQuery) {
       setSelectedTab(questionTabFromQuery);
-      setCurrentPage(1);
+      setCurrentPage(scrollPageFromQuery ?? 1);
+      if (scrollIndexFromQuery != null) {
+        setScrollTargetIndex(scrollIndexFromQuery);
+      }
     } else if (!isMyProfile && answeredPeek && (answeredPeek.questions?.length ?? 0) === 0) {
       // 본인 프로필이 아니고, 답변완료 탭에 글이 없으면 새질문 탭으로
       setSelectedTab('unanswered');
     }
-  }, [router.query.questionTab, answeredPeek, isMyProfile]);
+  }, [router.query.questionTab, router.query.scrollPage, router.query.scrollIndex, answeredPeek, isMyProfile]);
 
   const [scrollTargetIndex, setScrollTargetIndex] = useState<number | null>(null);
   const observedQuestionsRef = useRef<Set<number>>(new Set());
@@ -188,6 +193,7 @@ const AskTabContent = ({ memberId, memberName, meId, unansweredCount }: AskTabCo
 
   return (
     <Container>
+      <Info>익명으로도 편하게 물어볼 수 있어요 👀</Info>
       {!hasAnyQuestions ? (
         <EmptyContainer>
           <EmptyTitle>아직 질문이 없어요.</EmptyTitle>
@@ -491,6 +497,21 @@ const Container = styled.div`
   flex-direction: column;
   gap: 20px;
   max-width: 790px;
+`;
+
+const Info = styled.div`
+  margin-bottom: 10px;
+  padding: 16px 20px;
+  border-radius: 12px;
+  background-color: ${colors.gray900};
+  color: ${colors.gray200};
+  ${fonts.TITLE_16_SB};
+
+  @media ${MOBILE_MEDIA_QUERY} {
+    margin-bottom: 4px;
+    padding: 12px 20px;
+    ${fonts.BODY_14_M};
+  }
 `;
 
 const EmptyContainer = styled.div`
