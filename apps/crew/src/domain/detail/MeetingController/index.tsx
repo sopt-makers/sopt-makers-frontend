@@ -7,6 +7,7 @@ import {
   usePostEventApplicationMutation,
   usePostMeetingApplicationMutation,
 } from '@api/meeting/mutation';
+import { useMeetingPartMembersQueryOption } from '@api/meeting/query';
 import type { GetMeeting } from '@api/meeting/type';
 import { useUserProfileQueryOption } from '@api/user/query';
 import ArrowSmallRightIcon from '@assets/svg/arrow_small_right.svg';
@@ -64,6 +65,7 @@ const MeetingController = ({ detailData }: DetailHeaderProps) => {
 
   const { open: dialogOpen, close: dialogClose } = useDialog();
   const { data: me } = useQuery(useUserProfileQueryOption());
+  const { data: partMembersData } = useQuery(useMeetingPartMembersQueryOption({ meetingId: Number(meetingId) }));
   const queryClient = useQueryClient();
   const router = useRouter();
   const isRecruiting = status === ERecruitmentStatus.RECRUITING;
@@ -86,13 +88,11 @@ const MeetingController = ({ detailData }: DetailHeaderProps) => {
     setModalTitle(`모집 현황 (${CAPACITY(detailData)})`);
   };
 
-  // TODO: API 연결 후 실제 활동 여부 및 파트명/기수로 교체
-  const isActiveUser = true;
+  const partLabel = partMembersData?.part ? `${partMembersData.part} 파트 신청 멤버` : '신청 멤버';
 
   const handlePartStatusModal = () => {
-    const title = isActiveUser ? '디자인 파트 신청 멤버' : '38기 신청 멤버';
     handleDefaultModalOpen();
-    setModalTitle(title);
+    setModalTitle(partLabel);
   };
 
   const handleHostModalOpen = () => {
@@ -278,13 +278,14 @@ const MeetingController = ({ detailData }: DetailHeaderProps) => {
             <SPartStatusButton onClick={handlePartStatusModal}>
               <span>
                 <SFireEmoji>🔥 </SFireEmoji>
-                {isActiveUser ? (
+                {partMembersData?.part ? (
                   <>
-                    <SPartName>디자인</SPartName> 파트 2명<SApplyingText> 신청중</SApplyingText>
+                    <SPartName>{partMembersData.part} 파트</SPartName> {partMembersData.participantCount ?? 0}명
+                    <SApplyingText> 신청중</SApplyingText>
                   </>
                 ) : (
                   <>
-                    38기 멤버 2명<SApplyingText> 신청 중</SApplyingText>
+                    {partMembersData?.participantCount ?? 0}명<SApplyingText> 신청 중</SApplyingText>
                   </>
                 )}
               </span>
@@ -340,7 +341,9 @@ const MeetingController = ({ detailData }: DetailHeaderProps) => {
             isApplied={isApplied}
           />
         )}
-        {modalTitle.includes('신청 멤버') && <PartStatusModalContent appliedInfo={appliedInfo} />}
+        {modalTitle.includes('신청 멤버') && partMembersData && (
+          <PartStatusModalContent partMembersData={partMembersData} />
+        )}
       </DefaultModal>
     </>
   );
