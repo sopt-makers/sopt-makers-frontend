@@ -9,7 +9,7 @@
     "format": "prettier --write . --ignore-path ../../.prettierignore",
     "generate-types": "cat ./src/__generated__/schema1.d.ts ./src/__generated__/schema2.d.ts > ./src/__generated__/schema.d.ts",
     "generate-types-v1": "openapi-typescript https://crew.api.dev.sopt.org/api-docs-json -o ./src/__generated__/schema1.d.ts",
-    "generate-types-v2": "openapi-typescript https://crew.api.dev.sopt.org/api-docs/json -o ./src/__generated__/schema2.d.ts",
+    "generate-types-v2": "openapi-typescript https://crew-dev.sopt.org/api-docs/json -o ./src/__generated__/schema2.d.ts",
     "lint": "next lint",
     "start": "next start",
     "storybook": "storybook dev -p 6006",
