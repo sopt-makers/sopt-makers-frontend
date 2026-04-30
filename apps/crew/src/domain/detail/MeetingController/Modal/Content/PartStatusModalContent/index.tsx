@@ -1,30 +1,28 @@
+import type { GetMeetingPartMembers } from '@api/meeting/type';
 import { styled } from 'stitches.config';
 
-import type { paths } from '@/__generated__/schema2';
-
-import RecruitmentStatusList from '../RecruitmentStatusModalContent/RecruitmentStatusList';
-
-// TODO: API 연결 시 파트 신청 멤버 API 응답 타입으로 교체
-type AppliedInfo =
-  paths['/meeting/v2/{meetingId}']['get']['responses']['200']['content']['application/json;charset=UTF-8']['appliedInfo'];
-
 interface PartStatusModalContentProps {
-  appliedInfo: AppliedInfo;
+  partMembersData: GetMeetingPartMembers['response'];
 }
 
-const PartStatusModalContent = ({ appliedInfo }: PartStatusModalContentProps) => {
-  const total = appliedInfo.length;
+const PartStatusModalContent = ({ partMembersData }: PartStatusModalContentProps) => {
+  const memberNames = partMembersData.memberNames ?? [];
+  const total = partMembersData.participantCount ?? memberNames.length;
 
   return (
     <>
-      {total > 0 ? (
-        <SRecruitmentStatusListWrapper>
-          <RecruitmentStatusList recruitmentStatusList={appliedInfo} />
-        </SRecruitmentStatusListWrapper>
+      {memberNames.length > 0 ? (
+        <SListWrapper>
+          <SList>
+            {memberNames.map((name, idx) => (
+              <SItem key={idx}>{name}</SItem>
+            ))}
+          </SList>
+        </SListWrapper>
       ) : (
         <SEmptyText>신청자가 없습니다.</SEmptyText>
       )}
-      {total > 0 && (
+      {memberNames.length > 0 && (
         <SModalBottom>
           <STotal>총 {total}명 신청</STotal>
         </SModalBottom>
@@ -35,11 +33,56 @@ const PartStatusModalContent = ({ appliedInfo }: PartStatusModalContentProps) =>
 
 export default PartStatusModalContent;
 
-const SRecruitmentStatusListWrapper = styled('div', {
+const SListWrapper = styled('div', {
   'padding': '$24 $24 0 $24',
 
   '@tablet': {
     padding: '$0',
+  },
+});
+
+const SList = styled('div', {
+  'display': 'grid',
+  'gridTemplateColumns': 'repeat(2, 1fr)',
+  'gap': '$12',
+  'padding': '0 $24',
+  'height': '$219',
+  'overflowY': 'scroll',
+
+  '@tablet': {
+    gap: '$8',
+    padding: '0 $20',
+    height: '$160',
+  },
+
+  '@mobile': {
+    gridTemplateColumns: '1fr',
+  },
+
+  '&::-webkit-scrollbar': {
+    width: '$6',
+  },
+
+  '&::-webkit-scrollbar-thumb': {
+    height: '$125',
+    background: '$gray200',
+    borderRadius: '6px',
+  },
+});
+
+const SItem = styled('div', {
+  'flexType': 'verticalCenter',
+  'height': '$64',
+  'padding': '$16 $20',
+  'borderRadius': '12px',
+  'backgroundColor': '$gray700',
+  'color': '$gray10',
+  'fontAg': '16_semibold_100',
+
+  '@tablet': {
+    height: '$48',
+    padding: '$11 $12',
+    fontAg: '14_medium_100',
   },
 });
 
