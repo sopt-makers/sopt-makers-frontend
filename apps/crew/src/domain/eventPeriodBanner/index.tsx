@@ -14,12 +14,11 @@ import { ampli } from '@/ampli';
 import { useUserProfileQueryOption } from '@/api/user/query';
 
 const EventPeriodBanner = () => {
-  const { isNewLaptop, isNewMobile } = useDisplay();
+  const { isNewLaptop } = useDisplay();
   const router = useRouter();
 
   const { data: banner } = useSuspenseQuery(useEventBannerInfoQueryOption());
   const { data: me } = useQuery(useUserProfileQueryOption());
-  const backgroundImageUrl = isNewMobile ? banner.mobileImageUrl : banner.desktopImageUrl;
 
   const handleClickApplyButton = () => {
     ampli.clickBanner({
@@ -55,7 +54,10 @@ const EventPeriodBanner = () => {
   return (
     <Container
       css={{
-        backgroundImage: `url(${backgroundImageUrl})`,
+        'backgroundImage': `url(${banner.desktopImageUrl})`,
+        '@new_mobile': {
+          backgroundImage: `url(${banner.mobileImageUrl})`,
+        },
       }}
     >
       <InfoSection>
