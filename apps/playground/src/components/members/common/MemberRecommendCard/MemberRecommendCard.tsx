@@ -10,12 +10,16 @@ import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 import RecommendTypeChip from './RecommendTypeChip';
 
 // 두 API의 recommendType enum 값이 달라 유니온으로 수용
-type RecommendCardProps = Pick<
-  RecommendMemberOfMe | RecommendMemberById,
-  'profileImage' | 'name' | 'generation' | 'part' | 'recommendType'
->;
+interface Props {
+  member: Pick<
+    RecommendMemberOfMe | RecommendMemberById,
+    'profileImage' | 'name' | 'generation' | 'part' | 'recommendType'
+  >;
+}
 
-const MemberRecommendCard = ({ profileImage, name, generation, part, recommendType }: RecommendCardProps) => {
+const MemberRecommendCard = ({ member }: Props) => {
+  const { profileImage, name, generation, part, recommendType } = member;
+
   return (
     <StyledContainer>
       <StyledAvatarWrapper>
@@ -92,7 +96,8 @@ const StyledChipOverlay = styled.div`
 `;
 
 const StyledInfoWrapper = styled.div`
-  flex-shrink: 0;
+  flex: 1;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -104,6 +109,9 @@ const StyledInfoWrapper = styled.div`
 `;
 
 const StyledName = styled.p`
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   color: ${colors.gray10};
   ${fonts.HEADING_20_B}
 
@@ -113,6 +121,9 @@ const StyledName = styled.p`
 `;
 
 const StyledMeta = styled.p`
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   color: ${colors.gray200};
   ${fonts.LABEL_14_SB}
 

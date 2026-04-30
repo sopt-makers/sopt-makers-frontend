@@ -11382,6 +11382,7 @@ __metadata:
     "@radix-ui/react-dropdown-menu": "npm:^2.1.1"
     "@sentry/nextjs": "npm:^7.0.0"
     "@sopt-makers/eslint-config": "workspace:^"
+    "@sopt-makers/fonts": "npm:^2.0.2"
     "@sopt-makers/icons": "npm:^1.1.0"
     "@sopt-makers/ui": "npm:^2.10.2"
     "@sopt/constant": "workspace:*"
