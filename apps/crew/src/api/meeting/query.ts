@@ -1,5 +1,11 @@
 import MeetingQueryKey from '@api/meeting/MeetingQueryKey';
-import type { GetMeeting, GetMeetingList, GetMeetingMemberList, GetRecommendMeetingList } from '@api/meeting/type';
+import type {
+  GetMeeting,
+  GetMeetingList,
+  GetMeetingMemberList,
+  GetMeetingPartMembers,
+  GetRecommendMeetingList,
+} from '@api/meeting/type';
 import { parsePartLabelToValue, parseStatusToNumber } from '@api/meeting/util';
 import { ACTIVE_GENERATION } from '@constant/activeGeneration';
 import { APPROVAL_STATUS_ENGLISH, APPROVAL_STATUS_KOREAN_TO_ENGLISH, RECRUITMENT_STATUS } from '@constant/option';
@@ -17,7 +23,7 @@ import {
 } from '@hook/queryString/custom';
 import { queryOptions } from '@tanstack/react-query';
 
-import { getMeeting, getMeetingList, getMeetingMemberList, getRecommendMeetingList } from '.';
+import { getMeeting, getMeetingList, getMeetingMemberList, getMeetingPartMembers, getRecommendMeetingList } from '.';
 
 export const useMeetingListQueryOption = () => {
   const { value: category } = useCategoryParams();
@@ -96,6 +102,14 @@ export const useMeetingMemberListQueryOption = ({ meetingId }: { meetingId: stri
     queryFn: () => {
       return getMeetingMemberList({ params, meetingId });
     },
+    enabled: !!meetingId,
+  });
+};
+
+export const useMeetingPartMembersQueryOption = ({ meetingId }: { meetingId: number }) => {
+  return queryOptions<GetMeetingPartMembers['response']>({
+    queryKey: MeetingQueryKey.partMembers(meetingId),
+    queryFn: () => getMeetingPartMembers({ meetingId }),
     enabled: !!meetingId,
   });
 };

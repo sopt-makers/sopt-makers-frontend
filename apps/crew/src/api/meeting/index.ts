@@ -3,6 +3,7 @@ import type {
   GetMeetingList,
   GetMeetingMemberCSV,
   GetMeetingMemberList,
+  GetMeetingPartMembers,
   GetRecommendMeetingList,
   PostMeeting,
   PostMeetingApplication,
@@ -77,6 +78,12 @@ export const postEventApplication = async (
   body: PostMeetingApplication['request'],
 ): Promise<PostMeetingApplication['response']> => {
   return (await api.post<PostMeetingApplication['response']>(`/meeting/v2/apply/undefined`, body)).data;
+};
+
+export const getMeetingPartMembers = async ({
+  meetingId,
+}: GetMeetingPartMembers['request']): Promise<GetMeetingPartMembers['response']> => {
+  return (await api.get<GetMeetingPartMembers['response']>(`/meeting/v2/${meetingId}/members`)).data;
 };
 
 export const getRecommendMeetingList = async ({ meetingIds = [] }: { meetingIds: number[] }) => {
