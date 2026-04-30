@@ -79,7 +79,7 @@ const EventPeriodBanner = () => {
               파트별 솝커톤 둘러보기
               <SRightArrowIcon />
             </MoreLinkContent>
-            <SUnderLine />
+            <SLinkUnderLine />
           </MoreLink>
         )}
       </CTASection>
@@ -89,7 +89,7 @@ const EventPeriodBanner = () => {
 
 export default EventPeriodBanner;
 
-const Container = styled('div', {
+const Container = styled('section', {
   'display': 'flex',
   'flexDirection': 'column',
   'alignItems': 'center',
@@ -112,7 +112,7 @@ const Container = styled('div', {
   },
 });
 
-const InfoSection = styled('div', {
+const InfoSection = styled('header', {
   'display': 'flex',
   'alignItems': 'center',
   '@new_mobile': {
@@ -156,12 +156,12 @@ const DateImage = styled('img', {
   },
 });
 
-const TitleWrapper = styled('div', {
+const TitleWrapper = styled('h2', {
   display: 'flex',
   whiteSpace: 'pre-wrap',
 });
 
-const STitle = styled('p', {
+const STitle = styled('span', {
   'color': '$white',
   '@new_mobile': {
     ...fontsObject.HEADING_6_18_B,
@@ -266,7 +266,7 @@ const SRightArrowIcon = styled(IconChevronRight, {
   height: '16px',
 });
 
-const SUnderLine = styled('div', {
+const SLinkUnderLine = styled('span', {
   width: '100%',
   borderBottom: '0.8px solid $gray100',
 });
