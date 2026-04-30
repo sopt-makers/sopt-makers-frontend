@@ -19,9 +19,13 @@ function ListType({ meetingData }: Omit<MobileSizeCardProps, 'mobileType'>) {
             }}
           />
         </ImageWrapper>
+
         <InfoGroup>
           <STitle>{meetingData.title}</STitle>
+          {meetingData.subTitle && <SSubTitle>{meetingData.subTitle}</SSubTitle>}
           <Flex align='center'>
+            <SCategory>{meetingData.category}</SCategory>
+            <SDivider>|</SDivider>
             <SProfileWrapper>
               {meetingData.user.profileImage ? (
                 <SProfile src={getResizedImage(meetingData.user.profileImage, 120)} alt='' />
@@ -30,14 +34,14 @@ function ListType({ meetingData }: Omit<MobileSizeCardProps, 'mobileType'>) {
               )}
             </SProfileWrapper>
             <SUserInfo>{meetingData.user.name}</SUserInfo>
-            <SUserInfo>|</SUserInfo>
-            <SCategory>{meetingData.category}</SCategory>
           </Flex>
-          <Flex>
+          <TagWrapper>
             {meetingData.meetingKeywordTypes?.map((keyword) => (
-              <WelcomeTag key={keyword}>{keyword}</WelcomeTag>
+              <STag key={keyword}>{keyword}</STag>
             ))}
-          </Flex>
+            {meetingData.joinInfo?.meetingType && <STag># {meetingData.joinInfo.meetingType}</STag>}
+            {meetingData.joinInfo?.meetingFrequency && <STag># {meetingData.joinInfo.meetingFrequency}</STag>}
+          </TagWrapper>
         </InfoGroup>
       </Flex>
       <Divider />
@@ -54,8 +58,8 @@ const ImageWrapper = styled('div', {
   position: 'relative',
 });
 const SThumbnailImage = styled('div', {
-  width: '120px',
-  height: '82px',
+  width: '134px',
+  height: '92px',
   borderRadius: '$8',
   overflow: 'hidden',
   backgroundColor: '$gray800',
@@ -67,9 +71,9 @@ const SThumbnailImage = styled('div', {
 const InfoGroup = styled('div', {
   display: 'flex',
   flexDirection: 'column',
-  gap: '$8',
-
   ml: '$12',
+  minWidth: 0,
+  flex: 1,
 });
 
 const SProfileWrapper = styled('div', {
@@ -88,26 +92,40 @@ const SProfile = styled('img', {
 
 const STitle = styled('p', {
   fontStyle: 'H5',
-  maxWidth: 'calc(100vw - 32px - 12px - 120px)',
+  width: '100%',
   whiteSpace: 'nowrap',
   overflow: 'hidden',
   textOverflow: 'ellipsis',
-  wordBreak: 'break-all',
+  mb: '$4',
+  color: '$gray10',
+});
+
+const SSubTitle = styled('p', {
+  fontStyle: 'B4',
+  width: '100%',
+  whiteSpace: 'nowrap',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  mb: '$8',
+  color: '$gray200',
+});
+
+const SDivider = styled('p', {
+  fontStyle: 'T6',
+  color: '$gray600',
+  mx: '$4',
 });
 
 const SUserInfo = styled('p', {
-  'fontStyle': 'B4',
-  'color': '$gray300',
-  '& + &': {
-    ml: '$4',
-  },
+  fontStyle: 'B4',
+  color: '$gray300',
 });
 
 const SCategory = styled(SUserInfo, {
   color: '$gray200',
 });
 
-const WelcomeTag = styled('span', {
+const STag = styled('span', {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
@@ -119,4 +137,11 @@ const WelcomeTag = styled('span', {
 
   color: '$gray100',
   fontStyle: 'L2',
+});
+
+const TagWrapper = styled('div', {
+  display: 'flex',
+  flexWrap: 'wrap',
+  gap: '$4',
+  mt: '$8',
 });

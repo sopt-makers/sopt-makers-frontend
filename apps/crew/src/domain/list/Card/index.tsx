@@ -51,7 +51,12 @@ function Card({ bottom, meetingData, mobileType }: CardProps) {
 
 export default Card;
 
-const CardWrapper = styled('li', {});
+const CardWrapper = styled('li', {
+  'minWidth': 0,
+  '@mobile': {
+    justifySelf: 'stretch',
+  },
+});
 const DesktopOnly = styled('div', {
   '@mobile': {
     display: 'none',

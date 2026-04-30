@@ -67,18 +67,20 @@ function MeetingListOfAll() {
                     src={meetingAds?.advertisements[0]?.desktopImageUrl}
                     style={{
                       width: '380px',
-                      height: '478px',
+                      height: '506px',
                       borderRadius: '12px',
                     }}
+                    alt='광고 구좌 이미지'
                   ></img>
                 ) : (
                   <img
                     src={meetingAds?.advertisements[0]?.mobileImageUrl}
                     style={{
                       width: '100%',
-                      height: '82px',
+                      height: '92px',
                       borderRadius: '8px',
                     }}
+                    alt='광고 구좌 이미지'
                   ></img>
                 )}
               </Link>
@@ -103,7 +105,7 @@ function MeetingListOfAll() {
   );
 }
 
-export default () => {
+export default function MeetingListOfAllSuspense() {
   return (
     <Suspense
       fallback={
@@ -117,7 +119,7 @@ export default () => {
       <MeetingListOfAll />
     </Suspense>
   );
-};
+}
 
 const PaginationWrapper = styled('div', {
   my: '$80',
