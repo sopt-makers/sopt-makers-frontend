@@ -113,7 +113,6 @@ const SSubTitle = styled('p', {
   'textOverflow': 'ellipsis',
   'whiteSpace': 'nowrap',
   'color': '$gray100',
-  'mb': '$8',
 
   '@tablet': {
     ...fontsObject.BODY_3_14_M,
@@ -127,7 +126,7 @@ const SInfoWrapper = styled('div', {
   display: 'flex',
   alignItems: 'center',
 
-  mb: '$8',
+  mt: '$8',
 });
 
 const SUserIcon = styled(UserIcon, {
@@ -172,6 +171,7 @@ const SDivider = styled('span', {
 });
 
 const SUserInfoWrapper = styled(Flex, {
+  'mt': '$8',
   '@tablet': { mb: '$2' },
   '@mobile': { mb: '$0' },
 });
