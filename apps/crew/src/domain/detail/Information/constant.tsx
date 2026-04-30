@@ -20,21 +20,31 @@ export const MeetingDetailList = (detailData: GetMeeting['response']) => [
         <>
           <STarget>
             {detailData?.meetingKeywordTypes.map((tag) => (
-              <Chip key={tag} style={{ boxShadow: 'none' }} active>
-                {tag}
-              </Chip>
-            ))}
-            {detailData?.welcomeMessageTypes.map((tag) => (
               <Chip key={tag} style={{ boxShadow: 'none' }}>
                 {tag}
               </Chip>
             ))}
+            {detailData?.welcomeMessageTypes?.map((tag) => (
+              <Chip key={tag} style={{ boxShadow: 'none' }} active>
+                {tag}
+              </Chip>
+            ))}
+            {detailData?.joinInfo &&
+              (Object.values(detailData.joinInfo) as (string | undefined)[]).filter(Boolean).map((tag) => (
+                <Chip key={tag} style={{ boxShadow: 'none' }} active>
+                  {`#${tag}`}
+                </Chip>
+              ))}
           </STarget>
           <SDescription>{parseTextToLink(detailData?.desc)}</SDescription>
         </>
       );
     },
-    isValid: detailData?.meetingKeywordTypes.length || detailData?.welcomeMessageTypes.length || detailData?.desc,
+    isValid:
+      detailData?.meetingKeywordTypes.length ||
+      detailData?.welcomeMessageTypes?.length ||
+      detailData?.joinInfo ||
+      detailData?.desc,
   },
   {
     key: '활동 기간',

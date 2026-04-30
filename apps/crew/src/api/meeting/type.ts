@@ -41,3 +41,8 @@ export type GetMeetingMemberCSV = {
   request: paths['/meeting/v2/{meetingId}/list/csv']['get']['parameters']['query'];
   response: paths['/meeting/v2/{meetingId}/list/csv']['get']['responses']['200']['content']['application/json;charset=UTF-8'];
 };
+
+export type GetMeetingPartMembers = {
+  request: paths['/meeting/v2/{meetingId}/members']['get']['parameters']['path'];
+  response: paths['/meeting/v2/{meetingId}/members']['get']['responses']['200']['content']['application/json;charset=UTF-8'];
+};

@@ -41,7 +41,7 @@ const SProfileAnchor = styled('a', {
   'justifyContent': 'center',
   'alignItems': 'center',
   'gap': '14px',
-  '@media (max-width: 414px)': {
+  '@media (max-width: 767px)': {
     padding: '5px 8px',
     gap: '6px',
     br: '6.25px',
@@ -54,11 +54,11 @@ const SProfileAnchor = styled('a', {
     'objectFit': 'cover',
 
     'background': '$gray700',
-    '@media (max-width: 768px)': {
+    '@media (max-width: 1023px)': {
       width: '$32',
       height: '$32',
     },
-    '@media (max-width: 414px)': {
+    '@media (max-width: 767px)': {
       width: '$20',
       height: '$20',
     },
@@ -68,11 +68,11 @@ const SProfileAnchor = styled('a', {
     'width': '$48',
     'height': '$48',
 
-    '@media (max-width: 768px)': {
+    '@media (max-width: 1023px)': {
       width: '$32',
       height: '$32',
     },
-    '@media (max-width: 414px)': {
+    '@media (max-width: 767px)': {
       width: '$20',
       height: '$20',
     },
@@ -82,10 +82,10 @@ const SProfileAnchor = styled('a', {
     ...fontsObject.TITLE_3_24_SB,
     'fontWeight': 500,
 
-    '@media (max-width: 768px)': {
+    '@media (max-width: 1023px)': {
       fontStyle: 'T5',
     },
-    '@media (max-width: 414px)': {
+    '@media (max-width: 767px)': {
       ...fontsObject.LABEL_5_11_SB,
     },
   },
