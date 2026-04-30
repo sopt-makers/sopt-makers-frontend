@@ -37,7 +37,7 @@ const DesktopCard = ({
         </SUserInfoWrapper>
 
         <STitleStyle>{title}</STitleStyle>
-        <SSubTitle>{subTitle}</SSubTitle>
+        {subTitle && <SSubTitle>{subTitle}</SSubTitle>}
 
         <SMetaWrapper>
           <SUserIcon />
@@ -90,7 +90,7 @@ const SMetaSubStyle = styled('span', {
 });
 
 const STitleStyle = styled('h3', {
-  padding: '$4 0 $2',
+  pt: '$4',
 
   ...fontsObject.HEADING_6_18_B,
   display: '-webkit-box',
@@ -103,13 +103,14 @@ const STitleStyle = styled('h3', {
 const SSubTitle = styled('p', {
   ...fontsObject.BODY_2_16_M,
   color: '$gray200',
-  pb: '$8',
   overflow: 'hidden',
   textOverflow: 'ellipsis',
   whiteSpace: 'nowrap',
+  pt: '$2',
 });
 
 const SMetaWrapper = styled('div', {
+  pt: '$8',
   display: 'flex',
   alignItems: 'center',
 });
