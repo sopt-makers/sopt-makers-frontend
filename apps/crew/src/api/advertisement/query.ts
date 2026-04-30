@@ -4,7 +4,7 @@ import type { AdvertisementCategoryType } from '@type/advertisement';
 
 import { getAdvertisementList, getEventBannerInfo } from '.';
 
-export const useGetAdvertisementQueryOption = (category: AdvertisementCategoryType) => {
+export const useAdvertisementQueryOption = (category: AdvertisementCategoryType) => {
   return queryOptions({
     queryKey: AdvertisementQueryKey.list(category),
     queryFn: () => getAdvertisementList(category),
