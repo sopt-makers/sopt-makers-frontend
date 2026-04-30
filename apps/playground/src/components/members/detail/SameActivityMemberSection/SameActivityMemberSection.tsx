@@ -6,6 +6,7 @@ import Link from 'next/link';
 
 import { useGetMemberGenerationPart } from '@/api/endpoint/members/getMemberGenerationPart';
 import type { SoptActivity } from '@/api/endpoint_LEGACY/members/type';
+import { LoggingClick } from '@/components/eventLogger/components/LoggingClick';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 import SameActivityMemberCard from './SameActivityMemberCard';
@@ -27,14 +28,16 @@ const SamePartMemberSection = ({ memberId, name, recentSoptActivity }: SamePartM
       </StyledSectionTitle>
       <StyledCardGrid>
         {memberGenerationPartData?.members.map((member) => (
-          <Link key={member.id} href={playgroundLink.memberDetail(member.id)}>
-            <SameActivityMemberCard
-              profileImage={member.profileImage}
-              name={member.name}
-              generation={member.generation}
-              part={member.part}
-            />
-          </Link>
+          <LoggingClick key={member.id} eventKey='profileSameGroupCard' param={{ id: member.id, name: member.name }}>
+            <Link href={playgroundLink.memberDetail(member.id)}>
+              <SameActivityMemberCard
+                profileImage={member.profileImage}
+                name={member.name}
+                generation={member.generation}
+                part={member.part}
+              />
+            </Link>
+          </LoggingClick>
         ))}
       </StyledCardGrid>
     </StyledSection>
@@ -47,7 +50,12 @@ const StyledSection = styled.section`
   display: flex;
   flex-direction: column;
   gap: 12px;
-  margin-top: 6px;
+  margin-bottom: 28px;
+
+  @media ${MOBILE_MEDIA_QUERY} {
+    gap: 8px;
+    margin-bottom: 24px;
+  }
 `;
 
 const StyledSectionTitle = styled.span`

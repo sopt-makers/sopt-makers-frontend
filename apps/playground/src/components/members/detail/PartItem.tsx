@@ -83,7 +83,7 @@ const Thumbnail = styled.div`
   grid-area: thumbnail;
   align-items: center;
   justify-content: center;
-  margin-right: 30px;
+  margin-right: 32px;
   border-radius: 14px;
   background: #000;
   width: 84px;
@@ -94,7 +94,7 @@ const Thumbnail = styled.div`
   }
 
   @media ${MOBILE_MEDIA_QUERY} {
-    margin-right: 14px;
+    margin-right: 10px;
     width: 60px;
     height: 60px;
   }
@@ -130,7 +130,7 @@ const Badges = styled.div`
   display: flex;
   flex-wrap: wrap;
   grid-area: activities;
-  gap: 8px;
+  gap: 10px;
   align-self: start;
   margin-top: 16px;
 

@@ -60,7 +60,15 @@ const ProjectSection = ({ profile, memberId, meId }: ProjectActivitySectionProps
 };
 
 const Container = styled.section`
-  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 48px;
+
+  @media ${MOBILE_MEDIA_QUERY} {
+    gap: 16px;
+    margin-top: 24px;
+  }
 `;
 
 const ActivityTitle = styled.div`
@@ -76,13 +84,11 @@ const ActivityDisplay = styled.div`
   grid-template-columns: repeat(2, minmax(10px, 1fr));
   row-gap: 20px;
   column-gap: 29px;
-  margin-top: 32px;
 
   @media ${MOBILE_MEDIA_QUERY} {
     display: flex;
     flex-direction: column;
-    gap: 24px;
-    margin-top: 24px;
+    gap: 12px;
   }
 `;
 
