@@ -11,7 +11,7 @@ export const useGetAdvertisementQueryOption = (category: AdvertisementCategoryTy
   });
 };
 
-export const useGetEventBannerInfoQueryOption = () => {
+export const useEventBannerInfoQueryOption = () => {
   return queryOptions({
     queryKey: AdvertisementQueryKey.event(),
     queryFn: getEventBannerInfo,

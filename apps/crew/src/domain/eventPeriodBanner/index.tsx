@@ -1,4 +1,4 @@
-import { useGetEventBannerInfoQueryOption } from '@api/advertisement/query';
+import { useEventBannerInfoQueryOption } from '@api/advertisement/query';
 import { useDisplay } from '@hook/useDisplay';
 import { Flex } from '@shared/util/layout/Flex';
 import { fontsObject } from '@sopt-makers/fonts';
@@ -17,7 +17,7 @@ const EventPeriodBanner = () => {
   const { isNewLaptop, isNewMobile } = useDisplay();
   const router = useRouter();
 
-  const { data: banner } = useSuspenseQuery(useGetEventBannerInfoQueryOption());
+  const { data: banner } = useSuspenseQuery(useEventBannerInfoQueryOption());
   const { data: me } = useQuery(useUserProfileQueryOption());
   const backgroundImageUrl = isNewMobile ? banner.mobileImageUrl : banner.desktopImageUrl;
 
