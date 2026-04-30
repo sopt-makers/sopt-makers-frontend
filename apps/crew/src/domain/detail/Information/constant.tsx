@@ -29,19 +29,22 @@ export const MeetingDetailList = (detailData: GetMeeting['response']) => [
                 {tag}
               </Chip>
             ))}
-            {/* TODO: 필드명 확인 후 주석 해제
-            {detailData?.participationTagTypes?.map((tag) => (
-              <Chip key={tag} style={{ boxShadow: 'none' }}>
-                {tag}
-              </Chip>
-            ))} */}
+            {detailData?.joinInfo &&
+              (Object.values(detailData.joinInfo) as (string | undefined)[]).filter(Boolean).map((tag) => (
+                <Chip key={tag} style={{ boxShadow: 'none' }}>
+                  {`#${tag}`}
+                </Chip>
+              ))}
           </STarget>
           <SDescription>{parseTextToLink(detailData?.desc)}</SDescription>
         </>
       );
     },
-    // TODO: participationTagTypes 필드명 확인 후 isValid에도 추가
-    isValid: detailData?.meetingKeywordTypes.length || detailData?.welcomeMessageTypes.length || detailData?.desc,
+    isValid:
+      detailData?.meetingKeywordTypes.length ||
+      detailData?.welcomeMessageTypes?.length ||
+      detailData?.joinInfo ||
+      detailData?.desc,
   },
   {
     key: '활동 기간',
