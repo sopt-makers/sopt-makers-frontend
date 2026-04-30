@@ -78,13 +78,7 @@ const MemberRecommendSection = () => {
               param={{ id: member.id, name: member.name, recommendationType: member.recommendType }}
             >
               <Link href={playgroundLink.memberDetail(member.id)}>
-                <MemberRecommendCard
-                  name={member.name}
-                  profileImage={member.profileImage}
-                  generation={member.generation}
-                  part={member.part}
-                  recommendType={member.recommendType}
-                />
+                <MemberRecommendCard member={member} />
               </Link>
             </LoggingClick>
           </LoggingImpression>
