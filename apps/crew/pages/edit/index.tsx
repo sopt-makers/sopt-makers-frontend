@@ -1,6 +1,7 @@
-import { usePutMeetingMutation } from '@api/meeting/mutation';
+import { usePatchMeetingMutation } from '@api/meeting/mutation';
 import { useMeetingQueryOption } from '@api/meeting/query';
 import Loader from '@common/loader/Loader';
+import { OLD_MEETING_CUTOFF_DATE } from '@constant/index';
 import { parts } from '@data/options';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Presentation from '@shared/form/Presentation';
@@ -9,7 +10,7 @@ import { colors } from '@sopt-makers/colors';
 import { fontsObject } from '@sopt-makers/fonts';
 import { useQuery } from '@tanstack/react-query';
 import type { FormType } from '@type/form';
-import { schema } from '@type/form';
+import { createSchema, schema } from '@type/form';
 import { formatCalendarDate } from '@util/dayjs';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
@@ -27,11 +28,13 @@ const EditPage = () => {
   const id = router.query.id as string;
 
   const { data: formData } = useQuery(useMeetingQueryOption({ meetingId: Number(id) }));
-  const { mutateAsync, isPending: isSubmitting } = usePutMeetingMutation(Number(id));
+  const { mutateAsync, isPending: isSubmitting } = usePatchMeetingMutation(Number(id));
+
+  const showLegacyFields = formData ? new Date(formData.createdTimestamp) < OLD_MEETING_CUTOFF_DATE : false;
 
   const formMethods = useForm<FormType>({
     mode: 'onChange',
-    resolver: zodResolver(schema),
+    resolver: zodResolver(showLegacyFields ? schema : createSchema),
     defaultValues: {
       detail: {
         coLeader: [],
@@ -45,7 +48,7 @@ const EditPage = () => {
       await mutateAsync(formData);
       alert('모임을 수정했습니다.');
       router.push(`/detail?id=${id}`);
-    } catch (error) {
+    } catch {
       alert('모임을 수정하지 못했습니다.');
     }
   };
@@ -81,6 +84,8 @@ const EditPage = () => {
 
       formMethods.reset({
         ...formData,
+        participationMethod: formData?.joinInfo?.meetingType,
+        participationIntensity: formData?.joinInfo?.meetingFrequency,
         files: formData?.imageURL.map((image) => image.url),
         dateRange: [formatCalendarDate(formData?.startDate), formatCalendarDate(formData?.endDate)],
         category: { label: formData?.category, value: formData?.category },
@@ -116,6 +121,7 @@ const EditPage = () => {
             handleDeleteImage={handleDeleteImage}
             onSubmit={handleSubmit}
             disabled={isSubmitting || !isValid || Object.keys(errors).length > 0 || !isDirty}
+            showLegacyFields={showLegacyFields}
           />
         </SFormContainer>
         <TableOfContents

@@ -13,7 +13,7 @@ const HelpMessage = ({ children }: HelpMessageProps) => {
 export default HelpMessage;
 
 const SHelpMessage = styled('span', {
-  marginBottom: 8,
+  marginBottom: '$8',
   display: 'inline-block',
   ...fontsObject.LABEL_4_12_SB,
   color: '$gray300',

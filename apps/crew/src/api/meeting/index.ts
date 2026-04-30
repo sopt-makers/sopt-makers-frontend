@@ -24,8 +24,11 @@ export const getMeeting = async ({ meetingId }: GetMeeting['request']): Promise<
   return (await api.get<GetMeeting['response']>(`/meeting/v2/${meetingId}`)).data;
 };
 
-export const putMeeting = async (meetingId: number, body: PostMeeting['request']): Promise<PostMeeting['response']> => {
-  return (await api.put<PostMeeting['response']>(`/meeting/v2/${meetingId}`, body)).data;
+export const patchMeeting = async (
+  meetingId: number,
+  body: PostMeeting['request'],
+): Promise<PostMeeting['response']> => {
+  return (await api.patch<PostMeeting['response']>(`/meeting/v2/${meetingId}`, body)).data;
 };
 
 export const deleteMeeting = async (id: number) => {
