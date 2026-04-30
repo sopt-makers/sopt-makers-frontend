@@ -5,7 +5,7 @@ import { fonts } from '@sopt-makers/fonts';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import axios from 'axios';
 import Link from 'next/link';
-import { useCallback, useRef } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { useMemberMeetingList } from '@/api/crew/getMeetingList';
 import type { ProfileDetail } from '@/api/endpoint_LEGACY/members/type';
@@ -26,9 +26,20 @@ const GroupSection = ({ profile, meId, memberId }: GroupSectionProps) => {
   const { data: meetingData, isPending, error: crewError } = useMemberMeetingList(memberId);
 
   const parentRef = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // @TODO: 추후에 상위 컴포넌트에서 주입
+  useEffect(() => {
+    const media = window.matchMedia(MOBILE_MEDIA_QUERY);
+    setIsMobile(media.matches);
+
+    const handleChange = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    media.addEventListener('change', handleChange);
+    return () => media.removeEventListener('change', handleChange);
+  }, []);
 
   const meetingList = meetingData?.userAppliedMeetings ?? []; // 데이터를 안전하게 추출
-  const ITEMS_PER_ROW = 2;
+  const ITEMS_PER_ROW = isMobile ? 1 : 2;
   const ROW_COUNT = Math.ceil(meetingList.length / ITEMS_PER_ROW);
 
   const rowVirtualizer = useVirtualizer({
@@ -59,7 +70,7 @@ const GroupSection = ({ profile, meId, memberId }: GroupSectionProps) => {
           <ActivityDisplay
             ref={parentRef}
             style={{
-              height: '800px',
+              maxHeight: '800px',
               overflowY: 'auto',
             }}
           >
@@ -169,12 +180,13 @@ const ActivityUploadNudge = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 60px;
+  margin-top: 20px;
   border-radius: 30px;
   background-color: ${colors.gray800};
   height: 317px;
 
   @media ${MOBILE_MEDIA_QUERY} {
+    margin-top: 16px;
     padding: 20px;
     height: 212px;
   }
