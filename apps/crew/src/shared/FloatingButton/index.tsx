@@ -166,6 +166,7 @@ const ButtonWrapper = styled('button', {
   'position': 'fixed',
   'bottom': '5%',
   'right': '5%',
+  'zIndex': '$2',
 
   'display': 'flex',
   'flexDirection': 'column',
