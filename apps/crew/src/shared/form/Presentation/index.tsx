@@ -24,7 +24,7 @@ interface PresentationProps {
   handleDeleteImage: (index: number) => void;
   onSubmit: React.FormEventHandler<HTMLFormElement>;
   disabled?: boolean;
-  isOldData?: boolean;
+  showLegacyFields?: boolean;
 }
 
 function Presentation({
@@ -34,7 +34,7 @@ function Presentation({
   handleDeleteImage,
   onSubmit,
   disabled = true,
-  isOldData = false,
+  showLegacyFields = false,
 }: PresentationProps) {
   const { handleChangeFile, handleDeleteFile, handleAddFiles } = useImageHandler({
     onChangeImage: handleChangeImage,
@@ -50,14 +50,14 @@ function Presentation({
         <SectionLine />
         <SFormSectionContainer>
           <TitleField />
-          {!isOldData && <SubtitleField />}
+          {!showLegacyFields && <SubtitleField />}
           <CategoryField />
           <KeywordField />
           <ImageField onChangeFile={handleChangeFile} onDeleteFile={handleDeleteFile} onAddFiles={handleAddFiles} />
           <DescriptionField />
           <ApplicationPeriodField />
           <TargetField />
-          {!isOldData && <ParticipationInfoField />}
+          {!showLegacyFields && <ParticipationInfoField />}
         </SFormSectionContainer>
       </div>
 
@@ -70,7 +70,7 @@ function Presentation({
         <SFormSectionContainer>
           <CoLeaderField />
           <LeaderDescriptionField />
-          {isOldData && <WelcomeMessageField />}
+          {showLegacyFields && <WelcomeMessageField />}
         </SFormSectionContainer>
         <SubmitPresentationButton
           cancelButtonLabel={cancelButtonLabel}
