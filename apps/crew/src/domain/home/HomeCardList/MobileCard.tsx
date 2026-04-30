@@ -79,6 +79,7 @@ const SThumbnailImage = styled('img', {
 const SMetaWrapper = styled('div', {
   'display': 'flex',
   'flexDirection': 'column',
+  'justifyContent': 'center',
 
   'overflow': 'hidden',
   '@tablet': {
