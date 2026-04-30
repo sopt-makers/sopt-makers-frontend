@@ -5,6 +5,8 @@ import { fonts } from '@sopt-makers/fonts';
 import Link from 'next/link';
 
 import { useGetMemberRecommendById } from '@/api/endpoint/members/getMemberRecommendById';
+import { LoggingClick } from '@/components/eventLogger/components/LoggingClick';
+import { LoggingImpression } from '@/components/eventLogger/components/LoggingImpression';
 import RefreshIcon from '@/public/icons/icon_refresh.svg';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
@@ -27,16 +29,20 @@ const MemberRecommendSection = ({ memberId, name }: MemberRecommendSectionProps)
       </StyledSectionHeader>
       <StyledCardGrid>
         {memberRecommendData?.map((member) => (
-          <Link key={member.id} href={playgroundLink.memberDetail(member.id)}>
-            <MemberRecommendCard
-              key={member.id}
-              name={member.name}
-              profileImage={member.profileImage}
-              generation={member.generation}
-              part={member.part}
-              recommendType={member.recommendType}
-            />
-          </Link>
+          <LoggingImpression
+            key={member.id}
+            eventKey='memberRecommendCard'
+            param={{ id: member.id, name: member.name, recommendationType: member.recommendType, screen: 'profile' }}
+          >
+            <LoggingClick
+              eventKey='profileConnectionCard'
+              param={{ id: member.id, name: member.name, recommendationType: member.recommendType }}
+            >
+              <Link href={playgroundLink.memberDetail(member.id)}>
+                <MemberRecommendCard member={member} />
+              </Link>
+            </LoggingClick>
+          </LoggingImpression>
         ))}
       </StyledCardGrid>
     </StyledSection>
