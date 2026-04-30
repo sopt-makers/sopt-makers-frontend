@@ -10,13 +10,15 @@ export const serializeMeetingData = (formData: FormType): PostMeeting['request']
 
   return {
     title: formData.title,
+    // TODO: @진혁 - API 스키마 수정
+    subTitle: '',
+    joinInfo: {},
     files: formData.files,
     category: formData.category.value,
     startDate: formData.dateRange[0] ?? '',
     endDate: formData.dateRange[1] ?? '',
     capacity: formData.capacity,
     desc: formData.detail.desc,
-    // TODO: @진혁 - 스키마 수정되면 제거 필요
     processDesc: '',
     mStartDate: '',
     mEndDate: '',
@@ -26,7 +28,6 @@ export const serializeMeetingData = (formData: FormType): PostMeeting['request']
     canJoinOnlyActiveGeneration: formData.detail.canJoinOnlyActiveGeneration ?? false,
     joinableParts: refinedParts,
     coLeaderUserIds: formData.detail.coLeader?.map((user) => user.userId) ?? [],
-    welcomeMessageTypes: formData.welcomeMessageTypes === null ? undefined : formData.welcomeMessageTypes,
     meetingKeywordTypes: formData.meetingKeywordTypes === null ? undefined : formData.meetingKeywordTypes,
   };
 };
