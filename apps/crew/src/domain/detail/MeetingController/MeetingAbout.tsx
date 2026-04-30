@@ -11,6 +11,7 @@ const MeetingAbout = ({ detailData }: { detailData: GetMeeting['response'] }) =>
     title,
     status,
     startDate,
+    subTitle,
     endDate,
     user: { orgId: hostId, name: hostName, profileImage: hostProfileImage },
     category,
@@ -30,8 +31,7 @@ const MeetingAbout = ({ detailData }: { detailData: GetMeeting['response'] }) =>
         <span>{category}</span>
         {title}
       </h1>
-      {/* TODO: subtitle api response로 변경 */}
-      <SSubTitle>AI 시대 살아남는 디자이너가 되기 위한 피그마 스터디</SSubTitle>
+      <SSubTitle>{subTitle}</SSubTitle>
       <SHostWrapper>
         <ProfileAnchor
           profileData={{
