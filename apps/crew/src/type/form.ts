@@ -25,6 +25,9 @@ export const schema = z.object({
     .string()
     .max(30, { message: '30자 까지 입력할 수 있습니다.' })
     .min(1, { message: '모임 제목을 입력해주세요.' }),
+  subTitle: z.string().max(30, { message: '30자 까지 입력할 수 있습니다.' }).optional(),
+  participationMethod: z.enum(['온라인', '오프라인', '온-오프']).optional(),
+  participationIntensity: z.enum(['가볍게', '적당히', '집중형']).optional(),
   category: z.object({
     label: z.string(),
     value: z.string({
@@ -101,6 +104,15 @@ export const schema = z.object({
       .min(1, { message: '대상 파트를 선택해주세요.' }),
     coLeader: z.array(z.any()).optional(),
   }),
+});
+
+export const createSchema = schema.extend({
+  subTitle: z
+    .string()
+    .max(30, { message: '30자 까지 입력할 수 있습니다.' })
+    .min(1, { message: '모임 한줄 소개를 입력해주세요.' }),
+  participationMethod: z.enum(['온라인', '오프라인', '온-오프'], { message: '참여 방식을 선택해주세요.' }),
+  participationIntensity: z.enum(['가볍게', '적당히', '집중형'], { message: '참여 강도를 선택해주세요.' }),
 });
 
 export type FormType = z.infer<typeof schema>;

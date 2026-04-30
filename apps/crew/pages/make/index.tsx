@@ -7,7 +7,7 @@ import TableOfContents from '@shared/form/TableOfContents';
 import { colors } from '@sopt-makers/colors';
 import { fontsObject } from '@sopt-makers/fonts';
 import type { FormType } from '@type/form';
-import { schema } from '@type/form';
+import { createSchema } from '@type/form';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
@@ -29,7 +29,7 @@ const MakePage = () => {
   const formMethods = useForm<FormType>({
     mode: 'onChange',
     reValidateMode: 'onChange',
-    resolver: zodResolver(schema),
+    resolver: zodResolver(createSchema),
     defaultValues: {
       detail: {
         coLeader: [],

@@ -78,3 +78,15 @@ export const locationKeywordOptions = [
   { label: '카페', value: '카페' },
   { label: '기타', value: '기타' },
 ];
+
+export const participationMethodOptions = [
+  { label: '# 온라인', value: '온라인' },
+  { label: '# 오프라인', value: '오프라인' },
+  { label: '# 온-오프', value: '온-오프' },
+];
+
+export const participationIntensityOptions = [
+  { label: '# 가볍게', value: '가볍게' },
+  { label: '# 적당히', value: '적당히' },
+  { label: '# 집중형', value: '집중형' },
+];

@@ -8,10 +8,10 @@ import {
   deleteMeeting,
   deleteMeetingApplication,
   getMeetingMemberCSV,
+  patchMeeting,
   postEventApplication,
   postMeeting,
   postMeetingApplication,
-  putMeeting,
   updateMeetingApplication,
 } from '.';
 import { serializeMeetingData } from './serialize';
@@ -37,11 +37,11 @@ export const usePostMeetingMutation = () => {
   });
 };
 
-export const usePutMeetingMutation = (meetingId: number) => {
+export const usePatchMeetingMutation = (meetingId: number) => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (formData: FormType) => putMeeting(meetingId, serializeMeetingData(formData)),
+    mutationFn: (formData: FormType) => patchMeeting(meetingId, serializeMeetingData(formData)),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: MeetingQueryKey.detail(meetingId),

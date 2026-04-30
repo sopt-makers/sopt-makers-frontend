@@ -15,7 +15,7 @@ type ImageFieldProps = {
 
 const ImageField = ({ onChangeFile, onDeleteFile, onAddFiles }: ImageFieldProps) => {
   return (
-    <>
+    <SImageField>
       <Label required={true}>소개 이미지</Label>
       <HelpMessage>6개까지 첨부 가능해요. 파일은 5MB 이내로 가로 760px, 세로 520px 사이즈를 권장해요.</HelpMessage>
       <SFileInputWrapper>
@@ -40,11 +40,15 @@ const ImageField = ({ onChangeFile, onDeleteFile, onAddFiles }: ImageFieldProps)
           )}
         />
       </SFileInputWrapper>
-    </>
+    </SImageField>
   );
 };
 
 export default ImageField;
+
+const SImageField = styled('div', {
+  width: '100%',
+});
 
 const SFileInputWrapper = styled('div', {
   'display': 'grid',
