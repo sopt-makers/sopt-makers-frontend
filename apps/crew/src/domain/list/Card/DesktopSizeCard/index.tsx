@@ -2,9 +2,11 @@ import type { MeetingData } from '@api/meeting/type';
 import ProfileDefaultIcon from '@assets/svg/profile_default.svg?rect';
 import type { CategoryKoType } from '@constant/option';
 import { CategoryChip } from '@domain/list/Card/DesktopSizeCard/CategoryChip';
+import type { CardInfoItem } from '@domain/list/Card/DesktopSizeCard/constant';
 import { MeetingInformation } from '@domain/list/Card/DesktopSizeCard/constant';
 import RecruitmentStatusTag from '@shared/Tag/RecruitmentStatusTag';
 import { Flex } from '@shared/util/layout/Flex';
+import { fontsObject } from '@sopt-makers/fonts';
 import { Tag } from '@sopt-makers/ui';
 import { getResizedImage } from '@util/image';
 import { styled } from 'stitches.config';
@@ -12,19 +14,15 @@ import { styled } from 'stitches.config';
 interface CardProps {
   meetingData: MeetingData;
   isFlash?: boolean;
-  flashDetailInfo?: {
-    label: string;
-    value: () => string;
-    isValid: boolean;
-  }[];
+  flashDetailInfo?: CardInfoItem[];
   flashCount?: string;
 }
 
 function DesktopSizeCard({ meetingData, isFlash = false, flashDetailInfo, flashCount }: CardProps) {
-  const detailInfo = isFlash && flashDetailInfo ? flashDetailInfo : MeetingInformation(meetingData);
+  const detailInfo: CardInfoItem[] = isFlash && flashDetailInfo ? flashDetailInfo : MeetingInformation(meetingData);
 
   return (
-    <div>
+    <>
       <ImageWrapper>
         <RecruitmentStatusTag status={meetingData.status} style={{ position: 'absolute', top: '16px', left: '16px' }} />
         <STag size='md' type='solid'>
@@ -37,15 +35,19 @@ function DesktopSizeCard({ meetingData, isFlash = false, flashDetailInfo, flashC
         />
       </ImageWrapper>
 
-      <STitleSection>
+      <CategroyChipWrapper>
         <CategoryChip
           category={meetingData.category as CategoryKoType}
           meetingKeywordTypes={meetingData.meetingKeywordTypes}
         />
+      </CategroyChipWrapper>
+
+      <STitleSection>
         <STitle>{meetingData.title}</STitle>
+        {meetingData.subTitle && <SSubTitle>{meetingData.subTitle}</SSubTitle>}
       </STitleSection>
 
-      <Flex css={{ mb: '$14' }} align='center'>
+      <Flex css={{ mb: '$8' }} align='center'>
         <SProfileWrapper>
           {meetingData.user.profileImage ? (
             <SProfile src={getResizedImage(meetingData.user.profileImage, 120)} alt='' />
@@ -55,17 +57,20 @@ function DesktopSizeCard({ meetingData, isFlash = false, flashDetailInfo, flashC
         </SProfileWrapper>
         <SName>{meetingData.user.name}</SName>
       </Flex>
-      {detailInfo.map(({ label, value, isValid }) => (
-        <SInfoRow key={label}>
-          {isValid ? (
-            <>
-              <SKey>{label}</SKey>
-              <SValue>{value()}</SValue>
-            </>
-          ) : null}
-        </SInfoRow>
-      ))}
-    </div>
+
+      {detailInfo
+        .filter(({ isValid }) => isValid)
+        .map(({ label, value }) => (
+          <SInfoRow key={label}>
+            <SKey>{label}</SKey>
+            <SArrayValues>
+              {value.map((tag) => (
+                <span key={tag}>{tag}</span>
+              ))}
+            </SArrayValues>
+          </SInfoRow>
+        ))}
+    </>
   );
 }
 
@@ -91,7 +96,7 @@ const SThumbnailImage = styled('div', {
   backgroundRepeat: 'no-repeat',
 });
 
-const STitleSection = styled('div', {
+const CategroyChipWrapper = styled('div', {
   'my': '$16',
   '@media (max-width: 768px)': {
     my: '$8',
@@ -115,10 +120,23 @@ const SProfile = styled('img', {
 const SName = styled('p', {
   fontStyle: 'T5',
 });
+const STitleSection = styled('div', {
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '$4',
+  mb: '$12',
+});
 const STitle = styled('p', {
   maxWidth: '380px',
   fontStyle: 'H2',
-  mt: '$8',
+});
+const SSubTitle = styled('p', {
+  ...fontsObject.BODY_2_16_M,
+  maxWidth: '380px',
+  overflow: 'hidden',
+  whiteSpace: 'nowrap',
+  textOverflow: 'ellipsis',
+  color: '$gray200',
 });
 const SInfoRow = styled(Flex, {
   '& + &': {
@@ -129,11 +147,15 @@ const SInfo = styled('p', {
   fontStyle: 'B3',
 });
 const SKey = styled(SInfo, {
-  width: '74px',
+  width: '52px',
   color: '$gray500',
   mr: '$12',
   whiteSpace: 'nowrap',
 });
-const SValue = styled(SInfo, {
+const SArrayValues = styled('div', {
+  display: 'flex',
+  gap: '$6',
+  flexWrap: 'wrap',
   color: '$gray300',
+  fontStyle: 'B3',
 });
