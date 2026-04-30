@@ -1,6 +1,8 @@
 import { useRecommendMeetingListQuery } from '@api/meeting/query';
+import type { MeetingData } from '@api/meeting/type';
 import DesktopCard from '@domain/home/HomeCardList/DesktopCard';
 import MobileCard from '@domain/home/HomeCardList/MobileCard';
+import type { HomeMeetingCardProps } from '@domain/home/HomeCardList/type';
 import { useDisplay } from '@hook/useDisplay';
 import { fontsObject } from '@sopt-makers/fonts';
 import { useQuery } from '@tanstack/react-query';
@@ -13,9 +15,25 @@ type HomeCardProps = {
   meetingIds: number[];
 };
 
+const getMeetingCardProps = (meeting: MeetingData): HomeMeetingCardProps => ({
+  id: meeting.id,
+  imageURL: meeting.imageURL[0]?.url,
+  title: meeting.title,
+  subTitle: meeting.subTitle,
+  ownerName: meeting.user.name,
+  ownerImage: meeting.user.profileImage,
+  approvedCount: meeting.approvedCount || 0,
+  capacity: meeting.capacity,
+  category: meeting.category,
+  canJoinOnlyActiveGeneration: meeting.canJoinOnlyActiveGeneration,
+  joinableParts: meeting.joinableParts,
+});
+
 const CardList = ({ label, isMore = false, onMoreClick = () => {}, meetingIds }: HomeCardProps) => {
   const { isTablet } = useDisplay();
   const data = useQuery(useRecommendMeetingListQuery({ meetingIds })).data?.meetings;
+
+  const MeetingCard = isTablet ? MobileCard : DesktopCard;
 
   if (!data) return null;
   return (
@@ -26,43 +44,9 @@ const CardList = ({ label, isMore = false, onMoreClick = () => {}, meetingIds }:
         {isMore && <SMoreBtn onClick={onMoreClick}>{'더보기 >'}</SMoreBtn>}
       </STitleWrapper>
       <SCardWrapper>
-        {isTablet ? (
-          <>
-            {data.map((d) => (
-              <MobileCard
-                key={d.id}
-                id={d.id}
-                imageURL={d.imageURL[0]?.url}
-                title={d.title}
-                ownerName={d.user.name}
-                ownerImage={d.user.profileImage}
-                approvedCount={d.approvedCount || 0}
-                capacity={d.capacity}
-                category={d.category}
-                canJoinOnlyActiveGeneration={d.canJoinOnlyActiveGeneration}
-                joinableParts={d.joinableParts}
-              />
-            ))}
-          </>
-        ) : (
-          <>
-            {data.map((d) => (
-              <DesktopCard
-                key={d.id}
-                id={d.id}
-                imageURL={d.imageURL[0]?.url}
-                title={d.title}
-                ownerName={d.user.name}
-                ownerImage={d.user.profileImage}
-                approvedCount={d.approvedCount || 0}
-                capacity={d.capacity}
-                category={d.category}
-                canJoinOnlyActiveGeneration={d.canJoinOnlyActiveGeneration}
-                joinableParts={d.joinableParts}
-              />
-            ))}
-          </>
-        )}
+        {data.map((meeting) => (
+          <MeetingCard key={meeting.id} {...getMeetingCardProps(meeting)} />
+        ))}
       </SCardWrapper>
     </SCardListWrapper>
   );
@@ -111,8 +95,12 @@ const STitleWrapper = styled('div', {
 const STitleStyle = styled('p', {
   'padding': '4px 0 8px',
 
-  'fontStyle': 'H1',
+  ...fontsObject.HEADING_4_24_B,
   'color': '$white',
+
+  '@tablet': {
+    ...fontsObject.TITLE_4_20_SB,
+  },
 
   '@mobile': {
     ...fontsObject.TITLE_6_16_SB,

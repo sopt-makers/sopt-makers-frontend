@@ -20,13 +20,13 @@ const HomeCardList = () => {
   );
 };
 
-export default () => {
+export default function HomeCardListSuspense() {
   return (
     <Suspense fallback={<Loader />}>
       <HomeCardList />
     </Suspense>
   );
-};
+}
 
 const SWrapper = styled('div', {
   'position': 'relative',

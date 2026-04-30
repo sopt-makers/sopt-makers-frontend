@@ -28,7 +28,7 @@ const SGuideButton = styled('a', {
   'flexType': 'verticalCenter',
   'gap': '$8',
   'color': '$gray10',
-  'padding': '$8 $6 0 0',
+  'padding': '$8 $6',
   'fontAg': '18_semibold_100',
 
   '@tablet': {
