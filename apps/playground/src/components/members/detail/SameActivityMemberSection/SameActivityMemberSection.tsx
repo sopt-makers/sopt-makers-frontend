@@ -29,7 +29,7 @@ const SamePartMemberSection = ({ memberId, name, recentSoptActivity }: SamePartM
       <StyledCardGrid>
         {memberGenerationPartData?.members.map((member) => (
           <LoggingClick key={member.id} eventKey='profileSameGroupCard' param={{ id: member.id, name: member.name }}>
-            <Link key={member.id} href={playgroundLink.memberDetail(member.id)}>
+            <Link href={playgroundLink.memberDetail(member.id)}>
               <SameActivityMemberCard
                 profileImage={member.profileImage}
                 name={member.name}
