@@ -9,7 +9,9 @@ export const serializeMeetingData = (formData: FormType): PostMeeting['request']
     .map((part) => part.value) as ('PM' | 'DESIGN' | 'IOS' | 'ANDROID' | 'SERVER' | 'WEB')[];
 
   return {
+    // @TODO: 게시글 생성 PR 머지 후 PULL
     title: formData.title,
+    subTitle: '',
     files: formData.files,
     category: formData.category.value,
     startDate: formData.dateRange[0] ?? '',
@@ -24,9 +26,9 @@ export const serializeMeetingData = (formData: FormType): PostMeeting['request']
     note: '',
     isMentorNeeded: formData.detail.isMentorNeeded ?? false,
     canJoinOnlyActiveGeneration: formData.detail.canJoinOnlyActiveGeneration ?? false,
+    joinInfo: {},
     joinableParts: refinedParts,
     coLeaderUserIds: formData.detail.coLeader?.map((user) => user.userId) ?? [],
-    welcomeMessageTypes: formData.welcomeMessageTypes === null ? undefined : formData.welcomeMessageTypes,
     meetingKeywordTypes: formData.meetingKeywordTypes === null ? undefined : formData.meetingKeywordTypes,
   };
 };
