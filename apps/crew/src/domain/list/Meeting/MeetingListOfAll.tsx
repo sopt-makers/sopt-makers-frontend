@@ -1,4 +1,4 @@
-import { useGetAdvertisementQueryOption } from '@api/advertisement/query';
+import { useAdvertisementQueryOption } from '@api/advertisement/query';
 import { useMeetingListQueryOption } from '@api/meeting/query';
 import type { MeetingData } from '@api/meeting/type';
 import { useUserProfileQueryOption } from '@api/user/query';
@@ -24,7 +24,7 @@ function MeetingListOfAll() {
   const { value: page, setValue: setPage } = usePageParams();
   const { isDesktop } = useDisplay();
   const { data: meetingListData, isLoading } = useSuspenseQuery(useMeetingListQueryOption());
-  const { data: meetingAds } = useSuspenseQuery(useGetAdvertisementQueryOption(AdvertisementCategory.MEETING));
+  const { data: meetingAds } = useSuspenseQuery(useAdvertisementQueryOption(AdvertisementCategory.MEETING));
 
   useScrollRestorationAfterLoading(isLoading);
   const { data: me } = useQuery(useUserProfileQueryOption());
@@ -128,6 +128,10 @@ const SMeetingCountWrapper = styled('div', {
   '@media (max-width: 849px)': {
     justifyContent: 'center',
   },
+  '@new_mobile': { mt: '$28' },
+  '@new_tablet': { mt: '$40' },
+  '@new_desktop': { mt: '$40' },
+  '@new_laptop': { mt: '$40' },
 });
 
 const SMeetingCount = styled('p', {

@@ -3098,20 +3098,6 @@ export interface components {
       /** @description 광고 구좌 이미지 리스트 */
       advertisements: components['schemas']['AdvertisementGetDto'][];
     };
-    /** @description 파트별 모임 둘러보기 Dto */
-    AdvertisementMeetingTopBrowseActionDto: {
-      /**
-       * @description 기존 모임 목록 조회 query
-       * @example 38기 솝커톤
-       */
-      query: string;
-      /**
-       * Format: int32
-       * @description 기존 모임 목록 조회 page
-       * @example 1
-       */
-      page: number;
-    };
     /** @description 모임 상단 광고 조회 응답 Dto */
     AdvertisementMeetingTopGetResponseDto: {
       /**
@@ -3142,56 +3128,38 @@ export interface components {
        */
       mobileImageUrl?: string;
       /**
-       * @description 배너 링크
-       * @example https://www.naver.com
+       * @description 달력 이미지 url
+       * @example [달력 이미지 url 형식]
        */
-      advertisementLink?: string;
+      calendarImageUrl?: string;
+      title?: components['schemas']['AdvertisementMeetingTopTitleDto'];
       /**
-       * Format: int32
-       * @description 조회 기준 기수
-       * @example 38
-       */
-      generation?: number;
-      /**
-       * @description 조회 기준 파트
-       * @example 서버
-       */
-      part?: string;
-      /**
-       * Format: int32
-       * @description 신청 모임 id
-       * @example 123
-       */
-      meetingId?: number;
-      /**
-       * @description 신청 모임 제목
-       * @example [38기 솝커톤] 서버 파트 신청
-       */
-      title?: string;
-      /**
-       * @description 신청 모임 부제목
-       * @example 모임 부제목
+       * @description 배너 부제목
+       * @example 우리만의 해커톤, 누구보다 빠르게 신청하세요!
        */
       subTitle?: string;
+      /** @description 배너 링크 1 */
+      bannerLink1?: string;
+      /** @description 배너 링크 2 */
+      bannerLink2?: string;
+    };
+    /** @description 모임 상단 광고 제목 Dto */
+    AdvertisementMeetingTopTitleDto: {
       /**
-       * Format: date-time
-       * @description 모임 신청 시작 시간
+       * @description 배너 제목 prefix
+       * @example 5월 4일
        */
-      startDate?: string;
+      prefix?: string;
       /**
-       * Format: date-time
-       * @description 모임 신청 종료 시간
+       * @description 배너 제목 highlight
+       * @example 솝커톤 신청
        */
-      endDate?: string;
+      highlight?: string;
       /**
-       * Format: int32
-       * @description 모임 상태, 0: 모집전, 1: 모집중, 2: 모집종료
-       * @example 1
+       * @description 배너 제목 suffix
+       * @example  OPEN!
        */
-      status?: number;
-      joinInfo?: components['schemas']['MeetingJoinInfo'];
-      participatingPartInfo?: components['schemas']['MeetingV2ParticipatingPartInfoDto'];
-      browseAction?: components['schemas']['AdvertisementMeetingTopBrowseActionDto'];
+      suffix?: string;
     };
     SlackEmojiEventDeleteRequestDto: {
       identifiedPwd?: string;
@@ -4772,6 +4740,11 @@ export interface operations {
    * @description 모임 탭 상단에 노출할 광고와 신청 모임 정보를 조회합니다.
    */
   getMeetingTopAdvertisement: {
+    parameters: {
+      query?: {
+        eventType?: 'SOPKATHON' | 'NETWORKING';
+      };
+    };
     responses: {
       /** @description 성공 */
       200: {

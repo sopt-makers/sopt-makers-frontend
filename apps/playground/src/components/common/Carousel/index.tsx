@@ -8,15 +8,25 @@ import CarouselBody from '@/components/common/Carousel/Body';
 import type { CarouselDirection } from '@/components/common/Carousel/useCarousel';
 import useCarousel from '@/components/common/Carousel/useCarousel';
 import LeftArrowIcon from '@/public/icons/icon-arrow-left.svg';
+import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
+
 interface CarouselProps {
   itemList: ReactNode[];
   limit: number;
   className?: string;
   renderItemContainer: (children: ReactNode) => ReactNode;
   onMove?: () => void;
+  isArrow?: boolean;
 }
 
-export default function Carousel({ itemList, limit, className, renderItemContainer, onMove }: CarouselProps) {
+export default function Carousel({
+  itemList,
+  limit,
+  className,
+  renderItemContainer,
+  onMove,
+  isArrow = true,
+}: CarouselProps) {
   const { page, direction, moveNext, movePrevious, currentItemList, totalPageSize, move } = useCarousel({
     limit,
     itemList,
@@ -68,30 +78,38 @@ export default function Carousel({ itemList, limit, className, renderItemContain
 
   return (
     <Container className={className}>
-      <AnimatePresence initial={false} custom={direction}>
-        <StyledMotionDiv
-          key={page}
-          custom={direction}
-          variants={variants}
-          initial='enter'
-          animate='center'
-          transition={{
-            x: { type: 'spring', stiffness: 300, damping: 30 },
-            opacity: { duration: 0.2 },
-          }}
-          onTouchStart={onTouchStart}
-          onTouchMove={onTouchMove}
-          onTouchEnd={onTouchEnd}
-        >
-          <CarouselBody currentItemList={currentItemList} renderContainer={renderItemContainer} />
-        </StyledMotionDiv>
-      </AnimatePresence>
-      <LeftControl onClick={handleClickLeftControl}>
-        <LeftArrowIcon />
-      </LeftControl>
-      <RightControl onClick={handleClickRightControl}>
-        <RightArrowIcon />
-      </RightControl>
+      {isArrow && (
+        <LeftControl onClick={handleClickLeftControl}>
+          <LeftArrowIcon />
+        </LeftControl>
+      )}
+      <StyledListClip>
+        <AnimatePresence initial={false} custom={direction}>
+          <StyledMotionDiv
+            key={page}
+            custom={direction}
+            variants={variants}
+            initial='enter'
+            animate='center'
+            transition={{
+              x: { type: 'spring', stiffness: 300, damping: 30 },
+              opacity: { duration: 0.2 },
+            }}
+            onTouchStart={onTouchStart}
+            onTouchMove={onTouchMove}
+            onTouchEnd={onTouchEnd}
+          >
+            <CarouselBody currentItemList={currentItemList} renderContainer={renderItemContainer} />
+          </StyledMotionDiv>
+        </AnimatePresence>
+      </StyledListClip>
+
+      {isArrow && (
+        <RightControl onClick={handleClickRightControl}>
+          <RightArrowIcon />
+        </RightControl>
+      )}
+
       <Indicators>
         {Array(totalPageSize)
           .fill(null)
@@ -117,15 +135,31 @@ const variants = {
 };
 
 const Container = styled.div`
+  position: relative;
   display: grid;
   grid:
     [row1-start] 'left-control list right-control' max-content [row1-end]
-    [row2-start] 'indicators indicators indicators' max-content [row2-end]
-    / min-content auto min-content;
-  row-gap: 24px;
-  column-gap: 16px;
+    [row2-start] 'indicators indicators indicators' max-content [row2-end] / 0 auto 0;
+  row-gap: 20px;
   width: 100%;
+  overflow: visible;
+  user-select: none;
+
+  @media ${MOBILE_MEDIA_QUERY} {
+    row-gap: 16px;
+  }
+`;
+
+const StyledListClip = styled.div`
+  grid-area: list;
+  position: relative;
+  width: 100%;
+  min-width: 0;
   overflow: hidden;
+`;
+
+const StyledMotionDiv = styled(m.div)`
+  width: 100%;
 `;
 
 const Control = styled.button`
@@ -149,6 +183,8 @@ const LeftControl = styled(Control)`
   grid-area: left-control;
   align-items: center;
   justify-content: center;
+  position: absolute;
+  left: -58px;
 `;
 
 const RightControl = styled(Control)`
@@ -156,6 +192,8 @@ const RightControl = styled(Control)`
   grid-area: right-control;
   align-items: center;
   justify-content: center;
+  position: absolute;
+  right: -58px;
 `;
 
 const RightArrowIcon = styled(LeftArrowIcon)`
@@ -175,8 +213,4 @@ const Indicator = styled.div<{ isActive?: boolean }>`
   cursor: ${({ isActive }) => (isActive ? 'default' : 'pointer')};
   width: 16px;
   height: 4px;
-`;
-
-const StyledMotionDiv = styled(m.div)`
-  grid-area: list;
 `;

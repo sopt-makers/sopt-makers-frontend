@@ -2,14 +2,13 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
-import { fonts } from '@sopt-makers/fonts';
 import { IconSwitchVertical } from '@sopt-makers/icons';
 import { SearchField } from '@sopt-makers/ui';
 import { Spacing } from '@toss/emotion-utils';
 import { debounce, uniq } from 'lodash-es';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import type { ChangeEvent, FC, ReactNode } from 'react';
+import type { ChangeEvent, ReactNode } from 'react';
 import React, { useEffect, useMemo, useState } from 'react';
 
 import { useGetMemberOfMe } from '@/api/endpoint/members/getMemberOfMe';
@@ -20,7 +19,6 @@ import Responsive from '@/components/common/Responsive';
 import Text from '@/components/common/Text';
 import useEventLogger from '@/components/eventLogger/hooks/useEventLogger';
 import MessageModal, { MessageCategory } from '@/components/members/detail/MessageSection/MessageModal';
-import BestOBMemberForAsk from '@/components/members/main/AskOBMemberList';
 import { DESKTOP_ONE_MEDIA_QUERY, DESKTOP_TWO_MEDIA_QUERY } from '@/components/members/main/contants';
 import { useMemberProfileQuery } from '@/components/members/main/hooks/useMemberProfileQuery';
 import MemberCard from '@/components/members/main/MemberCard';
@@ -39,6 +37,7 @@ import {
 } from '@/components/members/main/MemberList/filters/constants';
 import MemberListFilter from '@/components/members/main/MemberList/filters/MemberListFilter';
 import { MemberListOrder } from '@/components/members/main/MemberList/filters/MemberListOrder';
+import MemberRecommendSection from '@/components/members/main/MemberRecommendSection/MemberRecommendSection';
 import { LATEST_GENERATION } from '@/constants/generation';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 import { usePageQueryParams } from '@/hooks/usePageQueryParams';
@@ -47,8 +46,9 @@ import IconDiagonalArrow from '@/public/icons/icon-diagonal-arrow.svg';
 import { MB_BIG_MEDIA_QUERY } from '@/styles/mediaQuery';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
-const PAGE_LIMIT = 24;
+import AskCardList from '../AskCardList/AskCardList';
 
+const PAGE_LIMIT = 24;
 interface MemberListProps {
   banner: ReactNode;
 }
@@ -66,7 +66,7 @@ export type MessageModalState =
       };
     };
 
-const MemberList: FC<MemberListProps> = ({ banner }) => {
+const MemberList = ({ banner }: MemberListProps) => {
   const [generation, setGeneration] = useState<Option | null | undefined>(null);
   const [part, setPart] = useState<Option | null | undefined>(null);
   const [employed, setEmployed] = useState<Option | null | undefined>(null);
@@ -246,8 +246,11 @@ const MemberList: FC<MemberListProps> = ({ banner }) => {
                 onSubmit={() => handleSearchSubmit(search as string)}
                 onReset={handleSearchReset}
               />
-              <Spacing size={14} />
-              <BestOBMemberForAsk />
+              <Spacing size={8} />
+              <MemberRecommendSection />
+              <StyledAskCardList>
+                <AskCardList />
+              </StyledAskCardList>
               {/* {isAppJamParticipant && (
                 <BannerWrapper>
                   <Banner
@@ -375,7 +378,10 @@ const MemberList: FC<MemberListProps> = ({ banner }) => {
 
             <StyledRightWrapper>
               <Responsive only='desktop'>
-                <BestOBMemberForAsk />
+                <MemberRecommendSection />
+                <StyledAskCardList>
+                  <AskCardList />
+                </StyledAskCardList>
                 <StyledTopWrapper>
                   <div
                     css={css`
@@ -621,11 +627,21 @@ const StyledMain = styled.main`
   flex-direction: column;
   column-gap: 30px;
   align-items: center;
+  width: 100%;
   max-width: 1312px;
+
+  @media ${DESKTOP_ONE_MEDIA_QUERY} {
+    max-width: 978px;
+  }
+
+  @media ${DESKTOP_TWO_MEDIA_QUERY} {
+    max-width: 644px;
+  }
 
   @media ${MOBILE_MEDIA_QUERY} {
     padding: 0 20px;
     width: 100%;
+    max-width: none;
   }
 `;
 
@@ -633,7 +649,7 @@ const StyledRightWrapper = styled.div`
   display: flex;
   flex: 1;
   flex-direction: column;
-  margin-top: 68px;
+  margin-top: 52px;
   width: 100%;
 
   @media ${MOBILE_MEDIA_QUERY} {
@@ -695,6 +711,14 @@ const StyledMemberSearch = styled(SearchField)`
   @media ${MOBILE_MEDIA_QUERY} {
     order: none;
     width: 100%;
+  }
+`;
+
+const StyledAskCardList = styled.div`
+  margin-bottom: 64px;
+  @media ${MOBILE_MEDIA_QUERY} {
+    padding: 12px 0 16px 0;
+    margin-bottom: 0;
   }
 `;
 
