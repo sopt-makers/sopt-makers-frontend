@@ -29,7 +29,7 @@ const MobileCard = ({
         <SThumbnailImage src={imageURL} />
         <SMetaWrapper>
           <STitle>{title}</STitle>
-          <SSubTitle>{subTitle}</SSubTitle>
+          {subTitle && <SSubTitle>{subTitle}</SSubTitle>}
 
           <SInfoWrapper>
             <SUserIcon />

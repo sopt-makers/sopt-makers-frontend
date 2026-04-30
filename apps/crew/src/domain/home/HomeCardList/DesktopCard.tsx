@@ -37,7 +37,7 @@ const DesktopCard = ({
         </SUserInfoWrapper>
 
         <STitleStyle>{title}</STitleStyle>
-        <SSubTitle>{subTitle}</SSubTitle>
+        {subTitle && <SSubTitle>{subTitle}</SSubTitle>}
 
         <SMetaWrapper>
           <SUserIcon />
