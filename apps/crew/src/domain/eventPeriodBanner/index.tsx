@@ -59,7 +59,7 @@ const EventPeriodBanner = () => {
       }}
     >
       <InfoSection>
-        <DateImage src={banner.calendarImageUrl} alt='날짜 이미지' />
+        <DateImage src={banner.calendarImageUrl} alt='날짜' />
         <Flex align='center' justify='center' direction='column'>
           <TitleWrapper>
             <STitle>{banner.title?.prefix} </STitle>
