@@ -93,7 +93,7 @@ const STab = styled('li', {
       },
 
       false: {
-        'pb': '$16',
+        'pb': '$6',
         'mr': '$20',
         'fontStyle': 'H1',
 
