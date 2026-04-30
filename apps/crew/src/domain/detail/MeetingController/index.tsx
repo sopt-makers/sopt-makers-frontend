@@ -88,7 +88,10 @@ const MeetingController = ({ detailData }: DetailHeaderProps) => {
     setModalTitle(`모집 현황 (${CAPACITY(detailData)})`);
   };
 
-  const partLabel = partMembersData?.part ? `${partMembersData.part} 파트 신청 멤버` : '신청 멤버';
+  const isActiveGeneration = partMembersData?.isActiveGeneration ?? true;
+  const partLabel = isActiveGeneration
+    ? `${partMembersData?.part} 파트 신청 멤버`
+    : `${partMembersData?.activeGeneration}기 신청 멤버`;
 
   const handlePartStatusModal = () => {
     handleDefaultModalOpen();
@@ -278,14 +281,15 @@ const MeetingController = ({ detailData }: DetailHeaderProps) => {
             <SPartStatusButton onClick={handlePartStatusModal}>
               <span>
                 <SFireEmoji>🔥 </SFireEmoji>
-                {partMembersData?.part ? (
+                {isActiveGeneration ? (
                   <>
-                    <SPartName>{partMembersData.part} 파트</SPartName> {partMembersData.participantCount ?? 0}명
-                    <SApplyingText> 신청중</SApplyingText>
+                    <SPartName>{partMembersData?.part} 파트</SPartName> {partMembersData?.participantCount ?? 0}명
+                    <SApplyingText> 신청 중</SApplyingText>
                   </>
                 ) : (
                   <>
-                    {partMembersData?.participantCount ?? 0}명<SApplyingText> 신청 중</SApplyingText>
+                    {partMembersData?.activeGeneration}기 멤버 {partMembersData?.participantCount ?? 0}명
+                    <SApplyingText> 신청 중</SApplyingText>
                   </>
                 )}
               </span>
