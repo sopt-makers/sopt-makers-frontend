@@ -20,9 +20,9 @@ const Home: NextPage = () => {
       <CrewTab>
         <GuideButton />
       </CrewTab>
-      <SEventPeriodBannerWrapper>
+      {/* <SEventPeriodBannerWrapper>
         <EventPeriodBanner />
-      </SEventPeriodBannerWrapper>
+      </SEventPeriodBannerWrapper> */}
       {isTablet ? (
         <>
           <SContentTitle>⚡ 솝트만의 일회성 모임, 번쩍</SContentTitle>
