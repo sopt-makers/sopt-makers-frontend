@@ -25,9 +25,9 @@ export const schema = z.object({
     .string()
     .max(30, { message: '30자 까지 입력할 수 있습니다.' })
     .min(1, { message: '모임 제목을 입력해주세요.' }),
-  subTitle: z.string().max(30, { message: '30자 까지 입력할 수 있습니다.' }).optional(),
-  participationMethod: z.enum(['온라인', '오프라인', '온-오프']).optional(),
-  participationIntensity: z.enum(['가볍게', '적당히', '집중형']).optional(),
+  subTitle: z.string().max(30, { message: '30자 까지 입력할 수 있습니다.' }).optional().nullable(),
+  participationMethod: z.enum(['온라인', '오프라인', '온-오프']).optional().nullable(),
+  participationIntensity: z.enum(['가볍게', '적당히', '집중형']).optional().nullable(),
   category: z.object({
     label: z.string(),
     value: z.string({

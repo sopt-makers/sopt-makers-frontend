@@ -12,8 +12,8 @@ export const serializeMeetingData = (formData: FormType): PostMeeting['request']
     title: formData.title,
     subTitle: formData.subTitle ?? '',
     joinInfo: {
-      meetingType: formData.participationMethod,
-      meetingFrequency: formData.participationIntensity,
+      meetingType: formData.participationMethod ?? undefined,
+      meetingFrequency: formData.participationIntensity ?? undefined,
     },
     files: formData.files,
     category: formData.category.value,
