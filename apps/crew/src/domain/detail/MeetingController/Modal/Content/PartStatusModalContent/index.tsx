@@ -20,7 +20,7 @@ const PartStatusModalContent = ({ partMembersData }: PartStatusModalContentProps
           </SList>
         </SListWrapper>
       ) : (
-        <SEmptyText>신청자가 없습니다.</SEmptyText>
+        <SEmptyText>신청자가 아직 없어요.</SEmptyText>
       )}
       {memberNames.length > 0 && (
         <SModalBottom>

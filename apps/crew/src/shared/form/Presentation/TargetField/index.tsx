@@ -15,7 +15,7 @@ const TargetField = () => {
           </Label>
         </SLabelWrapper>
       </SLabelCheckboxWrapper>
-      <HelpMessage>모임장을 제외한 인원 수를 입력해주세요</HelpMessage>
+      <HelpMessage>대상을 선택하고 모임장을 제외한 인원 수를 입력해주세요.</HelpMessage>
       <FormController
         name='detail.targetDesc'
         render={() => {
