@@ -22,7 +22,7 @@ function Card({ bottom, meetingData, mobileType }: CardProps) {
   return (
     <CardWrapper
       css={{
-        '@mobile': { width: mobileType === 'list' ? '100%' : 'fit-content' },
+        '@new_mobile': { width: mobileType === 'list' ? '100%' : 'fit-content' },
       }}
       onClick={() => {
         ampli.clickGroupCard({
@@ -53,18 +53,18 @@ export default Card;
 
 const CardWrapper = styled('li', {
   'minWidth': 0,
-  '@mobile': {
+  '@new_mobile': {
     justifySelf: 'stretch',
   },
 });
 const DesktopOnly = styled('div', {
-  '@mobile': {
+  '@new_mobile': {
     display: 'none',
   },
 });
 const MobileOnly = styled('div', {
   'display': 'none',
-  '@mobile': {
+  '@new_mobile': {
     display: 'flex',
     width: '100%',
   },
