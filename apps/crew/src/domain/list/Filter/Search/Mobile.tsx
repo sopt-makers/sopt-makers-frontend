@@ -12,8 +12,14 @@ function SearchMobile() {
   const { bool: isVisible, toggle } = useBooleanState();
 
   const onSubmit = (value: FieldValues) => {
-    if (!value?.search) deleteKey();
-    if (value.search) setSearch(value.search);
+    const searchValue = typeof value.search === 'string' ? value.search.trim() : '';
+
+    if (!searchValue) {
+      deleteKey();
+      return;
+    }
+
+    setSearch(searchValue);
   };
 
   const handleCancel = () => {
