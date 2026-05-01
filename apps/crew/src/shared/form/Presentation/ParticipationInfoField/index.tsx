@@ -11,7 +11,7 @@ const ParticipationInfoField = () => {
   return (
     <div>
       <Label required>참여 정보</Label>
-      <HelpMessage>모임 참여 방식과 강도를 선택해주세요.각 1가지</HelpMessage>
+      <HelpMessage>모임 참여 방식과 강도를 선택해주세요. 항목 별로 1개씩 선택할 수 있어요.</HelpMessage>
       <SFieldWrapper>
         <div>
           <SSubLabel>참여 방식</SSubLabel>

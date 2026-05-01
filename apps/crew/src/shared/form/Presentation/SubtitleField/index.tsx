@@ -8,7 +8,7 @@ const SubtitleField = () => {
   return (
     <SSubtitleField>
       <Label required>모임 한줄 소개</Label>
-      <HelpMessage>모임을 한마디로 소개해주세요. 개설 후 제목 아래 부제목으로 노출돼요.</HelpMessage>
+      <HelpMessage>모임을 한마디로 소개해주세요. 모임 이름 아래 한 줄로 보여지는 내용이에요.</HelpMessage>
       <FormController
         name='subTitle'
         render={({ field, fieldState: { error } }) => (

@@ -16,9 +16,17 @@ interface TableOfContentsProps {
   cancelButtonLabel?: React.ReactNode;
   submitButtonLabel: React.ReactNode;
   disabled: boolean;
+  showLegacyFields?: boolean;
 }
 
-function TableOfContents({ label, onSubmit, cancelButtonLabel, submitButtonLabel, disabled }: TableOfContentsProps) {
+function TableOfContents({
+  label,
+  onSubmit,
+  cancelButtonLabel,
+  submitButtonLabel,
+  disabled,
+  showLegacyFields = false,
+}: TableOfContentsProps) {
   const router = useRouter();
   const isEdit = router.asPath.includes('/edit');
 
@@ -58,6 +66,11 @@ function TableOfContents({ label, onSubmit, cancelButtonLabel, submitButtonLabel
   const hasWelcomeMessageTypes =
     form.welcomeMessageTypes && form.welcomeMessageTypes.length > 0 && !errors.welcomeMessageTypes;
 
+  const isSubtitleValid = !showLegacyFields && form.subTitle && !errors.subTitle;
+  const isParticipationMethodValid = !showLegacyFields && form.participationMethod && !errors.participationMethod;
+  const isParticipationIntensityValid =
+    !showLegacyFields && form.participationIntensity && !errors.participationIntensity;
+
   const isRequiredInfoChecked =
     isTitleValid &&
     isCategoryValid &&
@@ -65,7 +78,8 @@ function TableOfContents({ label, onSubmit, cancelButtonLabel, submitButtonLabel
     isImageValid &&
     isDescriptionValid &&
     isApplicationDateValid &&
-    isTargetValid;
+    isTargetValid &&
+    (showLegacyFields || (isSubtitleValid && isParticipationMethodValid && isParticipationIntensityValid));
 
   const isOptionalInfoChecked = hasCoLeader || hasLeaderDesc || hasWelcomeMessageTypes;
 
