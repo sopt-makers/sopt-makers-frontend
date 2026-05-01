@@ -2,7 +2,7 @@ import { useSearchParams } from '@hook/queryString/custom';
 import { SearchField } from '@sopt-makers/ui';
 import { css } from '@stitches/react';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import SearchMobile from './Mobile';
 
@@ -33,9 +33,9 @@ function Search() {
   const searchQuery = String(router.query.search || '');
   const [inputValue, setInputValue] = useState(searchQuery);
 
-  if (!inputValue && searchQuery !== inputValue) {
-    deleteKey();
-  }
+  useEffect(() => {
+    setInputValue(searchQuery);
+  }, [searchQuery]);
 
   return (
     <SearchField
@@ -46,8 +46,14 @@ function Search() {
         setInputValue(e.target.value);
       }}
       onSubmit={() => {
-        setSearch(inputValue);
-        setInputValue(inputValue);
+        const searchValue = inputValue.trim();
+
+        if (!searchValue) {
+          deleteKey();
+          return;
+        }
+
+        setSearch(searchValue);
       }}
       onReset={() => {
         setInputValue('');
