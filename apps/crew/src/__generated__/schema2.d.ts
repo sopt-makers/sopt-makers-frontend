@@ -2040,6 +2040,51 @@ export interface components {
       /** @description 모임 키워드 타입 목록 */
       meetingKeywordTypes: string[];
     };
+    /** @description 모임 같은 파트/기수 신청 정보 조회 dto */
+    ApplyMemberInfoDto: {
+      /**
+       * Format: int32
+       * @description 신청 id
+       * @example 3
+       */
+      id: number;
+      /**
+       * Format: int32
+       * @description 신청 번호
+       * @example 1
+       */
+      applyNumber: number;
+      /**
+       * Format: int32
+       * @description 신청 타입
+       * @example 0
+       */
+      type: number;
+      /**
+       * Format: int32
+       * @description 모임 id
+       * @example 13
+       */
+      meetingId: number;
+      /**
+       * Format: int32
+       * @description 신청자 id
+       * @example 184
+       */
+      userId: number;
+      /**
+       * Format: date-time
+       * @description 신청 날짜 및 시간
+       */
+      appliedDate: string;
+      /**
+       * Format: int32
+       * @description 신청 상태
+       * @example 1
+       */
+      status: number;
+      user: components['schemas']['ApplicantByMeetingDto'];
+    };
     /** @description 모임 내 같은 파트/기수 참여 멤버 리스트 조회 dto */
     MeetingV2GetMeetingPartMembersResponseDto: {
       /**
@@ -2064,30 +2109,8 @@ export interface components {
        * @example 38
        */
       activeGeneration?: number;
-      /**
-       * @description 유저 리스트의 index id
-       * @example [
-       *   1,
-       *   2
-       * ]
-       */
-      memberIds?: number[];
-      /**
-       * @description 유저 이름 리스트
-       * @example [
-       *   "이지훈",
-       *   "김효준"
-       * ]
-       */
-      memberNames?: string[];
-      /**
-       * @description 유저 프로필 이미지 리스트
-       * @example [
-       *   "https://example.com/profile.png",
-       *   null
-       * ]
-       */
-      memberProfileImages?: string[];
+      /** @description 조건에 맞는 신청 정보 목록 */
+      appliedInfo?: components['schemas']['ApplyMemberInfoDto'][];
     };
     /** @description 모임 신청자 객체 Dto */
     ApplicantDto: {
