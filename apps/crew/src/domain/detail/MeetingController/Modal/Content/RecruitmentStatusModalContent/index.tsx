@@ -32,7 +32,7 @@ const RecruitmentStatusModalContent = ({
           <RecruitmentStatusList recruitmentStatusList={appliedInfo} />
         </SRecruitmentStatusListWrapper>
       ) : (
-        <SEmptyText>{isHost ? '신청자' : '참여자'}가 없습니다.</SEmptyText>
+        <SEmptyText>{isHost ? '신청자' : '참여자'}가 아직 없어요.</SEmptyText>
       )}
       {isBottomVisible && (
         <SRecruitmentStatusModalBottom>

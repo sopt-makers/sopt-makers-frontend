@@ -1,4 +1,8 @@
 import type { GetMeetingPartMembers } from '@api/meeting/type';
+import { useUserProfileQueryOption } from '@api/user/query';
+import ProfileDefaultIcon from '@assets/svg/profile_default.svg?rect';
+import { APPROVAL_STATUS, EApprovalStatus } from '@constant/option';
+import { useQuery } from '@tanstack/react-query';
 import { styled } from 'stitches.config';
 
 interface PartStatusModalContentProps {
@@ -6,23 +10,33 @@ interface PartStatusModalContentProps {
 }
 
 const PartStatusModalContent = ({ partMembersData }: PartStatusModalContentProps) => {
-  const memberNames = partMembersData.memberNames ?? [];
-  const total = partMembersData.participantCount ?? memberNames.length;
+  const { data: me } = useQuery(useUserProfileQueryOption());
+  const appliedInfo = partMembersData.appliedInfo ?? [];
+  const total = partMembersData.participantCount ?? appliedInfo.length;
 
   return (
     <>
-      {memberNames.length > 0 ? (
+      {appliedInfo.length > 0 ? (
         <SListWrapper>
-          <SList>
-            {memberNames.map((name, idx) => (
-              <SItem key={idx}>{name}</SItem>
-            ))}
-          </SList>
+          <SScrollWrapper>
+            <SList>
+              {appliedInfo.map(({ status, applyNumber, user: { orgId, id, name, profileImage } }) => (
+                <SItem key={id} isActive={me?.orgId === orgId}>
+                  <div>
+                    <AppliedNumberText>{applyNumber}</AppliedNumberText>
+                    {profileImage ? <img src={profileImage} alt='' /> : <ProfileDefaultIcon />}
+                    <span>{name}</span>
+                  </div>
+                  <SStatusText isApproved={status === EApprovalStatus.APPROVE}>{APPROVAL_STATUS[status]}</SStatusText>
+                </SItem>
+              ))}
+            </SList>
+          </SScrollWrapper>
         </SListWrapper>
       ) : (
         <SEmptyText>신청자가 아직 없어요.</SEmptyText>
       )}
-      {memberNames.length > 0 && (
+      {appliedInfo.length > 0 && (
         <SModalBottom>
           <STotal>총 {total}명 신청</STotal>
         </SModalBottom>
@@ -41,22 +55,12 @@ const SListWrapper = styled('div', {
   },
 });
 
-const SList = styled('div', {
-  'display': 'grid',
-  'gridTemplateColumns': 'repeat(2, 1fr)',
-  'gap': '$12',
-  'padding': '0 $24',
+const SScrollWrapper = styled('div', {
   'height': '$219',
   'overflowY': 'scroll',
 
   '@tablet': {
-    gap: '$8',
-    padding: '0 $20',
     height: '$160',
-  },
-
-  '@mobile': {
-    gridTemplateColumns: '1fr',
   },
 
   '&::-webkit-scrollbar': {
@@ -70,19 +74,121 @@ const SList = styled('div', {
   },
 });
 
+const SList = styled('div', {
+  'display': 'grid',
+  'gridTemplateColumns': 'repeat(2, 1fr)',
+  'gap': '$12',
+  'padding': '0 $24',
+
+  '@tablet': {
+    gap: '$8',
+    padding: '0 $20',
+  },
+
+  '@mobile': {
+    gridTemplateColumns: '1fr',
+  },
+});
+
 const SItem = styled('div', {
   'flexType': 'verticalCenter',
+  'justifyContent': 'space-between',
+
+  'width': '100%',
   'height': '$64',
   'padding': '$16 $20',
+
   'borderRadius': '12px',
   'backgroundColor': '$gray700',
   'color': '$gray10',
+
   'fontAg': '16_semibold_100',
 
   '@tablet': {
     height: '$48',
     padding: '$11 $12',
     fontAg: '14_medium_100',
+  },
+
+  'div': {
+    flexType: 'verticalCenter',
+  },
+
+  'img': {
+    'width': '$32',
+    'height': '$32',
+    'borderRadius': '$round',
+    'objectFit': 'cover',
+    'background': '$gray600',
+
+    '@tablet': {
+      width: '$26',
+      height: '$26',
+    },
+  },
+
+  'svg': {
+    'width': '$32',
+    'height': '$32',
+
+    '@tablet': {
+      width: '$26',
+      height: '$26',
+    },
+  },
+
+  'span': {
+    'ml': '$10',
+    'whiteSpace': 'nowrap',
+    'overflow': 'hidden',
+    'textOverflow': 'ellipsis',
+    'maxWidth': '$154',
+
+    '@tablet': {
+      maxWidth: '$61',
+    },
+  },
+
+  'variants': {
+    isActive: {
+      true: {
+        border: '1px solid $gray10',
+      },
+      false: {
+        border: 'none',
+      },
+    },
+  },
+});
+
+const AppliedNumberText = styled('p', {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+
+  width: '$30',
+  mr: '$10',
+});
+
+const SStatusText = styled('div', {
+  'ml': '$14',
+  'color': '$gray500',
+  'fontAg': '14_medium_100',
+
+  'variants': {
+    isApproved: {
+      true: {
+        color: '$success',
+      },
+      false: {
+        color: '$gray500',
+      },
+    },
+  },
+
+  '@tablet': {
+    ml: '$9',
+    fontSize: '$10',
   },
 });
 
