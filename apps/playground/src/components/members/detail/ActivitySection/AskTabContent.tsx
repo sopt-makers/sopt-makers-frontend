@@ -136,7 +136,7 @@ const AskTabContent = ({ memberId, memberName, meId, unansweredCount }: AskTabCo
   };
 
   useEffect(() => {
-    if (selectedTab !== 'answered' || scrollTargetIndex == null || questions.length === 0) return;
+    if (scrollTargetIndex == null || questions.length === 0) return;
 
     if (isLoading) return;
 

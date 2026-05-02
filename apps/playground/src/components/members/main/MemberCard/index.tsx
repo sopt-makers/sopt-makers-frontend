@@ -3,9 +3,11 @@ import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 import { Tag } from '@sopt-makers/ui';
+import { useQueryClient } from '@tanstack/react-query';
 import { m } from 'framer-motion';
 import { useRouter } from 'next/router';
 
+import { getQuestionLocationEndpoint } from '@/api/endpoint/members/getQuestionLocation';
 import type { QuestionPreview } from '@/api/endpoint_LEGACY/members/type';
 import Responsive from '@/components/common/Responsive';
 import Text from '@/components/common/Text';
@@ -60,12 +62,28 @@ const MemberCard = ({
     router.push(playgroundLink.coffeechatDetail(memberId));
   };
 
+  const queryClient = useQueryClient();
   const { logClickEvent } = useEventLogger();
-  const handleAskPreviewClick = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleAskPreviewClick = async (e: React.MouseEvent<HTMLDivElement>, questionPreview: QuestionPreview) => {
     e.stopPropagation();
     e.preventDefault();
-    // TODO: 에스크탭으로 페이지네이션 로직 추가
     logClickEvent('memberAskPreview', { id: memberId, name: name });
+
+    const params = { memberId, questionId: questionPreview.questionId };
+    const questionLocation = await queryClient.fetchQuery({
+      queryKey: getQuestionLocationEndpoint.cacheKey(params),
+      queryFn: () => getQuestionLocationEndpoint.request(params),
+    });
+
+    router.push({
+      pathname: `/members/${memberId}`,
+      query: {
+        tab: 'ask',
+        questionTab: questionLocation.tab,
+        scrollPage: questionLocation.page + 1,
+        scrollIndex: questionLocation.index,
+      },
+    });
   };
 
   return (
@@ -139,7 +157,7 @@ const MemberCard = ({
         )}
 
         {questionPreview && (
-          <StyledAskPreviewBubble onClick={handleAskPreviewClick}>
+          <StyledAskPreviewBubble onClick={(e) => handleAskPreviewClick(e, questionPreview)}>
             <Tag size='sm' shape='rect' variant='primary' type='solid'>
               ASK
             </Tag>
