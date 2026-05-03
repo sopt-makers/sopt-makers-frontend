@@ -20,7 +20,7 @@ export const isOverOneYear = (start?: string, end?: string) => {
   return endDate.isAfter(startDate.add(1, 'year'));
 };
 
-export const schema = z.object({
+export const legacyMeetingEditSchema = z.object({
   title: z
     .string()
     .max(30, { message: '30자 까지 입력할 수 있습니다.' })
@@ -106,7 +106,7 @@ export const schema = z.object({
   }),
 });
 
-export const createSchema = schema.extend({
+export const createSchema = legacyMeetingEditSchema.extend({
   subTitle: z
     .string()
     .max(30, { message: '30자 까지 입력할 수 있습니다.' })
@@ -115,7 +115,9 @@ export const createSchema = schema.extend({
   participationIntensity: z.enum(['가볍게', '적당히', '집중형'], { message: '참여 강도를 선택해주세요.' }),
 });
 
-export type FormType = z.infer<typeof schema>;
+export const newMeetingEditSchema = createSchema;
+
+export type FormType = z.infer<typeof legacyMeetingEditSchema>;
 
 export const MAX_FILE_SIZE = 20 * 1024 ** 2; // 5MB
 
