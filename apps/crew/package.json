@@ -51,7 +51,7 @@
   },
   "devDependencies": {
     "@emotion/server": "^11.9.0",
-    "@hookform/devtools": "^4.3.1",
+    "@hookform/devtools": "4.3.1",
     "@sopt-makers/eslint-config": "workspace:^",
     "@types/react-mentions": "4.1.13",
     "@types/react-responsive": "^8.0.5",

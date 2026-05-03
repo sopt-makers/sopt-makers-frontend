@@ -6,6 +6,7 @@ export const useFlashQueryOption = ({ meetingId }: { meetingId: number }) => {
   return queryOptions({
     queryKey: FlashQueryKey.detail(meetingId),
     queryFn: () => getFlash(meetingId),
+    enabled: !!meetingId,
   });
 };
 

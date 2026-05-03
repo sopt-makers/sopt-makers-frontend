@@ -1083,6 +1083,14 @@ export interface components {
        * ]
        */
       welcomeMessageTypes?: string[];
+      /**
+       * @description 모임 키워드 타입 리스트
+       * @example [
+       *   "운동",
+       *   "먹방"
+       * ]
+       */
+      meetingKeywordTypes?: string[];
     };
     /** @description 전체 사용자 조회 응답 Dto */
     UserV2GetAllUserDto: {

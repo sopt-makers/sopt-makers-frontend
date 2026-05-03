@@ -10,7 +10,7 @@ import { colors } from '@sopt-makers/colors';
 import { fontsObject } from '@sopt-makers/fonts';
 import { useQuery } from '@tanstack/react-query';
 import type { FormType } from '@type/form';
-import { createSchema, schema } from '@type/form';
+import { legacyMeetingEditSchema, newMeetingEditSchema } from '@type/form';
 import { formatCalendarDate } from '@util/dayjs';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
@@ -34,7 +34,7 @@ const EditPage = () => {
 
   const formMethods = useForm<FormType>({
     mode: 'onChange',
-    resolver: zodResolver(showLegacyFields ? schema : createSchema),
+    resolver: zodResolver(showLegacyFields ? legacyMeetingEditSchema : newMeetingEditSchema),
     defaultValues: {
       detail: {
         coLeader: [],
