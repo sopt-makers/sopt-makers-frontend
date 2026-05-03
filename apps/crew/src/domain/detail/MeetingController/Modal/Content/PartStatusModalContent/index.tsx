@@ -6,7 +6,7 @@ interface PartStatusModalContentProps {
 }
 
 const PartStatusModalContent = ({ partMembersData }: PartStatusModalContentProps) => {
-  const memberNames = partMembersData.memberNames ?? [];
+  const memberNames = partMembersData.appliedInfo?.map((info) => info.user.name) ?? [];
   const total = partMembersData.participantCount ?? memberNames.length;
 
   return (
@@ -24,7 +24,7 @@ const PartStatusModalContent = ({ partMembersData }: PartStatusModalContentProps
       )}
       {memberNames.length > 0 && (
         <SModalBottom>
-          <STotal>총 {total}명 신청</STotal>
+          <STotal>{total}명 신청</STotal>
         </SModalBottom>
       )}
     </>
