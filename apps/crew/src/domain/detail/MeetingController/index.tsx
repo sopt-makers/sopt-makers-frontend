@@ -65,7 +65,10 @@ const MeetingController = ({ detailData }: DetailHeaderProps) => {
 
   const { open: dialogOpen, close: dialogClose } = useDialog();
   const { data: me } = useQuery(useUserProfileQueryOption());
-  const { data: partMembersData } = useQuery(useMeetingPartMembersQueryOption({ meetingId: Number(meetingId) }));
+  const { data: partMembersData } = useQuery({
+    ...useMeetingPartMembersQueryOption({ meetingId: Number(meetingId) }),
+    enabled: !isFlash && !!meetingId, // 파트 신청 멤버 기능 flash는 제외, 추후 추가하면 enabled 조건에서 isFlash 제거
+  });
   const queryClient = useQueryClient();
   const router = useRouter();
   const isRecruiting = status === ERecruitmentStatus.RECRUITING;
@@ -278,23 +281,26 @@ const MeetingController = ({ detailData }: DetailHeaderProps) => {
         )}
         <div>
           <SStatusButtonWrapper>
-            <SPartStatusButton onClick={handlePartStatusModal}>
-              <span>
-                <SFireEmoji>🔥 </SFireEmoji>
-                {isActiveGeneration ? (
-                  <>
-                    <SPartName>{partMembersData?.part} 파트</SPartName> {partMembersData?.participantCount ?? 0}명
-                    <SApplyingText> 신청 중</SApplyingText>
-                  </>
-                ) : (
-                  <>
-                    {partMembersData?.activeGeneration}기 멤버 {partMembersData?.participantCount ?? 0}명
-                    <SApplyingText> 신청 중</SApplyingText>
-                  </>
-                )}
-              </span>
-              <ArrowSmallRightIcon />
-            </SPartStatusButton>
+            {/* 파트 신청 멤버 기능 flash는 제외, 추후 추가하면 isFlash 분기 제거  */}
+            {!isFlash && (
+              <SPartStatusButton onClick={handlePartStatusModal}>
+                <span>
+                  <SFireEmoji>🔥 </SFireEmoji>
+                  {isActiveGeneration ? (
+                    <>
+                      <SPartName>{partMembersData?.part} 파트</SPartName> {partMembersData?.participantCount ?? 0}명
+                      <SApplyingText> 신청 중</SApplyingText>
+                    </>
+                  ) : (
+                    <>
+                      {partMembersData?.activeGeneration}기 멤버 {partMembersData?.participantCount ?? 0}명
+                      <SApplyingText> 신청 중</SApplyingText>
+                    </>
+                  )}
+                </span>
+                <ArrowSmallRightIcon />
+              </SPartStatusButton>
+            )}
             <SStatusButton onClick={handleRecruitmentStatusModal}>
               <div>
                 <span>모집 현황</span>
