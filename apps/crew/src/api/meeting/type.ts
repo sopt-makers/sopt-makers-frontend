@@ -15,6 +15,10 @@ export type PostMeeting = {
   response: paths['/meeting/v2']['post']['responses']['201']['content']['application/json;charset=UTF-8'];
 };
 
+export type PatchMeeting = {
+  request: paths['/meeting/v2/{meetingId}']['patch']['requestBody']['content']['application/json;charset=UTF-8'];
+};
+
 export type MeetingData = GetMeetingList['response']['meetings'][number];
 
 export type GetMeetingMemberList = {
