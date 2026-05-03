@@ -14,7 +14,7 @@ import {
   postMeetingApplication,
   updateMeetingApplication,
 } from '.';
-import { serializeMeetingData } from './serialize';
+import { serializeMeetingData, serializeUpdateMeetingData } from './serialize';
 
 export const useDeleteMeetingMutation = () => {
   return useMutation({
@@ -41,7 +41,7 @@ export const usePatchMeetingMutation = (meetingId: number) => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (formData: FormType) => patchMeeting(meetingId, serializeMeetingData(formData)),
+    mutationFn: (formData: FormType) => patchMeeting(meetingId, serializeUpdateMeetingData(formData)),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: MeetingQueryKey.detail(meetingId),

@@ -38,7 +38,7 @@ const PartStatusModalContent = ({ partMembersData }: PartStatusModalContentProps
       )}
       {appliedInfo.length > 0 && (
         <SModalBottom>
-          <STotal>총 {total}명 신청</STotal>
+          <STotal>{total}명 신청</STotal>
         </SModalBottom>
       )}
     </>
