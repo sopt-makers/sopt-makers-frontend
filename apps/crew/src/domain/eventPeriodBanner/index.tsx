@@ -1,40 +1,42 @@
 import { useEventBannerInfoQueryOption } from '@api/advertisement/query';
+import { useUserProfileQueryOption } from '@api/user/query';
 import { useDisplay } from '@hook/useDisplay';
 import { Flex } from '@shared/util/layout/Flex';
 import { fontsObject } from '@sopt-makers/fonts';
 import { IconChevronRight } from '@sopt-makers/icons';
 import { Button } from '@sopt-makers/ui';
-import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { styled } from 'stitches.config';
 
 import { ampli } from '@/ampli';
-import { useUserProfileQueryOption } from '@/api/user/query';
 
 const EventPeriodBanner = () => {
-  const { isNewLaptop } = useDisplay();
+  const { isNewLaptop, isMobile } = useDisplay();
   const router = useRouter();
 
   const { data: banner } = useSuspenseQuery(useEventBannerInfoQueryOption());
-  const { data: me } = useQuery(useUserProfileQueryOption());
+  const { data: me } = useSuspenseQuery(useUserProfileQueryOption());
 
   const handleClickApplyButton = () => {
-    ampli.clickBanner({
-      banner_id: banner.advertisementId,
-      banner_url: banner.bannerLink2 ?? undefined,
-      user_id: Number(me?.orgId),
+    ampli.clickEventbannerMainCta({
+      event_id: banner.advertisementId,
+      platform_type: isMobile ? 'MO' : 'PC',
+      user_id: me.orgId,
     });
+    ampli.enterEventMaindetail();
 
     router.push(String(banner.bannerLink2));
   };
 
   const handleClickMoreLink = () => {
-    ampli.clickBanner({
-      banner_id: banner.advertisementId,
-      banner_url: banner.bannerLink1,
-      user_id: Number(me?.orgId),
+    ampli.clickEventbannerSubCta({
+      location: router.pathname === '/' ? 'group/home' : 'group/list',
+      event_id: banner.advertisementId,
+      platform_type: isMobile ? 'MO' : 'PC',
+      user_id: me.orgId,
     });
   };
 

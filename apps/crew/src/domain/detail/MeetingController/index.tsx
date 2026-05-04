@@ -16,6 +16,7 @@ import { ERecruitmentStatus } from '@constant/option';
 import { CAPACITY } from '@domain/detail/MeetingController/constant';
 import FlashAbout from '@domain/detail/MeetingController/FlashAbout';
 import MeetingAbout from '@domain/detail/MeetingController/MeetingAbout';
+import { useDisplay } from '@hook/useDisplay';
 import useModal from '@hook/useModal';
 import DefaultModal from '@shared/modal/DefaultModal';
 import { playgroundLink } from '@sopt/constant';
@@ -63,6 +64,7 @@ const MeetingController = ({ detailData }: DetailHeaderProps) => {
   const isFlash = detailData.category === '번쩍';
   const { status, category, appliedInfo, approved, host: isHost, apply: isApplied, id: meetingId } = detailData;
 
+  const { isMobile } = useDisplay();
   const { open: dialogOpen, close: dialogClose } = useDialog();
   const { data: me } = useQuery(useUserProfileQueryOption());
   const { data: partMembersData } = useQuery({
@@ -97,6 +99,16 @@ const MeetingController = ({ detailData }: DetailHeaderProps) => {
     : `${partMembersData?.activeGeneration}기 신청 멤버`;
 
   const handlePartStatusModal = () => {
+    ampli.clickViewMemberModal({
+      Applied_generation: isActiveGeneration,
+      Applied_part: partMembersData?.part,
+      group_category: category,
+      group_generation: isActiveGeneration,
+      group_id: Number(meetingId),
+      location: router.pathname,
+      platform_type: isMobile ? 'MO' : 'PC',
+      user_id: Number(me?.orgId),
+    });
     handleDefaultModalOpen();
     setModalTitle(partLabel);
   };
@@ -127,7 +139,17 @@ const MeetingController = ({ detailData }: DetailHeaderProps) => {
 
   const handleApplicationModal = () => {
     if (!isApplied) {
-      ampli.clickRegisterGroup({ user_id: Number(me?.orgId) });
+      if (category === '행사') {
+        ampli.clickEventApply({
+          Applied_generation: isActiveGeneration,
+          event_cta_location: 'group/detail',
+          event_id: Number(meetingId),
+          platform_type: isMobile ? 'MO' : 'PC',
+          user_id: Number(me?.orgId),
+        });
+      } else {
+        ampli.clickRegisterGroup({ user_id: Number(me?.orgId) });
+      }
       handleApplicationButton('No resolution');
       return;
     }
