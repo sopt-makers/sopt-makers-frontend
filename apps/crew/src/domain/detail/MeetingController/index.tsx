@@ -138,8 +138,10 @@ const MeetingController = ({ detailData }: DetailHeaderProps) => {
     if (!isApplied) {
       if (category === '행사') {
         ampli.clickEventApply({
+          Applied_generation: isActiveGeneration,
           event_cta_location: 'group/detail',
           event_id: Number(meetingId),
+          platform_type: isMobile ? 'MO' : 'PC',
           user_id: Number(me?.orgId),
         });
       } else {

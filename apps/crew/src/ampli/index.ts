@@ -170,6 +170,7 @@ export interface ClickEventApplyProperties {
    * | Type | number |
    */
   event_id?: number;
+  platform_type?: string;
   /**
    * 유저 아이디값
    *
@@ -180,11 +181,32 @@ export interface ClickEventApplyProperties {
   user_id?: number;
 }
 
-export interface ClickEventbannerCtaProperties {
+export interface ClickEventbannerMainCtaProperties {
   /**
    * 행사 전용 배너에 유저가 클릭한 행사 CTA 종류
    */
   event_cta_type?: string;
+  /**
+   * cta 버튼을 누른 고유 ID 값을 의미
+   *
+   * | Rule | Value |
+   * |---|---|
+   * | Type | number |
+   */
+  event_id?: number;
+  group_part?: string;
+  platform_type?: string;
+  /**
+   * 유저 아이디값
+   *
+   * | Rule | Value |
+   * |---|---|
+   * | Type | integer |
+   */
+  user_id?: number;
+}
+
+export interface ClickEventbannerSubCtaProperties {
   /**
    * 클릭 대상 기수 상태
    */
@@ -197,13 +219,16 @@ export interface ClickEventbannerCtaProperties {
    * | Type | number |
    */
   event_id?: number;
+  location?: string;
+  platform_type?: string;
   /**
-   * 클릭 시 이동 된 파트
+   * 유저 아이디값
+   *
+   * | Rule | Value |
+   * |---|---|
+   * | Type | integer |
    */
-  event_part?: string;
-  group_category?: string;
-  group_part?: string;
-  group_title?: string;
+  user_id?: number;
 }
 
 export interface ClickFeedCardProperties {
@@ -531,17 +556,6 @@ export interface CompletedMakeGroupProperties {
   from_resume: boolean;
 }
 
-export interface EnterEventSubresultProperties {
-  /**
-   * 유저가 클릭한 행사 cta버튼이 위치한 영역
-   */
-  event_cta_location?: string;
-  /**
-   * 클릭 대상 기수 상태
-   */
-  event_generation_type?: string;
-}
-
 export interface FilterListOptionManagementProperties {
   /**
    * | Rule | Value |
@@ -682,10 +696,18 @@ export class ClickEventApply implements BaseEvent {
   }
 }
 
-export class ClickEventbannerCta implements BaseEvent {
-  event_type = 'Click-eventbanner-CTA';
+export class ClickEventbannerMainCta implements BaseEvent {
+  event_type = 'Click-eventbanner-mainCTA';
 
-  constructor(public event_properties?: ClickEventbannerCtaProperties) {
+  constructor(public event_properties?: ClickEventbannerMainCtaProperties) {
+    this.event_properties = event_properties;
+  }
+}
+
+export class ClickEventbannerSubCta implements BaseEvent {
+  event_type = 'Click-eventbanner-subCTA';
+
+  constructor(public event_properties?: ClickEventbannerSubCtaProperties) {
     this.event_properties = event_properties;
   }
 }
@@ -964,14 +986,6 @@ export class CompletedMakeGroup implements BaseEvent {
 
 export class EnterEventMaindetail implements BaseEvent {
   event_type = 'Enter-event-maindetail';
-}
-
-export class EnterEventSubresult implements BaseEvent {
-  event_type = 'Enter-event-subresult';
-
-  constructor(public event_properties?: EnterEventSubresultProperties) {
-    this.event_properties = event_properties;
-  }
 }
 
 export class FilterListOptionManagement implements BaseEvent {
@@ -1276,20 +1290,37 @@ export class Ampli {
   }
 
   /**
-   * Click-eventbanner-CTA
+   * Click-eventbanner-mainCTA
    *
-   * [View in Tracking Plan](https://data.amplitude.com/sopt-makers/sopt-makers-crew-prd/events/main/latest/Click-eventbanner-CTA)
+   * [View in Tracking Plan](https://data.amplitude.com/sopt-makers/sopt-makers-crew-prd/events/main/latest/Click-eventbanner-mainCTA)
    *
    * 유저가 행사 전용 배너 내 CTA를 클릭해 행사 모임으로 이동을 시도할 때 발생하는 이벤트
    *
    * @param properties The event's properties (e.g. event_cta_type)
    * @param options Amplitude event options.
    */
-  clickEventbannerCta(
-    properties?: ClickEventbannerCtaProperties,
+  clickEventbannerMainCta(
+    properties?: ClickEventbannerMainCtaProperties,
     options?: EventOptions,
   ) {
-    return this.track(new ClickEventbannerCta(properties), options);
+    return this.track(new ClickEventbannerMainCta(properties), options);
+  }
+
+  /**
+   * Click-eventbanner-subCTA
+   *
+   * [View in Tracking Plan](https://data.amplitude.com/sopt-makers/sopt-makers-crew-prd/events/main/latest/Click-eventbanner-subCTA)
+   *
+   * 사용자가 행사 전용 배너의 서브 CTA를 통해 행사 검색 결과가 적용된 전체모임 화면에 진입할 때 발생하는 이벤트
+   *
+   * @param properties The event's properties (e.g. event_generation_type)
+   * @param options Amplitude event options.
+   */
+  clickEventbannerSubCta(
+    properties?: ClickEventbannerSubCtaProperties,
+    options?: EventOptions,
+  ) {
+    return this.track(new ClickEventbannerSubCta(properties), options);
   }
 
   /**
@@ -1948,23 +1979,6 @@ export class Ampli {
     options?: EventOptions,
   ) {
     return this.track(new EnterEventMaindetail(), options);
-  }
-
-  /**
-   * Enter-event-subresult
-   *
-   * [View in Tracking Plan](https://data.amplitude.com/sopt-makers/sopt-makers-crew-prd/events/main/latest/Enter-event-subresult)
-   *
-   * 사용자가 행사 전용 배너의 서브 CTA를 통해 행사 검색 결과가 적용된 전체모임 화면에 진입할 때 발생하는 이벤트
-   *
-   * @param properties The event's properties (e.g. event_cta_location)
-   * @param options Amplitude event options.
-   */
-  enterEventSubresult(
-    properties?: EnterEventSubresultProperties,
-    options?: EventOptions,
-  ) {
-    return this.track(new EnterEventSubresult(properties), options);
   }
 
   /**

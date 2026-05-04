@@ -1,4 +1,5 @@
 import { useEventBannerInfoQueryOption } from '@api/advertisement/query';
+import { useUserProfileQueryOption } from '@api/user/query';
 import { useDisplay } from '@hook/useDisplay';
 import { Flex } from '@shared/util/layout/Flex';
 import { fontsObject } from '@sopt-makers/fonts';
@@ -13,14 +14,17 @@ import { styled } from 'stitches.config';
 import { ampli } from '@/ampli';
 
 const EventPeriodBanner = () => {
-  const { isNewLaptop } = useDisplay();
+  const { isNewLaptop, isMobile } = useDisplay();
   const router = useRouter();
 
   const { data: banner } = useSuspenseQuery(useEventBannerInfoQueryOption());
+  const { data: me } = useSuspenseQuery(useUserProfileQueryOption());
 
   const handleClickApplyButton = () => {
-    ampli.clickEventbannerCta({
+    ampli.clickEventbannerMainCta({
       event_id: banner.advertisementId,
+      platform_type: isMobile ? 'MO' : 'PC',
+      user_id: me.orgId,
     });
     ampli.enterEventMaindetail();
 
@@ -28,8 +32,11 @@ const EventPeriodBanner = () => {
   };
 
   const handleClickMoreLink = () => {
-    ampli.enterEventSubresult({
-      event_cta_location: router.pathname === '/' ? 'group/home' : 'group/list',
+    ampli.clickEventbannerSubCta({
+      location: router.pathname === '/' ? 'group/home' : 'group/list',
+      event_id: banner.advertisementId,
+      platform_type: isMobile ? 'MO' : 'PC',
+      user_id: me.orgId,
     });
   };
 
