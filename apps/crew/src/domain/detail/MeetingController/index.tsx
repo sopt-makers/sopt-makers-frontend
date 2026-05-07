@@ -315,8 +315,8 @@ const MeetingController = ({ detailData }: DetailHeaderProps) => {
                     </>
                   ) : (
                     <>
-                      {partMembersData?.activeGeneration}기 멤버 {partMembersData?.participantCount ?? 0}명
-                      <SApplyingText> 신청 중</SApplyingText>
+                      <SPartName>{partMembersData?.activeGeneration}기 멤버</SPartName>
+                      {partMembersData?.participantCount ?? 0}명<SApplyingText> 신청 중</SApplyingText>
                     </>
                   )}
                 </span>
@@ -413,25 +413,24 @@ const SStatusButtonWrapper = styled('div', {
 
 const SPartStatusButton = styled('button', {
   'outline': 'solid 1px $gray700',
-  'display': 'grid',
-  'gridTemplateColumns': '1fr auto 1fr',
+  'display': 'flex',
   'alignItems': 'center',
   'width': '$300',
   'height': '$34',
   'borderRadius': '999px',
   'backgroundColor': '$gray800',
-  'padding': '0 $16',
+  'paddingRight': '$20',
   'color': '$gray10',
 
   '& > span': {
-    gridColumn: 2,
+    flex: 1,
+    textAlign: 'center',
     ...fontsObject.BODY_2_16_R,
     whiteSpace: 'nowrap',
   },
 
   '& > svg': {
-    gridColumn: 3,
-    justifySelf: 'end',
+    flexShrink: 0,
   },
 
   // 모바일: flex + SStatusButton과 동일한 UI, 오른쪽 배치
@@ -447,7 +446,8 @@ const SPartStatusButton = styled('button', {
     'order': 2,
 
     '& > span': {
-      gridColumn: 'auto',
+      flex: 'initial',
+      textAlign: 'initial',
       ...fontsObject.LABEL_3_14_SB,
       whiteSpace: 'normal',
       mr: '$6',
@@ -455,8 +455,6 @@ const SPartStatusButton = styled('button', {
     },
 
     '& > svg': {
-      gridColumn: 'auto',
-      justifySelf: 'auto',
       ml: '$2',
     },
   },
