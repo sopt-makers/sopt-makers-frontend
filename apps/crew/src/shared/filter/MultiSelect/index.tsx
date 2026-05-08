@@ -73,7 +73,7 @@ const SSelectWrapper = styled('div', {
   'position': 'relative',
   '& + &': {
     'ml': '$12',
-    '@media (max-width: 768px)': {
+    '@mobile': {
       ml: '$8',
     },
   },
@@ -92,7 +92,7 @@ const SSelectDisplay = styled(Flex, {
       },
     },
   },
-  '@media (max-width: 768px)': {
+  '@mobile': {
     width: '96px',
     height: '36px',
     padding: '$12 $10',
@@ -121,7 +121,7 @@ const SCategory = styled('span', {
       },
     },
   },
-  '@media (max-width: 768px)': {
+  '@mobile': {
     fontAg: '12_semibold_100',
   },
 });
@@ -146,7 +146,7 @@ const SSelectBoxList = styled('div', {
       false: { visibility: 'hidden' },
     },
   },
-  '@media (max-width: 768px)': {
+  '@mobile': {
     display: 'none',
   },
 });
@@ -174,7 +174,7 @@ const SSelectOverlay = styled('div', {
     },
   },
   // TODO: 임시 삭제후, select에도 적용 논의
-  '@media (max-width: 768px)': {
+  '@mobile': {
     backgroundColor: '$black80_trans',
   },
 });

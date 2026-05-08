@@ -64,7 +64,7 @@ const SInput = styled('input', {
     color: '$gray300',
   },
 
-  '@media (max-width: 768px)': {
+  '@mobile': {
     padding: '16px',
   },
 });

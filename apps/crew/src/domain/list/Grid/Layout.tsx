@@ -18,7 +18,7 @@ const StyledGridContainer = styled('div', {
   'margin': '24px 0 120px 0',
   'placeItems': 'start center',
 
-  '@laptop': {
+  '@large_desktop': {
     gridTemplateColumns: 'repeat(2, 1fr)',
   },
 
@@ -36,7 +36,7 @@ const StyledGridContainer = styled('div', {
         },
       },
       card: {
-        '@media (max-width: 768px)': {
+        '@mobile': {
           alignItems: 'center',
           gridTemplateColumns: 'repeat(3, 1fr)',
           margin: '16px 0 40px 0',

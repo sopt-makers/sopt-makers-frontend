@@ -41,7 +41,7 @@ const SCheckbox = styled('input', {
     cursor: 'pointer',
     fontAg: '18_medium_100',
   },
-  '@media (max-width: 768px)': {
+  '@mobile': {
     '& + label': {
       cursor: 'pointer',
       fontAg: '16_medium_100',

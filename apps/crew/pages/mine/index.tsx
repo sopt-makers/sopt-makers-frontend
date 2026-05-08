@@ -68,7 +68,7 @@ const STabList = styled(Tab.List, {
   'flexType': 'center',
   'marginTop': '126px',
   'paddingBottom': '64px',
-  '@media (max-width: 768px)': {
+  '@mobile': {
     marginTop: '48px',
     paddingBottom: '24px',
   },
@@ -88,7 +88,7 @@ const STab = styled('button', {
       false: { color: '$gray500' },
     },
   },
-  '@media (max-width: 768px)': {
+  '@mobile': {
     fontAg: '14_bold_100',
     py: '$12',
   },

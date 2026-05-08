@@ -317,7 +317,7 @@ const SCustomSuggestionsContainer = styled('div', {
   'maxHeight': '418px',
   'overflow': 'scroll',
 
-  '@media (max-width: 768px)': {
+  '@mobile': {
     position: 'fixed',
     left: '0',
     bottom: '120px',
@@ -343,7 +343,7 @@ const SRenderSuggestion = styled('button', {
     ...fontsObject.BODY_4_13_R,
     color: colors.gray100,
   },
-  '@media (max-width: 768px)': {
+  '@mobile': {
     padding: '16px 12px',
   },
 });

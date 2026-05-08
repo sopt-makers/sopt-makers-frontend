@@ -22,7 +22,7 @@ function Pagination({ totalPageLength, currentPage, onPageChange }: PaginationPr
     <Flex align='center' justify='center'>
       <Flex align='center'>
         <SArrowButton direction='left' disabled={isFirstGroup} onClick={isFirstGroup ? undefined : handlePrevGroup} />
-        <Flex css={{ 'mx': '$24', '@media (max-width: 768px)': { mx: '$10' } }} as='ul'>
+        <Flex css={{ 'mx': '$24', '@mobile': { mx: '$10' } }} as='ul'>
           {visiblePages.map((page) => (
             <SPageLink key={page} isCurrent={currentPage === page} onClick={() => handlePageClick(page)}>
               {page}
@@ -58,7 +58,7 @@ const SPageLink = styled('li', {
     ml: '$12',
   },
 
-  '@media (max-width: 768px)': {
+  '@mobile': {
     'width': '$24',
     'height': '$24',
     'fontAg': '14_bold_100',
@@ -69,7 +69,7 @@ const SPageLink = styled('li', {
 });
 
 const SArrowButton = styled(ArrowButton, {
-  '@media (max-width: 768px)': {
+  '@mobile': {
     '& svg': {
       width: '$12',
       height: '$12',

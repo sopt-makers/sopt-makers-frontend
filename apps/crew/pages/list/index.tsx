@@ -48,16 +48,16 @@ const SFilterWrapper = styled('div', {
 });
 
 const SEventPeriodBannerWrapper = styled('div', {
-  '@new_mobile': {
+  '@mobile': {
     mt: '$28',
   },
-  '@new_tablet': {
+  '@tablet': {
     mt: '$28',
   },
-  '@new_desktop': {
+  '@desktop': {
     mt: '$40',
   },
-  '@new_laptop': {
+  '@large_desktop': {
     mt: '$40',
   },
 });

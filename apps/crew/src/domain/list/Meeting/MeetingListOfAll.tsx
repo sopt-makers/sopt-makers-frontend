@@ -130,10 +130,10 @@ const SMeetingCountWrapper = styled('div', {
   '@media (max-width: 849px)': {
     justifyContent: 'center',
   },
-  '@new_mobile': { mt: '$28' },
-  '@new_tablet': { mt: '$40' },
-  '@new_desktop': { mt: '$40' },
-  '@new_laptop': { mt: '$40' },
+  '@mobile': { mt: '$28' },
+  '@tablet': { mt: '$40' },
+  '@desktop': { mt: '$40' },
+  '@large_desktop': { mt: '$40' },
 });
 
 const SMeetingCount = styled('p', {

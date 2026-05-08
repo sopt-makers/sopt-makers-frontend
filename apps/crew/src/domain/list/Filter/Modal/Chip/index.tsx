@@ -42,7 +42,7 @@ const SLabel = styled('p', {
   'color': '$gray10',
   'fontAg': '18_bold_100',
   'mb': '$20',
-  '@media (max-width: 768px)': {
+  '@mobile': {
     fontAg: '14_bold_100',
     mb: '$6',
   },

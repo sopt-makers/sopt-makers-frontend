@@ -362,7 +362,7 @@ export default function PostPage() {
 const Container = styled('div', {
   'flexType': 'horizontalCenter',
   'gap': '40px',
-  '@laptop': {
+  '@large_desktop': {
     flexDirection: 'column',
     alignItems: 'center',
     gap: 0,
@@ -373,13 +373,13 @@ const FeedListContainer = styled('div', {
   'display': 'flex',
   'flexDirection': 'column',
   'gap': '80px',
-  '@laptop': {
+  '@large_desktop': {
     width: '800px',
     flexDirection: 'row',
     alignItems: 'flex-start',
     gap: '20px',
   },
-  '@media (max-width: 768px)': {
+  '@mobile': {
     display: 'none',
   },
 });

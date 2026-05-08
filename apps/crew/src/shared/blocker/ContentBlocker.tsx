@@ -22,7 +22,7 @@ const Container = styled('div', {
   'background': '$gray900',
   'borderRadius': '12px',
 
-  '@media (max-width: 768px)': {
+  '@mobile': {
     padding: '$24 0 $28 0',
     background: 'transparent',
     borderRadius: 0,

@@ -32,7 +32,7 @@ const SWrapper = styled('div', {
   'position': 'relative',
   'width': '894px',
 
-  '@laptop': {
+  '@large_desktop': {
     width: '100%',
   },
 });

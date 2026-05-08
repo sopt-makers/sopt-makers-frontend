@@ -40,15 +40,15 @@ export default Filter;
 const SearchResultMessage = styled('p', {
   'fontAg': '24_medium_100',
   'mt': '$80',
-  '@media (max-width: 768px)': { display: 'none' },
+  '@mobile': { display: 'none' },
 });
 
 const ScrollFilter = styled('div', {
-  '@laptop': {
+  '@large_desktop': {
     marginTop: '16px',
   },
 
-  '@media (max-width: 768px)': {
+  '@mobile': {
     'overflow': 'hidden',
     'overflowX': 'scroll',
 

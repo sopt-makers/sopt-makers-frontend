@@ -151,7 +151,7 @@ const Layout = styled('div', {
   'width': '1200px',
   'height': '100%',
 
-  '@laptop': {
+  '@large_desktop': {
     width: '790px',
   },
   '@media (max-width: 849px)': {

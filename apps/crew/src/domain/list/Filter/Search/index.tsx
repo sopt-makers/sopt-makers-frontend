@@ -21,7 +21,7 @@ const buttonPositioner = css({
     bottom: 0,
   },
 
-  '@media (min-width: 1260px)': {
+  '@large_desktop': {
     width: '335px',
   },
 });

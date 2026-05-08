@@ -390,7 +390,7 @@ const SPanelWrapper = styled('div', {
   'borderBottom': `2px solid $gray700`,
   'mb': '$40',
 
-  '@media (max-width: 767px)': {
+  '@mobile': {
     display: 'block',
     paddingBottom: '0',
     borderBottom: 'none',
@@ -404,7 +404,7 @@ const SStatusButtonWrapper = styled('div', {
   'gap': '$8',
   'mb': '$16',
 
-  '@media (max-width: 767px)': {
+  '@mobile': {
     flexDirection: 'row',
     mt: '$36',
     mb: '$10',
@@ -434,7 +434,7 @@ const SPartStatusButton = styled('button', {
   },
 
   // 모바일: flex + SStatusButton과 동일한 UI, 오른쪽 배치
-  '@media (max-width: 767px)': {
+  '@mobile': {
     'outline': 'none',
     'display': 'flex',
     'flex': 1,
@@ -461,17 +461,17 @@ const SPartStatusButton = styled('button', {
 });
 
 const SFireEmoji = styled('span', {
-  '@media (max-width: 767px)': { display: 'none' },
+  '@mobile': { display: 'none' },
 });
 
 const SPartName = styled('span', {
   'color': '$orange400',
   'fontWeight': 'bold',
-  '@media (max-width: 767px)': { color: 'inherit' },
+  '@mobile': { color: 'inherit' },
 });
 
 const SApplyingText = styled('span', {
-  '@media (max-width: 767px)': { display: 'none' },
+  '@mobile': { display: 'none' },
 });
 
 const Button = styled('button', {
@@ -488,7 +488,7 @@ const SStatusButton = styled(Button, {
   'backgroundColor': '$gray800',
   ...fontsObject.LABEL_1_18_SB,
 
-  '@media (max-width: 767px)': {
+  '@mobile': {
     flex: 1,
     height: '$46',
     padding: '$13 0',
@@ -520,7 +520,7 @@ const SGuestButton = styled(Button, {
   'padding': '$20 0',
   'textAlign': 'center',
   'color': '$gray950',
-  '@media (max-width: 767px)': {
+  '@mobile': {
     width: '100%',
     height: '$46',
     fontStyle: 'T5',

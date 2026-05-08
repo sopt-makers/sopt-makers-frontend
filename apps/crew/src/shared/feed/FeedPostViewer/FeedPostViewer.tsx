@@ -156,7 +156,7 @@ const Container = styled('div', {
   'border': '1px solid $gray700',
   'background': '$gray950',
   'mb': '$80',
-  '@media (max-width: 768px)': {
+  '@mobile': {
     width: '100%',
     border: 'none',
     mb: '$0',
@@ -167,7 +167,7 @@ const ContentWrapper = styled('div', {
   'display': 'flex',
   'flexDirection': 'column',
   'gap': '24px',
-  '@media (max-width: 768px)': {
+  '@mobile': {
     gap: '16px',
     padding: '0 0 20px 0',
   },
@@ -197,7 +197,7 @@ const AuthorName = styled('span', {
   'fontWeight': '600',
   'fontSize': '16px',
   'lineHeight': '22px',
-  '@media (max-width: 768px)': {
+  '@mobile': {
     fontSize: '14px',
     lineHeight: '18px',
   },
@@ -207,7 +207,7 @@ const UpdatedDate = styled('span', {
   'fontWeight': '600',
   'fontSize': '14px',
   'lineHeight': '18px',
-  '@media (max-width: 768px)': {
+  '@mobile': {
     fontSize: '12px',
     lineHeight: '16px',
   },
@@ -229,7 +229,7 @@ const GroupButton = styled('a', {
   '&:hover': {
     outline: '1px solid $gray500',
   },
-  '@media (max-width: 768px)': {
+  '@mobile': {
     height: 'fit-content',
     padding: '$14 $12 $14 $14',
   },
@@ -239,7 +239,7 @@ const GroupThumbnail = styled('img', {
   'height': '100%',
   'objectFit': 'cover',
   'borderRadius': '8px',
-  '@media (max-width: 768px)': {
+  '@mobile': {
     display: 'none',
   },
 });
@@ -255,14 +255,14 @@ const GroupInformation = styled('div', {
     'fontWeight': '600',
     'fontSize': '16px',
     'lineHeight': '22px',
-    '@media (max-width: 768px)': {
+    '@mobile': {
       fontSize: '14px',
       lineHeight: '18px',
     },
   },
   'span + span': {
     'marginLeft': '$8',
-    '@media (max-width: 768px)': {
+    '@mobile': {
       marginLeft: '$6',
     },
   },
@@ -287,14 +287,14 @@ const GroupDescription = styled('p', {
   'display': '-webkit-box',
   'WebkitLineClamp': 2,
   'WebkitBoxOrient': 'vertical',
-  '@media (max-width: 768px)': {
+  '@mobile': {
     display: 'none',
   },
 });
 const Title = styled('h2', {
   'color': 'white',
   'fontStyle': 'H2',
-  '@media (max-width: 768px)': {
+  '@mobile': {
     fontStyle: 'H4',
   },
 });
@@ -304,13 +304,13 @@ const Contents = styled('p', {
   'fontStyle': 'B2',
   'whiteSpace': 'pre-wrap',
   'wordBreak': 'break-word',
-  '@media (max-width: 768px)': {
+  '@mobile': {
     fontStyle: 'B3',
   },
 });
 const ImageSection = styled('section', {
   'margin': '24px 0',
-  '@media (max-width: 768px)': {
+  '@mobile': {
     margin: '16px 0',
   },
 });
@@ -320,7 +320,7 @@ const BigImage = styled('img', {
   'objectFit': 'cover',
   'borderRadius': '10px',
   'cursor': 'pointer',
-  '@media (max-width: 768px)': {
+  '@mobile': {
     height: '219px',
   },
 });
@@ -328,7 +328,7 @@ const ImageListWrapper = styled('div', {
   'display': 'grid',
   'gridTemplateColumns': 'repeat(5, 1fr)',
   'gap': '8px',
-  '@media (max-width: 768px)': {
+  '@mobile': {
     'display': 'flex',
     'gap': '6px',
     'overflowX': 'scroll',
@@ -345,7 +345,7 @@ const ImageListItem = styled('img', {
   'objectFit': 'cover',
   'borderRadius': '8px',
   'cursor': 'pointer',
-  '@media (max-width: 768px)': {
+  '@mobile': {
     height: '144px',
   },
 });
@@ -353,7 +353,7 @@ const ViewCount = styled('span', {
   'alignSelf': 'flex-end',
   'color': '$gray200',
   'fontStyle': 'B4',
-  '@media (max-width: 768px)': {
+  '@mobile': {
     fontStyle: 'C1',
   },
 });
@@ -392,7 +392,7 @@ const CommentLikeWrapper = styled('div', {
   'flexType': 'center',
   'borderTop': '1px solid $gray700',
   'borderBottom': '1px solid $gray700',
-  '@media (max-width: 768px)': {
+  '@mobile': {
     width: '100vw',
     marginLeft: 'calc(50% - 50vw)',
   },
@@ -402,7 +402,7 @@ const CommentListWrapper = styled('div', {
   'display': 'flex',
   'flexDirection': 'column',
   'gap': '40px',
-  '@media (max-width: 768px)': {
+  '@mobile': {
     padding: '24px 0 32px 0',
     gap: '36px',
   },
@@ -410,7 +410,7 @@ const CommentListWrapper = styled('div', {
 const SAvatar = styled(Avatar, {
   'width': '44px',
   'height': '44px',
-  '@media (max-width: 768px)': {
+  '@mobile': {
     width: '40px',
     height: '40px',
   },

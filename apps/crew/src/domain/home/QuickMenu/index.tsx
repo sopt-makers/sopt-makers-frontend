@@ -39,7 +39,7 @@ const SContainer = styled('section', {
   'flexDirection': 'column',
   'gap': '40px',
 
-  '@laptop': {
+  '@large_desktop': {
     flexDirection: 'row',
     gap: '40px',
 
@@ -75,7 +75,7 @@ const SItem = styled('div', {
 
   'cursor': 'pointer',
 
-  '@laptop': {
+  '@large_desktop': {
     flexDirection: 'column',
     gap: '12px',
   },
@@ -87,7 +87,7 @@ const SItemLabel = styled('h3', {
   'color': '$white',
   'textAlign': 'center',
 
-  '@laptop': {
+  '@large_desktop': {
     flexDirection: 'column',
 
     fontStyle: 'H4',

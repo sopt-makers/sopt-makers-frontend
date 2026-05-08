@@ -75,10 +75,10 @@ const SGradationRight = styled('div', {
   'right': '-1px',
   'pointerEvents': 'none',
 
-  '@media (min-width: 1259px)': {
+  '@large_desktop': {
     display: 'none',
   },
-  '@media (max-width: 768px)': {
+  '@mobile': {
     display: 'none',
   },
 });
@@ -121,7 +121,7 @@ const SCardWrapper = styled('div', {
     width: '100%',
   },
 
-  '@laptop': {
+  '@large_desktop': {
     overflow: 'auto',
     hideScrollbar: true,
   },

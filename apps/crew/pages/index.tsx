@@ -64,16 +64,16 @@ const Home: NextPage = () => {
 export default Home;
 
 const SEventPeriodBannerWrapper = styled('div', {
-  '@new_mobile': {
+  '@mobile': {
     mt: '$30',
   },
-  '@new_tablet': {
+  '@tablet': {
     mt: '$45',
   },
-  '@new_desktop': {
+  '@desktop': {
     mt: '$45',
   },
-  '@new_laptop': {
+  '@large_desktop': {
     mt: '$65',
   },
 });
@@ -87,18 +87,18 @@ const SContentTitle = styled('div', {
   'alignItems': 'center',
   'width': '100%',
 
-  '@new_mobile': {
+  '@mobile': {
     mt: '$40',
     display: 'flex',
     fontSize: '16px',
   },
-  '@new_tablet': {
+  '@tablet': {
     mt: '$40',
   },
-  '@new_desktop': {
+  '@desktop': {
     mt: '$60',
   },
-  '@new_laptop': {
+  '@large_desktop': {
     mt: '$72',
   },
 });

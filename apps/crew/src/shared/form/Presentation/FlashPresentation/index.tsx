@@ -478,7 +478,7 @@ const SForm = styled('form', {
   'display': 'flex',
   'flexDirection': 'column',
   'gap': '60px',
-  '@media (max-width: 768px)': {
+  '@mobile': {
     gap: '56px',
   },
 });
@@ -501,7 +501,7 @@ const SApplicationField = styled('div', {
   'width': '100%',
   'maxWidth': '205px',
 
-  '@media (max-width: 768px)': {
+  '@mobile': {
     maxWidth: '151px',
   },
 });
@@ -519,7 +519,7 @@ const STargetChipContainer = styled('div', {
   'gap': '$10',
   'flexWrap': 'wrap',
 
-  '@media(max-width: 430px)': {
+  '@mobile': {
     maxWidth: '320px',
   },
 });
@@ -529,7 +529,7 @@ const ButtonContainer = styled('div', {
   'gap': '20px',
   'alignSelf': 'flex-end',
 
-  '@media (max-width: 768px)': {
+  '@mobile': {
     flexDirection: 'column-reverse',
     width: '100%',
     marginBottom: '20px',
@@ -547,7 +547,7 @@ const Button = styled('button', {
   'fontAg': '18_bold_100',
   'color': '$gray10',
 
-  '@media (max-width: 768px)': {
+  '@mobile': {
     gap: '10px',
     width: '100%',
     fontAg: '16_bold_100',

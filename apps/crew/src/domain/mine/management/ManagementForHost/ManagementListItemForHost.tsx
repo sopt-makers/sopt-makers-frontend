@@ -180,7 +180,7 @@ export default ManagementListItemForHost;
 const SDesktopListItem = styled(SListItem, {
   'display': 'flex',
 
-  '@media (max-width: 768px)': {
+  '@mobile': {
     display: 'none',
   },
 });
@@ -188,7 +188,7 @@ const SDesktopListItem = styled(SListItem, {
 const SMobileCard = styled('div', {
   'display': 'none',
 
-  '@media (max-width: 768px)': {
+  '@mobile': {
     display: 'block',
   },
 });
