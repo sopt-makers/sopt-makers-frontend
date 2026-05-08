@@ -14,7 +14,7 @@ import { styled } from 'stitches.config';
 import { ampli } from '@/ampli';
 
 const EventPeriodBanner = () => {
-  const { isNewLaptop, isMobile } = useDisplay();
+  const { isLaptop, isMobile } = useDisplay();
   const router = useRouter();
 
   const { data: banner } = useSuspenseQuery(useEventBannerInfoQueryOption());
@@ -57,7 +57,7 @@ const EventPeriodBanner = () => {
     <Container
       css={{
         'backgroundImage': `url(${banner.desktopImageUrl})`,
-        '@new_mobile': {
+        '@mobile': {
           backgroundImage: `url(${banner.mobileImageUrl})`,
         },
       }}
@@ -74,7 +74,7 @@ const EventPeriodBanner = () => {
         </Flex>
       </InfoSection>
       <CTASection>
-        <ApplyButton size={isNewLaptop ? 'lg' : 'md'} variant='fill' onClick={handleClickApplyButton}>
+        <ApplyButton size={isLaptop ? 'lg' : 'md'} variant='fill' onClick={handleClickApplyButton}>
           내 파트 신청하기
         </ApplyButton>
         {banner.eventType === 'SOPKATHON' && banner.bannerLink1 && (
@@ -102,16 +102,16 @@ const Container = styled('section', {
   'backgroundRepeat': 'no-repeat',
   'backgroundSize': 'cover',
   'borderRadius': '$8',
-  '@new_mobile': {
+  '@mobile': {
     py: '$28',
   },
-  '@new_tablet': {
+  '@tablet': {
     py: '$30',
   },
-  '@new_desktop': {
+  '@desktop': {
     py: '$30',
   },
-  '@new_laptop': {
+  '@large_desktop': {
     py: '$36',
   },
 });
@@ -119,22 +119,22 @@ const Container = styled('section', {
 const InfoSection = styled('header', {
   'display': 'flex',
   'alignItems': 'center',
-  '@new_mobile': {
+  '@mobile': {
     flexDirection: 'column',
     gap: '$16',
     mb: '$18',
   },
-  '@new_tablet': {
+  '@tablet': {
     flexDirection: 'row',
     gap: '$24',
     mb: '$32',
   },
-  '@new_desktop': {
+  '@desktop': {
     flexDirection: 'row',
     gap: '$24',
     mb: '$32',
   },
-  '@new_laptop': {
+  '@large_desktop': {
     flexDirection: 'row',
     gap: '$24',
     mb: '$32',
@@ -142,19 +142,19 @@ const InfoSection = styled('header', {
 });
 
 const DateImage = styled('img', {
-  '@new_mobile': {
+  '@mobile': {
     width: '63px',
     height: '65px',
   },
-  '@new_tablet': {
+  '@tablet': {
     width: '56px',
     height: '58px',
   },
-  '@new_desktop': {
+  '@desktop': {
     width: '56px',
     height: '58px',
   },
-  '@new_laptop': {
+  '@large_desktop': {
     width: '70px',
     height: '71px',
   },
@@ -167,16 +167,16 @@ const TitleWrapper = styled('h2', {
 
 const STitle = styled('span', {
   'color': '$white',
-  '@new_mobile': {
+  '@mobile': {
     ...fontsObject.HEADING_6_18_B,
   },
-  '@new_tablet': {
+  '@tablet': {
     ...fontsObject.HEADING_4_24_B,
   },
-  '@new_desktop': {
+  '@desktop': {
     ...fontsObject.HEADING_4_24_B,
   },
-  '@new_laptop': {
+  '@large_desktop': {
     ...fontsObject.HEADING_3_28_B,
   },
 });
@@ -187,16 +187,16 @@ const SHighlightTitle = styled(STitle, {
 
 const SSubTitle = styled('p', {
   'color': '$gray100',
-  '@new_mobile': {
+  '@mobile': {
     ...fontsObject.BODY_4_13_M,
   },
-  '@new_tablet': {
+  '@tablet': {
     ...fontsObject.TITLE_6_16_SB,
   },
-  '@new_desktop': {
+  '@desktop': {
     ...fontsObject.TITLE_6_16_SB,
   },
-  '@new_laptop': {
+  '@large_desktop': {
     ...fontsObject.TITLE_5_18_SB,
   },
 });
@@ -205,16 +205,16 @@ const CTASection = styled('div', {
   'display': 'flex',
   'flexDirection': 'column',
   'alignItems': 'center',
-  '@new_mobile': {
+  '@mobile': {
     gap: '$8',
   },
-  '@new_tablet': {
+  '@tablet': {
     gap: '$10',
   },
-  '@new_desktop': {
+  '@desktop': {
     gap: '$10',
   },
-  '@new_laptop': {
+  '@large_desktop': {
     gap: '$10',
   },
 });
@@ -235,10 +235,10 @@ const ApplyButton = styled(Button, {
     color: '$white',
     boxShadow: 'none',
   },
-  '@new_mobile': {},
-  '@new_tablet': {},
-  '@new_desktop': {},
-  '@new_laptop': {},
+  '@mobile': {},
+  '@tablet': {},
+  '@desktop': {},
+  '@large_desktop': {},
 });
 
 const MoreLink = styled(Link, {
@@ -247,16 +247,16 @@ const MoreLink = styled(Link, {
   'flexDirection': 'column',
   'alignItems': 'center',
 
-  '@new_mobile': {
+  '@mobile': {
     ...fontsObject.BODY_4_13_M,
   },
-  '@new_tablet': {
+  '@tablet': {
     ...fontsObject.BODY_4_13_M,
   },
-  '@new_desktop': {
+  '@desktop': {
     ...fontsObject.BODY_4_13_M,
   },
-  '@new_laptop': { ...fontsObject.BODY_3_14_M },
+  '@large_desktop': { ...fontsObject.BODY_3_14_M },
 });
 
 const MoreLinkContent = styled('span', {
