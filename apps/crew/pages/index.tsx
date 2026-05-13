@@ -14,7 +14,7 @@ import { styled } from 'stitches.config';
 
 const Home: NextPage = () => {
   const { isLaptop, isTablet } = useDisplay();
-  // 임시 주석
+
   return (
     <>
       <CrewTab>
