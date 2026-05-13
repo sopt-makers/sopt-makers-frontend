@@ -17,6 +17,8 @@ const authBaseURL = isProduction ? 'https://auth.api.sopt.org' : 'https://auth.a
 
 const playgroundBaseURL = isProduction ? 'https://playground.api.sopt.org/' : 'https://playground.dev.sopt.org/';
 
+const operationBaseURL = process.env.NEXT_PUBLIC_OPERATION_API_URL ?? '';
+
 export const baseApi = axios.create({ baseURL });
 
 export const api = axios.create({
@@ -34,6 +36,15 @@ authToken.subscribe((newToken) => {
 
 export const playgroundApi = axios.create({
   baseURL: playgroundBaseURL,
+});
+
+export const operationApi = axios.create({
+  baseURL: operationBaseURL,
+  headers: {
+    'Accept': '*/*',
+    'Content-Type': 'application/json',
+    'api-key': process.env.NEXT_PUBLIC_ADMIN_KEY ?? '',
+  },
 });
 
 authToken.subscribe((newToken) => {
