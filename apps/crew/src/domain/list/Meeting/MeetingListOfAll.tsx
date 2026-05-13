@@ -1,4 +1,4 @@
-import { useAdvertisementQueryOption } from '@api/advertisement/query';
+import { useBannerQueryOption } from '@api/banner/query';
 import { useMeetingListQueryOption } from '@api/meeting/query';
 import type { MeetingData } from '@api/meeting/type';
 import { useUserProfileQueryOption } from '@api/user/query';
@@ -8,7 +8,6 @@ import { useDisplay } from '@hook/useDisplay';
 import { useScrollRestorationAfterLoading } from '@hook/useScrollRestoration';
 import { Suspense } from '@suspensive/react';
 import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
-import { AdvertisementCategory } from '@type/advertisement';
 import Link from 'next/link';
 import { useEffect } from 'react';
 import { styled } from 'stitches.config';
@@ -24,18 +23,20 @@ function MeetingListOfAll() {
   const { value: page, setValue: setPage } = usePageParams();
   const { isDesktop } = useDisplay();
   const { data: meetingListData, isLoading } = useSuspenseQuery(useMeetingListQueryOption());
-  const { data: meetingAds } = useSuspenseQuery(useAdvertisementQueryOption(AdvertisementCategory.MEETING));
+  const { data: bannerData } = useSuspenseQuery(useBannerQueryOption('cr_main'));
 
   useScrollRestorationAfterLoading(isLoading);
   const { data: me } = useQuery(useUserProfileQueryOption());
 
+  const banner = bannerData?.data?.[0];
+
   useEffect(() => {
     ampli.impressionBanner({
-      banner_id: meetingAds?.advertisements[0]?.advertisementId,
-      banner_url: meetingAds?.advertisements[0]?.advertisementLink,
-      banner_timestamp: meetingAds?.advertisements[0]?.advertisementStartDate,
+      banner_id: undefined,
+      banner_url: banner?.link ?? undefined,
+      banner_timestamp: banner?.start_date,
     });
-  }, [meetingAds]);
+  }, [banner]);
 
   return (
     <main>
@@ -49,42 +50,42 @@ function MeetingListOfAll() {
               <Card key={meetingData.id} meetingData={meetingData} mobileType='list' />
             ))}
 
-            {meetingAds?.advertisements && meetingListData?.meta.page === 1 && (
-              <Link
-                href={meetingAds?.advertisements[0]?.advertisementLink ?? ''}
-                target='_blank'
-                onClick={() =>
-                  ampli.clickBanner({
-                    banner_id: meetingAds?.advertisements[0]?.advertisementId,
-                    banner_url: meetingAds?.advertisements[0]?.advertisementLink,
-                    banner_timestamp: meetingAds?.advertisements[0]?.advertisementStartDate,
-                    user_id: Number(me?.orgId),
-                  })
-                }
-              >
-                {isDesktop ? (
+            {banner &&
+              meetingListData?.meta.page === 1 &&
+              (() => {
+                const bannerImage = isDesktop ? (
                   <img
-                    src={meetingAds?.advertisements[0]?.desktopImageUrl}
-                    style={{
-                      width: '380px',
-                      height: '506px',
-                      borderRadius: '12px',
-                    }}
+                    src={banner.pc_url}
+                    style={{ width: '380px', height: '506px', borderRadius: '12px', objectFit: 'cover' }}
                     alt='광고 구좌 이미지'
-                  ></img>
+                  />
                 ) : (
                   <img
-                    src={meetingAds?.advertisements[0]?.mobileImageUrl}
-                    style={{
-                      width: '100%',
-                      height: '92px',
-                      borderRadius: '8px',
-                    }}
+                    src={banner.mobile_url}
+                    style={{ width: '100%', height: '92px', borderRadius: '8px', objectFit: 'cover' }}
                     alt='광고 구좌 이미지'
-                  ></img>
-                )}
-              </Link>
-            )}
+                  />
+                );
+
+                return banner.link ? (
+                  <Link
+                    href={banner.link}
+                    target='_blank'
+                    onClick={() =>
+                      ampli.clickBanner({
+                        banner_id: undefined,
+                        banner_url: banner.link ?? undefined,
+                        banner_timestamp: banner.start_date,
+                        user_id: Number(me?.orgId),
+                      })
+                    }
+                  >
+                    {bannerImage}
+                  </Link>
+                ) : (
+                  bannerImage
+                );
+              })()}
             {meetingListData?.meetings.slice(2).map((meetingData) => (
               <Card key={meetingData.id} meetingData={meetingData} mobileType='list' />
             ))}
@@ -127,9 +128,7 @@ const PaginationWrapper = styled('div', {
 
 const SMeetingCountWrapper = styled('div', {
   'display': 'flex',
-  '@media (max-width: 849px)': {
-    justifyContent: 'center',
-  },
+
   '@new_mobile': { mt: '$28' },
   '@new_tablet': { mt: '$40' },
   '@new_desktop': { mt: '$40' },
