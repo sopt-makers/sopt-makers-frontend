@@ -1,5 +1,6 @@
 import type {
   AdvertisementCategoryType,
+  EventBannerEventType,
   GetAdvertisementResponse,
   GetEventPeriodBanner,
 } from '@api/advertisement/type';
@@ -11,7 +12,7 @@ export const getAdvertisementList = async (category: AdvertisementCategoryType) 
   return data;
 };
 
-export const getEventBannerInfo = async () => {
-  const { data } = await api.get<GetEventPeriodBanner>(`/advertisement/v2/meeting/top`);
+export const getEventBannerInfo = async (eventType: EventBannerEventType) => {
+  const { data } = await api.get<GetEventPeriodBanner>(`/advertisement/v2/meeting/top?eventType=${eventType}`);
   return data;
 };

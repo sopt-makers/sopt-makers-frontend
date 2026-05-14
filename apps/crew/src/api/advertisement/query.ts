@@ -1,4 +1,5 @@
 import AdvertisementQueryKey from '@api/advertisement/AdvertisementQueryKey';
+import type { EventBannerEventType } from '@api/advertisement/type';
 import { queryOptions } from '@tanstack/react-query';
 import type { AdvertisementCategoryType } from '@type/advertisement';
 
@@ -11,9 +12,9 @@ export const useAdvertisementQueryOption = (category: AdvertisementCategoryType)
   });
 };
 
-export const useEventBannerInfoQueryOption = () => {
+export const useEventBannerInfoQueryOption = (eventType: EventBannerEventType) => {
   return queryOptions({
     queryKey: AdvertisementQueryKey.event(),
-    queryFn: getEventBannerInfo,
+    queryFn: () => getEventBannerInfo(eventType),
   });
 };

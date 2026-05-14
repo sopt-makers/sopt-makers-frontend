@@ -53,10 +53,13 @@ const nextConfig = {
   },
 };
 
+const hasSentryAuthToken = Boolean(process.env.SENTRY_AUTH_TOKEN);
+
 const sentryWebpackPluginOptions = {
   org: 'sopt-crew',
   project: 'sopt-crew-frontend',
   silent: true, // Suppresses all logs
+  dryRun: !hasSentryAuthToken, // 토큰 없으면 업로드 스킵 (e.g. PR 빌드)
 };
 
 module.exports = withSentryConfig(nextConfig, sentryWebpackPluginOptions);

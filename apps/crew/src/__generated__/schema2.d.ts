@@ -4695,8 +4695,8 @@ export interface operations {
    */
   getMeetingTopAdvertisement: {
     parameters: {
-      query?: {
-        eventType?: 'SOPKATHON' | 'NETWORKING';
+      query: {
+        eventType: 'SOPKATHON' | 'NETWORKING';
       };
     };
     responses: {
