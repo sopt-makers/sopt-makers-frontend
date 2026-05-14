@@ -17,7 +17,7 @@ const EventPeriodBanner = () => {
   const { isNewLaptop, isMobile } = useDisplay();
   const router = useRouter();
 
-  const { data: banner } = useSuspenseQuery(useEventBannerInfoQueryOption());
+  const { data: banner } = useSuspenseQuery(useEventBannerInfoQueryOption('NETWORKING'));
   const { data: me } = useSuspenseQuery(useUserProfileQueryOption());
 
   const handleClickApplyButton = () => {
@@ -77,7 +77,7 @@ const EventPeriodBanner = () => {
         <ApplyButton size={isNewLaptop ? 'lg' : 'md'} variant='fill' onClick={handleClickApplyButton}>
           내 파트 신청하기
         </ApplyButton>
-        {banner.eventType === 'SOPKATHON' && banner.bannerLink1 && (
+        {banner.bannerLink1 && (
           <MoreLink href={banner.bannerLink1} onClick={handleClickMoreLink}>
             <MoreLinkContent>
               파트별 솝커톤 둘러보기
