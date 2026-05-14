@@ -52,40 +52,32 @@ function MeetingListOfAll() {
 
             {banner &&
               meetingListData?.meta.page === 1 &&
-              (() => {
-                const bannerImage = isDesktop ? (
-                  <img
-                    src={banner.pc_url}
-                    style={{ width: '380px', height: '506px', borderRadius: '12px', objectFit: 'cover' }}
+              (banner.link ? (
+                <Link
+                  href={banner.link}
+                  target='_blank'
+                  onClick={() =>
+                    ampli.clickBanner({
+                      banner_id: undefined,
+                      banner_url: banner.link ?? undefined,
+                      banner_timestamp: banner.start_date,
+                      user_id: Number(me?.orgId),
+                    })
+                  }
+                >
+                  <SBannerImage
+                    src={isDesktop ? banner.pc_url : banner.mobile_url}
                     alt='광고 구좌 이미지'
+                    isDesktop={isDesktop}
                   />
-                ) : (
-                  <img
-                    src={banner.mobile_url}
-                    style={{ width: '100%', height: '92px', borderRadius: '8px', objectFit: 'cover' }}
-                    alt='광고 구좌 이미지'
-                  />
-                );
-
-                return banner.link ? (
-                  <Link
-                    href={banner.link}
-                    target='_blank'
-                    onClick={() =>
-                      ampli.clickBanner({
-                        banner_id: undefined,
-                        banner_url: banner.link ?? undefined,
-                        banner_timestamp: banner.start_date,
-                        user_id: Number(me?.orgId),
-                      })
-                    }
-                  >
-                    {bannerImage}
-                  </Link>
-                ) : (
-                  bannerImage
-                );
-              })()}
+                </Link>
+              ) : (
+                <SBannerImage
+                  src={isDesktop ? banner.pc_url : banner.mobile_url}
+                  alt='광고 구좌 이미지'
+                  isDesktop={isDesktop}
+                />
+              ))}
             {meetingListData?.meetings.slice(2).map((meetingData) => (
               <Card key={meetingData.id} meetingData={meetingData} mobileType='list' />
             ))}
@@ -133,6 +125,16 @@ const SMeetingCountWrapper = styled('div', {
   '@new_tablet': { mt: '$40' },
   '@new_desktop': { mt: '$40' },
   '@new_laptop': { mt: '$40' },
+});
+
+const SBannerImage = styled('img', {
+  objectFit: 'cover',
+  variants: {
+    isDesktop: {
+      true: { width: '380px', height: '506px', borderRadius: '12px' },
+      false: { width: '100%', height: '92px', borderRadius: '8px' },
+    },
+  },
 });
 
 const SMeetingCount = styled('p', {
