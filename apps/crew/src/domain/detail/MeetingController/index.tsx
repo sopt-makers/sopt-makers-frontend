@@ -321,7 +321,7 @@ const MeetingController = ({ detailData }: DetailHeaderProps) => {
                     </>
                   ) : (
                     <>
-                      <SPartName>{partMembersData?.activeGeneration}기 멤버</SPartName>
+                      <SPartName>{partMembersData?.activeGeneration}기 멤버 </SPartName>
                       {partMembersData?.participantCount ?? 0}명<SApplyingText> 신청 중</SApplyingText>
                     </>
                   )}
