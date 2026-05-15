@@ -2,6 +2,7 @@ import { useEventBannerInfoQueryOption } from '@api/advertisement/query';
 import { useUserProfileQueryOption } from '@api/user/query';
 import { useDisplay } from '@hook/useDisplay';
 import { Flex } from '@shared/util/layout/Flex';
+import { colors } from '@sopt-makers/colors';
 import { fontsObject } from '@sopt-makers/fonts';
 import { IconChevronRight } from '@sopt-makers/icons';
 import { Button } from '@sopt-makers/ui';
@@ -28,7 +29,9 @@ const EventPeriodBanner = () => {
     });
     ampli.enterEventMaindetail();
 
-    router.push(String(banner.bannerLink2));
+    const targetUrl = String(banner.bannerLink2);
+    const separator = targetUrl.includes('?') ? '&' : '?';
+    router.push(`${targetUrl}${separator}entry_source=event_banner_cta`);
   };
 
   const handleClickMoreLink = () => {
@@ -75,7 +78,7 @@ const EventPeriodBanner = () => {
       </InfoSection>
       <CTASection>
         <ApplyButton size={isNewLaptop ? 'lg' : 'md'} variant='fill' onClick={handleClickApplyButton}>
-          내 파트 신청하기
+          참가 신청하기
         </ApplyButton>
         {banner.bannerLink1 && (
           <MoreLink href={banner.bannerLink1} onClick={handleClickMoreLink}>
@@ -103,16 +106,16 @@ const Container = styled('section', {
   'backgroundSize': 'cover',
   'borderRadius': '$8',
   '@new_mobile': {
-    py: '$28',
+    py: '$36',
   },
   '@new_tablet': {
-    py: '$30',
+    py: '$36',
   },
   '@new_desktop': {
-    py: '$30',
+    py: '$36',
   },
   '@new_laptop': {
-    py: '$36',
+    py: '$42',
   },
 });
 
@@ -142,21 +145,18 @@ const InfoSection = styled('header', {
 });
 
 const DateImage = styled('img', {
+  'height': 'auto',
   '@new_mobile': {
-    width: '63px',
-    height: '65px',
+    width: '66px',
   },
   '@new_tablet': {
-    width: '56px',
-    height: '58px',
+    width: '66px',
   },
   '@new_desktop': {
-    width: '56px',
-    height: '58px',
+    width: '66px',
   },
   '@new_laptop': {
-    width: '70px',
-    height: '71px',
+    width: '78px',
   },
 });
 
@@ -182,7 +182,7 @@ const STitle = styled('span', {
 });
 
 const SHighlightTitle = styled(STitle, {
-  color: '$secondary',
+  color: colors.blue400,
 });
 
 const SSubTitle = styled('p', {
@@ -221,17 +221,17 @@ const CTASection = styled('div', {
 
 const ApplyButton = styled(Button, {
   '&&': {
-    backgroundColor: '$secondary',
+    backgroundColor: colors.blue400,
     color: '$white',
     boxShadow: 'none',
   },
   '&&:hover': {
-    backgroundColor: '$secondary',
+    backgroundColor: colors.blue500,
     color: '$white',
     boxShadow: 'none',
   },
   '&&:active': {
-    backgroundColor: '$secondary',
+    backgroundColor: colors.blue600,
     color: '$white',
     boxShadow: 'none',
   },
