@@ -183,10 +183,6 @@ export interface ClickEventApplyProperties {
 
 export interface ClickEventbannerMainCtaProperties {
   /**
-   * 행사 전용 배너에 유저가 클릭한 행사 CTA 종류
-   */
-  event_cta_type?: string;
-  /**
    * cta 버튼을 누른 고유 ID 값을 의미
    *
    * | Rule | Value |
@@ -194,7 +190,6 @@ export interface ClickEventbannerMainCtaProperties {
    * | Type | number |
    */
   event_id?: number;
-  group_part?: string;
   platform_type?: string;
   /**
    * 유저 아이디값
@@ -392,6 +387,26 @@ export interface ClickPaginationNumberProperties {
 
 export interface ClickRegisterGroupProperties {
   /**
+   * 사용자가 네트워킹 행사 CTA를 통해 진입했는지 확인하기 위한 유입소스를 의미합니다.
+   */
+  entry_source?: string;
+  /**
+   * cta 버튼을 누른 고유 ID 값을 의미
+   *
+   * | Rule | Value |
+   * |---|---|
+   * | Type | number |
+   */
+  event_id?: number;
+  /**
+   * | Rule | Value |
+   * |---|---|
+   * | Type | integer |
+   */
+  group_id?: number;
+  location?: string;
+  platform_type?: string;
+  /**
    * 유저 아이디값
    *
    * | Rule | Value |
@@ -478,6 +493,10 @@ export interface ClickViewMemberModalProperties {
    * 유저가 선택한 대상 파트를 의미합니다.
    */
   Applied_part?: string;
+  /**
+   * 사용자가 네트워킹 행사 CTA를 통해 진입했는지 확인하기 위한 유입소스를 의미합니다.
+   */
+  entry_source?: string;
   group_category?: string;
   group_generation?: boolean;
   /**
@@ -1296,7 +1315,7 @@ export class Ampli {
    *
    * 유저가 행사 전용 배너 내 CTA를 클릭해 행사 모임으로 이동을 시도할 때 발생하는 이벤트
    *
-   * @param properties The event's properties (e.g. event_cta_type)
+   * @param properties The event's properties (e.g. event_id)
    * @param options Amplitude event options.
    */
   clickEventbannerMainCta(
@@ -1786,7 +1805,7 @@ export class Ampli {
    *
    * Event has no description in tracking plan.
    *
-   * @param properties The event's properties (e.g. user_id)
+   * @param properties The event's properties (e.g. entry_source)
    * @param options Amplitude event options.
    */
   clickRegisterGroup(
