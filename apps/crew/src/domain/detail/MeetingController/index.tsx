@@ -99,6 +99,7 @@ const MeetingController = ({ detailData }: DetailHeaderProps) => {
     : `${partMembersData?.activeGeneration}기 신청 멤버`;
 
   const handlePartStatusModal = () => {
+    const { entry_source } = router.query;
     ampli.clickViewMemberModal({
       Applied_generation: isActiveGeneration,
       Applied_part: partMembersData?.part,
@@ -108,6 +109,7 @@ const MeetingController = ({ detailData }: DetailHeaderProps) => {
       location: router.pathname,
       platform_type: isMobile ? 'MO' : 'PC',
       user_id: Number(me?.orgId),
+      entry_source: typeof entry_source === 'string' ? entry_source : undefined,
     });
     handleDefaultModalOpen();
     setModalTitle(partLabel);
@@ -148,7 +150,11 @@ const MeetingController = ({ detailData }: DetailHeaderProps) => {
           user_id: Number(me?.orgId),
         });
       } else {
-        ampli.clickRegisterGroup({ user_id: Number(me?.orgId) });
+        const { entry_source } = router.query;
+        ampli.clickRegisterGroup({
+          user_id: Number(me?.orgId),
+          entry_source: typeof entry_source === 'string' ? entry_source : undefined,
+        });
       }
       handleApplicationButton('No resolution');
       return;
