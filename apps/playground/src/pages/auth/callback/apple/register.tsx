@@ -1,6 +1,5 @@
 import { playgroundLink } from '@sopt/constant';
 import { useRouter } from 'next/router';
-import type { FC } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 import type { ProcessParamFn } from '@/components/auth/callback/OAuthLoginCallback';
@@ -9,7 +8,7 @@ import useAppleAuth from '@/components/auth/identityProvider/apple/useAppleAuth'
 import { lastLoginMethodAtom } from '@/components/auth/states/lastLoginMethodAtom';
 import { registerTokenAtom } from '@/components/auth/states/registerTokenAtom';
 
-const AppleRegisterCallbackPage: FC = () => {
+const AppleRegisterCallbackPage = () => {
   const router = useRouter();
   const registerToken = useRecoilValue(registerTokenAtom);
   const setLastLoginMethod = useSetRecoilState(lastLoginMethodAtom);
@@ -72,7 +71,7 @@ const AppleRegisterCallbackPage: FC = () => {
     if (registerToken?.type === 'register') {
       router.replace(playgroundLink.memberCheckSoptActivity());
     } else if (registerToken?.type === 'reset') {
-      router.replace('/');
+      router.replace(playgroundLink.home());
     }
   };
 
