@@ -16,7 +16,7 @@ interface MobileCommunityLayoutProps {
 const MobileCommunityLayout: FC<MobileCommunityLayoutProps> = ({ listSlot, detailSlot, isDetailOpen }) => {
   return (
     <Container>
-      <StyledMenuEntryIcons />
+      <MenuEntryIcons />
       <WordChainWrapper>
         <WordChainEntry />
       </WordChainWrapper>
@@ -41,10 +41,6 @@ const WordChainWrapper = styled.div`
 
 const Container = styled.div`
   position: relative;
-`;
-
-const StyledMenuEntryIcons = styled(MenuEntryIcons)`
-  margin: 24px 0 12px;
 `;
 
 const ListSlotBox = styled.div`

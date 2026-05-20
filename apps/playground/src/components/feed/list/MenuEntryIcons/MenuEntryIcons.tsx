@@ -2,11 +2,14 @@ import styled from '@emotion/styled';
 import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
-import { Flex } from '@toss/emotion-utils';
 import Link from 'next/link';
 import type { ReactNode } from 'react';
 
-import { CoffeeChatIcon, CrewIcon, MemberIcon, ProjectIcon } from '@/components/feed/list/MenuEntryIcons/Icons';
+import CoffeeChatIcon from '@/public/icons/menuEntry/icon-coffeechat.svg';
+import CrewIcon from '@/public/icons/menuEntry/icon-crew.svg';
+import FeedIcon from '@/public/icons/menuEntry/icon-feed.svg';
+import MemberIcon from '@/public/icons/menuEntry/icon-member.svg';
+import ProjectIcon from '@/public/icons/menuEntry/icon-project.svg';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 interface MenuEntry {
@@ -16,8 +19,9 @@ interface MenuEntry {
 }
 
 const MENU_ENTRY_LIST: MenuEntry[] = [
-  { icon: <CrewIcon />, label: '모임', href: playgroundLink.groupList() },
   { icon: <MemberIcon />, label: '멤버', href: playgroundLink.memberList() },
+  { icon: <FeedIcon />, label: '커뮤니티', href: playgroundLink.feedList() },
+  { icon: <CrewIcon />, label: '모임', href: playgroundLink.groupList() },
   {
     icon: <ProjectIcon />,
     label: '프로젝트',
@@ -36,15 +40,19 @@ interface MenuEntryIconsProps {
 
 const MenuEntryIcons = ({ className }: MenuEntryIconsProps) => {
   return (
-    <StyledMenuEntryIcons className={className} align='center' justify='center'>
+    <StyledContainer className={className}>
       {MENU_ENTRY_LIST.map((menu) => (
         <MenuIcon key={menu.label} icon={menu.icon} label={menu.label} href={menu.href} />
       ))}
-    </StyledMenuEntryIcons>
+    </StyledContainer>
   );
 };
 
-const StyledMenuEntryIcons = styled(Flex)`
+const StyledContainer = styled.nav`
+  display: flex;
+  justify-content: center;
+  padding: 16px 28px;
+  border-bottom: 1px solid ${colors.gray800};
   width: 100%;
   @media ${MOBILE_MEDIA_QUERY} {
     gap: 20px;
