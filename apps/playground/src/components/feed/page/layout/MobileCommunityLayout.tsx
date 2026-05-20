@@ -3,7 +3,6 @@ import { colors } from '@sopt-makers/colors';
 import type { FC, ReactNode } from 'react';
 import { RemoveScroll } from 'react-remove-scroll';
 
-import MenuEntryIcons from '@/components/feed/list/MenuEntryIcons/MenuEntryIcons';
 import WordChainEntry from '@/components/wordchain/WordchainEntry/WordChainEntry';
 import { zIndex } from '@/styles/zIndex';
 
@@ -16,7 +15,6 @@ interface MobileCommunityLayoutProps {
 const MobileCommunityLayout: FC<MobileCommunityLayoutProps> = ({ listSlot, detailSlot, isDetailOpen }) => {
   return (
     <Container>
-      <MenuEntryIcons />
       <WordChainWrapper>
         <WordChainEntry />
       </WordChainWrapper>

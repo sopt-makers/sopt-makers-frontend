@@ -1,10 +1,11 @@
 import AuthRequired from '@/components/auth/AuthRequired';
+import FeedHomePage from '@/components/feed/page/FeedHomePage';
 import { setLayout } from '@/utils/layout';
 
 const FeedMainPage = () => {
   return (
     <AuthRequired>
-      <div>커뮤니티 페이지</div>
+      <FeedHomePage />
     </AuthRequired>
   );
 };
