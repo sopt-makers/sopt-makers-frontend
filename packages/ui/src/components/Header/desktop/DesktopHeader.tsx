@@ -27,7 +27,7 @@ const DesktopHeader: FC<DesktopHeaderProps> = ({ user, onLogout, renderLink, act
     <Container>
       <StyledBrandLink>
         {renderLink({
-          href: playgroundLink.feedList(),
+          href: playgroundLink.home(),
           children: <SOPT_MAKRES_LOGO_SVG />,
         })}
       </StyledBrandLink>
@@ -37,12 +37,16 @@ const DesktopHeader: FC<DesktopHeaderProps> = ({ user, onLogout, renderLink, act
           children: <NavItem isActive={activePathMatcher(playgroundLink.memberList())}>멤버</NavItem>,
         })}
         {renderLink({
-          href: playgroundLink.projectList(),
-          children: <NavItem isActive={activePathMatcher(playgroundLink.projectList())}>프로젝트</NavItem>,
+          href: playgroundLink.feedList(),
+          children: <NavItem isActive={activePathMatcher(playgroundLink.feedList())}>커뮤니티</NavItem>,
         })}
         {renderLink({
           href: playgroundLink.groupList(),
           children: <NavItem isActive={activePathMatcher(playgroundLink.groupList())}>모임</NavItem>,
+        })}
+        {renderLink({
+          href: playgroundLink.projectList(),
+          children: <NavItem isActive={activePathMatcher(playgroundLink.projectList())}>프로젝트</NavItem>,
         })}
         {renderLink({
           href: playgroundLink.coffeechat(),
