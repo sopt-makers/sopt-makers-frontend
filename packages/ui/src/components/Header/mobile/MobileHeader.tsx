@@ -35,7 +35,7 @@ const MobileHeader: FC<MobileHeaderProps> = ({ user, onLogout, renderLink, activ
         <NavButton>{MENU_SVG}</NavButton>
       </MobileSideBar>
       {renderLink({
-        href: playgroundLink.feedList(),
+        href: playgroundLink.home(),
         children: (
           <BrandButton>
             <SOPT_MAKRES_LOGO_SVG />
