@@ -1,21 +1,18 @@
 import { playgroundLink } from '@sopt/constant';
 import { useRouter } from 'next/router';
-import type { FC } from 'react';
 import { useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 
 import { accessTokenAtom } from '@/components/auth/states/accessTokenAtom';
 import Intro from '@/components/intro';
 
-interface IntroPageProps {}
-
-const IntroPage: FC<IntroPageProps> = () => {
+const IntroPage = () => {
   const router = useRouter();
   const accessToken = useRecoilValue(accessTokenAtom);
 
   useEffect(() => {
     if (!(router.isReady && accessToken === null)) {
-      router.replace(playgroundLink.feedList());
+      router.replace(playgroundLink.home());
     }
   }, [accessToken, router, router.isReady]);
 

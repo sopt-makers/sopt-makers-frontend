@@ -21,7 +21,7 @@ const TimecapsopSubmitModal: FC<TimecapsopSubmitModalProps> = ({ onClose, onSucc
   const router = useRouter();
   const handleClose = () => {
     onClose();
-    router.push(playgroundLink.feedList());
+    router.push(playgroundLink.home());
   };
 
   return (

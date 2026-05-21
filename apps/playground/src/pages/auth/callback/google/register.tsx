@@ -1,6 +1,5 @@
 import { playgroundLink } from '@sopt/constant';
 import { useRouter } from 'next/router';
-import type { FC } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 import type { ProcessParamFn } from '@/components/auth/callback/OAuthLoginCallback';
@@ -9,7 +8,7 @@ import useGoogleAuth from '@/components/auth/identityProvider/google/useGoogleAu
 import { lastLoginMethodAtom } from '@/components/auth/states/lastLoginMethodAtom';
 import { registerTokenAtom } from '@/components/auth/states/registerTokenAtom';
 
-const GoogleRegisterCallbackPage: FC = () => {
+const GoogleRegisterCallbackPage = () => {
   const router = useRouter();
   const registerToken = useRecoilValue(registerTokenAtom);
   const setLastLoginMethod = useSetRecoilState(lastLoginMethodAtom);
@@ -72,7 +71,7 @@ const GoogleRegisterCallbackPage: FC = () => {
     if (registerToken?.type === 'register') {
       router.replace(playgroundLink.memberCheckSoptActivity());
     } else if (registerToken?.type === 'reset') {
-      router.replace('/');
+      router.replace(playgroundLink.home());
     }
   };
 

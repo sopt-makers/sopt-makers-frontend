@@ -2,6 +2,7 @@ export const MAKERS_TEAM_URL =
   'https://makers.sopt.org/?utm_source=playground&utm_medium=footer&utm_campaign=recruiting&utm_id=3rd_makers';
 
 export const playgroundLink = {
+  home: () => `/`,
   memberList: () => `/members`,
   teamLeaderList: () => `/members/team-leaders`,
   memberDetail: (id: string | number) => `/members/${id}`,
@@ -25,7 +26,7 @@ export const playgroundLink = {
   blogSuccess: () => `/blog/success`,
   mentoringDetail: (id: number) => `/mentoring/${id}`,
   wordchain: () => `/wordchain`,
-  feedList: () => `/`,
+  feedList: () => `/feed`,
   feedDetail: (id: string | number) => `/feed/${id}`,
   feedUpload: () => `/feed/upload`,
   feedEdit: (id: string | number) => `/feed/edit/${id}`,

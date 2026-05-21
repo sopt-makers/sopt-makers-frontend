@@ -88,7 +88,7 @@ const CompletePage: FC = () => {
                   </Text>
                   <Button
                     onClick={() => {
-                      router.push(playgroundLink.feedList());
+                      router.push(playgroundLink.home());
                     }}
                     size='lg'
                     theme='black'
@@ -114,7 +114,7 @@ const CompletePage: FC = () => {
                 </Text>
                 <Button
                   onClick={() => {
-                    router.push(playgroundLink.feedList());
+                    router.push(playgroundLink.home());
                   }}
                   size='lg'
                   theme='black'
@@ -135,7 +135,7 @@ const CompletePage: FC = () => {
       <PlaygroundGuideModal
         onClose={() => {
           onClosePlaygroundGuideModal();
-          router.push(playgroundLink.feedList());
+          router.push(playgroundLink.home());
         }}
         isOpen={isOpenPlaygroundGuideModal}
       />

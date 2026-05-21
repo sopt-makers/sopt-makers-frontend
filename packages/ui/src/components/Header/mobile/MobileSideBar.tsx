@@ -82,10 +82,10 @@ const MobileSideBar: FC<MobileSideBarProps> = ({
               ),
             })}
             {renderLink({
-              href: playgroundLink.projectList(),
+              href: playgroundLink.feedList(),
               children: (
-                <NavItem isActive={activePathMatcher(playgroundLink.projectList())} onClick={close}>
-                  프로젝트
+                <NavItem isActive={activePathMatcher(playgroundLink.feedList())} onClick={close}>
+                  커뮤니티
                 </NavItem>
               ),
             })}
@@ -94,6 +94,14 @@ const MobileSideBar: FC<MobileSideBarProps> = ({
               children: (
                 <NavItem isActive={activePathMatcher(playgroundLink.groupList())} onClick={close}>
                   모임
+                </NavItem>
+              ),
+            })}
+            {renderLink({
+              href: playgroundLink.projectList(),
+              children: (
+                <NavItem isActive={activePathMatcher(playgroundLink.projectList())} onClick={close}>
+                  프로젝트
                 </NavItem>
               ),
             })}

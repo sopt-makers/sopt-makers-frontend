@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
-import type { FC } from 'react';
 
 import { MENU_SVG, SOPT_MAKRES_LOGO_SVG } from '../imageData';
 import type { LinkRenderer, PathMatcher } from '../types';
@@ -20,7 +19,7 @@ interface MobileHeaderProps {
   onKakaoChat?: () => void;
 }
 
-const MobileHeader: FC<MobileHeaderProps> = ({ user, onLogout, renderLink, activePathMatcher, onKakaoChat }) => {
+const MobileHeader = ({ user, onLogout, renderLink, activePathMatcher, onKakaoChat }: MobileHeaderProps) => {
   return (
     <Container>
       <MobileSideBar
@@ -35,7 +34,7 @@ const MobileHeader: FC<MobileHeaderProps> = ({ user, onLogout, renderLink, activ
         <NavButton>{MENU_SVG}</NavButton>
       </MobileSideBar>
       {renderLink({
-        href: playgroundLink.feedList(),
+        href: playgroundLink.home(),
         children: (
           <BrandButton>
             <SOPT_MAKRES_LOGO_SVG />
