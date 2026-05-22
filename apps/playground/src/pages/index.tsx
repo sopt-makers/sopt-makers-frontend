@@ -5,7 +5,7 @@ import ActiveBannerSlot from '@/components/common/Banner/ActiveBannerSlot';
 import HomePopupContainer from '@/components/common/HomePopup/HomePopupContainer';
 import Responsive from '@/components/common/Responsive';
 import MenuEntryIcons from '@/components/feed/list/MenuEntryIcons/MenuEntryIcons';
-import FeedHomePage from '@/components/feed/page/FeedHomePage';
+import HomePage from '@/components/home';
 import { setLayout } from '@/utils/layout';
 
 const Home: NextPage = () => {
@@ -16,7 +16,7 @@ const Home: NextPage = () => {
       <Responsive only='mobile'>
         <MenuEntryIcons />
       </Responsive>
-      <FeedHomePage />
+      <HomePage />
     </AuthRequired>
   );
 };
