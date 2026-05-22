@@ -10,10 +10,9 @@ import { useGetMemberRecommendOfMe } from '@/api/endpoint/members/getMemberRecom
 import { LoggingClick } from '@/components/eventLogger/components/LoggingClick';
 import { LoggingImpression } from '@/components/eventLogger/components/LoggingImpression';
 import RefreshIcon from '@/public/icons/icon_refresh.svg';
-import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
+import { DESKTOP_TWO_MEDIA_QUERY, MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 import MemberRecommendCard from '../../common/MemberRecommendCard/MemberRecommendCard';
-import { DESKTOP_TWO_MEDIA_QUERY } from '../contants';
 
 const PC_MEDIA_WIDTH = 1200;
 const PC_MEDIA_QUERY = `screen and (min-width: ${PC_MEDIA_WIDTH}px)`;
@@ -160,7 +159,7 @@ const TooltipArrow = styled.div`
 
 const StyledCardGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 12px;
 
   & > *:nth-child(n + 5) {
@@ -168,7 +167,7 @@ const StyledCardGrid = styled.div`
   }
 
   @media ${DESKTOP_TWO_MEDIA_QUERY} {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 8px;
 
     & > *:nth-child(n + 4) {
