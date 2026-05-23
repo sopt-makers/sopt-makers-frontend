@@ -15,30 +15,30 @@ import type { MenuKey } from './MenuPreview';
 
 interface MenuMeta {
   href: string;
-  Icon: ReactNode;
-  title: '멤버' | '커뮤니티' | '프로젝트' | '커피솝';
+  leftAddon: ReactNode;
+  label: '멤버' | '커뮤니티' | '프로젝트' | '커피솝';
 }
 
 const MENU_CONFIG: Record<MenuKey, MenuMeta> = {
   members: {
     href: playgroundLink.memberList(),
-    Icon: <MemberIcon width={18} height={18} />,
-    title: '멤버',
+    leftAddon: <MemberIcon width={18} height={18} />,
+    label: '멤버',
   },
   feed: {
     href: playgroundLink.feedList(),
-    Icon: <FeedIcon width={18} height={18} />,
-    title: '커뮤니티',
+    leftAddon: <FeedIcon width={18} height={18} />,
+    label: '커뮤니티',
   },
   projects: {
     href: playgroundLink.projectList(),
-    Icon: <ProjectIcon width={18} height={18} />,
-    title: '프로젝트',
+    leftAddon: <ProjectIcon width={18} height={18} />,
+    label: '프로젝트',
   },
   coffeechat: {
     href: playgroundLink.coffeechat(),
-    Icon: <CoffeeChatIcon width={18} height={18} />,
-    title: '커피솝',
+    leftAddon: <CoffeeChatIcon width={18} height={18} />,
+    label: '커피솝',
   },
 };
 
@@ -47,12 +47,12 @@ interface MenuLinkProps {
 }
 
 const MenuLink = ({ menu }: MenuLinkProps) => {
-  const { href, Icon, title } = MENU_CONFIG[menu];
+  const { href, leftAddon, label } = MENU_CONFIG[menu];
 
   return (
     <StyledLink href={href}>
-      {Icon}
-      <StyledTitle>{title} &gt;</StyledTitle>
+      {leftAddon}
+      <StyledLabel>{label} &gt;</StyledLabel>
     </StyledLink>
   );
 };
@@ -64,7 +64,7 @@ const StyledLink = styled(Link)`
   cursor: pointer;
 `;
 
-const StyledTitle = styled.span`
+const StyledLabel = styled.span`
   color: ${colors.gray100};
   ${fonts.BODY_16_M}
 
