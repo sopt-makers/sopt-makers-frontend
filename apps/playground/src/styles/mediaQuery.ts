@@ -18,3 +18,8 @@ export const MB_BASE_MEDIA_QUERY = `screen and (max-width: ${MB_BASE_WIDTH}px)`;
 export const MB_MID_MEDIA_QUERY = `screen and (max-width: ${MB_MID_WIDTH}px)`;
 export const MB_SM_MEDIA_QUERY = `screen and (max-width: ${MB_SM_WIDTH}px)`;
 export const PCTA_S_MEDIA_QUERY = `screen and (max-width: ${PCTA_S_WIDTH}px)`;
+// TODO: 네이밍 통일 필요
+export const DESKTOP_ONE_MAX_WIDTH = 1542;
+export const DESKTOP_TWO_MAX_WIDTH = 1200;
+export const DESKTOP_ONE_MEDIA_QUERY = `screen and (max-width: ${DESKTOP_ONE_MAX_WIDTH}px)`;
+export const DESKTOP_TWO_MEDIA_QUERY = `screen and (max-width: ${DESKTOP_TWO_MAX_WIDTH}px)`;

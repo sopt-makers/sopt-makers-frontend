@@ -13,11 +13,10 @@ import useEventLogger from '@/components/eventLogger/hooks/useEventLogger';
 import { convertWorkPreferenceToHashtags } from '@/components/matchmember/constant';
 import { useMatchMemberEvent } from '@/components/matchmember/hooks/useMatchMemberEvent';
 import MatchMemberModal from '@/components/matchmember/MatchMemberModal';
-import { DESKTOP_ONE_MEDIA_QUERY, DESKTOP_TWO_MEDIA_QUERY } from '@/components/members/main/contants';
 import WorkPreferenceMemberCard from '@/components/members/main/MemberCard/WorkPreferneceMemberCard';
 import { mockRecommendationsResponse } from '@/components/members/main/MemberList/constants';
 import RefreshIcon from '@/public/icons/icon_refresh.svg';
-import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
+import { DESKTOP_ONE_MEDIA_QUERY, DESKTOP_TWO_MEDIA_QUERY, MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 const MyPreferenceSubTitle = () => {
   const { data: myData, isLoading: myLoading } = useGetMyWorkPreference();

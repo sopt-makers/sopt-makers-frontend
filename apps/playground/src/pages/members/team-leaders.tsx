@@ -6,10 +6,8 @@ import { useState } from 'react';
 
 import AuthRequired from '@/components/auth/AuthRequired';
 import Text from '@/components/common/Text';
-import { DESKTOP_ONE_MEDIA_QUERY } from '@/components/members/main/contants';
-import { DESKTOP_TWO_MEDIA_QUERY } from '@/components/members/main/contants';
 import TeamLeaderCard from '@/components/members/main/TeamLeaderCard';
-import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
+import { DESKTOP_ONE_MEDIA_QUERY, DESKTOP_TWO_MEDIA_QUERY, MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 import { setLayout } from '@/utils/layout';
 type SelectedPart = 'APP' | 'WEB';
 import { useGetMemberOfMe } from '@/api/endpoint/members/getMemberOfMe';

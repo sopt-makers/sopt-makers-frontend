@@ -8,8 +8,7 @@ import type { FC } from 'react';
 import Responsive from '@/components/common/Responsive';
 import Text from '@/components/common/Text';
 import useEventLogger from '@/components/eventLogger/hooks/useEventLogger';
-import { DESKTOP_TWO_MEDIA_QUERY } from '@/components/members/main/contants';
-import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
+import { DESKTOP_TWO_MEDIA_QUERY, MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 import { textStyles } from '@/styles/typography';
 
 interface OnBoardingBannerProps {
