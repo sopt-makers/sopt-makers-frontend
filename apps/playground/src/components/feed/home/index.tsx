@@ -1,4 +1,3 @@
-import PopularArea from '@/components/common/PopularCard';
 import RecentArea from '@/components/feed/home/RecentArea';
 import SopticleArea from '@/components/feed/home/SopticleArea';
 

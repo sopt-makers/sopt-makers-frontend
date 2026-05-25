@@ -111,7 +111,6 @@ export default PopularCard;
 const StyledCardContainer = styled.div<{ $isProfile?: boolean }>`
   display: flex;
   justify-content: space-between;
-  align-items: center;
   gap: 8px;
   border-radius: 12px;
   background: ${colors.gray900};
@@ -122,7 +121,7 @@ const StyledCardContainer = styled.div<{ $isProfile?: boolean }>`
   &:hover {
     background: ${colors.gray800};
   }
-  ${({ $isProfile }) => $isProfile && `flex-direction: column;`}
+  ${({ $isProfile }) => $isProfile && `flex-direction: column; `}
 `;
 
 const StyledMainContents = styled.div`

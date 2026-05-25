@@ -41,7 +41,7 @@ const ReactionArea = () => {
             rank={index + 1}
             key={card.id}
             card={card}
-            // onClick={handleClickCard} TODO 구현 시 추가
+            // onClick={handleClickCard} 함수 구현 시 추가
             isProfile
           />
         ))}
