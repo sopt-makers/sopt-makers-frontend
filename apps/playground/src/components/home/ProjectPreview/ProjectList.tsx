@@ -3,15 +3,28 @@ import styled from '@emotion/styled';
 import { useGetRandomProjects } from '@/api/endpoint/menuPreview/getRandomProjects';
 import ScrollCarousel from '@/components/common/ScrollCarousel';
 import useMediaQuery from '@/hooks/useMediaQuery';
-import { DESKTOP_TWO_MEDIA_QUERY, MOBILE_MAX_WIDTH } from '@/styles/mediaQuery';
+import { DESKTOP_TWO_MEDIA_QUERY, MOBILE_MAX_WIDTH, MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 import ProjectCard from './ProjectCard';
+import ProjectCardSkeleton from './ProjectCardSkeleton';
+
+const SKELETON_CARD_COUNT = 3;
 
 const ProjectList = () => {
-  const { data: projects = [] } = useGetRandomProjects();
+  const { data: projects = [], isLoading } = useGetRandomProjects();
 
   const isMobile = useMediaQuery(MOBILE_MAX_WIDTH);
   const itemsPerView = isMobile ? 1 : 2;
+
+  if (isLoading) {
+    return (
+      <ProjectSkeletonList aria-hidden>
+        {Array.from({ length: SKELETON_CARD_COUNT }, (_, index) => (
+          <ProjectCardSkeleton key={index} />
+        ))}
+      </ProjectSkeletonList>
+    );
+  }
 
   return (
     <>
@@ -36,6 +49,29 @@ const ProjectList = () => {
 };
 
 export default ProjectList;
+
+const ProjectSkeletonList = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr)); /* 1200~: 3장 */
+  gap: 12px;
+  width: 100%;
+
+  @media ${DESKTOP_TWO_MEDIA_QUERY} {
+    grid-template-columns: repeat(2, minmax(0, 1fr)); /* ~1200: 2장 */
+
+    & > *:nth-of-type(n + 3) {
+      display: none;
+    }
+  }
+
+  @media ${MOBILE_MEDIA_QUERY} {
+    grid-template-columns: minmax(0, 1fr); /* ~768: 1장 */
+
+    & > *:nth-of-type(n + 2) {
+      display: none;
+    }
+  }
+`;
 
 const CarouselWrapper = styled.div`
   display: none;
