@@ -17,9 +17,9 @@ interface PopularCardProps {
   onClick?: () => void;
 }
 
-const PopularSkeleton = ({ rank }: { rank: number; isProfile: boolean }) => {
+const PopularSkeleton = ({ rank, isProfile }: { rank: number; isProfile: boolean }) => {
   return (
-    <StyledCardContainer>
+    <StyledCardContainer $isProfile={isProfile}>
       <StyledMainContents>
         <StyledRank>{rank}</StyledRank>
         <StyledTitleContainer>
@@ -32,12 +32,12 @@ const PopularSkeleton = ({ rank }: { rank: number; isProfile: boolean }) => {
         </StyledTitleContainer>
       </StyledMainContents>
       <StyledSubContents>
-        {/* <ProfileInfo>
+        <ProfileInfo>
           <IconMember size={20} />
           <Text typography='SUIT_14_SB' color={colors.gray50} lineHeight={18}>
             <Skeleton width={40} height={18} color={colors.gray700} />
           </Text>
-        </ProfileInfo> */}
+        </ProfileInfo>
         <EtcInfoContainer>
           <EtcInfo>
             <Text typography='SUIT_14_SB' color={colors.gray400} lineHeight={18}>
@@ -55,14 +55,14 @@ const PopularSkeleton = ({ rank }: { rank: number; isProfile: boolean }) => {
   );
 };
 
-const PopularCard = ({ card, rank, isProfile = false, isLoading = false }: PopularCardProps) => {
+const PopularCard = ({ card, rank, isProfile = false, isLoading = false, onClick }: PopularCardProps) => {
   if (isLoading || !card) return <PopularSkeleton rank={rank} isProfile />;
 
   const { categoryTagLabel, title, likeCount, member, commentCount } = card;
   const { name, profileImage } = member;
 
   return (
-    <StyledCardContainer $isProfile={isProfile}>
+    <StyledCardContainer $isProfile={isProfile} onClick={onClick}>
       <StyledMainContents>
         <StyledRank>{rank}</StyledRank>
         <StyledTitleContainer>
@@ -119,7 +119,6 @@ const StyledCardContainer = styled.div<{ $isProfile?: boolean }>`
   &:hover {
     background: ${colors.gray800};
   }
-
   ${({ $isProfile }) => $isProfile && `flex-direction: column;`}
 `;
 
