@@ -10,7 +10,7 @@ import { MB_SM_MEDIA_QUERY } from '@/styles/mediaQuery';
 const PopularArea = () => {
   const { data, isLoading, isError } = useGetPopularPost();
 
-  // @TODO: 상세 페이지 이동 로직 추가
+  // @TODO: 상세 페이지 이동 로직 구현
   // const handleClickCard = () => {}
 
   return (
@@ -48,8 +48,7 @@ const PopularArea = () => {
             <PopularCard
               rank={index + 1}
               card={card}
-              // TODO: 상세 페이지 이동 로직 연결
-              // onClick={() => {}}
+              // onClick={handleClickCard} TODO 구현 시 추가
               onClick={() => {}}
             />
           </LoggingClick>
