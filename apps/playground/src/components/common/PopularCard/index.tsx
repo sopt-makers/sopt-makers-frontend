@@ -17,7 +17,7 @@ interface PopularCardProps {
   onClick?: () => void;
 }
 
-const PopularSkeleton = ({ rank, isProfile }: { rank: number; isProfile: boolean }) => {
+const PopularSkeleton = ({ rank, isProfile }: { rank: number; isProfile?: boolean }) => {
   return (
     <StyledCardContainer $isProfile={isProfile}>
       <StyledMainContents>
@@ -32,12 +32,14 @@ const PopularSkeleton = ({ rank, isProfile }: { rank: number; isProfile: boolean
         </StyledTitleContainer>
       </StyledMainContents>
       <StyledSubContents>
-        <ProfileInfo>
-          <IconMember size={20} />
-          <Text typography='SUIT_14_SB' color={colors.gray50} lineHeight={18}>
-            <Skeleton width={40} height={18} color={colors.gray700} />
-          </Text>
-        </ProfileInfo>
+        {isProfile && (
+          <ProfileInfo>
+            <IconMember size={20} />
+            <Text typography='SUIT_14_SB' color={colors.gray50} lineHeight={18}>
+              <Skeleton width={40} height={18} color={colors.gray700} />
+            </Text>
+          </ProfileInfo>
+        )}
         <EtcInfoContainer>
           <EtcInfo>
             <Text typography='SUIT_14_SB' color={colors.gray400} lineHeight={18}>
@@ -56,7 +58,7 @@ const PopularSkeleton = ({ rank, isProfile }: { rank: number; isProfile: boolean
 };
 
 const PopularCard = ({ card, rank, isProfile = false, isLoading = false, onClick }: PopularCardProps) => {
-  if (isLoading || !card) return <PopularSkeleton rank={rank} isProfile />;
+  if (isLoading || !card) return <PopularSkeleton rank={rank} isProfile={isProfile} />;
 
   const { categoryTagLabel, title, likeCount, member, commentCount } = card;
   const { name, profileImage } = member;
@@ -109,6 +111,7 @@ export default PopularCard;
 const StyledCardContainer = styled.div<{ $isProfile?: boolean }>`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   gap: 8px;
   border-radius: 12px;
   background: ${colors.gray900};
@@ -135,6 +138,7 @@ const StyledRank = styled(Text)`
 
 const StyledTitleContainer = styled.div`
   display: flex;
+  align-items: center;
   gap: 8px;
 `;
 
