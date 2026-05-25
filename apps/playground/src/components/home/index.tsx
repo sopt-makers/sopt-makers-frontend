@@ -11,7 +11,6 @@ const HomePage = () => {
     <StyledContainer>
       <MemberAndCommunity>
         <MembersPreview menu={'members'} content={<div>내용</div>} />
-
         <CommunityPreview menu={'feed'} content={<PopularArea />} />
       </MemberAndCommunity>
       <MenuPreview menu={'projects'} content={<div>내용</div>} />
