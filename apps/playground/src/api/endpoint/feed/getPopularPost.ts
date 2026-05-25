@@ -6,7 +6,6 @@ import { createEndpoint } from '@/api/typedAxios';
 const PopularPostSchema = z.array(
   z.object({
     id: z.number(),
-    category: z.string(),
     title: z.string(),
     member: z.object({
       id: z.number(),
@@ -14,6 +13,10 @@ const PopularPostSchema = z.array(
       profileImage: z.string().nullable(),
     }),
     hits: z.number(),
+    likeCount: z.number(),
+    commentCount: z.number(),
+    categoryTag: z.string(),
+    categoryTagLabel: z.string(),
   }),
 );
 
@@ -31,3 +34,5 @@ export const useGetPopularPost = () => {
     queryFn: () => getPopularPost.request(),
   });
 };
+
+export type PopularPostType = z.infer<typeof PopularPostSchema>;
