@@ -1,12 +1,14 @@
-import PopularArea from '@/components/feed/home/PopularArea';
+import PopularArea from '@/components/common/PopularCard';
 import RecentArea from '@/components/feed/home/RecentArea';
 import SopticleArea from '@/components/feed/home/SopticleArea';
+
+import ReactionArea from './ReactionArea';
 
 const Hot = () => {
   return (
     <>
       <RecentArea />
-      <PopularArea />
+      <ReactionArea />
       <SopticleArea />
     </>
   );
