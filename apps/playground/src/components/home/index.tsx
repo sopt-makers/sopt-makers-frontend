@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { DESKTOP_ONE_MEDIA_QUERY, DESKTOP_TWO_MEDIA_QUERY, MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 import MenuPreview from './common/MenuPreview';
+import PopularArea from './PopularArea';
 
 const HomePage = () => {
   return (
@@ -10,7 +11,8 @@ const HomePage = () => {
     <StyledContainer>
       <MemberAndCommunity>
         <MembersPreview menu={'members'} content={<div>내용</div>} />
-        <CommunityPreview menu={'feed'} content={<div>내용</div>} />
+
+        <CommunityPreview menu={'feed'} content={<PopularArea />} />
       </MemberAndCommunity>
       <MenuPreview menu={'projects'} content={<div>내용</div>} />
       <MenuPreview menu={'coffeechat'} content={<div>내용</div>} />
