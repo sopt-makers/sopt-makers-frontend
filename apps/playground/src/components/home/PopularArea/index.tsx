@@ -46,7 +46,6 @@ const PopularArea = () => {
             key={card.id ?? index}
           >
             <PopularCard
-              key={card.id}
               rank={index + 1}
               card={card}
               // TODO: 상세 페이지 이동 로직 연결
