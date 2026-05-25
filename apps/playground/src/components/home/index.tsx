@@ -6,6 +6,7 @@ import WordChainEntry from '../wordchain/WordchainEntry/WordChainEntry';
 import MenuPreview from './common/MenuPreview';
 import PopularArea from './PopularArea';
 import TitledContent from './common/TitledContent';
+import PopularArea from './PopularArea';
 import ProjectList from './ProjectPreview/ProjectList';
 
 const HomePage = () => {
