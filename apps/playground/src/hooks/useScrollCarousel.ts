@@ -159,6 +159,15 @@ export const useScrollCarousel = <T>({
     return () => container.removeEventListener('scroll', trackScrollAndWrap);
   }, [itemCount, itemsPerView, isLoopEnabled]);
 
+  useEffect(function cancelScrollMonitorOnUnmount() {
+    return () => {
+      if (scrollMonitorRef.current) {
+        cancelAnimationFrame(scrollMonitorRef.current);
+        scrollMonitorRef.current = null;
+      }
+    };
+  }, []);
+
   // 확장 배열 인덱스 → 실제 데이터 인덱스 (0-based)
   const getActivePage = (index: number) => {
     if (!isLoopEnabled) {
