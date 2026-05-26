@@ -12,12 +12,11 @@ import { IconHeart, IconMember } from '@/components/feed/common/Icon';
 interface PopularCardProps {
   rank: number;
   card?: PopularPostType[number];
-  isLoading?: boolean;
   isProfile?: boolean;
   onClick?: () => void;
 }
 
-const PopularSkeleton = ({ rank, isProfile }: { rank: number; isProfile?: boolean }) => {
+const PopularCardSkeleton = ({ rank, isProfile }: { rank: number; isProfile?: boolean }) => {
   return (
     <StyledCardContainer $isProfile={isProfile}>
       <StyledMainContents>
@@ -57,9 +56,10 @@ const PopularSkeleton = ({ rank, isProfile }: { rank: number; isProfile?: boolea
   );
 };
 
-const PopularCard = ({ card, rank, isProfile = false, isLoading = false, onClick }: PopularCardProps) => {
-  if (isLoading || !card) return <PopularSkeleton rank={rank} isProfile={isProfile} />;
-
+const PopularCard = ({ card, rank, isProfile = false, onClick }: PopularCardProps) => {
+  if (!card) {
+    return <PopularCardSkeleton rank={rank} isProfile={isProfile} />;
+  }
   const { categoryTagLabel, title, likeCount, member, commentCount } = card;
   const { name, profileImage } = member;
 

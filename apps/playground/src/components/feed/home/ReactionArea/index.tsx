@@ -34,7 +34,7 @@ const ReactionArea = () => {
       <StyledCardListContainer>
         {isLoading &&
           Array.from({ length: 3 }).map((_, index) => (
-            <PopularCard key={`skeleton-${index}`} rank={index + 1} isLoading isProfile />
+            <PopularCard key={`skeleton-${index}`} rank={index + 1} isProfile />
           ))}
         {data?.map((card, index) => (
           <PopularCard

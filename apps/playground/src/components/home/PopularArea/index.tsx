@@ -32,9 +32,7 @@ const PopularArea = () => {
           </Text>
         )}
         {isLoading &&
-          Array.from({ length: 3 }).map((_, index) => (
-            <PopularCard key={`skeleton-${index}`} rank={index + 1} isLoading />
-          ))}
+          Array.from({ length: 3 }).map((_, index) => <PopularCard key={`skeleton-${index}`} rank={index + 1} />)}
         {data?.map((card, index) => (
           <LoggingClick
             eventKey='feedCard'
