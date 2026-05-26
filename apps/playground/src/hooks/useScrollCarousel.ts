@@ -27,7 +27,7 @@ export const useScrollCarousel = <T>({
 
   const [activeIndex, setActiveIndex] = useState(startIndex);
   const activeIndexRef = useRef(activeIndex);
-  useLayoutEffect(() => {
+  useLayoutEffect(function syncActiveIndexRef() {
     activeIndexRef.current = activeIndex;
   });
 
@@ -94,43 +94,37 @@ export const useScrollCarousel = <T>({
     scrollMonitorRef.current = requestAnimationFrame(checkScroll);
   };
 
-  // 초기 위치 (첫 실제 카드)
-  useEffect(() => {
-    scrollToIndex(startIndex, false);
-    setActiveIndex(startIndex);
-  }, [itemCount, itemsPerView]);
+  useEffect(
+    function initializeScrollPosition() {
+      scrollToIndex(startIndex, false);
+      setActiveIndex(startIndex);
+    },
+    [itemCount, itemsPerView],
+  );
 
-  // 뷰포트 크기 변화 시 현재 카드 기준으로 재정렬
-  useEffect(() => {
-    const onResize = () => scrollToIndex(activeIndexRef.current, false);
-    window.addEventListener('resize', onResize);
-    return () => window.removeEventListener('resize', onResize);
-  }, []);
+  useEffect(
+    function runAutoSlide() {
+      if (!isLoopEnabled) return;
 
-  // autoSlideInterval마다 자동 슬라이드
-  useEffect(() => {
-    if (!isLoopEnabled) return;
+      const intervalId = setInterval(() => {
+        scrollToIndex(activeIndex + itemsPerView);
+      }, autoSlideInterval);
 
-    const intervalId = setInterval(() => {
-      scrollToIndex(activeIndex + itemsPerView);
-    }, autoSlideInterval);
+      return () => clearInterval(intervalId);
+    },
+    [activeIndex, autoSlideInterval, isLoopEnabled, itemsPerView],
+  );
 
-    return () => clearInterval(intervalId);
-  }, [activeIndex, autoSlideInterval, isLoopEnabled, itemsPerView]);
-
-  // 스크롤 추적 + 무한 루프 보정
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
 
-    const handleScroll = () => {
+    const trackScrollAndWrap = () => {
       const step = getCardStep();
-      if (!step) return;
+      if (!step || !isLoopEnabled) return;
 
       const index = Math.round(container.scrollLeft / step);
       setActiveIndex(index);
-
-      if (!isLoopEnabled) return;
 
       if (index < itemsPerView) {
         // 앞쪽 복제 구간 → 끝쪽 실제 카드로 점프
@@ -147,22 +141,31 @@ export const useScrollCarousel = <T>({
       }
     };
 
-    container.addEventListener('scroll', handleScroll);
-    return () => container.removeEventListener('scroll', handleScroll);
+    container.addEventListener('scroll', trackScrollAndWrap);
+    return () => container.removeEventListener('scroll', trackScrollAndWrap);
   }, [itemCount, itemsPerView, isLoopEnabled]);
 
+  useEffect(() => {
+    const realignCurrentCard = () => {
+      scrollToIndex(activeIndexRef.current, false);
+    };
+    window.addEventListener('resize', realignCurrentCard);
+    return () => window.removeEventListener('resize', realignCurrentCard);
+  }, []);
+
   // 확장 배열 인덱스 → 실제 데이터 인덱스 (0-based)
-  const getActualIndex = (index: number) => {
+  const getActivePage = (index: number) => {
     if (!isLoopEnabled) {
       return 0;
     } else {
-      return (((index - itemsPerView) % itemCount) + itemCount) % itemCount;
+      const realIndex = (((index - itemsPerView) % itemCount) + itemCount) % itemCount;
+      return Math.floor(realIndex / itemsPerView);
     }
   };
 
   // 페이지 단위(= itemsPerView개 묶음) 계산
   const pageCount = Math.ceil(itemCount / itemsPerView);
-  const activePage = Math.floor(getActualIndex(activeIndex) / itemsPerView);
+  const activePage = getActivePage(activeIndex);
   const scrollToPage = (page: number) => scrollToIndex(startIndex + page * itemsPerView);
 
   return {
