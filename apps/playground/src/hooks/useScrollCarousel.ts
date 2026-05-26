@@ -48,7 +48,7 @@ export const useScrollCarousel = <T>({
       return null;
     } else {
       // card width + gap 계산
-      return (cards[1] as HTMLElement).offsetLeft - (cards[0] as HTMLElement).offsetLeft;
+      return cards[1].getBoundingClientRect().left - cards[0].getBoundingClientRect().left;
     }
   };
 
