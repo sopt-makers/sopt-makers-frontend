@@ -66,7 +66,7 @@ const PostsSchema = z.array(
     content: z.string(),
     hits: z.number(),
     commentCount: z.number(),
-    images: z.array(z.string()),
+    images: z.array(z.string().nullish()),
     isBlindWriter: z.boolean(),
     sopticleUrl: z.string().nullable(),
     anonymousProfile: z

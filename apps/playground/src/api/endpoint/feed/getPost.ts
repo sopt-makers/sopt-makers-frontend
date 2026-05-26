@@ -54,7 +54,7 @@ const PostsSchema = z.object({
   title: z.string(),
   content: z.string(),
   hits: z.number(),
-  images: z.array(z.string()),
+  images: z.array(z.string().nullish()),
   isBlindWriter: z.boolean(),
   isReported: z.boolean(),
   createdAt: z.string(),
@@ -67,8 +67,8 @@ const CategorySchema = z.object({
   categoryGroup: z.string(),
   code: z.string(),
   name: z.string(),
-  parentCode: z.string(),
-  parentCategoryName: z.string(),
+  parentCode: z.string().nullable(),
+  parentCategoryName: z.string().nullable(),
 });
 
 export const PostSchema = z.object({
