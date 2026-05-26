@@ -1,16 +1,11 @@
-import type { InfiniteData } from '@tanstack/react-query';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { produce } from 'immer';
 import { z } from 'zod';
 
-import { getCategory } from '@/api/endpoint/feed/getCategory';
 import type { PostType } from '@/api/endpoint/feed/getPost';
 import { getPost } from '@/api/endpoint/feed/getPost';
-import type { PostsType } from '@/api/endpoint/feed/getPosts';
-import { useGetPostsInfiniteQuery } from '@/api/endpoint/feed/getPosts';
 import { getRecentPosts } from '@/api/endpoint/feed/getRecentPosts';
 import { createEndpoint } from '@/api/typedAxios';
-import { getParentCategoryId } from '@/components/feed/common/utils';
 
 const OptionSchema = z.object({
   selectedOptions: z.array(z.number().int()).min(1).max(5),
@@ -41,14 +36,8 @@ export const postVote = createEndpoint({
   serverResponseScheme: VoteResponseSchema,
 });
 
-export const usePostVoteMutation = (postId: number, categoryId: number) => {
+export const usePostVoteMutation = (postId: number) => {
   const queryClient = useQueryClient();
-
-  const { data: categoryData } = useQuery({
-    queryKey: getCategory.cacheKey(),
-    queryFn: getCategory.request,
-  });
-  const parentCategoryId = getParentCategoryId(categoryData, categoryId) || categoryId;
 
   return useMutation({
     mutationFn: (requestBody: z.infer<typeof OptionSchema>) => postVote.request(postId, requestBody),
@@ -60,21 +49,7 @@ export const usePostVoteMutation = (postId: number, categoryId: number) => {
           }
         });
       });
-      queryClient.setQueryData(
-        useGetPostsInfiniteQuery.getKey(parentCategoryId?.toString()),
-        (oldData: InfiniteData<PostsType>) => {
-          return produce(oldData, (draft) => {
-            if (draft && draft.pages) {
-              draft.pages.forEach((page) => {
-                const post = page.posts.find((p) => p.id === postId);
-                if (post) {
-                  post.vote = data;
-                }
-              });
-            }
-          });
-        },
-      );
+      queryClient.invalidateQueries({ queryKey: ['INFINITE'] });
       queryClient.invalidateQueries({ queryKey: getRecentPosts.cacheKey() });
     },
   });
