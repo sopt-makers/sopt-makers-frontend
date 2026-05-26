@@ -34,31 +34,27 @@ export const useScrollCarousel = <T>({
   const containerRef = useRef<HTMLDivElement>(null);
   const lastScrollLeftRef = useRef(0);
   const scrollMonitorRef = useRef<number | null>(null);
+  const cardSlotSizeRef = useRef<number | null>(null);
 
-  const getCardStep = () => {
+  const getCardSlotSize = () => {
     const container = containerRef.current;
-    if (!container) {
-      return null;
-    }
+    if (!container) return;
 
     const track = container.firstElementChild;
     const cards = track?.children;
+    if (!cards || cards.length < 2) return;
 
-    if (!cards || cards.length < 2) {
-      return null;
-    } else {
-      // card width + gap 계산
-      return cards[1].getBoundingClientRect().left - cards[0].getBoundingClientRect().left;
-    }
+    // card width + gap 계산
+    cardSlotSizeRef.current = cards[1].getBoundingClientRect().left - cards[0].getBoundingClientRect().left;
   };
 
   const scrollToIndex = (index: number, smooth = true) => {
     const container = containerRef.current;
-    const step = getCardStep();
-    if (!container || !step) return;
+    const cardSlotSize = cardSlotSizeRef.current;
+    if (!container || !cardSlotSize) return;
 
     container.scrollTo({
-      left: step * index,
+      left: cardSlotSize * index,
       behavior: smooth ? 'smooth' : 'auto',
     });
   };
@@ -96,10 +92,15 @@ export const useScrollCarousel = <T>({
 
   useEffect(
     function initializeScrollPosition() {
-      scrollToIndex(startIndex, false);
+      const container = containerRef.current;
+      if (!container) return;
+
+      getCardSlotSize();
       setActiveIndex(startIndex);
+      activeIndexRef.current = startIndex;
+      scrollToIndex(startIndex, false);
     },
-    [itemCount, itemsPerView],
+    [items],
   );
 
   useEffect(
@@ -115,15 +116,28 @@ export const useScrollCarousel = <T>({
     [activeIndex, autoSlideInterval, isLoopEnabled, itemsPerView],
   );
 
+  useEffect(function realignOnResize() {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const resizeObserver = new ResizeObserver(() => {
+      getCardSlotSize();
+      scrollToIndex(activeIndexRef.current, false);
+    });
+    resizeObserver.observe(container);
+
+    return () => resizeObserver.disconnect();
+  }, []);
+
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
 
     const trackScrollAndWrap = () => {
-      const step = getCardStep();
-      if (!step || !isLoopEnabled) return;
+      const cardSlotSize = cardSlotSizeRef.current;
+      if (!cardSlotSize || !isLoopEnabled) return;
 
-      const index = Math.round(container.scrollLeft / step);
+      const index = Math.round(container.scrollLeft / cardSlotSize);
       setActiveIndex(index);
 
       if (index < itemsPerView) {
@@ -144,14 +158,6 @@ export const useScrollCarousel = <T>({
     container.addEventListener('scroll', trackScrollAndWrap);
     return () => container.removeEventListener('scroll', trackScrollAndWrap);
   }, [itemCount, itemsPerView, isLoopEnabled]);
-
-  useEffect(() => {
-    const realignCurrentCard = () => {
-      scrollToIndex(activeIndexRef.current, false);
-    };
-    window.addEventListener('resize', realignCurrentCard);
-    return () => window.removeEventListener('resize', realignCurrentCard);
-  }, []);
 
   // 확장 배열 인덱스 → 실제 데이터 인덱스 (0-based)
   const getActivePage = (index: number) => {
