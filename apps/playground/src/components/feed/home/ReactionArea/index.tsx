@@ -1,15 +1,42 @@
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
+import { useRouter } from 'next/router';
 
+import type { PopularPostType } from '@/api/endpoint/feed/getPopularPost';
 import { useGetPopularPost } from '@/api/endpoint/feed/getPopularPost';
 import PopularCard from '@/components/common/PopularCard';
 import Text from '@/components/common/Text';
 
+const SUB_CATEGORY_CODE = {
+  PROMOTION: ['RECRUIT', 'PROJECT', 'ETC', 'EVENT'],
+  SOPTICLE: ['PLAN', 'DESIGN', 'WEB', 'SERVER', 'IOS', 'ANDROID'],
+};
+
+const getCategoryAndSubcategory = (value: string): [string, string | undefined] => {
+  for (const [category, subCategories] of Object.entries(SUB_CATEGORY_CODE)) {
+    if (subCategories.includes(value)) {
+      return [category, value];
+    }
+  }
+  return [value, undefined];
+};
+
 const ReactionArea = () => {
   const { data, isError, isLoading } = useGetPopularPost();
+  const router = useRouter();
 
-  // @TODO: 상세 페이지 이동 로직 구현
-  // const handleClickCard = () => {}
+  const handleClickCard = (card: PopularPostType[number]) => {
+    const [category, subcategory] = getCategoryAndSubcategory(card.categoryTag);
+    router.push({
+      pathname: playgroundLink.feedList(),
+      query: {
+        category,
+        ...(subcategory ? { subcategory } : {}),
+        feed: card.id,
+      },
+    });
+  };
 
   return (
     <StyledContainer>
@@ -41,8 +68,8 @@ const ReactionArea = () => {
             rank={index + 1}
             key={card.id}
             card={card}
-            // onClick={handleClickCard} 함수 구현 시 추가
             variant='withProfile'
+            onClick={() => handleClickCard(card)}
           />
         ))}
       </StyledCardListContainer>
