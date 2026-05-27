@@ -6,7 +6,7 @@ interface UseScrollCarouselOptions<T> {
   autoSlideInterval?: number;
 }
 
-const getLoopedItems = <T>(items: T[], itemsPerView = 1): T[] => {
+const getSlidesWithClones = <T>(items: T[], itemsPerView = 1): T[] => {
   if (items.length > itemsPerView) {
     return [...items.slice(-itemsPerView), ...items, ...items.slice(0, itemsPerView)];
   } else {
@@ -20,7 +20,7 @@ export const useScrollCarousel = <T>({
   autoSlideInterval = 2000,
 }: UseScrollCarouselOptions<T>) => {
   const itemCount = items.length;
-  const loopedItems = useMemo(() => getLoopedItems(items, itemsPerView), [items, itemsPerView]);
+  const slidesWithClones = useMemo(() => getSlidesWithClones(items, itemsPerView), [items, itemsPerView]);
 
   const isLoopEnabled = itemCount > itemsPerView;
   const startIndex = isLoopEnabled ? itemsPerView : 0;
@@ -100,7 +100,7 @@ export const useScrollCarousel = <T>({
       activeIndexRef.current = startIndex;
       scrollToIndex(startIndex, false);
     },
-    [items],
+    [startIndex],
   );
 
   useEffect(
@@ -185,7 +185,7 @@ export const useScrollCarousel = <T>({
 
   return {
     containerRef,
-    loopedItems,
+    slidesWithClones,
     pageCount,
     activePage,
     scrollToPage,

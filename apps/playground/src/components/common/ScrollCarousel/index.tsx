@@ -19,7 +19,7 @@ const ScrollCarousel = <T extends { id: string | number }>({
   autoSlideInterval = 2000,
   renderItem,
 }: ScrollCarouselProps<T>) => {
-  const { containerRef, loopedItems, pageCount, activePage, scrollToPage } = useScrollCarousel({
+  const { containerRef, slidesWithClones, pageCount, activePage, scrollToPage } = useScrollCarousel({
     items,
     itemsPerView,
     autoSlideInterval,
@@ -29,7 +29,7 @@ const ScrollCarousel = <T extends { id: string | number }>({
     <StyledContainer>
       <StyledViewport ref={containerRef}>
         <StyledTrack>
-          {loopedItems.map((item, index) => (
+          {slidesWithClones.map((item, index) => (
             <StyledSlot key={`${item.id}-${index}`} itemsPerView={itemsPerView}>
               {renderItem(item)}
             </StyledSlot>
