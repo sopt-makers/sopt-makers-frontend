@@ -3,9 +3,9 @@ import styled from '@emotion/styled';
 import { DESKTOP_ONE_MEDIA_QUERY, DESKTOP_TWO_MEDIA_QUERY, MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 import WordChainEntry from '../wordchain/WordchainEntry/WordChainEntry';
+import CoffeeChatList from './CoffeeChatPreview';
 import MenuPreview from './common/MenuPreview';
-import TitledContent from './common/TitledContent';
-import ProjectList from './ProjectPreview/ProjectList';
+import ProjectPreview from './ProjectPreview';
 
 const HomePage = () => {
   return (
@@ -21,12 +21,10 @@ const HomePage = () => {
         </CommunityPreview>
       </StyledMemberAndCommunity>
       <MenuPreview menu={'projects'}>
-        <TitledContent title={'지난 기수 앱잼 프로젝트'}>
-          <ProjectList />
-        </TitledContent>
+        <ProjectPreview />
       </MenuPreview>
       <MenuPreview menu={'coffeechat'}>
-        <div>내용</div>
+        <CoffeeChatList />
       </MenuPreview>
     </StyledContainer>
   );
