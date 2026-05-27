@@ -62,6 +62,10 @@ export interface ClickEvents {
   reviewUpload: undefined;
   // 푸터
   aboutMakers: undefined;
+  // 홈 - 미리보기
+  homeSectionMore: {
+    homeSection: 'member' | 'community' | 'project' | 'coffeechat';
+  };
 
   // ==== 멤버 ====
   memberCard: MemberCard;
@@ -93,15 +97,17 @@ export interface ClickEvents {
     id: number;
     name: string;
   };
-  profileConnectionCard: {
-    id: number;
-    name: string;
-    recommendationType: 'SAME_PART' | 'SAME_CREW' | 'SAME_PROJECT' | 'SAME_UNIVERSITY' | 'SAME_GENERATION';
-  };
   memberRecommendCard: {
     id: number;
     name: string;
-    recommendationType: 'SAME_PART' | 'SAME_CREW' | 'SAME_MBTI' | 'SAME_UNIVERSITY' | 'SAME_GENERATION';
+    recommendationType:
+      | 'SAME_PART'
+      | 'SAME_CREW'
+      | 'SAME_MBTI'
+      | 'SAME_PROJECT'
+      | 'SAME_UNIVERSITY'
+      | 'SAME_GENERATION';
+    referral: 'memberTab' | 'profile' | 'home';
   };
 
   // 프로필 편집
@@ -411,7 +417,7 @@ export interface ImpressionEvents {
       | 'SAME_UNIVERSITY'
       | 'SAME_GENERATION'
       | 'SAME_PROJECT';
-    screen: 'memberTab' | 'profile';
+    screen: 'memberTab' | 'profile' | 'home';
   };
 
   // ==== 기획경선 특집 ====

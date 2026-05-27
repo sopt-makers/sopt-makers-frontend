@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 
 import MenuLink from './MenuLink';
 
-export type MenuKey = 'members' | 'feed' | 'projects' | 'coffeechat';
+export type MenuKey = 'member' | 'community' | 'project' | 'coffeechat';
 
 interface MenuPreviewProps {
   menu: MenuKey;
