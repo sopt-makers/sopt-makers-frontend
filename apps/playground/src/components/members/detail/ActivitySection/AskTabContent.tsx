@@ -421,7 +421,6 @@ const AskTabContent = ({ memberId, memberName, meId, unansweredCount }: AskTabCo
                           <FeedLike
                             likes={question.reactionCount}
                             isLiked={question.isReacted}
-                            type='thumb'
                             onClick={() => {
                               logClickEvent('AskLike', {
                                 feedId: question.questionId,

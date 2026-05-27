@@ -255,8 +255,8 @@ const FeedListItems: FC<FeedListItemsProps> = ({ categoryCode, subCategory, rend
                           postId: post.id,
                           isLiked: post.isLiked,
                           likes: post.likes,
-                          allPostsQueryKey: useGetPostsInfiniteQuery.getKey(categoryCode),
-                          postsQueryKey: useGetPostsInfiniteQuery.getKey(post.categoryCode.toString()),
+                          allPostsQueryKey: useGetPostsInfiniteQuery.getKey(post.categoryCode, 'ALL'),
+                          postsQueryKey: useGetPostsInfiniteQuery.getKey(categoryCode, subCategory),
                           postQueryKey: getPost.cacheKey(post.id.toString()),
                           recentPostsQuerykey: getRecentPosts.cacheKey(),
                         });
