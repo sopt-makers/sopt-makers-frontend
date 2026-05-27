@@ -132,6 +132,7 @@ const StyledCardContainer = styled.div<{ $withProfile?: boolean }>`
 const StyledMainContents = styled.div`
   display: flex;
   gap: 12px;
+  min-width: 0;
 `;
 
 const StyledRank = styled(Text)`
@@ -144,6 +145,7 @@ const StyledTitleContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
+  min-width: 0;
 `;
 
 const Tag = styled.span`

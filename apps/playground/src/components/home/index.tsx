@@ -82,4 +82,5 @@ const MembersPreview = styled(MenuPreview)`
 
 const CommunityPreview = styled(MenuPreview)`
   flex: 1;
+  min-width: 0;
 `;
