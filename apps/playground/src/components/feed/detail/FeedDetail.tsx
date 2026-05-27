@@ -29,7 +29,7 @@ import FeedDetailContent from '@/components/feed/detail/FeedDetailContent';
 import FeedDetailInput from '@/components/feed/detail/FeedDetailInput';
 interface FeedDetailProps {
   postId: string;
-  renderCategoryLink: (props: { children: ReactNode; categoryId: string }) => ReactNode;
+  renderCategoryLink: (props: { children: ReactNode; categoryCode: string }) => ReactNode;
   renderBackLink: (props: { children: ReactNode }) => ReactNode;
 }
 export const ReplyContext = createContext<{
@@ -60,9 +60,9 @@ const FeedDetail = ({ postId, renderCategoryLink, renderBackLink }: FeedDetailPr
 
   const { data: postData } = useGetPostQuery(postId);
   const { data: commentData } = useGetCommentQuery(postId);
-  const currentCategory = useCategoryInfo(postData?.posts.categoryId.toString());
+  const currentCategory = useCategoryInfo(postData?.posts.categoryCode);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [categoryId] = useCategoryParam();
+  const [categoryCode] = useCategoryParam();
   const { findParentCategory } = useCategory();
   const { referral } = useFeedReferral();
 
@@ -87,7 +87,7 @@ const FeedDetail = ({ postId, renderCategoryLink, renderBackLink }: FeedDetailPr
     return null;
   }
 
-  const children = findParentCategory(postData.posts.categoryId)?.children ?? [];
+  const children = findParentCategory(postData.posts.categoryCode)?.children ?? [];
 
   return (
     <ReplyContext.Provider value={{ ...replyState, setReplyState }}>
@@ -96,7 +96,7 @@ const FeedDetail = ({ postId, renderCategoryLink, renderBackLink }: FeedDetailPr
           category={currentCategory?.category?.name ?? ''}
           tag={currentCategory?.tag?.name ?? '전체'}
           hasChildren={children.length > 0}
-          categoryId={postData.posts.categoryId.toString()}
+          categoryCode={postData.posts.categoryCode}
           renderCategoryLink={renderCategoryLink}
           left={renderBackLink({
             children: <DetailFeedCard.Icon name='chevronLeft' />,
@@ -188,7 +188,7 @@ const FeedDetail = ({ postId, renderCategoryLink, renderBackLink }: FeedDetailPr
           hasChildren={children.length > 0}
           onSubmitted={() => {
             queryClient.invalidateQueries({
-              queryKey: useGetPostsInfiniteQuery.getKey(categoryId),
+              queryKey: useGetPostsInfiniteQuery.getKey(categoryCode),
             });
             requestAnimationFrame(() => {
               // MEMO(@jun): refecth 이후 render가 완료되기 전에 scroll 처리가 되어버려서, 리렌더링 이후에 실행하도록

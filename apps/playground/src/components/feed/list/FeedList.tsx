@@ -1,16 +1,16 @@
 import styled from '@emotion/styled';
 import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQueryClient } from '@tanstack/react-query';
 import { ErrorBoundary } from '@toss/error-boundary';
 import Link from 'next/link';
-import type { FC, ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
-import { getCategory } from '@/api/endpoint/feed/getCategory';
+import { useGetCategory } from '@/api/endpoint/feed/getCategory';
 import { useGetPostsInfiniteQuery } from '@/api/endpoint/feed/getPosts';
 import Text from '@/components/common/Text';
 import { LoggingClick } from '@/components/eventLogger/components/LoggingClick';
-import { useCategoryParam } from '@/components/feed/common/queryParam';
+import { useCategoryParam, useSubcategoryParam } from '@/components/feed/common/queryParam';
 import Hot from '@/components/feed/home';
 import CategorySelect from '@/components/feed/list/CategorySelect';
 import CategorySkeleton from '@/components/feed/list/CategorySkeleton';
@@ -26,27 +26,28 @@ interface FeedListProps {
 
 const CREW_CATEGORY_ID = '24';
 
-const FeedList: FC<FeedListProps> = ({ renderFeedDetailLink, onScrollChange }) => {
+const FeedList = ({ renderFeedDetailLink, onScrollChange }: FeedListProps) => {
   const queryClient = useQueryClient();
-  const [categoryId] = useCategoryParam({ defaultValue: '' });
-  const { data: categoryData, isLoading } = useQuery({
-    queryKey: getCategory.cacheKey(),
-    queryFn: getCategory.request,
-  });
+  const [categoryCode] = useCategoryParam({ defaultValue: '' });
+  const [subcategoryCode] = useSubcategoryParam();
+  const { data: categoryData, isLoading } = useGetCategory();
 
   const categories = categoryData?.map((category) => ({
-    id: `${category.id}`,
+    code: category.code,
     name: category.name,
     hasAllCategory: true,
     tags: category.children.map((item) => ({
-      id: `${item.id}`,
+      code: item.code,
       name: item.name,
     })),
   }));
 
-  const handleCategoryChange = (categoryId: string) => {
+  const parentCategory = categories?.find((c) => c.code === categoryCode);
+  const subCategory = subcategoryCode ?? parentCategory?.tags[0]?.code;
+
+  const handleCategoryChange = (categoryCode: string) => {
     queryClient.invalidateQueries({
-      queryKey: useGetPostsInfiniteQuery.getKey(categoryId),
+      queryKey: useGetPostsInfiniteQuery.getKey(categoryCode),
     });
     window.scrollTo({ top: 0 });
   };
@@ -64,7 +65,7 @@ const FeedList: FC<FeedListProps> = ({ renderFeedDetailLink, onScrollChange }) =
       )}
 
       <HeightSpacer>
-        {!categoryId ? (
+        {!categoryCode ? (
           <Hot />
         ) : (
           <ErrorBoundary
@@ -75,11 +76,12 @@ const FeedList: FC<FeedListProps> = ({ renderFeedDetailLink, onScrollChange }) =
               </div>
             )}
           >
-            {categoryId === CREW_CATEGORY_ID ? (
-              <CrewFeedList categoryId={categoryId} onScrollChange={onScrollChange} />
+            {categoryCode === CREW_CATEGORY_ID ? (
+              <CrewFeedList categoryId={categoryCode} onScrollChange={onScrollChange} />
             ) : (
               <FeedListItems
-                categoryId={categoryId}
+                categoryCode={categoryCode}
+                subCategory={subCategory}
                 renderFeedDetailLink={renderFeedDetailLink}
                 onScrollChange={onScrollChange}
               />

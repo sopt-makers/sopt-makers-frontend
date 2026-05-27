@@ -10,9 +10,8 @@ const recentPostsSchema = z.object({
   createdAt: z.string(),
   likeCount: z.number(),
   commentCount: z.number(),
-  isAnswered: z.boolean(),
-  categoryId: z.number(),
-  categoryName: z.string(),
+  categoryTag: z.string(),
+  categoryTagLabel: z.string(),
   totalVoteCount: z.number().nullable(),
 });
 

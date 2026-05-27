@@ -1,24 +1,22 @@
 export interface FeedDataType {
-  categoryId: number | null;
+  categoryCode: string | null;
   title: string;
   content: string;
-  isQuestion: boolean;
   isBlindWriter: boolean;
-  images: string[];
+  images: (string | null | undefined)[];
   vote: VoteData;
   mention: {
     userIds: number[];
     writerName?: string;
     webLink?: string;
   } | null;
-  groupId?: number | null;
 }
 
 export interface PostedFeedDataType extends FeedDataType {
   link: string | null;
 }
 
-export interface EditFeedDataType extends FeedDataType {
+export interface EditFeedDataType extends Omit<PostedFeedDataType, 'vote'> {
   postId: number | null;
 }
 

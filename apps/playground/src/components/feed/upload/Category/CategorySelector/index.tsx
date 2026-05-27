@@ -11,7 +11,7 @@ import { textStyles } from '@/styles/typography';
 interface CategorySelectorProps {
   isOpen?: boolean;
   onClose: () => void;
-  onSelect: (categoryId: number) => void;
+  onSelect: (categoryCode: string) => void;
   feedData: FeedDataType;
 }
 
