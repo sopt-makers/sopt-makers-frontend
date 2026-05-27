@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 
 import { DESKTOP_ONE_MEDIA_QUERY, DESKTOP_TWO_MEDIA_QUERY, MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
+import WordChainEntry from '../wordchain/WordchainEntry/WordChainEntry';
 import MenuPreview from './common/MenuPreview';
 import TitledContent from './common/TitledContent';
 import ProjectList from './ProjectPreview/ProjectList';
@@ -10,6 +11,7 @@ const HomePage = () => {
   return (
     // TODO: content 교체
     <StyledContainer>
+      <WordChainEntry />
       <StyledMemberAndCommunity>
         <MembersPreview menu={'members'}>
           <div>내용</div>
