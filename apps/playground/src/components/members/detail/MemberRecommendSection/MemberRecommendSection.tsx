@@ -35,8 +35,13 @@ const MemberRecommendSection = ({ memberId, name }: MemberRecommendSectionProps)
             param={{ id: member.id, name: member.name, recommendationType: member.recommendType, screen: 'profile' }}
           >
             <LoggingClick
-              eventKey='profileConnectionCard'
-              param={{ id: member.id, name: member.name, recommendationType: member.recommendType }}
+              eventKey='memberRecommendCard'
+              param={{
+                id: member.id,
+                name: member.name,
+                recommendationType: member.recommendType,
+                referral: 'profile',
+              }}
             >
               <Link href={playgroundLink.memberDetail(member.id)}>
                 <MemberRecommendCard member={member} />

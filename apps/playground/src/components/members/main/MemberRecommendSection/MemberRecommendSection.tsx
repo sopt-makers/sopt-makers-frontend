@@ -74,7 +74,12 @@ const MemberRecommendSection = () => {
           >
             <LoggingClick
               eventKey='memberRecommendCard'
-              param={{ id: member.id, name: member.name, recommendationType: member.recommendType }}
+              param={{
+                id: member.id,
+                name: member.name,
+                recommendationType: member.recommendType,
+                referral: 'memberTab',
+              }}
             >
               <Link href={playgroundLink.memberDetail(member.id)}>
                 <MemberRecommendCard member={member} />
