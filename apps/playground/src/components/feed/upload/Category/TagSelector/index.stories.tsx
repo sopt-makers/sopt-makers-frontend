@@ -28,7 +28,6 @@ export const Default = {
       categoryCode: 'PART',
       title: '제목',
       content: '내용',
-      isQuestion: false,
       isBlindWriter: false,
       images: [],
     };

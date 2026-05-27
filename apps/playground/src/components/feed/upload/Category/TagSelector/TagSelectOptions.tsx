@@ -17,16 +17,17 @@ interface TagSelectOptionsProp {
 }
 
 export default function TagSelectOptions({ onClose, onSave, feedData }: TagSelectOptionsProp) {
+  const { findParentCategory } = useCategory();
+  const parentCategory = findParentCategory(feedData.categoryCode);
+
   const handleSelectTagDesktop = (code: string) => {
-    onSave(code);
+    onSave(`${parentCategory?.code}_${code}`);
     onClose();
   };
 
   const handleSelectTagMobile = (code: string) => {
-    onSave(code);
+    onSave(`${parentCategory?.code}_${code}`);
   };
-  const { findParentCategory } = useCategory();
-  const parentCategory = findParentCategory(feedData.categoryCode);
 
   return (
     <>
@@ -39,13 +40,13 @@ export default function TagSelectOptions({ onClose, onSave, feedData }: TagSelec
                   <Responsive only='desktop'>
                     <Option onClick={() => handleSelectTagDesktop(tag.code)}>
                       {tag.name}
-                      {tag.code === feedData.categoryCode && <CheckIcon />}
+                      {`${parentCategory?.code}_${tag.code}` === feedData.categoryCode && <CheckIcon />}
                     </Option>
                   </Responsive>
                   <Responsive only='mobile'>
                     <Option key={tag.code} onClick={() => handleSelectTagMobile(tag.code)}>
                       {tag.name}
-                      {tag.code === feedData.categoryCode && <CheckIcon />}
+                      {`${parentCategory?.code}_${tag.code}` === feedData.categoryCode && <CheckIcon />}
                     </Option>
                   </Responsive>
                 </Fragment>

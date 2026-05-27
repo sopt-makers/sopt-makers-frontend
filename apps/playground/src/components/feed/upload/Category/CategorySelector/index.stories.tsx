@@ -24,7 +24,6 @@ export const Default = {
       categoryCode: 'FREE',
       title: '제목',
       content: '내용',
-      isQuestion: false,
       isBlindWriter: false,
       images: [],
     };

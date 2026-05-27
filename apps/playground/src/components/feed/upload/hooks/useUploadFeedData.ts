@@ -1,12 +1,6 @@
 import { useState } from 'react';
 
 import useCategory from '@/components/feed/common/hooks/useCategory';
-import {
-  PART_CATEGORY_ID,
-  PROMOTION_CATEGORY_ID,
-  QUESTION_CATEGORY_ID,
-  SOPTICLE_CATEGORY_ID,
-} from '@/components/feed/constants';
 import type { MeetingInfo } from '@/components/feed/upload/select/types';
 import type { PostedFeedDataType } from '@/components/feed/upload/types';
 
@@ -14,32 +8,25 @@ export default function useUploadFeedData(defaultValue: PostedFeedDataType) {
   const [feedData, setFeedData] = useState(defaultValue);
   const { findParentCategory } = useCategory();
 
-  const resetIsBlindWriter = (categoryId: number) => {
-    const parentCategory = findParentCategory(categoryId);
-    const isQuestion = parentCategory?.id === QUESTION_CATEGORY_ID;
-    if (isQuestion) {
-      setFeedData((feedData) => ({ ...feedData, isBlindWriter: true }));
-    }
+  const resetIsBlindWriter = (categoryCode: string) => {
+    const parentCategory = findParentCategory(categoryCode);
+
     if (!parentCategory?.hasBlind) {
       setFeedData((feedData) => ({ ...feedData, isBlindWriter: false }));
     }
   };
 
-  const handleSaveCategory = (categoryId: number) => {
-    const parentCategory = findParentCategory(categoryId);
-    const isSopticle = parentCategory?.id === SOPTICLE_CATEGORY_ID;
-    const isQuestion = parentCategory?.id === QUESTION_CATEGORY_ID;
+  const handleSaveCategory = (categoryCode: string) => {
+    const parentCategory = findParentCategory(categoryCode);
+    const isSopticle = categoryCode.startsWith('SOPTICLE');
     const hasBlind = parentCategory?.hasBlind ?? false;
     const isPrevSopticle = !isSopticle && feedData.content === 'content' && feedData.title === '';
 
     setFeedData((feedData) => ({
       ...feedData,
-      categoryId,
-      ...(isSopticle // / 솝티클이면 content와 title 초기화
-        ? { content: 'content', title: '' }
-        : isPrevSopticle && { content: '' }), // 이전 카테고리가 솝티클이었으면 content 다시 초기화
-      isQuestion, // 질문 카테고리 여부에 따라 isQuestion 초기화
-      isBlindWriter: isSopticle ? false : hasBlind && isQuestion ? true : feedData.isBlindWriter,
+      categoryCode,
+      ...(isSopticle ? { content: 'content', title: '' } : isPrevSopticle && { content: '' }),
+      isBlindWriter: isSopticle ? false : hasBlind ? true : feedData.isBlindWriter,
     }));
   };
 
@@ -74,14 +61,15 @@ export default function useUploadFeedData(defaultValue: PostedFeedDataType) {
   };
 
   const checkReadyToUpload = () => {
-    if (feedData.categoryId === PROMOTION_CATEGORY_ID || feedData.categoryId === PART_CATEGORY_ID) {
-      return false;
+    if (!feedData.categoryCode) return false;
+
+    const isSopticle = feedData.categoryCode.startsWith('SOPTICLE');
+
+    if (isSopticle) {
+      return !!feedData.link?.trim();
     }
 
-    return (
-      (feedData.categoryId !== null && feedData.title.trim() && feedData.content.trim()) ||
-      (feedData.categoryId === SOPTICLE_CATEGORY_ID && feedData.link?.trim())
-    );
+    return !!(feedData.title.trim() && feedData.content.trim());
   };
 
   const resetFeedData = () => {
@@ -109,10 +97,7 @@ export default function useUploadFeedData(defaultValue: PostedFeedDataType) {
   };
 
   const handleGroupClick = (options: MeetingInfo) => {
-    setFeedData((prev) => ({
-      ...prev,
-      groupId: options.id,
-    }));
+    setFeedData((prev) => ({ ...prev }));
   };
 
   return {

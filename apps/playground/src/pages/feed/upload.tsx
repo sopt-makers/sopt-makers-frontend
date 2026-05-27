@@ -1,9 +1,8 @@
 import { playgroundLink } from '@sopt/constant';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 
-import { getCategory } from '@/api/endpoint/feed/getCategory';
 import { useGetPostsInfiniteQuery } from '@/api/endpoint/feed/getPosts';
 import { getRecentPosts } from '@/api/endpoint/feed/getRecentPosts';
 import { uploadFeed } from '@/api/endpoint/feed/uploadFeed';
@@ -24,41 +23,21 @@ const FeedUpload: FC = () => {
       uploadFeed.request({ ...reqeustBody.data }),
   });
 
-  const { data: categoryData } = useQuery({
-    queryKey: getCategory.cacheKey(),
-    queryFn: getCategory.request,
-  });
-
-  const getFullCategoryNameFromId = (id: number): string | undefined => {
-    if (categoryData) {
-      for (const parent of categoryData) {
-        if (parent.id === id) return parent.name;
-
-        const child = parent.children.find((c) => c.id === id);
-        if (child) {
-          return `${parent.name}_${child.name}`;
-        }
-      }
-
-      return undefined;
-    }
-  };
-
   const handlUploadSubmit = ({ data, id }: { data: PostedFeedDataType; id: number | null }) => {
     mutate(
-      { data: data, id: id },
+      { data, id },
       {
         onSuccess: async () => {
-          const category = data.categoryId !== null ? getFullCategoryNameFromId(data.categoryId) : undefined;
+          const [parentCode] = (data.categoryCode ?? '').split('_');
           logSubmitEvent('submitCommunity', {
-            category,
+            category: data.categoryCode ?? undefined,
             isBlindWriter: data.isBlindWriter,
             vote: !!data.vote,
             /* eslint-disable-next-line no-useless-escape -- [ and ] must be escaped for literal match */
             mention: /@([^\[\]\s@]+)\[(\d+)\]/.test(data.content),
           });
           queryClient.invalidateQueries({
-            queryKey: useGetPostsInfiniteQuery.getKey(''),
+            queryKey: useGetPostsInfiniteQuery.getKey(parentCode),
           });
           queryClient.invalidateQueries({
             queryKey: getRecentPosts.cacheKey(),
@@ -81,10 +60,9 @@ const FeedUpload: FC = () => {
     <AuthRequired>
       <FeedUploadPage
         defaultValue={{
-          categoryId: null,
+          categoryCode: null,
           title: '',
           content: '',
-          isQuestion: false,
           isBlindWriter: false,
           images: [],
           link: null,
