@@ -1,17 +1,17 @@
-import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 
 interface AutoPlayOptions {
   enabled: boolean;
   interval?: number;
 }
 
-export interface UseScrollCarouselOptions<T> {
-  items: T[];
+export interface UseScrollCarouselOptions {
+  itemCount: number;
   itemsPerView?: number;
   autoPlay?: AutoPlayOptions;
 }
 
-const getSlidesWithClones = <T>(items: T[], itemsPerView = 1): T[] => {
+export const getLoopedItems = <T>(items: T[], itemsPerView = 1): T[] => {
   if (items.length > itemsPerView) {
     return [...items.slice(-itemsPerView), ...items, ...items.slice(0, itemsPerView)];
   } else {
@@ -19,14 +19,11 @@ const getSlidesWithClones = <T>(items: T[], itemsPerView = 1): T[] => {
   }
 };
 
-export const useScrollCarousel = <T>({
-  items,
+export const useScrollCarousel = ({
+  itemCount,
   itemsPerView = 1,
   autoPlay = { enabled: true, interval: 2000 },
-}: UseScrollCarouselOptions<T>) => {
-  const itemCount = items.length;
-  const slidesWithClones = useMemo(() => getSlidesWithClones(items, itemsPerView), [items, itemsPerView]);
-
+}: UseScrollCarouselOptions) => {
   const isLoopEnabled = itemCount > itemsPerView;
   const startIndex = isLoopEnabled ? itemsPerView : 0;
 
@@ -190,7 +187,6 @@ export const useScrollCarousel = <T>({
 
   return {
     containerRef,
-    slidesWithClones,
     pageCount,
     activePage,
     scrollToPage,
