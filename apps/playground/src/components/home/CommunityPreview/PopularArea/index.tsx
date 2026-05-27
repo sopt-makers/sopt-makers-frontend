@@ -10,7 +10,7 @@ import Text from '@/components/common/Text';
 import { LoggingClick } from '@/components/eventLogger/components/LoggingClick';
 import { getCategoryAndSubcategory } from '@/components/feed/common/utils/getCategoryAndSubcategory';
 
-import TitledContent from '../common/TitledContent';
+import TitledContent from '../../common/TitledContent';
 
 const PopularArea = () => {
   const { data, isLoading, isError } = useGetPopularPost();

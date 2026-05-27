@@ -53,11 +53,11 @@ const RecentArea = () => {
           </TitleBox>
 
           <RecentFeedList>
-            {recentPosts?.map((recentPosts) => (
+            {recentPosts?.map((recentPost) => (
               <RecentCard
-                key={recentPosts.id}
-                recentPosts={recentPosts}
-                onClick={() => handleClickCard(recentPosts.categoryTag, recentPosts.id)}
+                key={recentPost.id}
+                recentPost={recentPost}
+                onClick={() => handleClickCard(recentPost.categoryTag, recentPost.id)}
               />
             ))}
           </RecentFeedList>

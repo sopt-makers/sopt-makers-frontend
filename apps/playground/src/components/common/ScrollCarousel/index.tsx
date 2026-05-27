@@ -1,23 +1,18 @@
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
-import type { ReactNode } from 'react';
+import { Children, type ReactNode } from 'react';
 
 import { useScrollCarousel, type UseScrollCarouselOptions } from '@/hooks/useScrollCarousel';
 
 const ITEM_GAP = 12;
 
-interface ScrollCarouselProps<T extends { id: string | number }> extends UseScrollCarouselOptions<T> {
-  renderItem: (item: T) => ReactNode;
+interface ScrollCarouselProps extends UseScrollCarouselOptions {
+  children: ReactNode;
 }
 
-const ScrollCarousel = <T extends { id: string | number }>({
-  items,
-  itemsPerView = 1,
-  autoPlay,
-  renderItem,
-}: ScrollCarouselProps<T>) => {
-  const { containerRef, slidesWithClones, pageCount, activePage, scrollToPage } = useScrollCarousel({
-    items,
+const ScrollCarousel = ({ itemCount, itemsPerView = 1, autoPlay, children }: ScrollCarouselProps) => {
+  const { containerRef, pageCount, activePage, scrollToPage } = useScrollCarousel({
+    itemCount,
     itemsPerView,
     autoPlay,
   });
@@ -26,10 +21,8 @@ const ScrollCarousel = <T extends { id: string | number }>({
     <StyledContainer>
       <StyledViewport ref={containerRef}>
         <StyledTrack>
-          {slidesWithClones.map((item, index) => (
-            <StyledSlot key={`${item.id}-${index}`} itemsPerView={itemsPerView}>
-              {renderItem(item)}
-            </StyledSlot>
+          {Children.map(children, (child) => (
+            <StyledSlot itemsPerView={itemsPerView}>{child}</StyledSlot>
           ))}
         </StyledTrack>
       </StyledViewport>
