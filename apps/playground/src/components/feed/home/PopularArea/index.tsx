@@ -1,45 +1,30 @@
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
-import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 
-import { getCategory } from '@/api/endpoint/feed/getCategory';
+import { useGetCategory } from '@/api/endpoint/feed/getCategory';
 import { useGetPopularPost } from '@/api/endpoint/feed/getPopularPost';
 import Text from '@/components/common/Text';
 import { LoggingClick } from '@/components/eventLogger/components/LoggingClick';
-import { getParentCategoryIdByName } from '@/components/feed/common/utils';
 import PopularCard from '@/components/feed/home/PopularArea/PopularCard';
 import { MB_SM_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 const PopularArea = () => {
   const { data, isLoading, isError } = useGetPopularPost();
+  const { data: categoryData } = useGetCategory();
   const router = useRouter();
 
-  const handleClickPopular = (category: string, feedId: number) => {
-    const categoryId = getParentCategoryIdByName(category);
+  const handleClickPopular = (categoryName: string, feedId: number) => {
+    const category =
+      categoryData?.find((c) => c.name === categoryName) ??
+      categoryData?.flatMap((c) => c.children).find((c) => c.name === categoryName);
+    const categoryCode = category?.code;
 
-    if (!categoryId) {
+    if (!categoryCode) {
       router.push(`/?feed=${feedId}`);
+      return;
     }
-    router.push(`/?category=${categoryId}&feed=${feedId}`);
-  };
-
-  const { data: categoryData } = useQuery({
-    queryKey: getCategory.cacheKey(),
-    queryFn: getCategory.request,
-  });
-
-  const getFullCategoryNameFromId = (id: number): string | undefined => {
-    if (categoryData) {
-      for (const parent of categoryData) {
-        if (parent.id === id) return parent.name;
-
-        const child = parent.children.find((c) => c.id === id);
-        if (child) {
-          return `${parent.name}_${child.name}`;
-        }
-      }
-    }
+    router.push(`/?category=${categoryCode}&feed=${feedId}`);
   };
 
   return (
@@ -68,13 +53,12 @@ const PopularArea = () => {
             <PopularCard key={`skeleton-${index}`} rank={index + 1} isLoading />
           ))}
         {data?.map((card, index) => {
-          const category = card.id !== null ? (getFullCategoryNameFromId(card.id) ?? card.category) : card.category;
           return (
             <LoggingClick
               eventKey='feedCard'
               param={{
                 feedId: String(card.id),
-                category,
+                category: card.category,
                 referral: 'category_HOT',
               }}
               key={card.id ?? index}

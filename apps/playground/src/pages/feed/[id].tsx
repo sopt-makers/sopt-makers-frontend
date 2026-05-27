@@ -27,13 +27,13 @@ const FeedDetailPage = () => {
                   <Link href={playgroundLink.feedList()}>{children}</Link>
                 </LoggingClick>
               )}
-              renderCategoryLink={({ children, categoryId }) => (
+              renderCategoryLink={({ children, categoryCode }) => (
                 <LoggingClick eventKey='feedCategoryChipLink' param={{ feedId: query.id }}>
                   <Link
                     href={{
                       pathname: playgroundLink.feedList(),
                       query: {
-                        category: categoryId,
+                        category: categoryCode,
                       },
                     }}
                   >

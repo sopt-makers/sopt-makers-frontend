@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import { useRecentSopticles } from '@/api/endpoint/feed/getRecentSopticle';
 import Text from '@/components/common/Text';
 import { LoggingClick } from '@/components/eventLogger/components/LoggingClick';
-import { SOPTICLE_CATEGORY_ID } from '@/components/feed/constants';
+import { SOPTICLE_CATEGORY_CODE } from '@/components/feed/constants';
 import SopticleCard from '@/components/feed/home/SopticleArea/SopticleCard';
 import { useScrollCarousel } from '@/components/feed/home/SopticleArea/useScrollCarousel';
 import FeedSkeleton from '@/components/feed/list/FeedSkeleton';
@@ -24,7 +24,7 @@ const SopticleArea = () => {
   });
 
   const navigateToSopticle = () => {
-    router.push(`/?category=${SOPTICLE_CATEGORY_ID}`);
+    router.push(`/?category=${SOPTICLE_CATEGORY_CODE}`);
   };
 
   return (

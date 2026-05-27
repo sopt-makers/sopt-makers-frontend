@@ -7,7 +7,6 @@ import useModalState from '@/components/common/Modal/useModalState';
 import CategorySelector from '@/components/feed/upload/Category/CategorySelector';
 import { categories } from '@/components/feed/upload/Category/constants';
 import { DropDown } from '@/components/feed/upload/Category/DropDown';
-import type { BasicCategory } from '@/components/feed/upload/Category/types';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 import { textStyles } from '@/styles/typography';
 
@@ -22,7 +21,7 @@ export const Default = {
     const { isOpen, onClose, onOpen } = useModalState();
 
     const feedData = {
-      categoryId: 1,
+      categoryCode: 'FREE',
       title: '제목',
       content: '내용',
       isQuestion: false,
@@ -37,14 +36,14 @@ export const Default = {
           <Select>
             {categories &&
               categories.length > 0 &&
-              categories.map((category: BasicCategory) => {
+              categories.map((category) => {
                 return (
                   <Option
-                    key={category.id}
+                    key={category.code}
                     onClick={() => {
                       //
                     }}
-                    isSelected={category.id === feedData.categoryId}
+                    isSelected={category.code === feedData.categoryCode}
                   >
                     <OptionTitle>{category.name}</OptionTitle>
                     <OptionContents>{category.content}</OptionContents>

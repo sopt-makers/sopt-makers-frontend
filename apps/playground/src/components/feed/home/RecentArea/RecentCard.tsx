@@ -8,7 +8,6 @@ import type { RecentPosts } from '@/api/endpoint/feed/getRecentPosts';
 import Text from '@/components/common/Text';
 import { LoggingClick } from '@/components/eventLogger/components/LoggingClick';
 import { parseMentionsToJSX } from '@/components/feed/common/utils/parseMention';
-import { QUESTION_CATEGORY_ID } from '@/components/feed/constants';
 import FeedIcon from '@/components/feed/home/RecentArea/FeedIcon';
 import VoteIcon from '@/public/icons/icon-vote.svg';
 
@@ -17,9 +16,8 @@ interface RecentCardProps {
 }
 
 const RecentCard = ({ recentPosts }: RecentCardProps) => {
-  const { id, title, content, createdAt, likeCount, commentCount, categoryName, categoryId, totalVoteCount } =
+  const { id, title, content, createdAt, likeCount, commentCount, categoryTagLabel, categoryTag, totalVoteCount } =
     recentPosts;
-  const isQuestion = QUESTION_CATEGORY_ID === categoryId;
   const isVotePost = totalVoteCount !== null;
   const router = useRouter();
 
@@ -28,14 +26,14 @@ const RecentCard = ({ recentPosts }: RecentCardProps) => {
       eventKey='feedCard'
       param={{
         feedId: String(id),
-        category: categoryName,
+        category: categoryTagLabel,
         referral: 'category_HOT',
       }}
     >
-      <CardContainer href={`/?category=${categoryId}&feed=${id}`}>
+      <CardContainer href={`/?category=${categoryTag}&feed=${id}`}>
         <CardContent>
           <TitleStyle>
-            <Tag>{categoryName}</Tag>
+            <Tag>{categoryTagLabel}</Tag>
             {title}
           </TitleStyle>
           <ContentStyle>{parseMentionsToJSX(content, router)}</ContentStyle>
@@ -56,7 +54,7 @@ const RecentCard = ({ recentPosts }: RecentCardProps) => {
           </FlexBox>
 
           <FeedIconBox>
-            <FeedIcon type={isQuestion ? 'thumbsUp' : 'heart'} count={likeCount} />
+            <FeedIcon type='heart' count={likeCount} />
             <FeedIcon type='message' count={commentCount} />
           </FeedIconBox>
         </CardFooter>

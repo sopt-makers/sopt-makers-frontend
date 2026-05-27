@@ -12,21 +12,21 @@ import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 interface TagSelectOptionsProp {
   onClose: () => void;
-  onSave: (categoryId: number) => void;
+  onSave: (categoryCode: string) => void;
   feedData: FeedDataType;
 }
 
 export default function TagSelectOptions({ onClose, onSave, feedData }: TagSelectOptionsProp) {
-  const handleSelectTagDesktop = (id: number) => {
-    onSave(id);
+  const handleSelectTagDesktop = (code: string) => {
+    onSave(code);
     onClose();
   };
 
-  const handleSelectTagMobile = (id: number) => {
-    onSave(id);
+  const handleSelectTagMobile = (code: string) => {
+    onSave(code);
   };
-  const { findParentCategory, findChildrenCategory } = useCategory();
-  const parentCategory = findParentCategory(feedData.categoryId);
+  const { findParentCategory } = useCategory();
+  const parentCategory = findParentCategory(feedData.categoryCode);
 
   return (
     <>
@@ -35,17 +35,17 @@ export default function TagSelectOptions({ onClose, onSave, feedData }: TagSelec
           <>
             {parentCategory.children.map((tag: BasicCategory) => {
               return (
-                <Fragment key={tag.id}>
+                <Fragment key={tag.code}>
                   <Responsive only='desktop'>
-                    <Option onClick={() => handleSelectTagDesktop(tag.id)}>
+                    <Option onClick={() => handleSelectTagDesktop(tag.code)}>
                       {tag.name}
-                      {tag.id === feedData.categoryId && <CheckIcon />}
+                      {tag.code === feedData.categoryCode && <CheckIcon />}
                     </Option>
                   </Responsive>
                   <Responsive only='mobile'>
-                    <Option key={tag.id} onClick={() => handleSelectTagMobile(tag.id)}>
+                    <Option key={tag.code} onClick={() => handleSelectTagMobile(tag.code)}>
                       {tag.name}
-                      {tag.id === feedData.categoryId && <CheckIcon />}
+                      {tag.code === feedData.categoryCode && <CheckIcon />}
                     </Option>
                   </Responsive>
                 </Fragment>
