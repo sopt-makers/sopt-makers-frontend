@@ -84,7 +84,7 @@ export const Default = () => {
 
   return (
     <DetailFeedCard>
-      <DetailFeedCard.Header categoryCode='123' category='파트' tag='기획' />
+      <DetailFeedCard.Header categoryCode='SOPTICLE_PLAN' category='솝티클' tag='기획' />
       <DetailFeedCard.Body>
         <DetailFeedCard.Main>
           <DetailFeedCard.Top
