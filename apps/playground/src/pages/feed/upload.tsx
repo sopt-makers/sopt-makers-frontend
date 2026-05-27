@@ -1,11 +1,11 @@
 import { playgroundLink } from '@sopt/constant';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 
 import { useGetPostsInfiniteQuery } from '@/api/endpoint/feed/getPosts';
 import { getRecentPosts } from '@/api/endpoint/feed/getRecentPosts';
-import { uploadFeed } from '@/api/endpoint/feed/uploadFeed';
+import { useUploadFeed } from '@/api/endpoint/feed/postFeed';
 import AuthRequired from '@/components/auth/AuthRequired';
 import Loading from '@/components/common/Loading';
 import useEventLogger from '@/components/eventLogger/hooks/useEventLogger';
@@ -18,34 +18,28 @@ const FeedUpload: FC = () => {
   const { logSubmitEvent } = useEventLogger();
   const queryClient = useQueryClient();
 
-  const { mutate, isPending } = useMutation({
-    mutationFn: (reqeustBody: { data: PostedFeedDataType; id: number | null }) =>
-      uploadFeed.request({ ...reqeustBody.data }),
-  });
+  const { mutate, isPending } = useUploadFeed();
 
-  const handlUploadSubmit = ({ data, id }: { data: PostedFeedDataType; id: number | null }) => {
-    mutate(
-      { data, id },
-      {
-        onSuccess: async () => {
-          const [parentCode] = (data.categoryCode ?? '').split('_');
-          logSubmitEvent('submitCommunity', {
-            category: data.categoryCode ?? undefined,
-            isBlindWriter: data.isBlindWriter,
-            vote: !!data.vote,
-            /* eslint-disable-next-line no-useless-escape -- [ and ] must be escaped for literal match */
-            mention: /@([^\[\]\s@]+)\[(\d+)\]/.test(data.content),
-          });
-          queryClient.invalidateQueries({
-            queryKey: useGetPostsInfiniteQuery.getKey(parentCode),
-          });
-          queryClient.invalidateQueries({
-            queryKey: getRecentPosts.cacheKey(),
-          });
-          await router.push(playgroundLink.feedList());
-        },
+  const handlUploadSubmit = ({ data }: { data: PostedFeedDataType; id: number | null }) => {
+    mutate(data, {
+      onSuccess: async () => {
+        const [parentCode] = (data.categoryCode ?? '').split('_');
+        logSubmitEvent('submitCommunity', {
+          category: data.categoryCode ?? undefined,
+          isBlindWriter: data.isBlindWriter,
+          vote: !!data.vote,
+          /* eslint-disable-next-line no-useless-escape -- [ and ] must be escaped for literal match */
+          mention: /@([^\[\]\s@]+)\[(\d+)\]/.test(data.content),
+        });
+        queryClient.invalidateQueries({
+          queryKey: useGetPostsInfiniteQuery.getKey(parentCode),
+        });
+        queryClient.invalidateQueries({
+          queryKey: getRecentPosts.cacheKey(),
+        });
+        await router.push(playgroundLink.feedList());
       },
-    );
+    });
   };
 
   if (isPending) {
