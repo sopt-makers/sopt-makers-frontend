@@ -27,6 +27,9 @@ const AdsBanner: React.FC = () => {
     setFlag((flag) => !flag);
   };
 
+  const { data: bannersData, isLoading } = useBannersImages();
+  const banners = bannersData?.data && bannersData.data.length > 0 ? bannersData.data : ADS;
+
   const settings: Settings = {
     dots: true,
     infinite: true,
@@ -37,22 +40,19 @@ const AdsBanner: React.FC = () => {
     autoplaySpeed: 5000,
     arrows: true, // 좌,우 버튼
     initialSlide: 0, // 첫 컨텐츠 번호
-    prevArrow: ADS && ADS.length > 1 ? <PrevArrow /> : <></>,
-    nextArrow: ADS && ADS.length > 1 ? <NextArrow /> : <></>,
-    dotsClass: ADS && ADS.length > 1 ? 'custom-dots' : 'hide-dots',
+    prevArrow: banners && banners.length > 1 ? <PrevArrow /> : <></>,
+    nextArrow: banners && banners.length > 1 ? <NextArrow /> : <></>,
+    dotsClass: banners && banners.length > 1 ? 'custom-dots' : 'hide-dots',
     beforeChange: handleTimeFlag,
     afterChange: handleTimeFlag,
   };
 
   const time = dayjs().format('YYYY-MM-DD HH:mm:ss');
 
-  const { data: bannersData, isLoading } = useBannersImages();
-  const banners = bannersData?.data && bannersData.data.length > 0 ? bannersData.data : ADS;
-
   return (
     <SliderWrapper>
       {isLoading ? (
-        <Skeleton width={912} height={164} borderRadius={12} margin='0 30px' color={colors.gray800} />
+        <Skeleton width={912} height={164} borderRadius={'12px'} margin='0 30px' color={colors.gray800} />
       ) : (
         <AdsSlider {...settings}>
           {banners.map((ad, idx) => (
@@ -89,14 +89,17 @@ const SliderWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 16px 0;
+  margin: 16px 30px 24px 30px;
+
+  @media ${MOBILE_MEDIA_QUERY} {
+    margin: 8px 20px 0 20px;
+  }
 `;
 
 const AdsSlider = styled(Slider as React.ComponentType<Settings>)`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 30px;
   border-radius: 12px;
   width: 100%;
   max-width: 912px;
@@ -198,7 +201,6 @@ const AdsSlider = styled(Slider as React.ComponentType<Settings>)`
 
   @media ${MOBILE_MEDIA_QUERY} {
     aspect-ratio: 335 / 168;
-    margin: 0 20px -4px;
   }
 `;
 

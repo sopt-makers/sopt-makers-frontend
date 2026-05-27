@@ -2,19 +2,35 @@ import styled from '@emotion/styled';
 
 import { DESKTOP_ONE_MEDIA_QUERY, DESKTOP_TWO_MEDIA_QUERY, MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
+import WordChainEntry from '../wordchain/WordchainEntry/WordChainEntry';
 import MenuPreview from './common/MenuPreview';
+import TitledContent from './common/TitledContent';
 import MemberList from './MembersPreview/MemberList';
+import ProjectList from './ProjectPreview/ProjectList';
 
 const HomePage = () => {
   return (
     // TODO: content 교체
     <StyledContainer>
-      <MemberAndCommunity>
-        <MembersPreview menu={'member'} content={<MemberList />} />
-        <CommunityPreview menu={'community'} content={<div>내용</div>} />
-      </MemberAndCommunity>
-      <MenuPreview menu={'project'} content={<div>내용</div>} />
-      <MenuPreview menu={'coffeechat'} content={<div>내용</div>} />
+      <WordChainEntry />
+      <StyledMemberAndCommunity>
+        <MembersPreview menu={'member'}>
+          <TitledContent title={'나와 접점이 있는 멤버'}>
+            <MemberList />
+          </TitledContent>
+        </MembersPreview>
+        <CommunityPreview menu={'community'}>
+          <div>내용</div>
+        </CommunityPreview>
+      </StyledMemberAndCommunity>
+      <MenuPreview menu={'project'}>
+        <TitledContent title={'지난 기수 앱잼 프로젝트'}>
+          <ProjectList />
+        </TitledContent>
+      </MenuPreview>
+      <MenuPreview menu={'coffeechat'}>
+        <div>내용</div>
+      </MenuPreview>
     </StyledContainer>
   );
 };
@@ -44,7 +60,7 @@ const StyledContainer = styled.div`
   }
 `;
 
-const MemberAndCommunity = styled.div`
+const StyledMemberAndCommunity = styled.div`
   display: flex;
   gap: 24px;
 

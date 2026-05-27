@@ -7,15 +7,15 @@ export type MenuKey = 'member' | 'community' | 'project' | 'coffeechat';
 
 interface MenuPreviewProps {
   menu: MenuKey;
-  content: ReactNode;
+  children: ReactNode;
   className?: string;
 }
 
-const MenuPreview = ({ menu, content, className }: MenuPreviewProps) => {
+const MenuPreview = ({ menu, children, className }: MenuPreviewProps) => {
   return (
     <StyledContainer className={className}>
       <MenuLink menu={menu} />
-      {content}
+      {children}
     </StyledContainer>
   );
 };
