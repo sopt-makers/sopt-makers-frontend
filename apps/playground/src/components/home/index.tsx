@@ -2,12 +2,14 @@ import styled from '@emotion/styled';
 
 import { DESKTOP_ONE_MEDIA_QUERY, DESKTOP_TWO_MEDIA_QUERY, MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
+import WordChainEntry from '../wordchain/WordchainEntry/WordChainEntry';
 import MenuPreview from './common/MenuPreview';
 
 const HomePage = () => {
   return (
     // TODO: content 교체
     <StyledContainer>
+      <WordChainEntry />
       <MemberAndCommunity>
         <MembersPreview menu={'members'} content={<div>내용</div>} />
         <CommunityPreview menu={'feed'} content={<div>내용</div>} />
