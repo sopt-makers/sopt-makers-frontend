@@ -54,11 +54,13 @@ const RecentArea = () => {
 
           <RecentFeedList>
             {recentPosts?.map((recentPost) => (
-              <RecentCard
-                key={recentPost.id}
-                recentPost={recentPost}
-                onClick={() => handleClickCard(recentPost.categoryTag, recentPost.id)}
-              />
+              <Slot key={recentPost.id}>
+                <RecentCard
+                  key={recentPost.id}
+                  recentPost={recentPost}
+                  onClick={() => handleClickCard(recentPost.categoryTag, recentPost.id)}
+                />
+              </Slot>
             ))}
           </RecentFeedList>
         </Container>
@@ -126,11 +128,10 @@ const RecentFeedList = styled.div`
   @supports (-webkit-touch-callout: none) {
     margin-bottom: 0;
   }
+`;
 
-  & > * {
-    flex: 0 0 272px;
-    height: auto;
-  }
+const Slot = styled.div`
+  flex: 0 0 272px;
 `;
 
 export default RecentArea;

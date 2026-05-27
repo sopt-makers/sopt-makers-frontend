@@ -92,6 +92,7 @@ const CardContent = styled.div`
 
 const CardTitle = styled.div`
   display: flex;
+  align-items: center;
   gap: 6px;
 `;
 
