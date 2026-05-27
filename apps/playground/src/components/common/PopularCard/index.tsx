@@ -139,6 +139,7 @@ const StyledRank = styled(Text)`
   ${fonts.LABEL_18_SB};
   color: ${colors.white};
   width: 16px;
+  flex-shrink: 0;
 `;
 
 const StyledTitleContainer = styled.div`
