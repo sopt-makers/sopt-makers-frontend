@@ -41,22 +41,28 @@ interface MenuEntryIconsProps {
 const MenuEntryIcons = ({ className }: MenuEntryIconsProps) => {
   return (
     <StyledContainer className={className}>
-      {MENU_ENTRY_LIST.map((menu) => (
-        <MenuIcon key={menu.label} icon={menu.icon} label={menu.label} href={menu.href} />
-      ))}
+      <StyledMenuWrapper>
+        {MENU_ENTRY_LIST.map((menu) => (
+          <MenuIcon key={menu.label} icon={menu.icon} label={menu.label} href={menu.href} />
+        ))}
+      </StyledMenuWrapper>
     </StyledContainer>
   );
 };
 
-const StyledContainer = styled.nav`
+const StyledContainer = styled.div`
   display: flex;
   justify-content: center;
   padding: 16px 28px;
   border-bottom: 1px solid ${colors.gray800};
   width: 100%;
-  @media ${MOBILE_MEDIA_QUERY} {
-    gap: 20px;
-  }
+`;
+
+const StyledMenuWrapper = styled.nav`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 304px;
 `;
 
 export default MenuEntryIcons;
