@@ -29,6 +29,7 @@ const StyledContainer = styled.div<{ usage: string }>`
   flex-direction: ${({ usage }) => (usage === 'home' ? 'column' : 'row')};
   gap: 16px;
   align-items: center;
+  height: ${({ usage }) => (usage === 'home' ? '182px' : 'auto')};
   padding: 16px 24px;
   background-color: ${colors.gray900};
   border-radius: 10px;
@@ -36,6 +37,7 @@ const StyledContainer = styled.div<{ usage: string }>`
   @media ${MOBILE_MEDIA_QUERY} {
     flex-direction: ${({ usage }) => (usage === 'home' ? 'row' : 'column')};
     gap: 8px;
+    height: ${({ usage }) => (usage === 'home' ? '80px' : 'auto')};
     padding: 12px 16px;
   }
 `;

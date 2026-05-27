@@ -12,7 +12,6 @@ import ProjectPreview from './ProjectPreview';
 
 const HomePage = () => {
   return (
-    // TODO: content 교체
     <StyledContainer>
       <WordChainEntry />
       <StyledMemberAndCommunity>
@@ -87,9 +86,10 @@ const CommunityPreview = styled(MenuPreview)`
 const StyledCommunityArea = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 28px;
+  justify-content: space-between;
+  height: 100%;
 
-  @mobile ${MOBILE_MEDIA_QUERY} {
+  @media ${MOBILE_MEDIA_QUERY} {
     gap: 24px;
   }
 `;

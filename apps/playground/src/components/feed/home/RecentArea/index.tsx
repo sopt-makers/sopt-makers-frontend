@@ -48,17 +48,19 @@ const RecentArea = () => {
           <TitleBox>
             <Title>
               <UserNameStyle>{me?.name}</UserNameStyle>님,
-              <MobileLineBreak /> 새로 올라온 글을 확인해 보세요
+              <LineBreak /> 새로 올라온 글을 확인해 보세요
             </Title>
           </TitleBox>
 
           <RecentFeedList>
             {recentPosts?.map((recentPost) => (
-              <RecentCard
-                key={recentPost.id}
-                recentPost={recentPost}
-                onClick={() => handleClickCard(recentPost.categoryTag, recentPost.id)}
-              />
+              <Slot key={recentPost.id}>
+                <RecentCard
+                  key={recentPost.id}
+                  recentPost={recentPost}
+                  onClick={() => handleClickCard(recentPost.categoryTag, recentPost.id)}
+                />
+              </Slot>
             ))}
           </RecentFeedList>
         </Container>
@@ -90,12 +92,8 @@ const Title = styled(Text)`
   word-break: keep-all;
 `;
 
-const MobileLineBreak = styled.br`
-  display: none;
-
-  @media ${MOBILE_MEDIA_QUERY} {
-    display: inline;
-  }
+const LineBreak = styled.br`
+  display: inline;
 `;
 
 const UserNameStyle = styled.span`
@@ -130,6 +128,10 @@ const RecentFeedList = styled.div`
   @supports (-webkit-touch-callout: none) {
     margin-bottom: 0;
   }
+`;
+
+const Slot = styled.div`
+  flex: 0 0 272px;
 `;
 
 export default RecentArea;

@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
+import { Tag } from '@sopt-makers/ui';
 import { useRouter } from 'next/router';
 
 import type { RecentPosts } from '@/api/endpoint/feed/getRecentPosts';
@@ -31,10 +32,12 @@ const RecentCard = ({ recentPost, onClick }: RecentCardProps) => {
     >
       <CardContainer onClick={onClick}>
         <CardContent>
-          <TitleStyle>
-            <Tag>{categoryTagLabel}</Tag>
-            {title}
-          </TitleStyle>
+          <CardTitle>
+            <StyledTag size='sm' variant='primary' shape='rect'>
+              {categoryTagLabel}
+            </StyledTag>
+            <TitleStyle>{title}</TitleStyle>
+          </CardTitle>
           <ContentStyle>{parseMentionsToJSX(content, router)}</ContentStyle>
         </CardContent>
 
@@ -67,6 +70,7 @@ export default RecentCard;
 const CardContainer = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   gap: 12px;
   border-radius: 12px;
   background-color: ${colors.gray900};
@@ -77,26 +81,38 @@ const CardContainer = styled.div`
   &:hover {
     background-color: ${colors.gray800};
   }
+  overflow: hidden;
 `;
 
 const CardContent = styled.div`
   display: flex;
   flex-direction: column;
   gap: 4px;
-  min-width: 240px;
-  width: 100%;
+`;
+
+const CardTitle = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 6px;
+`;
+
+const StyledTag = styled(Tag)`
+  flex-shrink: 0;
 `;
 
 const TitleStyle = styled(Text)`
+  color: ${colors.gray10};
   ${fonts.TITLE_16_SB}
 
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  min-width: 0;
 `;
 
 const ContentStyle = styled(Text)`
-  ${fonts.BODY_14_L}
+  color: ${colors.gray10};
+  ${fonts.BODY_13_L}
 
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -118,20 +134,7 @@ const FeedIconBox = styled.div`
 
 const CreatedDate = styled(Text)`
   color: ${colors.gray400};
-  ${fonts.LABEL_14_SB}
-`;
-
-const Tag = styled.span`
-  display: inline-flex;
-  width: fit-content;
-  height: 20px;
-  border-radius: 4px;
-  background-color: ${colors.orangeAlpha200};
-  color: ${colors.secondary};
-  ${fonts.LABEL_11_SB}
-  padding: 3px 6px;
-  margin-right: 6px;
-  transform: translateY(-1.5px);
+  ${fonts.LABEL_12_SB}
 `;
 
 const FlexBox = styled.div`

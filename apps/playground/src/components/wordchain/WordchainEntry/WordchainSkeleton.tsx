@@ -23,9 +23,11 @@ const SkeletonWrapper = styled(Skeleton)`
   display: flex;
   align-items: center;
   padding: 16px;
+  max-width: 480px;
+  margin: 0 auto;
 
   @media ${MOBILE_MEDIA_QUERY} {
-    margin-bottom: 16px;
+    margin: 0 auto 16px;
     padding: 20px 16px;
     height: 80px;
   }

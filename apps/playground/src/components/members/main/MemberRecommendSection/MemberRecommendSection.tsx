@@ -5,6 +5,7 @@ import { fonts } from '@sopt-makers/fonts';
 import { useEffect, useState } from 'react';
 
 import { useGetMemberRecommendOfMe } from '@/api/endpoint/members/getMemberRecommendOfMe';
+import useEventLogger from '@/components/eventLogger/hooks/useEventLogger';
 import RefreshIcon from '@/public/icons/icon_refresh.svg';
 import { DESKTOP_TWO_MEDIA_QUERY, MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
@@ -16,6 +17,7 @@ const PC_MEDIA_QUERY = `screen and (min-width: ${PC_MEDIA_WIDTH}px)`;
 const SKELETON_COUNT = 4;
 
 const MemberRecommendSection = () => {
+  const { logClickEvent } = useEventLogger();
   const { data, isLoading, refetch } = useGetMemberRecommendOfMe();
   const memberRecommendData = data?.members;
   const [isTooltipOpen, setIsTooltipOpen] = useState(true);
@@ -34,6 +36,7 @@ const MemberRecommendSection = () => {
   const handleRefreshClick = () => {
     setIsTooltipOpen(false);
     refetch();
+    logClickEvent('memberRecommendRefresh', { screen: 'profile' });
   };
 
   return (

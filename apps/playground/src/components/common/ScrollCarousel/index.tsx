@@ -8,9 +8,16 @@ const ITEM_GAP = 12;
 
 interface ScrollCarouselProps extends UseScrollCarouselOptions {
   children: ReactNode;
+  indicatorOffset?: number;
 }
 
-const ScrollCarousel = ({ itemCount, itemsPerView = 1, autoPlay, children }: ScrollCarouselProps) => {
+const ScrollCarousel = ({
+  itemCount,
+  itemsPerView = 1,
+  autoPlay,
+  children,
+  indicatorOffset = 20,
+}: ScrollCarouselProps) => {
   const { containerRef, pageCount, activePage, scrollToPage } = useScrollCarousel({
     itemCount,
     itemsPerView,
@@ -18,7 +25,7 @@ const ScrollCarousel = ({ itemCount, itemsPerView = 1, autoPlay, children }: Scr
   });
 
   return (
-    <StyledContainer>
+    <StyledContainer gap={indicatorOffset}>
       <StyledViewport ref={containerRef}>
         <StyledTrack>
           {Children.map(children, (child) => (
@@ -37,10 +44,10 @@ const ScrollCarousel = ({ itemCount, itemsPerView = 1, autoPlay, children }: Scr
 
 export default ScrollCarousel;
 
-const StyledContainer = styled.div`
+const StyledContainer = styled.div<{ gap: number }>`
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: ${({ gap }) => `${gap}px`};
   width: 100%;
 `;
 
