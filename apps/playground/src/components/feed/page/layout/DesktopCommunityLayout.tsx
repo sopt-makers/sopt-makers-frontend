@@ -23,7 +23,7 @@ const DesktopCommunityLayout = ({ isDetailOpen, listSlot, detailSlot }: DesktopC
       <Container>
         <ListSlot isDetailOpen={isDetailOpen}>{listSlot}</ListSlot>
         <DetailSlot
-          initial={{ width: isDetailOpen ? DETAIL_SLOT_WIDTH : 0 }}
+          initial={{ width: 0 }}
           animate={{ width: isDetailOpen ? DETAIL_SLOT_WIDTH : 0 }}
           transition={{ bounce: 0 }}
         >

@@ -1,10 +1,13 @@
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
+import { useRouter } from 'next/router';
 
 import { useRecentPosts } from '@/api/endpoint/feed/getRecentPosts';
 import { useGetMemberOfMe } from '@/api/endpoint/members/getMemberOfMe';
 import Text from '@/components/common/Text';
+import { getCategoryAndSubcategory } from '@/components/feed/common/utils/getCategoryAndSubcategory';
 import RecentCard from '@/components/feed/home/RecentArea/RecentCard';
 import FeedSkeleton from '@/components/feed/list/FeedSkeleton';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
@@ -12,6 +15,19 @@ import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 const RecentArea = () => {
   const { data: me } = useGetMemberOfMe();
   const { data: recentPosts, isLoading, isError } = useRecentPosts();
+  const router = useRouter();
+
+  const handleClickCard = (categoryTag: string, id: number) => {
+    const [category, subcategory] = getCategoryAndSubcategory(categoryTag);
+    router.push({
+      pathname: playgroundLink.feedList(),
+      query: {
+        category,
+        ...(subcategory ? { subcategory } : {}),
+        feed: id,
+      },
+    });
+  };
 
   return (
     <>
@@ -38,7 +54,11 @@ const RecentArea = () => {
 
           <RecentFeedList>
             {recentPosts?.map((recentPost) => (
-              <RecentCard key={recentPost.id} recentPost={recentPost} />
+              <RecentCard
+                key={recentPost.id}
+                recentPost={recentPost}
+                onClick={() => handleClickCard(recentPost.categoryTag, recentPost.id)}
+              />
             ))}
           </RecentFeedList>
         </Container>

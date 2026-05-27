@@ -1,7 +1,10 @@
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
+import { useRouter } from 'next/router';
 
 import { useRecentPosts } from '@/api/endpoint/feed/getRecentPosts';
 import ScrollCarousel from '@/components/common/ScrollCarousel';
+import { getCategoryAndSubcategory } from '@/components/feed/common/utils/getCategoryAndSubcategory';
 import RecentCard from '@/components/feed/home/RecentArea/RecentCard';
 import { getLoopedItems } from '@/hooks/useScrollCarousel';
 import { DESKTOP_ONE_MEDIA_QUERY, DESKTOP_TWO_MEDIA_QUERY } from '@/styles/mediaQuery';
@@ -11,7 +14,20 @@ import TitledContent from '../../common/TitledContent';
 const ITEMS_PER_VIEW = 1;
 
 const RecentArea = () => {
-  const { data: recentPosts = [], isLoading, isError } = useRecentPosts();
+  const { data: recentPosts = [] } = useRecentPosts();
+  const router = useRouter();
+
+  const handleClickCard = (categoryTag: string, id: number) => {
+    const [category, subcategory] = getCategoryAndSubcategory(categoryTag);
+    router.push({
+      pathname: playgroundLink.feedList(),
+      query: {
+        category,
+        ...(subcategory ? { subcategory } : {}),
+        feed: id,
+      },
+    });
+  };
 
   return (
     <TitledContent title='새로 올라온 글'>
@@ -19,7 +35,11 @@ const RecentArea = () => {
       <CarouselWrapper>
         <ScrollCarousel itemCount={recentPosts.length} itemsPerView={ITEMS_PER_VIEW} autoPlay={{ enabled: false }}>
           {getLoopedItems(recentPosts, ITEMS_PER_VIEW).map((recentPost, index) => (
-            <RecentCard key={`${recentPost.id}-${index}`} recentPost={recentPost} />
+            <RecentCard
+              key={`${recentPost.id}-${index}`}
+              recentPost={recentPost}
+              onClick={() => handleClickCard(recentPost.categoryTag, recentPost.id)}
+            />
           ))}
         </ScrollCarousel>
       </CarouselWrapper>
@@ -27,7 +47,11 @@ const RecentArea = () => {
       {/* 1200~: 캐러셀 없이 카드 3장 고정 */}
       <StaticGrid>
         {recentPosts.map((recentPost) => (
-          <RecentCard key={`static-${recentPost.id}`} recentPost={recentPost} />
+          <RecentCard
+            key={`static-${recentPost.id}`}
+            recentPost={recentPost}
+            onClick={() => handleClickCard(recentPost.categoryTag, recentPost.id)}
+          />
         ))}
       </StaticGrid>
     </TitledContent>

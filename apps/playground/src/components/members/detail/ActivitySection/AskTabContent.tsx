@@ -298,7 +298,6 @@ const AskTabContent = ({ memberId, memberName, meId, unansweredCount }: AskTabCo
                         createdAt={question.createdAt}
                         isBlindWriter={question.isAnonymous}
                         anonymousProfile={question.anonymousProfile}
-                        isQuestion={true}
                         commentLength={0}
                         hits={0}
                         memberId={question.askerId ?? 0}
@@ -422,7 +421,6 @@ const AskTabContent = ({ memberId, memberName, meId, unansweredCount }: AskTabCo
                           <FeedLike
                             likes={question.reactionCount}
                             isLiked={question.isReacted}
-                            type='thumb'
                             onClick={() => {
                               logClickEvent('AskLike', {
                                 feedId: question.questionId,

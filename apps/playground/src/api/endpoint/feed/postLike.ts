@@ -41,10 +41,12 @@ export const useToggleLikeMutation = () => {
       return endpoint.request(postId);
     },
     onMutate: async ({ postId, allPostsQueryKey, postsQueryKey, postQueryKey, recentPostsQuerykey }) => {
-      await queryClient.cancelQueries({ queryKey: allPostsQueryKey });
-      await queryClient.cancelQueries({ queryKey: postsQueryKey });
-      await queryClient.cancelQueries({ queryKey: postQueryKey });
-      await queryClient.cancelQueries({ queryKey: recentPostsQuerykey });
+      await Promise.all([
+        queryClient.cancelQueries({ queryKey: allPostsQueryKey }),
+        queryClient.cancelQueries({ queryKey: postsQueryKey }),
+        queryClient.cancelQueries({ queryKey: postQueryKey }),
+        queryClient.cancelQueries({ queryKey: recentPostsQuerykey }),
+      ]);
 
       const previousAllPostsData = queryClient.getQueryData<{
         pages: PostsType[];

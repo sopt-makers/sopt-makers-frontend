@@ -109,7 +109,6 @@ export const 질문 = () => {
       {...defaultProps}
       title='CSS 질문 있습니다!'
       content='Flexbox container 안의 자식 item이 container의 width를 넘어가는데 왜 그런지 아시나요?'
-      isQuestion
     >
       <FeedCard.Comment>
         {QURESTION_COMMENTS.map((comment) => (

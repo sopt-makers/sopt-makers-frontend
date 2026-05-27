@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 import type { RecentPosts } from '@/api/endpoint/feed/getRecentPosts';
@@ -13,11 +12,11 @@ import VoteIcon from '@/public/icons/icon-vote.svg';
 
 interface RecentCardProps {
   recentPost: RecentPosts;
+  onClick: () => void;
 }
 
-const RecentCard = ({ recentPost }: RecentCardProps) => {
-  const { id, title, content, createdAt, likeCount, commentCount, categoryTagLabel, categoryTag, totalVoteCount } =
-    recentPost;
+const RecentCard = ({ recentPost, onClick }: RecentCardProps) => {
+  const { id, title, content, createdAt, likeCount, commentCount, categoryTagLabel, totalVoteCount } = recentPost;
   const isVotePost = totalVoteCount !== null;
   const router = useRouter();
 
@@ -30,7 +29,7 @@ const RecentCard = ({ recentPost }: RecentCardProps) => {
         referral: 'category_HOT',
       }}
     >
-      <CardContainer href={`/feed?category=${categoryTag}&feed=${id}`}>
+      <CardContainer onClick={onClick}>
         <CardContent>
           <TitleStyle>
             <Tag>{categoryTagLabel}</Tag>
@@ -65,7 +64,7 @@ const RecentCard = ({ recentPost }: RecentCardProps) => {
 
 export default RecentCard;
 
-const CardContainer = styled(Link)`
+const CardContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 12px;

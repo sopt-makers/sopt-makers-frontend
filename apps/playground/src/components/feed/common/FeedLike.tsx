@@ -5,13 +5,13 @@ import { Flex } from '@toss/emotion-utils';
 import React from 'react';
 
 import Text from '@/components/common/Text';
-import { IconHeart, IconThumbsUp } from '@/components/feed/common/Icon';
+import { IconHeart } from '@/components/feed/common/Icon';
 
 interface FeedLikeProps {
   isLiked?: boolean;
   likes: number;
   onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
-  type?: 'heart' | 'message' | 'thumb' | 'helpful';
+  type?: 'heart' | 'message' | 'helpful';
 }
 
 export const FeedLike = ({ isLiked = false, likes, onClick, type = 'heart' }: FeedLikeProps) => {
@@ -33,8 +33,6 @@ export const FeedLike = ({ isLiked = false, likes, onClick, type = 'heart' }: Fe
     switch (type) {
       case 'message':
         return <IconMessageSquare className='btn-hover' style={{ width: 16, height: 16 }} />;
-      case 'thumb':
-        return <IconThumbsUp className='btn-hover' fill={isLiked} />;
       case 'heart':
       default:
         return <IconHeart fill={isLiked ? undefined : 'none'} className='btn-hover' />;
@@ -47,8 +45,6 @@ export const FeedLike = ({ isLiked = false, likes, onClick, type = 'heart' }: Fe
         return '도움돼요';
       case 'heart':
         return '좋아요';
-      case 'thumb':
-        return '나도 궁금해요';
       default:
         return '';
     }
