@@ -5,7 +5,8 @@ import { useGetPopularPost } from '@/api/endpoint/feed/getPopularPost';
 import PopularCard from '@/components/common/PopularCard';
 import Text from '@/components/common/Text';
 import { LoggingClick } from '@/components/eventLogger/components/LoggingClick';
-import { MB_SM_MEDIA_QUERY } from '@/styles/mediaQuery';
+
+import TitledContent from '../common/TitledContent';
 
 const PopularArea = () => {
   const { data, isLoading, isError } = useGetPopularPost();
@@ -14,12 +15,7 @@ const PopularArea = () => {
   // const handleClickCard = () => {}
 
   return (
-    <Container>
-      <TitleWrapper>
-        <Text typography='SUIT_18_B' color={colors.white} lineHeight={28}>
-          실시간 인기글
-        </Text>
-      </TitleWrapper>
+    <TitledContent title='실시간 인기글'>
       <ContentWrapper>
         {isError && (
           <Text
@@ -52,34 +48,14 @@ const PopularArea = () => {
           </LoggingClick>
         ))}
       </ContentWrapper>
-    </Container>
+    </TitledContent>
   );
 };
 
 export default PopularArea;
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: 20px 16px;
-  width: 100%;
-`;
-
-const TitleWrapper = styled.h1`
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  margin-bottom: 16px;
-  width: 100%;
-
-  @media ${MB_SM_MEDIA_QUERY} {
-    flex-direction: column;
-    align-items: start;
-  }
-`;
-
 const ContentWrapper = styled.ul`
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 8px;
 `;

@@ -5,6 +5,7 @@ import { DESKTOP_ONE_MEDIA_QUERY, DESKTOP_TWO_MEDIA_QUERY, MOBILE_MEDIA_QUERY } 
 import WordChainEntry from '../wordchain/WordchainEntry/WordChainEntry';
 import MenuPreview from './common/MenuPreview';
 import TitledContent from './common/TitledContent';
+import MemberList from './MembersPreview/MemberList';
 import PopularArea from './PopularArea';
 import ProjectList from './ProjectPreview/ProjectList';
 
@@ -14,14 +15,17 @@ const HomePage = () => {
     <StyledContainer>
       <WordChainEntry />
       <StyledMemberAndCommunity>
-        <MembersPreview menu={'members'}>
-          <div>내용</div>
+        <MembersPreview menu={'member'}>
+          <TitledContent title={'나와 접점이 있는 멤버'}>
+            <MemberList />
+          </TitledContent>
         </MembersPreview>
-        <CommunityPreview menu={'feed'}>
+
+        <CommunityPreview menu={'community'}>
           <PopularArea />
         </CommunityPreview>
       </StyledMemberAndCommunity>
-      <MenuPreview menu={'projects'}>
+      <MenuPreview menu={'project'}>
         <TitledContent title={'지난 기수 앱잼 프로젝트'}>
           <ProjectList />
         </TitledContent>

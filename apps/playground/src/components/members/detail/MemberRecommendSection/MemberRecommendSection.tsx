@@ -1,16 +1,15 @@
 import styled from '@emotion/styled';
-import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
-import Link from 'next/link';
 
 import { useGetMemberRecommendById } from '@/api/endpoint/members/getMemberRecommendById';
-import { LoggingClick } from '@/components/eventLogger/components/LoggingClick';
-import { LoggingImpression } from '@/components/eventLogger/components/LoggingImpression';
 import RefreshIcon from '@/public/icons/icon_refresh.svg';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 import MemberRecommendCard from '../../common/MemberRecommendCard/MemberRecommendCard';
+import MemberRecommendCardSkeleton from '../../common/MemberRecommendCard/MemberRecommendCardSkeleton';
+
+const SKELETON_COUNT = 3;
 
 interface MemberRecommendSectionProps {
   memberId: string;
@@ -18,7 +17,7 @@ interface MemberRecommendSectionProps {
 }
 
 const MemberRecommendSection = ({ memberId, name }: MemberRecommendSectionProps) => {
-  const { data, refetch } = useGetMemberRecommendById(memberId);
+  const { data, isLoading, refetch } = useGetMemberRecommendById(memberId);
   const memberRecommendData = data?.members.slice(0, 3);
 
   return (
@@ -28,22 +27,13 @@ const MemberRecommendSection = ({ memberId, name }: MemberRecommendSectionProps)
         <StyledRefreshIcon onClick={refetch} />
       </StyledSectionHeader>
       <StyledCardGrid>
-        {memberRecommendData?.map((member) => (
-          <LoggingImpression
-            key={member.id}
-            eventKey='memberRecommendCard'
-            param={{ id: member.id, name: member.name, recommendationType: member.recommendType, screen: 'profile' }}
-          >
-            <LoggingClick
-              eventKey='profileConnectionCard'
-              param={{ id: member.id, name: member.name, recommendationType: member.recommendType }}
-            >
-              <Link href={playgroundLink.memberDetail(member.id)}>
-                <MemberRecommendCard member={member} />
-              </Link>
-            </LoggingClick>
-          </LoggingImpression>
-        ))}
+        {isLoading
+          ? Array.from({ length: SKELETON_COUNT }, (_, index) => (
+              <MemberRecommendCardSkeleton key={index} usage='profile' />
+            ))
+          : memberRecommendData?.map((member) => (
+              <MemberRecommendCard key={member.id} member={member} usage='profile' />
+            ))}
       </StyledCardGrid>
     </StyledSection>
   );
