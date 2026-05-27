@@ -34,7 +34,7 @@ const ReactionArea = () => {
       <StyledCardListContainer>
         {isLoading &&
           Array.from({ length: 3 }).map((_, index) => (
-            <PopularCard key={`skeleton-${index}`} rank={index + 1} isProfile />
+            <PopularCard key={`skeleton-${index}`} rank={index + 1} variant='withProfile' />
           ))}
         {data?.map((card, index) => (
           <PopularCard
@@ -42,7 +42,7 @@ const ReactionArea = () => {
             key={card.id}
             card={card}
             // onClick={handleClickCard} 함수 구현 시 추가
-            isProfile
+            variant='withProfile'
           />
         ))}
       </StyledCardListContainer>

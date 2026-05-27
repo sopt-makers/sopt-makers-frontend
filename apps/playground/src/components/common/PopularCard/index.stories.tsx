@@ -37,7 +37,7 @@ export const Default: Story = {
 export const WithProfile: Story = {
   args: {
     rank: 2,
-    isProfile: true,
+    variant: 'withProfile',
     card: {
       id: 2,
       categoryTagLabel: '자유',
@@ -58,7 +58,7 @@ export const WithProfile: Story = {
 export const WithoutProfileImage: Story = {
   args: {
     rank: 3,
-    isProfile: true,
+    variant: 'withProfile',
     card: {
       id: 3,
       categoryTagLabel: '자유',

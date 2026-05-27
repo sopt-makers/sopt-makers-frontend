@@ -9,16 +9,20 @@ import ResizedImage from '@/components/common/ResizedImage';
 import Text from '@/components/common/Text';
 import { IconHeart, IconMember } from '@/components/feed/common/Icon';
 
+type variantType = 'compact' | 'withProfile';
+
 interface PopularCardProps {
   rank: number;
   card?: PopularPostType[number];
-  isProfile?: boolean;
+  variant?: variantType;
   onClick?: () => void;
 }
 
-const PopularCardSkeleton = ({ rank, isProfile }: { rank: number; isProfile?: boolean }) => {
+const PopularCardSkeleton = ({ rank, variant }: { rank: number; variant?: variantType }) => {
+  const withProfile = variant == 'withProfile';
+
   return (
-    <StyledCardContainer $isProfile={isProfile}>
+    <StyledCardContainer $withProfile={withProfile}>
       <StyledMainContents>
         <StyledRank>{rank}</StyledRank>
         <StyledTitleContainer>
@@ -31,7 +35,7 @@ const PopularCardSkeleton = ({ rank, isProfile }: { rank: number; isProfile?: bo
         </StyledTitleContainer>
       </StyledMainContents>
       <StyledSubContents>
-        {isProfile && (
+        {withProfile && (
           <ProfileInfo>
             <IconMember size={20} />
             <Text typography='SUIT_14_SB' color={colors.gray50} lineHeight={18}>
@@ -56,15 +60,16 @@ const PopularCardSkeleton = ({ rank, isProfile }: { rank: number; isProfile?: bo
   );
 };
 
-const PopularCard = ({ card, rank, isProfile = false, onClick }: PopularCardProps) => {
+const PopularCard = ({ card, rank, variant = 'compact', onClick }: PopularCardProps) => {
   if (!card) {
-    return <PopularCardSkeleton rank={rank} isProfile={isProfile} />;
+    return <PopularCardSkeleton rank={rank} variant={variant} />;
   }
   const { categoryTagLabel, title, likeCount, member, commentCount } = card;
   const { name, profileImage } = member;
+  const withProfile = variant == 'withProfile';
 
   return (
-    <StyledCardContainer $isProfile={isProfile} onClick={onClick}>
+    <StyledCardContainer $withProfile={withProfile} onClick={onClick}>
       <StyledMainContents>
         <StyledRank>{rank}</StyledRank>
         <StyledTitleContainer>
@@ -75,7 +80,7 @@ const PopularCard = ({ card, rank, isProfile = false, onClick }: PopularCardProp
         </StyledTitleContainer>
       </StyledMainContents>
       <StyledSubContents>
-        {isProfile && (
+        {withProfile && (
           <ProfileInfo>
             {profileImage ? (
               <ProfileImage width={20} height={20} src={profileImage} alt={card.member.name} />
@@ -108,7 +113,7 @@ const PopularCard = ({ card, rank, isProfile = false, onClick }: PopularCardProp
 
 export default PopularCard;
 
-const StyledCardContainer = styled.div<{ $isProfile?: boolean }>`
+const StyledCardContainer = styled.div<{ $withProfile?: boolean }>`
   display: flex;
   justify-content: space-between;
   gap: 8px;
@@ -121,7 +126,7 @@ const StyledCardContainer = styled.div<{ $isProfile?: boolean }>`
   &:hover {
     background: ${colors.gray800};
   }
-  ${({ $isProfile }) => $isProfile && `flex-direction: column; `}
+  ${({ $withProfile }) => $withProfile && `flex-direction: column; `}
 `;
 
 const StyledMainContents = styled.div`
