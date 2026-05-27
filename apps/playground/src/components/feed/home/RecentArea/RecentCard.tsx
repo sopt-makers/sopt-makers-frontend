@@ -30,7 +30,7 @@ const RecentCard = ({ recentPosts }: RecentCardProps) => {
         referral: 'category_HOT',
       }}
     >
-      <CardContainer href={`/?category=${categoryTag}&feed=${id}`}>
+      <CardContainer href={`/feed?category=${categoryTag}&feed=${id}`}>
         <CardContent>
           <TitleStyle>
             <Tag>{categoryTagLabel}</Tag>
