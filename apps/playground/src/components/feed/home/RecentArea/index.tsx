@@ -48,7 +48,7 @@ const RecentArea = () => {
           <TitleBox>
             <Title>
               <UserNameStyle>{me?.name}</UserNameStyle>님,
-              <MobileLineBreak /> 새로 올라온 글을 확인해 보세요
+              <LineBreak /> 새로 올라온 글을 확인해 보세요
             </Title>
           </TitleBox>
 
@@ -90,12 +90,8 @@ const Title = styled(Text)`
   word-break: keep-all;
 `;
 
-const MobileLineBreak = styled.br`
-  display: none;
-
-  @media ${MOBILE_MEDIA_QUERY} {
-    display: inline;
-  }
+const LineBreak = styled.br`
+  display: inline;
 `;
 
 const UserNameStyle = styled.span`
@@ -129,6 +125,11 @@ const RecentFeedList = styled.div`
 
   @supports (-webkit-touch-callout: none) {
     margin-bottom: 0;
+  }
+
+  & > * {
+    flex: 0 0 272px;
+    height: auto;
   }
 `;
 
