@@ -132,18 +132,21 @@ const StyledCardContainer = styled.div<{ $withProfile?: boolean }>`
 const StyledMainContents = styled.div`
   display: flex;
   gap: 12px;
+  min-width: 0;
 `;
 
 const StyledRank = styled(Text)`
   ${fonts.LABEL_18_SB};
   color: ${colors.white};
   width: 16px;
+  flex-shrink: 0;
 `;
 
 const StyledTitleContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
+  min-width: 0;
 `;
 
 const Tag = styled.span`

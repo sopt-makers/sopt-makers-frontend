@@ -1,18 +1,33 @@
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
+import { useRouter } from 'next/router';
 
+import type { PopularPostType } from '@/api/endpoint/feed/getPopularPost';
 import { useGetPopularPost } from '@/api/endpoint/feed/getPopularPost';
 import PopularCard from '@/components/common/PopularCard';
 import Text from '@/components/common/Text';
 import { LoggingClick } from '@/components/eventLogger/components/LoggingClick';
+import { getCategoryAndSubcategory } from '@/components/feed/common/utils/getCategoryAndSubcategory';
 
 import TitledContent from '../../common/TitledContent';
 
 const PopularArea = () => {
   const { data, isLoading, isError } = useGetPopularPost();
 
-  // @TODO: 상세 페이지 이동 로직 구현
-  // const handleClickCard = () => {}
+  const router = useRouter();
+
+  const handleClickCard = (card: PopularPostType[number]) => {
+    const [category, subcategory] = getCategoryAndSubcategory(card.categoryTag);
+    router.push({
+      pathname: playgroundLink.feedList(),
+      query: {
+        category,
+        ...(subcategory ? { subcategory } : {}),
+        feed: card.id,
+      },
+    });
+  };
 
   return (
     <TitledContent title='실시간 인기글'>
@@ -39,12 +54,7 @@ const PopularArea = () => {
             }}
             key={card.id ?? index}
           >
-            <PopularCard
-              rank={index + 1}
-              card={card}
-              // onClick={handleClickCard} 함수 구현 시 추가
-              onClick={() => {}}
-            />
+            <PopularCard rank={index + 1} card={card} onClick={() => handleClickCard(card)} />
           </LoggingClick>
         ))}
       </ContentWrapper>
