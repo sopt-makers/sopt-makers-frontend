@@ -1,10 +1,14 @@
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 import dayjs from 'dayjs';
+import Link from 'next/link';
 
 import type { RandomProject } from '@/api/endpoint/menuPreview/getRandomProjects';
 import ResizedImage from '@/components/common/ResizedImage';
+import { LoggingClick } from '@/components/eventLogger/components/LoggingClick';
+import { LoggingImpression } from '@/components/eventLogger/components/LoggingImpression';
 
 import ProjectStatus from './ProjectStatus';
 
@@ -26,33 +30,39 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
   const hasStatus = project.isAvailable || project.isFounding;
 
   return (
-    <StyledContainer>
-      <StyledImage height={180} src={project.thumbnailImage} alt='프로젝트_이미지' />
-      <StyledBody>
-        <StyledImage height={56} src={project.logoImage} alt='팀_로고_이미지' isLogo={true} />
-        <StyledInfo>
-          <StyledTitleGroup>
-            <StyledCategory>
-              <span>
-                {project.generation && `${project.generation}기`} {project.category}
-              </span>
-              <StyledDot>∙</StyledDot>
-              <StyledPlatform>{project.serviceType.join('/')}</StyledPlatform>
-            </StyledCategory>
-            <StyledTitle>{project.name}</StyledTitle>
-          </StyledTitleGroup>
-          <StyledStatusGroup>
-            <StyledDuration>{dateIntoMonthPeriod(project.startAt, project.endAt)}</StyledDuration>
-            {hasStatus && (
-              <StyledStatus>
-                {project.isAvailable && <ProjectStatus>서비스 이용 가능</ProjectStatus>}
-                {project.isFounding && <ProjectStatus>창업 중</ProjectStatus>}
-              </StyledStatus>
-            )}
-          </StyledStatusGroup>
-        </StyledInfo>
-      </StyledBody>
-    </StyledContainer>
+    <LoggingImpression eventKey='projectCard' param={{ projectId: project.id, screen: 'home' }}>
+      <LoggingClick eventKey='projectCard' param={{ projectId: project.id, referral: 'home' }}>
+        <Link href={playgroundLink.projectDetail(project.id)}>
+          <StyledContainer>
+            <StyledImage height={180} src={project.thumbnailImage} alt='프로젝트_이미지' />
+            <StyledBody>
+              <StyledImage height={56} src={project.logoImage} alt='팀_로고_이미지' isLogo={true} />
+              <StyledInfo>
+                <StyledTitleGroup>
+                  <StyledCategory>
+                    <span>
+                      {project.generation && `${project.generation}기`} {project.category}
+                    </span>
+                    <StyledDot>∙</StyledDot>
+                    <StyledPlatform>{project.serviceType.join('/')}</StyledPlatform>
+                  </StyledCategory>
+                  <StyledTitle>{project.name}</StyledTitle>
+                </StyledTitleGroup>
+                <StyledStatusGroup>
+                  <StyledDuration>{dateIntoMonthPeriod(project.startAt, project.endAt)}</StyledDuration>
+                  {hasStatus && (
+                    <StyledStatus>
+                      {project.isAvailable && <ProjectStatus>서비스 이용 가능</ProjectStatus>}
+                      {project.isFounding && <ProjectStatus>창업 중</ProjectStatus>}
+                    </StyledStatus>
+                  )}
+                </StyledStatusGroup>
+              </StyledInfo>
+            </StyledBody>
+          </StyledContainer>
+        </Link>
+      </LoggingClick>
+    </LoggingImpression>
   );
 };
 
@@ -64,6 +74,7 @@ const StyledContainer = styled.div`
   height: 302px;
   border-radius: 12px;
   background-color: ${colors.gray900};
+  cursor: pointer;
 `;
 
 const StyledImage = styled(ResizedImage)<{ isLogo?: boolean }>`
@@ -106,7 +117,11 @@ const StyledDot = styled.span`
   color: ${colors.gray400};
 `;
 
-const StyledPlatform = styled(StyledDot)``;
+const StyledPlatform = styled(StyledDot)`
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+`;
 
 const StyledTitle = styled.div`
   overflow: hidden;
