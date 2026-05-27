@@ -52,7 +52,7 @@ const AdsBanner: React.FC = () => {
   return (
     <SliderWrapper>
       {isLoading ? (
-        <Skeleton width={912} height={164} borderRadius={12} margin='0 30px' color={colors.gray800} />
+        <Skeleton width={912} height={164} borderRadius={'12px'} margin='0 30px' color={colors.gray800} />
       ) : (
         <AdsSlider {...settings}>
           {banners.map((ad, idx) => (
