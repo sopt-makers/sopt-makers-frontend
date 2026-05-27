@@ -1,3 +1,4 @@
+export const ALL_CATEGORY_CODE = 'ALL';
 export const SOPTICLE_CATEGORY_CODE = 'SOPTICLE';
 export const FREE_CATEGORY_CODE = 'FREE';
 export const PROMOTION_CATEGORY_CODE = 'PROMOTION';

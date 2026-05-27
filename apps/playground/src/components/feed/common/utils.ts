@@ -3,6 +3,8 @@ import 'dayjs/locale/ko';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 
+import { PROMOTION_CATEGORY_CODE } from '@/components/feed/constants';
+
 dayjs.locale('ko');
 dayjs.extend(relativeTime);
 
@@ -46,7 +48,17 @@ export function getMemberInfo(post: Post) {
   const is특수임원 = 특수임원List.some((keyword) => post.member.activity.part.includes(keyword));
   const isMakers = post.member.activity.team === '메이커스';
 
-  return `${post.member.activity.generation}기 ${
+  const defaultInfo = `${post.member.activity.generation}기 ${
     is특수임원 ? post.member.activity.part : isMakers ? '메이커스' : `${post.member.activity.part}파트`
   }`;
+
+  if (post.categoryCode == null) {
+    return `${post.categoryName}에 남김`;
+  }
+
+  if (post.categoryCode.startsWith(PROMOTION_CATEGORY_CODE)) {
+    return `${post.member.careers ? `${post.member.careers.title} @${post.member.careers.companyName}` : defaultInfo}`;
+  }
+
+  return defaultInfo;
 }
