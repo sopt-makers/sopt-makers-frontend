@@ -2,27 +2,24 @@ import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
 import type { ReactNode } from 'react';
 
-import { useScrollCarousel } from '@/hooks/useScrollCarousel';
+import { useScrollCarousel, type UseScrollCarouselOptions } from '@/hooks/useScrollCarousel';
 
 const ITEM_GAP = 12;
 
-interface ScrollCarouselProps<T extends { id: string | number }> {
-  items: T[];
-  itemsPerView?: number;
-  autoSlideInterval?: number;
+interface ScrollCarouselProps<T extends { id: string | number }> extends UseScrollCarouselOptions<T> {
   renderItem: (item: T) => ReactNode;
 }
 
 const ScrollCarousel = <T extends { id: string | number }>({
   items,
   itemsPerView = 1,
-  autoSlideInterval = 2000,
+  autoPlay,
   renderItem,
 }: ScrollCarouselProps<T>) => {
   const { containerRef, slidesWithClones, pageCount, activePage, scrollToPage } = useScrollCarousel({
     items,
     itemsPerView,
-    autoSlideInterval,
+    autoPlay,
   });
 
   return (

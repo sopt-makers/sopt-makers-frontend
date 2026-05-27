@@ -33,7 +33,7 @@ const ProjectList = () => {
         <ScrollCarousel
           items={projects}
           itemsPerView={itemsPerView}
-          autoSlideInterval={3000}
+          autoPlay={{ enabled: true, interval: 3000 }}
           renderItem={(project) => <ProjectCard project={project} />}
         />
       </CarouselWrapper>

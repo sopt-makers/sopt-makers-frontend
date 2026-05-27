@@ -1,9 +1,14 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 
-interface UseScrollCarouselOptions<T> {
+interface AutoPlayOptions {
+  enabled: boolean;
+  interval?: number;
+}
+
+export interface UseScrollCarouselOptions<T> {
   items: T[];
   itemsPerView?: number;
-  autoSlideInterval?: number;
+  autoPlay?: AutoPlayOptions;
 }
 
 const getSlidesWithClones = <T>(items: T[], itemsPerView = 1): T[] => {
@@ -17,7 +22,7 @@ const getSlidesWithClones = <T>(items: T[], itemsPerView = 1): T[] => {
 export const useScrollCarousel = <T>({
   items,
   itemsPerView = 1,
-  autoSlideInterval = 2000,
+  autoPlay = { enabled: true, interval: 2000 },
 }: UseScrollCarouselOptions<T>) => {
   const itemCount = items.length;
   const slidesWithClones = useMemo(() => getSlidesWithClones(items, itemsPerView), [items, itemsPerView]);
@@ -105,15 +110,15 @@ export const useScrollCarousel = <T>({
 
   useEffect(
     function runAutoSlide() {
-      if (!isLoopEnabled) return;
+      if (!isLoopEnabled || !autoPlay.enabled) return;
 
       const intervalId = setInterval(() => {
         scrollToIndex(activeIndex + itemsPerView);
-      }, autoSlideInterval);
+      }, autoPlay.interval);
 
       return () => clearInterval(intervalId);
     },
-    [activeIndex, autoSlideInterval, isLoopEnabled, itemsPerView],
+    [activeIndex, autoPlay.enabled, autoPlay.interval, isLoopEnabled, itemsPerView],
   );
 
   useEffect(function realignOnResize() {

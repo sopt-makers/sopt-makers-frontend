@@ -41,7 +41,7 @@ const SopticleArea = () => {
       ) : (
         <ScrollCarousel
           items={sopticles}
-          autoSlideInterval={4000}
+          autoPlay={{ enabled: true, interval: 4000 }}
           renderItem={(sopticle) => (
             <LoggingClick
               eventKey='feedCard'
