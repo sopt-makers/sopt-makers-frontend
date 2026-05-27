@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
+import { fonts } from '@sopt-makers/fonts';
 import { IconHeart } from '@sopt-makers/icons';
 
 import MessageIc from '@/public/icons/icon-message-square.svg';
@@ -23,8 +24,8 @@ const FeedIcon = ({ type, count }: FeedIconProps) => {
 
   return (
     <FeedIconLayout>
-      <Icon width={16} height={16} color={colors.gray400} />
-      {count}
+      <Icon width={14} height={14} color={colors.gray400} />
+      <StyledCount>{count}</StyledCount>
     </FeedIconLayout>
   );
 };
@@ -33,6 +34,11 @@ export default FeedIcon;
 
 const FeedIconLayout = styled.div`
   display: flex;
-  gap: 4px;
+  gap: 2px;
   align-items: center;
+`;
+
+const StyledCount = styled.div`
+  color: ${colors.gray400};
+  ${fonts.LABEL_12_SB}
 `;

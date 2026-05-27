@@ -3,6 +3,7 @@ import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 
 import { useGetMemberRecommendById } from '@/api/endpoint/members/getMemberRecommendById';
+import useEventLogger from '@/components/eventLogger/hooks/useEventLogger';
 import RefreshIcon from '@/public/icons/icon_refresh.svg';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
@@ -20,11 +21,18 @@ const MemberRecommendSection = ({ memberId, name }: MemberRecommendSectionProps)
   const { data, isLoading, refetch } = useGetMemberRecommendById(memberId);
   const memberRecommendData = data?.members.slice(0, 3);
 
+  const { logClickEvent } = useEventLogger();
+
+  const handleRereshIconClick = () => {
+    refetch();
+    logClickEvent('memberRecommendRefresh', { screen: 'profile' });
+  };
+
   return (
     <StyledSection>
       <StyledSectionHeader>
         <StyledSectionTitle>{name}님과 접점이 있는 멤버</StyledSectionTitle>
-        <StyledRefreshIcon onClick={refetch} />
+        <StyledRefreshIcon onClick={handleRereshIconClick} />
       </StyledSectionHeader>
       <StyledCardGrid>
         {isLoading

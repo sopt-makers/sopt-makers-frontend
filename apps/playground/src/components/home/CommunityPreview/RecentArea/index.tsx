@@ -6,15 +6,17 @@ import { useRecentPosts } from '@/api/endpoint/feed/getRecentPosts';
 import ScrollCarousel from '@/components/common/ScrollCarousel';
 import { getCategoryAndSubcategory } from '@/components/feed/common/utils/getCategoryAndSubcategory';
 import RecentCard from '@/components/feed/home/RecentArea/RecentCard';
+import RecentCardSkeleton from '@/components/feed/home/RecentArea/RecentCardSkeleton';
 import { getLoopedItems } from '@/hooks/useScrollCarousel';
 import { DESKTOP_ONE_MEDIA_QUERY, DESKTOP_TWO_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 import TitledContent from '../../common/TitledContent';
 
 const ITEMS_PER_VIEW = 1;
+const SKELETON_COUNT = 3;
 
 const RecentArea = () => {
-  const { data: recentPosts = [] } = useRecentPosts();
+  const { data: recentPosts = [], isLoading } = useRecentPosts();
   const router = useRouter();
 
   const handleClickCard = (categoryTag: string, id: number) => {
@@ -31,34 +33,72 @@ const RecentArea = () => {
 
   return (
     <TitledContent title='새로 올라온 글'>
-      {/* ~1200: 캐러셀 (모바일 1장 / 태블릿 2장) */}
-      <CarouselWrapper>
-        <ScrollCarousel itemCount={recentPosts.length} itemsPerView={ITEMS_PER_VIEW} autoPlay={{ enabled: false }}>
-          {getLoopedItems(recentPosts, ITEMS_PER_VIEW).map((recentPost, index) => (
-            <RecentCard
-              key={`${recentPost.id}-${index}`}
-              recentPost={recentPost}
-              onClick={() => handleClickCard(recentPost.categoryTag, recentPost.id)}
-            />
+      {isLoading ? (
+        <RecentCardSkeletonList aria-hidden>
+          {Array.from({ length: SKELETON_COUNT }, (_, index) => (
+            <RecentCardSkeleton key={`skeleton-${index}`} />
           ))}
-        </ScrollCarousel>
-      </CarouselWrapper>
+        </RecentCardSkeletonList>
+      ) : (
+        <>
+          {/* ~1200: 캐러셀 (모바일 1장 / 태블릿 2장) */}
+          <CarouselWrapper>
+            <ScrollCarousel
+              itemCount={recentPosts.length}
+              itemsPerView={ITEMS_PER_VIEW}
+              autoPlay={{ enabled: false }}
+              indicatorOffset={16}
+            >
+              {getLoopedItems(recentPosts, ITEMS_PER_VIEW).map((recentPost, index) => (
+                <RecentCard
+                  key={`${recentPost.id}-${index}`}
+                  recentPost={recentPost}
+                  onClick={() => handleClickCard(recentPost.categoryTag, recentPost.id)}
+                />
+              ))}
+            </ScrollCarousel>
+          </CarouselWrapper>
 
-      {/* 1200~: 캐러셀 없이 카드 3장 고정 */}
-      <StaticGrid>
-        {recentPosts.map((recentPost) => (
-          <RecentCard
-            key={`static-${recentPost.id}`}
-            recentPost={recentPost}
-            onClick={() => handleClickCard(recentPost.categoryTag, recentPost.id)}
-          />
-        ))}
-      </StaticGrid>
+          {/* 1200~: 캐러셀 없이 카드 3장 고정 */}
+          <StaticGrid>
+            {recentPosts.map((recentPost) => (
+              <RecentCard
+                key={`static-${recentPost.id}`}
+                recentPost={recentPost}
+                onClick={() => handleClickCard(recentPost.categoryTag, recentPost.id)}
+              />
+            ))}
+          </StaticGrid>
+        </>
+      )}
     </TitledContent>
   );
 };
 
 export default RecentArea;
+
+const RecentCardSkeletonList = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr)); /* 1543~: 3장 */
+  gap: 12px;
+  width: 100%;
+
+  @media ${DESKTOP_ONE_MEDIA_QUERY} {
+    grid-template-columns: repeat(2, minmax(0, 1fr)); /* ~1542: 2장 */
+
+    & > *:nth-of-type(n + 3) {
+      display: none;
+    }
+  }
+
+  @media ${DESKTOP_TWO_MEDIA_QUERY} {
+    grid-template-columns: minmax(0, 1fr); /* ~1200: 1장 */
+
+    & > *:nth-of-type(n + 2) {
+      display: none;
+    }
+  }
+`;
 
 const CarouselWrapper = styled.div`
   display: none;
