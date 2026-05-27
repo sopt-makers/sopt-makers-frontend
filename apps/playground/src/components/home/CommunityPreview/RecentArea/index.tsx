@@ -33,7 +33,12 @@ const RecentArea = () => {
     <TitledContent title='새로 올라온 글'>
       {/* ~1200: 캐러셀 (모바일 1장 / 태블릿 2장) */}
       <CarouselWrapper>
-        <ScrollCarousel itemCount={recentPosts.length} itemsPerView={ITEMS_PER_VIEW} autoPlay={{ enabled: false }}>
+        <ScrollCarousel
+          itemCount={recentPosts.length}
+          itemsPerView={ITEMS_PER_VIEW}
+          autoPlay={{ enabled: false }}
+          indicatorOffset={16}
+        >
           {getLoopedItems(recentPosts, ITEMS_PER_VIEW).map((recentPost, index) => (
             <RecentCard
               key={`${recentPost.id}-${index}`}
