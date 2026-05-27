@@ -8,22 +8,9 @@ import { useGetPopularPost } from '@/api/endpoint/feed/getPopularPost';
 import PopularCard from '@/components/common/PopularCard';
 import Text from '@/components/common/Text';
 import { LoggingClick } from '@/components/eventLogger/components/LoggingClick';
+import { getCategoryAndSubcategory } from '@/components/feed/common/utils/getCategoryAndSubcategory';
 
 import TitledContent from '../common/TitledContent';
-
-const SUB_CATEGORY_CODE = {
-  PROMOTION: ['RECRUIT', 'PROJECT', 'ETC', 'EVENT'],
-  SOPTICLE: ['PLAN', 'DESIGN', 'WEB', 'SERVER', 'IOS', 'ANDROID'],
-};
-
-const getCategoryAndSubcategory = (value: string): [string, string | undefined] => {
-  for (const [category, subCategories] of Object.entries(SUB_CATEGORY_CODE)) {
-    if (subCategories.includes(value)) {
-      return [category, value];
-    }
-  }
-  return [value, undefined];
-};
 
 const PopularArea = () => {
   const { data, isLoading, isError } = useGetPopularPost();

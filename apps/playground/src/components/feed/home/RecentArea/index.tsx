@@ -7,24 +7,10 @@ import { useRouter } from 'next/router';
 import { useRecentPosts } from '@/api/endpoint/feed/getRecentPosts';
 import { useGetMemberOfMe } from '@/api/endpoint/members/getMemberOfMe';
 import Text from '@/components/common/Text';
-import { PROMOTION_CATEGORY_CODE, SOPTICLE_CATEGORY_CODE } from '@/components/feed/constants';
+import { getCategoryAndSubcategory } from '@/components/feed/common/utils/getCategoryAndSubcategory';
 import RecentCard from '@/components/feed/home/RecentArea/RecentCard';
 import FeedSkeleton from '@/components/feed/list/FeedSkeleton';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
-
-const SUB_CATEGORY_CODE: Record<string, string[]> = {
-  [PROMOTION_CATEGORY_CODE]: ['RECRUIT', 'PROJECT', 'ETC', 'EVENT'],
-  [SOPTICLE_CATEGORY_CODE]: ['PLAN', 'DESIGN', 'WEB', 'SERVER', 'IOS', 'ANDROID'],
-};
-
-const getCategoryAndSubcategory = (categoryTag: string): [string, string | undefined] => {
-  for (const [category, subCategories] of Object.entries(SUB_CATEGORY_CODE)) {
-    if (subCategories.includes(categoryTag)) {
-      return [category, categoryTag];
-    }
-  }
-  return [categoryTag, undefined];
-};
 
 const RecentArea = () => {
   const { data: me } = useGetMemberOfMe();
