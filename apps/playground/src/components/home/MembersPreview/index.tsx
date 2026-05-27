@@ -5,16 +5,18 @@ import Responsive from '@/components/common/Responsive';
 import MemberRecommendCard from '@/components/members/common/MemberRecommendCard/MemberRecommendCard';
 import MemberRecommendCardSkeleton from '@/components/members/common/MemberRecommendCard/MemberRecommendCardSkeleton';
 
+import TitledContent from '../common/TitledContent';
+
 const DESKTOP_SKELETON_COUNT = 4;
 const MOBILE_SKELETON_COUNT = 2;
 
-const MemberList = () => {
+const MemberPreview = () => {
   const { data: memberRecommendData, isLoading } = useGetMemberRecommendOfMe();
   const desktopMemberData = memberRecommendData?.members;
   const mobileMemberData = memberRecommendData?.members.slice(0, 2);
 
   return (
-    <>
+    <TitledContent title={'나와 접점이 있는 멤버'}>
       <Responsive only='desktop'>
         <StyledGrid>
           {isLoading
@@ -33,11 +35,11 @@ const MemberList = () => {
             : mobileMemberData?.map((member) => <MemberRecommendCard key={member.id} member={member} usage='home' />)}
         </StyledGrid>
       </Responsive>
-    </>
+    </TitledContent>
   );
 };
 
-export default MemberList;
+export default MemberPreview;
 
 const StyledGrid = styled.div`
   display: grid;

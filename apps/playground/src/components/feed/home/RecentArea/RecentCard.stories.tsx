@@ -54,18 +54,18 @@ const basicMock3: RecentPosts = {
 
 export const 기본: Story = {
   args: {
-    recentPosts: basicMock,
+    recentPost: basicMock,
   },
 };
 
 export const 제목없음_본문만있는카드: Story = {
   args: {
-    recentPosts: basicMock2,
+    recentPost: basicMock2,
   },
 };
 
 export const 제목본문_길이가긴카드: Story = {
   args: {
-    recentPosts: basicMock3,
+    recentPost: basicMock3,
   },
 };

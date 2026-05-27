@@ -3,14 +3,16 @@ import styled from '@emotion/styled';
 import { useGetRandomProjects } from '@/api/endpoint/menuPreview/getRandomProjects';
 import ScrollCarousel from '@/components/common/ScrollCarousel';
 import useMediaQuery from '@/hooks/useMediaQuery';
+import { getLoopedItems } from '@/hooks/useScrollCarousel';
 import { DESKTOP_TWO_MEDIA_QUERY, MOBILE_MAX_WIDTH, MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
+import TitledContent from '../common/TitledContent';
 import ProjectCard from './ProjectCard';
 import ProjectCardSkeleton from './ProjectCardSkeleton';
 
 const SKELETON_CARD_COUNT = 3;
 
-const ProjectList = () => {
+const ProjectPreview = () => {
   const { data: projects = [], isLoading } = useGetRandomProjects();
 
   const isMobile = useMediaQuery(MOBILE_MAX_WIDTH);
@@ -27,15 +29,18 @@ const ProjectList = () => {
   }
 
   return (
-    <>
+    <TitledContent title={`지난 기수 앱잼 프로젝트`}>
       {/* ~1200: 캐러셀 (모바일 1장 / 태블릿 2장) */}
       <CarouselWrapper>
         <ScrollCarousel
-          items={projects}
+          itemCount={projects.length}
           itemsPerView={itemsPerView}
           autoPlay={{ enabled: true, interval: 3000 }}
-          renderItem={(project) => <ProjectCard project={project} />}
-        />
+        >
+          {getLoopedItems(projects, itemsPerView).map((project, index) => (
+            <ProjectCard key={`${project.id}-${index}`} project={project} />
+          ))}
+        </ScrollCarousel>
       </CarouselWrapper>
 
       {/* 1200~: 캐러셀 없이 카드 3장 고정 */}
@@ -44,11 +49,11 @@ const ProjectList = () => {
           <ProjectCard key={`static-${project.id}`} project={project} />
         ))}
       </StaticGrid>
-    </>
+    </TitledContent>
   );
 };
 
-export default ProjectList;
+export default ProjectPreview;
 
 const ProjectSkeletonList = styled.div`
   display: grid;

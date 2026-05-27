@@ -187,8 +187,7 @@ const Container = styled(m.div)<{
   background: ${colors.gray900};
   cursor: pointer;
   padding: 32px;
-  width: 420px;
-  min-width: 420px;
+  width: 100%;
   height: 280px;
   overflow: hidden;
   ${({ isEmptyData }) =>

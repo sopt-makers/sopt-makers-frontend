@@ -37,8 +37,8 @@ const RecentArea = () => {
           </TitleBox>
 
           <RecentFeedList>
-            {recentPosts?.map((recentPosts) => (
-              <RecentCard key={recentPosts.id} recentPosts={recentPosts} />
+            {recentPosts?.map((recentPost) => (
+              <RecentCard key={recentPost.id} recentPost={recentPost} />
             ))}
           </RecentFeedList>
         </Container>
