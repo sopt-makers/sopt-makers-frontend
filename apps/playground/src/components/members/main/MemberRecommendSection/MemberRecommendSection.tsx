@@ -9,12 +9,14 @@ import RefreshIcon from '@/public/icons/icon_refresh.svg';
 import { DESKTOP_TWO_MEDIA_QUERY, MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 import MemberRecommendCard from '../../common/MemberRecommendCard/MemberRecommendCard';
+import MemberRecommendCardSkeleton from '../../common/MemberRecommendCard/MemberRecommendCardSkeleton';
 
 const PC_MEDIA_WIDTH = 1200;
 const PC_MEDIA_QUERY = `screen and (min-width: ${PC_MEDIA_WIDTH}px)`;
+const SKELETON_COUNT = 4;
 
 const MemberRecommendSection = () => {
-  const { data, refetch } = useGetMemberRecommendOfMe();
+  const { data, isLoading, refetch } = useGetMemberRecommendOfMe();
   const memberRecommendData = data?.members;
   const [isTooltipOpen, setIsTooltipOpen] = useState(true);
   const [isWideViewport, setIsWideViewport] = useState(false);
@@ -62,9 +64,13 @@ const MemberRecommendSection = () => {
         )}
       </StyledSectionHeader>
       <StyledCardGrid>
-        {memberRecommendData?.map((member) => (
-          <MemberRecommendCard key={member.id} member={member} usage='memberTab' />
-        ))}
+        {isLoading
+          ? Array.from({ length: SKELETON_COUNT }, (_, index) => (
+              <MemberRecommendCardSkeleton key={index} usage='memberTab' />
+            ))
+          : memberRecommendData?.map((member) => (
+              <MemberRecommendCard key={member.id} member={member} usage='memberTab' />
+            ))}
       </StyledCardGrid>
     </StyledSection>
   );
@@ -145,7 +151,7 @@ const StyledCardGrid = styled.div`
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 12px;
 
-  & > *:nth-child(n + 5) {
+  & > *:nth-of-type(n + 5) {
     display: none;
   }
 
@@ -153,7 +159,7 @@ const StyledCardGrid = styled.div`
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 8px;
 
-    & > *:nth-child(n + 4) {
+    & > *:nth-of-type(n + 4) {
       display: none;
     }
   }

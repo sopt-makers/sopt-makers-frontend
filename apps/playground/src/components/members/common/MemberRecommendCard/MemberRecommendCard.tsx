@@ -13,10 +13,12 @@ import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 import RecommendTypeChip from './RecommendTypeChip';
 
+export type Usage = 'home' | 'memberTab' | 'profile';
+
 // 두 API의 recommendType enum 값이 달라 유니온으로 수용
 interface MemberRecommendCardProps {
   member: RecommendMemberOfMe | RecommendMemberById;
-  usage: 'memberTab' | 'profile' | 'home';
+  usage: Usage;
 }
 
 const MemberRecommendCard = ({ member, usage }: MemberRecommendCardProps) => {
@@ -79,6 +81,7 @@ const StyledAvatar = styled.img<{ usage: string }>`
   width: 80px;
   height: 80px;
   border-radius: 50%;
+  object-fit: cover;
 
   @media ${MOBILE_MEDIA_QUERY} {
     width: ${({ usage }) => (usage == 'home' ? '56px' : '72px')};

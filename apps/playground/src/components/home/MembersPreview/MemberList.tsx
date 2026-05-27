@@ -3,9 +3,13 @@ import styled from '@emotion/styled';
 import { useGetMemberRecommendOfMe } from '@/api/endpoint/members/getMemberRecommendOfMe';
 import Responsive from '@/components/common/Responsive';
 import MemberRecommendCard from '@/components/members/common/MemberRecommendCard/MemberRecommendCard';
+import MemberRecommendCardSkeleton from '@/components/members/common/MemberRecommendCard/MemberRecommendCardSkeleton';
+
+const DESKTOP_SKELETON_COUNT = 4;
+const MOBILE_SKELETON_COUNT = 2;
 
 const MemberList = () => {
-  const { data: memberRecommendData } = useGetMemberRecommendOfMe();
+  const { data: memberRecommendData, isLoading } = useGetMemberRecommendOfMe();
   const desktopMemberData = memberRecommendData?.members;
   const mobileMemberData = memberRecommendData?.members.slice(0, 2);
 
@@ -13,16 +17,20 @@ const MemberList = () => {
     <>
       <Responsive only='desktop'>
         <StyledGrid>
-          {desktopMemberData?.map((member) => (
-            <MemberRecommendCard key={member.id} member={member} usage='home' />
-          ))}
+          {isLoading
+            ? Array.from({ length: DESKTOP_SKELETON_COUNT }, (_, index) => (
+                <MemberRecommendCardSkeleton key={index} usage='home' />
+              ))
+            : desktopMemberData?.map((member) => <MemberRecommendCard key={member.id} member={member} usage='home' />)}
         </StyledGrid>
       </Responsive>
       <Responsive only='mobile'>
         <StyledGrid>
-          {mobileMemberData?.map((member) => (
-            <MemberRecommendCard key={member.id} member={member} usage='home' />
-          ))}
+          {isLoading
+            ? Array.from({ length: MOBILE_SKELETON_COUNT }, (_, index) => (
+                <MemberRecommendCardSkeleton key={index} usage='home' />
+              ))
+            : mobileMemberData?.map((member) => <MemberRecommendCard key={member.id} member={member} usage='home' />)}
         </StyledGrid>
       </Responsive>
     </>

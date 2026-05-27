@@ -7,6 +7,9 @@ import RefreshIcon from '@/public/icons/icon_refresh.svg';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 import MemberRecommendCard from '../../common/MemberRecommendCard/MemberRecommendCard';
+import MemberRecommendCardSkeleton from '../../common/MemberRecommendCard/MemberRecommendCardSkeleton';
+
+const SKELETON_COUNT = 3;
 
 interface MemberRecommendSectionProps {
   memberId: string;
@@ -14,7 +17,7 @@ interface MemberRecommendSectionProps {
 }
 
 const MemberRecommendSection = ({ memberId, name }: MemberRecommendSectionProps) => {
-  const { data, refetch } = useGetMemberRecommendById(memberId);
+  const { data, isLoading, refetch } = useGetMemberRecommendById(memberId);
   const memberRecommendData = data?.members.slice(0, 3);
 
   return (
@@ -24,9 +27,13 @@ const MemberRecommendSection = ({ memberId, name }: MemberRecommendSectionProps)
         <StyledRefreshIcon onClick={refetch} />
       </StyledSectionHeader>
       <StyledCardGrid>
-        {memberRecommendData?.map((member) => (
-          <MemberRecommendCard key={member.id} member={member} usage='profile' />
-        ))}
+        {isLoading
+          ? Array.from({ length: SKELETON_COUNT }, (_, index) => (
+              <MemberRecommendCardSkeleton key={index} usage='profile' />
+            ))
+          : memberRecommendData?.map((member) => (
+              <MemberRecommendCard key={member.id} member={member} usage='profile' />
+            ))}
       </StyledCardGrid>
     </StyledSection>
   );
