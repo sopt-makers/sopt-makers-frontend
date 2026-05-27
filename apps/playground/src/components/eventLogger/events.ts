@@ -69,6 +69,9 @@ export interface ClickEvents {
 
   // ==== 멤버 ====
   memberCard: MemberCard;
+  memberRecommendRefresh: {
+    screen: 'memberTab' | 'profile';
+  };
   // 멤버 리스트 - 필터
   filterGeneration: {
     generation: string;
@@ -114,7 +117,10 @@ export interface ClickEvents {
   editProfile: undefined;
 
   // ==== 프로젝트 ====
-  projectCard: { id: number };
+  projectCard: {
+    projectId: number;
+    referral: 'home' | 'projectTab';
+  };
   projectUpload: {
     referral: string;
   };
@@ -385,6 +391,12 @@ export interface PageViewEvents {
 export interface ImpressionEvents {
   // ==== 멤버 ====
   memberCard: MemberCard;
+
+  // ==== 프로젝트 ====
+  projectCard: {
+    projectId: number;
+    screen: 'home';
+  };
 
   // ==== 커뮤니티(피드) ====
   feedCard: {
