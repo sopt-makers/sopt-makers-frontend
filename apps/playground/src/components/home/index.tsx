@@ -6,6 +6,7 @@ import WordChainEntry from '../wordchain/WordchainEntry/WordChainEntry';
 import MenuPreview from './common/MenuPreview';
 import TitledContent from './common/TitledContent';
 import MemberList from './MembersPreview/MemberList';
+import PopularArea from './PopularArea';
 import ProjectList from './ProjectPreview/ProjectList';
 
 const HomePage = () => {
@@ -19,8 +20,9 @@ const HomePage = () => {
             <MemberList />
           </TitledContent>
         </MembersPreview>
+
         <CommunityPreview menu={'community'}>
-          <div>내용</div>
+          <PopularArea />
         </CommunityPreview>
       </StyledMemberAndCommunity>
       <MenuPreview menu={'project'}>
