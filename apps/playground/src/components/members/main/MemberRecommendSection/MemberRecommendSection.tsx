@@ -1,14 +1,10 @@
 import styled from '@emotion/styled';
 import * as Tooltip from '@radix-ui/react-tooltip';
-import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
-import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 import { useGetMemberRecommendOfMe } from '@/api/endpoint/members/getMemberRecommendOfMe';
-import { LoggingClick } from '@/components/eventLogger/components/LoggingClick';
-import { LoggingImpression } from '@/components/eventLogger/components/LoggingImpression';
 import RefreshIcon from '@/public/icons/icon_refresh.svg';
 import { DESKTOP_TWO_MEDIA_QUERY, MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
@@ -67,25 +63,7 @@ const MemberRecommendSection = () => {
       </StyledSectionHeader>
       <StyledCardGrid>
         {memberRecommendData?.map((member) => (
-          <LoggingImpression
-            key={member.id}
-            eventKey='memberRecommendCard'
-            param={{ id: member.id, name: member.name, recommendationType: member.recommendType, screen: 'memberTab' }}
-          >
-            <LoggingClick
-              eventKey='memberRecommendCard'
-              param={{
-                id: member.id,
-                name: member.name,
-                recommendationType: member.recommendType,
-                referral: 'memberTab',
-              }}
-            >
-              <Link href={playgroundLink.memberDetail(member.id)}>
-                <MemberRecommendCard member={member} />
-              </Link>
-            </LoggingClick>
-          </LoggingImpression>
+          <MemberRecommendCard key={member.id} member={member} usage='memberTab' />
         ))}
       </StyledCardGrid>
     </StyledSection>
