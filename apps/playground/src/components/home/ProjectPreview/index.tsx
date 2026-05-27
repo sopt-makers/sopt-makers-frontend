@@ -18,37 +18,37 @@ const ProjectPreview = () => {
   const isMobile = useMediaQuery(MOBILE_MAX_WIDTH);
   const itemsPerView = isMobile ? 1 : 2;
 
-  if (isLoading) {
-    return (
-      <ProjectSkeletonList aria-hidden>
-        {Array.from({ length: SKELETON_CARD_COUNT }, (_, index) => (
-          <ProjectCardSkeleton key={index} />
-        ))}
-      </ProjectSkeletonList>
-    );
-  }
-
   return (
     <TitledContent title={`지난 기수 앱잼 프로젝트`}>
-      {/* ~1200: 캐러셀 (모바일 1장 / 태블릿 2장) */}
-      <CarouselWrapper>
-        <ScrollCarousel
-          itemCount={projects.length}
-          itemsPerView={itemsPerView}
-          autoPlay={{ enabled: true, interval: 3000 }}
-        >
-          {getLoopedItems(projects, itemsPerView).map((project, index) => (
-            <ProjectCard key={`${project.id}-${index}`} project={project} />
+      {isLoading ? (
+        <ProjectSkeletonList aria-hidden>
+          {Array.from({ length: SKELETON_CARD_COUNT }, (_, index) => (
+            <ProjectCardSkeleton key={index} />
           ))}
-        </ScrollCarousel>
-      </CarouselWrapper>
+        </ProjectSkeletonList>
+      ) : (
+        <>
+          {/* ~1200: 캐러셀 (모바일 1장 / 태블릿 2장) */}
+          <CarouselWrapper>
+            <ScrollCarousel
+              itemCount={projects.length}
+              itemsPerView={itemsPerView}
+              autoPlay={{ enabled: true, interval: 3000 }}
+            >
+              {getLoopedItems(projects, itemsPerView).map((project, index) => (
+                <ProjectCard key={`${project.id}-${index}`} project={project} />
+              ))}
+            </ScrollCarousel>
+          </CarouselWrapper>
 
-      {/* 1200~: 캐러셀 없이 카드 3장 고정 */}
-      <StaticGrid>
-        {projects.map((project) => (
-          <ProjectCard key={`static-${project.id}`} project={project} />
-        ))}
-      </StaticGrid>
+          {/* 1200~: 캐러셀 없이 카드 3장 고정 */}
+          <StaticGrid>
+            {projects.map((project) => (
+              <ProjectCard key={`static-${project.id}`} project={project} />
+            ))}
+          </StaticGrid>
+        </>
+      )}
     </TitledContent>
   );
 };
