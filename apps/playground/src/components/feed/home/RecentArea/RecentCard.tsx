@@ -12,12 +12,12 @@ import FeedIcon from '@/components/feed/home/RecentArea/FeedIcon';
 import VoteIcon from '@/public/icons/icon-vote.svg';
 
 interface RecentCardProps {
-  recentPosts: RecentPosts;
+  recentPost: RecentPosts;
 }
 
-const RecentCard = ({ recentPosts }: RecentCardProps) => {
+const RecentCard = ({ recentPost }: RecentCardProps) => {
   const { id, title, content, createdAt, likeCount, commentCount, categoryTagLabel, categoryTag, totalVoteCount } =
-    recentPosts;
+    recentPost;
   const isVotePost = totalVoteCount !== null;
   const router = useRouter();
 
@@ -68,14 +68,12 @@ export default RecentCard;
 const CardContainer = styled(Link)`
   display: flex;
   flex-direction: column;
-  flex-shrink: 0;
   gap: 12px;
   border-radius: 12px;
   background-color: ${colors.gray900};
   cursor: pointer;
   padding: 16px;
-  width: 272px;
-  height: 158px;
+  height: 100%;
 
   &:hover {
     background-color: ${colors.gray800};
@@ -86,26 +84,20 @@ const CardContent = styled.div`
   display: flex;
   flex-direction: column;
   gap: 4px;
-  width: 240px;
-  height: 96px;
+  min-width: 240px;
+  width: 100%;
 `;
 
 const TitleStyle = styled(Text)`
   ${fonts.TITLE_16_SB}
 
-  height: 48px;
-
-  /* stylelint-disable */
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
   overflow: hidden;
+  white-space: nowrap;
   text-overflow: ellipsis;
 `;
 
 const ContentStyle = styled(Text)`
   ${fonts.BODY_14_L}
-  height: 48px;
 
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -122,7 +114,7 @@ const CardFooter = styled.div`
 
 const FeedIconBox = styled.div`
   display: flex;
-  gap: 16px;
+  gap: 8px;
 `;
 
 const CreatedDate = styled(Text)`
