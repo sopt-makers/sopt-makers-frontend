@@ -13,14 +13,20 @@ const FeedSkeleton = ({ count = 4 }: FeedSkeletonProps) => {
     <>
       {Array.from({ length: count }, (_, index) => (
         <FeedSkeletonWrapper key={index}>
-          <SkeletonResponsive1 width={32} height={32} borderRadius={16} color={colors.gray700} />
+          <SkeletonResponsive1 width={32} height={32} borderRadius={'16px'} color={colors.gray700} />
           <RightWrapper>
-            <Skeleton width={184} height={16} borderRadius={8} color={colors.gray700} margin='0 0 24px 0' />
-            <Skeleton height={20} borderRadius={8} color={colors.gray700} margin='0 0 8px 0' />
-            <SkeletonResponsive2 width={307} height={20} borderRadius={8} color={colors.gray700} margin='0 0 28px 0' />
+            <Skeleton width={184} height={16} borderRadius={'8px'} color={colors.gray700} margin='0 0 24px 0' />
+            <Skeleton height={20} borderRadius={'8px'} color={colors.gray700} margin='0 0 8px 0' />
+            <SkeletonResponsive2
+              width={307}
+              height={20}
+              borderRadius={'8px'}
+              color={colors.gray700}
+              margin='0 0 28px 0'
+            />
             <BottomWrapper>
-              <Skeleton width={74} height={20} borderRadius={8} color={colors.gray700} margin='0 0 28px 0' />
-              <Skeleton width={48} height={20} borderRadius={8} color={colors.gray700} margin='0 0 28px 0' />
+              <Skeleton width={74} height={20} borderRadius={'8px'} color={colors.gray700} margin='0 0 28px 0' />
+              <Skeleton width={48} height={20} borderRadius={'8px'} color={colors.gray700} margin='0 0 28px 0' />
             </BottomWrapper>
           </RightWrapper>
         </FeedSkeletonWrapper>

@@ -20,7 +20,7 @@ const ImageWithSkeleton = ({ src, alt, height, className }: ImageWithSkeletonPro
 
   return (
     <Container $height={height} $isLoaded={isLoaded}>
-      {!isLoaded && <Skeleton width={height} height={height} borderRadius={12} />}
+      {!isLoaded && <Skeleton width={height} height={height} borderRadius={'12px'} />}
       <StyledImage
         src={src}
         alt={alt}

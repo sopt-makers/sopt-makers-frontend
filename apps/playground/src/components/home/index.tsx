@@ -3,17 +3,29 @@ import styled from '@emotion/styled';
 import { DESKTOP_ONE_MEDIA_QUERY, DESKTOP_TWO_MEDIA_QUERY, MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 import MenuPreview from './common/MenuPreview';
+import TitledContent from './common/TitledContent';
+import ProjectList from './ProjectPreview/ProjectList';
 
 const HomePage = () => {
   return (
     // TODO: content 교체
     <StyledContainer>
-      <MemberAndCommunity>
-        <MembersPreview menu={'members'} content={<div>내용</div>} />
-        <CommunityPreview menu={'feed'} content={<div>내용</div>} />
-      </MemberAndCommunity>
-      <MenuPreview menu={'projects'} content={<div>내용</div>} />
-      <MenuPreview menu={'coffeechat'} content={<div>내용</div>} />
+      <StyledMemberAndCommunity>
+        <MembersPreview menu={'members'}>
+          <div>내용</div>
+        </MembersPreview>
+        <CommunityPreview menu={'feed'}>
+          <div>내용</div>
+        </CommunityPreview>
+      </StyledMemberAndCommunity>
+      <MenuPreview menu={'projects'}>
+        <TitledContent title={'지난 기수 앱잼 프로젝트'}>
+          <ProjectList />
+        </TitledContent>
+      </MenuPreview>
+      <MenuPreview menu={'coffeechat'}>
+        <div>내용</div>
+      </MenuPreview>
     </StyledContainer>
   );
 };
@@ -43,7 +55,7 @@ const StyledContainer = styled.div`
   }
 `;
 
-const MemberAndCommunity = styled.div`
+const StyledMemberAndCommunity = styled.div`
   display: flex;
   gap: 24px;
 

@@ -6,12 +6,12 @@ import Skeleton from '@/components/common/Skeleton';
 const CategorySkeleton = () => {
   return (
     <CategorySkeletonWrapper>
-      <Skeleton width={28} height={20} borderRadius={8} color={colors.gray700} />
-      <Skeleton width={28} height={20} borderRadius={8} color={colors.gray700} />
-      <Skeleton width={28} height={20} borderRadius={8} color={colors.gray700} />
-      <Skeleton width={72} height={20} borderRadius={8} color={colors.gray700} />
-      <Skeleton width={28} height={20} borderRadius={8} color={colors.gray700} />
-      <Skeleton width={64} height={20} borderRadius={8} color={colors.gray700} />
+      <Skeleton width={28} height={20} borderRadius={'8px'} color={colors.gray700} />
+      <Skeleton width={28} height={20} borderRadius={'8px'} color={colors.gray700} />
+      <Skeleton width={28} height={20} borderRadius={'8px'} color={colors.gray700} />
+      <Skeleton width={72} height={20} borderRadius={'8px'} color={colors.gray700} />
+      <Skeleton width={28} height={20} borderRadius={'8px'} color={colors.gray700} />
+      <Skeleton width={64} height={20} borderRadius={'8px'} color={colors.gray700} />
     </CategorySkeletonWrapper>
   );
 };
