@@ -84,7 +84,7 @@ export const Default = () => {
 
   return (
     <DetailFeedCard>
-      <DetailFeedCard.Header categoryId='123' category='파트' tag='기획' />
+      <DetailFeedCard.Header categoryCode='SOPTICLE_PLAN' category='솝티클' tag='기획' />
       <DetailFeedCard.Body>
         <DetailFeedCard.Main>
           <DetailFeedCard.Top
@@ -97,7 +97,7 @@ export const Default = () => {
           />
           <DetailFeedCard.Content
             postId={1}
-            categoryId={1}
+            categoryCode='FREE'
             isMine={false}
             vote={null}
             title='YC의 스타트업을 위한 필수 조언'

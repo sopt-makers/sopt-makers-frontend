@@ -22,7 +22,7 @@ export const useDeleteFeed = () => {
   const { mutate } = useDeletePostMutation();
   const { confirm } = useConfirm();
   const router = useRouter();
-  const [categoryId] = useCategoryParam();
+  const [categoryCode] = useCategoryParam();
 
   const handleDeleteFeed = async (options: Options) => {
     const result = await confirm({
@@ -45,7 +45,7 @@ export const useDeleteFeed = () => {
           });
           router.push(playgroundLink.feedList());
           queryClient.invalidateQueries({
-            queryKey: useGetPostsInfiniteQuery.getKey(categoryId),
+            queryKey: useGetPostsInfiniteQuery.getKey(categoryCode),
           });
           queryClient.invalidateQueries({
             queryKey: getRecentPosts.cacheKey(),

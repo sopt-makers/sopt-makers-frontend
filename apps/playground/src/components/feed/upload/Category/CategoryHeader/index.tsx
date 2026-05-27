@@ -1,13 +1,10 @@
 import styled from '@emotion/styled';
-import { colors } from '@sopt-makers/colors';
 import { Chip } from '@sopt-makers/ui';
 
 import useCategory from '@/components/feed/common/hooks/useCategory';
-import { PART_CATEGORY_ID } from '@/components/feed/constants';
 import type { FeedDataType } from '@/components/feed/upload/types';
 import Arrow from '@/public/icons/icon-select-arrow.svg';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
-import { textStyles } from '@/styles/typography';
 
 interface CategoryHeaderProp {
   feedData: FeedDataType;
@@ -19,12 +16,12 @@ interface CategoryHeaderProp {
 export default function CategoryHeader({ feedData, openCategory, openTag, isSelectorOpen }: CategoryHeaderProp) {
   const { findParentCategory, findChildrenCategory } = useCategory();
 
-  const parentCategory = findParentCategory(feedData.categoryId);
-  const childrenCategory = findChildrenCategory(feedData.categoryId);
+  const parentCategory = findParentCategory(feedData.categoryCode);
+  const childrenCategory = findChildrenCategory(feedData.categoryCode);
 
   return (
     <CategoryContainer>
-      {!feedData.categoryId ? (
+      {!feedData.categoryCode ? (
         <StyledChip
           onClick={openCategory}
           RightIcon={() => <OpenArrow active={isSelectorOpen === 'openCategory'} />}
@@ -59,7 +56,7 @@ export default function CategoryHeader({ feedData, openCategory, openTag, isSele
                   RightIcon={() => <OpenArrow active={isSelectorOpen === 'openTag'} />}
                   active={isSelectorOpen === 'openTag'}
                 >
-                  {parentCategory.id === PART_CATEGORY_ID ? '어떤 파트에 올릴까요?' : '어떤 주제인가요?'}
+                  어떤 주제인가요?
                 </StyledChip>
               )}
             </>

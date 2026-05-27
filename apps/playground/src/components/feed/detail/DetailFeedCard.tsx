@@ -65,17 +65,17 @@ const StyledBase = styled(Flex)`
 `;
 
 interface HeaderProps {
-  categoryId: string;
+  categoryCode: string;
   category: string;
   tag: string;
   left?: ReactNode;
   right?: ReactNode;
-  renderCategoryLink?: (props: { children: ReactNode; categoryId: string }) => ReactNode;
+  renderCategoryLink?: (props: { children: ReactNode; categoryCode: string }) => ReactNode;
   hasChildren?: boolean;
 }
 
 const Header = ({
-  categoryId,
+  categoryCode,
   category,
   tag,
   left,
@@ -106,7 +106,7 @@ const Header = ({
               )}
             </Chip>
           ),
-          categoryId,
+          categoryCode,
         })}
       </Flex.Center>
       {right ? <Flex.Center css={{ gap: 8 }}>{right}</Flex.Center> : null}
@@ -291,7 +291,7 @@ interface ContentProps {
   isMine: boolean;
   vote: VoteData | null;
   postId: number;
-  categoryId: number;
+  categoryCode: string;
 }
 
 const Content = ({
@@ -308,7 +308,7 @@ const Content = ({
   isMine,
   vote,
   postId,
-  categoryId,
+  categoryCode,
 }: ContentProps) => {
   const [openSlider, setOpenSlider] = useState(false);
   const router = useRouter();
@@ -364,7 +364,7 @@ const Content = ({
       {vote && (
         <Vote
           postId={postId}
-          categoryId={categoryId}
+          categoryCode={categoryCode}
           isMine={isMine}
           isMultiple={vote.isMultiple}
           hasVoted={vote.hasVoted}

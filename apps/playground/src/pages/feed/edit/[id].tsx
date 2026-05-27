@@ -1,7 +1,6 @@
 import { playgroundLink } from '@sopt/constant';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
-import type { FC } from 'react';
 import { useMemo } from 'react';
 
 import { editFeed } from '@/api/endpoint/feed/editFeed';
@@ -12,41 +11,37 @@ import AuthRequired from '@/components/auth/AuthRequired';
 import Loading from '@/components/common/Loading';
 import useModalState from '@/components/common/Modal/useModalState';
 import useEventLogger from '@/components/eventLogger/hooks/useEventLogger';
-import { getParentCategoryIdById } from '@/components/feed/common/utils';
 import EditImpossibleModal from '@/components/feed/edit/EditImpossibleModal';
 import FeedUploadPage, { LoadingWrapper } from '@/components/feed/page/FeedUploadPage';
-import type { FeedDataType } from '@/components/feed/upload/types';
+import type { EditFeedDataType, PostedFeedDataType } from '@/components/feed/upload/types';
 import useStringRouterQuery from '@/hooks/useStringRouterQuery';
 import { setLayout } from '@/utils/layout';
 
-const FeedEdit: FC = () => {
+const FeedEdit = () => {
   const { status, query } = useStringRouterQuery(['id'] as const);
   const { data } = useGetPostQuery(query?.id);
   const editingId = data?.posts.id;
   const router = useRouter();
   const { logSubmitEvent } = useEventLogger();
   const queryClient = useQueryClient();
-  const { isOpen, onOpen, onClose } = useModalState(true);
+  const { isOpen, onClose } = useModalState(true);
 
   const { mutate, isPending } = useMutation({
-    mutationFn: (requestBody: { data: FeedDataType; id: number | null }) =>
-      editFeed.request({ postId: requestBody.id, ...requestBody.data }),
+    mutationFn: (requestBody: EditFeedDataType) => editFeed.request(requestBody),
   });
 
-  const handleEditSubmit = ({ data, id }: { data: FeedDataType; id: number | null }) => {
+  const handleEditSubmit = ({ data, id }: { data: PostedFeedDataType; id: number | null }) => {
+    const { vote: _, ...editData } = data;
     mutate(
-      { data: data, id: id },
+      { ...editData, postId: id },
       {
         onSuccess: async () => {
           logSubmitEvent('editCommunity');
-          const parentId = getParentCategoryIdById(data.categoryId);
+          const [parentCode] = (data.categoryCode ?? '').split('_');
 
-          const promises = [
+          await Promise.all([
             queryClient.invalidateQueries({
-              queryKey: useGetPostsInfiniteQuery.getKey(parentId?.toString()),
-            }),
-            queryClient.invalidateQueries({
-              queryKey: useGetPostsInfiniteQuery.getKey(''),
+              queryKey: useGetPostsInfiniteQuery.getKey(parentCode),
             }),
             queryClient.invalidateQueries({
               queryKey: getRecentPosts.cacheKey(),
@@ -56,9 +51,8 @@ const FeedEdit: FC = () => {
                   queryKey: getPost.cacheKey(`${editingId}`),
                 })
               : Promise.resolve(),
-          ];
+          ]);
 
-          await Promise.all(promises);
           await router.push(playgroundLink.feedList());
         },
       },
@@ -85,13 +79,8 @@ const FeedEdit: FC = () => {
     );
   }
 
-  if (status === 'loading') {
-    return null;
-  }
-
-  if (status === 'error') {
-    return null;
-  }
+  if (status === 'loading') return null;
+  if (status === 'error') return null;
 
   if (status === 'success') {
     return (
@@ -101,10 +90,9 @@ const FeedEdit: FC = () => {
             {data.isMine ? (
               <FeedUploadPage
                 defaultValue={{
-                  categoryId: data.posts.categoryId,
+                  categoryCode: data.posts.categoryCode,
                   title: data.posts.title,
                   content: data.posts.content,
-                  isQuestion: data.posts.isQuestion,
                   isBlindWriter: data.posts.isBlindWriter,
                   images: data.posts.images,
                   link: data.posts.sopticleUrl,

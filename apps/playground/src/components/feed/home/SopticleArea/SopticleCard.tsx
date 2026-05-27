@@ -6,7 +6,7 @@ import Link from 'next/link';
 import type { RecentSopticleType } from '@/api/endpoint/feed/getRecentSopticle';
 import Text from '@/components/common/Text';
 import { getMemberInfo } from '@/components/feed/common/utils';
-import { SOPTICLE_CATEGORY_ID } from '@/components/feed/constants';
+import { SOPTICLE_CATEGORY_CODE } from '@/components/feed/constants';
 import FeedUrlCard from '@/components/feed/list/FeedUrlCard';
 
 interface SopticleCardProps {
@@ -18,14 +18,14 @@ const SopticleCard = ({ sopticle }: SopticleCardProps) => {
   const profileImgSrc = member.profileImage ? member.profileImage : '/icons/icon-profile-fallback.svg';
 
   return (
-    <CardContainer href={`/?category=${SOPTICLE_CATEGORY_ID}&feed=${id}`}>
+    <CardContainer href={`/?category=${SOPTICLE_CATEGORY_CODE}&feed=${id}`}>
       <CardHeader>
         <ProfileImage src={profileImgSrc} />
         <UserNameStyle>{member.name}</UserNameStyle>
         <DotStyle>•</DotStyle>
         <SubTextStyle>
           {getMemberInfo({
-            categoryId: 21,
+            categoryCode: SOPTICLE_CATEGORY_CODE,
             categoryName: '솝티클',
             member: {
               activity: member?.activity ?? {

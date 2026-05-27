@@ -1,23 +1,21 @@
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
-import { Tag } from '@sopt-makers/ui';
 import { useQuery } from '@tanstack/react-query';
 
 import { getCategory } from '@/api/endpoint/feed/getCategory';
-import { GROUP_CATEGORY_ID } from '@/components/feed/constants';
 import type { BasicCategory } from '@/components/feed/upload/Category/types';
 import type { FeedDataType } from '@/components/feed/upload/types';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 import { textStyles } from '@/styles/typography';
 
 interface CategorySelectOptionsProp {
-  onSave: (categoryId: number) => void;
+  onSave: (categoryCode: string) => void;
   feedData: FeedDataType;
 }
 
 export default function CategorySelectOptions({ onSave, feedData }: CategorySelectOptionsProp) {
-  const handleSelectCategory = (categoryId: number) => {
-    onSave(categoryId);
+  const handleSelectCategory = (categoryCode: string) => {
+    onSave(categoryCode);
   };
 
   const { data: categories } = useQuery({
@@ -30,18 +28,13 @@ export default function CategorySelectOptions({ onSave, feedData }: CategorySele
       {categories &&
         categories.length > 0 &&
         categories.map((category: BasicCategory) => {
-          const isGROUP = category?.id === GROUP_CATEGORY_ID;
-
           return (
             <Option
-              key={category.id}
-              onClick={() => handleSelectCategory(category.id)}
-              isSelected={category.id === feedData.categoryId}
+              key={category.code}
+              onClick={() => handleSelectCategory(category.code)}
+              isSelected={category.code === feedData.categoryCode}
             >
-              <OptionTitle>
-                {isGROUP && <Tag variant={'primary'}>New</Tag>}
-                {category.name}
-              </OptionTitle>
+              <OptionTitle>{category.name}</OptionTitle>
               <OptionContents>{category.content}</OptionContents>
             </Option>
           );

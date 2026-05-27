@@ -20,7 +20,7 @@ export const useDeleteComment = () => {
   const { confirm } = useConfirm();
   const { open } = useToast();
   const queryClient = useQueryClient();
-  const [categoryId] = useCategoryParam({ defaultValue: '' });
+  const [categoryCode] = useCategoryParam({ defaultValue: '' });
 
   const handleDeleteComment = useCallback(
     async (options: Options) => {
@@ -39,7 +39,7 @@ export const useDeleteComment = () => {
         mutate(options.commentId, {
           onSuccess: async () => {
             await queryClient.invalidateQueries({
-              queryKey: useGetPostsInfiniteQuery.getKey(categoryId),
+              queryKey: useGetPostsInfiniteQuery.getKey(categoryCode),
             });
             await queryClient.invalidateQueries({
               queryKey: getRecentPosts.cacheKey(),

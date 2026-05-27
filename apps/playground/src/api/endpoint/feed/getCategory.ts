@@ -1,28 +1,36 @@
+import { useQuery } from '@tanstack/react-query';
 import { z } from 'zod';
 
 import { createEndpoint } from '@/api/typedAxios';
 
 const baseCategory = z.object({
-  id: z.number(),
+  code: z.string(),
   name: z.string(),
-  hasAll: z.boolean(),
-  hasBlind: z.boolean().nullable(),
-  hasQuestion: z.boolean().nullable(),
   content: z.string().nullable(),
+  hasBlind: z.boolean(),
 });
 
-type ChildrenCategory = z.infer<typeof baseCategory> & {
-  children: ChildrenCategory[];
+type Category = z.infer<typeof baseCategory> & {
+  children: Category[];
 };
 
-const category: z.ZodType<ChildrenCategory> = baseCategory.extend({
-  children: z.lazy(() => category.array()),
+const categorySchema: z.ZodType<Category> = baseCategory.extend({
+  children: z.lazy(() => z.array(categorySchema)),
 });
+
+export type categoryType = z.infer<typeof categorySchema>;
 
 export const getCategory = createEndpoint({
   request: {
     method: 'GET',
     url: 'api/v1/community/category',
   },
-  serverResponseScheme: z.array(category),
+  serverResponseScheme: z.array(categorySchema),
 });
+
+export const useGetCategory = () => {
+  return useQuery({
+    queryKey: getCategory.cacheKey(),
+    queryFn: () => getCategory.request(),
+  });
+};

@@ -9,10 +9,9 @@ export default {
 export const Default = {
   args: {
     feedData: {
-      categoryId: null,
+      categoryCode: null,
       title: '',
       content: '',
-      isQuestion: false,
       isBlindWriter: false,
       images: [],
     },

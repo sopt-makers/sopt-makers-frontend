@@ -2,7 +2,6 @@ import { playgroundLink } from '@sopt/constant';
 import { useQueryClient } from '@tanstack/react-query';
 import { ImpressionArea } from '@toss/impression-area';
 import Link from 'next/link';
-import type { FC } from 'react';
 
 import { useGetPostsInfiniteQuery } from '@/api/endpoint/feed/getPosts';
 import Responsive from '@/components/common/Responsive';
@@ -15,7 +14,7 @@ import FeedList from '@/components/feed/list/FeedList';
 import DesktopCommunityLayout from '@/components/feed/page/layout/DesktopCommunityLayout';
 import MobileCommunityLayout from '@/components/feed/page/layout/MobileCommunityLayout';
 
-const CommunityPage: FC = () => {
+const CommunityPage = () => {
   const queryClient = useQueryClient();
   const [postId] = useFeedDetailParam();
   const { queueHit } = useHit();
@@ -49,12 +48,12 @@ const CommunityPage: FC = () => {
                     <FeedDetailLink feedId={undefined}>{children}</FeedDetailLink>
                   </LoggingClick>
                 )}
-                renderCategoryLink={({ children, categoryId }) => (
+                renderCategoryLink={({ children, categoryCode }) => (
                   <CategoryLink
-                    categoryId={categoryId}
+                    categoryId={categoryCode}
                     onClick={() => {
                       queryClient.invalidateQueries({
-                        queryKey: useGetPostsInfiniteQuery.getKey(categoryId),
+                        queryKey: useGetPostsInfiniteQuery.getKey(categoryCode),
                       });
                       window.scrollTo({ top: 0 });
                     }}
@@ -98,8 +97,8 @@ const CommunityPage: FC = () => {
                     <FeedDetailLink feedId={undefined}>{children}</FeedDetailLink>
                   </LoggingClick>
                 )}
-                renderCategoryLink={({ children, categoryId }) => (
-                  <CategoryLink categoryId={categoryId} transformQuery={(query) => ({ ...query, feed: '' })}>
+                renderCategoryLink={({ children, categoryCode }) => (
+                  <CategoryLink categoryId={categoryCode} transformQuery={(query) => ({ ...query, feed: '' })}>
                     {children}
                   </CategoryLink>
                 )}

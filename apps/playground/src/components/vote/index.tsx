@@ -8,7 +8,6 @@ import { useEffect, useState } from 'react';
 import { usePostVoteMutation } from '@/api/endpoint/feed/postVote';
 import Text from '@/components/common/Text';
 import useEventLogger from '@/components/eventLogger/hooks/useEventLogger';
-import { getCategoryNameById } from '@/components/feed/common/utils';
 import RadioBox from '@/components/vote/RadioBox';
 
 type VoteOption = {
@@ -21,7 +20,7 @@ type VoteOption = {
 
 interface VoteProps {
   postId: number;
-  categoryId: number;
+  categoryCode: string;
   isMultiple: boolean;
   isMine: boolean;
   hasVoted: boolean;
@@ -29,14 +28,14 @@ interface VoteProps {
   totalParticipants: number;
 }
 
-const Vote = ({ postId, categoryId, isMine, hasVoted, options, isMultiple, totalParticipants }: VoteProps) => {
+const Vote = ({ postId, categoryCode, isMine, hasVoted, options, isMultiple, totalParticipants }: VoteProps) => {
   const [isResult, setIsResult] = useState(hasVoted);
   const [mode, setMode] = useState<'view' | 'select'>(hasVoted ? 'view' : 'select');
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
 
   const maxVoteCount = Math.max(...options.map((o) => o.voteCount));
 
-  const { mutate: vote } = usePostVoteMutation(postId, categoryId);
+  const { mutate: vote } = usePostVoteMutation(postId);
 
   const toggleOption = (id: number) => {
     if (mode !== 'select') return;
@@ -54,7 +53,6 @@ const Vote = ({ postId, categoryId, isMine, hasVoted, options, isMultiple, total
   }, [hasVoted]);
 
   const { logClickEvent } = useEventLogger();
-  const category = getCategoryNameById(categoryId);
 
   return (
     <Container>
@@ -88,7 +86,7 @@ const Vote = ({ postId, categoryId, isMine, hasVoted, options, isMultiple, total
                 e.preventDefault();
                 vote({ selectedOptions: [...selectedIds] });
                 logClickEvent('vote', {
-                  category: category,
+                  category: categoryCode,
                   feedId: postId.toString(),
                 });
               }}
@@ -108,7 +106,7 @@ const Vote = ({ postId, categoryId, isMine, hasVoted, options, isMultiple, total
                   setSelectedIds([]);
                 }
                 logClickEvent('voteResult', {
-                  category: category,
+                  category: categoryCode,
                   feedId: postId.toString(),
                 });
               }}

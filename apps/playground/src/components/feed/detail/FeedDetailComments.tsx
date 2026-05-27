@@ -168,7 +168,7 @@ const FeedDetailComments: FC<FeedDetailCommentsProps> = ({ postId }) => {
                     isDeleted={replyComment.isDeleted}
                     info={getMemberInfo({
                       member: replyComment.member,
-                      categoryId: postData.category.id,
+                      categoryCode: postData.category.code,
                       categoryName: postData.category.name,
                     })}
                     comment={replyComment.content}
@@ -239,7 +239,7 @@ const FeedDetailComments: FC<FeedDetailCommentsProps> = ({ postId }) => {
               memberId={comment.member.id}
               info={getMemberInfo({
                 member: comment.member,
-                categoryId: postData.category.id,
+                categoryCode: postData.category.code,
                 categoryName: postData.category.name,
               })}
               isBlindWriter={comment.isBlindWriter}
@@ -366,7 +366,7 @@ const FeedDetailComments: FC<FeedDetailCommentsProps> = ({ postId }) => {
                     isDeleted={replyComment.isDeleted}
                     info={getMemberInfo({
                       member: replyComment.member,
-                      categoryId: postData.category.id,
+                      categoryCode: postData.category.code,
                       categoryName: postData.category.name,
                     })}
                     comment={replyComment.content}
@@ -511,7 +511,7 @@ const FeedDetailComments: FC<FeedDetailCommentsProps> = ({ postId }) => {
                     isDeleted={replyComment.isDeleted}
                     info={getMemberInfo({
                       member: replyComment.member,
-                      categoryId: postData.category.id,
+                      categoryCode: postData.category.code,
                       categoryName: postData.category.name,
                     })}
                     comment={replyComment.content}
