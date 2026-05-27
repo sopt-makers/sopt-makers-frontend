@@ -9,10 +9,10 @@ const HomePage = () => {
     // TODO: content 교체
     <StyledContainer>
       <MemberAndCommunity>
-        <MembersPreview menu={'members'} content={<div>내용</div>} />
-        <CommunityPreview menu={'feed'} content={<div>내용</div>} />
+        <MembersPreview menu={'member'} content={<div>내용</div>} />
+        <CommunityPreview menu={'community'} content={<div>내용</div>} />
       </MemberAndCommunity>
-      <MenuPreview menu={'projects'} content={<div>내용</div>} />
+      <MenuPreview menu={'project'} content={<div>내용</div>} />
       <MenuPreview menu={'coffeechat'} content={<div>내용</div>} />
     </StyledContainer>
   );
