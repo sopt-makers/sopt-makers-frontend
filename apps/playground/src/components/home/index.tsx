@@ -3,13 +3,14 @@ import styled from '@emotion/styled';
 import { DESKTOP_ONE_MEDIA_QUERY, DESKTOP_TWO_MEDIA_QUERY, MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 import MenuPreview from './common/MenuPreview';
+import MemberList from './MembersPreview/MemberList';
 
 const HomePage = () => {
   return (
     // TODO: content 교체
     <StyledContainer>
       <MemberAndCommunity>
-        <MembersPreview menu={'member'} content={<div>내용</div>} />
+        <MembersPreview menu={'member'} content={<MemberList />} />
         <CommunityPreview menu={'community'} content={<div>내용</div>} />
       </MemberAndCommunity>
       <MenuPreview menu={'project'} content={<div>내용</div>} />
