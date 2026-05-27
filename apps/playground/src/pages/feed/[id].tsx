@@ -33,7 +33,7 @@ const FeedDetailPage = () => {
                     href={{
                       pathname: playgroundLink.feedList(),
                       query: {
-                        category: categoryCode,
+                        category: categoryCode.split('_')[0],
                       },
                     }}
                   >
