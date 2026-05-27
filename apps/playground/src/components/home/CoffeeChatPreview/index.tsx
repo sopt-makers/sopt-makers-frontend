@@ -13,65 +13,21 @@ import CoffeeChatPreviewSkeleton from './CoffeeChatPreviewSkeleton';
 
 const SKELETON_CARD_COUNT = 3;
 
-// TODO: 서버 500 복구되면 제거
-const DUMMY_COFFEE_CHATS: RandomCoffeeChat[] = [
-  {
-    memberId: 1,
-    coffeeChatBio: '프론트엔드 커리어 시작이 막막한 분, 편하게 이야기 나눠요',
-    profileImage: 'https://i.pravatar.cc/200?img=1',
-    name: '김솝트',
-    career: '3년차',
-    organization: '토스',
-    companyJob: '프론트엔드 엔지니어',
-    soptActivities: ['33기 기획', '32기 디자인', '31기 서버'],
-  },
-  {
-    memberId: 2,
-    coffeeChatBio: 'PM으로 전향한 개발자, 궁금한 것 다 물어보세요',
-    profileImage: 'https://i.pravatar.cc/200?img=2',
-    name: '이메이커스',
-    career: '5년차',
-    organization: '네이버',
-    companyJob: 'Product Manager',
-    soptActivities: ['30기 서버', '29기 기획'],
-  },
-  {
-    memberId: 3,
-    coffeeChatBio: '디자인 시스템 운영하면서 배운 것들 공유해드려요',
-    profileImage: 'https://i.pravatar.cc/200?img=3',
-    name: '박플레이',
-    career: '2년차',
-    organization: '카카오',
-    companyJob: 'Product Designer',
-    soptActivities: ['33기 디자인'],
-  },
-  {
-    memberId: 4,
-    coffeeChatBio: '대학생 → 신입 백엔드 입사기, 면접 후기까지',
-    profileImage: 'https://i.pravatar.cc/200?img=4',
-    name: '최그라운드',
-    career: '1년차',
-    organization: '당근',
-    companyJob: '백엔드 엔지니어',
-    soptActivities: ['33기 서버', '32기 서버'],
-  },
-];
-
 const toCardProps = (c: RandomCoffeeChat) => ({
   id: String(c.memberId),
   title: c.coffeeChatBio,
-  topicTypeList: [],
-  profileImage: c.profileImage,
+  topicTypeList: c.topicTypeList,
+  profileImage: c.profileImage ?? '',
   name: c.name,
   career: c.career,
-  organization: c.organization,
-  companyJob: c.companyJob,
+  organization: c.organization ?? '',
+  companyJob: c.companyJob ?? undefined,
   soptActivities: c.soptActivities,
 });
 
 const CoffeeChatPreview = () => {
   const { data: myProperty, isLoading: isMemberDataLoading } = useGetMemberProperty();
-  const { data: coffeeChats = DUMMY_COFFEE_CHATS, isLoading: isCoffeeChatDataLoading } = useGetRandomCoffeeChat();
+  const { data: coffeeChats = [], isLoading: isCoffeeChatDataLoading } = useGetRandomCoffeeChat();
 
   const isLoading = isMemberDataLoading || isCoffeeChatDataLoading;
   const parts = myProperty?.part ?? [];

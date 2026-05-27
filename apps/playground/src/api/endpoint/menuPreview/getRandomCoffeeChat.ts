@@ -6,12 +6,13 @@ import { createEndpoint } from '@/api/typedAxios';
 const randomCoffeeChatSchema = z.object({
   memberId: z.number(),
   coffeeChatBio: z.string(),
-  profileImage: z.string(),
+  profileImage: z.string().nullable(),
   name: z.string(),
   career: z.string(),
-  organization: z.string(),
-  companyJob: z.string(),
+  organization: z.string().nullable(),
+  companyJob: z.string().nullable(),
   soptActivities: z.array(z.string()),
+  topicTypeList: z.array(z.string()),
 });
 
 const getRandomCoffeeChatEndpoint = createEndpoint({
