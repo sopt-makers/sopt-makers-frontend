@@ -5,6 +5,7 @@ import { DESKTOP_ONE_MEDIA_QUERY, DESKTOP_TWO_MEDIA_QUERY, MOBILE_MEDIA_QUERY } 
 import WordChainEntry from '../wordchain/WordchainEntry/WordChainEntry';
 import MenuPreview from './common/MenuPreview';
 import TitledContent from './common/TitledContent';
+import PopularArea from './PopularArea';
 import ProjectList from './ProjectPreview/ProjectList';
 
 const HomePage = () => {
@@ -17,7 +18,7 @@ const HomePage = () => {
           <div>내용</div>
         </MembersPreview>
         <CommunityPreview menu={'feed'}>
-          <div>내용</div>
+          <PopularArea />
         </CommunityPreview>
       </StyledMemberAndCommunity>
       <MenuPreview menu={'projects'}>
