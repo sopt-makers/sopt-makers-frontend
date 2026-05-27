@@ -106,7 +106,7 @@ const Header = ({
               )}
             </Chip>
           ),
-          categoryCode,
+          categoryCode: categoryCode.split('_')[0],
         })}
       </Flex.Center>
       {right ? <Flex.Center css={{ gap: 8 }}>{right}</Flex.Center> : null}
