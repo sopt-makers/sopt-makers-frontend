@@ -5,6 +5,9 @@ import { DESKTOP_ONE_MEDIA_QUERY, DESKTOP_TWO_MEDIA_QUERY, MOBILE_MEDIA_QUERY } 
 import WordChainEntry from '../wordchain/WordchainEntry/WordChainEntry';
 import CoffeeChatList from './CoffeeChatPreview';
 import MenuPreview from './common/MenuPreview';
+import TitledContent from './common/TitledContent';
+import MemberList from './MembersPreview/MemberList';
+import PopularArea from './PopularArea';
 import ProjectPreview from './ProjectPreview';
 
 const HomePage = () => {
@@ -13,14 +16,16 @@ const HomePage = () => {
     <StyledContainer>
       <WordChainEntry />
       <StyledMemberAndCommunity>
-        <MembersPreview menu={'members'}>
-          <div>내용</div>
+        <MembersPreview menu={'member'}>
+          <TitledContent title={'나와 접점이 있는 멤버'}>
+            <MemberList />
+          </TitledContent>
         </MembersPreview>
-        <CommunityPreview menu={'feed'}>
-          <div>내용</div>
+        <CommunityPreview menu={'community'}>
+          <PopularArea />
         </CommunityPreview>
       </StyledMemberAndCommunity>
-      <MenuPreview menu={'projects'}>
+      <MenuPreview menu={'project'}>
         <ProjectPreview />
       </MenuPreview>
       <MenuPreview menu={'coffeechat'}>

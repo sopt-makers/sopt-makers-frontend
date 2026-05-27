@@ -5,6 +5,7 @@ import { fonts } from '@sopt-makers/fonts';
 import Link from 'next/link';
 import type { ReactNode } from 'react';
 
+import { LoggingClick } from '@/components/eventLogger/components/LoggingClick';
 import CoffeeChatIcon from '@/public/icons/menuEntry/icon-coffeechat.svg';
 import FeedIcon from '@/public/icons/menuEntry/icon-feed.svg';
 import MemberIcon from '@/public/icons/menuEntry/icon-member.svg';
@@ -20,17 +21,17 @@ interface MenuMeta {
 }
 
 const MENU_CONFIG: Record<MenuKey, MenuMeta> = {
-  members: {
+  member: {
     href: playgroundLink.memberList(),
     leftAddon: <MemberIcon width={18} height={18} />,
     label: '멤버',
   },
-  feed: {
+  community: {
     href: playgroundLink.feedList(),
     leftAddon: <FeedIcon width={18} height={18} />,
     label: '커뮤니티',
   },
-  projects: {
+  project: {
     href: playgroundLink.projectList(),
     leftAddon: <ProjectIcon width={18} height={18} />,
     label: '프로젝트',
@@ -50,10 +51,12 @@ const MenuLink = ({ menu }: MenuLinkProps) => {
   const { href, leftAddon, label } = MENU_CONFIG[menu];
 
   return (
-    <StyledLink href={href}>
-      {leftAddon}
-      <StyledLabel>{label} &gt;</StyledLabel>
-    </StyledLink>
+    <LoggingClick eventKey='homeSectionMore' param={{ homeSection: menu }}>
+      <StyledLink href={href}>
+        {leftAddon}
+        <StyledLabel>{label} &gt;</StyledLabel>
+      </StyledLink>
+    </LoggingClick>
   );
 };
 
@@ -61,6 +64,7 @@ const StyledLink = styled(Link)`
   display: flex;
   align-items: center;
   gap: 4px;
+  width: fit-content;
   cursor: pointer;
 `;
 
