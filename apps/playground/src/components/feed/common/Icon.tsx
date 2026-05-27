@@ -123,7 +123,7 @@ export const IconSendFill = () => (
   </svg>
 );
 
-export const IconHeart = ({ fill = colors.error, className }: { fill: string | undefined; className: string }) => (
+export const IconHeart = ({ fill = colors.error, className }: { fill: string | undefined; className?: string }) => (
   <svg width='16' height='16' viewBox='0 0 22 22' fill={fill} xmlns='http://www.w3.org/2000/svg'>
     <g id='Icon / Interaction / heart'>
       <path
