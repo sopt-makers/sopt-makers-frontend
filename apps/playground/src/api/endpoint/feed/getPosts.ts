@@ -10,7 +10,7 @@ interface Params {
   category?: string;
   filter?: string;
   limit?: number;
-  cursor?: number | null;
+  cursor?: string | null;
 }
 
 const memberSchema = z
@@ -85,6 +85,7 @@ const PostsSchema = z.array(
 
 const getPostsSchema = z.object({
   hasNext: z.boolean(),
+  nextCursor: z.string().nullable(),
   posts: PostsSchema,
 });
 
@@ -109,9 +110,9 @@ export const useGetPostsInfiniteQuery = ({ category, filter }: { category?: stri
         ...(pageParam != null ? { cursor: pageParam } : {}),
       });
     },
-    initialPageParam: null as number | null,
+    initialPageParam: null as string | null,
     getNextPageParam: (lastPage) => {
-      return lastPage.hasNext ? lastPage.posts[lastPage.posts.length - 1].id : null;
+      return lastPage.hasNext ? lastPage.nextCursor : null;
     },
     enabled: !!category,
   });
@@ -119,5 +120,5 @@ export const useGetPostsInfiniteQuery = ({ category, filter }: { category?: stri
 
 useGetPostsInfiniteQuery.getKey = (category?: string, filter?: string) => [
   'INFINITE',
-  ...getPosts.cacheKey({ limit: 0, cursor: 0, category, filter }),
+  ...getPosts.cacheKey({ limit: 0, cursor: null, category, filter }),
 ];
