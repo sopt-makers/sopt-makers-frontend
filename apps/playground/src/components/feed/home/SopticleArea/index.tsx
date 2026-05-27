@@ -10,6 +10,7 @@ import { LoggingClick } from '@/components/eventLogger/components/LoggingClick';
 import { SOPTICLE_CATEGORY_ID } from '@/components/feed/constants';
 import SopticleCard from '@/components/feed/home/SopticleArea/SopticleCard';
 import FeedSkeleton from '@/components/feed/list/FeedSkeleton';
+import { getLoopedItems } from '@/hooks/useScrollCarousel';
 
 const SopticleArea = () => {
   const router = useRouter();
@@ -39,11 +40,10 @@ const SopticleArea = () => {
       {isLoading ? (
         <FeedSkeleton count={1} />
       ) : (
-        <ScrollCarousel
-          items={sopticles}
-          autoPlay={{ enabled: true, interval: 4000 }}
-          renderItem={(sopticle) => (
+        <ScrollCarousel itemCount={sopticles.length} autoPlay={{ enabled: true, interval: 4000 }}>
+          {getLoopedItems(sopticles).map((sopticle, index) => (
             <LoggingClick
+              key={`${sopticle.id}-${index}`}
               eventKey='feedCard'
               param={{
                 feedId: String(sopticle.id),
@@ -53,8 +53,8 @@ const SopticleArea = () => {
             >
               <SopticleCard sopticle={sopticle} />
             </LoggingClick>
-          )}
-        />
+          ))}
+        </ScrollCarousel>
       )}
     </Container>
   );
