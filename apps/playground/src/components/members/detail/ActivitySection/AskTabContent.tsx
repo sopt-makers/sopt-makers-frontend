@@ -298,7 +298,6 @@ const AskTabContent = ({ memberId, memberName, meId, unansweredCount }: AskTabCo
                         createdAt={question.createdAt}
                         isBlindWriter={question.isAnonymous}
                         anonymousProfile={question.anonymousProfile}
-                        isQuestion={true}
                         commentLength={0}
                         hits={0}
                         memberId={question.askerId ?? 0}

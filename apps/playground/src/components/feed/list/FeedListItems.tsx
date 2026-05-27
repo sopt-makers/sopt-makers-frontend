@@ -129,6 +129,7 @@ const FeedListItems: FC<FeedListItemsProps> = ({ categoryCode, subCategory, rend
                 isSopticle={isSopticle}
                 sopticleUrl={post.sopticleUrl ?? ''}
                 thumbnailUrl={post.images[0] ?? ''}
+                meeting={post.sourceType}
                 info={
                   categoryCode ? (
                     <>

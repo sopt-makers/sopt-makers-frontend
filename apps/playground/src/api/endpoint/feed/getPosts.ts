@@ -53,6 +53,7 @@ const VoteSchema = z
 const PostsSchema = z.array(
   z.object({
     id: z.number(),
+    sourceType: z.string(),
     member: memberSchema,
     writerId: z.number().nullable(),
     isMine: z.boolean(),
