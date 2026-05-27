@@ -7,7 +7,7 @@ import { useRecentSopticles } from '@/api/endpoint/feed/getRecentSopticle';
 import ScrollCarousel from '@/components/common/ScrollCarousel';
 import Text from '@/components/common/Text';
 import { LoggingClick } from '@/components/eventLogger/components/LoggingClick';
-import { SOPTICLE_CATEGORY_ID } from '@/components/feed/constants';
+import { SOPTICLE_CATEGORY_CODE } from '@/components/feed/constants';
 import SopticleCard from '@/components/feed/home/SopticleArea/SopticleCard';
 import FeedSkeleton from '@/components/feed/list/FeedSkeleton';
 import { getLoopedItems } from '@/hooks/useScrollCarousel';
@@ -17,7 +17,7 @@ const SopticleArea = () => {
   const { data: sopticles = [], isLoading, isError } = useRecentSopticles();
 
   const navigateToSopticle = () => {
-    router.push(`/?category=${SOPTICLE_CATEGORY_ID}`);
+    router.push(`/?category=${SOPTICLE_CATEGORY_CODE}`);
   };
 
   return (

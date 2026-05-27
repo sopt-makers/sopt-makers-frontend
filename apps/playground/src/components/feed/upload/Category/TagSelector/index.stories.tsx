@@ -25,15 +25,14 @@ export const Default = {
 
     const parentCategory = categories[1];
     const feedData = {
-      categoryId: 2,
+      categoryCode: 'PART',
       title: '제목',
       content: '내용',
-      isQuestion: false,
       isBlindWriter: false,
       images: [],
     };
     const { findChildrenCategory } = useCategory();
-    const isInitial = findChildrenCategory(feedData.categoryId);
+    const isInitial = findChildrenCategory(feedData.categoryCode);
 
     return (
       <>
@@ -55,7 +54,7 @@ export const Default = {
           <Select>
             {parentCategory && parentCategory.children.length > 0 && (
               <>
-                {parentCategory.hasAll && (
+                {parentCategory.children.length > 0 && (
                   <Option
                     onClick={() => {
                       //
@@ -65,16 +64,16 @@ export const Default = {
                   </Option>
                 )}
                 <>
-                  {parentCategory.children.map((tag: BasicCategory) => {
+                  {parentCategory.children.map((tag) => {
                     return (
                       <Option
-                        key={tag.id}
+                        key={tag.code}
                         onClick={() => {
                           //
                         }}
                       >
                         {tag.name}
-                        {tag.id === feedData.categoryId && <CheckIcon />}
+                        {tag.code === feedData.categoryCode && <CheckIcon />}
                       </Option>
                     );
                   })}

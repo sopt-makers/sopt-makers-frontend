@@ -23,16 +23,18 @@ import { useDeleteFeed } from '@/components/feed/common/hooks/useDeleteFeed';
 import { useReportFeed } from '@/components/feed/common/hooks/useReportFeed';
 import { useShareFeed } from '@/components/feed/common/hooks/useShareFeed';
 import { useToggleLike } from '@/components/feed/common/hooks/useToggleLike';
-import { getMemberInfo, getParentCategoryId } from '@/components/feed/common/utils';
-import { QUESTION_CATEGORY_ID, SOPTICLE_CATEGORY_ID } from '@/components/feed/constants';
+import { getMemberInfo } from '@/components/feed/common/utils';
 import FeedCard from '@/components/feed/list/FeedCard';
 import FeedSkeleton from '@/components/feed/list/FeedSkeleton';
 import { useNavigateBack } from '@/components/navigation/useNavigateBack';
 import Vote from '@/components/vote';
 import { textStyles } from '@/styles/typography';
 
+import { SOPTICLE_CATEGORY_CODE } from '../constants';
+
 interface FeedListItemsProps {
-  categoryId: string | undefined;
+  categoryCode?: string;
+  subCategory?: string;
   renderFeedDetailLink: (props: { children: ReactNode; feedId: string; category: string }) => ReactNode;
   onScrollChange?: (scrolling: boolean) => void;
 }
@@ -42,9 +44,10 @@ const scrollIndexAtom = atom<Record<string, number>>({
   default: {},
 });
 
-const FeedListItems: FC<FeedListItemsProps> = ({ categoryId, renderFeedDetailLink, onScrollChange }) => {
+const FeedListItems: FC<FeedListItemsProps> = ({ categoryCode, subCategory, renderFeedDetailLink, onScrollChange }) => {
   const { data, refetch, fetchNextPage, isLoading, isError } = useGetPostsInfiniteQuery({
-    categoryId,
+    category: categoryCode,
+    filter: subCategory,
   });
 
   const { handleShareFeed } = useShareFeed();
@@ -58,13 +61,13 @@ const FeedListItems: FC<FeedListItemsProps> = ({ categoryId, renderFeedDetailLin
     queryKey: getCategory.cacheKey(),
     queryFn: getCategory.request,
   });
-  const parentCategory = (categoryId: number, tag: string) => {
+  const parentCategory = (categoryCode: string) => {
     const category =
       categoryData &&
       categoryData.find((category) =>
         category.children.length > 0
-          ? category.children.some((tag) => tag.id === categoryId) || category.id === categoryId
-          : category.id === categoryId,
+          ? category.children.some((tag) => tag.code === categoryCode) || category.code === categoryCode
+          : category.code === categoryCode,
       )?.name;
 
     return category;
@@ -74,7 +77,7 @@ const FeedListItems: FC<FeedListItemsProps> = ({ categoryId, renderFeedDetailLin
   const virtuoso = useRef<VirtuosoHandle>(null);
 
   useNavigateBack(() => {
-    const idx = map[categoryId ?? ''];
+    const idx = map[categoryCode ?? ''];
     if (idx != null) {
       virtuoso.current?.scrollToIndex({
         index: idx,
@@ -93,7 +96,7 @@ const FeedListItems: FC<FeedListItemsProps> = ({ categoryId, renderFeedDetailLin
         rangeChanged={({ startIndex, endIndex }) => {
           setMap((map) => ({
             ...map,
-            [categoryId ?? '']: (startIndex + endIndex) / 2,
+            [categoryCode ?? '']: (startIndex + endIndex) / 2,
           }));
         }}
         useWindowScroll
@@ -102,9 +105,8 @@ const FeedListItems: FC<FeedListItemsProps> = ({ categoryId, renderFeedDetailLin
         }}
         isScrolling={onScrollChange}
         itemContent={(idx, post) => {
-          const isSopticle = post.categoryId === SOPTICLE_CATEGORY_ID;
-          const isQuestion = post.categoryId === QUESTION_CATEGORY_ID;
-          const parent = parentCategory(post.categoryId, post.categoryName);
+          const isSopticle = post.categoryCode === SOPTICLE_CATEGORY_CODE;
+          const parent = parentCategory(post.categoryCode);
           const category = parent === post.categoryName ? post.categoryName : `${parent}_${post.categoryName}`;
 
           return renderFeedDetailLink({
@@ -112,7 +114,7 @@ const FeedListItems: FC<FeedListItemsProps> = ({ categoryId, renderFeedDetailLin
             category,
             children: (
               <FeedCard
-                onClick={() => setMap((map) => ({ ...map, [categoryId ?? '']: idx }))}
+                onClick={() => setMap((map) => ({ ...map, [categoryCode ?? '']: idx }))}
                 name={post.member?.name ?? '익명'}
                 title={post.title}
                 content={post.content}
@@ -122,14 +124,13 @@ const FeedListItems: FC<FeedListItemsProps> = ({ categoryId, renderFeedDetailLin
                 hits={post.hits}
                 isBlindWriter={post.isBlindWriter}
                 anonymousProfile={post.anonymousProfile}
-                isQuestion={isQuestion}
-                isShowInfo={categoryId === ''} // 전체 카테고리일 때
+                isShowInfo={categoryCode === ''} // 전체 카테고리일 때
                 memberId={post.member?.id ?? 0}
                 isSopticle={isSopticle}
                 sopticleUrl={post.sopticleUrl ?? ''}
-                thumbnailUrl={post.images[0]}
+                thumbnailUrl={post.images[0] ?? ''}
                 info={
-                  categoryId ? (
+                  categoryCode ? (
                     <>
                       {!post.isBlindWriter && (
                         <>
@@ -143,7 +144,7 @@ const FeedListItems: FC<FeedListItemsProps> = ({ categoryId, renderFeedDetailLin
                           </Text>
                           <>
                             {getMemberInfo({
-                              categoryId: post.categoryId,
+                              categoryCode: post.categoryCode,
                               categoryName: post.categoryName,
                               member: {
                                 activity: post.member?.activity ?? {
@@ -166,7 +167,7 @@ const FeedListItems: FC<FeedListItemsProps> = ({ categoryId, renderFeedDetailLin
                     <>
                       님이 <Text />
                       <Text typography='SUIT_14_B' lineHeight={20} color={colors.gray100}>
-                        {parentCategory(post.categoryId, post.categoryName)}
+                        {parentCategory(post.categoryCode)}
                       </Text>
                       에 남김
                     </>
@@ -248,19 +249,18 @@ const FeedListItems: FC<FeedListItemsProps> = ({ categoryId, renderFeedDetailLin
                       onClick={(e) => {
                         e.stopPropagation();
                         e.preventDefault();
-                        const parentId = getParentCategoryId(categoryData, post.categoryId);
 
                         handleToggleLike({
                           postId: post.id,
                           isLiked: post.isLiked,
                           likes: post.likes,
-                          allPostsQueryKey: useGetPostsInfiniteQuery.getKey(parentId.toString()),
-                          postsQueryKey: useGetPostsInfiniteQuery.getKey(post.categoryId.toString()),
+                          allPostsQueryKey: useGetPostsInfiniteQuery.getKey(categoryCode),
+                          postsQueryKey: useGetPostsInfiniteQuery.getKey(post.categoryCode.toString()),
                           postQueryKey: getPost.cacheKey(post.id.toString()),
                           recentPostsQuerykey: getRecentPosts.cacheKey(),
                         });
                       }}
-                      type={isQuestion ? 'thumb' : 'heart'}
+                      type='heart'
                     />
                   </LoggingClick>
                 }
@@ -268,14 +268,14 @@ const FeedListItems: FC<FeedListItemsProps> = ({ categoryId, renderFeedDetailLin
                 {!isSopticle && post.images.length !== 0 && (
                   <FeedCard.Image>
                     {post.images.map((image, index) => (
-                      <FeedCard.ImageItem key={`${image}-${index}`} src={image} height={240} />
+                      <FeedCard.ImageItem key={`${image}-${index}`} src={image ?? ''} height={240} />
                     ))}
                   </FeedCard.Image>
                 )}
                 {post.vote && (
                   <Vote
                     postId={post.id}
-                    categoryId={post.categoryId}
+                    categoryCode={post.categoryCode}
                     isMine={post.isMine}
                     isMultiple={post.vote.isMultiple}
                     hasVoted={post.vote.hasVoted}

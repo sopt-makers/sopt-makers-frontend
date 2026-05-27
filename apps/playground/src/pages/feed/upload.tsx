@@ -1,12 +1,11 @@
 import { playgroundLink } from '@sopt/constant';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 
-import { getCategory } from '@/api/endpoint/feed/getCategory';
 import { useGetPostsInfiniteQuery } from '@/api/endpoint/feed/getPosts';
 import { getRecentPosts } from '@/api/endpoint/feed/getRecentPosts';
-import { uploadFeed } from '@/api/endpoint/feed/uploadFeed';
+import { useUploadFeed } from '@/api/endpoint/feed/postFeed';
 import AuthRequired from '@/components/auth/AuthRequired';
 import Loading from '@/components/common/Loading';
 import useEventLogger from '@/components/eventLogger/hooks/useEventLogger';
@@ -19,54 +18,28 @@ const FeedUpload: FC = () => {
   const { logSubmitEvent } = useEventLogger();
   const queryClient = useQueryClient();
 
-  const { mutate, isPending } = useMutation({
-    mutationFn: (reqeustBody: { data: PostedFeedDataType; id: number | null }) =>
-      uploadFeed.request({ ...reqeustBody.data }),
-  });
+  const { mutate, isPending } = useUploadFeed();
 
-  const { data: categoryData } = useQuery({
-    queryKey: getCategory.cacheKey(),
-    queryFn: getCategory.request,
-  });
-
-  const getFullCategoryNameFromId = (id: number): string | undefined => {
-    if (categoryData) {
-      for (const parent of categoryData) {
-        if (parent.id === id) return parent.name;
-
-        const child = parent.children.find((c) => c.id === id);
-        if (child) {
-          return `${parent.name}_${child.name}`;
-        }
-      }
-
-      return undefined;
-    }
-  };
-
-  const handlUploadSubmit = ({ data, id }: { data: PostedFeedDataType; id: number | null }) => {
-    mutate(
-      { data: data, id: id },
-      {
-        onSuccess: async () => {
-          const category = data.categoryId !== null ? getFullCategoryNameFromId(data.categoryId) : undefined;
-          logSubmitEvent('submitCommunity', {
-            category,
-            isBlindWriter: data.isBlindWriter,
-            vote: !!data.vote,
-            /* eslint-disable-next-line no-useless-escape -- [ and ] must be escaped for literal match */
-            mention: /@([^\[\]\s@]+)\[(\d+)\]/.test(data.content),
-          });
-          queryClient.invalidateQueries({
-            queryKey: useGetPostsInfiniteQuery.getKey(''),
-          });
-          queryClient.invalidateQueries({
-            queryKey: getRecentPosts.cacheKey(),
-          });
-          await router.push(playgroundLink.feedList());
-        },
+  const handlUploadSubmit = ({ data }: { data: PostedFeedDataType; id: number | null }) => {
+    mutate(data, {
+      onSuccess: async () => {
+        const [parentCode] = (data.categoryCode ?? '').split('_');
+        logSubmitEvent('submitCommunity', {
+          category: data.categoryCode ?? undefined,
+          isBlindWriter: data.isBlindWriter,
+          vote: !!data.vote,
+          /* eslint-disable-next-line no-useless-escape -- [ and ] must be escaped for literal match */
+          mention: /@([^\[\]\s@]+)\[(\d+)\]/.test(data.content),
+        });
+        queryClient.invalidateQueries({
+          queryKey: useGetPostsInfiniteQuery.getKey(parentCode),
+        });
+        queryClient.invalidateQueries({
+          queryKey: getRecentPosts.cacheKey(),
+        });
+        await router.push(playgroundLink.feedList());
       },
-    );
+    });
   };
 
   if (isPending) {
@@ -81,10 +54,9 @@ const FeedUpload: FC = () => {
     <AuthRequired>
       <FeedUploadPage
         defaultValue={{
-          categoryId: null,
+          categoryCode: null,
           title: '',
           content: '',
-          isQuestion: false,
           isBlindWriter: false,
           images: [],
           link: null,

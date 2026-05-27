@@ -1,8 +1,8 @@
 export type BasicCategory = {
-  id: number;
+  code: string;
   name: string;
   content: string | null;
-  hasAll: boolean;
+  hasBlind: boolean;
   children: Array<BasicCategory>;
 };
 

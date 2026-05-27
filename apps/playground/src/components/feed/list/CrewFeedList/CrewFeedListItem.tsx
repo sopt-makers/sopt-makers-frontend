@@ -44,7 +44,6 @@ const CrewFeedListItem = ({ post, orgId, onFeedCardClick, onFeedContentClick }: 
 
   const createdAt = getRelativeTime(post.createdDate);
   const memberInfo = getMemberInfo({
-    categoryId: 24,
     categoryName: '모임',
     member: {
       activity: post.user.partInfo,
