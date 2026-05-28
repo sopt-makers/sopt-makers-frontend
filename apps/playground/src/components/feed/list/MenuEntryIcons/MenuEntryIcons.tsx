@@ -106,6 +106,6 @@ const MenuIconBox = styled.div`
 const MenuLabel = styled.div`
   @media ${MOBILE_MEDIA_QUERY} {
     white-space: nowrap;
-    ${fonts.TITLE_14_SB}
+    ${fonts.BODY_14_M}
   }
 `;
