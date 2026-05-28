@@ -72,7 +72,7 @@ const StyledContainer = styled.div`
   display: flex;
   flex-direction: column;
   height: 302px;
-  border-radius: 12px;
+  border-radius: 24px;
   background-color: ${colors.gray900};
   cursor: pointer;
 `;
@@ -80,7 +80,7 @@ const StyledContainer = styled.div`
 const StyledImage = styled(ResizedImage)<{ isLogo?: boolean }>`
   width: ${(props) => (props.isLogo ? '56px' : '100%')};
   height: ${(props) => (props.isLogo ? '56px' : '180px')};
-  border-radius: ${(props) => (props.isLogo ? '6px' : '8px 8px 0 0')};
+  border-radius: ${(props) => (props.isLogo ? '6px' : '24px 24px 0 0')};
   object-fit: cover;
 `;
 

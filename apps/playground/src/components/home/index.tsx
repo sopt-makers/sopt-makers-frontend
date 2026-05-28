@@ -91,5 +91,6 @@ const StyledCommunityArea = styled.div`
 
   @media ${MOBILE_MEDIA_QUERY} {
     gap: 24px;
+    justify-content: normal;
   }
 `;
