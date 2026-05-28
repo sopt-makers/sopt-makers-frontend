@@ -12,7 +12,7 @@ const MOBILE_SKELETON_COUNT = 2;
 
 const MemberPreview = () => {
   const { data: memberRecommendData, isLoading } = useGetMemberRecommendOfMe();
-  const desktopMemberData = memberRecommendData?.members;
+  const desktopMemberData = memberRecommendData?.members.slice(0, 4);
   const mobileMemberData = memberRecommendData?.members.slice(0, 2);
 
   return (
