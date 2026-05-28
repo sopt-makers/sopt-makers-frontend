@@ -84,8 +84,8 @@ const StyledAvatar = styled.img<{ usage: string }>`
   object-fit: cover;
 
   @media ${MOBILE_MEDIA_QUERY} {
-    width: ${({ usage }) => (usage == 'home' ? '56px' : '72px')};
-    height: ${({ usage }) => (usage == 'home' ? '56px' : '72px')};
+    width: ${({ usage }) => (usage === 'home' ? '56px' : '72px')};
+    height: ${({ usage }) => (usage === 'home' ? '56px' : '72px')};
   }
 `;
 
@@ -99,8 +99,8 @@ const StyledDefaultAvatar = styled(IconUser)<{ usage: string }>`
   padding-top: 10px;
 
   @media ${MOBILE_MEDIA_QUERY} {
-    width: ${({ usage }) => (usage == 'home' ? '56px' : '72px')};
-    height: ${({ usage }) => (usage == 'home' ? '56px' : '72px')};
+    width: ${({ usage }) => (usage === 'home' ? '56px' : '72px')};
+    height: ${({ usage }) => (usage === 'home' ? '56px' : '72px')};
     padding-top: 9px;
   }
 `;
@@ -117,12 +117,12 @@ const StyledInfoWrapper = styled.div<{ usage: string }>`
   min-width: 0;
   display: flex;
   flex-direction: column;
-  align-items: ${({ usage }) => (usage == 'home' ? 'center' : 'start')};
-  gap: ${({ usage }) => (usage == 'home' ? '2px' : '6px')};
+  align-items: ${({ usage }) => (usage === 'home' ? 'center' : 'start')};
+  gap: ${({ usage }) => (usage === 'home' ? '2px' : '6px')};
 
   @media ${MOBILE_MEDIA_QUERY} {
     gap: 2px;
-    align-items: ${({ usage }) => (usage == 'home' ? 'start' : 'center')};
+    align-items: ${({ usage }) => (usage === 'home' ? 'start' : 'center')};
   }
 `;
 
