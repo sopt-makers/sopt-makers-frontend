@@ -56,7 +56,6 @@ const RecentArea = () => {
             {recentPosts?.map((recentPost) => (
               <Slot key={recentPost.id}>
                 <RecentCard
-                  key={recentPost.id}
                   recentPost={recentPost}
                   onClick={() => handleClickCard(recentPost.categoryTag, recentPost.id)}
                 />
@@ -132,6 +131,7 @@ const RecentFeedList = styled.div`
 
 const Slot = styled.div`
   flex: 0 0 272px;
+  min-width: 0;
 `;
 
 export default RecentArea;

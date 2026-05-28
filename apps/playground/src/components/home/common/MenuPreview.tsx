@@ -1,6 +1,8 @@
 import styled from '@emotion/styled';
 import type { ReactNode } from 'react';
 
+import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
+
 import MenuLink from './MenuLink';
 
 export type MenuKey = 'member' | 'community' | 'project' | 'coffeechat';
@@ -25,5 +27,9 @@ export default MenuPreview;
 const StyledContainer = styled.section`
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 8px;
+
+  @media ${MOBILE_MEDIA_QUERY} {
+    gap: 4px;
+  }
 `;

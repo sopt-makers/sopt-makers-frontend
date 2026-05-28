@@ -19,7 +19,7 @@ const ProjectPreview = () => {
   const itemsPerView = isMobile ? 1 : 2;
 
   return (
-    <TitledContent title={`지난 기수 앱잼 프로젝트`}>
+    <TitledContent title={`지금 둘러볼 만한 프로젝트`}>
       {isLoading ? (
         <ProjectSkeletonList aria-hidden>
           {Array.from({ length: SKELETON_CARD_COUNT }, (_, index) => (
