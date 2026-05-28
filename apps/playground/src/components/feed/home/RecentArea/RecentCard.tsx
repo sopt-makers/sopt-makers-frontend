@@ -76,7 +76,7 @@ const CardContainer = styled.div`
   background-color: ${colors.gray900};
   cursor: pointer;
   padding: 16px;
-  height: 100%;
+  height: 126px;
 
   &:hover {
     background-color: ${colors.gray800};

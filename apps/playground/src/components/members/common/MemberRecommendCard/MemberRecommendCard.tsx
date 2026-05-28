@@ -60,7 +60,7 @@ const StyledContainer = styled.div<{ usage: string }>`
   flex-direction: ${({ usage }) => (usage === 'home' ? 'column' : 'row')};
   gap: 16px;
   align-items: center;
-  padding: 16px 24px;
+  padding: ${({ usage }) => (usage === 'home' ? '25px 32px' : '16px 24px')};
   background-color: ${colors.gray900};
   border-radius: 10px;
   cursor: pointer;
@@ -118,7 +118,7 @@ const StyledInfoWrapper = styled.div<{ usage: string }>`
   display: flex;
   flex-direction: column;
   align-items: ${({ usage }) => (usage == 'home' ? 'center' : 'start')};
-  gap: 6px;
+  gap: ${({ usage }) => (usage == 'home' ? '2px' : '6px')};
 
   @media ${MOBILE_MEDIA_QUERY} {
     gap: 2px;
