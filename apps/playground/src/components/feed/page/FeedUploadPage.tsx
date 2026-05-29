@@ -120,17 +120,16 @@ export default function FeedUploadPage({ defaultValue, editingId, onSubmit }: Fe
     }
 
     if (feedData.categoryCode === MEETING_CATEGORY_CODE) {
+      if (feedData.groupId == null) {
+        alert('모임을 선택해주세요.');
+        return;
+      }
       const params: GroupFeedParams = {
         contents: feedData.content,
         images: feedData.images,
         title: feedData.title,
-        meetingId: Number(feedData.groupId),
+        meetingId: feedData.groupId,
       };
-
-      if (!params.meetingId) {
-        alert('모임을 선택해주세요.');
-        return;
-      }
 
       if (params.title.length > 100) {
         alert('제목은 100자 이하로 작성해주세요.');
