@@ -97,7 +97,10 @@ export default function useUploadFeedData(defaultValue: PostedFeedDataType) {
   };
 
   const handleGroupClick = (options: MeetingInfo) => {
-    setFeedData((prev) => ({ ...prev }));
+    setFeedData((prev) => ({
+      ...prev,
+      groupId: options.id,
+    }));
   };
 
   return {

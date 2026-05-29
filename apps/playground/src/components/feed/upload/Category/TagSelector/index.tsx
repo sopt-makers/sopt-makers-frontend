@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 
 import { BottomSheet } from '@/components/common/BottomSheet';
 import Responsive from '@/components/common/Responsive';
+import { PROMOTION_CATEGORY_CODE } from '@/components/feed/constants';
 import { DropDown } from '@/components/feed/upload/Category/DropDown';
 import TagSelectOptions from '@/components/feed/upload/Category/TagSelector/TagSelectOptions';
 import type { FeedDataType } from '@/components/feed/upload/types';
@@ -15,10 +16,11 @@ interface TagSelectorProps {
   feedData: FeedDataType;
 }
 export default function TagSelector({ isOpen = false, onClose, onSave, feedData }: TagSelectorProps) {
+  const isPromotion = feedData.categoryCode?.startsWith(PROMOTION_CATEGORY_CODE);
   return (
     <>
       <Responsive only='desktop'>
-        <DropDown isOpen={isOpen} onClose={onClose} className='tag-drop'>
+        <DropDown isOpen={isOpen} onClose={onClose} className={isPromotion ? '' : 'tag-drop'}>
           <TagSelectOptions feedData={feedData} onClose={onClose} onSave={onSave} />
         </DropDown>
       </Responsive>
