@@ -1,5 +1,6 @@
 export interface FeedDataType {
   categoryCode: string | null;
+  groupId?: number;
   title: string;
   content: string;
   isBlindWriter: boolean;

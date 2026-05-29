@@ -19,6 +19,8 @@ import { IconMember } from '@/components/feed/common/Icon';
 import { parseMentionsToJSX } from '@/components/feed/common/utils/parseMention';
 import FeedUrlCard from '@/components/feed/list/FeedUrlCard';
 import { textStyles } from '@/styles/typography';
+
+import { MEETING_CATEGORY_CODE } from '../constants';
 interface RandomProfile {
   nickname: string;
   profileImgUrl: string;
@@ -175,7 +177,7 @@ const Base = forwardRef<HTMLDivElement, PropsWithChildren<BaseProps>>(
                 <div onClick={handleContentClick}>
                   {title && (
                     <Title typography='SUIT_17_SB' mr='28px'>
-                      {meeting === 'MEETING' && <MeetingTag variant='primary'>모임</MeetingTag>}
+                      {meeting === MEETING_CATEGORY_CODE && <MeetingTag variant='primary'>모임</MeetingTag>}
                       {title}
                     </Title>
                   )}

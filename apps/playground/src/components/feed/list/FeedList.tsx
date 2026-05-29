@@ -14,17 +14,16 @@ import { useCategoryParam, useSubcategoryParam } from '@/components/feed/common/
 import Hot from '@/components/feed/home';
 import CategorySelect from '@/components/feed/list/CategorySelect';
 import CategorySkeleton from '@/components/feed/list/CategorySkeleton';
-import CrewFeedList from '@/components/feed/list/CrewFeedList';
 import FeedListItems from '@/components/feed/list/FeedListItems';
 import { layoutCSSVariable } from '@/components/layout/utils';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
+
+import { MEETING_CATEGORY_CODE } from '../constants';
 
 interface FeedListProps {
   renderFeedDetailLink: (props: { children: ReactNode; feedId: string; category: string }) => ReactNode;
   onScrollChange?: (scrolling: boolean) => void;
 }
-
-const CREW_CATEGORY_ID = '24';
 
 const FeedList = ({ renderFeedDetailLink, onScrollChange }: FeedListProps) => {
   const queryClient = useQueryClient();
@@ -32,15 +31,17 @@ const FeedList = ({ renderFeedDetailLink, onScrollChange }: FeedListProps) => {
   const [subcategoryCode] = useSubcategoryParam();
   const { data: categoryData, isLoading } = useGetCategory();
 
-  const categories = categoryData?.map((category) => ({
-    code: category.code,
-    name: category.name,
-    hasAllCategory: true,
-    tags: category.children.map((item) => ({
-      code: item.code,
-      name: item.name,
-    })),
-  }));
+  const categories = categoryData
+    ?.filter((category) => category.code !== MEETING_CATEGORY_CODE)
+    .map((category) => ({
+      code: category.code,
+      name: category.name,
+      hasAllCategory: true,
+      tags: category.children.map((item) => ({
+        code: item.code,
+        name: item.name,
+      })),
+    }));
 
   const parentCategory = categories?.find((c) => c.code === categoryCode);
   const subCategory = subcategoryCode ?? parentCategory?.tags[0]?.code;
@@ -76,16 +77,12 @@ const FeedList = ({ renderFeedDetailLink, onScrollChange }: FeedListProps) => {
               </div>
             )}
           >
-            {categoryCode === CREW_CATEGORY_ID ? (
-              <CrewFeedList categoryId={categoryCode} onScrollChange={onScrollChange} />
-            ) : (
-              <FeedListItems
-                categoryCode={categoryCode}
-                subCategory={subCategory}
-                renderFeedDetailLink={renderFeedDetailLink}
-                onScrollChange={onScrollChange}
-              />
-            )}
+            <FeedListItems
+              categoryCode={categoryCode}
+              subCategory={subCategory}
+              renderFeedDetailLink={renderFeedDetailLink}
+              onScrollChange={onScrollChange}
+            />
           </ErrorBoundary>
         )}
       </HeightSpacer>
