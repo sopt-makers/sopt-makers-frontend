@@ -44,7 +44,7 @@ const scrollIndexAtom = atom<Record<string, number>>({
   default: {},
 });
 
-const FeedListItems: FC<FeedListItemsProps> = ({ categoryCode, subCategory, renderFeedDetailLink, onScrollChange }) => {
+const FeedListItems = ({ categoryCode, subCategory, renderFeedDetailLink, onScrollChange }: FeedListItemsProps) => {
   const { data, refetch, fetchNextPage, isLoading, isError } = useGetPostsInfiniteQuery({
     category: categoryCode,
     filter: subCategory,
