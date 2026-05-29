@@ -208,7 +208,7 @@ const NameText = styled(Text)`
 
 const EtcInfoContainer = styled.div`
   display: flex;
-  gap: 4px;
+  gap: 8px;
   width: 54px;
   color: ${colors.gray400};
 `;
