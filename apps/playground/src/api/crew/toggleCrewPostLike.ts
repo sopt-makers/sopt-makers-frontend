@@ -34,7 +34,7 @@ export const useToggleCrewPostLikeMutation = () => {
       const previousAllPostsData = queryClient.getQueryData<{ pages: PostsType[] }>(allPostsQueryKey);
       const previousPostsData = queryClient.getQueryData<{ pages: PostsType[] }>(postsQueryKey);
 
-      queryClient.setQueryData<{ pages: PostsType[] }>(allPostsQueryKey, (oldData) => {
+      const updatePostLike = (oldData: { pages: PostsType[] } | undefined) => {
         return produce(oldData, (draft) => {
           if (draft) {
             draft.pages.forEach((page) => {
@@ -47,22 +47,9 @@ export const useToggleCrewPostLikeMutation = () => {
             });
           }
         });
-      });
-
-      queryClient.setQueryData<{ pages: PostsType[] }>(postsQueryKey, (oldData) => {
-        return produce(oldData, (draft) => {
-          if (draft) {
-            draft.pages.forEach((page) => {
-              page.posts.forEach((post) => {
-                if (post.id === postId) {
-                  post.likes = post.isLiked ? post.likes - 1 : post.likes + 1;
-                  post.isLiked = !post.isLiked;
-                }
-              });
-            });
-          }
-        });
-      });
+      };
+      queryClient.setQueryData<{ pages: PostsType[] }>(allPostsQueryKey, updatePostLike);
+      queryClient.setQueryData<{ pages: PostsType[] }>(postsQueryKey, updatePostLike);
 
       return { previousAllPostsData, previousPostsData };
     },
