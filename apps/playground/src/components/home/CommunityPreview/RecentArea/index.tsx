@@ -1,10 +1,11 @@
 import styled from '@emotion/styled';
-import { playgroundLink } from '@sopt/constant';
+import { crewLink, playgroundLink } from '@sopt/constant';
 import { useRouter } from 'next/router';
 
 import { useRecentPosts } from '@/api/endpoint/feed/getRecentPosts';
 import ScrollCarousel from '@/components/common/ScrollCarousel';
 import { getCategoryAndSubcategory } from '@/components/feed/common/utils/getCategoryAndSubcategory';
+import { MEETING_CATEGORY_CODE } from '@/components/feed/constants';
 import RecentCard from '@/components/feed/home/RecentArea/RecentCard';
 import RecentCardSkeleton from '@/components/feed/home/RecentArea/RecentCardSkeleton';
 import { getLoopedItems } from '@/hooks/useScrollCarousel';
@@ -20,6 +21,10 @@ const RecentArea = () => {
   const router = useRouter();
 
   const handleClickCard = (categoryTag: string, id: number) => {
+    if (categoryTag === MEETING_CATEGORY_CODE) {
+      router.push(crewLink.feedDetail(id));
+      return;
+    }
     const [category, subcategory] = getCategoryAndSubcategory(categoryTag);
     router.push({
       pathname: playgroundLink.feedList(),

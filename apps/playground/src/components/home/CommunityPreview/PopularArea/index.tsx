@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { playgroundLink } from '@sopt/constant';
+import { crewLink, playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import { useRouter } from 'next/router';
 
@@ -9,6 +9,7 @@ import PopularCard from '@/components/common/PopularCard';
 import Text from '@/components/common/Text';
 import { LoggingClick } from '@/components/eventLogger/components/LoggingClick';
 import { getCategoryAndSubcategory } from '@/components/feed/common/utils/getCategoryAndSubcategory';
+import { MEETING_CATEGORY_CODE } from '@/components/feed/constants';
 
 import TitledContent from '../../common/TitledContent';
 
@@ -18,6 +19,10 @@ const PopularArea = () => {
   const router = useRouter();
 
   const handleClickCard = (card: PopularPostType[number]) => {
+    if (card.categoryTag === MEETING_CATEGORY_CODE) {
+      router.push(crewLink.feedDetail(card.id));
+      return;
+    }
     const [category, subcategory] = getCategoryAndSubcategory(card.categoryTag);
     router.push({
       pathname: playgroundLink.feedList(),
