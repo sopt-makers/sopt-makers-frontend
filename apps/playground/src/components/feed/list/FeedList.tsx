@@ -18,14 +18,14 @@ import FeedListItems from '@/components/feed/list/FeedListItems';
 import { layoutCSSVariable } from '@/components/layout/utils';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
-import { MEETING_CATEGORY_CODE } from '../constants';
+import { ALL_CATEGORY_CODE, MEETING_CATEGORY_CODE } from '../constants';
 
 interface FeedListProps {
   renderFeedDetailLink: (props: { children: ReactNode; feedId: string; category: string }) => ReactNode;
   onScrollChange?: (scrolling: boolean) => void;
 }
 
-const ALL_TAG = { code: 'ALL', name: '전체' };
+const ALL_TAG = { code: ALL_CATEGORY_CODE, name: '전체' };
 
 const FeedList = ({ renderFeedDetailLink, onScrollChange }: FeedListProps) => {
   const queryClient = useQueryClient();
