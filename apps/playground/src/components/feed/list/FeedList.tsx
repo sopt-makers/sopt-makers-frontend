@@ -25,6 +25,8 @@ interface FeedListProps {
   onScrollChange?: (scrolling: boolean) => void;
 }
 
+const ALL_TAG = { code: 'ALL', name: '전체' };
+
 const FeedList = ({ renderFeedDetailLink, onScrollChange }: FeedListProps) => {
   const queryClient = useQueryClient();
   const [categoryCode] = useCategoryParam({ defaultValue: '' });
@@ -37,10 +39,10 @@ const FeedList = ({ renderFeedDetailLink, onScrollChange }: FeedListProps) => {
       code: category.code,
       name: category.name,
       hasAllCategory: true,
-      tags: category.children.map((item) => ({
-        code: item.code,
-        name: item.name,
-      })),
+      tags:
+        category.children.length > 0
+          ? [ALL_TAG, ...category.children.map((item) => ({ code: item.code, name: item.name }))]
+          : [],
     }));
 
   const parentCategory = categories?.find((c) => c.code === categoryCode);
