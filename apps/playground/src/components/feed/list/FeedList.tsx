@@ -29,15 +29,17 @@ const FeedList = ({ renderFeedDetailLink, onScrollChange }: FeedListProps) => {
   const [subcategoryCode] = useSubcategoryParam();
   const { data: categoryData, isLoading } = useGetCategory();
 
-  const categories = categoryData?.map((category) => ({
-    code: category.code,
-    name: category.name,
-    hasAllCategory: true,
-    tags: category.children.map((item) => ({
-      code: item.code,
-      name: item.name,
-    })),
-  }));
+  const categories = categoryData
+    ?.filter((category) => category.code !== 'MEETING')
+    .map((category) => ({
+      code: category.code,
+      name: category.name,
+      hasAllCategory: true,
+      tags: category.children.map((item) => ({
+        code: item.code,
+        name: item.name,
+      })),
+    }));
 
   const parentCategory = categories?.find((c) => c.code === categoryCode);
   const subCategory = subcategoryCode ?? parentCategory?.tags[0]?.code;
