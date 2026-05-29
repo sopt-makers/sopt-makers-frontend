@@ -5,16 +5,19 @@ import { IconAlertTriangle, IconShare, IconTrash, IconWrite } from '@sopt-makers
 import { useQuery } from '@tanstack/react-query';
 import { Flex } from '@toss/emotion-utils';
 import Link from 'next/link';
-import type { FC, ReactNode } from 'react';
+import type { MouseEvent, ReactNode } from 'react';
 import { useRef } from 'react';
 import type { VirtuosoHandle } from 'react-virtuoso';
 import { Virtuoso } from 'react-virtuoso';
 import { atom, useRecoilState } from 'recoil';
 
+import { useToggleCrewPostLikeMutation } from '@/api/crew/toggleCrewPostLike';
 import { getCategory } from '@/api/endpoint/feed/getCategory';
 import { getPost } from '@/api/endpoint/feed/getPost';
+import type { PostsType } from '@/api/endpoint/feed/getPosts';
 import { useGetPostsInfiniteQuery } from '@/api/endpoint/feed/getPosts';
 import { getRecentPosts } from '@/api/endpoint/feed/getRecentPosts';
+import { useGetMemberOfMe } from '@/api/endpoint/members/getMemberOfMe';
 import Text from '@/components/common/Text';
 import { LoggingClick } from '@/components/eventLogger/components/LoggingClick';
 import FeedDropdown from '@/components/feed/common/FeedDropdown';
@@ -54,8 +57,10 @@ const FeedListItems = ({ categoryCode, subCategory, renderFeedDetailLink, onScro
   const { handleDeleteFeed } = useDeleteFeed();
   const { handleReport } = useReportFeed();
   const { handleToggleLike } = useToggleLike();
+  const { mutate: toggleCrewPostLike } = useToggleCrewPostLikeMutation();
+  const orgId = useGetMemberOfMe().data?.id ?? 0;
 
-  const flattenData = data?.pages.flatMap((page) => page.posts) ?? [];
+  const flattenData: PostsType['posts'] = data?.pages.flatMap((page) => page.posts) ?? [];
 
   const { data: categoryData } = useQuery({
     queryKey: getCategory.cacheKey(),
@@ -85,6 +90,30 @@ const FeedListItems = ({ categoryCode, subCategory, renderFeedDetailLink, onScro
       });
     }
   });
+
+  const handleLikeClick = (post: PostsType['posts'][number]) => (e: MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+    e.preventDefault();
+
+    if (post.sourceType === 'MEETING') {
+      toggleCrewPostLike({
+        orgId,
+        postId: post.id,
+        allPostsQueryKey: useGetPostsInfiniteQuery.getKey(post.categoryCode, 'ALL'),
+        postsQueryKey: useGetPostsInfiniteQuery.getKey(categoryCode, subCategory),
+      });
+    } else {
+      handleToggleLike({
+        postId: post.id,
+        isLiked: post.isLiked,
+        likes: post.likes,
+        allPostsQueryKey: useGetPostsInfiniteQuery.getKey(post.categoryCode, 'ALL'),
+        postsQueryKey: useGetPostsInfiniteQuery.getKey(categoryCode, subCategory),
+        postQueryKey: getPost.cacheKey(post.id.toString()),
+        recentPostsQuerykey: getRecentPosts.cacheKey(),
+      });
+    }
+  };
 
   if (isLoading) return <FeedSkeleton />;
 
@@ -244,25 +273,7 @@ const FeedListItems = ({ categoryCode, subCategory, renderFeedDetailLink, onScro
                     eventKey={post.isLiked ? 'feedUnlike' : 'feedLike'}
                     param={{ feedId: String(post.id), category }}
                   >
-                    <FeedLike
-                      isLiked={post.isLiked}
-                      likes={post.likes}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        e.preventDefault();
-
-                        handleToggleLike({
-                          postId: post.id,
-                          isLiked: post.isLiked,
-                          likes: post.likes,
-                          allPostsQueryKey: useGetPostsInfiniteQuery.getKey(post.categoryCode, 'ALL'),
-                          postsQueryKey: useGetPostsInfiniteQuery.getKey(categoryCode, subCategory),
-                          postQueryKey: getPost.cacheKey(post.id.toString()),
-                          recentPostsQuerykey: getRecentPosts.cacheKey(),
-                        });
-                      }}
-                      type='heart'
-                    />
+                    <FeedLike isLiked={post.isLiked} likes={post.likes} onClick={handleLikeClick(post)} type='heart' />
                   </LoggingClick>
                 }
               >
