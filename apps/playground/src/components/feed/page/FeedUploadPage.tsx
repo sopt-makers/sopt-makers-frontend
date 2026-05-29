@@ -48,6 +48,8 @@ interface FeedUploadPageProp {
   onSubmit: ({ data, id }: { data: PostedFeedDataType; id: number | null }) => void;
 }
 
+const groupPlaceholder = '내용을 입력해주세요. (모임 게시글은 ‘자유’ 탭에서 확인하실 수 있어요.)';
+
 export default function FeedUploadPage({ defaultValue, editingId, onSubmit }: FeedUploadPageProp) {
   const router = useRouter();
   const isEdit = editingId !== undefined;
@@ -249,7 +251,12 @@ export default function FeedUploadPage({ defaultValue, editingId, onSubmit }: Fe
                     onKeyDown={handleDesktopKeyPressToContents}
                     value={feedData.title}
                   />
-                  <ContentsInput onChange={handleSaveContent} ref={desktopContentsRef} value={feedData.content} />
+                  <ContentsInput
+                    onChange={handleSaveContent}
+                    ref={desktopContentsRef}
+                    value={feedData.content}
+                    placeholder={isGroup ? groupPlaceholder : undefined}
+                  />
                   {!(feedData.images.length !== 0 || hasVoteOptions) && (
                     <UsingRules isPreviewOpen={isPreviewOpen} onClose={closeUsingRules} />
                   )}
