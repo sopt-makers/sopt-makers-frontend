@@ -6,7 +6,7 @@ import { createEndpoint } from '@/api/typedAxios';
 
 export interface GroupFeedParams {
   contents: string;
-  images: string[];
+  images: (string | null | undefined)[];
   title: string;
   meetingId: number;
 }
