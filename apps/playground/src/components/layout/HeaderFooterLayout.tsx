@@ -37,7 +37,7 @@ const StyledContainer = styled.div`
   @media ${MOBILE_MEDIA_QUERY} {
     padding-top: 56px;
 
-    ${createLayoutCSSVariable({ headerHeight: 80 })}
+    ${createLayoutCSSVariable({ headerHeight: 56 })}
   }
 `;
 
