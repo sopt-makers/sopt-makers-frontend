@@ -33,7 +33,7 @@ import { useNavigateBack } from '@/components/navigation/useNavigateBack';
 import Vote from '@/components/vote';
 import { textStyles } from '@/styles/typography';
 
-import { SOPTICLE_CATEGORY_CODE } from '../constants';
+import { MEETING_CATEGORY_CODE, SOPTICLE_CATEGORY_CODE } from '../constants';
 
 interface FeedListItemsProps {
   categoryCode?: string;
@@ -95,7 +95,7 @@ const FeedListItems = ({ categoryCode, subCategory, renderFeedDetailLink, onScro
     e.stopPropagation();
     e.preventDefault();
 
-    if (post.sourceType === 'MEETING') {
+    if (post.sourceType === MEETING_CATEGORY_CODE) {
       toggleCrewPostLike({
         orgId,
         postId: post.id,
@@ -294,7 +294,7 @@ const FeedListItems = ({ categoryCode, subCategory, renderFeedDetailLink, onScro
             </FeedCard>
           );
 
-          if (post.sourceType === 'MEETING') {
+          if (post.sourceType === MEETING_CATEGORY_CODE) {
             return (
               <Link href={crewLink.feedDetail(post.id)} onClick={() => handleFeedCardClick(categoryCode ?? '', idx)}>
                 {feedCard}

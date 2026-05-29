@@ -18,6 +18,8 @@ import FeedListItems from '@/components/feed/list/FeedListItems';
 import { layoutCSSVariable } from '@/components/layout/utils';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
+import { MEETING_CATEGORY_CODE } from '../constants';
+
 interface FeedListProps {
   renderFeedDetailLink: (props: { children: ReactNode; feedId: string; category: string }) => ReactNode;
   onScrollChange?: (scrolling: boolean) => void;
@@ -30,7 +32,7 @@ const FeedList = ({ renderFeedDetailLink, onScrollChange }: FeedListProps) => {
   const { data: categoryData, isLoading } = useGetCategory();
 
   const categories = categoryData
-    ?.filter((category) => category.code !== 'MEETING')
+    ?.filter((category) => category.code !== MEETING_CATEGORY_CODE)
     .map((category) => ({
       code: category.code,
       name: category.name,
