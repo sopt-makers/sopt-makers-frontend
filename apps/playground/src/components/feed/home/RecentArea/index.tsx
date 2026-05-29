@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { playgroundLink } from '@sopt/constant';
+import { crewLink, playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 import { useRouter } from 'next/router';
@@ -8,6 +8,7 @@ import { useRecentPosts } from '@/api/endpoint/feed/getRecentPosts';
 import { useGetMemberOfMe } from '@/api/endpoint/members/getMemberOfMe';
 import Text from '@/components/common/Text';
 import { getCategoryAndSubcategory } from '@/components/feed/common/utils/getCategoryAndSubcategory';
+import { MEETING_CATEGORY_CODE } from '@/components/feed/constants';
 import RecentCard from '@/components/feed/home/RecentArea/RecentCard';
 import FeedSkeleton from '@/components/feed/list/FeedSkeleton';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
@@ -18,6 +19,10 @@ const RecentArea = () => {
   const router = useRouter();
 
   const handleClickCard = (categoryTag: string, id: number) => {
+    if (categoryTag === MEETING_CATEGORY_CODE) {
+      router.push(crewLink.feedDetail(id));
+      return;
+    }
     const [category, subcategory] = getCategoryAndSubcategory(categoryTag);
     router.push({
       pathname: playgroundLink.feedList(),
