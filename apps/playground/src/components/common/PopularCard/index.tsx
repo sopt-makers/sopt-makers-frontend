@@ -116,7 +116,7 @@ export default PopularCard;
 const StyledCardContainer = styled.div<{ $withProfile?: boolean }>`
   display: flex;
   justify-content: space-between;
-  gap: 8px;
+  gap: 12px;
   border-radius: 12px;
   background: ${colors.gray900};
   cursor: pointer;
