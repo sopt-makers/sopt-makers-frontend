@@ -7,7 +7,12 @@ import type { ReactNode } from 'react';
 
 import { ampli } from '@/ampli';
 
-const CrewTab = ({ children }: { children?: ReactNode }) => {
+interface CrewTabProps {
+  children?: ReactNode;
+  className?: string;
+}
+
+const CrewTab = ({ children, className }: CrewTabProps) => {
   const path = useRouter().pathname;
   const tabText = {
     group: 'feedAll',
@@ -20,7 +25,7 @@ const CrewTab = ({ children }: { children?: ReactNode }) => {
   const lastSegment = (path.split('/').at(-1) || 'group') as keyof typeof tabText;
 
   return (
-    <Flex align='center' justify='between'>
+    <Flex align='center' justify='between' className={className}>
       <TabList text={tabText[lastSegment]} size='big'>
         <Link href='/' onClick={() => ampli.clickNavbarGroup({ menu: '피드' })}>
           <TabList.Item text='feedAll'>홈</TabList.Item>
