@@ -107,15 +107,19 @@ const Container = styled('section', {
   'borderRadius': '$8',
   '@new_mobile': {
     py: '$36',
+    mb: '$40',
   },
   '@new_tablet': {
     py: '$36',
+    mb: '$40',
   },
   '@new_desktop': {
     py: '$36',
+    mb: '$60',
   },
   '@new_laptop': {
     py: '$42',
+    mb: '$72',
   },
 });
 

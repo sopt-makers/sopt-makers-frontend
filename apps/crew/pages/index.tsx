@@ -17,12 +17,10 @@ const Home: NextPage = () => {
 
   return (
     <>
-      <CrewTab>
+      <SCrewTab>
         <GuideButton />
-      </CrewTab>
-      <SEventPeriodBannerWrapper>
-        <EventPeriodBanner />
-      </SEventPeriodBannerWrapper>
+      </SCrewTab>
+      <EventPeriodBanner />
       {isTablet ? (
         <>
           <SContentTitle>⚡ 솝트만의 일회성 모임, 번쩍</SContentTitle>
@@ -63,18 +61,18 @@ const Home: NextPage = () => {
 
 export default Home;
 
-const SEventPeriodBannerWrapper = styled('div', {
+const SCrewTab = styled(CrewTab, {
   '@new_mobile': {
-    mt: '$30',
+    pb: '$28',
   },
   '@new_tablet': {
-    mt: '$45',
+    pb: '$45',
   },
   '@new_desktop': {
-    mt: '$45',
+    pb: '$45',
   },
   '@new_laptop': {
-    mt: '$65',
+    pb: '$45',
   },
 });
 
@@ -88,18 +86,8 @@ const SContentTitle = styled('div', {
   'width': '100%',
 
   '@new_mobile': {
-    mt: '$40',
     display: 'flex',
     fontSize: '16px',
-  },
-  '@new_tablet': {
-    mt: '$40',
-  },
-  '@new_desktop': {
-    mt: '$60',
-  },
-  '@new_laptop': {
-    mt: '$72',
   },
 });
 
