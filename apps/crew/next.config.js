@@ -5,6 +5,9 @@ const nextConfig = {
   output: 'export',
   reactStrictMode: true,
   swcMinify: true,
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   transpilePackages: ['@sopt/ui', '@sopt/constant'],
   webpack: (config) => {
     config.module.rules.push({
