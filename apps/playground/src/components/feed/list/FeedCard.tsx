@@ -19,6 +19,8 @@ import { IconMember } from '@/components/feed/common/Icon';
 import { parseMentionsToJSX } from '@/components/feed/common/utils/parseMention';
 import FeedUrlCard from '@/components/feed/list/FeedUrlCard';
 import { textStyles } from '@/styles/typography';
+
+import { MEETING_CATEGORY_CODE } from '../constants';
 interface RandomProfile {
   nickname: string;
   profileImgUrl: string;
@@ -33,7 +35,6 @@ interface BaseProps {
   createdAt: string;
   isBlindWriter?: boolean;
   anonymousProfile?: RandomProfile | null;
-  isQuestion?: boolean;
   commentLength: number;
   hits: number;
   rightIcon?: ReactNode;
@@ -49,6 +50,7 @@ interface BaseProps {
   answer?: ReactNode;
   isNew?: boolean;
   isAskMode?: boolean;
+  meeting?: string;
 }
 
 const Base = forwardRef<HTMLDivElement, PropsWithChildren<BaseProps>>(
@@ -61,7 +63,6 @@ const Base = forwardRef<HTMLDivElement, PropsWithChildren<BaseProps>>(
       content,
       createdAt,
       isBlindWriter = false,
-      isQuestion = false,
       commentLength,
       hits,
       children,
@@ -79,6 +80,7 @@ const Base = forwardRef<HTMLDivElement, PropsWithChildren<BaseProps>>(
       answer,
       isNew = false,
       isAskMode,
+      meeting,
     },
     ref,
   ) => {
@@ -175,7 +177,7 @@ const Base = forwardRef<HTMLDivElement, PropsWithChildren<BaseProps>>(
                 <div onClick={handleContentClick}>
                   {title && (
                     <Title typography='SUIT_17_SB' mr='28px'>
-                      {isQuestion && <QuestionBadge>질문</QuestionBadge>}
+                      {meeting === MEETING_CATEGORY_CODE && <MeetingTag variant='primary'>모임</MeetingTag>}
                       {title}
                     </Title>
                   )}
@@ -258,18 +260,11 @@ const Title = styled(Text)`
   -webkit-line-clamp: 2;
 `;
 
-const QuestionBadge = styled.div`
+const MeetingTag = styled(Tag)`
   transform: translateY(-2px);
-  white-space: nowrap;
   display: inline-flex;
-  border-radius: 5px;
-  background-color: ${colors.orangeAlpha200};
-  padding: 3px 5px;
-  margin-right: 4px;
-
-  color: ${colors.secondary};
-  ${textStyles.SUIT_12_SB};
-  line-height: 14px;
+  white-space: nowrap;
+  margin-right: 8px;
 `;
 
 const Bottom = styled(Stack.Horizontal)`

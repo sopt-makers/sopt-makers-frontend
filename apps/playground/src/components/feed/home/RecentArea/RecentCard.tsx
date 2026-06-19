@@ -1,25 +1,23 @@
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
-import Link from 'next/link';
+import { Tag } from '@sopt-makers/ui';
 import { useRouter } from 'next/router';
 
 import type { RecentPosts } from '@/api/endpoint/feed/getRecentPosts';
 import Text from '@/components/common/Text';
 import { LoggingClick } from '@/components/eventLogger/components/LoggingClick';
 import { parseMentionsToJSX } from '@/components/feed/common/utils/parseMention';
-import { QUESTION_CATEGORY_ID } from '@/components/feed/constants';
 import FeedIcon from '@/components/feed/home/RecentArea/FeedIcon';
 import VoteIcon from '@/public/icons/icon-vote.svg';
 
 interface RecentCardProps {
-  recentPosts: RecentPosts;
+  recentPost: RecentPosts;
+  onClick: () => void;
 }
 
-const RecentCard = ({ recentPosts }: RecentCardProps) => {
-  const { id, title, content, createdAt, likeCount, commentCount, categoryName, categoryId, totalVoteCount } =
-    recentPosts;
-  const isQuestion = QUESTION_CATEGORY_ID === categoryId;
+const RecentCard = ({ recentPost, onClick }: RecentCardProps) => {
+  const { id, title, content, createdAt, likeCount, commentCount, categoryTagLabel, totalVoteCount } = recentPost;
   const isVotePost = totalVoteCount !== null;
   const router = useRouter();
 
@@ -28,16 +26,18 @@ const RecentCard = ({ recentPosts }: RecentCardProps) => {
       eventKey='feedCard'
       param={{
         feedId: String(id),
-        category: categoryName,
+        category: categoryTagLabel,
         referral: 'category_HOT',
       }}
     >
-      <CardContainer href={`/?category=${categoryId}&feed=${id}`}>
+      <CardContainer onClick={onClick}>
         <CardContent>
-          <TitleStyle>
-            <Tag>{categoryName}</Tag>
-            {title}
-          </TitleStyle>
+          <CardTitle>
+            <StyledTag size='sm' variant='primary' shape='rect'>
+              {categoryTagLabel}
+            </StyledTag>
+            <TitleStyle>{title}</TitleStyle>
+          </CardTitle>
           <ContentStyle>{parseMentionsToJSX(content, router)}</ContentStyle>
         </CardContent>
 
@@ -56,7 +56,7 @@ const RecentCard = ({ recentPosts }: RecentCardProps) => {
           </FlexBox>
 
           <FeedIconBox>
-            <FeedIcon type={isQuestion ? 'thumbsUp' : 'heart'} count={likeCount} />
+            <FeedIcon type='heart' count={likeCount} />
             <FeedIcon type='message' count={commentCount} />
           </FeedIconBox>
         </CardFooter>
@@ -67,47 +67,52 @@ const RecentCard = ({ recentPosts }: RecentCardProps) => {
 
 export default RecentCard;
 
-const CardContainer = styled(Link)`
+const CardContainer = styled.div`
   display: flex;
   flex-direction: column;
-  flex-shrink: 0;
+  justify-content: space-between;
   gap: 12px;
   border-radius: 12px;
   background-color: ${colors.gray900};
   cursor: pointer;
   padding: 16px;
-  width: 272px;
-  height: 158px;
+  height: 126px;
 
   &:hover {
     background-color: ${colors.gray800};
   }
+  overflow: hidden;
 `;
 
 const CardContent = styled.div`
   display: flex;
   flex-direction: column;
   gap: 4px;
-  width: 240px;
-  height: 96px;
+`;
+
+const CardTitle = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 6px;
+`;
+
+const StyledTag = styled(Tag)`
+  flex-shrink: 0;
 `;
 
 const TitleStyle = styled(Text)`
+  color: ${colors.gray10};
   ${fonts.TITLE_16_SB}
 
-  height: 48px;
-
-  /* stylelint-disable */
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
   overflow: hidden;
+  white-space: nowrap;
   text-overflow: ellipsis;
+  min-width: 0;
 `;
 
 const ContentStyle = styled(Text)`
-  ${fonts.BODY_14_L}
-  height: 48px;
+  color: ${colors.gray10};
+  ${fonts.BODY_13_L}
 
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -124,25 +129,12 @@ const CardFooter = styled.div`
 
 const FeedIconBox = styled.div`
   display: flex;
-  gap: 16px;
+  gap: 8px;
 `;
 
 const CreatedDate = styled(Text)`
   color: ${colors.gray400};
-  ${fonts.LABEL_14_SB}
-`;
-
-const Tag = styled.span`
-  display: inline-flex;
-  width: fit-content;
-  height: 20px;
-  border-radius: 4px;
-  background-color: ${colors.orangeAlpha200};
-  color: ${colors.secondary};
-  ${fonts.LABEL_11_SB}
-  padding: 3px 6px;
-  margin-right: 6px;
-  transform: translateY(-1.5px);
+  ${fonts.LABEL_12_SB}
 `;
 
 const FlexBox = styled.div`

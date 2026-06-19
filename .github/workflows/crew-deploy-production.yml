@@ -4,10 +4,10 @@ on:
   push:
     branches: [main]
     paths:
-      - "apps/crew/**"
-      - "packages/**"
-      - "package.json"
-      - "yarn.lock"
+      - 'apps/crew/**'
+      - 'packages/**'
+      - 'package.json'
+      - 'yarn.lock'
   workflow_dispatch:
 
 jobs:
@@ -36,13 +36,21 @@ jobs:
         uses: actions/cache@v4
         id: yarn-cache
         with:
-          path: ~/.yarn/cache
+          path: .yarn/cache
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
 
       - name: Install Packages
         run: yarn install --immutable
+
+      - name: Cache Crew Next.js build
+        uses: actions/cache@v4
+        with:
+          path: ${{ github.workspace }}/apps/crew/.next/cache
+          key: ${{ runner.os }}-crew-nextjs-${{ hashFiles('yarn.lock') }}-${{ hashFiles('apps/crew/**/*.[jt]s', 'apps/crew/**/*.[jt]sx', 'apps/crew/next.config.js', 'apps/crew/package.json', 'packages/**/*.[jt]s', 'packages/**/*.[jt]sx', 'packages/**/package.json') }}
+          restore-keys: |
+            ${{ runner.os }}-crew-nextjs-${{ hashFiles('yarn.lock') }}-
 
       - name: Set .env
         run: |
@@ -52,6 +60,8 @@ jobs:
           echo "NEXT_PUBLIC_SENTRY_DSN=${{ vars.NEXT_PUBLIC_SENTRY_DSN }}" >> apps/crew/.env.local
           echo "NEXT_PUBLIC_AMPLITUDE_API_KEY=${{ vars.NEXT_PUBLIC_AMPLITUDE_API_KEY }}" >> apps/crew/.env.local
           echo "NEXT_PUBLIC_APP_ENV=${{ vars.NEXT_PUBLIC_APP_ENV }}" >> apps/crew/.env
+          echo "NEXT_PUBLIC_OPERATION_API_URL=${{ vars.NEXT_PUBLIC_OPERATION_API_URL }}" >> apps/crew/.env.local
+          echo "NEXT_PUBLIC_ADMIN_KEY=${{ secrets.NEXT_PUBLIC_ADMIN_KEY }}" >> apps/crew/.env.local
 
       - name: Build
         run: yarn build:crew

@@ -2,7 +2,6 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
-import type { FC } from 'react';
 
 import { textStyles } from '../../../styles/typography';
 import { SOPT_MAKRES_LOGO_SVG } from '../imageData';
@@ -22,37 +21,55 @@ interface DesktopHeaderProps {
   activePathMatcher: PathMatcher;
 }
 
-const DesktopHeader: FC<DesktopHeaderProps> = ({ user, onLogout, renderLink, activePathMatcher }) => {
+const DesktopHeader = ({ user, onLogout, renderLink, activePathMatcher }: DesktopHeaderProps) => {
   return (
     <Container>
       <StyledBrandLink>
         {renderLink({
-          href: playgroundLink.feedList(),
+          href: playgroundLink.home(),
           children: <SOPT_MAKRES_LOGO_SVG />,
         })}
       </StyledBrandLink>
       <NavArea>
-        {renderLink({
-          href: playgroundLink.memberList(),
-          children: <NavItem isActive={activePathMatcher(playgroundLink.memberList())}>멤버</NavItem>,
-        })}
-        {renderLink({
-          href: playgroundLink.projectList(),
-          children: <NavItem isActive={activePathMatcher(playgroundLink.projectList())}>프로젝트</NavItem>,
-        })}
-        {renderLink({
-          href: playgroundLink.groupList(),
-          children: <NavItem isActive={activePathMatcher(playgroundLink.groupList())}>모임</NavItem>,
-        })}
-        {renderLink({
-          href: playgroundLink.coffeechat(),
-          children: <NavItem isActive={activePathMatcher(playgroundLink.coffeechat())}>커피솝</NavItem>,
-        })}
-        <NavItem isActive={false}>|</NavItem>
-        {renderLink({
-          href: playgroundLink.blog(),
-          children: <NavItem isActive={activePathMatcher(playgroundLink.blog())}>활동후기 업로드</NavItem>,
-        })}
+        <NavSlot>
+          {renderLink({
+            href: playgroundLink.memberList(),
+            children: <NavItem isActive={activePathMatcher(playgroundLink.memberList())}>멤버</NavItem>,
+          })}
+        </NavSlot>
+        <NavSlot>
+          {renderLink({
+            href: playgroundLink.feedList(),
+            children: <NavItem isActive={activePathMatcher(playgroundLink.feedList())}>커뮤니티</NavItem>,
+          })}
+        </NavSlot>
+        <NavSlot>
+          {renderLink({
+            href: playgroundLink.groupList(),
+            children: <NavItem isActive={activePathMatcher(playgroundLink.groupList())}>모임</NavItem>,
+          })}
+        </NavSlot>
+        <NavSlot>
+          {renderLink({
+            href: playgroundLink.projectList(),
+            children: <NavItem isActive={activePathMatcher(playgroundLink.projectList())}>프로젝트</NavItem>,
+          })}
+        </NavSlot>
+        <NavSlot>
+          {renderLink({
+            href: playgroundLink.coffeechat(),
+            children: <NavItem isActive={activePathMatcher(playgroundLink.coffeechat())}>커피솝</NavItem>,
+          })}
+        </NavSlot>
+        <NavSlot>
+          <NavItem isActive={false}>|</NavItem>
+        </NavSlot>
+        <NavSlot shrinkable>
+          {renderLink({
+            href: playgroundLink.blog(),
+            children: <NavItem isActive={activePathMatcher(playgroundLink.blog())}>활동후기 업로드</NavItem>,
+          })}
+        </NavSlot>
       </NavArea>
       <ActionArea>
         <ProfileButtonHolder>
@@ -73,14 +90,16 @@ export default DesktopHeader;
 
 const Container = styled.header`
   display: flex;
+  gap: 16px;
   border-bottom: 1px solid ${colors.gray800};
   background-color: ${colors.gray950};
   height: 80px;
+  padding: 18px 36px;
   color: ${colors.gray10};
 `;
 
 const StyledBrandLink = styled.div`
-  margin: 0 36px;
+  margin-right: 24px;
 
   & > * {
     display: flex;
@@ -95,18 +114,28 @@ const StyledBrandLink = styled.div`
 
 const NavArea = styled.nav`
   display: flex;
-  flex-grow: 1;
+  gap: 16px;
+  flex: 1;
+  min-width: 0;
+`;
 
-  * > & {
-    height: 100%;
+const NavSlot = styled.div<{ shrinkable?: boolean }>`
+  display: flex;
+  flex-shrink: ${(props) => (props.shrinkable ? 1 : 0)};
+  min-width: 0;
+
+  & > * {
+    display: flex;
+    align-items: center;
+    min-width: 0;
   }
 `;
 
 const NavItem = styled.div<{ isActive: boolean }>`
-  display: flex;
-  align-items: center;
-  padding: 0 8px;
-  height: 100%;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   color: ${(props) => (props.isActive ? colors.gray10 : colors.gray100)};
 
   ${(props) =>
@@ -122,11 +151,9 @@ const NavItem = styled.div<{ isActive: boolean }>`
 const ActionArea = styled.div`
   display: flex;
   align-items: center;
-  padding-right: 30px;
 `;
 
 const ProfileButtonHolder = styled.div`
   display: flex;
   align-items: center;
-  margin-left: 8px;
 `;

@@ -1,10 +1,14 @@
 import styled from '@emotion/styled';
+import { crewLink, playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
+import { useRouter } from 'next/router';
 
 import { useRecentPosts } from '@/api/endpoint/feed/getRecentPosts';
 import { useGetMemberOfMe } from '@/api/endpoint/members/getMemberOfMe';
 import Text from '@/components/common/Text';
+import { getCategoryAndSubcategory } from '@/components/feed/common/utils/getCategoryAndSubcategory';
+import { MEETING_CATEGORY_CODE } from '@/components/feed/constants';
 import RecentCard from '@/components/feed/home/RecentArea/RecentCard';
 import FeedSkeleton from '@/components/feed/list/FeedSkeleton';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
@@ -12,6 +16,23 @@ import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 const RecentArea = () => {
   const { data: me } = useGetMemberOfMe();
   const { data: recentPosts, isLoading, isError } = useRecentPosts();
+  const router = useRouter();
+
+  const handleClickCard = (categoryTag: string, id: number) => {
+    if (categoryTag === MEETING_CATEGORY_CODE) {
+      router.push(crewLink.feedDetail(id));
+      return;
+    }
+    const [category, subcategory] = getCategoryAndSubcategory(categoryTag);
+    router.push({
+      pathname: playgroundLink.feedList(),
+      query: {
+        category,
+        ...(subcategory ? { subcategory } : {}),
+        feed: id,
+      },
+    });
+  };
 
   return (
     <>
@@ -32,13 +53,18 @@ const RecentArea = () => {
           <TitleBox>
             <Title>
               <UserNameStyle>{me?.name}</UserNameStyle>님,
-              <MobileLineBreak /> 새로 올라온 글을 확인해 보세요
+              <LineBreak /> 새로 올라온 글을 확인해 보세요
             </Title>
           </TitleBox>
 
           <RecentFeedList>
-            {recentPosts?.map((recentPosts) => (
-              <RecentCard key={recentPosts.id} recentPosts={recentPosts} />
+            {recentPosts?.map((recentPost) => (
+              <Slot key={recentPost.id}>
+                <RecentCard
+                  recentPost={recentPost}
+                  onClick={() => handleClickCard(recentPost.categoryTag, recentPost.id)}
+                />
+              </Slot>
             ))}
           </RecentFeedList>
         </Container>
@@ -70,12 +96,8 @@ const Title = styled(Text)`
   word-break: keep-all;
 `;
 
-const MobileLineBreak = styled.br`
-  display: none;
-
-  @media ${MOBILE_MEDIA_QUERY} {
-    display: inline;
-  }
+const LineBreak = styled.br`
+  display: inline;
 `;
 
 const UserNameStyle = styled.span`
@@ -110,6 +132,11 @@ const RecentFeedList = styled.div`
   @supports (-webkit-touch-callout: none) {
     margin-bottom: 0;
   }
+`;
+
+const Slot = styled.div`
+  flex: 0 0 272px;
+  min-width: 0;
 `;
 
 export default RecentArea;

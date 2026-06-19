@@ -153,7 +153,7 @@ const ProjectList = () => {
                 return (
                   <React.Fragment key={project.id}>
                     <Responsive only='desktop' asChild>
-                      <LoggingClick eventKey='projectCard' param={{ id: project.id }}>
+                      <LoggingClick eventKey='projectCard' param={{ projectId: project.id, referral: 'projectTab' }}>
                         <Link href={playgroundLink.projectDetail(project.id)}>
                           <ProjectCard
                             key={project.id}
@@ -169,7 +169,7 @@ const ProjectList = () => {
                       </LoggingClick>
                     </Responsive>
                     <Responsive only='mobile' asChild>
-                      <LoggingClick eventKey='projectCard' param={{ id: project.id }}>
+                      <LoggingClick eventKey='projectCard' param={{ projectId: project.id, referral: 'projectTab' }}>
                         <Link href={playgroundLink.projectDetail(project.id)}>
                           <MobileProjectCard
                             key={project.id}

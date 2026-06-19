@@ -2,6 +2,7 @@ import { useEventBannerInfoQueryOption } from '@api/advertisement/query';
 import { useUserProfileQueryOption } from '@api/user/query';
 import { useDisplay } from '@hook/useDisplay';
 import { Flex } from '@shared/util/layout/Flex';
+import { colors } from '@sopt-makers/colors';
 import { fontsObject } from '@sopt-makers/fonts';
 import { IconChevronRight } from '@sopt-makers/icons';
 import { Button } from '@sopt-makers/ui';
@@ -17,7 +18,7 @@ const EventPeriodBanner = () => {
   const { isLaptop, isMobile } = useDisplay();
   const router = useRouter();
 
-  const { data: banner } = useSuspenseQuery(useEventBannerInfoQueryOption());
+  const { data: banner } = useSuspenseQuery(useEventBannerInfoQueryOption('NETWORKING'));
   const { data: me } = useSuspenseQuery(useUserProfileQueryOption());
 
   const handleClickApplyButton = () => {
@@ -28,7 +29,9 @@ const EventPeriodBanner = () => {
     });
     ampli.enterEventMaindetail();
 
-    router.push(String(banner.bannerLink2));
+    const targetUrl = String(banner.bannerLink2);
+    const separator = targetUrl.includes('?') ? '&' : '?';
+    router.push(`${targetUrl}${separator}entry_source=event_banner_cta`);
   };
 
   const handleClickMoreLink = () => {
@@ -75,9 +78,9 @@ const EventPeriodBanner = () => {
       </InfoSection>
       <CTASection>
         <ApplyButton size={isLaptop ? 'lg' : 'md'} variant='fill' onClick={handleClickApplyButton}>
-          내 파트 신청하기
+          참가 신청하기
         </ApplyButton>
-        {banner.eventType === 'SOPKATHON' && banner.bannerLink1 && (
+        {banner.bannerLink1 && (
           <MoreLink href={banner.bannerLink1} onClick={handleClickMoreLink}>
             <MoreLinkContent>
               파트별 솝커톤 둘러보기
@@ -103,16 +106,20 @@ const Container = styled('section', {
   'backgroundSize': 'cover',
   'borderRadius': '$8',
   '@mobile': {
-    py: '$28',
+    py: '$36',
+    mb: '$40',
   },
   '@tablet': {
-    py: '$30',
+    py: '$36',
+    mb: '$40',
   },
   '@desktop': {
-    py: '$30',
+    py: '$36',
+    mb: '$60',
   },
   '@large_desktop': {
-    py: '$36',
+    py: '$42',
+    mb: '$72',
   },
 });
 
@@ -182,7 +189,7 @@ const STitle = styled('span', {
 });
 
 const SHighlightTitle = styled(STitle, {
-  color: '$secondary',
+  color: colors.blue400,
 });
 
 const SSubTitle = styled('p', {
@@ -221,17 +228,17 @@ const CTASection = styled('div', {
 
 const ApplyButton = styled(Button, {
   '&&': {
-    backgroundColor: '$secondary',
+    backgroundColor: colors.blue400,
     color: '$white',
     boxShadow: 'none',
   },
   '&&:hover': {
-    backgroundColor: '$secondary',
+    backgroundColor: colors.blue500,
     color: '$white',
     boxShadow: 'none',
   },
   '&&:active': {
-    backgroundColor: '$secondary',
+    backgroundColor: colors.blue600,
     color: '$white',
     boxShadow: 'none',
   },

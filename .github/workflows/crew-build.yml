@@ -1,0 +1,54 @@
+name: Crew - Build App
+
+on:
+  pull_request:
+    paths:
+      - 'apps/crew/**'
+      - 'packages/**'
+      - '.github/workflows/crew-build.yml'
+      - '.yarnrc.yml'
+      - 'package.json'
+      - 'turbo.json'
+      - 'yarn.lock'
+  merge_group:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Branch
+        uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Enable Corepack
+        run: |
+          corepack enable
+          corepack prepare yarn@4.1.1 --activate
+          yarn -v
+
+      - name: Cache Yarn
+        uses: actions/cache@v4
+        id: yarn-cache
+        with:
+          path: .yarn/cache
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Install Packages
+        run: yarn install --immutable
+
+      - name: Cache Crew Next.js build
+        uses: actions/cache@v4
+        with:
+          path: ${{ github.workspace }}/apps/crew/.next/cache
+          key: ${{ runner.os }}-crew-nextjs-${{ hashFiles('yarn.lock') }}-${{ hashFiles('apps/crew/**/*.[jt]s', 'apps/crew/**/*.[jt]sx', 'apps/crew/next.config.js', 'apps/crew/package.json', 'packages/**/*.[jt]s', 'packages/**/*.[jt]sx', 'packages/**/package.json') }}
+          restore-keys: |
+            ${{ runner.os }}-crew-nextjs-${{ hashFiles('yarn.lock') }}-
+
+      - name: Build
+        run: yarn build:crew

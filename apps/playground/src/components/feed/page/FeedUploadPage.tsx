@@ -18,7 +18,7 @@ import Responsive from '@/components/common/Responsive';
 import useEventLogger from '@/components/eventLogger/hooks/useEventLogger';
 import useCategory from '@/components/feed/common/hooks/useCategory';
 import { mentionRegex } from '@/components/feed/common/utils/parseMention';
-import { GROUP_CATEGORY_ID, QUESTION_CATEGORY_ID, SOPTICLE_CATEGORY_ID } from '@/components/feed/constants';
+import { MEETING_CATEGORY_CODE, SOPTICLE_CATEGORY_CODE } from '@/components/feed/constants';
 import Category from '@/components/feed/upload/Category';
 import CheckboxFormItem from '@/components/feed/upload/CheckboxFormItem';
 import { useCategoryUsingRulesPreview } from '@/components/feed/upload/hooks/useCategorySelect';
@@ -31,7 +31,6 @@ import LinkInput from '@/components/feed/upload/Input/LinkInput';
 import TitleInput from '@/components/feed/upload/Input/TitleInput';
 import DesktopFeedUploadLayout from '@/components/feed/upload/layout/DesktopFeedUploadLayout';
 import MobileFeedUploadLayout from '@/components/feed/upload/layout/MobileFeedUploadLayout';
-import { GroupSelect, SelectContent, SelectTrigger } from '@/components/feed/upload/select/GroupSelect';
 import type { PostedFeedDataType } from '@/components/feed/upload/types';
 import UsingRules from '@/components/feed/upload/UsingRules';
 import VoteModal from '@/components/feed/upload/voteModal';
@@ -41,11 +40,15 @@ import useImageUploader from '@/hooks/useImageUploader';
 import BackArrow from '@/public/icons/icon_chevron_left.svg';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
+import { GroupSelect, SelectContent, SelectTrigger } from '../upload/select/GroupSelect';
+
 interface FeedUploadPageProp {
   editingId?: number;
   defaultValue: PostedFeedDataType;
   onSubmit: ({ data, id }: { data: PostedFeedDataType; id: number | null }) => void;
 }
+
+const groupPlaceholder = '내용을 입력해주세요. (모임 게시글은 ‘자유’ 탭에서 확인하실 수 있어요.)';
 
 export default function FeedUploadPage({ defaultValue, editingId, onSubmit }: FeedUploadPageProp) {
   const router = useRouter();
@@ -108,7 +111,6 @@ export default function FeedUploadPage({ defaultValue, editingId, onSubmit }: Fe
     if (isSopticle && !validateLink(feedData.link)) {
       return;
     }
-    // mention id 저장
     const mentionIds: number[] = [];
     let match: RegExpExecArray | null;
 
@@ -119,18 +121,17 @@ export default function FeedUploadPage({ defaultValue, editingId, onSubmit }: Fe
       }
     }
 
-    if (feedData.categoryId === GROUP_CATEGORY_ID) {
+    if (feedData.categoryCode === MEETING_CATEGORY_CODE) {
+      if (feedData.groupId == null) {
+        alert('모임을 선택해주세요.');
+        return;
+      }
       const params: GroupFeedParams = {
         contents: feedData.content,
         images: feedData.images,
         title: feedData.title,
-        meetingId: Number(feedData.groupId),
+        meetingId: feedData.groupId,
       };
-
-      if (!params.meetingId) {
-        alert('모임을 선택해주세요.');
-        return;
-      }
 
       if (params.title.length > 100) {
         alert('제목은 100자 이하로 작성해주세요.');
@@ -148,12 +149,11 @@ export default function FeedUploadPage({ defaultValue, editingId, onSubmit }: Fe
 
     onSubmit({
       data: {
-        categoryId: feedData.categoryId,
+        categoryCode: feedData.categoryCode,
         title: feedData.title,
         content: feedData.content,
-        isQuestion: feedData.isQuestion,
         isBlindWriter: feedData.isBlindWriter,
-        images: feedData.images,
+        images: feedData.images.filter((img): img is string => img != null),
         link: feedData.link,
         vote: feedData.vote,
         mention:
@@ -174,11 +174,10 @@ export default function FeedUploadPage({ defaultValue, editingId, onSubmit }: Fe
 
   const { findParentCategory } = useCategory();
 
-  const parentCategory = findParentCategory(feedData.categoryId);
+  const parentCategory = findParentCategory(feedData.categoryCode);
 
-  const isSopticle = parentCategory?.id === SOPTICLE_CATEGORY_ID;
-  const isQuestion = parentCategory?.id === QUESTION_CATEGORY_ID;
-  const isGroup = parentCategory?.id === GROUP_CATEGORY_ID;
+  const isSopticle = feedData.categoryCode?.startsWith(SOPTICLE_CATEGORY_CODE) ?? false;
+  const isGroup = feedData.categoryCode === MEETING_CATEGORY_CODE;
 
   const quitUploading = () => {
     logClickEvent('quitUploadCommunity');
@@ -189,7 +188,6 @@ export default function FeedUploadPage({ defaultValue, editingId, onSubmit }: Fe
   }, []);
 
   useEffect(() => {
-    // MEMO: 뒤로가기 감지 시, quitUploading 수행
     const handleBack = () => {
       quitUploading();
     };
@@ -239,11 +237,6 @@ export default function FeedUploadPage({ defaultValue, editingId, onSubmit }: Fe
                 </InputWrapper>
               ) : (
                 <InputWrapper>
-                  {isQuestion && (
-                    <Callout type='information' hasIcon>
-                      SOPT회원들에게 나의 고민이나 궁금증을 공유하고 답변을 받아보세요!
-                    </Callout>
-                  )}
                   {isGroup && (
                     <>
                       <GroupSelect onOptionClick={handleGroupClick}>
@@ -258,7 +251,12 @@ export default function FeedUploadPage({ defaultValue, editingId, onSubmit }: Fe
                     onKeyDown={handleDesktopKeyPressToContents}
                     value={feedData.title}
                   />
-                  <ContentsInput onChange={handleSaveContent} ref={desktopContentsRef} value={feedData.content} />
+                  <ContentsInput
+                    onChange={handleSaveContent}
+                    ref={desktopContentsRef}
+                    value={feedData.content}
+                    placeholder={isGroup ? groupPlaceholder : undefined}
+                  />
                   {!(feedData.images.length !== 0 || hasVoteOptions) && (
                     <UsingRules isPreviewOpen={isPreviewOpen} onClose={closeUsingRules} />
                   )}
@@ -270,7 +268,12 @@ export default function FeedUploadPage({ defaultValue, editingId, onSubmit }: Fe
             <Footer>
               {!isSopticle && (
                 <>
-                  {feedData.images.length !== 0 && <ImagePreview images={feedData.images} onRemove={removeImage} />}
+                  {feedData.images.length !== 0 && (
+                    <ImagePreview
+                      images={feedData.images.filter((img): img is string => img != null)}
+                      onRemove={removeImage}
+                    />
+                  )}
                   {feedData.vote && hasVoteOptions && (
                     <VotePreview
                       onOpenVoteModal={onOpenVoteModal}
@@ -350,11 +353,6 @@ export default function FeedUploadPage({ defaultValue, editingId, onSubmit }: Fe
                 </InputWrapper>
               ) : (
                 <InputWrapper>
-                  {isQuestion && (
-                    <Callout type='information' hasIcon>
-                      SOPT회원들에게 나의 고민이나 궁금증을 공유하고 답변을 받아보세요!
-                    </Callout>
-                  )}
                   {isGroup && (
                     <GroupSelect onOptionClick={handleGroupClick}>
                       <SelectTrigger placeholder='어떤 모임의 피드를 작성할까요?' />
@@ -378,7 +376,12 @@ export default function FeedUploadPage({ defaultValue, editingId, onSubmit }: Fe
             <Footer>
               {!isSopticle && (
                 <>
-                  {feedData.images.length !== 0 && <ImagePreview images={feedData.images} onRemove={removeImage} />}
+                  {feedData.images.length !== 0 && (
+                    <ImagePreview
+                      images={feedData.images.filter((img): img is string => img != null)}
+                      onRemove={removeImage}
+                    />
+                  )}
                   {feedData.vote && hasVoteOptions && (
                     <VotePreview
                       onOpenVoteModal={onOpenVoteModal}

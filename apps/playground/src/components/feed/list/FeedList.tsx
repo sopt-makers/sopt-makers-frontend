@@ -1,52 +1,56 @@
 import styled from '@emotion/styled';
 import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQueryClient } from '@tanstack/react-query';
 import { ErrorBoundary } from '@toss/error-boundary';
 import Link from 'next/link';
-import type { FC, ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
-import { getCategory } from '@/api/endpoint/feed/getCategory';
+import { useGetCategory } from '@/api/endpoint/feed/getCategory';
 import { useGetPostsInfiniteQuery } from '@/api/endpoint/feed/getPosts';
 import Text from '@/components/common/Text';
 import { LoggingClick } from '@/components/eventLogger/components/LoggingClick';
-import { useCategoryParam } from '@/components/feed/common/queryParam';
+import { useCategoryParam, useSubcategoryParam } from '@/components/feed/common/queryParam';
 import Hot from '@/components/feed/home';
 import CategorySelect from '@/components/feed/list/CategorySelect';
 import CategorySkeleton from '@/components/feed/list/CategorySkeleton';
-import CrewFeedList from '@/components/feed/list/CrewFeedList';
 import FeedListItems from '@/components/feed/list/FeedListItems';
 import { layoutCSSVariable } from '@/components/layout/utils';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
+
+import { ALL_CATEGORY_CODE, MEETING_CATEGORY_CODE } from '../constants';
 
 interface FeedListProps {
   renderFeedDetailLink: (props: { children: ReactNode; feedId: string; category: string }) => ReactNode;
   onScrollChange?: (scrolling: boolean) => void;
 }
 
-const CREW_CATEGORY_ID = '24';
+const ALL_TAG = { code: ALL_CATEGORY_CODE, name: '전체' };
 
-const FeedList: FC<FeedListProps> = ({ renderFeedDetailLink, onScrollChange }) => {
+const FeedList = ({ renderFeedDetailLink, onScrollChange }: FeedListProps) => {
   const queryClient = useQueryClient();
-  const [categoryId] = useCategoryParam({ defaultValue: '' });
-  const { data: categoryData, isLoading } = useQuery({
-    queryKey: getCategory.cacheKey(),
-    queryFn: getCategory.request,
-  });
+  const [categoryCode] = useCategoryParam({ defaultValue: '' });
+  const [subcategoryCode] = useSubcategoryParam();
+  const { data: categoryData, isLoading } = useGetCategory();
 
-  const categories = categoryData?.map((category) => ({
-    id: `${category.id}`,
-    name: category.name,
-    hasAllCategory: true,
-    tags: category.children.map((item) => ({
-      id: `${item.id}`,
-      name: item.name,
-    })),
-  }));
+  const categories = categoryData
+    ?.filter((category) => category.code !== MEETING_CATEGORY_CODE)
+    .map((category) => ({
+      code: category.code,
+      name: category.name,
+      hasAllCategory: true,
+      tags:
+        category.children.length > 0
+          ? [ALL_TAG, ...category.children.map((item) => ({ code: item.code, name: item.name }))]
+          : [],
+    }));
 
-  const handleCategoryChange = (categoryId: string) => {
+  const parentCategory = categories?.find((c) => c.code === categoryCode);
+  const subCategory = subcategoryCode ?? parentCategory?.tags[0]?.code;
+
+  const handleCategoryChange = (categoryCode: string) => {
     queryClient.invalidateQueries({
-      queryKey: useGetPostsInfiniteQuery.getKey(categoryId),
+      queryKey: useGetPostsInfiniteQuery.getKey(categoryCode),
     });
     window.scrollTo({ top: 0 });
   };
@@ -64,7 +68,7 @@ const FeedList: FC<FeedListProps> = ({ renderFeedDetailLink, onScrollChange }) =
       )}
 
       <HeightSpacer>
-        {!categoryId ? (
+        {!categoryCode ? (
           <Hot />
         ) : (
           <ErrorBoundary
@@ -75,15 +79,12 @@ const FeedList: FC<FeedListProps> = ({ renderFeedDetailLink, onScrollChange }) =
               </div>
             )}
           >
-            {categoryId === CREW_CATEGORY_ID ? (
-              <CrewFeedList categoryId={categoryId} onScrollChange={onScrollChange} />
-            ) : (
-              <FeedListItems
-                categoryId={categoryId}
-                renderFeedDetailLink={renderFeedDetailLink}
-                onScrollChange={onScrollChange}
-              />
-            )}
+            <FeedListItems
+              categoryCode={categoryCode}
+              subCategory={subCategory}
+              renderFeedDetailLink={renderFeedDetailLink}
+              onScrollChange={onScrollChange}
+            />
           </ErrorBoundary>
         )}
       </HeightSpacer>

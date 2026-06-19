@@ -1,56 +1,72 @@
 import styled from '@emotion/styled';
+import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 import { IconUser } from '@sopt-makers/icons';
+import Link from 'next/link';
 
 import type { RecommendMemberById } from '@/api/endpoint/members/getMemberRecommendById';
 import type { RecommendMemberOfMe } from '@/api/endpoint/members/getMemberRecommendOfMe';
+import { LoggingClick } from '@/components/eventLogger/components/LoggingClick';
+import { LoggingImpression } from '@/components/eventLogger/components/LoggingImpression';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 import RecommendTypeChip from './RecommendTypeChip';
 
+export type Usage = 'home' | 'memberTab' | 'profile';
+
 // 두 API의 recommendType enum 값이 달라 유니온으로 수용
-interface Props {
-  member: Pick<
-    RecommendMemberOfMe | RecommendMemberById,
-    'profileImage' | 'name' | 'generation' | 'part' | 'recommendType'
-  >;
+interface MemberRecommendCardProps {
+  member: RecommendMemberOfMe | RecommendMemberById;
+  usage: Usage;
 }
 
-const MemberRecommendCard = ({ member }: Props) => {
-  const { profileImage, name, generation, part, recommendType } = member;
+const MemberRecommendCard = ({ member, usage }: MemberRecommendCardProps) => {
+  const { id, profileImage, name, generation, part, recommendType } = member;
+  const loggingParam = { id, name, recommendationType: recommendType };
 
   return (
-    <StyledContainer>
-      <StyledAvatarWrapper>
-        {profileImage ? <StyledAvatar src={profileImage} alt={`${name}님의 프로필 이미지`} /> : <StyledDefaultAvatar />}
-        <StyledChipOverlay>
-          <RecommendTypeChip recommendType={recommendType} />
-        </StyledChipOverlay>
-      </StyledAvatarWrapper>
-      <StyledInfoWrapper>
-        <StyledName>{name} &gt;</StyledName>
-        <StyledMeta>
-          {generation}기 {part}
-        </StyledMeta>
-      </StyledInfoWrapper>
-    </StyledContainer>
+    <LoggingImpression eventKey='memberRecommendCard' param={{ ...loggingParam, screen: usage }}>
+      <LoggingClick eventKey='memberRecommendCard' param={{ ...loggingParam, referral: usage }}>
+        <Link href={playgroundLink.memberDetail(id)}>
+          <StyledContainer usage={usage}>
+            <StyledAvatarWrapper>
+              {profileImage ? (
+                <StyledAvatar usage={usage} src={profileImage} alt={`${name}님의 프로필 이미지`} />
+              ) : (
+                <StyledDefaultAvatar usage={usage} />
+              )}
+              <StyledChipOverlay>
+                <RecommendTypeChip recommendType={recommendType} />
+              </StyledChipOverlay>
+            </StyledAvatarWrapper>
+            <StyledInfoWrapper usage={usage}>
+              <StyledName>{name} &gt;</StyledName>
+              <StyledMeta>
+                {generation}기 {part}
+              </StyledMeta>
+            </StyledInfoWrapper>
+          </StyledContainer>
+        </Link>
+      </LoggingClick>
+    </LoggingImpression>
   );
 };
 
 export default MemberRecommendCard;
 
-const StyledContainer = styled.div`
+const StyledContainer = styled.div<{ usage: string }>`
   display: flex;
+  flex-direction: ${({ usage }) => (usage === 'home' ? 'column' : 'row')};
   gap: 16px;
   align-items: center;
-  padding: 16px 24px;
+  padding: ${({ usage }) => (usage === 'home' ? '25px 32px' : '16px 24px')};
   background-color: ${colors.gray900};
   border-radius: 10px;
   cursor: pointer;
 
   @media ${MOBILE_MEDIA_QUERY} {
-    flex-direction: column;
+    flex-direction: ${({ usage }) => (usage === 'home' ? 'row' : 'column')};
     gap: 8px;
     padding: 12px 16px;
   }
@@ -60,19 +76,20 @@ const StyledAvatarWrapper = styled.div`
   position: relative;
 `;
 
-const StyledAvatar = styled.img`
+const StyledAvatar = styled.img<{ usage: string }>`
   display: block;
   width: 80px;
   height: 80px;
   border-radius: 50%;
+  object-fit: cover;
 
   @media ${MOBILE_MEDIA_QUERY} {
-    width: 72px;
-    height: 72px;
+    width: ${({ usage }) => (usage === 'home' ? '56px' : '72px')};
+    height: ${({ usage }) => (usage === 'home' ? '56px' : '72px')};
   }
 `;
 
-const StyledDefaultAvatar = styled(IconUser)`
+const StyledDefaultAvatar = styled(IconUser)<{ usage: string }>`
   display: block;
   width: 80px;
   height: 80px;
@@ -82,8 +99,8 @@ const StyledDefaultAvatar = styled(IconUser)`
   padding-top: 10px;
 
   @media ${MOBILE_MEDIA_QUERY} {
-    width: 72px;
-    height: 72px;
+    width: ${({ usage }) => (usage === 'home' ? '56px' : '72px')};
+    height: ${({ usage }) => (usage === 'home' ? '56px' : '72px')};
     padding-top: 9px;
   }
 `;
@@ -95,16 +112,17 @@ const StyledChipOverlay = styled.div`
   transform: translateX(-50%);
 `;
 
-const StyledInfoWrapper = styled.div`
+const StyledInfoWrapper = styled.div<{ usage: string }>`
   flex: 1;
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  align-items: ${({ usage }) => (usage === 'home' ? 'center' : 'start')};
+  gap: ${({ usage }) => (usage === 'home' ? '2px' : '6px')};
 
   @media ${MOBILE_MEDIA_QUERY} {
     gap: 2px;
-    align-items: center;
+    align-items: ${({ usage }) => (usage === 'home' ? 'start' : 'center')};
   }
 `;
 

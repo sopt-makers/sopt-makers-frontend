@@ -38,7 +38,7 @@ const Lucky = () => {
     } else {
       logSubmitEvent('luckyTimeCapsule', { event_winner: false });
       sessionStorage.removeItem('LUCKY_ENTRY');
-      router.push(playgroundLink.feedList());
+      router.push(playgroundLink.home());
     }
     queryClient.setQueryData(['getResolution'], (oldData: typeof resolutionData) => {
       if (!oldData) return oldData;
@@ -53,7 +53,7 @@ const Lucky = () => {
     logSubmitEvent('luckyTimeCapsule', { event_winner: true });
     sessionStorage.removeItem('LUCKY_ENTRY');
     window.open('http://pf.kakao.com/_sxaIWG', '_blank');
-    router.push(playgroundLink.feedList());
+    router.push(playgroundLink.home());
   };
 
   useEffect(() => {

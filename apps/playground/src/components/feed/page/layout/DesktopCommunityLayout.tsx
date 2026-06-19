@@ -1,10 +1,8 @@
-import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
 import { m } from 'framer-motion';
-import type { FC, ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
-import { ADS } from '@/components/common/Banner/AdsBanner/constants/ads';
 import { layoutCSSVariable } from '@/components/layout/utils';
 import WordChainEntry from '@/components/wordchain/WordchainEntry/WordChainEntry';
 
@@ -16,18 +14,16 @@ interface DesktopCommunityLayoutProps {
 
 const DETAIL_SLOT_WIDTH = 560;
 
-const DesktopCommunityLayout: FC<DesktopCommunityLayoutProps> = ({ isDetailOpen, listSlot, detailSlot }) => {
-  const isBanner = ADS && ADS.length > 0;
-
+const DesktopCommunityLayout = ({ isDetailOpen, listSlot, detailSlot }: DesktopCommunityLayoutProps) => {
   return (
     <div style={{ margin: '0 30px' }}>
-      <WordChainWrapper isBanner={isBanner}>
-        <WordChainEntry />
+      <WordChainWrapper>
+        <StyledWordChainEntry />
       </WordChainWrapper>
       <Container>
         <ListSlot isDetailOpen={isDetailOpen}>{listSlot}</ListSlot>
         <DetailSlot
-          initial={{ width: isDetailOpen ? DETAIL_SLOT_WIDTH : 0 }}
+          initial={{ width: 0 }}
           animate={{ width: isDetailOpen ? DETAIL_SLOT_WIDTH : 0 }}
           transition={{ bounce: 0 }}
         >
@@ -42,17 +38,13 @@ const DesktopCommunityLayout: FC<DesktopCommunityLayoutProps> = ({ isDetailOpen,
 
 export default DesktopCommunityLayout;
 
-const WordChainWrapper = styled.div<{ isBanner: boolean }>`
-  margin: 0 auto;
-  min-width: 0;
-  max-width: 912px;
+const WordChainWrapper = styled.div`
+  width: 100%;
+  padding: 32px 0 16px 0;
+`;
 
-  ${({ isBanner }) =>
-    isBanner &&
-    css`
-      margin-bottom: 16px;
-      max-width: 560px;
-    `}
+const StyledWordChainEntry = styled(WordChainEntry)`
+  max-width: 560px;
 `;
 
 const Container = styled.div`

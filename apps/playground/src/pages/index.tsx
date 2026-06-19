@@ -3,7 +3,9 @@ import type { NextPage } from 'next';
 import AuthRequired from '@/components/auth/AuthRequired';
 import ActiveBannerSlot from '@/components/common/Banner/ActiveBannerSlot';
 import HomePopupContainer from '@/components/common/HomePopup/HomePopupContainer';
-import FeedHomePage from '@/components/feed/page/FeedHomePage';
+import Responsive from '@/components/common/Responsive';
+import MenuEntryIcons from '@/components/feed/list/MenuEntryIcons/MenuEntryIcons';
+import HomePage from '@/components/home';
 import { setLayout } from '@/utils/layout';
 
 const Home: NextPage = () => {
@@ -11,9 +13,10 @@ const Home: NextPage = () => {
     <AuthRequired>
       <HomePopupContainer />
       <ActiveBannerSlot />
-      <FeedHomePage />
-
-      {/* 홈팝업 사용시에 주석제거 */}
+      <Responsive only='mobile'>
+        <MenuEntryIcons />
+      </Responsive>
+      <HomePage />
     </AuthRequired>
   );
 };

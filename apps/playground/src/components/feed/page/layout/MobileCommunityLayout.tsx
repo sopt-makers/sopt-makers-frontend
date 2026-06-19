@@ -1,9 +1,8 @@
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
-import type { FC, ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { RemoveScroll } from 'react-remove-scroll';
 
-import MenuEntryIcons from '@/components/feed/list/MenuEntryIcons/MenuEntryIcons';
 import WordChainEntry from '@/components/wordchain/WordchainEntry/WordChainEntry';
 import { zIndex } from '@/styles/zIndex';
 
@@ -13,12 +12,11 @@ interface MobileCommunityLayoutProps {
   detailSlot: ReactNode;
 }
 
-const MobileCommunityLayout: FC<MobileCommunityLayoutProps> = ({ listSlot, detailSlot, isDetailOpen }) => {
+const MobileCommunityLayout = ({ listSlot, detailSlot, isDetailOpen }: MobileCommunityLayoutProps) => {
   return (
     <Container>
-      <StyledMenuEntryIcons />
       <WordChainWrapper>
-        <WordChainEntry />
+        <StyledWordChainEntry />
       </WordChainWrapper>
       <ListSlotBox>{listSlot}</ListSlotBox>
       {isDetailOpen && (
@@ -36,15 +34,15 @@ export default MobileCommunityLayout;
 
 const WordChainWrapper = styled.div`
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 12px 20px;
+`;
+
+const StyledWordChainEntry = styled(WordChainEntry)`
+  max-width: none;
 `;
 
 const Container = styled.div`
   position: relative;
-`;
-
-const StyledMenuEntryIcons = styled(MenuEntryIcons)`
-  margin: 24px 0 12px;
 `;
 
 const ListSlotBox = styled.div`

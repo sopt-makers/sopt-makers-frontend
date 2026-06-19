@@ -55,6 +55,10 @@ export const [CategoryLink, useCategoryParam] = createLinkComponent({
   paramKey: 'category',
 });
 
+export const [SubcategoryLink, useSubcategoryParam] = createLinkComponent({
+  paramKey: 'subcategory',
+});
+
 export const [FeedDetailLink, useFeedDetailParam] = createLinkComponent({
   paramKey: 'feed',
 });

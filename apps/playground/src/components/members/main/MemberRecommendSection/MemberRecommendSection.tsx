@@ -1,25 +1,24 @@
 import styled from '@emotion/styled';
 import * as Tooltip from '@radix-ui/react-tooltip';
-import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
-import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 import { useGetMemberRecommendOfMe } from '@/api/endpoint/members/getMemberRecommendOfMe';
-import { LoggingClick } from '@/components/eventLogger/components/LoggingClick';
-import { LoggingImpression } from '@/components/eventLogger/components/LoggingImpression';
+import useEventLogger from '@/components/eventLogger/hooks/useEventLogger';
 import RefreshIcon from '@/public/icons/icon_refresh.svg';
-import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
+import { DESKTOP_TWO_MEDIA_QUERY, MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 import MemberRecommendCard from '../../common/MemberRecommendCard/MemberRecommendCard';
-import { DESKTOP_TWO_MEDIA_QUERY } from '../contants';
+import MemberRecommendCardSkeleton from '../../common/MemberRecommendCard/MemberRecommendCardSkeleton';
 
 const PC_MEDIA_WIDTH = 1200;
 const PC_MEDIA_QUERY = `screen and (min-width: ${PC_MEDIA_WIDTH}px)`;
+const SKELETON_COUNT = 4;
 
 const MemberRecommendSection = () => {
-  const { data, refetch } = useGetMemberRecommendOfMe();
+  const { logClickEvent } = useEventLogger();
+  const { data, isLoading, refetch } = useGetMemberRecommendOfMe();
   const memberRecommendData = data?.members;
   const [isTooltipOpen, setIsTooltipOpen] = useState(true);
   const [isWideViewport, setIsWideViewport] = useState(false);
@@ -37,6 +36,7 @@ const MemberRecommendSection = () => {
   const handleRefreshClick = () => {
     setIsTooltipOpen(false);
     refetch();
+    logClickEvent('memberRecommendRefresh', { screen: 'profile' });
   };
 
   return (
@@ -67,22 +67,13 @@ const MemberRecommendSection = () => {
         )}
       </StyledSectionHeader>
       <StyledCardGrid>
-        {memberRecommendData?.map((member) => (
-          <LoggingImpression
-            key={member.id}
-            eventKey='memberRecommendCard'
-            param={{ id: member.id, name: member.name, recommendationType: member.recommendType, screen: 'memberTab' }}
-          >
-            <LoggingClick
-              eventKey='memberRecommendCard'
-              param={{ id: member.id, name: member.name, recommendationType: member.recommendType }}
-            >
-              <Link href={playgroundLink.memberDetail(member.id)}>
-                <MemberRecommendCard member={member} />
-              </Link>
-            </LoggingClick>
-          </LoggingImpression>
-        ))}
+        {isLoading
+          ? Array.from({ length: SKELETON_COUNT }, (_, index) => (
+              <MemberRecommendCardSkeleton key={index} usage='memberTab' />
+            ))
+          : memberRecommendData?.map((member) => (
+              <MemberRecommendCard key={member.id} member={member} usage='memberTab' />
+            ))}
       </StyledCardGrid>
     </StyledSection>
   );
@@ -160,18 +151,18 @@ const TooltipArrow = styled.div`
 
 const StyledCardGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 12px;
 
-  & > *:nth-child(n + 5) {
+  & > *:nth-of-type(n + 5) {
     display: none;
   }
 
   @media ${DESKTOP_TWO_MEDIA_QUERY} {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 8px;
 
-    & > *:nth-child(n + 4) {
+    & > *:nth-of-type(n + 4) {
       display: none;
     }
   }

@@ -4,27 +4,20 @@ import { fonts } from '@sopt-makers/fonts';
 import { useRouter } from 'next/router';
 
 import { useRecentSopticles } from '@/api/endpoint/feed/getRecentSopticle';
+import ScrollCarousel from '@/components/common/ScrollCarousel';
 import Text from '@/components/common/Text';
 import { LoggingClick } from '@/components/eventLogger/components/LoggingClick';
-import { SOPTICLE_CATEGORY_ID } from '@/components/feed/constants';
+import { SOPTICLE_CATEGORY_CODE } from '@/components/feed/constants';
 import SopticleCard from '@/components/feed/home/SopticleArea/SopticleCard';
-import { useScrollCarousel } from '@/components/feed/home/SopticleArea/useScrollCarousel';
 import FeedSkeleton from '@/components/feed/list/FeedSkeleton';
+import { getLoopedItems } from '@/hooks/useScrollCarousel';
 
 const SopticleArea = () => {
   const router = useRouter();
   const { data: sopticles = [], isLoading, isError } = useRecentSopticles();
 
-  const extendedCards = sopticles.length > 0 ? [sopticles[sopticles.length - 1], ...sopticles, sopticles[0]] : [];
-  // 0 = 마지막 복제, 1~N = 실제 데이터, N+1 = 첫번째 복제
-
-  const { containerRef, activeIndex, getActualIndex, scrollToIndex } = useScrollCarousel({
-    itemCount: sopticles.length,
-    autoSlideInterval: 4000,
-  });
-
   const navigateToSopticle = () => {
-    router.push(`/?category=${SOPTICLE_CATEGORY_ID}`);
+    router.push(`/?category=${SOPTICLE_CATEGORY_CODE}`);
   };
 
   return (
@@ -34,51 +27,35 @@ const SopticleArea = () => {
         <AllBtn onClick={navigateToSopticle}>전체보기</AllBtn>
       </TitleBox>
 
-      <SopticleViewport ref={containerRef}>
-        {isError && (
-          <Text
-            typography='SUIT_14_M'
-            color={colors.gray300}
-            lineHeight={16}
-            style={{ textAlign: 'center', padding: '80px' }}
-          >
-            솝티클을 보여주는데 문제가 발생했어요.
-          </Text>
-        )}
-        {isLoading ? (
-          <FeedSkeleton count={1} />
-        ) : (
-          <SopticleTrack>
-            {extendedCards.map((sopticle, index) =>
-              sopticle ? (
-                <LoggingClick
-                  key={`log-${sopticle.id}-${index}`}
-                  eventKey='feedCard'
-                  param={{
-                    feedId: String(sopticle.id),
-                    category: '솝티클',
-                    referral: 'category_HOT',
-                  }}
-                >
-                  <CardWrapper>
-                    <SopticleCard sopticle={sopticle} />
-                  </CardWrapper>
-                </LoggingClick>
-              ) : null,
-            )}
-          </SopticleTrack>
-        )}
-      </SopticleViewport>
-
-      <Indicators>
-        {sopticles.map((_, index) => (
-          <Indicator
-            key={index}
-            isActive={getActualIndex(activeIndex) === index + 1}
-            onClick={() => scrollToIndex(index + 1)}
-          />
-        ))}
-      </Indicators>
+      {isError && (
+        <Text
+          typography='SUIT_14_M'
+          color={colors.gray300}
+          lineHeight={16}
+          style={{ textAlign: 'center', padding: '80px' }}
+        >
+          솝티클을 보여주는데 문제가 발생했어요.
+        </Text>
+      )}
+      {isLoading ? (
+        <FeedSkeleton count={1} />
+      ) : (
+        <ScrollCarousel itemCount={sopticles.length} autoPlay={{ enabled: true, interval: 4000 }}>
+          {getLoopedItems(sopticles).map((sopticle, index) => (
+            <LoggingClick
+              key={`${sopticle.id}-${index}`}
+              eventKey='feedCard'
+              param={{
+                feedId: String(sopticle.id),
+                category: '솝티클',
+                referral: 'category_HOT',
+              }}
+            >
+              <SopticleCard sopticle={sopticle} />
+            </LoggingClick>
+          ))}
+        </ScrollCarousel>
+      )}
     </Container>
   );
 };
@@ -112,43 +89,4 @@ const AllBtn = styled.button`
   &:hover {
     box-shadow: inset 0 -1px 0 0 ${colors.gray400};
   }
-`;
-
-const SopticleViewport = styled.div`
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
-`;
-
-const SopticleTrack = styled.div`
-  display: flex;
-  gap: 12px;
-`;
-
-const CardWrapper = styled.div`
-  display: flex;
-  flex: 0 0 100%;
-  scroll-snap-align: start;
-  justify-content: center;
-  width: 100%;
-`;
-
-const Indicators = styled.div`
-  display: flex;
-  gap: 4px;
-  justify-content: center;
-  margin-top: 4px;
-  margin-bottom: 10px;
-  width: 100%;
-`;
-
-const Indicator = styled.button<{ isActive: boolean }>`
-  border-radius: 10px;
-  background-color: ${({ isActive }) => (isActive ? colors.gray50 : colors.gray600)};
-  width: 16px;
-  height: 4px;
 `;

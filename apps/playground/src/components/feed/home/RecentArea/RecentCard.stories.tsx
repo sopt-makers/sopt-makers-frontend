@@ -23,9 +23,8 @@ const basicMock: RecentPosts = {
   createdAt: '1시간 전',
   likeCount: 12,
   commentCount: 5,
-  isAnswered: false,
-  categoryId: 1,
-  categoryName: '질문',
+  categoryTag: 'FREE',
+  categoryTagLabel: '자유',
   totalVoteCount: 3,
 };
 
@@ -36,9 +35,8 @@ const basicMock2: RecentPosts = {
   createdAt: '23시간 전',
   likeCount: 23,
   commentCount: 1,
-  isAnswered: true,
-  categoryId: 1,
-  categoryName: '질문',
+  categoryTag: 'FREE',
+  categoryTagLabel: '자유',
   totalVoteCount: 0,
 };
 
@@ -49,26 +47,25 @@ const basicMock3: RecentPosts = {
   createdAt: '23시간 전',
   likeCount: 0,
   commentCount: 0,
-  isAnswered: false,
-  categoryId: 1,
-  categoryName: '질문',
+  categoryTag: 'FREE',
+  categoryTagLabel: '자유',
   totalVoteCount: 11,
 };
 
 export const 기본: Story = {
   args: {
-    recentPosts: basicMock,
+    recentPost: basicMock,
   },
 };
 
 export const 제목없음_본문만있는카드: Story = {
   args: {
-    recentPosts: basicMock2,
+    recentPost: basicMock2,
   },
 };
 
 export const 제목본문_길이가긴카드: Story = {
   args: {
-    recentPosts: basicMock3,
+    recentPost: basicMock3,
   },
 };

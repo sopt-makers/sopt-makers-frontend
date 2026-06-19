@@ -1,20 +1,23 @@
 import styled from '@emotion/styled';
-import { playgroundLink } from '@sopt/constant';
+import { crewLink, playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import { IconAlertTriangle, IconShare, IconTrash, IconWrite } from '@sopt-makers/icons';
 import { useQuery } from '@tanstack/react-query';
 import { Flex } from '@toss/emotion-utils';
 import Link from 'next/link';
-import type { FC, ReactNode } from 'react';
+import type { MouseEvent, ReactNode } from 'react';
 import { useRef } from 'react';
 import type { VirtuosoHandle } from 'react-virtuoso';
 import { Virtuoso } from 'react-virtuoso';
 import { atom, useRecoilState } from 'recoil';
 
+import { useToggleCrewPostLikeMutation } from '@/api/crew/toggleCrewPostLike';
 import { getCategory } from '@/api/endpoint/feed/getCategory';
 import { getPost } from '@/api/endpoint/feed/getPost';
+import type { PostsType } from '@/api/endpoint/feed/getPosts';
 import { useGetPostsInfiniteQuery } from '@/api/endpoint/feed/getPosts';
 import { getRecentPosts } from '@/api/endpoint/feed/getRecentPosts';
+import { useGetMemberOfMe } from '@/api/endpoint/members/getMemberOfMe';
 import Text from '@/components/common/Text';
 import { LoggingClick } from '@/components/eventLogger/components/LoggingClick';
 import FeedDropdown from '@/components/feed/common/FeedDropdown';
@@ -23,16 +26,18 @@ import { useDeleteFeed } from '@/components/feed/common/hooks/useDeleteFeed';
 import { useReportFeed } from '@/components/feed/common/hooks/useReportFeed';
 import { useShareFeed } from '@/components/feed/common/hooks/useShareFeed';
 import { useToggleLike } from '@/components/feed/common/hooks/useToggleLike';
-import { getMemberInfo, getParentCategoryId } from '@/components/feed/common/utils';
-import { QUESTION_CATEGORY_ID, SOPTICLE_CATEGORY_ID } from '@/components/feed/constants';
+import { getMemberInfo } from '@/components/feed/common/utils';
 import FeedCard from '@/components/feed/list/FeedCard';
 import FeedSkeleton from '@/components/feed/list/FeedSkeleton';
 import { useNavigateBack } from '@/components/navigation/useNavigateBack';
 import Vote from '@/components/vote';
 import { textStyles } from '@/styles/typography';
 
+import { MEETING_CATEGORY_CODE, SOPTICLE_CATEGORY_CODE } from '../constants';
+
 interface FeedListItemsProps {
-  categoryId: string | undefined;
+  categoryCode?: string;
+  subCategory?: string;
   renderFeedDetailLink: (props: { children: ReactNode; feedId: string; category: string }) => ReactNode;
   onScrollChange?: (scrolling: boolean) => void;
 }
@@ -42,29 +47,32 @@ const scrollIndexAtom = atom<Record<string, number>>({
   default: {},
 });
 
-const FeedListItems: FC<FeedListItemsProps> = ({ categoryId, renderFeedDetailLink, onScrollChange }) => {
+const FeedListItems = ({ categoryCode, subCategory, renderFeedDetailLink, onScrollChange }: FeedListItemsProps) => {
   const { data, refetch, fetchNextPage, isLoading, isError } = useGetPostsInfiniteQuery({
-    categoryId,
+    category: categoryCode,
+    filter: subCategory,
   });
 
   const { handleShareFeed } = useShareFeed();
   const { handleDeleteFeed } = useDeleteFeed();
   const { handleReport } = useReportFeed();
   const { handleToggleLike } = useToggleLike();
+  const { mutate: toggleCrewPostLike } = useToggleCrewPostLikeMutation();
+  const orgId = useGetMemberOfMe().data?.id ?? 0;
 
-  const flattenData = data?.pages.flatMap((page) => page.posts) ?? [];
+  const flattenData: PostsType['posts'] = data?.pages.flatMap((page) => page.posts) ?? [];
 
   const { data: categoryData } = useQuery({
     queryKey: getCategory.cacheKey(),
     queryFn: getCategory.request,
   });
-  const parentCategory = (categoryId: number, tag: string) => {
+  const parentCategory = (categoryCode: string) => {
     const category =
       categoryData &&
       categoryData.find((category) =>
         category.children.length > 0
-          ? category.children.some((tag) => tag.id === categoryId) || category.id === categoryId
-          : category.id === categoryId,
+          ? category.children.some((tag) => tag.code === categoryCode) || category.code === categoryCode
+          : category.code === categoryCode,
       )?.name;
 
     return category;
@@ -74,7 +82,7 @@ const FeedListItems: FC<FeedListItemsProps> = ({ categoryId, renderFeedDetailLin
   const virtuoso = useRef<VirtuosoHandle>(null);
 
   useNavigateBack(() => {
-    const idx = map[categoryId ?? ''];
+    const idx = map[categoryCode ?? ''];
     if (idx != null) {
       virtuoso.current?.scrollToIndex({
         index: idx,
@@ -82,6 +90,34 @@ const FeedListItems: FC<FeedListItemsProps> = ({ categoryId, renderFeedDetailLin
       });
     }
   });
+
+  const handleLikeClick = (post: PostsType['posts'][number]) => (e: MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+    e.preventDefault();
+
+    if (post.sourceType === MEETING_CATEGORY_CODE) {
+      toggleCrewPostLike({
+        orgId,
+        postId: post.id,
+        allPostsQueryKey: useGetPostsInfiniteQuery.getKey(post.categoryCode, 'ALL'),
+        postsQueryKey: useGetPostsInfiniteQuery.getKey(categoryCode, subCategory),
+      });
+    } else {
+      handleToggleLike({
+        postId: post.id,
+        isLiked: post.isLiked,
+        likes: post.likes,
+        allPostsQueryKey: useGetPostsInfiniteQuery.getKey(post.categoryCode, 'ALL'),
+        postsQueryKey: useGetPostsInfiniteQuery.getKey(categoryCode, subCategory),
+        postQueryKey: getPost.cacheKey(post.id.toString()),
+        recentPostsQuerykey: getRecentPosts.cacheKey(),
+      });
+    }
+  };
+
+  const handleFeedCardClick = (categoryCode: string, idx: number) => {
+    setMap((map) => ({ ...map, [categoryCode]: idx }));
+  };
 
   if (isLoading) return <FeedSkeleton />;
 
@@ -93,7 +129,7 @@ const FeedListItems: FC<FeedListItemsProps> = ({ categoryId, renderFeedDetailLin
         rangeChanged={({ startIndex, endIndex }) => {
           setMap((map) => ({
             ...map,
-            [categoryId ?? '']: (startIndex + endIndex) / 2,
+            [categoryCode ?? '']: (startIndex + endIndex) / 2,
           }));
         }}
         useWindowScroll
@@ -102,190 +138,171 @@ const FeedListItems: FC<FeedListItemsProps> = ({ categoryId, renderFeedDetailLin
         }}
         isScrolling={onScrollChange}
         itemContent={(idx, post) => {
-          const isSopticle = post.categoryId === SOPTICLE_CATEGORY_ID;
-          const isQuestion = post.categoryId === QUESTION_CATEGORY_ID;
-          const parent = parentCategory(post.categoryId, post.categoryName);
+          const isSopticle = post.categoryCode === SOPTICLE_CATEGORY_CODE;
+          const parent = parentCategory(post.categoryCode);
           const category = parent === post.categoryName ? post.categoryName : `${parent}_${post.categoryName}`;
 
-          return renderFeedDetailLink({
-            feedId: `${post.id}`,
-            category,
-            children: (
-              <FeedCard
-                onClick={() => setMap((map) => ({ ...map, [categoryId ?? '']: idx }))}
-                name={post.member?.name ?? '익명'}
-                title={post.title}
-                content={post.content}
-                profileImage={post.member?.profileImage ?? null}
-                createdAt={post.createdAt ?? ''}
-                commentLength={post.commentCount}
-                hits={post.hits}
-                isBlindWriter={post.isBlindWriter}
-                anonymousProfile={post.anonymousProfile}
-                isQuestion={isQuestion}
-                isShowInfo={categoryId === ''} // 전체 카테고리일 때
-                memberId={post.member?.id ?? 0}
-                isSopticle={isSopticle}
-                sopticleUrl={post.sopticleUrl ?? ''}
-                thumbnailUrl={post.images[0]}
-                info={
-                  categoryId ? (
-                    <>
-                      {!post.isBlindWriter && (
+          const feedCard = (
+            <FeedCard
+              onClick={() => handleFeedCardClick(categoryCode ?? '', idx)}
+              name={post.member?.name ?? '익명'}
+              title={post.title}
+              content={post.content}
+              profileImage={post.member?.profileImage ?? null}
+              createdAt={post.createdAt ?? ''}
+              commentLength={post.commentCount}
+              hits={post.hits}
+              isBlindWriter={post.isBlindWriter}
+              anonymousProfile={post.anonymousProfile}
+              isShowInfo={categoryCode === ''} // 전체 카테고리일 때
+              memberId={post.member?.id ?? 0}
+              isSopticle={isSopticle}
+              sopticleUrl={post.sopticleUrl ?? ''}
+              thumbnailUrl={post.images[0] ?? ''}
+              meeting={post.sourceType}
+              info={
+                categoryCode ? (
+                  <>
+                    {!post.isBlindWriter && (
+                      <>
+                        <Text typography='SUIT_14_R' lineHeight={20} color={colors.gray400} style={{ margin: '0 2px' }}>
+                          ∙
+                        </Text>
                         <>
-                          <Text
-                            typography='SUIT_14_R'
-                            lineHeight={20}
-                            color={colors.gray400}
-                            style={{ margin: '0 2px' }}
-                          >
-                            ∙
-                          </Text>
-                          <>
-                            {getMemberInfo({
-                              categoryId: post.categoryId,
-                              categoryName: post.categoryName,
-                              member: {
-                                activity: post.member?.activity ?? {
-                                  generation: 0,
-                                  part: '',
-                                  team: null,
-                                },
-                                careers: post.member?.careers ?? null,
+                          {getMemberInfo({
+                            categoryCode: post.categoryCode,
+                            categoryName: post.categoryName,
+                            member: {
+                              activity: post.member?.activity ?? {
+                                generation: 0,
+                                part: '',
+                                team: null,
                               },
-                            })}
-                          </>
-                        </>
-                      )}
-                      <Text typography='SUIT_14_R' lineHeight={20} color={colors.gray400} style={{ margin: '0 2px' }}>
-                        ∙
-                      </Text>
-                      {post.createdAt}
-                    </>
-                  ) : (
-                    <>
-                      님이 <Text />
-                      <Text typography='SUIT_14_B' lineHeight={20} color={colors.gray100}>
-                        {parentCategory(post.categoryId, post.categoryName)}
-                      </Text>
-                      에 남김
-                    </>
-                  )
-                }
-                rightIcon={
-                  <FeedDropdown
-                    trigger={
-                      <Flex as='button'>
-                        <FeedCard.Icon />
-                      </Flex>
-                    }
-                  >
-                    {post.isMine ? (
-                      <Link href={playgroundLink.feedEdit(post.id)}>
-                        <FeedDropdown.Item>
-                          <Flex align='center' css={{ gap: '10px', color: `${colors.gray10} ` }}>
-                            <IconWrite css={{ width: '16px', height: '16px' }} />
-                            수정
-                          </Flex>
-                        </FeedDropdown.Item>
-                      </Link>
-                    ) : null}
-                    <LoggingClick eventKey='feedShareButton' param={{ feedId: String(post.id), referral: 'list' }}>
-                      <FeedDropdown.Item
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleShareFeed(`${post.id}`);
-                        }}
-                      >
-                        <Flex align='center' css={{ gap: '10px', color: `${colors.gray10}` }}>
-                          <IconShare css={{ width: '16px', height: '16px' }} />
-                          공유
-                        </Flex>
-                      </FeedDropdown.Item>
-                    </LoggingClick>
-                    {post.isMine ? (
-                      <FeedDropdown.Item
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleDeleteFeed({
-                            postId: `${post.id}`,
-                            onSuccess: () => {
-                              refetch();
+                              careers: post.member?.careers ?? null,
                             },
-                          });
-                        }}
-                        type='danger'
-                      >
-                        <Flex align='center' css={{ gap: '10px' }}>
-                          <IconTrash css={{ width: '16px', height: '16px' }} />
-                          삭제
+                          })}
+                        </>
+                      </>
+                    )}
+                    <Text typography='SUIT_14_R' lineHeight={20} color={colors.gray400} style={{ margin: '0 2px' }}>
+                      ∙
+                    </Text>
+                    {post.createdAt}
+                  </>
+                ) : (
+                  <>
+                    님이 <Text />
+                    <Text typography='SUIT_14_B' lineHeight={20} color={colors.gray100}>
+                      {parentCategory(post.categoryCode)}
+                    </Text>
+                    에 남김
+                  </>
+                )
+              }
+              rightIcon={
+                <FeedDropdown
+                  trigger={
+                    <Flex as='button'>
+                      <FeedCard.Icon />
+                    </Flex>
+                  }
+                >
+                  {post.isMine ? (
+                    <Link href={playgroundLink.feedEdit(post.id)}>
+                      <FeedDropdown.Item>
+                        <Flex align='center' css={{ gap: '10px', color: `${colors.gray10} ` }}>
+                          <IconWrite css={{ width: '16px', height: '16px' }} />
+                          수정
                         </Flex>
                       </FeedDropdown.Item>
-                    ) : null}
-                    {!post.isMine ? (
-                      <FeedDropdown.Item
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleReport({ postId: `${post.id}` });
-                        }}
-                      >
-                        <Flex align='center' css={{ gap: '10px', color: `${colors.gray10}` }}>
-                          <IconAlertTriangle css={{ width: '16px', height: '16px' }} />
-                          신고
-                        </Flex>
-                      </FeedDropdown.Item>
-                    ) : null}
-                  </FeedDropdown>
-                }
-                like={
-                  <LoggingClick
-                    eventKey={post.isLiked ? 'feedUnlike' : 'feedLike'}
-                    param={{ feedId: String(post.id), category }}
-                  >
-                    <FeedLike
-                      isLiked={post.isLiked}
-                      likes={post.likes}
+                    </Link>
+                  ) : null}
+                  <LoggingClick eventKey='feedShareButton' param={{ feedId: String(post.id), referral: 'list' }}>
+                    <FeedDropdown.Item
                       onClick={(e) => {
                         e.stopPropagation();
-                        e.preventDefault();
-                        const parentId = getParentCategoryId(categoryData, post.categoryId);
-
-                        handleToggleLike({
-                          postId: post.id,
-                          isLiked: post.isLiked,
-                          likes: post.likes,
-                          allPostsQueryKey: useGetPostsInfiniteQuery.getKey(parentId.toString()),
-                          postsQueryKey: useGetPostsInfiniteQuery.getKey(post.categoryId.toString()),
-                          postQueryKey: getPost.cacheKey(post.id.toString()),
-                          recentPostsQuerykey: getRecentPosts.cacheKey(),
+                        handleShareFeed(`${post.id}`);
+                      }}
+                    >
+                      <Flex align='center' css={{ gap: '10px', color: `${colors.gray10}` }}>
+                        <IconShare css={{ width: '16px', height: '16px' }} />
+                        공유
+                      </Flex>
+                    </FeedDropdown.Item>
+                  </LoggingClick>
+                  {post.isMine ? (
+                    <FeedDropdown.Item
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleDeleteFeed({
+                          postId: `${post.id}`,
+                          onSuccess: () => {
+                            refetch();
+                          },
                         });
                       }}
-                      type={isQuestion ? 'thumb' : 'heart'}
-                    />
-                  </LoggingClick>
-                }
-              >
-                {!isSopticle && post.images.length !== 0 && (
-                  <FeedCard.Image>
-                    {post.images.map((image, index) => (
-                      <FeedCard.ImageItem key={`${image}-${index}`} src={image} height={240} />
-                    ))}
-                  </FeedCard.Image>
-                )}
-                {post.vote && (
-                  <Vote
-                    postId={post.id}
-                    categoryId={post.categoryId}
-                    isMine={post.isMine}
-                    isMultiple={post.vote.isMultiple}
-                    hasVoted={post.vote.hasVoted}
-                    options={post.vote.options}
-                    totalParticipants={post.vote.totalParticipants}
-                  />
-                )}
-              </FeedCard>
-            ),
-          });
+                      type='danger'
+                    >
+                      <Flex align='center' css={{ gap: '10px' }}>
+                        <IconTrash css={{ width: '16px', height: '16px' }} />
+                        삭제
+                      </Flex>
+                    </FeedDropdown.Item>
+                  ) : null}
+                  {!post.isMine ? (
+                    <FeedDropdown.Item
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleReport({ postId: `${post.id}` });
+                      }}
+                    >
+                      <Flex align='center' css={{ gap: '10px', color: `${colors.gray10}` }}>
+                        <IconAlertTriangle css={{ width: '16px', height: '16px' }} />
+                        신고
+                      </Flex>
+                    </FeedDropdown.Item>
+                  ) : null}
+                </FeedDropdown>
+              }
+              like={
+                <LoggingClick
+                  eventKey={post.isLiked ? 'feedUnlike' : 'feedLike'}
+                  param={{ feedId: String(post.id), category }}
+                >
+                  <FeedLike isLiked={post.isLiked} likes={post.likes} onClick={handleLikeClick(post)} type='heart' />
+                </LoggingClick>
+              }
+            >
+              {!isSopticle && post.images.length !== 0 && (
+                <FeedCard.Image>
+                  {post.images.map((image, index) => (
+                    <FeedCard.ImageItem key={`${image}-${index}`} src={image ?? ''} height={240} />
+                  ))}
+                </FeedCard.Image>
+              )}
+              {post.vote && (
+                <Vote
+                  postId={post.id}
+                  categoryCode={post.categoryCode}
+                  isMine={post.isMine}
+                  isMultiple={post.vote.isMultiple}
+                  hasVoted={post.vote.hasVoted}
+                  options={post.vote.options}
+                  totalParticipants={post.vote.totalParticipants}
+                />
+              )}
+            </FeedCard>
+          );
+
+          if (post.sourceType === MEETING_CATEGORY_CODE) {
+            return (
+              <Link href={crewLink.feedDetail(post.id)} onClick={() => handleFeedCardClick(categoryCode ?? '', idx)}>
+                {feedCard}
+              </Link>
+            );
+          }
+
+          return renderFeedDetailLink({ feedId: `${post.id}`, category, children: feedCard });
         }}
       />
       <div css={{ display: 'flex', justifyContent: 'center', padding: '30px 0' }}>
