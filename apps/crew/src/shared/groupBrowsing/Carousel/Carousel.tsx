@@ -74,48 +74,49 @@ const Carousel = () => {
   );
 };
 
-export default () => {
+export default function CarouselSuspense() {
   return (
     <Suspense fallback={<Loader />}>
       <Carousel />
     </Suspense>
   );
-};
+}
 
 const SCarousel = styled('div', {
   'position': 'relative',
+  'width': '100%',
 
   '.slick-slider': {
-    'flexType': 'center',
-    'position': 'relative',
-    'maxWidth': '1328px',
-    'width': '100vw',
-
-    '@large_desktop': {
-      width: '100%',
-
-      left: '-27px',
-    },
+    flexType: 'center',
+    position: 'relative',
+    maxWidth: '1328px',
+    width: '100%',
   },
 
   '.slick-list': {
-    'width': '1200px',
-    'minWidth': '1200px',
+    'width': '894px',
+    'minWidth': '894px',
 
     '& a': {
       flexType: 'center',
     },
 
     '@large_desktop': {
-      'width': '732px',
-      'minWidth': '732px',
+      width: '1200px',
+      minWidth: '1200px',
+    },
+
+    '@desktop': {
+      'width': 'min(894px, 100%)',
+      'minWidth': 'min(894px, 100%)',
 
       '&:after': {
         content: '""',
         position: 'absolute',
         top: '0',
-        right: '-1px',
-        width: '100px',
+        right: '0',
+        zIndex: '1',
+        width: '80px',
         height: '100%',
         background: 'linear-gradient(270deg, #0F0F12 0%, rgba(15, 15, 18, 0.00) 100%)',
         pointerEvents: 'none',
@@ -124,15 +125,27 @@ const SCarousel = styled('div', {
   },
 
   '.slick-prev': {
-    '@large_desktop': {
-      left: '-10px',
+    'left': 'clamp(-50px, calc(1270px - 100vw), 10px)',
+
+    '@desktop': {
+      left: '-50px',
+    },
+
+    '@tablet': {
+      left: '-30px',
     },
   },
 
   '.slick-next': {
     'transform': 'rotate(180deg)',
-    '@large_desktop': {
-      right: '-10px',
+    'right': 'clamp(-50px, calc(1270px - 100vw), 10px)',
+
+    '@desktop': {
+      right: '-50px',
+    },
+
+    '@tablet': {
+      right: '-30px',
     },
   },
 });
@@ -146,11 +159,11 @@ const SBlankArrow = styled('div', {
 const SPrevArrowContainer = styled('div', {
   position: 'absolute',
   left: '$0',
-  zIndex: '1',
+  zIndex: '2',
 });
 
 const SNextArrowContainer = styled('div', {
   position: 'absolute',
   right: '$0',
-  zIndex: '1',
+  zIndex: '2',
 });

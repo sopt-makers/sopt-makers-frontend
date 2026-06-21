@@ -30,9 +30,9 @@ export default function HomeCardListSuspense() {
 
 const SWrapper = styled('div', {
   'position': 'relative',
-  'width': '894px',
+  'width': '100%',
 
   '@large_desktop': {
-    width: '100%',
+    width: '894px',
   },
 });

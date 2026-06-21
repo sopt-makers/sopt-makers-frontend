@@ -36,11 +36,11 @@ export default QuickMenu;
 
 const SContainer = styled('section', {
   'display': 'flex',
-  'flexDirection': 'column',
+  'flexDirection': 'row',
   'gap': '40px',
 
   '@large_desktop': {
-    flexDirection: 'row',
+    flexDirection: 'column',
     gap: '40px',
 
     paddingLeft: '0',
@@ -70,27 +70,26 @@ const SMenuBtn = styled('button', {
 
 const SItem = styled('div', {
   'display': 'flex',
+  'flexDirection': 'column',
   'alignItems': 'center',
-  'gap': '24px',
+  'gap': '12px',
 
   'cursor': 'pointer',
 
   '@large_desktop': {
-    flexDirection: 'column',
-    gap: '12px',
+    flexDirection: 'row',
+    gap: '24px',
   },
 });
 
 const SItemLabel = styled('h3', {
-  'fontStyle': 'H2',
+  'fontStyle': 'H4',
   'letterSpacing': '-0.4px',
   'color': '$white',
   'textAlign': 'center',
 
   '@large_desktop': {
-    flexDirection: 'column',
-
-    fontStyle: 'H4',
+    fontStyle: 'H2',
   },
 
   '@tablet': {

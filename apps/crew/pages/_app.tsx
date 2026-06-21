@@ -148,14 +148,13 @@ const Layout = styled('div', {
   'color': theme.colors.white,
   'mx': '$auto',
   'marginTop': '128px',
-  'width': '1200px',
   'height': '100%',
 
   '@large_desktop': {
-    width: '790px',
+    width: '1200px',
   },
-  '@media (max-width: 849px)': {
-    width: '780px',
+  '@desktop': {
+    width: '894px',
   },
   '@tablet': {
     width: 'calc(100vw - 60px)',
