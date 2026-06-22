@@ -14,7 +14,7 @@ interface FilterProps {
 }
 
 const Filter = ({ placeCount }: FilterProps) => {
-  const { isDesktop } = useDisplay();
+  const { isMobile } = useDisplay();
   const { value: sortType, setValue: setSortType } = useSortTypeParams();
 
   const selectedOption = ORDER_OPTIONS.find((opt) => opt.value === sortType) ?? ORDER_OPTIONS[0];
@@ -23,7 +23,7 @@ const Filter = ({ placeCount }: FilterProps) => {
     setSortType(newValue);
   };
 
-  return isDesktop ? (
+  return !isMobile ? (
     <>
       <SSearchWrapper>
         <Search />

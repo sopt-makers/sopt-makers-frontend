@@ -32,9 +32,13 @@ const StyledIconSwitchVertical = styled(IconSwitchVertical, {
 });
 
 const StyledTriggerContent = styled(SelectV2.TriggerContent, {
+  '&&': {
+    width: '120px',
+    minWidth: '120px',
+  },
   // TODO: mds 수정 혹은 디자인 상의 필요..
-  background: 'transparent !important',
-  color: '$gray300 !important',
+  'background': 'transparent !important',
+  'color': '$gray300 !important',
 });
 
 export default OrderFilter;

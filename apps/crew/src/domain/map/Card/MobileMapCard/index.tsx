@@ -4,11 +4,10 @@ import MobileBottomSheet from '@domain/map/BottomSheet';
 import { Flex } from '@shared/util/layout/Flex';
 import { fontsObject } from '@sopt-makers/fonts';
 import { IconDotsVertical } from '@sopt-makers/icons';
-import { Tag } from '@sopt-makers/ui';
 import { useState } from 'react';
 import { styled } from 'stitches.config';
 
-import { getTagVariant } from '../util';
+import MapTag from '../MapTag';
 
 interface MobileMapCardProps {
   onDelete: () => void;
@@ -46,9 +45,7 @@ const MobileMapCard = ({ onDelete, onEdit, onLinkClick, onRecommendClick, mapDat
           <STagWrapper>
             <SPlaceNum>{mapData?.id}</SPlaceNum>
             {mapData?.mapTags?.map((tag, index) => (
-              <Tag key={index} size='sm' variant={getTagVariant(tag)}>
-                {tag}
-              </Tag>
+              <MapTag key={index} tag={tag} size='sm' />
             ))}
 
             <SPlaceName>{mapData?.placeName}</SPlaceName>
