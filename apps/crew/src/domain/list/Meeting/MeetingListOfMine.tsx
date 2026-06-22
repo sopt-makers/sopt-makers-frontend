@@ -43,7 +43,7 @@ function MeetingListOfMine() {
   );
 }
 
-export default () => {
+export default function MeetingListOfMineSuspense() {
   return (
     <Suspense
       fallback={
@@ -57,11 +57,11 @@ export default () => {
       <MeetingListOfMine />
     </Suspense>
   );
-};
+}
 
 const SMeetingCount = styled('p', {
   'fontStyle': 'H3',
-  '@media (max-width: 849px)': {
+  '@tablet': {
     width: '380px',
   },
   '@mobile': {

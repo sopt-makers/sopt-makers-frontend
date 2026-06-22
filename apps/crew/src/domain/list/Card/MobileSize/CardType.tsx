@@ -77,9 +77,13 @@ const STitle = styled('p', {
   'fontStyle': 'H2',
   'mt': '$8',
   '@mobile': {
+    display: '-webkit-box',
     fontAg: '14_semibold_140',
     maxWidth: '162px',
     minHeight: '40px',
+    overflow: 'hidden',
+    WebkitBoxOrient: 'vertical',
+    WebkitLineClamp: 2,
   },
 });
 const MobileWrapper = styled('div', {

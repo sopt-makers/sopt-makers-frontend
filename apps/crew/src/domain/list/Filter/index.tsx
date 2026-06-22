@@ -1,8 +1,6 @@
 import { CATEGORY_FILTER, GENERATION_FILTER, KEYWORD_FILTER, PART_FILTER, STATUS_FILTER } from '@constant/option';
 import FilterResetButton from '@domain/list/Filter/Reset';
 import { useSearchParams } from '@hook/queryString/custom';
-import { useDisplay } from '@hook/useDisplay';
-import { Flex } from '@shared/util/layout/Flex';
 import { styled } from 'stitches.config';
 
 import DropDownFilter from './DropDown';
@@ -10,25 +8,25 @@ import Search from './Search';
 
 function Filter() {
   const { value: search } = useSearchParams();
-  const { isLaptop } = useDisplay();
 
   return (
     <>
-      {isLaptop ? <Search /> : <></>}
-      <Flex align='center' justify='between'>
+      <SFilterLayout>
         <ScrollFilter>
-          <Flex>
-            <DropDownFilter filter={CATEGORY_FILTER} width={'149px'} />
-            <DropDownFilter filter={KEYWORD_FILTER} width={'133px'} />
-            <DropDownFilter filter={STATUS_FILTER} width={'152px'} />
-            <DropDownFilter filter={PART_FILTER} width={'121px'} />
-            <DropDownFilter filter={GENERATION_FILTER} width={'110px'} />
+          <SFilterRow>
+            <DropDownFilter filter={CATEGORY_FILTER} />
+            <DropDownFilter filter={KEYWORD_FILTER} />
+            <DropDownFilter filter={STATUS_FILTER} />
+            <DropDownFilter filter={PART_FILTER} />
+            <DropDownFilter filter={GENERATION_FILTER} />
             <FilterResetButton />
-          </Flex>
+          </SFilterRow>
         </ScrollFilter>
 
-        {isLaptop ? <></> : <Search />}
-      </Flex>
+        <SSearchWrapper>
+          <Search />
+        </SSearchWrapper>
+      </SFilterLayout>
 
       {!!search && <SearchResultMessage>&quot;{search}&quot;에 대한 검색결과입니다.</SearchResultMessage>}
     </>
@@ -43,12 +41,52 @@ const SearchResultMessage = styled('p', {
   '@mobile': { display: 'none' },
 });
 
+const SFilterLayout = styled('div', {
+  'display': 'grid',
+  'gridTemplateAreas': '"filters search"',
+  'gridTemplateColumns': 'minmax(0, 1fr) 335px',
+  'alignItems': 'center',
+  'width': '100%',
+
+  '@desktop': {
+    gridTemplateAreas: '"search" "filters"',
+    gridTemplateColumns: 'minmax(0, 1fr)',
+    rowGap: '$16',
+  },
+});
+
+const SSearchWrapper = styled('div', {
+  'gridArea': 'search',
+  'display': 'flex',
+  'justifyContent': 'flex-end',
+
+  '@desktop': {
+    justifyContent: 'center',
+  },
+
+  '@tablet': {
+    justifyContent: 'flex-start',
+  },
+});
+
+const SFilterRow = styled('div', {
+  display: 'flex',
+  alignItems: 'center',
+  gap: '$10',
+  width: '100%',
+});
+
 const ScrollFilter = styled('div', {
-  '@large_desktop': {
-    marginTop: '16px',
+  'gridArea': 'filters',
+  'width': '100%',
+
+  '@tablet': {
+    width: '725px',
+    justifySelf: 'start',
   },
 
   '@mobile': {
+    'width': '100%',
     'overflow': 'hidden',
     'overflowX': 'scroll',
 

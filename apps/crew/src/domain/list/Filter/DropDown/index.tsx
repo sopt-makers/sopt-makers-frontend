@@ -3,7 +3,6 @@ import type { FilterType } from '@constant/option';
 import { useMultiQueryString } from '@hook/queryString';
 import useDebounce from '@hook/useDebounce';
 import { SelectV2 } from '@sopt-makers/ui';
-import { css } from '@stitches/react';
 import { useEffect, useMemo, useState } from 'react';
 import { styled } from 'stitches.config';
 
@@ -11,18 +10,9 @@ import { ampli } from '@/ampli';
 
 interface DropDownFilterProps {
   filter: FilterType;
-  width?: string;
 }
 
-//notice: 현재 클래스 제대로 적용안되는 문제점으로 인해 !important 사용 필요
-const getAutoClass = (width?: string) =>
-  css({
-    minWidth: `${width ?? '140px'} !important`,
-    width: `${width ?? '140px'} !important`,
-    whiteSpace: 'nowrap',
-  });
-
-function DropDownFilter({ filter, width }: DropDownFilterProps) {
+function DropDownFilter({ filter }: DropDownFilterProps) {
   const { subject, options, label } = filter;
   const { value: selectedValue, setValue, deleteKey } = useMultiQueryString(subject);
   const [rawSelected, setRawSelected] = useState<string[]>([]);
@@ -94,7 +84,7 @@ function DropDownFilter({ filter, width }: DropDownFilterProps) {
     <SDropDownContainer>
       <SelectV2.Root type='text' visibleOptions={6} defaultValue={defaultValue} onChange={setPartQuery} multiple={true}>
         <SelectV2.Trigger>
-          <SelectV2.TriggerContent className={getAutoClass(width)()} placeholder={label} label={resolvedLabel} />
+          <STriggerContent placeholder={label} label={resolvedLabel} />
         </SelectV2.Trigger>
         <SelectV2.Menu>
           {options.map((option) => (
@@ -109,5 +99,13 @@ function DropDownFilter({ filter, width }: DropDownFilterProps) {
 export default DropDownFilter;
 
 const SDropDownContainer = styled('div', {
-  mr: '$10',
+  minWidth: '120px',
+});
+
+const STriggerContent = styled(SelectV2.TriggerContent, {
+  '&&': {
+    minWidth: '120px',
+    width: '100%',
+  },
+  'whiteSpace': 'nowrap',
 });

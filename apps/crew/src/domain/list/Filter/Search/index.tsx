@@ -1,8 +1,8 @@
 import { useSearchParams } from '@hook/queryString/custom';
 import { SearchField } from '@sopt-makers/ui';
-import { css } from '@stitches/react';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import { css } from 'stitches.config';
 
 import SearchMobile from './Mobile';
 
@@ -23,6 +23,14 @@ const buttonPositioner = css({
 
   '@large_desktop': {
     width: '335px',
+  },
+
+  '@tablet': {
+    width: '725px',
+  },
+
+  '@mobile': {
+    width: '100%',
   },
 });
 

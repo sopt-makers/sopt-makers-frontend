@@ -9,7 +9,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 
 const KeywordsSettingButton = () => {
-  const { isDesktop } = useDisplay();
+  const { isMobile } = useDisplay();
 
   const { mutate: mutateUserInterested } = useMutationInterestedKeywords();
   const { data: userInterested } = useQuery(useGetInterestedKeywordsQueryOption());
@@ -42,14 +42,14 @@ const KeywordsSettingButton = () => {
       <SettingButton onClick={() => setIsSettingOpen(true)} selectedKeywords={selectedAlarm} />
 
       <AlarmSettingModal
-        isOpen={isSettingOpen && isDesktop}
+        isOpen={isSettingOpen && !isMobile}
         close={() => setIsSettingOpen(false)}
         selectedAlarm={selectedAlarm}
         onKeywordClick={handleKeywordClick}
         onReset={handleReset}
       />
       <AlarmSettingBottomSheet
-        isOpen={isSettingOpen && !isDesktop}
+        isOpen={isSettingOpen && isMobile}
         close={() => setIsSettingOpen(false)}
         selectedAlarm={selectedAlarm}
         onKeywordClick={handleKeywordClick}

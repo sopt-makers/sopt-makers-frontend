@@ -18,11 +18,11 @@ const StyledGridContainer = styled('div', {
   'margin': '24px 0 120px 0',
   'placeItems': 'start center',
 
-  '@large_desktop': {
+  '@desktop': {
     gridTemplateColumns: 'repeat(2, 1fr)',
   },
 
-  '@media (max-width: 849px)': {
+  '@tablet': {
     gridTemplateColumns: '1fr',
     rowGap: '120px',
     alignItems: 'center',
