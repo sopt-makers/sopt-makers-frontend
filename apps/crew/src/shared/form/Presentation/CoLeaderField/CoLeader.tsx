@@ -120,7 +120,7 @@ const LeadersContainer = styled('div', {
   'display': 'flex',
   'alignItems': 'center',
   'gap': '8px',
-  '@media (max-width: 430px)': {
+  '@mobile': {
     flexDirection: 'column',
     alignItems: 'flex-start',
   },
@@ -131,7 +131,7 @@ const LeadersWrapper = styled('div', {
   'justifyContent': 'center',
   'alignItems': 'center',
   'gap': '10px',
-  '@media (max-width: 430px)': {
+  '@mobile': {
     gap: '8px',
     flexWrap: 'wrap',
     justifyContent: 'flex-start',
@@ -155,7 +155,7 @@ const Leader = styled('div', {
   'color': '$white',
   'position': 'relative',
 
-  '@media (max-width: 430px)': {
+  '@mobile': {
     width: '113px',
     height: '40px',
     padding: '8px 10px',
@@ -168,7 +168,7 @@ const LeaderName = styled('span', {
   ...fontsObject.BODY_2_16_M,
   'whiteSpace': 'nowrap',
 
-  '@media (max-width: 430px)': {
+  '@mobile': {
     ...fontsObject.BODY_3_14_M,
   },
 });
@@ -226,7 +226,7 @@ const SProfile = styled('a', {
     'objectFit': 'cover',
     'background': '$gray700',
 
-    '@media (max-width: 430px)': {
+    '@mobile': {
       width: '$24',
       height: '$24',
     },
@@ -256,7 +256,7 @@ const StyledIconXClose = styled(IconXClose, {
 const StyledProfileDefaultIcon = styled(ProfileDefaultIcon, {
   'width': '32px',
   'height': '32px',
-  '@media (max-width: 430px)': {
+  '@mobile': {
     width: '24px',
     height: '24px',
   },

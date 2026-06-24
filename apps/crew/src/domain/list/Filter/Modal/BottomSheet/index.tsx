@@ -13,7 +13,7 @@ interface BottomSheetDialogProps {
 function BottomSheet({ isOpen, handleClose }: BottomSheetDialogProps) {
   const filterSectionStyle = {
     'mb': '$48',
-    '@media (max-width: 768px)': { mb: '$40' },
+    '@mobile': { mb: '$40' },
   };
 
   return (
@@ -21,7 +21,7 @@ function BottomSheet({ isOpen, handleClose }: BottomSheetDialogProps) {
       isOpen={isOpen}
       label='필터'
       handleClose={handleClose}
-      headerRight={<InitializationButton css={{ '@media (max-width: 768px)': { mt: 0 } }} withText={false} size={16} />}
+      headerRight={<InitializationButton css={{ '@mobile': { mt: 0 } }} withText={false} size={16} />}
     >
       <FilterWrapper>
         <Chip css={filterSectionStyle} filter={CATEGORY_FILTER} />

@@ -13,7 +13,7 @@ import type { NextPage } from 'next';
 import { styled } from 'stitches.config';
 
 const Home: NextPage = () => {
-  const { isLaptop, isTablet } = useDisplay();
+  const { isLaptop, isMobile } = useDisplay();
 
   return (
     <>
@@ -21,7 +21,7 @@ const Home: NextPage = () => {
         <GuideButton />
       </SCrewTab>
       <EventPeriodBanner />
-      {isTablet ? (
+      {isMobile ? (
         <>
           <SContentTitle>⚡ 솝트만의 일회성 모임, 번쩍</SContentTitle>
           <GroupBrowsingSlider />
@@ -37,13 +37,6 @@ const Home: NextPage = () => {
         </>
       )}
       {isLaptop ? (
-        <Flex direction='column' justify='center' align='center'>
-          <QuickMenuWrapper>
-            <QuickMenu />
-          </QuickMenuWrapper>
-          <HomeCardList />
-        </Flex>
-      ) : (
         <>
           <Flex justify='between' style={{ marginTop: '72px' }}>
             <HomeCardList />
@@ -52,6 +45,13 @@ const Home: NextPage = () => {
             </div>
           </Flex>
         </>
+      ) : (
+        <Flex direction='column' justify='center' align='center'>
+          <QuickMenuWrapper>
+            <QuickMenu />
+          </QuickMenuWrapper>
+          <HomeCardList />
+        </Flex>
       )}
 
       <FloatingButton />
@@ -62,17 +62,10 @@ const Home: NextPage = () => {
 export default Home;
 
 const SCrewTab = styled(CrewTab, {
-  '@new_mobile': {
+  'pb': '$45',
+
+  '@mobile': {
     pb: '$28',
-  },
-  '@new_tablet': {
-    pb: '$45',
-  },
-  '@new_desktop': {
-    pb: '$45',
-  },
-  '@new_laptop': {
-    pb: '$45',
   },
 });
 
@@ -85,7 +78,7 @@ const SContentTitle = styled('div', {
   'alignItems': 'center',
   'width': '100%',
 
-  '@new_mobile': {
+  '@mobile': {
     display: 'flex',
     fontSize: '16px',
   },

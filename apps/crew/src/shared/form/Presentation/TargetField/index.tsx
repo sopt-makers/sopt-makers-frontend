@@ -58,10 +58,11 @@ const STargetFieldWrapper = styled('div', {
 
 const STargetChipContainer = styled('div', {
   'display': 'flex',
+  'width': '100%',
   'gap': '$10',
   'flexWrap': 'wrap',
 
-  '@media(max-width: 430px)': {
+  '@mobile': {
     maxWidth: '320px',
   },
 });

@@ -45,7 +45,7 @@ export default FlashAbout;
 const SAbout = styled('div', {
   'mr': '$90',
 
-  '@media (max-width: 768px)': {
+  '@mobile': {
     mr: '$0',
   },
 
@@ -59,7 +59,7 @@ const SAbout = styled('div', {
       'color': '$gray400',
       'mr': '$8',
 
-      '@media (max-width: 768px)': {
+      '@mobile': {
         mr: '$4',
       },
     },
@@ -68,7 +68,7 @@ const SAbout = styled('div', {
     'color': '$gray10',
     'mb': '$20',
 
-    '@media (max-width: 768px)': {
+    '@mobile': {
       fontStyle: 'H3',
     },
   },
@@ -77,7 +77,7 @@ const SAbout = styled('div', {
 const SStatusWrapper = styled('div', {
   'display': 'flex',
   'gap': '$12',
-  '@media (max-width: 768px)': {
+  '@mobile': {
     gap: '$8',
   },
 });
@@ -101,7 +101,7 @@ const SPeriod = styled('div', {
   'fontAg': '20_bold_100',
   'color': '$gray300',
 
-  '@media (max-width: 768px)': {
+  '@mobile': {
     fontStyle: 'T6',
   },
 });

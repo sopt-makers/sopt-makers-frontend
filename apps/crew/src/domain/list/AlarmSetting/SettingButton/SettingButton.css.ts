@@ -1,6 +1,6 @@
 import { fontsObject } from '@sopt-makers/fonts';
 import { IconBell, IconChevronRight } from '@sopt-makers/icons';
-import { styled } from '@stitches/react';
+import { styled } from 'stitches.config';
 
 export const SIconBell = styled(IconBell, {
   'width': '20px',

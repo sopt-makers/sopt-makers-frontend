@@ -9,7 +9,7 @@ import { styled } from 'stitches.config';
 const Home: NextPage = () => {
   return (
     <>
-      <div>
+      <SListLayout>
         {/*크루 탭 - 홈, 전체 모임, 내모임, 모임 신청 가이드 */}
         <CrewTab>
           <KeywordsSettingButton />
@@ -22,7 +22,7 @@ const Home: NextPage = () => {
 
         {/*모임 목록들 - MeetingListOfAll : 내부적으로 쿼리 파라미터 이용하여 필터링 적용*/}
         <MeetingListOfAll />
-      </div>
+      </SListLayout>
       <FloatingButton />
     </>
   );
@@ -30,13 +30,43 @@ const Home: NextPage = () => {
 
 export default Home;
 
+const SListLayout = styled('div', {
+  'width': '100%',
+
+  '@desktop': {
+    width: '790px',
+    mx: '$auto',
+  },
+
+  '@tablet': {
+    position: 'relative',
+    left: '50%',
+    transform: 'translateX(-50%)',
+    width: '734px',
+    mx: '$0',
+  },
+
+  '@mobile': {
+    position: 'static',
+    left: 'auto',
+    transform: 'none',
+    width: '100%',
+  },
+});
+
 const SFilterWrapper = styled('div', {
   'mt': '$45',
   'mb': '$40',
+
   '@tablet': {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
     mt: '$30',
   },
+
   '@mobile': {
+    alignItems: 'stretch',
     mb: '$28',
   },
 });

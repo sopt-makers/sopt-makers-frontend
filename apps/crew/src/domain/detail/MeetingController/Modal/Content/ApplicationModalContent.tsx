@@ -37,7 +37,7 @@ const SApplicationModalContent = styled('div', {
   'padding': '$24 $24 $40 $24',
   'borderRadius': '0 0 16px 16px',
 
-  '@media (max-width: 768px)': {
+  '@mobile': {
     padding: '0 $16',
   },
 
@@ -61,7 +61,7 @@ const SApplicationModalContent = styled('div', {
     'outline': 'none',
     'borderRadius': '10px',
 
-    '@media (max-width: 768px)': {
+    '@mobile': {
       height: '$160',
       padding: '$12',
       fontAg: '16_medium_150',
@@ -89,7 +89,7 @@ const SApplicationModalContent = styled('div', {
       cursor: 'not-allowed',
     },
 
-    '@media (max-width: 768px)': {
+    '@mobile': {
       width: '$130',
       padding: '$16 0',
       mt: '$8',

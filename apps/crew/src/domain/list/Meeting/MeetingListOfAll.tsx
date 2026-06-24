@@ -21,7 +21,8 @@ import Pagination from '../Pagination';
 
 function MeetingListOfAll() {
   const { value: page, setValue: setPage } = usePageParams();
-  const { isDesktop } = useDisplay();
+  const { isMobile } = useDisplay();
+  const isDesktopView = !isMobile;
   const { data: meetingListData, isLoading } = useSuspenseQuery(useMeetingListQueryOption());
   const { data: bannerData } = useSuspenseQuery(useBannerQueryOption('cr_main'));
 
@@ -66,16 +67,16 @@ function MeetingListOfAll() {
                   }
                 >
                   <SBannerImage
-                    src={isDesktop ? banner.pc_url : banner.mobile_url}
+                    src={isDesktopView ? banner.pc_url : banner.mobile_url}
                     alt='광고 구좌 이미지'
-                    isDesktop={isDesktop}
+                    isDesktop={isDesktopView}
                   />
                 </Link>
               ) : (
                 <SBannerImage
-                  src={isDesktop ? banner.pc_url : banner.mobile_url}
+                  src={isDesktopView ? banner.pc_url : banner.mobile_url}
                   alt='광고 구좌 이미지'
-                  isDesktop={isDesktop}
+                  isDesktop={isDesktopView}
                 />
               ))}
             {meetingListData?.meetings.slice(2).map((meetingData) => (
@@ -120,11 +121,15 @@ const PaginationWrapper = styled('div', {
 
 const SMeetingCountWrapper = styled('div', {
   'display': 'flex',
+  'mt': '$40',
 
-  '@new_mobile': { mt: '$28' },
-  '@new_tablet': { mt: '$40' },
-  '@new_desktop': { mt: '$40' },
-  '@new_laptop': { mt: '$40' },
+  '@tablet': {
+    justifyContent: 'center',
+  },
+
+  '@mobile': {
+    mt: '$28',
+  },
 });
 
 const SBannerImage = styled('img', {
@@ -139,7 +144,7 @@ const SBannerImage = styled('img', {
 
 const SMeetingCount = styled('p', {
   'fontStyle': 'H3',
-  '@media (max-width: 849px)': {
+  '@tablet': {
     width: '380px',
   },
   '@mobile': {

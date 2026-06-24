@@ -47,7 +47,6 @@ const JoinablePartsField = ({ value, onChange }: JoinablePartsFieldProps) => {
           active={Array.isArray(value) && value.some((selected) => selected.value === part.value)}
           onClick={() => handleClick(part)}
           key={part.value}
-          style={{ width: '80px' }}
         >
           {part.label}
         </Chip>

@@ -57,7 +57,7 @@ const STitle = styled('p', {
   'whiteSpace': 'nowrap',
   'textOverflow': 'ellipsis',
   'wordBreak': 'break-all',
-  '@media (max-width: 768px)': {
+  '@mobile': {
     fontStyle: 'T4',
   },
 });
@@ -70,7 +70,7 @@ const SelectItemThumbnailImage = styled('div', {
   'backgroundSize': 'cover',
   'backgroundPosition': 'center center',
   'backgroundRepeat': 'no-repeat',
-  '@media (max-width: 768px)': {
+  '@mobile': {
     width: '40px',
     height: '40px',
   },

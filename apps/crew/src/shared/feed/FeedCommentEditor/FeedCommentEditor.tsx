@@ -64,7 +64,7 @@ const Editor = styled('div', {
   'border': 'none',
   'outline': 'none',
   'resize': 'none',
-  '@media (max-width: 768px)': {
+  '@mobile': {
     position: 'relative',
   },
 });

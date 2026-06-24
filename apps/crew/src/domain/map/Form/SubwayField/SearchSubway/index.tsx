@@ -124,7 +124,7 @@ const StationsContainer = styled('div', {
   'display': 'flex',
   'alignItems': 'center',
   'gap': '8px',
-  '@media (max-width: 430px)': {
+  '@mobile': {
     flexDirection: 'column',
     alignItems: 'flex-start',
   },
@@ -135,7 +135,7 @@ const AddedStationsWrapper = styled('div', {
   'justifyContent': 'center',
   'alignItems': 'center',
   'gap': '10px',
-  '@media (max-width: 430px)': {
+  '@mobile': {
     gap: '8px',
     flexWrap: 'wrap',
     justifyContent: 'flex-start',
@@ -160,7 +160,7 @@ const Station = styled('div', {
   'color': '$white',
   'position': 'relative',
 
-  '@media (max-width: 430px)': {
+  '@mobile': {
     minWidth: '80px',
     height: '40px',
     padding: '8px 10px',
@@ -173,7 +173,7 @@ const StationName = styled('span', {
   ...fontsObject.BODY_2_16_M,
   'whiteSpace': 'nowrap',
 
-  '@media (max-width: 430px)': {
+  '@mobile': {
     ...fontsObject.BODY_3_14_M,
   },
 });
@@ -189,7 +189,7 @@ const SearchInput = styled('input', {
   '&::placeholder': {
     color: '$gray400',
   },
-  '@media (max-width: 430px)': {
+  '@mobile': {
     ...fontsObject.BODY_3_14_M,
   },
 });

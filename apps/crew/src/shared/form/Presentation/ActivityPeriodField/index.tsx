@@ -83,7 +83,7 @@ const SApplicationField = styled('div', {
   'width': '100%',
   'maxWidth': '205px',
 
-  '@media (max-width: 768px)': {
+  '@mobile': {
     maxWidth: '151px',
   },
 });

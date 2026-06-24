@@ -216,7 +216,7 @@ const SContainer = styled('div', {
   'flexType': 'center',
   'minHeight': '752px',
 
-  '@media (max-width: 768px)': {
+  '@mobile': {
     minHeight: '376px',
     height: '100%',
   },
@@ -237,7 +237,7 @@ const SMobileContainer = styled('div', {
     'content': '',
     'display': 'none',
 
-    '@media (max-width: 768px)': {
+    '@mobile': {
       display: 'block',
       width: '100vw',
       height: '8px',
@@ -253,7 +253,7 @@ const SHeader = styled('div', {
   'fontStyle': 'H1',
   'color': '$gray200',
 
-  '@media (max-width: 768px)': {
+  '@mobile': {
     padding: '$16 $20',
     fontStyle: 'H5',
     backgroundColor: '$gray800',
@@ -276,7 +276,7 @@ const SButton = styled('button', {
   'padding': '$16 $36',
   'borderRadius': '14px',
 
-  '@media (max-width: 768px)': {
+  '@mobile': {
     fontStyle: 'T5',
     ml: '$20',
     padding: '$6 $12',

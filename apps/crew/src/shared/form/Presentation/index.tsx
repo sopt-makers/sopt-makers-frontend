@@ -89,7 +89,7 @@ const SForm = styled('form', {
   'display': 'flex',
   'flexDirection': 'column',
   'gap': '120px',
-  '@media (max-width: 430px)': {
+  '@mobile': {
     gap: '40px',
   },
 });
@@ -101,7 +101,7 @@ const SFormSectionDivider = styled('div', {
   'gap': '8px',
   'alignItems': 'center',
 
-  '@media (max-width: 768px)': {
+  '@mobile': {
     ...fontsObject.HEADING_5_20_B,
   },
 });
@@ -111,7 +111,7 @@ const SFormSectionContainer = styled('div', {
   'flexDirection': 'column',
   'gap': '60px',
 
-  '@media (max-width: 768px)': {
+  '@mobile': {
     gap: '56px',
   },
 });
@@ -120,7 +120,7 @@ const SFormSectionDividerOptionText = styled('p', {
   ...fontsObject.HEADING_4_24_B,
   'color': `${colors.gray400}`,
 
-  '@media (max-width: 768px)': {
+  '@mobile': {
     ...fontsObject.HEADING_5_20_B,
   },
 });

@@ -176,7 +176,7 @@ const SDialogWrapper = styled('div', {
   '&::-webkit-scrollbar': {
     display: 'none',
   },
-  '@media (max-width: 768px)': {
+  '@mobile': {
     width: '100%',
     height: '100%',
     boxShadow: 'none',
