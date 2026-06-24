@@ -105,8 +105,28 @@ export default ManagementPage;
 const SManagementPage = styled('div', {
   'mt': '$100',
   'mb': '$180',
+  'width': '100%',
+  'boxSizing': 'border-box',
+
+  '@desktop': {
+    position: 'relative',
+    left: '50%',
+    transform: 'translateX(-50%)',
+    width: '1024px',
+    mx: '$0',
+    px: '$30',
+  },
+
+  '@tablet': {
+    width: '734px',
+    px: '$0',
+  },
 
   '@mobile': {
+    position: 'static',
+    left: 'auto',
+    transform: 'none',
+    width: '100%',
     mt: '$31',
     mb: '$66',
   },

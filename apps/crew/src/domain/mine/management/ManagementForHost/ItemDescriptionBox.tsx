@@ -27,7 +27,7 @@ const SItemDescriptionBox = styled('div', {
   'color': '$gray400',
   'fontAg': '16_bold_100',
 
-  '@mobile': {
+  '@tablet': {
     display: 'none',
   },
 });
