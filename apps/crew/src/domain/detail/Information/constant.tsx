@@ -70,7 +70,7 @@ export const MeetingDetailList = (detailData: GetMeeting['response']) => [
         {detailData?.joinableParts
           ?.map((key) => PART_NAME[key])
           .map((part) => (
-            <Chip key={part} style={{ width: '80px', boxShadow: 'none' }} active>
+            <Chip key={part} style={{ boxShadow: 'none' }} active>
               {part}
             </Chip>
           ))}
@@ -221,6 +221,7 @@ const SIconTitleWrapper = styled('div', {
 const SDescription = styled('p', {
   'fontAg': '22_regular_170',
   'whiteSpace': 'pre-line',
+  'overflowWrap': 'anywhere',
   'color': '$gray200',
 
   'a': {
