@@ -156,6 +156,9 @@ const Container = styled('div', {
   'border': '1px solid $gray700',
   'background': '$gray950',
   'mb': '$80',
+  '@tablet': {
+    width: 'min(100%, 800px)',
+  },
   '@mobile': {
     width: '100%',
     border: 'none',

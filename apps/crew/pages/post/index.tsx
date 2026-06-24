@@ -362,7 +362,7 @@ export default function PostPage() {
 const Container = styled('div', {
   'flexType': 'horizontalCenter',
   'gap': '40px',
-  '@large_desktop': {
+  '@desktop': {
     flexDirection: 'column',
     alignItems: 'center',
     gap: 0,
@@ -373,8 +373,14 @@ const FeedListContainer = styled('div', {
   'display': 'flex',
   'flexDirection': 'column',
   'gap': '80px',
-  '@large_desktop': {
+  '@desktop': {
     width: '800px',
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: '20px',
+  },
+  '@tablet': {
+    width: 'min(100%, 800px)',
     flexDirection: 'row',
     alignItems: 'flex-start',
     gap: '20px',
@@ -384,6 +390,10 @@ const FeedListContainer = styled('div', {
   },
 });
 const FeedListWrapper = styled('div', {
+  '@tablet': {
+    width: '100%',
+  },
+
   '&:last-child': {
     marginBottom: '140px',
   },
@@ -400,6 +410,10 @@ const FeedList = styled('ul', {
   flexDirection: 'column',
   gap: '24px',
   a: {
-    width: '$380',
+    'width': '$380',
+
+    '@tablet': {
+      width: '100%',
+    },
   },
 });
