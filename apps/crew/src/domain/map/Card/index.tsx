@@ -22,7 +22,7 @@ interface MapCardProps {
 const NAVER_MAP_APP_URL_PREFIX = 'nmap://';
 
 const MapCard = ({ mapData }: MapCardProps) => {
-  const { isDesktop } = useDisplay();
+  const { isMobile } = useDisplay();
   const { open, close } = useDialog();
   const { mutate: deleteMap } = useDeleteMapMutation();
   const { mutate: recommendMap } = useRecommendMapMutation();
@@ -124,8 +124,8 @@ const MapCard = ({ mapData }: MapCardProps) => {
 
   return (
     <CardWrapper>
-      {isDesktop ? (
-        <DesktopMapCard
+      {isMobile ? (
+        <MobileMapCard
           mapData={mapData}
           onDelete={handleDeleteModalOpen}
           onEdit={handleEdit}
@@ -133,7 +133,7 @@ const MapCard = ({ mapData }: MapCardProps) => {
           onRecommendClick={handleRecommendClick}
         />
       ) : (
-        <MobileMapCard
+        <DesktopMapCard
           mapData={mapData}
           onDelete={handleDeleteModalOpen}
           onEdit={handleEdit}

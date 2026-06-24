@@ -77,7 +77,7 @@ const SSubLabel = styled('p', {
   'color': '$gray100',
   'marginBottom': '$8',
 
-  '@media(max-width: 767px)': {
+  '@mobile': {
     marginBottom: '$3',
   },
 });
@@ -87,7 +87,7 @@ const SChipContainer = styled('div', {
   'gap': '$10',
   'flexWrap': 'wrap',
 
-  '@media(max-width: 430px)': {
+  '@mobile': {
     maxWidth: '320px',
   },
 });

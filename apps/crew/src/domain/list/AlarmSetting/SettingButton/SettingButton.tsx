@@ -12,17 +12,9 @@ interface SettingButtonProps {
 }
 
 const SettingButton = ({ onClick, selectedKeywords }: SettingButtonProps) => {
-  const { isMobile, isTablet } = useDisplay();
+  const { isMobile } = useDisplay();
 
   if (isMobile) {
-    return (
-      <SSettingButton onClick={onClick}>
-        <SIconBell />
-      </SSettingButton>
-    );
-  }
-
-  if (isTablet) {
     return (
       <SSettingButton onClick={onClick}>
         <SIconBell />

@@ -296,7 +296,7 @@ const SInputWrapper = styled('div', {
   'justifyContent': 'space-between',
   'cursor': 'pointer',
 
-  '@media (max-width: 768px)': {
+  '@mobile': {
     padding: '16px',
   },
 });
@@ -321,7 +321,7 @@ const SInput = styled('input', {
   'caretColor': '$transparent',
   '&::placeholder': {
     'color': '$gray500',
-    '@media (max-width: 768px)': {
+    '@mobile': {
       ...fontsObject.LABEL_5_11_SB,
     },
   },

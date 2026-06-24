@@ -200,7 +200,7 @@ function FeedFormPresentation({
           render={({ field: { value: contentsValue, onChange } }) => (
             <SFeedContentTextArea
               css={{
-                '@media (max-width: 768px)': {
+                '@mobile': {
                   height: `${remainingHeight}px`,
                 },
               }}
@@ -264,7 +264,7 @@ const SFormContainer = styled('div', {
   'padding': '40px 30px 30px',
   'background': '$gray800',
   'borderRadius': '15px',
-  '@media (max-width: 768px)': {
+  '@mobile': {
     padding: '30px 0 0 0',
     background: '$gray950',
     height: '100vh',
@@ -275,7 +275,7 @@ const SFormName = styled('h1', {
   'fontStyle': 'H1',
   'color': '$gray10',
 
-  '@media (max-width: 768px)': {
+  '@mobile': {
     margin: 0,
     fontStyle: 'T3',
   },
@@ -285,7 +285,7 @@ const SFormHeader = styled('div', {
   'display': 'flex',
   'justifyContent': 'space-between',
   'alignItems': 'center',
-  '@media (max-width: 768px)': {
+  '@mobile': {
     px: '$20',
   },
 });
@@ -305,7 +305,7 @@ const SSubmitButton = styled('button', {
       },
     },
   },
-  '@media (max-width: 768px)': {
+  '@mobile': {
     fontStyle: 'T4',
   },
 });
@@ -313,7 +313,7 @@ const SSubmitButton = styled('button', {
 const SGroupInfoSection = styled('div', {
   'mt': '$40',
   'flexType': 'verticalCenter',
-  '@media (max-width: 768px)': {
+  '@mobile': {
     px: '$20',
   },
 });
@@ -327,7 +327,7 @@ const SThumbnailImage = styled('div', {
   'backgroundSize': 'cover',
   'backgroundPosition': 'center center',
   'backgroundRepeat': 'no-repeat',
-  '@media (max-width: 768px)': {
+  '@mobile': {
     width: '40px',
     height: '40px',
   },
@@ -337,7 +337,7 @@ const SCategory = styled('p', {
   'color': '$gray400',
   'fontStyle': 'T3',
   'ml': '$20',
-  '@media (max-width: 768px)': {
+  '@mobile': {
     fontStyle: 'T4',
     ml: '$12',
   },
@@ -353,7 +353,7 @@ const STitle = styled('p', {
   'textOverflow': 'ellipsis',
   'wordBreak': 'break-all',
 
-  '@media (max-width: 768px)': {
+  '@mobile': {
     fontStyle: 'T4',
   },
 });
@@ -361,7 +361,7 @@ const STitle = styled('p', {
 const SDivider = styled(Divider, {
   'my': '$24',
   'backgroundColor': '$gray600',
-  '@media (max-width: 768px)': {
+  '@mobile': {
     my: '$20',
   },
 });
@@ -372,7 +372,7 @@ const STitleInput = styled('input', {
   'fontStyle': 'H3',
   'ml': '$8',
 
-  '@media (max-width: 768px)': {
+  '@mobile': {
     px: '$20',
     boxSizing: 'border-box',
     fontStyle: 'H4',
@@ -389,7 +389,7 @@ const SFeedContentTextArea = styled('div', {
   'backgroundColor': 'inherit',
   'ml': '$8',
 
-  '@media (max-width: 768px)': {
+  '@mobile': {
     px: '$20',
     boxSizing: 'border-box',
   },
@@ -404,7 +404,7 @@ const SImagePreviewHolder = styled('div', {
   'height': '108px',
   'mb': '$24',
   'mr': '$12',
-  '@media (max-width: 768px)': {
+  '@mobile': {
     width: '84px',
     height: '84px',
   },
@@ -435,7 +435,7 @@ const SImageInputWrapper = styled('div', {
   'display': 'flex',
   'alignItems': 'center',
   'justifyContent': 'space-between',
-  '@media (max-width: 768px)': {
+  '@mobile': {
     px: '$16',
   },
 });

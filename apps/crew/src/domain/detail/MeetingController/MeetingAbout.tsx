@@ -54,7 +54,7 @@ export default MeetingAbout;
 const SAbout = styled('div', {
   'mr': '$90',
 
-  '@media (max-width: 768px)': {
+  '@mobile': {
     mr: '$0',
   },
 
@@ -68,7 +68,7 @@ const SAbout = styled('div', {
       'color': '$gray400',
       'mr': '$8',
 
-      '@media (max-width: 768px)': {
+      '@mobile': {
         mr: '$4',
       },
     },
@@ -76,7 +76,7 @@ const SAbout = styled('div', {
     'fontAg': '34_bold_140',
     'color': '$gray10',
 
-    '@media (max-width: 768px)': {
+    '@mobile': {
       fontStyle: 'H3',
     },
   },
@@ -89,11 +89,11 @@ const SSubTitle = styled('p', {
   'color': '$gray200',
   'mb': '$20',
 
-  '@media (max-width: 1023px)': {
+  '@tablet': {
     ...fontsObject.BODY_2_16_R,
   },
 
-  '@mobile (max-width: 767px)': {
+  '@mobile': {
     ...fontsObject.BODY_3_14_M,
     mb: '$16',
   },
@@ -102,7 +102,7 @@ const SSubTitle = styled('p', {
 const SStatusWrapper = styled('div', {
   'display': 'flex',
   'gap': '$12',
-  '@media (max-width: 768px)': {
+  '@mobile': {
     gap: '$8',
   },
 });
@@ -111,7 +111,7 @@ const SPeriod = styled('div', {
   'fontAg': '20_bold_100',
   'color': '$gray300',
 
-  '@media (max-width: 768px)': {
+  '@mobile': {
     fontStyle: 'T6',
   },
 });

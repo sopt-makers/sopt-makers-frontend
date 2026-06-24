@@ -56,14 +56,14 @@ export default SubmitPresentationButton;
 const ButtonContainer = styled('div', {
   'display': 'none',
 
-  '@media (max-width: 1024px)': {
+  '@tablet': {
     display: 'flex',
     gap: '20px',
     justifySelf: 'flex-end',
     marginTop: '62px',
   },
 
-  '@media (max-width: 768px)': {
+  '@mobile': {
     width: '100%',
     marginBottom: '34px',
     gap: '10px',
@@ -72,7 +72,7 @@ const ButtonContainer = styled('div', {
 });
 
 const Button = styled('button', {
-  '@media (max-width: 1024px)': {
+  '@tablet': {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -84,7 +84,7 @@ const Button = styled('button', {
     padding: '12px 20px',
   },
 
-  '@media (max-width: 768px)': {
+  '@mobile': {
     width: '100%',
     ...fontsObject.LABEL_1_18_SB,
   },

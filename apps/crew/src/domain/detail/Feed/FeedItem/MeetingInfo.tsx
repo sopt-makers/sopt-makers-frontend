@@ -52,7 +52,7 @@ const Container = styled('div', {
   '&:hover': {
     border: '1px solid $gray500',
   },
-  '@media (max-width: 768px)': {
+  '@mobile': {
     background: '$gray900',
   },
 });

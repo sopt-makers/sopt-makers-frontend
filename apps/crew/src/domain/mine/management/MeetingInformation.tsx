@@ -46,7 +46,7 @@ const SMeetingInformation = styled('a', {
     flex: '1',
   },
 
-  '@media (max-width: 768px)': {
+  '@mobile': {
     marginTop: '$48',
     padding: '$16',
     border: 'none',
@@ -64,7 +64,7 @@ const SImage = styled('img', {
   'marginRight': '$35',
   'objectFit': 'cover',
 
-  '@media (max-width: 768px)': {
+  '@mobile': {
     width: '$103',
     minWidth: '$103',
     height: '$67',
@@ -78,7 +78,7 @@ const SCategory = styled('div', {
   'color': '$gray400',
   'mb': '$10',
 
-  '@media (max-width: 768px)': {
+  '@mobile': {
     fontAg: '12_bold_100',
   },
 });
@@ -87,7 +87,7 @@ const STitle = styled('p', {
   'fontAg': '28_bold_140',
   'color': '$gray10',
 
-  '@media (max-width: 768px)': {
+  '@mobile': {
     fontAg: '14_bold_140',
   },
 });

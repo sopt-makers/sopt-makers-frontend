@@ -98,7 +98,7 @@ const SThumbnailImage = styled('div', {
 
 const CategroyChipWrapper = styled('div', {
   'my': '$16',
-  '@media (max-width: 768px)': {
+  '@mobile': {
     my: '$8',
   },
 });

@@ -136,8 +136,8 @@ const SContainer = styled('div', {
   'position': 'sticky',
   'top': '$80',
 
-  // '@media (max-width: 768px)': {
-  '@media (max-width: 1024px)': {
+  // '@mobile': {
+  '@tablet': {
     display: 'none',
   },
 });

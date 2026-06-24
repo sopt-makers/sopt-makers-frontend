@@ -33,7 +33,7 @@ const SButton = styled(Flex, {
   'fontAg': '16_bold_100',
   'whiteSpace': 'nowrap',
   'background': '$gray800',
-  '@media (max-width: 768px)': {
+  '@mobile': {
     width: '91px',
     fontStyle: 'T6',
     padding: '6px 6px 6px 12px',

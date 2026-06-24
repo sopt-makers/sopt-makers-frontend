@@ -19,7 +19,7 @@ export default Status;
 const SLayout = styled(Flex, {
   'fontAg': '16_bold_100',
   'marginTop': '24px',
-  '@media (max-width: 768px)': {
+  '@mobile': {
     fontStyle: 'T6',
     marginTop: '12px',
   },
@@ -30,7 +30,7 @@ const SLabel = styled('div', {
   'borderRadius': '71px',
   'marginRight': '8px',
   'backgroundColor': '$gray800',
-  '@media (max-width: 768px)': {
+  '@mobile': {
     padding: '8px 10px',
     marginRight: '6px',
   },

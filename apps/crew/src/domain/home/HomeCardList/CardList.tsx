@@ -38,7 +38,6 @@ const CardList = ({ label, isMore = false, onMoreClick = () => {}, meetingIds }:
   if (!data) return null;
   return (
     <SCardListWrapper>
-      <SGradationRight />
       <STitleWrapper>
         <STitleStyle>{label}</STitleStyle>
         {isMore && <SMoreBtn onClick={onMoreClick}>{'더보기 >'}</SMoreBtn>}
@@ -63,23 +62,6 @@ const SCardListWrapper = styled('section', {
 
   '@tablet': {
     paddingBottom: '$40',
-  },
-});
-
-const SGradationRight = styled('div', {
-  'width': '80px',
-  'height': '346px',
-  'background': 'linear-gradient(270deg, #0F0F12 0%, rgba(15, 15, 18, 0.00) 50%)',
-
-  'position': 'absolute',
-  'right': '-1px',
-  'pointerEvents': 'none',
-
-  '@media (min-width: 1259px)': {
-    display: 'none',
-  },
-  '@media (max-width: 768px)': {
-    display: 'none',
   },
 });
 
@@ -115,13 +97,14 @@ const SMoreBtn = styled('button', {
 const SCardWrapper = styled('div', {
   'display': 'flex',
   'gap': '20px',
+  'overflow': 'hidden',
 
   '@tablet': {
     flexDirection: 'column',
     width: '100%',
   },
 
-  '@laptop': {
+  '@large_desktop': {
     overflow: 'auto',
     hideScrollbar: true,
   },

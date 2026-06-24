@@ -298,20 +298,10 @@ const stitches = createStitches({
     },
   },
   media: {
-    // @TODO 반응형 정리 필요
-    small_mobile: '(max-width: 375px)',
-    mobile: '(max-width: 430px)',
-    tablet: '(max-width: 840px)',
-    desktop: '(min-width: 1024px) and (max-width: 1259px)',
-    laptop: '(max-width: 1259px)',
+    mobile: '(max-width: 767px)',
+    tablet: '(max-width: 1023px)',
+    desktop: '(max-width: 1259px)',
     large_desktop: '(min-width: 1260px)',
-
-    new_small_mobile: '(max-width: 360px)',
-    new_mobile: '(max-width: 767px)',
-    new_tablet: '(min-width: 768px) and (max-width: 1023px)',
-    new_desktop: '(min-width: 1024px) and (max-width: 1259px)',
-    new_laptop: '(min-width: 1260px)',
-    // default is desktop
   },
   utils: {
     size: (value: number) => ({

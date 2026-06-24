@@ -5,7 +5,7 @@ import { fontsObject } from '@sopt-makers/fonts';
 import { Button, Tag } from '@sopt-makers/ui';
 import { styled } from 'stitches.config';
 
-import { getTagVariant } from '../util';
+import MapTag from '../MapTag';
 
 interface DesktopMapCardProps {
   onDelete: () => void;
@@ -23,9 +23,7 @@ const DesktopMapCard = ({ onDelete, onEdit, onLinkClick, onRecommendClick, mapDa
           <SPlaceWrapper>
             <STagWrapper>
               {mapData?.mapTags?.map((tag, index) => (
-                <Tag key={index} size='md' variant={getTagVariant(tag)}>
-                  {tag}
-                </Tag>
+                <MapTag key={index} tag={tag} size='md' />
               ))}
               <SPlaceName>{mapData?.placeName}</SPlaceName>
             </STagWrapper>

@@ -70,7 +70,7 @@ export default CommonDetail;
 const SDetailPage = styled('div', {
   'mb': '$374',
 
-  '@media (max-width: 768px)': {
+  '@mobile': {
     mb: '$122',
   },
 });
@@ -78,7 +78,7 @@ const SDetailPage = styled('div', {
 const STabList = styled('div', {
   'display': 'flex',
 
-  '@media (max-width: 768px)': {
+  '@mobile': {
     width: 'calc(100% + 40px)',
     marginLeft: '-20px',
   },
@@ -99,7 +99,7 @@ const STabButton = styled('button', {
     color: '$gray10',
   },
 
-  '@media (max-width: 768px)': {
+  '@mobile': {
     fontStyle: 'T3',
     padding: '$16 0',
     mr: '$0',
@@ -112,14 +112,14 @@ const STabButton = styled('button', {
       true: {
         'color': '$gray10',
         'borderBottom': `4px solid $gray10`,
-        '@media (max-width: 768px)': {
+        '@mobile': {
           borderWidth: '2px',
         },
       },
       false: {
         'color': '$gray500',
         'paddingBottom': '$28',
-        '@media (max-width: 768px)': {
+        '@mobile': {
           paddingBottom: '$18',
         },
       },

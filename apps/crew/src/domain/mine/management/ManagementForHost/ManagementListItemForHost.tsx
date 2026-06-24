@@ -180,21 +180,24 @@ export default ManagementListItemForHost;
 const SDesktopListItem = styled(SListItem, {
   'display': 'flex',
 
-  '@media (max-width: 768px)': {
+  '@tablet': {
     display: 'none',
   },
 });
 
 const SMobileCard = styled('div', {
   'display': 'none',
+  'width': '100%',
 
-  '@media (max-width: 768px)': {
+  '@tablet': {
     display: 'block',
   },
 });
 
 const SCardContent = styled('div', {
   display: 'flex',
+  boxSizing: 'border-box',
+  width: '100%',
   height: '$80',
   padding: '$20',
   backgroundColor: '$gray800',
@@ -204,6 +207,7 @@ const SCardContent = styled('div', {
 
 const SCardUserInformation = styled('div', {
   'flex': 1,
+  'minWidth': 0,
   '& > div': {
     'flexType': 'verticalCenter',
     '& + &': {
@@ -296,6 +300,7 @@ const SButtonContainer = styled('div', {
 
 const SCardButtonContainer = styled('div', {
   flexType: 'verticalCenter',
+  width: '100%',
   mb: '$16',
 });
 

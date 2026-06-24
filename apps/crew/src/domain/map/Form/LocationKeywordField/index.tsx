@@ -52,7 +52,7 @@ const SChipContainer = styled('div', {
   'gap': '$10',
   'flexWrap': 'wrap',
 
-  '@media(max-width: 430px)': {
+  '@mobile': {
     maxWidth: '320px',
   },
 });

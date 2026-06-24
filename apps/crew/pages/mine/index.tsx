@@ -22,7 +22,7 @@ const MinePage: NextPage = () => {
   );
 
   return (
-    <div>
+    <SMineLayout>
       <CrewTab />
       <Tab.Group selectedIndex={Number(selectedMeetingType)} onChange={setSelectedMeetingType}>
         <STabList>
@@ -58,17 +58,30 @@ const MinePage: NextPage = () => {
       <div style={{ position: 'fixed', bottom: '2%', right: '5%' }}>
         <KakaoFloatingButton />
       </div>
-    </div>
+    </SMineLayout>
   );
 };
 
 export default MinePage;
 
+const SMineLayout = styled('div', {
+  'width': '100%',
+
+  '@tablet': {
+    width: '734px',
+    mx: '$auto',
+  },
+
+  '@mobile': {
+    width: '100%',
+  },
+});
+
 const STabList = styled(Tab.List, {
   'flexType': 'center',
   'marginTop': '126px',
   'paddingBottom': '64px',
-  '@media (max-width: 768px)': {
+  '@mobile': {
     marginTop: '48px',
     paddingBottom: '24px',
   },
@@ -88,7 +101,7 @@ const STab = styled('button', {
       false: { color: '$gray500' },
     },
   },
-  '@media (max-width: 768px)': {
+  '@mobile': {
     fontAg: '14_bold_100',
     py: '$12',
   },

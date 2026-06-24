@@ -9,18 +9,18 @@ import { Suspense, useEffect } from 'react';
 import { ampli } from '@/ampli';
 
 const MapPage = () => {
-  const { isDesktop } = useDisplay();
+  const { isMobile } = useDisplay();
 
   useEffect(() => {
     ampli.viewSoptmapTab();
   }, []);
 
   return (
-    <div>
+    <>
       <CrewTab />
-      <Suspense fallback={<Loader />}>{isDesktop ? <DesktopMapContainer /> : <MobileMapContainer />}</Suspense>
+      <Suspense fallback={<Loader />}>{isMobile ? <MobileMapContainer /> : <DesktopMapContainer />}</Suspense>
       <FloatingButton />
-    </div>
+    </>
   );
 };
 

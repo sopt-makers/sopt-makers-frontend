@@ -34,7 +34,7 @@ export default CardSkeleton;
 
 export const SLayout = styled('div', {
   'width': '380px',
-  '@media (max-width: 768px)': {
+  '@mobile': {
     width: '162px',
   },
 });
@@ -42,7 +42,7 @@ export const SLayout = styled('div', {
 export const SBasicSkeleton = styled('div', {
   'backgroundColor': '$gray700',
   'borderRadius': '6px',
-  '@media (max-width: 768px)': {
+  '@mobile': {
     borderRadius: '5px',
   },
 });

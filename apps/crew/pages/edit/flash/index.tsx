@@ -136,7 +136,7 @@ const SContainer = styled('div', {
   'display': 'flex',
   'gap': '30px',
 
-  '@media (max-width: 768px)': {
+  '@mobile': {
     margin: 0,
   },
 });
@@ -145,7 +145,7 @@ const SFormContainer = styled('div', {
   'padding': '44px 40px 56px',
   'borderRadius': '15px',
 
-  '@media (max-width: 768px)': {
+  '@mobile': {
     padding: '40px 0 0 0',
     background: '$gray950',
   },
@@ -155,14 +155,14 @@ const SFormName = styled('h1', {
   'color': '$gray10',
   'marginBottom': '90px',
 
-  '@media (max-width: 768px)': {
+  '@mobile': {
     margin: 0,
     paddingBottom: '40px',
     borderBottom: '1px solid $gray700',
   },
 });
 const SFormWrapper = styled('div', {
-  '@media (max-width: 768px)': {
+  '@mobile': {
     paddingTop: '40px',
   },
 });

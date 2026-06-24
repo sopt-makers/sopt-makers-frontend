@@ -43,7 +43,8 @@ export default ManagementListItemForGuest;
 
 export const SUserInformation = styled('div', {
   flexType: 'verticalCenter',
-  width: '100%',
+  flex: 1,
+  minWidth: 0,
 });
 
 export const SListItem = styled('div', {
@@ -52,7 +53,9 @@ export const SListItem = styled('div', {
   'borderRadius': '20px',
   'backgroundColor': '$gray800',
   'padding': '$24',
-  'minWidth': 'fit-content',
+  'boxSizing': 'border-box',
+  'width': '100%',
+  'minWidth': 0,
   'height': '$80',
   'mb': '$16',
 

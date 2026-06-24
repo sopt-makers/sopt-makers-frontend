@@ -70,7 +70,7 @@ export const MeetingDetailList = (detailData: GetMeeting['response']) => [
         {detailData?.joinableParts
           ?.map((key) => PART_NAME[key])
           .map((part) => (
-            <Chip key={part} style={{ width: '80px', boxShadow: 'none' }} active>
+            <Chip key={part} style={{ boxShadow: 'none' }} active>
               {part}
             </Chip>
           ))}
@@ -180,7 +180,7 @@ const STitle = styled('h2', {
   'fontAg': '24_bold_100',
   'mb': '$24',
 
-  '@media (max-width: 768px)': {
+  '@mobile': {
     fontStyle: 'H4',
     mb: '$20',
   },
@@ -196,7 +196,7 @@ const SIconCalendar = styled(CalendarIcon, {
     stroke: '$white',
   },
 
-  '@media (max-width: 768px)': {
+  '@mobile': {
     mb: '$20',
   },
 });
@@ -207,7 +207,7 @@ const SIconLocation = styled(IconLocation, {
 
   'mb': '$24',
 
-  '@media (max-width: 768px)': {
+  '@mobile': {
     mb: '$20',
   },
 });
@@ -221,6 +221,7 @@ const SIconTitleWrapper = styled('div', {
 const SDescription = styled('p', {
   'fontAg': '22_regular_170',
   'whiteSpace': 'pre-line',
+  'overflowWrap': 'anywhere',
   'color': '$gray200',
 
   'a': {
@@ -228,7 +229,7 @@ const SDescription = styled('p', {
     wordBreak: 'break-all',
   },
 
-  '@media (max-width: 768px)': {
+  '@mobile': {
     fontStyle: 'B3',
   },
 });
@@ -254,7 +255,7 @@ const STarget = styled(SDescription, {
 
   'mb': '$24',
 
-  '@media (max-width: 768px)': {
+  '@mobile': {
     mb: '$20',
   },
 });

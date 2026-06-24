@@ -24,7 +24,7 @@ const Container = styled('div', {
       },
       secondary: {
         'paddingLeft': '$16',
-        '@media (max-width: 768px)': {
+        '@mobile': {
           paddingLeft: '$12',
         },
       },
@@ -36,7 +36,7 @@ const BlockerMessage = styled('p', {
   'fontAg': '16_medium_150',
   'color': '$gray500',
 
-  '@media (max-width: 768px)': {
+  '@mobile': {
     fontAg: '14_medium_100',
   },
 });

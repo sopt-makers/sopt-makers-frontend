@@ -17,13 +17,14 @@ const Carousel = ({ imageList }: CarouselProps) => {
 
   const settings = {
     infinite: false,
+    dots: hasMultipleImages,
     prevArrow: hasMultipleImages && <NextArrow className='prev' total={imageListLength} />,
     nextArrow: hasMultipleImages && <NextArrow className='next' total={imageListLength} />,
     responsive: [
       {
-        breakpoint: 768,
+        breakpoint: 1024,
         settings: {
-          dots: true,
+          arrows: false,
         },
       },
     ],
@@ -47,8 +48,14 @@ export default Carousel;
 const SCarousel = styled('div', {
   '.slick-slider': {
     'flexType': 'center',
+    'position': 'relative',
     'mt': '$60',
     'mb': '$80',
+
+    '@tablet': {
+      width: '100%',
+      display: 'block',
+    },
 
     '@mobile': {
       mt: '0',
@@ -70,6 +77,10 @@ const SCarousel = styled('div', {
     'maxWidth': '$869',
     'borderRadius': '14px',
 
+    '@tablet': {
+      maxWidth: '100%',
+    },
+
     '@mobile': {
       borderRadius: '$0',
     },
@@ -85,15 +96,25 @@ const SCarousel = styled('div', {
   },
 
   '.slick-dots': {
-    position: 'relative',
-    top: '-27px',
-    width: 'fit-content',
-    height: '$17',
-    margin: '0 auto',
-    padding: '$6 $7',
-    boxSizing: 'border-box',
-    background: '$black60_trans',
-    borderRadius: '32px',
+    'position': 'absolute',
+    'bottom': '$16',
+    'left': '50%',
+    'transform': 'translateX(-50%)',
+    'width': 'fit-content',
+    'height': '$17',
+    'margin': '0 auto',
+    'padding': '$6 $7',
+    'boxSizing': 'border-box',
+    'background': '$black60_trans',
+    'borderRadius': '32px',
+
+    '@tablet': {
+      position: 'relative',
+      top: '-27px',
+      bottom: 'auto',
+      left: 'auto',
+      transform: 'none',
+    },
   },
 
   '.slick-dots li': {

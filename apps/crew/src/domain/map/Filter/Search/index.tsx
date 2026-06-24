@@ -41,7 +41,7 @@ const SSearchField = styled(SearchField, {
   'borderRadius': '10px',
   'background': '$gray800',
 
-  '@media (max-width: 767px)': {
+  '@mobile': {
     width: '100%',
     marginTop: '$28',
   },

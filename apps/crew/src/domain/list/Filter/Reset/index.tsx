@@ -34,6 +34,7 @@ export default FilterResetButton;
 
 const RefreshButton = styled('div', {
   'display': 'flex',
+  'flexShrink': 0,
   'alignItems': 'center',
   'justifyContent': 'center',
   'borderRadius': '$8',

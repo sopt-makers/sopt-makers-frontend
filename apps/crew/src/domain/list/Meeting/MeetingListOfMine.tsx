@@ -43,7 +43,7 @@ function MeetingListOfMine() {
   );
 }
 
-export default () => {
+export default function MeetingListOfMineSuspense() {
   return (
     <Suspense
       fallback={
@@ -57,11 +57,11 @@ export default () => {
       <MeetingListOfMine />
     </Suspense>
   );
-};
+}
 
 const SMeetingCount = styled('p', {
   'fontStyle': 'H3',
-  '@media (max-width: 849px)': {
+  '@tablet': {
     width: '380px',
   },
   '@mobile': {
@@ -77,7 +77,7 @@ const SBlankManageMentButton = styled('div', {
   'fontAg': '16_bold_100',
   'whiteSpace': 'nowrap',
   //background: '$gray800',
-  '@media (max-width: 768px)': {
+  '@mobile': {
     width: '91px',
     //todo: 참여자 리스트 버튼으로 바꾸기
     height: '30px',
