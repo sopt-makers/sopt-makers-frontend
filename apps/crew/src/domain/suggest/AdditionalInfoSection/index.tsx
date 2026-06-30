@@ -1,0 +1,99 @@
+import { participationIntensityOptions, participationMethodOptions } from '@data/options';
+import { colors, spacingBase, typography } from '@sopt-mds/design-tokens';
+import { Chip } from '@sopt-mds/ui';
+import { useController, useFormContext } from 'react-hook-form';
+import { styled } from 'stitches.config';
+
+import FormSection from '../FormSection';
+import type { SuggestFormValues } from '../schema';
+
+const AdditionalInfoSection = () => {
+  const { control } = useFormContext<SuggestFormValues>();
+  const { field: participationMethodField } = useController({ control, name: 'participationMethod' });
+  const { field: participationLevelField } = useController({ control, name: 'participationLevel' });
+
+  return (
+    <FormSection order={2} title='추가 정보' optional>
+      <SField>
+        <SFieldTitle>원하는 방식</SFieldTitle>
+        <SHelpMessage>원하는 진행 방식과 참여 강도를 선택해주세요.</SHelpMessage>
+        <SOptionGroup>
+          <SOptionLabel>참여 방식</SOptionLabel>
+          <SChipList>
+            {participationMethodOptions.map((option) => (
+              <Chip.Toggle
+                key={option.value}
+                size='small'
+                checked={participationMethodField.value === option.value}
+                onCheckedChange={(checked) => participationMethodField.onChange(checked ? option.value : '')}
+              >
+                {option.label}
+              </Chip.Toggle>
+            ))}
+          </SChipList>
+        </SOptionGroup>
+        <SOptionGroup>
+          <SOptionLabel>참여 강도</SOptionLabel>
+          <SChipList>
+            {participationIntensityOptions.map((option) => (
+              <Chip.Toggle
+                key={option.value}
+                size='small'
+                checked={participationLevelField.value === option.value}
+                onCheckedChange={(checked) => participationLevelField.onChange(checked ? option.value : '')}
+              >
+                {option.label}
+              </Chip.Toggle>
+            ))}
+          </SChipList>
+        </SOptionGroup>
+      </SField>
+    </FormSection>
+  );
+};
+
+export default AdditionalInfoSection;
+
+const SField = styled('div', {
+  minWidth: 0,
+  margin: 0,
+  padding: 0,
+  border: 0,
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'flex-start',
+});
+
+const SFieldTitle = styled('p', {
+  'margin': `0 0 ${spacingBase.s4}`,
+  'color': colors.fg.neutral.bold,
+  ...typography.title3,
+
+  '@mobile': {
+    ...typography.title4,
+  },
+});
+
+const SHelpMessage = styled('span', {
+  ...typography.label3,
+  marginBottom: spacingBase.s12,
+  color: colors.fg.neutral.subtle,
+});
+
+const SOptionGroup = styled('div', {
+  '& + &': {
+    marginTop: spacingBase.s20,
+  },
+});
+
+const SOptionLabel = styled('p', {
+  ...typography.label4,
+  margin: `0 0 ${spacingBase.s8}`,
+  color: colors.fg.neutral.default,
+});
+
+const SChipList = styled('div', {
+  display: 'flex',
+  flexWrap: 'wrap',
+  gap: spacingBase.s6,
+});
