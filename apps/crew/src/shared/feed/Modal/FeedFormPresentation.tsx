@@ -1,5 +1,4 @@
 import { getPresignedUrl, uploadImage } from '@api/image';
-import CameraIcon from '@assets/svg/camera.svg';
 import CancelIcon from '@assets/svg/x_big_gray.svg';
 import { FORM_TITLE_MAX_LENGTH } from '@constant/feed';
 import { imageS3Bucket } from '@constant/url';
@@ -9,6 +8,7 @@ import { Divider } from '@shared/util/Divider';
 import { fontsObject } from '@sopt-makers/fonts';
 import { useToast } from '@sopt-makers/ui';
 import { colors, spacingBase, typography } from '@sopt-mds/design-tokens';
+import { IconImagePlusFilled } from '@sopt-mds/icons';
 import { ActionButton } from '@sopt-mds/ui';
 import { ACCEPTED_IMAGE_TYPES, MAX_FILE_SIZE } from '@type/form';
 import { getResizedImage } from '@util/image';
@@ -224,7 +224,7 @@ function FeedFormPresentation({
                     onChange={handleAddFiles({ imageUrls, onChange })}
                     onBlur={onBlur}
                   />
-                  <CameraIcon />
+                  <IconImagePlusFilled width={36} height={36} />
                 </SFileInputWrapper>
                 <SImageCount>{(imageUrls as string[]).length} / 10</SImageCount>
               </SImageInputWrapper>
@@ -456,6 +456,7 @@ const SImagePreviewHolder = styled('div', {
 const SFileInputWrapper = styled('label', {
   position: 'relative',
   cursor: 'pointer',
+  color: colors.fg.neutral.bold,
 });
 
 const SFileInput = styled('input', {
