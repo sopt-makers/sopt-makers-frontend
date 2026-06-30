@@ -82,7 +82,7 @@ export const locationKeywordOptions = [
 export const participationMethodOptions = [
   { label: '# 온라인', value: '온라인' },
   { label: '# 오프라인', value: '오프라인' },
-  { label: '# 온-오프', value: '온-오프' },
+  { label: '# 온·오프', value: '온-오프' },
 ];
 
 export const participationIntensityOptions = [
