@@ -360,9 +360,14 @@ const STitle = styled('p', {
 });
 
 const SDivider = styled(Divider, {
-  width: `calc(100% - ${spacingBase.s40})`,
-  marginInline: spacingBase.s20,
-  backgroundColor: colors.stroke.neutral.default,
+  'width': `calc(100% - ${spacingBase.s80})`,
+  'marginInline': spacingBase.s40,
+  'backgroundColor': colors.stroke.neutral.default,
+
+  '@mobile': {
+    width: `calc(100% - ${spacingBase.s40})`,
+    marginInline: spacingBase.s20,
+  },
 });
 
 const STitleInput = styled('input', {
@@ -393,7 +398,7 @@ const STitleInput = styled('input', {
 
 const SFeedContentTextArea = styled('div', {
   'width': `calc(100% - ${spacingBase.s80})`,
-  'height': 'auto',
+  'height': '250px',
   'padding': `${spacingBase.s24} ${spacingBase.s8}`,
   'marginInline': spacingBase.s40,
   'boxSizing': 'border-box',
@@ -401,8 +406,6 @@ const SFeedContentTextArea = styled('div', {
   'resize': 'none',
   'color': colors.fg.neutral.bold,
   'backgroundColor': 'inherit',
-  'flex': '1 1 auto',
-  'minHeight': 0,
   'overflow': 'hidden',
   ...typography.body1,
 
@@ -413,8 +416,11 @@ const SFeedContentTextArea = styled('div', {
 
   '@mobile': {
     'width': `calc(100% - ${spacingBase.s40})`,
+    'height': 'auto',
     'padding': `${spacingBase.s16} ${spacingBase.s8}`,
     'marginInline': spacingBase.s20,
+    'flex': '1 1 auto',
+    'minHeight': 0,
     ...typography.body2,
 
     '& textarea::placeholder': {
