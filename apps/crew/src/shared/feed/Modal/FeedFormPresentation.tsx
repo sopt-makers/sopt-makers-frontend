@@ -211,7 +211,7 @@ function FeedFormPresentation({
                       </SImagePreviewHolder>
                     ))}
                   </SImageListWrapper>
-                  <SImageListDivider />
+                  <SDivider />
                 </>
               )}
 
@@ -440,8 +440,7 @@ const MumuLetterWrapper = styled('div', {
 const SImagePreviewHolder = styled('div', {
   'width': '108px',
   'height': '108px',
-  'mb': '$24',
-  'mr': '$12',
+  'flexShrink': 0,
   '@mobile': {
     width: '84px',
     height: '84px',
@@ -487,20 +486,20 @@ const SImageInputWrapper = styled('div', {
 
 const SImageListWrapper = styled('div', {
   'display': 'flex',
+  'gap': spacingBase.s6,
+  'width': `calc(100% - ${spacingBase.s80})`,
+  'padding': `${spacingBase.s24} ${spacingBase.s8}`,
+  'marginInline': spacingBase.s40,
+  'boxSizing': 'border-box',
   'overflowX': 'scroll',
+
+  '@mobile': {
+    width: `calc(100% - ${spacingBase.s40})`,
+    padding: `${spacingBase.s16} ${spacingBase.s8}`,
+    marginInline: spacingBase.s20,
+  },
+
   '&::-webkit-scrollbar': {
     display: 'none',
   },
-  '& > div:first-child': {
-    ml: '$16',
-  },
-  '& > div:last-child': {
-    mr: '$16',
-  },
-});
-
-const SImageListDivider = styled(Divider, {
-  mt: '$0',
-  mb: '$24',
-  backgroundColor: '$gray600',
 });
