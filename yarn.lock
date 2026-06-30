@@ -6177,9 +6177,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sopt-mds/ui@npm:^1.0.9":
-  version: 1.0.9
-  resolution: "@sopt-mds/ui@npm:1.0.9"
+"@sopt-mds/ui@npm:^1.0.10":
+  version: 1.0.10
+  resolution: "@sopt-mds/ui@npm:1.0.10"
   dependencies:
     "@sopt-mds/design-tokens": "npm:1.0.6"
     "@sopt-mds/icons": "npm:0.0.1"
@@ -6189,7 +6189,7 @@ __metadata:
   peerDependencies:
     react: ">=18"
     react-dom: ">=18"
-  checksum: 10c0/a28944c4f8947d3d26b2463bfc22da282ce5f972e2316c839925598a3270c6a30e94fc78d9ecc9dd45d673276000ec2b1b966cfecfa6cdfcc08123b0863ecda1
+  checksum: 10c0/b33ff9898b5d01d012692ff7c78988aa34aacea192eb2d05d3d0d2b9ef1231660b929a74a7e9d1a3e7644bc2b3d97222fbde74a2cf93f823cd8f8c7e266ccae9
   languageName: node
   linkType: hard
 
@@ -11447,7 +11447,7 @@ __metadata:
     "@sopt-makers/ui": "npm:^2.10.2"
     "@sopt-mds/design-tokens": "npm:^1.0.6"
     "@sopt-mds/icons": "npm:^0.0.1"
-    "@sopt-mds/ui": "npm:^1.0.9"
+    "@sopt-mds/ui": "npm:^1.0.10"
     "@sopt/constant": "workspace:*"
     "@sopt/ui": "workspace:*"
     "@stitches/react": "npm:^1.2.8"
