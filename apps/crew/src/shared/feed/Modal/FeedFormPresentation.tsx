@@ -3,18 +3,23 @@ import CameraIcon from '@assets/svg/camera.svg';
 import CancelIcon from '@assets/svg/x_big_gray.svg';
 import { FORM_TITLE_MAX_LENGTH } from '@constant/feed';
 import { imageS3Bucket } from '@constant/url';
+import { useDisplay } from '@hook/useDisplay';
 import FormController from '@shared/form/FormController';
 import { Divider } from '@shared/util/Divider';
+import { fontsObject } from '@sopt-makers/fonts';
 import { useToast } from '@sopt-makers/ui';
+import { colors, spacingBase, typography } from '@sopt-mds/design-tokens';
+import { ActionButton } from '@sopt-mds/ui';
 import { ACCEPTED_IMAGE_TYPES, MAX_FILE_SIZE } from '@type/form';
 import { getResizedImage } from '@util/image';
 import type { ChangeEvent } from 'react';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { styled } from 'stitches.config';
 
 import { ampli } from '@/ampli';
 
 import CommonMention from '../Mention';
+import MumuLetter from '../MumuLetter';
 import { ERROR_MESSAGE } from './feedSchema';
 import ImagePreview from './ImagePreview';
 import SelectMeeting from './SelectMeeting';
@@ -55,46 +60,12 @@ function FeedFormPresentation({
   disabled = true,
 }: PresentationProps) {
   const { open } = useToast();
+  const { isMobile } = useDisplay();
 
-  // textarea의 높이를 화면의 남은 부분으로 가져가기 위한 로직
-  const [textareaHeightChangeFlag, setTextareaHeightChangeFlag] = useState(false);
   const textAreaRef = useRef(null);
-  const [remainingHeight, setRemainingHeight] = useState(100);
   const [selectedMeeting, setSelectedMeeting] = useState<GroupInfo | undefined>(undefined);
 
-  const handleWindowResize = () => {
-    setTextareaHeightChangeFlag((flag) => !flag);
-  };
-
-  useEffect(() => {
-    window.addEventListener('resize', handleWindowResize);
-    return () => {
-      window.removeEventListener('resize', handleWindowResize);
-    };
-  }, []);
-
-  useEffect(() => {
-    const BasicPadding = 90;
-    if (textAreaRef.current) {
-      const allComponentHeights = Array.from(document.querySelectorAll('.calc_target')).reduce(
-        (totalHeight, component) => {
-          const computedStyle = window.getComputedStyle(component);
-          const marginTop = parseInt(computedStyle.marginTop, 10) || 0;
-          const marginBottom = parseInt(computedStyle.marginBottom, 10) || 0;
-          return totalHeight + component.clientHeight + marginTop + marginBottom;
-        },
-        0,
-      );
-
-      const availableHeight = window.innerHeight - allComponentHeights - BasicPadding;
-      setRemainingHeight(availableHeight);
-    }
-  }, [textareaHeightChangeFlag]);
-
-  const onDeleteFile = (index: number) => () => {
-    handleDeleteImage(index);
-    setTextareaHeightChangeFlag((flag) => !flag);
-  };
+  const onDeleteFile = (index: number) => () => handleDeleteImage(index);
 
   const handleAddFiles =
     ({ imageUrls, onChange }: FileChangeHandler) =>
@@ -115,7 +86,6 @@ function FeedFormPresentation({
         const urls = await Promise.all(newFiles.map(async (file) => await uploadFile(file)));
         onChange([...imageUrls, ...urls]);
       }
-      setTextareaHeightChangeFlag((flag) => !flag);
       ampli.attachFeedPhoto({
         user_id: userId,
         platform_type: window.innerWidth > 768 ? 'PC' : 'MO',
@@ -139,15 +109,21 @@ function FeedFormPresentation({
 
   return (
     <SFormContainer>
-      <form onSubmit={onSubmit}>
-        <SFormHeader className='calc_target'>
+      <SForm onSubmit={onSubmit}>
+        <SFormHeader>
           <SCancelIcon onClick={handleModalClose} />
           <SFormName>{title}</SFormName>
-          <SSubmitButton type='submit' disabled={disabled}>
-            완료
-          </SSubmitButton>
+          {isMobile ? (
+            <SSubmitButton type='submit' disabled={disabled}>
+              완료
+            </SSubmitButton>
+          ) : (
+            <ActionButton type='submit' size='small' variant='primary' disabled={disabled}>
+              완료
+            </ActionButton>
+          )}
         </SFormHeader>
-        <div className='calc_target'>
+        <div>
           {attendGroupsInfo?.length === 0 && groupInfo ? (
             <SGroupInfoSection>
               <SThumbnailImage
@@ -167,13 +143,16 @@ function FeedFormPresentation({
           )}
         </div>
 
-        <SDivider className='calc_target' />
+        <MumuLetterWrapper>
+          <MumuLetter content='요즘 가장 관심 있는 것은 무엇인가요?' />
+        </MumuLetterWrapper>
+
+        <SDivider />
         <FormController
           name='title'
           defaultValue=''
           render={({ field: { value: titleValue, onChange, onBlur } }) => (
             <STitleInput
-              className='calc_target'
               type='text'
               placeholder='제목을 입력해 주세요. (최대 100자)'
               value={titleValue}
@@ -193,23 +172,17 @@ function FeedFormPresentation({
             />
           )}
         />
-        <SDivider className='calc_target' />
+        <SDivider />
         <FormController
           name='contents'
           defaultValue=''
           render={({ field: { value: contentsValue, onChange } }) => (
-            <SFeedContentTextArea
-              css={{
-                '@mobile': {
-                  height: `${remainingHeight}px`,
-                },
-              }}
-            >
+            <SFeedContentTextArea>
               <CommonMention
                 inputRef={textAreaRef}
                 value={contentsValue}
                 setValue={onChange}
-                placeholder={'모임에서 있었던 일들을 친구들에게 공유해 주세요!'}
+                placeholder={'질문에 자유롭게 답장해주세요.\n’@’로 멤버를 언급해 작성할 수 있어요!'}
                 setIsFocused={() => {}}
                 setUserIds={() => {}}
                 isComment={false}
@@ -217,7 +190,7 @@ function FeedFormPresentation({
             </SFeedContentTextArea>
           )}
         />
-        <SDivider className='calc_target' />
+        <SDivider />
         <FormController
           name='images'
           defaultValue={[]}
@@ -225,18 +198,18 @@ function FeedFormPresentation({
             <>
               {!!(imageUrls as string[]).length && (
                 <>
-                  <SImageListWrapper className='calc_target'>
+                  <SImageListWrapper>
                     {(imageUrls as string[]).map((url, idx) => (
                       <SImagePreviewHolder key={`${url}-${idx}`}>
                         <ImagePreview url={url} onDelete={onDeleteFile(idx)} />
                       </SImagePreviewHolder>
                     ))}
                   </SImageListWrapper>
-                  <SImageListDivider className='calc_target' />
+                  <SImageListDivider />
                 </>
               )}
 
-              <SImageInputWrapper className='calc_target'>
+              <SImageInputWrapper>
                 <SFileInputWrapper>
                   <SFileInput
                     type='file'
@@ -252,7 +225,7 @@ function FeedFormPresentation({
             </>
           )}
         />
-      </form>
+      </SForm>
     </SFormContainer>
   );
 }
@@ -261,8 +234,9 @@ export default FeedFormPresentation;
 
 const SFormContainer = styled('div', {
   'width': '100%',
-  'padding': '40px 30px 30px',
-  'background': '$gray800',
+  'height': '100%',
+  'padding': 0,
+  'background': colors.bg.layer.default,
   'borderRadius': '15px',
   '@mobile': {
     padding: '30px 0 0 0',
@@ -271,6 +245,18 @@ const SFormContainer = styled('div', {
     borderRadius: '0',
   },
 });
+
+const SForm = styled('form', {
+  'display': 'flex',
+  'flexDirection': 'column',
+  'height': '100%',
+  'minHeight': 0,
+
+  '& > *': {
+    flexShrink: 0,
+  },
+});
+
 const SFormName = styled('h1', {
   'fontStyle': 'H1',
   'color': '$gray10',
@@ -285,8 +271,10 @@ const SFormHeader = styled('div', {
   'display': 'flex',
   'justifyContent': 'space-between',
   'alignItems': 'center',
+  'padding': `${spacingBase.s40} ${spacingBase.s40} ${spacingBase.s32} ${spacingBase.s40}`,
+
   '@mobile': {
-    px: '$20',
+    padding: `0 ${spacingBase.s20} ${spacingBase.s32}`,
   },
 });
 
@@ -295,8 +283,8 @@ const SCancelIcon = styled(CancelIcon, {
 });
 
 const SSubmitButton = styled('button', {
-  'fontStyle': 'T1',
-  'color': '$gray10',
+  ...fontsObject.TITLE_6_16_SB,
+  'color': colors.fg.neutral.bold,
   'variants': {
     disabled: {
       true: {
@@ -313,8 +301,15 @@ const SSubmitButton = styled('button', {
 const SGroupInfoSection = styled('div', {
   'mt': '$40',
   'flexType': 'verticalCenter',
+  'width': `calc(100% - ${spacingBase.s80})`,
+  'padding': `${spacingBase.s24} ${spacingBase.s8}`,
+  'marginInline': spacingBase.s40,
+  'boxSizing': 'border-box',
+
   '@mobile': {
-    px: '$20',
+    width: `calc(100% - ${spacingBase.s40})`,
+    padding: `${spacingBase.s16} ${spacingBase.s8}`,
+    marginInline: spacingBase.s20,
   },
 });
 
@@ -359,43 +354,80 @@ const STitle = styled('p', {
 });
 
 const SDivider = styled(Divider, {
-  'my': '$24',
-  'backgroundColor': '$gray600',
-  '@mobile': {
-    my: '$20',
-  },
+  width: `calc(100% - ${spacingBase.s40})`,
+  marginInline: spacingBase.s20,
+  backgroundColor: colors.stroke.neutral.default,
 });
 
 const STitleInput = styled('input', {
-  'width': '100%',
-  'color': '$white',
-  'fontStyle': 'H3',
-  'ml': '$8',
+  'display': 'block',
+  'width': `calc(100% - ${spacingBase.s80})`,
+  'color': colors.fg.neutral.bold,
+  'padding': `${spacingBase.s24} ${spacingBase.s8}`,
+  'marginInline': spacingBase.s40,
+  'boxSizing': 'border-box',
+  ...typography.title3,
+
+  '&::placeholder': {
+    color: colors.fg.neutral.subtle,
+    opacity: 1,
+  },
 
   '@mobile': {
-    px: '$20',
-    boxSizing: 'border-box',
-    fontStyle: 'H4',
+    'width': `calc(100% - ${spacingBase.s40})`,
+    'padding': `${spacingBase.s16} ${spacingBase.s8}`,
+    'marginInline': spacingBase.s20,
+    ...typography.title4,
+
+    '&::placeholder': {
+      color: colors.fg.neutral.ghost,
+    },
   },
 });
 
 const SFeedContentTextArea = styled('div', {
-  'width': '100%',
-  'height': '208px',
+  'width': `calc(100% - ${spacingBase.s80})`,
+  'height': 'auto',
+  'padding': `${spacingBase.s24} ${spacingBase.s8}`,
+  'marginInline': spacingBase.s40,
+  'boxSizing': 'border-box',
   'border': 'none',
   'resize': 'none',
-  'fontStyle': 'B2',
-  'color': '$white',
+  'color': colors.fg.neutral.bold,
   'backgroundColor': 'inherit',
-  'ml': '$8',
+  'flex': '1 1 auto',
+  'minHeight': 0,
+  'overflow': 'hidden',
+  ...typography.body1,
+
+  '& textarea::placeholder': {
+    color: colors.fg.neutral.subtle,
+    opacity: 1,
+  },
 
   '@mobile': {
-    px: '$20',
-    boxSizing: 'border-box',
+    'width': `calc(100% - ${spacingBase.s40})`,
+    'padding': `${spacingBase.s16} ${spacingBase.s8}`,
+    'marginInline': spacingBase.s20,
+    ...typography.body2,
+
+    '& textarea::placeholder': {
+      color: colors.fg.neutral.ghost,
+    },
   },
 
   '&::-webkit-scrollbar': {
     display: 'none',
+  },
+});
+
+const MumuLetterWrapper = styled('div', {
+  'paddingInline': spacingBase.s40,
+  'marginBottom': spacingBase.s20,
+
+  '@mobile': {
+    paddingInline: spacingBase.s20,
+    marginTop: spacingBase.s4,
   },
 });
 
@@ -427,16 +459,23 @@ const SFileInput = styled('input', {
 });
 
 const SImageCount = styled('p', {
-  color: '$gray300',
-  fontStyle: 'B1',
+  color: colors.fg.neutral.default,
+  ...typography.label1,
 });
 
 const SImageInputWrapper = styled('div', {
   'display': 'flex',
   'alignItems': 'center',
   'justifyContent': 'space-between',
+  'width': `calc(100% - ${spacingBase.s80})`,
+  'padding': `${spacingBase.s24} ${spacingBase.s8}`,
+  'marginInline': spacingBase.s40,
+  'boxSizing': 'border-box',
+
   '@mobile': {
-    px: '$16',
+    width: `calc(100% - ${spacingBase.s40})`,
+    padding: `${spacingBase.s16} ${spacingBase.s8}`,
+    marginInline: spacingBase.s20,
   },
 });
 

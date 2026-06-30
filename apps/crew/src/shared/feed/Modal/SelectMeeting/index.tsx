@@ -1,5 +1,6 @@
 import { Arrow } from '@common/button/Arrow';
 import ModalBackground from '@shared/modal/ModalBackground';
+import { spacingBase } from '@sopt-mds/design-tokens';
 import { getResizedImage } from '@util/image';
 import { useState } from 'react';
 import { styled } from 'stitches.config';
@@ -96,11 +97,18 @@ const Container = styled('div', {
 });
 
 const InfoWrapper = styled('div', {
-  'mt': '$40',
+  'marginTop': 0,
   'flexType': 'verticalCenter',
   'cursor': 'pointer',
+  'width': `calc(100% - ${spacingBase.s80})`,
+  'padding': `${spacingBase.s24} ${spacingBase.s8}`,
+  'marginInline': spacingBase.s40,
+  'boxSizing': 'border-box',
+
   '@mobile': {
-    px: '$20',
+    width: `calc(100% - ${spacingBase.s40})`,
+    padding: `${spacingBase.s16} ${spacingBase.s8}`,
+    marginInline: spacingBase.s20,
   },
 });
 
