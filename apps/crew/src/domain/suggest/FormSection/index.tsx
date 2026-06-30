@@ -27,10 +27,15 @@ const FormSection = ({ order, title, optional = false, children }: FormSectionPr
 export default FormSection;
 
 const SSection = styled('section', {
-  display: 'flex',
-  flexDirection: 'column',
-  gap: spacingBase.s32,
-  paddingTop: spacingBase.s32,
+  'display': 'flex',
+  'flexDirection': 'column',
+
+  'paddingTop': spacingBase.s48,
+
+  '@mobile': {
+    paddingTop: spacingBase.s32,
+    gap: spacingBase.s32,
+  },
 });
 
 const SHeader = styled('header', {

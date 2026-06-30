@@ -16,10 +16,13 @@ const Header = () => {
 export default Header;
 
 const SHeader = styled('header', {
-  display: 'flex',
-  flexDirection: 'column',
-  gap: spacingBase.s20,
-  paddingBottom: spacingBase.s32,
+  'display': 'flex',
+  'flexDirection': 'column',
+  'gap': spacingBase.s20,
+
+  '@mobile': {
+    paddingBottom: spacingBase.s32,
+  },
 });
 
 const STitle = styled('h2', {
