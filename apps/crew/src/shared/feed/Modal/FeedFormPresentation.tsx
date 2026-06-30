@@ -42,6 +42,7 @@ interface PresentationProps {
   setMeetingInfo?: (meeting: GroupInfo) => void;
   onSubmit: React.FormEventHandler<HTMLFormElement>;
   disabled: boolean;
+  shouldShowMumuLetter?: boolean;
 }
 interface FileChangeHandler {
   imageUrls: string[];
@@ -58,6 +59,7 @@ function FeedFormPresentation({
   setMeetingInfo,
   onSubmit,
   disabled = true,
+  shouldShowMumuLetter = false,
 }: PresentationProps) {
   const { open } = useToast();
   const { isMobile } = useDisplay();
@@ -143,9 +145,13 @@ function FeedFormPresentation({
           )}
         </div>
 
-        <MumuLetterWrapper>
-          <MumuLetter content='요즘 가장 관심 있는 것은 무엇인가요?' />
-        </MumuLetterWrapper>
+        {shouldShowMumuLetter && (
+          <MumuLetterWrapper>
+            {/* //@TODO: 홈 무무레터 버튼의 modal=create-feed&entry=mumu query 전달 및 FeedCreateModalController 분리 작업 필요 */}
+            {/* //@TODO: 무무레터 질문 API 연동 작업 필요 */}
+            <MumuLetter content='요즘 가장 관심 있는 것은 무엇인가요?' />
+          </MumuLetterWrapper>
+        )}
 
         <SDivider />
         <FormController

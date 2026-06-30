@@ -29,9 +29,11 @@ const DevTool = dynamic(() => import('@hookform/devtools').then((module) => modu
   ssr: false,
 });
 
-type CreateModalProps = ModalContainerProps;
+interface CreateModalProps extends ModalContainerProps {
+  isMumuEntry?: boolean;
+}
 
-function FeedCreateWithSelectMeetingModal({ isModalOpened, handleModalClose }: CreateModalProps) {
+function FeedCreateWithSelectMeetingModal({ isModalOpened, handleModalClose, isMumuEntry = false }: CreateModalProps) {
   const queryClient = useQueryClient();
   const { open } = useToast();
   const router = useRouter();
@@ -128,6 +130,7 @@ function FeedCreateWithSelectMeetingModal({ isModalOpened, handleModalClose }: C
               }
               onSubmit={formMethods.handleSubmit(handleSubmitClick)}
               disabled={isSubmitting || !isValid}
+              shouldShowMumuLetter={isMumuEntry}
             />
           )}
         </FormProvider>
