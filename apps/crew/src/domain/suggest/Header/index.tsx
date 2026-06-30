@@ -19,6 +19,7 @@ const SHeader = styled('header', {
   display: 'flex',
   flexDirection: 'column',
   gap: spacingBase.s20,
+  paddingBottom: spacingBase.s32,
 });
 
 const STitle = styled('h2', {
