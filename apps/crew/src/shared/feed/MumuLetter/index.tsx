@@ -1,5 +1,5 @@
 import Mumu from '@assets/svg/mumu.svg';
-import { colors, radiusBase, spacingBase, typography } from '@sopt-mds/design-tokens';
+import { colors, radius, spacing, typography } from '@sopt-mds/design-tokens';
 import { styled } from 'stitches.config';
 
 interface MumuLetterProps {
@@ -23,15 +23,15 @@ export default MumuLetter;
 const Container = styled('div', {
   'display': 'flex',
   'alignItems': 'center',
-  'padding': spacingBase.s16,
+  'padding': spacing.s16,
   'border': `1px solid ${colors.stroke.brand.default}`,
-  'borderRadius': radiusBase.r8,
-  'gap': spacingBase.s10,
+  'borderRadius': radius.r8,
+  'gap': spacing.s10,
   'backgroundColor': colors.bg.neutral.ghost,
 
   '@mobile': {
-    padding: spacingBase.s10,
-    gap: spacingBase.s8,
+    padding: spacing.s10,
+    gap: spacing.s8,
   },
 });
 
@@ -44,7 +44,7 @@ const MumuAvatar = styled(Mumu, {
 const ContentWrapper = styled('div', {
   display: 'flex',
   flexDirection: 'column',
-  gap: spacingBase.s2,
+  gap: spacing.s2,
 });
 
 const Title = styled('h3', {

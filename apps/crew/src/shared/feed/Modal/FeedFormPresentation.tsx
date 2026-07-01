@@ -7,7 +7,7 @@ import FormController from '@shared/form/FormController';
 import { Divider } from '@shared/util/Divider';
 import { fontsObject } from '@sopt-makers/fonts';
 import { useToast } from '@sopt-makers/ui';
-import { colors, spacingBase, typography } from '@sopt-mds/design-tokens';
+import { colors, spacing, typography } from '@sopt-mds/design-tokens';
 import { IconImagePlusFilled } from '@sopt-mds/icons';
 import { ActionButton } from '@sopt-mds/ui';
 import { ACCEPTED_IMAGE_TYPES, MAX_FILE_SIZE } from '@type/form';
@@ -277,10 +277,10 @@ const SFormHeader = styled('div', {
   'display': 'flex',
   'justifyContent': 'space-between',
   'alignItems': 'center',
-  'padding': `${spacingBase.s40} ${spacingBase.s40} ${spacingBase.s32} ${spacingBase.s40}`,
+  'padding': `${spacing.s40} ${spacing.s40} ${spacing.s32} ${spacing.s40}`,
 
   '@mobile': {
-    padding: `0 ${spacingBase.s20} ${spacingBase.s32}`,
+    padding: `0 ${spacing.s20} ${spacing.s32}`,
   },
 });
 
@@ -307,15 +307,15 @@ const SSubmitButton = styled('button', {
 const SGroupInfoSection = styled('div', {
   'mt': '$40',
   'flexType': 'verticalCenter',
-  'width': `calc(100% - ${spacingBase.s80})`,
-  'padding': `${spacingBase.s24} ${spacingBase.s8}`,
-  'marginInline': spacingBase.s40,
+  'width': `calc(100% - ${spacing.s80})`,
+  'padding': `${spacing.s24} ${spacing.s8}`,
+  'margin': `0 ${spacing.s40}`,
   'boxSizing': 'border-box',
 
   '@mobile': {
-    width: `calc(100% - ${spacingBase.s40})`,
-    padding: `${spacingBase.s16} ${spacingBase.s8}`,
-    marginInline: spacingBase.s20,
+    width: `calc(100% - ${spacing.s40})`,
+    padding: `${spacing.s16} ${spacing.s8}`,
+    margin: `0 ${spacing.s20}`,
   },
 });
 
@@ -360,22 +360,22 @@ const STitle = styled('p', {
 });
 
 const SDivider = styled(Divider, {
-  'width': `calc(100% - ${spacingBase.s80})`,
-  'marginInline': spacingBase.s40,
+  'width': `calc(100% - ${spacing.s80})`,
+  'margin': `0 ${spacing.s40}`,
   'backgroundColor': colors.stroke.neutral.default,
 
   '@mobile': {
-    width: `calc(100% - ${spacingBase.s40})`,
-    marginInline: spacingBase.s20,
+    width: `calc(100% - ${spacing.s40})`,
+    margin: `0 ${spacing.s20}`,
   },
 });
 
 const STitleInput = styled('input', {
   'display': 'block',
-  'width': `calc(100% - ${spacingBase.s80})`,
+  'width': `calc(100% - ${spacing.s80})`,
   'color': colors.fg.neutral.bold,
-  'padding': `${spacingBase.s24} ${spacingBase.s8}`,
-  'marginInline': spacingBase.s40,
+  'padding': `${spacing.s24} ${spacing.s8}`,
+  'margin': `0 ${spacing.s40}`,
   'boxSizing': 'border-box',
   ...typography.title3,
 
@@ -385,9 +385,9 @@ const STitleInput = styled('input', {
   },
 
   '@mobile': {
-    'width': `calc(100% - ${spacingBase.s40})`,
-    'padding': `${spacingBase.s16} ${spacingBase.s8}`,
-    'marginInline': spacingBase.s20,
+    'width': `calc(100% - ${spacing.s40})`,
+    'padding': `${spacing.s16} ${spacing.s8}`,
+    'margin': `0 ${spacing.s20}`,
     ...typography.title4,
 
     '&::placeholder': {
@@ -397,10 +397,10 @@ const STitleInput = styled('input', {
 });
 
 const SFeedContentTextArea = styled('div', {
-  'width': `calc(100% - ${spacingBase.s80})`,
+  'width': `calc(100% - ${spacing.s80})`,
   'height': '250px',
-  'padding': `${spacingBase.s24} ${spacingBase.s8}`,
-  'marginInline': spacingBase.s40,
+  'padding': `${spacing.s24} ${spacing.s8}`,
+  'margin': `0 ${spacing.s40}`,
   'boxSizing': 'border-box',
   'border': 'none',
   'resize': 'none',
@@ -415,10 +415,10 @@ const SFeedContentTextArea = styled('div', {
   },
 
   '@mobile': {
-    'width': `calc(100% - ${spacingBase.s40})`,
+    'width': `calc(100% - ${spacing.s40})`,
     'height': 'auto',
-    'padding': `${spacingBase.s16} ${spacingBase.s8}`,
-    'marginInline': spacingBase.s20,
+    'padding': `${spacing.s16} ${spacing.s8}`,
+    'margin': `0 ${spacing.s20}`,
     'flex': '1 1 auto',
     'minHeight': 0,
     ...typography.body2,
@@ -434,12 +434,12 @@ const SFeedContentTextArea = styled('div', {
 });
 
 const MumuLetterWrapper = styled('div', {
-  'paddingInline': spacingBase.s40,
-  'marginBottom': spacingBase.s20,
+  'padding': `0 ${spacing.s40}`,
+  'marginBottom': spacing.s20,
 
   '@mobile': {
-    paddingInline: spacingBase.s20,
-    marginTop: spacingBase.s4,
+    padding: `0 ${spacing.s20}`,
+    marginTop: spacing.s4,
   },
 });
 
@@ -479,31 +479,31 @@ const SImageInputWrapper = styled('div', {
   'display': 'flex',
   'alignItems': 'center',
   'justifyContent': 'space-between',
-  'width': `calc(100% - ${spacingBase.s80})`,
-  'padding': `${spacingBase.s24} ${spacingBase.s8}`,
-  'marginInline': spacingBase.s40,
+  'width': `calc(100% - ${spacing.s80})`,
+  'padding': `${spacing.s24} ${spacing.s8}`,
+  'margin': `0 ${spacing.s40}`,
   'boxSizing': 'border-box',
 
   '@mobile': {
-    width: `calc(100% - ${spacingBase.s40})`,
-    padding: `${spacingBase.s16} ${spacingBase.s8}`,
-    marginInline: spacingBase.s20,
+    width: `calc(100% - ${spacing.s40})`,
+    padding: `${spacing.s16} ${spacing.s8}`,
+    margin: `0 ${spacing.s20}`,
   },
 });
 
 const SImageListWrapper = styled('div', {
   'display': 'flex',
-  'gap': spacingBase.s6,
-  'width': `calc(100% - ${spacingBase.s80})`,
-  'padding': `${spacingBase.s24} ${spacingBase.s8}`,
-  'marginInline': spacingBase.s40,
+  'gap': spacing.s6,
+  'width': `calc(100% - ${spacing.s80})`,
+  'padding': `${spacing.s24} ${spacing.s8}`,
+  'margin': `0 ${spacing.s40}`,
   'boxSizing': 'border-box',
   'overflowX': 'scroll',
 
   '@mobile': {
-    width: `calc(100% - ${spacingBase.s40})`,
-    padding: `${spacingBase.s16} ${spacingBase.s8}`,
-    marginInline: spacingBase.s20,
+    width: `calc(100% - ${spacing.s40})`,
+    padding: `${spacing.s16} ${spacing.s8}`,
+    margin: `0 ${spacing.s20}`,
   },
 
   '&::-webkit-scrollbar': {
