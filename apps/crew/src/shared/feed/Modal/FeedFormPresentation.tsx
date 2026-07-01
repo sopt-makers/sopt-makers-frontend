@@ -289,18 +289,15 @@ const SCancelIcon = styled(CancelIcon, {
 });
 
 const SSubmitButton = styled('button', {
-  ...fontsObject.TITLE_6_16_SB,
-  'color': colors.fg.neutral.bold,
-  'variants': {
+  ...typography.title4,
+  color: colors.fg.neutral.bold,
+  variants: {
     disabled: {
       true: {
-        color: '$gray500',
+        color: colors.fg.neutral.subtle,
         cursor: 'not-allowed',
       },
     },
-  },
-  '@mobile': {
-    fontStyle: 'T4',
   },
 });
 
