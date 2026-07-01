@@ -1,4 +1,4 @@
-import { colors, spacingBase, typography } from '@sopt-mds/design-tokens';
+import { colors, spacing, typography } from '@sopt-mds/design-tokens';
 import { Callout } from '@sopt-mds/ui';
 import { styled } from 'stitches.config';
 
@@ -18,10 +18,10 @@ export default Header;
 const SHeader = styled('header', {
   'display': 'flex',
   'flexDirection': 'column',
-  'gap': spacingBase.s20,
+  'gap': spacing.s20,
 
   '@mobile': {
-    paddingBottom: spacingBase.s32,
+    paddingBottom: spacing.s32,
   },
 });
 

@@ -1,5 +1,5 @@
 import { participationIntensityOptions, participationMethodOptions } from '@data/options';
-import { colors, spacingBase, typography } from '@sopt-mds/design-tokens';
+import { colors, spacing, typography } from '@sopt-mds/design-tokens';
 import { Chip } from '@sopt-mds/ui';
 import { useController, useFormContext } from 'react-hook-form';
 import { styled } from 'stitches.config';
@@ -65,35 +65,31 @@ const SField = styled('div', {
 });
 
 const SFieldTitle = styled('p', {
-  'margin': `0 0 ${spacingBase.s4}`,
-  'color': colors.fg.neutral.bold,
-  ...typography.title3,
-
-  '@mobile': {
-    ...typography.title4,
-  },
+  margin: `0 0 ${spacing.s4}`,
+  color: colors.fg.neutral.bold,
+  ...typography.title4,
 });
 
 const SHelpMessage = styled('span', {
   ...typography.label3,
-  marginBottom: spacingBase.s12,
+  marginBottom: spacing.s12,
   color: colors.fg.neutral.subtle,
 });
 
 const SOptionGroup = styled('div', {
   '& + &': {
-    marginTop: spacingBase.s20,
+    marginTop: spacing.s20,
   },
 });
 
 const SOptionLabel = styled('p', {
   ...typography.label4,
-  margin: `0 0 ${spacingBase.s8}`,
+  margin: `0 0 ${spacing.s8}`,
   color: colors.fg.neutral.default,
 });
 
 const SChipList = styled('div', {
   display: 'flex',
   flexWrap: 'wrap',
-  gap: spacingBase.s6,
+  gap: spacing.s6,
 });

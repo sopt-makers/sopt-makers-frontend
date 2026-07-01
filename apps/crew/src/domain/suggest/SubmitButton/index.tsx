@@ -1,5 +1,5 @@
 import { useDisplay } from '@hook/useDisplay';
-import { spacingBase } from '@sopt-mds/design-tokens';
+import { spacing } from '@sopt-mds/design-tokens';
 import { ActionButton } from '@sopt-mds/ui';
 import { useFormContext } from 'react-hook-form';
 import { styled } from 'stitches.config';
@@ -28,7 +28,7 @@ const SButtonContainer = styled('div', {
   'display': 'flex',
   'justifyContent': 'flex-end',
 
-  'marginTop': spacingBase.s64,
+  'marginTop': spacing.s64,
 
   '@mobile': {
     'justifyContent': 'center',

@@ -5,7 +5,7 @@ import type { SuggestFormValues } from '@domain/suggest/schema';
 import { suggestFormSchema } from '@domain/suggest/schema';
 import SubmitButton from '@domain/suggest/SubmitButton';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { spacingBase } from '@sopt-mds/design-tokens';
+import { spacing } from '@sopt-mds/design-tokens';
 import { FormProvider, useForm } from 'react-hook-form';
 import { styled } from 'stitches.config';
 
@@ -47,7 +47,7 @@ export default SuggestMeetingPage;
 const SPage = styled('main', {
   'width': '100%',
   'maxWidth': '1120px',
-  'margin': `${spacingBase.s80} auto`,
+  'margin': `${spacing.s80} auto`,
 
   '@desktop': {
     maxWidth: '704px',
@@ -59,7 +59,7 @@ const SPage = styled('main', {
 
   '@mobile': {
     maxWidth: 'none',
-    margin: `${spacingBase.s32} auto`,
+    margin: `${spacing.s32} auto`,
   },
 });
 

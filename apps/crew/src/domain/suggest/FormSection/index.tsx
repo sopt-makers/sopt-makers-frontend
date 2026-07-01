@@ -1,4 +1,4 @@
-import { colors, spacingBase, typography } from '@sopt-mds/design-tokens';
+import { colors, spacing, typography } from '@sopt-mds/design-tokens';
 import type { ReactNode } from 'react';
 import { styled } from 'stitches.config';
 
@@ -30,24 +30,24 @@ const SSection = styled('section', {
   'display': 'flex',
   'flexDirection': 'column',
 
-  'paddingTop': spacingBase.s48,
+  'paddingTop': spacing.s48,
 
   '@mobile': {
-    paddingTop: spacingBase.s32,
-    gap: spacingBase.s32,
+    paddingTop: spacing.s32,
+    gap: spacing.s32,
   },
 });
 
 const SHeader = styled('header', {
-  paddingBottom: spacingBase.s12,
-  marginBottom: spacingBase.s20,
+  paddingBottom: spacing.s12,
+  marginBottom: spacing.s20,
   borderBottom: `1px solid ${colors.stroke.neutral.ghost}`,
 });
 
 const STitle = styled('h2', {
   'display': 'flex',
   'alignItems': 'center',
-  'gap': spacingBase.s4,
+  'gap': spacing.s4,
   'color': colors.fg.neutral.bold,
   ...typography.heading2,
 

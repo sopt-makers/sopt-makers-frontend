@@ -1,5 +1,5 @@
 import { keywordOptions } from '@data/options';
-import { colors, radiusBase, spacingBase, typography } from '@sopt-mds/design-tokens';
+import { colors, radius, spacing, typography } from '@sopt-mds/design-tokens';
 import { Chip } from '@sopt-mds/ui';
 import type { ChangeEvent } from 'react';
 import { useController, useFormContext } from 'react-hook-form';
@@ -100,9 +100,9 @@ export default RequiredInfoSection;
 const SFieldGroup = styled('div', {
   'display': 'flex',
   'flexDirection': 'column',
-  'gap': spacingBase.s64,
+  'gap': spacing.s64,
   '@mobile': {
-    gap: spacingBase.s48,
+    gap: spacing.s48,
   },
 });
 
@@ -118,8 +118,8 @@ const SField = styled('div', {
 
 const SLabel = styled('span', {
   'display': 'flex',
-  'gap': spacingBase.s4,
-  'marginBottom': spacingBase.s4,
+  'gap': spacing.s4,
+  'marginBottom': spacing.s4,
   'color': colors.fg.neutral.bold,
   ...typography.title3,
 
@@ -130,7 +130,7 @@ const SLabel = styled('span', {
 
 const SHelpMessage = styled('span', {
   ...typography.label3,
-  marginBottom: spacingBase.s12,
+  marginBottom: spacing.s12,
   color: colors.fg.neutral.subtle,
 });
 
@@ -142,10 +142,10 @@ const SInput = styled('input', {
   ...typography.title4,
   'boxSizing': 'border-box',
   'width': '100%',
-  'padding': `${spacingBase.s10} ${spacingBase.s16}`,
+  'padding': `${spacing.s10} ${spacing.s16}`,
   'color': colors.fg.neutral.bold,
   'border': `1px solid ${colors.stroke.neutral.ghost}`,
-  'borderRadius': radiusBase.r10,
+  'borderRadius': radius.r10,
   'outline': 0,
   'backgroundColor': colors.bg.neutral.ghost,
 
@@ -164,10 +164,10 @@ const STextarea = styled('textarea', {
   'boxSizing': 'border-box',
   'width': '100%',
   'minHeight': `${TEXTAREA_MIN_HEIGHT}px`,
-  'padding': spacingBase.s16,
+  'padding': spacing.s16,
   'color': colors.fg.neutral.bold,
   'border': `1px solid ${colors.stroke.neutral.ghost}`,
-  'borderRadius': radiusBase.r10,
+  'borderRadius': radius.r10,
   'outline': 0,
   'resize': 'none',
   'overflow': 'hidden',
@@ -186,17 +186,17 @@ const STextarea = styled('textarea', {
 const SCharacterCount = styled('span', {
   ...typography.body2,
   alignSelf: 'flex-end',
-  marginTop: spacingBase.s6,
+  marginTop: spacing.s6,
   color: colors.fg.neutral.ghost,
 });
 
 const SChipList = styled('div', {
   'display': 'flex',
   'flexWrap': 'wrap',
-  'gap': spacingBase.s6,
-  'marginBottom': spacingBase.s72,
+  'gap': spacing.s6,
+  'marginBottom': spacing.s72,
 
   '@mobile': {
-    marginBottom: spacingBase.s32,
+    marginBottom: spacing.s32,
   },
 });
