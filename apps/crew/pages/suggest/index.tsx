@@ -33,6 +33,7 @@ const SuggestMeetingPage = () => {
         <Header />
 
         <SForm onSubmit={handleSubmit}>
+          {/* 두 Section 모두 Input, textArea mds2.0버전 교체 필요 */}
           <RequiredInfoSection />
           <AdditionalInfoSection />
           <SubmitButton />
