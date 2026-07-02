@@ -35,7 +35,7 @@ const RequiredInfoSection = () => {
     const borderHeight = textarea.offsetHeight - textarea.clientHeight;
     const contentHeight = textarea.scrollHeight + borderHeight;
     textarea.style.height = `${Math.max(contentHeight, TEXTAREA_MIN_HEIGHT)}px`;
-    expectationField.onChange(textarea.value);
+    expectationField.onChange(event);
   };
 
   const isTopicSelected = (topic: string) => topicsField.value.includes(topic);
@@ -48,13 +48,7 @@ const RequiredInfoSection = () => {
             원하는 모임 <SRequired>*</SRequired>
           </SLabel>
           <SHelpMessage>기다리는 모임을 한 줄로 적어주세요.</SHelpMessage>
-          <SInput
-            type='text'
-            placeholder='ex. 주 1회 같이 달리는 러닝 모임'
-            maxLength={30}
-            value={titleField.value}
-            onChange={(event) => titleField.onChange(event.currentTarget.value)}
-          />
+          <SInput {...titleField} type='text' placeholder='ex. 주 1회 같이 달리는 러닝 모임' maxLength={30} />
           <SCharacterCount>{titleField.value.length}/30</SCharacterCount>
         </SField>
 
@@ -64,9 +58,9 @@ const RequiredInfoSection = () => {
           </SLabel>
           <SHelpMessage>기대하는 모임에 대해 자유롭게 작성해주세요.</SHelpMessage>
           <STextarea
+            {...expectationField}
             placeholder={'ex.\n러닝을 처음 시작한 사람들도 부담 없이 참여하는 러닝 모임 만들어주세요~'}
             maxLength={1000}
-            value={expectationField.value}
             onChange={handleExpectationChange}
           />
           <SCharacterCount>{expectationField.value.length}/1000</SCharacterCount>
