@@ -11,7 +11,7 @@ import type { MumuLetterSectionData } from '../types';
 // @TODO: 홈 무무씨의 편지 조회 API 연동 후 Mock 데이터 제거
 const MOCK_MUMU_LETTER_HOME_DATA: MumuLetterSectionData = {
   isEmptyAppliedMeeting: false,
-  hasWrittenTodayMumuPost: true,
+  hasWrittenTodayMumuPost: false,
   mumuText: '스터디를 참여하면서 가장 좋았던 순간은 무엇이었음메메메메메?',
   mumuPostHomeDtos: [
     {
