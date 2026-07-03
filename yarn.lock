@@ -6161,10 +6161,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sopt-mds/design-tokens@npm:1.0.6, @sopt-mds/design-tokens@npm:^1.0.6":
-  version: 1.0.6
-  resolution: "@sopt-mds/design-tokens@npm:1.0.6"
-  checksum: 10c0/a1d61aa39fd38470228eb4688aa7c0088caea281eb28ef9d79f64f4cd36c0c863d39a29669f9e20bf1e3d3f5f747be0a9924db3abea959b5153920adcdd00d28
+"@sopt-mds/design-tokens@npm:1.0.7, @sopt-mds/design-tokens@npm:^1.0.6":
+  version: 1.0.7
+  resolution: "@sopt-mds/design-tokens@npm:1.0.7"
+  checksum: 10c0/3d35bd8677e5e0ad99158cbb225267436819998330b8ce6d1084903dabf3258d239d2cfd4834c158ec7e289c39d02076af25e8521b064445e2a7a781ce2d5799
   languageName: node
   linkType: hard
 
@@ -6187,10 +6187,10 @@ __metadata:
   linkType: hard
 
 "@sopt-mds/ui@npm:^1.0.10":
-  version: 1.0.10
-  resolution: "@sopt-mds/ui@npm:1.0.10"
+  version: 1.0.11
+  resolution: "@sopt-mds/ui@npm:1.0.11"
   dependencies:
-    "@sopt-mds/design-tokens": "npm:1.0.6"
+    "@sopt-mds/design-tokens": "npm:1.0.7"
     "@sopt-mds/icons": "npm:0.0.1"
     "@vanilla-extract/css": "npm:^1.15.5"
     "@vanilla-extract/recipes": "npm:^0.5.7"
@@ -6198,7 +6198,7 @@ __metadata:
   peerDependencies:
     react: ">=18"
     react-dom: ">=18"
-  checksum: 10c0/b33ff9898b5d01d012692ff7c78988aa34aacea192eb2d05d3d0d2b9ef1231660b929a74a7e9d1a3e7644bc2b3d97222fbde74a2cf93f823cd8f8c7e266ccae9
+  checksum: 10c0/2dace1ca1cb50f9f4b1409202f84a4facb68e50a3331af7e2c42bfa3802bc2692ccb4ceed7479178b1746390d213b064412ed3be17e5ca4429450f8b835c7e7d
   languageName: node
   linkType: hard
 
@@ -8898,8 +8898,8 @@ __metadata:
   linkType: hard
 
 "@vanilla-extract/css@npm:^1.15.5":
-  version: 1.21.0
-  resolution: "@vanilla-extract/css@npm:1.21.0"
+  version: 1.21.1
+  resolution: "@vanilla-extract/css@npm:1.21.1"
   dependencies:
     "@emotion/hash": "npm:^0.9.0"
     "@vanilla-extract/private": "npm:^1.0.9"
@@ -8912,7 +8912,7 @@ __metadata:
     media-query-parser: "npm:^2.0.2"
     modern-ahocorasick: "npm:^1.0.0"
     picocolors: "npm:^1.0.0"
-  checksum: 10c0/e77e805a238c6927c575ea1533c5de489788a09410d8f4e64fa26dbe7d81409be08945abf50de2cfc3979ccfac82f032bf268432af2bb75a38e17110fcd33423
+  checksum: 10c0/b934daa181c0334dbb3fb681f26919488adcf0647f37c90f3b888307f4ac7301c205135f3ca682ad5f2c202ac9cb9f5edb9270b34edbd18c5f28c7b8ad12bae7
   languageName: node
   linkType: hard
 
