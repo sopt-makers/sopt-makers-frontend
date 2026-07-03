@@ -29,9 +29,11 @@ const DevTool = dynamic(() => import('@hookform/devtools').then((module) => modu
   ssr: false,
 });
 
-type CreateModalProps = ModalContainerProps;
+interface CreateModalProps extends ModalContainerProps {
+  isMumuEntry?: boolean;
+}
 
-function FeedCreateWithSelectMeetingModal({ isModalOpened, handleModalClose }: CreateModalProps) {
+function FeedCreateWithSelectMeetingModal({ isModalOpened, handleModalClose, isMumuEntry = false }: CreateModalProps) {
   const queryClient = useQueryClient();
   const { open } = useToast();
   const router = useRouter();
@@ -128,6 +130,7 @@ function FeedCreateWithSelectMeetingModal({ isModalOpened, handleModalClose }: C
               }
               onSubmit={formMethods.handleSubmit(handleSubmitClick)}
               disabled={isSubmitting || !isValid}
+              shouldShowMumuLetter={isMumuEntry}
             />
           )}
         </FormProvider>
@@ -172,14 +175,20 @@ const SDialogWrapper = styled('div', {
   'maxWidth': '$768',
   'boxShadow': '0px 4px 4px rgba(0,0,0,0.25)',
   'maxHeight': '100vh',
-  'overflow': 'visible',
+  'overflowX': 'hidden',
+  'overflowY': 'auto',
   '&::-webkit-scrollbar': {
     display: 'none',
   },
   '@mobile': {
+    top: 0,
+    bottom: 0,
+    transform: 'translateX(-50%)',
     width: '100%',
     height: '100%',
+    maxHeight: '100vh',
     boxShadow: 'none',
     borderRadius: '0',
+    overflowY: 'hidden',
   },
 });
