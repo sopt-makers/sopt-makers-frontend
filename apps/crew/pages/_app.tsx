@@ -14,6 +14,7 @@ import Header from '@shared/header/Header';
 import SEO from '@shared/seo/SEO';
 import { setAccessTokens } from '@shared/util/auth';
 import { DialogProvider, ToastProvider } from '@sopt-makers/ui';
+import { spacingBase } from '@sopt-mds/design-tokens';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { GTM_ID, pageview } from '@util/gtm';
@@ -163,7 +164,7 @@ const Layout = styled('div', {
     width: 'calc(100vw - 60px)',
   },
   '@mobile': {
-    width: 'calc(100vw - 32px)',
+    width: `calc(100vw - ${spacingBase.s40})`,
     marginTop: '70px',
   },
 });
