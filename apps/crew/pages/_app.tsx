@@ -1,4 +1,5 @@
 import '@sopt-makers/ui/dist/index.css';
+import '@sopt-mds/ui/index.css';
 import '../styles/globals.css';
 
 import { getUserProfile } from '@api/user';

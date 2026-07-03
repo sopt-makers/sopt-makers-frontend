@@ -140,10 +140,12 @@ const CommonMention = ({
           setValue(e.target.value);
           return;
         }
-        if (e.target.value.length === 0) {
-          inputRef.current.style.height = 'auto';
-        } else {
-          inputRef.current.style.height = `${inputRef.current.scrollHeight}px`;
+        if (isComment) {
+          if (e.target.value.length === 0) {
+            inputRef.current.style.height = 'auto';
+          } else {
+            inputRef.current.style.height = `${inputRef.current.scrollHeight}px`;
+          }
         }
         setValue(e.target.value);
       }}
@@ -243,6 +245,8 @@ const SImageWrapper = styled('div', {
 });
 
 const FeedModalMentionStyle = {
+  'width': '100%',
+  'height': '100%',
   '&multiLine': {
     control: {
       fontWeight: 'normal',
@@ -254,7 +258,7 @@ const FeedModalMentionStyle = {
       boxSizing: 'border-box',
     },
     input: {
-      color: colors.gray50,
+      color: 'inherit',
       innerHeight: '0',
       border: 'none',
       padding: '0',
@@ -264,12 +268,14 @@ const FeedModalMentionStyle = {
       boxSizing: 'border-box',
       overflow: 'auto',
       width: '100%',
-      maxHeight: '208px',
+      height: '100%',
+      maxHeight: '100%',
       overscrollBehavior: 'none',
       fontFamily: 'inherit',
       fontWeight: 'normal',
       fontSize: 'inherit',
       lineHeight: 'inherit',
+      whiteSpace: 'pre-wrap',
     },
     highlighter: {
       color: colors.success,
@@ -281,7 +287,8 @@ const FeedModalMentionStyle = {
       marginLeft: '0',
       overflow: 'auto',
       boxSizing: 'border-box',
-      maxHeight: '208px',
+      height: '100%',
+      maxHeight: '100%',
       pointerEvents: 'none',
       width: '100%',
       zIndex: '1',

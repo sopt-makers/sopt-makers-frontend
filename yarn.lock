@@ -6161,6 +6161,47 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@sopt-mds/design-tokens@npm:1.0.6, @sopt-mds/design-tokens@npm:^1.0.6":
+  version: 1.0.6
+  resolution: "@sopt-mds/design-tokens@npm:1.0.6"
+  checksum: 10c0/a1d61aa39fd38470228eb4688aa7c0088caea281eb28ef9d79f64f4cd36c0c863d39a29669f9e20bf1e3d3f5f747be0a9924db3abea959b5153920adcdd00d28
+  languageName: node
+  linkType: hard
+
+"@sopt-mds/icons@npm:0.0.1":
+  version: 0.0.1
+  resolution: "@sopt-mds/icons@npm:0.0.1"
+  peerDependencies:
+    react: ">=18"
+  checksum: 10c0/575aa61c3651ac5b9eb1a2f52a53643136b9acd3489ebe6a6a854578eb6187e0131e3d79948af5e28399782f18ff57ff53a267fba9b7ebfcbfce42dc25bbd414
+  languageName: node
+  linkType: hard
+
+"@sopt-mds/icons@npm:^0.0.2":
+  version: 0.0.2
+  resolution: "@sopt-mds/icons@npm:0.0.2"
+  peerDependencies:
+    react: ">=18"
+  checksum: 10c0/1fda199a2b380dda02885f748cbaf3905a101e6e9f4706d4b732ace08df2f19e365a46e9b5e74b6b20731352fa93d7f5ecbec4ffa6db66a4d0e3393fe62c0355
+  languageName: node
+  linkType: hard
+
+"@sopt-mds/ui@npm:^1.0.10":
+  version: 1.0.10
+  resolution: "@sopt-mds/ui@npm:1.0.10"
+  dependencies:
+    "@sopt-mds/design-tokens": "npm:1.0.6"
+    "@sopt-mds/icons": "npm:0.0.1"
+    "@vanilla-extract/css": "npm:^1.15.5"
+    "@vanilla-extract/recipes": "npm:^0.5.7"
+    clsx: "npm:^2.1.1"
+  peerDependencies:
+    react: ">=18"
+    react-dom: ">=18"
+  checksum: 10c0/b33ff9898b5d01d012692ff7c78988aa34aacea192eb2d05d3d0d2b9ef1231660b929a74a7e9d1a3e7644bc2b3d97222fbde74a2cf93f823cd8f8c7e266ccae9
+  languageName: node
+  linkType: hard
+
 "@sopt/constant@workspace:*, @sopt/constant@workspace:packages/constant":
   version: 0.0.0-use.local
   resolution: "@sopt/constant@workspace:packages/constant"
@@ -8856,10 +8897,38 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@vanilla-extract/css@npm:^1.15.5":
+  version: 1.21.0
+  resolution: "@vanilla-extract/css@npm:1.21.0"
+  dependencies:
+    "@emotion/hash": "npm:^0.9.0"
+    "@vanilla-extract/private": "npm:^1.0.9"
+    css-what: "npm:^6.1.0"
+    csstype: "npm:^3.2.3"
+    dedent: "npm:^1.5.3"
+    deep-object-diff: "npm:^1.1.9"
+    deepmerge: "npm:^4.2.2"
+    lru-cache: "npm:^10.4.3"
+    media-query-parser: "npm:^2.0.2"
+    modern-ahocorasick: "npm:^1.0.0"
+    picocolors: "npm:^1.0.0"
+  checksum: 10c0/e77e805a238c6927c575ea1533c5de489788a09410d8f4e64fa26dbe7d81409be08945abf50de2cfc3979ccfac82f032bf268432af2bb75a38e17110fcd33423
+  languageName: node
+  linkType: hard
+
 "@vanilla-extract/private@npm:^1.0.9":
   version: 1.0.9
   resolution: "@vanilla-extract/private@npm:1.0.9"
   checksum: 10c0/6ab0f1a63a8c93c655a161add6f4d413d897498411f013ba3179f56e350e17b2b3cf04fe4e7d2d69aa1dd8dac7aeaf07fb39192192aa7ae445c75451b78aa3c8
+  languageName: node
+  linkType: hard
+
+"@vanilla-extract/recipes@npm:^0.5.7":
+  version: 0.5.7
+  resolution: "@vanilla-extract/recipes@npm:0.5.7"
+  peerDependencies:
+    "@vanilla-extract/css": ^1.0.0
+  checksum: 10c0/18e7a7a12dedd16e43a1974c8ee273bee9080bd70042e91ce244e4be5679c4f626a257d37186bbd3562157d48fec26650a50f7a396439862da527e2223687ac8
   languageName: node
   linkType: hard
 
@@ -11385,6 +11454,9 @@ __metadata:
     "@sopt-makers/fonts": "npm:^2.0.2"
     "@sopt-makers/icons": "npm:^1.1.0"
     "@sopt-makers/ui": "npm:^2.10.2"
+    "@sopt-mds/design-tokens": "npm:^1.0.6"
+    "@sopt-mds/icons": "npm:^0.0.2"
+    "@sopt-mds/ui": "npm:^1.0.10"
     "@sopt/constant": "workspace:*"
     "@sopt/ui": "workspace:*"
     "@stitches/react": "npm:^1.2.8"
