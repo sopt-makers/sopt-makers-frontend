@@ -62,3 +62,6 @@ apps/crew/src/__generated__/open-api-specification.json
 
 # omc
 .omc
+
+# local agent instructions
+AGENTS.md

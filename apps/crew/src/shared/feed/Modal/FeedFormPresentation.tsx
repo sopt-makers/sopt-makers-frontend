@@ -1,20 +1,25 @@
 import { getPresignedUrl, uploadImage } from '@api/image';
-import CameraIcon from '@assets/svg/camera.svg';
 import CancelIcon from '@assets/svg/x_big_gray.svg';
 import { FORM_TITLE_MAX_LENGTH } from '@constant/feed';
 import { imageS3Bucket } from '@constant/url';
+import { useDisplay } from '@hook/useDisplay';
 import FormController from '@shared/form/FormController';
 import { Divider } from '@shared/util/Divider';
+import { fontsObject } from '@sopt-makers/fonts';
 import { useToast } from '@sopt-makers/ui';
+import { colors, spacing, typography } from '@sopt-mds/design-tokens';
+import { IconImagePlusFilled } from '@sopt-mds/icons';
+import { ActionButton } from '@sopt-mds/ui';
 import { ACCEPTED_IMAGE_TYPES, MAX_FILE_SIZE } from '@type/form';
 import { getResizedImage } from '@util/image';
 import type { ChangeEvent } from 'react';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { styled } from 'stitches.config';
 
 import { ampli } from '@/ampli';
 
 import CommonMention from '../Mention';
+import MumuLetter from '../MumuLetter';
 import { ERROR_MESSAGE } from './feedSchema';
 import ImagePreview from './ImagePreview';
 import SelectMeeting from './SelectMeeting';
@@ -37,6 +42,7 @@ interface PresentationProps {
   setMeetingInfo?: (meeting: GroupInfo) => void;
   onSubmit: React.FormEventHandler<HTMLFormElement>;
   disabled: boolean;
+  shouldShowMumuLetter?: boolean;
 }
 interface FileChangeHandler {
   imageUrls: string[];
@@ -53,48 +59,15 @@ function FeedFormPresentation({
   setMeetingInfo,
   onSubmit,
   disabled = true,
+  shouldShowMumuLetter = false,
 }: PresentationProps) {
   const { open } = useToast();
+  const { isMobile } = useDisplay();
 
-  // textarea의 높이를 화면의 남은 부분으로 가져가기 위한 로직
-  const [textareaHeightChangeFlag, setTextareaHeightChangeFlag] = useState(false);
   const textAreaRef = useRef(null);
-  const [remainingHeight, setRemainingHeight] = useState(100);
   const [selectedMeeting, setSelectedMeeting] = useState<GroupInfo | undefined>(undefined);
 
-  const handleWindowResize = () => {
-    setTextareaHeightChangeFlag((flag) => !flag);
-  };
-
-  useEffect(() => {
-    window.addEventListener('resize', handleWindowResize);
-    return () => {
-      window.removeEventListener('resize', handleWindowResize);
-    };
-  }, []);
-
-  useEffect(() => {
-    const BasicPadding = 90;
-    if (textAreaRef.current) {
-      const allComponentHeights = Array.from(document.querySelectorAll('.calc_target')).reduce(
-        (totalHeight, component) => {
-          const computedStyle = window.getComputedStyle(component);
-          const marginTop = parseInt(computedStyle.marginTop, 10) || 0;
-          const marginBottom = parseInt(computedStyle.marginBottom, 10) || 0;
-          return totalHeight + component.clientHeight + marginTop + marginBottom;
-        },
-        0,
-      );
-
-      const availableHeight = window.innerHeight - allComponentHeights - BasicPadding;
-      setRemainingHeight(availableHeight);
-    }
-  }, [textareaHeightChangeFlag]);
-
-  const onDeleteFile = (index: number) => () => {
-    handleDeleteImage(index);
-    setTextareaHeightChangeFlag((flag) => !flag);
-  };
+  const onDeleteFile = (index: number) => () => handleDeleteImage(index);
 
   const handleAddFiles =
     ({ imageUrls, onChange }: FileChangeHandler) =>
@@ -115,7 +88,6 @@ function FeedFormPresentation({
         const urls = await Promise.all(newFiles.map(async (file) => await uploadFile(file)));
         onChange([...imageUrls, ...urls]);
       }
-      setTextareaHeightChangeFlag((flag) => !flag);
       ampli.attachFeedPhoto({
         user_id: userId,
         platform_type: window.innerWidth > 768 ? 'PC' : 'MO',
@@ -139,15 +111,21 @@ function FeedFormPresentation({
 
   return (
     <SFormContainer>
-      <form onSubmit={onSubmit}>
-        <SFormHeader className='calc_target'>
+      <SForm onSubmit={onSubmit}>
+        <SFormHeader>
           <SCancelIcon onClick={handleModalClose} />
           <SFormName>{title}</SFormName>
-          <SSubmitButton type='submit' disabled={disabled}>
-            완료
-          </SSubmitButton>
+          {isMobile ? (
+            <SSubmitButton type='submit' disabled={disabled}>
+              완료
+            </SSubmitButton>
+          ) : (
+            <ActionButton type='submit' size='small' variant='primary' disabled={disabled}>
+              완료
+            </ActionButton>
+          )}
         </SFormHeader>
-        <div className='calc_target'>
+        <div>
           {attendGroupsInfo?.length === 0 && groupInfo ? (
             <SGroupInfoSection>
               <SThumbnailImage
@@ -167,13 +145,20 @@ function FeedFormPresentation({
           )}
         </div>
 
-        <SDivider className='calc_target' />
+        {shouldShowMumuLetter && (
+          <MumuLetterWrapper>
+            {/* //@TODO: 홈 무무레터 버튼의 modal=create-feed&entry=mumu query 전달 및 FeedCreateModalController 분리 작업 필요 */}
+            {/* //@TODO: 무무레터 질문 API 연동 작업 필요 */}
+            <MumuLetter content='요즘 가장 관심 있는 것은 무엇인가요?' />
+          </MumuLetterWrapper>
+        )}
+
+        <SDivider />
         <FormController
           name='title'
           defaultValue=''
           render={({ field: { value: titleValue, onChange, onBlur } }) => (
             <STitleInput
-              className='calc_target'
               type='text'
               placeholder='제목을 입력해 주세요. (최대 100자)'
               value={titleValue}
@@ -193,23 +178,17 @@ function FeedFormPresentation({
             />
           )}
         />
-        <SDivider className='calc_target' />
+        <SDivider />
         <FormController
           name='contents'
           defaultValue=''
           render={({ field: { value: contentsValue, onChange } }) => (
-            <SFeedContentTextArea
-              css={{
-                '@mobile': {
-                  height: `${remainingHeight}px`,
-                },
-              }}
-            >
+            <SFeedContentTextArea>
               <CommonMention
                 inputRef={textAreaRef}
                 value={contentsValue}
                 setValue={onChange}
-                placeholder={'모임에서 있었던 일들을 친구들에게 공유해 주세요!'}
+                placeholder={'질문에 자유롭게 답장해주세요.\n’@’로 멤버를 언급해 작성할 수 있어요!'}
                 setIsFocused={() => {}}
                 setUserIds={() => {}}
                 isComment={false}
@@ -217,7 +196,7 @@ function FeedFormPresentation({
             </SFeedContentTextArea>
           )}
         />
-        <SDivider className='calc_target' />
+        <SDivider />
         <FormController
           name='images'
           defaultValue={[]}
@@ -225,18 +204,18 @@ function FeedFormPresentation({
             <>
               {!!(imageUrls as string[]).length && (
                 <>
-                  <SImageListWrapper className='calc_target'>
+                  <SImageListWrapper>
                     {(imageUrls as string[]).map((url, idx) => (
                       <SImagePreviewHolder key={`${url}-${idx}`}>
                         <ImagePreview url={url} onDelete={onDeleteFile(idx)} />
                       </SImagePreviewHolder>
                     ))}
                   </SImageListWrapper>
-                  <SImageListDivider className='calc_target' />
+                  <SDivider />
                 </>
               )}
 
-              <SImageInputWrapper className='calc_target'>
+              <SImageInputWrapper>
                 <SFileInputWrapper>
                   <SFileInput
                     type='file'
@@ -245,14 +224,14 @@ function FeedFormPresentation({
                     onChange={handleAddFiles({ imageUrls, onChange })}
                     onBlur={onBlur}
                   />
-                  <CameraIcon />
+                  <IconImagePlusFilled width={36} height={36} />
                 </SFileInputWrapper>
                 <SImageCount>{(imageUrls as string[]).length} / 10</SImageCount>
               </SImageInputWrapper>
             </>
           )}
         />
-      </form>
+      </SForm>
     </SFormContainer>
   );
 }
@@ -261,8 +240,9 @@ export default FeedFormPresentation;
 
 const SFormContainer = styled('div', {
   'width': '100%',
-  'padding': '40px 30px 30px',
-  'background': '$gray800',
+  'height': '100%',
+  'padding': 0,
+  'background': colors.bg.layer.default,
   'borderRadius': '15px',
   '@mobile': {
     padding: '30px 0 0 0',
@@ -271,6 +251,18 @@ const SFormContainer = styled('div', {
     borderRadius: '0',
   },
 });
+
+const SForm = styled('form', {
+  'display': 'flex',
+  'flexDirection': 'column',
+  'height': '100%',
+  'minHeight': 0,
+
+  '& > *': {
+    flexShrink: 0,
+  },
+});
+
 const SFormName = styled('h1', {
   'fontStyle': 'H1',
   'color': '$gray10',
@@ -285,8 +277,10 @@ const SFormHeader = styled('div', {
   'display': 'flex',
   'justifyContent': 'space-between',
   'alignItems': 'center',
+  'padding': `${spacing.s40} ${spacing.s40} ${spacing.s32} ${spacing.s40}`,
+
   '@mobile': {
-    px: '$20',
+    padding: `0 ${spacing.s20} ${spacing.s32}`,
   },
 });
 
@@ -295,26 +289,30 @@ const SCancelIcon = styled(CancelIcon, {
 });
 
 const SSubmitButton = styled('button', {
-  'fontStyle': 'T1',
-  'color': '$gray10',
-  'variants': {
+  ...typography.title4,
+  color: colors.fg.neutral.bold,
+  variants: {
     disabled: {
       true: {
-        color: '$gray500',
+        color: colors.fg.neutral.subtle,
         cursor: 'not-allowed',
       },
     },
-  },
-  '@mobile': {
-    fontStyle: 'T4',
   },
 });
 
 const SGroupInfoSection = styled('div', {
   'mt': '$40',
   'flexType': 'verticalCenter',
+  'width': `calc(100% - ${spacing.s80})`,
+  'padding': `${spacing.s24} ${spacing.s8}`,
+  'margin': `0 ${spacing.s40}`,
+  'boxSizing': 'border-box',
+
   '@mobile': {
-    px: '$20',
+    width: `calc(100% - ${spacing.s40})`,
+    padding: `${spacing.s16} ${spacing.s8}`,
+    margin: `0 ${spacing.s20}`,
   },
 });
 
@@ -359,39 +357,72 @@ const STitle = styled('p', {
 });
 
 const SDivider = styled(Divider, {
-  'my': '$24',
-  'backgroundColor': '$gray600',
+  'width': `calc(100% - ${spacing.s80})`,
+  'margin': `0 ${spacing.s40}`,
+  'backgroundColor': colors.stroke.neutral.default,
+
   '@mobile': {
-    my: '$20',
+    width: `calc(100% - ${spacing.s40})`,
+    margin: `0 ${spacing.s20}`,
   },
 });
 
 const STitleInput = styled('input', {
-  'width': '100%',
-  'color': '$white',
-  'fontStyle': 'H3',
-  'ml': '$8',
+  'display': 'block',
+  'width': `calc(100% - ${spacing.s80})`,
+  'color': colors.fg.neutral.bold,
+  'padding': `${spacing.s24} ${spacing.s8}`,
+  'margin': `0 ${spacing.s40}`,
+  'boxSizing': 'border-box',
+  ...typography.title3,
+
+  '&::placeholder': {
+    color: colors.fg.neutral.subtle,
+    opacity: 1,
+  },
 
   '@mobile': {
-    px: '$20',
-    boxSizing: 'border-box',
-    fontStyle: 'H4',
+    'width': `calc(100% - ${spacing.s40})`,
+    'padding': `${spacing.s16} ${spacing.s8}`,
+    'margin': `0 ${spacing.s20}`,
+    ...typography.title4,
+
+    '&::placeholder': {
+      color: colors.fg.neutral.ghost,
+    },
   },
 });
 
 const SFeedContentTextArea = styled('div', {
-  'width': '100%',
-  'height': '208px',
+  'width': `calc(100% - ${spacing.s80})`,
+  'height': '250px',
+  'padding': `${spacing.s24} ${spacing.s8}`,
+  'margin': `0 ${spacing.s40}`,
+  'boxSizing': 'border-box',
   'border': 'none',
   'resize': 'none',
-  'fontStyle': 'B2',
-  'color': '$white',
+  'color': colors.fg.neutral.bold,
   'backgroundColor': 'inherit',
-  'ml': '$8',
+  'overflow': 'hidden',
+  ...typography.body1,
+
+  '& textarea::placeholder': {
+    color: colors.fg.neutral.subtle,
+    opacity: 1,
+  },
 
   '@mobile': {
-    px: '$20',
-    boxSizing: 'border-box',
+    'width': `calc(100% - ${spacing.s40})`,
+    'height': 'auto',
+    'padding': `${spacing.s16} ${spacing.s8}`,
+    'margin': `0 ${spacing.s20}`,
+    'flex': '1 1 auto',
+    'minHeight': 0,
+    ...typography.body2,
+
+    '& textarea::placeholder': {
+      color: colors.fg.neutral.ghost,
+    },
   },
 
   '&::-webkit-scrollbar': {
@@ -399,11 +430,20 @@ const SFeedContentTextArea = styled('div', {
   },
 });
 
+const MumuLetterWrapper = styled('div', {
+  'padding': `0 ${spacing.s40}`,
+  'marginBottom': spacing.s20,
+
+  '@mobile': {
+    padding: `0 ${spacing.s20}`,
+    marginTop: spacing.s4,
+  },
+});
+
 const SImagePreviewHolder = styled('div', {
   'width': '108px',
   'height': '108px',
-  'mb': '$24',
-  'mr': '$12',
+  'flexShrink': 0,
   '@mobile': {
     width: '84px',
     height: '84px',
@@ -413,6 +453,7 @@ const SImagePreviewHolder = styled('div', {
 const SFileInputWrapper = styled('label', {
   position: 'relative',
   cursor: 'pointer',
+  color: colors.fg.neutral.bold,
 });
 
 const SFileInput = styled('input', {
@@ -427,35 +468,42 @@ const SFileInput = styled('input', {
 });
 
 const SImageCount = styled('p', {
-  color: '$gray300',
-  fontStyle: 'B1',
+  color: colors.fg.neutral.default,
+  ...typography.label1,
 });
 
 const SImageInputWrapper = styled('div', {
   'display': 'flex',
   'alignItems': 'center',
   'justifyContent': 'space-between',
+  'width': `calc(100% - ${spacing.s80})`,
+  'padding': `${spacing.s24} ${spacing.s8}`,
+  'margin': `0 ${spacing.s40}`,
+  'boxSizing': 'border-box',
+
   '@mobile': {
-    px: '$16',
+    width: `calc(100% - ${spacing.s40})`,
+    padding: `${spacing.s16} ${spacing.s8}`,
+    margin: `0 ${spacing.s20}`,
   },
 });
 
 const SImageListWrapper = styled('div', {
   'display': 'flex',
+  'gap': spacing.s6,
+  'width': `calc(100% - ${spacing.s80})`,
+  'padding': `${spacing.s24} ${spacing.s8}`,
+  'margin': `0 ${spacing.s40}`,
+  'boxSizing': 'border-box',
   'overflowX': 'scroll',
+
+  '@mobile': {
+    width: `calc(100% - ${spacing.s40})`,
+    padding: `${spacing.s16} ${spacing.s8}`,
+    margin: `0 ${spacing.s20}`,
+  },
+
   '&::-webkit-scrollbar': {
     display: 'none',
   },
-  '& > div:first-child': {
-    ml: '$16',
-  },
-  '& > div:last-child': {
-    mr: '$16',
-  },
-});
-
-const SImageListDivider = styled(Divider, {
-  mt: '$0',
-  mb: '$24',
-  backgroundColor: '$gray600',
 });

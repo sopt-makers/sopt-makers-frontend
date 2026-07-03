@@ -6168,7 +6168,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sopt-mds/icons@npm:0.0.2, @sopt-mds/icons@npm:^0.0.2":
+"@sopt-mds/icons@npm:0.0.1":
+  version: 0.0.1
+  resolution: "@sopt-mds/icons@npm:0.0.1"
+  peerDependencies:
+    react: ">=18"
+  checksum: 10c0/575aa61c3651ac5b9eb1a2f52a53643136b9acd3489ebe6a6a854578eb6187e0131e3d79948af5e28399782f18ff57ff53a267fba9b7ebfcbfce42dc25bbd414
+  languageName: node
+  linkType: hard
+
+"@sopt-mds/icons@npm:^0.0.2":
   version: 0.0.2
   resolution: "@sopt-mds/icons@npm:0.0.2"
   peerDependencies:
@@ -6178,18 +6187,18 @@ __metadata:
   linkType: hard
 
 "@sopt-mds/ui@npm:^1.0.10":
-  version: 1.0.12
-  resolution: "@sopt-mds/ui@npm:1.0.12"
+  version: 1.0.11
+  resolution: "@sopt-mds/ui@npm:1.0.11"
   dependencies:
     "@sopt-mds/design-tokens": "npm:1.0.7"
-    "@sopt-mds/icons": "npm:0.0.2"
+    "@sopt-mds/icons": "npm:0.0.1"
     "@vanilla-extract/css": "npm:^1.15.5"
     "@vanilla-extract/recipes": "npm:^0.5.7"
     clsx: "npm:^2.1.1"
   peerDependencies:
     react: ">=18"
     react-dom: ">=18"
-  checksum: 10c0/877c5e72a8949e0d63523e3788725d8119e30daa2b11e62e93a7b24f9d535b9af4df622cf0be07b185b6dd5c573e4522ebf717c2a5ee13243f837fd3022e33d9
+  checksum: 10c0/2dace1ca1cb50f9f4b1409202f84a4facb68e50a3331af7e2c42bfa3802bc2692ccb4ceed7479178b1746390d213b064412ed3be17e5ca4429450f8b835c7e7d
   languageName: node
   linkType: hard
 
