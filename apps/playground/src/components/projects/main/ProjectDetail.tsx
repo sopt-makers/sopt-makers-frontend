@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import { playgroundLink } from '@sopt/constant';
-// import { colors } from '@sopt-makers/colors';
 import { colors, radius, spacing, typography } from '@sopt-mds/design-tokens';
 import { IconTrashOutlined } from '@sopt-mds/icons';
 import { ActionButton, Tag } from '@sopt-mds/ui';
