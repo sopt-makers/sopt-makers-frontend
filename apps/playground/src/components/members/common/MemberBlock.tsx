@@ -1,10 +1,8 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { colors } from '@sopt-makers/colors';
-import type { FC } from 'react';
-import { useState } from 'react';
+import { colors, spacing, typography } from '@sopt-mds/design-tokens';
+import { Avatar, Tag } from '@sopt-mds/ui';
 
-import ResizedImage from '@/components/common/ResizedImage';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 import { textStyles } from '@/styles/typography';
 
@@ -18,7 +16,7 @@ interface MemberBlockProps {
   as?: keyof JSX.IntrinsicElements;
 }
 
-const MemberBlock: FC<MemberBlockProps> = ({
+const MemberBlock = ({
   name,
   position,
   onClick,
@@ -26,48 +24,32 @@ const MemberBlock: FC<MemberBlockProps> = ({
   badges = [],
   as = 'div',
   clickable = false,
-}) => {
-  const [isImageLoaded, setIsImageLoaded] = useState(false);
-
+}: MemberBlockProps) => {
   return (
-    <StyledRawPersonBlock as={as} clickable={clickable} onClick={onClick}>
-      <ImageBox>
-        <StyledImage
-          src='/icons/icon-profile-fallback.svg'
-          alt=''
-          loading='lazy'
-          decoding='async'
-          hide={isImageLoaded}
-        />
-        {imageUrl && (
-          <StyledResizedImage
-            src={imageUrl}
-            alt=''
-            onLoad={() => setIsImageLoaded(true)}
-            hide={!isImageLoaded}
-            width={58}
-          />
-        )}
-      </ImageBox>
-      <ContentBox>
-        <Name>
-          {name}
-          {position && <Po>{` ∙ ${position}`}</Po>}
-        </Name>
-        <BadgeContainer>
+    <StyledContainer as={as} clickable={clickable} onClick={onClick}>
+      <Avatar src={imageUrl || undefined} size={56} />
+      <StyledContent>
+        <StyledTitleRow>
+          <StyledName>{name}</StyledName>
+          {position && <StyledPosition>{` ∙ ${position}`}</StyledPosition>}
+        </StyledTitleRow>
+        <StyledBadgeList>
           {badges.map((badge, idx) => (
-            <Badge key={idx}>{badge}</Badge>
+            <Tag key={idx} size='small'>
+              {badge}
+            </Tag>
           ))}
-        </BadgeContainer>
-      </ContentBox>
-    </StyledRawPersonBlock>
+        </StyledBadgeList>
+      </StyledContent>
+    </StyledContainer>
   );
 };
 
 export default MemberBlock;
 
-const StyledRawPersonBlock = styled.a<{ clickable: boolean }>`
+const StyledContainer = styled.a<{ clickable: boolean }>`
   display: flex;
+  gap: ${spacing.s12};
 
   ${(props) =>
     props.clickable
@@ -77,59 +59,14 @@ const StyledRawPersonBlock = styled.a<{ clickable: boolean }>`
       : ''};
 `;
 
-const ImageBox = styled.div`
-  position: relative;
-  width: 58px;
-  height: 58px;
-  clip-path: circle(50%);
-
-  /* 
-  /  Fallback 이미지 준비되면 적용하기
-  clip-path: inset(0% 0% 0% 0% round 35%); 
-  */
-
-  @media ${MOBILE_MEDIA_QUERY} {
-    width: 52px;
-    height: 52px;
-  }
-`;
-
-const StyledImage = styled.img<{ hide?: boolean }>`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-
-  ${(props) =>
-    props.hide
-      ? css`
-          visibility: hidden;
-        `
-      : ''};
-`;
-
-const StyledResizedImage = styled(ResizedImage)<{ hide?: boolean }>`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-
-  ${(props) =>
-    props.hide
-      ? css`
-          visibility: hidden;
-        `
-      : ''};
-`;
-
-const ContentBox = styled.div`
+const StyledContent = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-left: 12px;
+  gap: ${spacing.s6};
 `;
 
-const Name = styled.h3`
+const StyledTitleRow = styled.h3`
   width: 100%;
   min-width: 0;
   max-width: 100%;
@@ -144,32 +81,18 @@ const Name = styled.h3`
   }
 `;
 
-const Po = styled.span`
-  color: ${colors.gray200};
-
-  ${textStyles.SUIT_16_M};
-
-  @media ${MOBILE_MEDIA_QUERY} {
-    ${textStyles.SUIT_14_M};
-  }
+const StyledName = styled.span`
+  color: ${colors.fg.neutral.bold};
+  ${typography.label2}
 `;
 
-const BadgeContainer = styled.div`
+const StyledPosition = styled.span`
+  color: ${colors.fg.neutral.default};
+  ${typography.label3}
+`;
+
+const StyledBadgeList = styled.div`
   display: flex;
+  gap: ${spacing.s4};
   flex-wrap: wrap;
-  margin-top: 6px;
-`;
-
-const Badge = styled.div`
-  margin-right: 4px;
-  border-radius: 3px;
-  background-color: ${colors.gray600};
-  padding: 2px 6px;
-  color: ${colors.gray50};
-
-  ${textStyles.SUIT_14_M};
-
-  @media ${MOBILE_MEDIA_QUERY} {
-    ${textStyles.SUIT_12_M};
-  }
 `;
