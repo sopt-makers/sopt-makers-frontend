@@ -180,10 +180,6 @@ const ProjectDetail = ({ projectId }: ProjectDetailProps) => {
                 </Link>
               );
             })}
-            <MemberBlock name='조혜린' position='Front-end' imageUrl='' badges={['38기']} />
-            <MemberBlock name='조혜린' position='Front-end' imageUrl='' badges={['38기']} />
-            <MemberBlock name='조혜린' position='Front-end' imageUrl='' badges={['38기']} />
-            <MemberBlock name='조혜린' position='Front-end' imageUrl='' badges={['38기']} />
           </UserList>
         </UserWrapper>
       </ProjectDetailContainer>
