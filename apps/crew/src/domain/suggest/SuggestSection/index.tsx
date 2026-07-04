@@ -1,6 +1,7 @@
 import { useDisplay } from '@hook/useDisplay';
 import { colors, spacing, typography } from '@sopt-mds/design-tokens';
 import { ActionButton } from '@sopt-mds/ui';
+import { Suspense } from '@suspensive/react';
 import { useState } from 'react';
 import { styled } from 'stitches.config';
 
@@ -72,7 +73,7 @@ interface SuggestSectionProps {
   description: string;
 }
 
-const SuggestSection = ({ title, description }: SuggestSectionProps) => {
+const SuggestSectionContent = ({ title, description }: SuggestSectionProps) => {
   const { isMobile } = useDisplay();
   const [meetingDemandPages, setMeetingDemandPages] = useState(MOCK_MEETING_DEMAND_PAGES);
 
@@ -135,6 +136,14 @@ const SuggestSection = ({ title, description }: SuggestSectionProps) => {
         </MobileCTA>
       )}
     </Container>
+  );
+};
+
+const SuggestSection = (props: SuggestSectionProps) => {
+  return (
+    <Suspense fallback={null}>
+      <SuggestSectionContent {...props} />
+    </Suspense>
   );
 };
 

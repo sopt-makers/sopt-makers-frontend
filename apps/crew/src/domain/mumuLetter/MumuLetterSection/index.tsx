@@ -2,6 +2,7 @@ import Letter from '@assets/svg/letter.svg';
 import PaperAirplane from '@assets/svg/paper_airplane.svg';
 import { colors, radius, spacing, typography } from '@sopt-mds/design-tokens';
 import { ActionButton } from '@sopt-mds/ui';
+import { Suspense } from '@suspensive/react';
 import { useRouter } from 'next/router';
 import { styled } from 'stitches.config';
 
@@ -55,7 +56,7 @@ interface MumuLetterSectionProps {
   description: string;
 }
 
-const MumuLetterSection = ({ title, description }: MumuLetterSectionProps) => {
+const MumuLetterSectionContent = ({ title, description }: MumuLetterSectionProps) => {
   const router = useRouter();
   const { hasWrittenTodayMumuPost: isReplied, mumuText, mumuPostHomeDtos } = MOCK_MUMU_LETTER_HOME_DATA;
 
@@ -129,6 +130,14 @@ const MumuLetterSection = ({ title, description }: MumuLetterSectionProps) => {
         </div>
       </LetterContainer>
     </Container>
+  );
+};
+
+const MumuLetterSection = (props: MumuLetterSectionProps) => {
+  return (
+    <Suspense fallback={null}>
+      <MumuLetterSectionContent {...props} />
+    </Suspense>
   );
 };
 
