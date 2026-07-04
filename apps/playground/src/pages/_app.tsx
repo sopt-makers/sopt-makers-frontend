@@ -1,3 +1,5 @@
+import '@sopt-mds/ui/index.css';
+
 import ProgressBar from '@badrap/bar-of-progress';
 import { colors } from '@sopt-makers/colors';
 import { DialogProvider, ToastProvider as MDSToastProvider } from '@sopt-makers/ui';
