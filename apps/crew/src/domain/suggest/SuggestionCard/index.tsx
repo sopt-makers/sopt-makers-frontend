@@ -5,10 +5,14 @@ import { ReactionButton, Tag } from '@sopt-mds/ui';
 import type { MouseEvent } from 'react';
 import { styled } from 'stitches.config';
 
-import type { MeetingDemandData } from '../types';
-
 interface SuggestionCardProps {
-  suggestion: MeetingDemandData;
+  suggestion: {
+    shortIntro: string;
+    expectation: string;
+    status: string;
+    waitCount: number;
+    isWaiting: boolean;
+  };
   onClick: () => void;
   onWaitingChange: (isWaiting: boolean) => void;
 }

@@ -1,4 +1,6 @@
 import type {
+  GetMumuPostHomeResponse,
+  GetMumuTextResponse,
   GetPostDetailResponse,
   GetPostListResponse,
   PostPostLikeResponse,
@@ -19,6 +21,16 @@ export const getPostList = async (page: number, take: number, meetingId?: number
 
 export const getPostDetail = async (postId: number) => {
   const { data } = await api.get<GetPostDetailResponse>(`/post/v2/${postId}`);
+  return data;
+};
+
+export const getMumuPostHome = async () => {
+  const { data } = await api.get<GetMumuPostHomeResponse>('/post/v2/mumu/home');
+  return data;
+};
+
+export const getMumuText = async () => {
+  const { data } = await api.get<GetMumuTextResponse>('/post/v2/mumuText');
   return data;
 };
 

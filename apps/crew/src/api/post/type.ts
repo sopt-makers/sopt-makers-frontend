@@ -17,3 +17,9 @@ export type PostPostLikeResponse =
 
 export type PostViewsResponse =
   paths['/post/v2/{postId}/views']['post']['responses']['200']['content']['application/json;charset=UTF-8'];
+
+export type GetMumuPostHomeResponse =
+  paths['/post/v2/mumu/home']['get']['responses']['200']['content']['application/json;charset=UTF-8'];
+
+export type GetMumuTextResponse =
+  paths['/post/v2/mumuText']['get']['responses']['200']['content']['application/json;charset=UTF-8'];

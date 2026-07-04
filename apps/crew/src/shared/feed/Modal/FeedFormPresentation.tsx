@@ -2,7 +2,6 @@ import { getPresignedUrl, uploadImage } from '@api/image';
 import CancelIcon from '@assets/svg/x_big_gray.svg';
 import { FORM_TITLE_MAX_LENGTH } from '@constant/feed';
 import { imageS3Bucket } from '@constant/url';
-import type { MumuText } from '@domain/mumuLetter/types';
 import { useDisplay } from '@hook/useDisplay';
 import FormController from '@shared/form/FormController';
 import { Divider } from '@shared/util/Divider';
@@ -43,7 +42,7 @@ interface PresentationProps {
   onSubmit: React.FormEventHandler<HTMLFormElement>;
   disabled: boolean;
   shouldShowMumuLetter?: boolean;
-  mumuText?: MumuText;
+  mumuText?: string;
 }
 interface FileChangeHandler {
   imageUrls: string[];
@@ -149,7 +148,6 @@ const FeedFormPresentation = ({
 
         {shouldShowMumuLetter && mumuText && (
           <MumuLetterWrapper>
-            {/* //@TODO: 홈 페이지에서 조회하고 캐싱한 mumuText를 사용하도록 API 연동 */}
             <MumuLetter content={mumuText} />
           </MumuLetterWrapper>
         )}

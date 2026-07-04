@@ -1,6 +1,5 @@
+import type { CreateMeetingDemandRequest } from '@api/meetingDemand/type';
 import { z } from 'zod';
-
-import type { CreateMeetingDemandRequest } from './types';
 
 export const suggestFormSchema: z.ZodType<CreateMeetingDemandRequest> = z.object({
   shortIntro: z.string().trim().min(1).max(30),

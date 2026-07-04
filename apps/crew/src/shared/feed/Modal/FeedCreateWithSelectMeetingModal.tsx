@@ -1,6 +1,7 @@
 import { useMutationPostPostWithMention } from '@api/mention/mutation';
 import { postPost } from '@api/post';
 import PostQueryKey from '@api/post/PostQueryKey';
+import { useMumuTextQueryOption } from '@api/post/query';
 import { useUserMeetingAllQueryOption, useUserProfileQueryOption } from '@api/user/query';
 import useModal from '@hook/useModal';
 import useThrottle from '@hook/useThrottle';
@@ -31,14 +32,13 @@ interface CreateModalProps extends ModalContainerProps {
   isMumuEntry?: boolean;
 }
 
-// @TODO: 무무 문구 API 연동 후 Mock 데이터 제거
-const MOCK_MUMU_TEXT = {
-  mumuText: '요즘 가장 관심 있는 것은 무엇인가요?',
-};
-
 function FeedCreateWithSelectMeetingModal({ isModalOpened, handleModalClose, isMumuEntry = false }: CreateModalProps) {
   const queryClient = useQueryClient();
   const { data: attendMeetingList, isLoading: isFetchAttendMeetingLoading } = useQuery(useUserMeetingAllQueryOption());
+  const { data: mumuTextData } = useQuery({
+    ...useMumuTextQueryOption(),
+    enabled: isMumuEntry,
+  });
 
   const { data: me } = useQuery(useUserProfileQueryOption());
   const exitModal = useModal();
@@ -121,7 +121,7 @@ function FeedCreateWithSelectMeetingModal({ isModalOpened, handleModalClose, isM
               onSubmit={formMethods.handleSubmit(handleSubmitClick)}
               disabled={isSubmitting || !isValid}
               shouldShowMumuLetter={isMumuEntry}
-              mumuText={MOCK_MUMU_TEXT.mumuText}
+              mumuText={mumuTextData?.mumuText}
             />
           )}
         </FormProvider>
