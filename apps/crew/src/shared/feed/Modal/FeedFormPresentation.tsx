@@ -5,7 +5,6 @@ import { imageS3Bucket } from '@constant/url';
 import { useDisplay } from '@hook/useDisplay';
 import FormController from '@shared/form/FormController';
 import { Divider } from '@shared/util/Divider';
-import { fontsObject } from '@sopt-makers/fonts';
 import { useToast } from '@sopt-makers/ui';
 import { colors, spacing, typography } from '@sopt-mds/design-tokens';
 import { IconImagePlusFilled } from '@sopt-mds/icons';
@@ -147,8 +146,7 @@ function FeedFormPresentation({
 
         {shouldShowMumuLetter && (
           <MumuLetterWrapper>
-            {/* //@TODO: 홈 무무레터 버튼의 modal=create-feed&entry=mumu query 전달 및 FeedCreateModalController 분리 작업 필요 */}
-            {/* //@TODO: 무무레터 질문 API 연동 작업 필요 */}
+            {/* //@TODO: 홈 페이지에서 조회하고 캐싱한 mumuText를 사용하도록 API 연동 */}
             <MumuLetter content='요즘 가장 관심 있는 것은 무엇인가요?' />
           </MumuLetterWrapper>
         )}

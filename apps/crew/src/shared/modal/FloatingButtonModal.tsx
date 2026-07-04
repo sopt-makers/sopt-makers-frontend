@@ -1,13 +1,20 @@
 import BoltIcon from '@assets/svg/bolt_md.svg';
+import FeedIcon from '@assets/svg/floating_button_feed_icon.svg';
 import GroupIcon from '@assets/svg/floating_button_group_icon.svg';
 import MapIcon from '@assets/svg/floating_button_map_icon.svg';
 import KakaoLogoIcon from '@assets/svg/logo_kakao.svg';
+import { colors, radius, spacing, typography } from '@sopt-mds/design-tokens';
 import { useRouter } from 'next/router';
 import { keyframes, styled } from 'stitches.config';
 
 import { ampli } from '@/ampli';
 
-const FloatingButtonModal = ({ isActive }: { isActive: boolean }) => {
+interface FloatingButtonModalProps {
+  isActive: boolean;
+  onClose: () => void;
+}
+
+const FloatingButtonModal = ({ isActive, onClose }: FloatingButtonModalProps) => {
   const router = useRouter();
 
   const handleGroupCreateButtonClick = () => {
@@ -27,6 +34,23 @@ const FloatingButtonModal = ({ isActive }: { isActive: boolean }) => {
     router.push('/map/register');
   };
 
+  const handleFeedCreateButtonClick = () => {
+    const nextQuery = { ...router.query };
+
+    delete nextQuery.entry;
+    nextQuery.modal = 'create-feed';
+
+    router.push(
+      {
+        pathname: router.pathname,
+        query: nextQuery,
+      },
+      undefined,
+      { shallow: true },
+    );
+    onClose();
+  };
+
   return (
     <Wrapper isActive={isActive}>
       {isActive && (
@@ -37,22 +61,26 @@ const FloatingButtonModal = ({ isActive }: { isActive: boolean }) => {
             });
           }}
         >
-          <KakaoLogoIcon />
+          <KakaoLogoIcon width={22} height={22} />
           카카오톡 문의
         </KakaoQuestionButton>
       )}
 
       <Container isActive={isActive}>
         <Button onClick={handleBoltCreateButtonClick}>
-          <BoltIcon style={{ marginRight: '4px' }} />
+          <BoltIcon width={22} height={22} />
           번쩍 개설
         </Button>
         <Button onClick={handleGroupCreateButtonClick}>
-          <GroupIcon style={{ marginRight: '4px' }} />
+          <GroupIcon width={22} height={22} />
           모임 개설
         </Button>
+        <Button onClick={handleFeedCreateButtonClick}>
+          <FeedIcon width={22} height={22} />
+          피드 작성
+        </Button>
         <Button onClick={handleMapRegisterButtonClick}>
-          <MapIcon style={{ marginRight: '4px' }} />
+          <MapIcon width={22} height={22} />
           솝맵 등록
         </Button>
       </Container>
@@ -73,17 +101,17 @@ const fadeOut = keyframes({
 });
 
 const Wrapper = styled('div', {
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '$8',
+  'display': 'flex',
+  'flexDirection': 'column',
+  'gap': spacing.s8,
 
-  zIndex: '$3',
-  position: 'absolute',
-  bottom: '76px',
-  right: '5%',
+  'zIndex': '$3',
+  'position': 'absolute',
+  'bottom': `calc(${spacing.s48} + ${spacing.s20})`,
+  'right': '5%',
 
-  transition: 'all 0.3s ease',
-  variants: {
+  'transition': 'all 0.3s ease',
+  'variants': {
     isActive: {
       true: {
         animation: `${fadeIn} 200ms ease-out`,
@@ -95,19 +123,21 @@ const Wrapper = styled('div', {
       },
     },
   },
+
+  '@mobile': {
+    bottom: `calc(${spacing.s48} + ${spacing.s16})`,
+  },
 });
 
 const Container = styled('div', {
   'width': '160px',
   'height': 'auto',
 
-  'backgroundColor': '$gray10',
+  'backgroundColor': colors.bg.neutral.inverse,
   'borderRadius': '20px',
-  'color': '$gray600',
-  'flexType': 'center',
-  'flexWrap': 'wrap',
+  'color': colors.fg.neutral.inverse,
   'transition': 'all 0.3s ease',
-  'padding': '$8 $6 $8 $6',
+  'padding': `${spacing.s8} ${spacing.s6}`,
   'variants': {
     isActive: {
       true: {
@@ -124,8 +154,7 @@ const Container = styled('div', {
     width: '140px',
     height: 'auto',
     borderRadius: '18px',
-    bottom: '72px',
-    padding: '$6 $0 $6 $4',
+    padding: `${spacing.s6} ${spacing.s4}`,
   },
 });
 
@@ -134,63 +163,50 @@ const Button = styled('button', {
   'alignItems': 'center',
   'width': '100%',
   'height': '46px',
-  'paddingLeft': '12px',
-  'fontSize': '16px',
-  'fontWeight': '600',
-  'lineHeight': '22px',
-  'color': '$gray600',
+  'padding': spacing.s12,
+  'gap': spacing.s4,
+  'borderRadius': radius.r16,
+  'backgroundColor': colors.bg.neutral.inverse,
+  'color': colors.fg.neutral.inverse,
+  ...typography.label2,
+
   '&:hover': {
-    borderRadius: '16px',
-    backgroundColor: '$gray30',
+    background: colors.base.gray30,
   },
   '@mobile': {
-    '&:hover': {
-      backgroundColor: '$gray10',
-    },
-    'height': '38px',
-    'fontSize': '14px',
-    'fontWeight': '600',
-    'lineHeight': '18px',
+    height: '38px',
+    padding: `${spacing.s8} ${spacing.s12}`,
+    ...typography.label3,
   },
 });
 
 const KakaoQuestionButton = styled('button', {
-  'width': '162px',
+  'width': '100%',
   'height': '62px',
 
   'display': 'flex',
-  'padding': '8px 6px',
-  'paddingLeft': '20px',
-
-  'fontSize': '16px',
-  'fontWeight': '600',
-  'lineHeight': '22px',
-  'color': '$gray600',
+  'padding': `${spacing.s20} 18px`,
+  'color': colors.fg.neutral.inverse,
+  ...typography.label2,
 
   'alignItems': 'center',
-  'gap': '4px',
-  'alignSelf': 'stretch',
+  'gap': spacing.s6,
 
-  'borderRadius': '20px',
-  'background': '$gray10',
-  'boxShadow': '0px 6px 20px 0px rgba(0, 0, 0, 0.35)',
+  'borderRadius': radius.r20,
+  'background': colors.bg.neutral.inverse,
 
   '&:hover': {
-    background: '$gray50',
+    background: colors.base.gray50,
   },
   '&:active': {
-    background: '$gray100',
+    background: colors.base.gray100,
   },
 
   '@mobile': {
-    width: '140px',
+    gap: spacing.s4,
     height: '50px',
-    borderRadius: '18px',
-    bottom: '72px',
-    padding: '$6',
-    paddingLeft: '$18',
-    fontSize: '14px',
-    fontWeight: '600',
-    lineHeight: '18px',
+    borderRadius: radius.r16,
+    padding: `${spacing.s14} ${spacing.s16}`,
+    ...typography.label3,
   },
 });

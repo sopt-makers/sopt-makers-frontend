@@ -8,6 +8,7 @@ import { OverlayProvider } from '@hook/useOverlay/OverlayProvider';
 import useScrollRestoration from '@hook/useScrollRestoration';
 import { useStore } from '@nanostores/react';
 import { MentionProvider } from '@shared/feed/Mention/MentionContext';
+import FeedCreateModalController from '@shared/feed/Modal/FeedCreateModalController';
 import { SearchMentionProvider } from '@shared/form/SearchMention/SearchMentionContext';
 import Header from '@shared/header/Header';
 import SEO from '@shared/seo/SEO';
@@ -128,6 +129,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                 <OverlayProvider>
                   {isServiceReady ? (
                     <>
+                      <FeedCreateModalController />
                       <Header />
                       <Component {...pageProps} />
                     </>
