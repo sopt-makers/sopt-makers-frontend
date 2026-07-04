@@ -14,7 +14,7 @@ const HomeCardList = () => {
   return (
     <SWrapper>
       {property?.map((prop: { title: string; meetingIds: number[] }, idx: number) => (
-        <CardList key={idx} label={prop.title} meetingIds={isProduction ? prop.meetingIds : [540, 667, 645]} />
+        <CardList key={idx} label={prop.title} meetingIds={isProduction ? prop.meetingIds : [540, 667, 645, 709]} />
       ))}
     </SWrapper>
   );
@@ -29,10 +29,6 @@ export default function HomeCardListSuspense() {
 }
 
 const SWrapper = styled('div', {
-  'position': 'relative',
-  'width': '100%',
-
-  '@large_desktop': {
-    width: '894px',
-  },
+  position: 'relative',
+  width: '100%',
 });
