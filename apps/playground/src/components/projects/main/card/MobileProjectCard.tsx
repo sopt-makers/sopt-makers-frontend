@@ -5,8 +5,6 @@ import { Flex, Stack } from '@toss/emotion-utils';
 import { Separated } from '@toss/react';
 
 import ResizedImage from '@/components/common/ResizedImage';
-import type { MemberType } from '@/components/projects/main/card/ProjectCardMemberList';
-import ProjectCardMemberList from '@/components/projects/main/card/ProjectCardMemberList';
 import ProjectCardStatus from '@/components/projects/main/card/ProjectCardStatus';
 
 interface MobileProjectCardProps {
@@ -16,7 +14,6 @@ interface MobileProjectCardProps {
   summary: string;
   isAvailable?: boolean;
   isFounding?: boolean;
-  memberList: MemberType[];
 }
 
 const MobileProjectCard = ({
@@ -26,7 +23,6 @@ const MobileProjectCard = ({
   summary,
   isAvailable,
   isFounding,
-  memberList,
 }: MobileProjectCardProps) => {
   return (
     <Stack gutter={12} css={{ padding: '16px 0' }}>
@@ -43,15 +39,14 @@ const MobileProjectCard = ({
       </Flex>
       <Stack gutter={6}>
         <Summary>{summary}</Summary>
-        <Footer justify='space-between'>
-          {(isAvailable || isFounding) && (
+        {(isAvailable || isFounding) && (
+          <Footer justify='space-between'>
             <Flex align='center' css={{ gap: 6, width: '100%' }}>
               {isAvailable && <ProjectCardStatus>서비스 이용 가능</ProjectCardStatus>}
               {isFounding && <ProjectCardStatus>창업 중</ProjectCardStatus>}
             </Flex>
-          )}
-          <ProjectCardMemberList memberList={memberList} />
-        </Footer>
+          </Footer>
+        )}
       </Stack>
     </Stack>
   );

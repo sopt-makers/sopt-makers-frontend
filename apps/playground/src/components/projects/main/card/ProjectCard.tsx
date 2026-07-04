@@ -6,8 +6,6 @@ import { Separated } from '@toss/react';
 import { m } from 'framer-motion';
 
 import ResizedImage from '@/components/common/ResizedImage';
-import type { MemberType } from '@/components/projects/main/card/ProjectCardMemberList';
-import ProjectCardMemberList from '@/components/projects/main/card/ProjectCardMemberList';
 import ProjectCardStatus from '@/components/projects/main/card/ProjectCardStatus';
 
 interface ProjectCardProps {
@@ -17,7 +15,6 @@ interface ProjectCardProps {
   summary: string;
   isAvailable?: boolean;
   isFounding?: boolean;
-  memberList: MemberType[];
 }
 
 const ProjectCard = ({
@@ -27,7 +24,6 @@ const ProjectCard = ({
   summary,
   isAvailable = false,
   isFounding = false,
-  memberList,
 }: ProjectCardProps) => {
   return (
     <StyledCard
@@ -53,16 +49,14 @@ const ProjectCard = ({
         </Flex>
         <Summary>{summary}</Summary>
       </Stack>
-      <Footer justify='space-between'>
-        {(isAvailable || isFounding) && (
+      {(isAvailable || isFounding) && (
+        <Footer justify='space-between'>
           <Flex align='center' css={{ gap: 6, width: '100%' }}>
             {isAvailable && <ProjectCardStatus>서비스 이용 가능</ProjectCardStatus>}
             {isFounding && <ProjectCardStatus>창업 중</ProjectCardStatus>}
           </Flex>
-        )}
-
-        <ProjectCardMemberList memberList={memberList} />
-      </Footer>
+        </Footer>
+      )}
     </StyledCard>
   );
 };
