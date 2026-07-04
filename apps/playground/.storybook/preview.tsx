@@ -1,4 +1,5 @@
 'use client';
+import type { Decorator } from '@storybook/react';
 import { themes } from '@storybook/theming';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { OverlayProvider } from '@toss/use-overlay';
@@ -8,6 +9,7 @@ import NextAdapterPages from 'next-query-params/pages';
 import React from 'react';
 import { RecoilRoot } from 'recoil';
 import { QueryParamProvider } from 'use-query-params';
+import '@sopt-mds/ui/index.css';
 
 import { colors } from '@sopt-makers/colors';
 import ResponsiveProvider from '../src/components/common/Responsive/ResponsiveProvider';
@@ -54,7 +56,7 @@ export const parameters = {
   },
 };
 
-export const decorators = [
+export const decorators: Decorator[] = [
   (Story) => (
     <QueryClientProvider client={queryClient}>
       <QueryParamProvider adapter={NextAdapterPages}>
