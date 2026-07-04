@@ -1,4 +1,3 @@
-import Mumu from '@assets/svg/mumu.svg';
 import { colors, radius, spacing, typography } from '@sopt-mds/design-tokens';
 import { styled } from 'stitches.config';
 
@@ -9,7 +8,7 @@ interface MumuLetterProps {
 const MumuLetter = ({ content }: MumuLetterProps) => {
   return (
     <Container>
-      <MumuAvatar />
+      <MumuAvatar src='/group/assets/svg/mumu.svg' alt='' />
       <ContentWrapper>
         <Title>오늘의 질문</Title>
         <Content>{content}</Content>
@@ -35,7 +34,8 @@ const Container = styled('div', {
   },
 });
 
-const MumuAvatar = styled(Mumu, {
+const MumuAvatar = styled('img', {
+  display: 'block',
   flexShrink: 0,
   width: '48px',
   height: '48px',
