@@ -1,6 +1,7 @@
 import EventPeriodBanner from '@domain/eventPeriodBanner';
 import HomeCardList from '@domain/home/HomeCardList';
 import QuickMenu from '@domain/home/QuickMenu';
+import SuggestSection from '@domain/suggest/SuggestSection';
 import { useDisplay } from '@hook/useDisplay';
 import CrewTab from '@shared/CrewTab';
 import FloatingButton from '@shared/FloatingButton';
@@ -21,6 +22,10 @@ const Home: NextPage = () => {
         <GuideButton />
       </SCrewTab>
       <EventPeriodBanner />
+      <SuggestSection
+        title='❤️ 열리기를 기다리는 모임'
+        description='멤버들이 열리길 기대하는 모임을 둘러보고 개설해보세요'
+      />
       {isMobile ? (
         <>
           <SContentTitle>⚡ 솝트만의 일회성 모임, 번쩍</SContentTitle>
