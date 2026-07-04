@@ -42,12 +42,6 @@ export type ProjectDetail = {
   }[];
 };
 
-interface ProjectMember {
-  memberId: number;
-  memberName: string;
-  memberProfileImage?: string | null;
-}
-
 interface ProjectLink {
   linkId: number;
   linkTitle: string;
@@ -63,7 +57,6 @@ export interface ProjectListResponse {
   isAvailable: boolean;
   isFounding: boolean;
   detail: string;
-  members: ProjectMember[];
   name: string;
   logoImage: string;
   links: ProjectLink[];

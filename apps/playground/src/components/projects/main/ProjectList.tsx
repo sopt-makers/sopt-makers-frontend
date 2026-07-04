@@ -146,10 +146,6 @@ const ProjectList = () => {
           <StyledGridContainer>
             {data?.pages.map((page) =>
               page.projectList.map((project) => {
-                const memberList = project.members.map((member) => ({
-                  id: member.memberId,
-                  profileImage: member.memberProfileImage,
-                }));
                 return (
                   <React.Fragment key={project.id}>
                     <Responsive only='desktop' asChild>
@@ -161,7 +157,6 @@ const ProjectList = () => {
                             title={project.name}
                             serviceType={project.serviceType}
                             summary={project.summary}
-                            memberList={memberList}
                             isAvailable={project.isAvailable}
                             isFounding={project.isFounding}
                           />
@@ -177,7 +172,6 @@ const ProjectList = () => {
                             title={project.name}
                             serviceType={project.serviceType}
                             summary={project.summary}
-                            memberList={memberList}
                             isAvailable={project.isAvailable}
                             isFounding={project.isFounding}
                           />
