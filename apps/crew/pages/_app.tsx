@@ -1,4 +1,5 @@
 import '@sopt-makers/ui/dist/index.css';
+import '@sopt-mds/ui/index.css';
 import '../styles/globals.css';
 
 import { getUserProfile } from '@api/user';
@@ -7,11 +8,13 @@ import { OverlayProvider } from '@hook/useOverlay/OverlayProvider';
 import useScrollRestoration from '@hook/useScrollRestoration';
 import { useStore } from '@nanostores/react';
 import { MentionProvider } from '@shared/feed/Mention/MentionContext';
+import FeedCreateModalController from '@shared/feed/Modal/FeedCreateModalController';
 import { SearchMentionProvider } from '@shared/form/SearchMention/SearchMentionContext';
 import Header from '@shared/header/Header';
 import SEO from '@shared/seo/SEO';
 import { setAccessTokens } from '@shared/util/auth';
 import { DialogProvider, ToastProvider } from '@sopt-makers/ui';
+import { spacingBase } from '@sopt-mds/design-tokens';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { GTM_ID, pageview } from '@util/gtm';
@@ -126,6 +129,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                 <OverlayProvider>
                   {isServiceReady ? (
                     <>
+                      <FeedCreateModalController />
                       <Header />
                       <Component {...pageProps} />
                     </>
@@ -160,7 +164,7 @@ const Layout = styled('div', {
     width: 'calc(100vw - 60px)',
   },
   '@mobile': {
-    width: 'calc(100vw - 32px)',
+    width: `calc(100vw - ${spacingBase.s40})`,
     marginTop: '70px',
   },
 });
