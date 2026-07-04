@@ -1,22 +1,9 @@
-export interface MeetingDemandData {
-  id: number;
-  shortIntro: string;
-  expectation: string;
-  status: string;
-  waitCount: number;
-  isWaiting: boolean;
-}
+import type { paths } from '@/__generated__/schema2';
 
-export interface MeetingDemandPaginationMeta {
-  page: number;
-  take: number;
-  itemCount: number;
-  pageCount: number;
-  hasPreviousPage: boolean;
-  hasNextPage: boolean;
-}
+export type MeetingDemandPageData =
+  paths['/meeting-demand/v2']['get']['responses']['200']['content']['application/json;charset=UTF-8'];
 
-export interface MeetingDemandPageData {
-  meetingDemands: MeetingDemandData[];
-  meta: MeetingDemandPaginationMeta;
-}
+export type MeetingDemandData = MeetingDemandPageData['meetingDemands'][number];
+
+export type CreateMeetingDemandRequest =
+  paths['/meeting-demand/v2']['post']['requestBody']['content']['application/json;charset=UTF-8'];

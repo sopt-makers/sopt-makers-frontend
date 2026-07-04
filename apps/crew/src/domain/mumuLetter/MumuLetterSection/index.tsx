@@ -17,7 +17,7 @@ const MOCK_MUMU_LETTER_HOME_DATA: MumuLetterSectionData = {
     {
       meetingId: 1,
       meetingTitle: '크루 추억쌓기 크루 초장문 모임 제목',
-      meetingCategory: '스터디',
+      meetingCategory: 'STUDY',
       postId: 1,
       likeCount: 2,
       isLiked: true,
@@ -28,7 +28,7 @@ const MOCK_MUMU_LETTER_HOME_DATA: MumuLetterSectionData = {
     {
       meetingId: 2,
       meetingTitle: '함께 만드는 사이드 프로젝트',
-      meetingCategory: '스터디',
+      meetingCategory: 'STUDY',
       postId: 2,
       likeCount: 3,
       isLiked: false,
@@ -39,7 +39,7 @@ const MOCK_MUMU_LETTER_HOME_DATA: MumuLetterSectionData = {
     {
       meetingId: 3,
       meetingTitle: '솝트 문화 행사 준비',
-      meetingCategory: '행사',
+      meetingCategory: 'EVENT',
       postId: 3,
       likeCount: 5,
       isLiked: true,

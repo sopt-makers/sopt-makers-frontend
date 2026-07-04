@@ -15,11 +15,10 @@ const SuggestMeetingPage = () => {
     reValidateMode: 'onChange',
     resolver: zodResolver(suggestFormSchema),
     defaultValues: {
-      title: '',
+      shortIntro: '',
       expectation: '',
-      topics: [],
-      participationMethod: '',
-      participationLevel: '',
+      meetingKeywordTypes: [],
+      joinInfo: {},
     },
   });
   const handleSubmit = formMethods.handleSubmit((formValues) => {

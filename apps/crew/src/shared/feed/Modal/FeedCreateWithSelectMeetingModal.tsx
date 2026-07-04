@@ -9,11 +9,9 @@ import ConfirmModal from '@shared/modal/ConfirmModal';
 import type { ModalContainerProps } from '@shared/modal/ModalContainer';
 import ModalContainer from '@shared/modal/ModalContainer';
 import { parseMentionedUserIds } from '@shared/util/parseMentionedUserIds';
-import { useToast } from '@sopt-makers/ui';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { formatDate } from '@util/dayjs';
 import dynamic from 'next/dynamic';
-import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -33,10 +31,13 @@ interface CreateModalProps extends ModalContainerProps {
   isMumuEntry?: boolean;
 }
 
+// @TODO: 무무 문구 API 연동 후 Mock 데이터 제거
+const MOCK_MUMU_TEXT = {
+  mumuText: '요즘 가장 관심 있는 것은 무엇인가요?',
+};
+
 function FeedCreateWithSelectMeetingModal({ isModalOpened, handleModalClose, isMumuEntry = false }: CreateModalProps) {
   const queryClient = useQueryClient();
-  const { open } = useToast();
-  const router = useRouter();
   const { data: attendMeetingList, isLoading: isFetchAttendMeetingLoading } = useQuery(useUserMeetingAllQueryOption());
 
   const { data: me } = useQuery(useUserProfileQueryOption());
@@ -50,19 +51,8 @@ function FeedCreateWithSelectMeetingModal({ isModalOpened, handleModalClose, isM
   });
 
   const { isValid } = formMethods.formState;
-  const meetingType = formMethods.getValues('meetingId')
-    ? attendMeetingList?.filter((item) => item.id == formMethods.getValues('meetingId'))[0]?.category
-    : '';
 
-  const hostname = typeof window !== 'undefined' ? window.location.hostname : '';
-  let basePath = '';
   const { mutate: mutatePostPostWithMention } = useMutationPostPostWithMention({});
-
-  if (hostname === 'localhost' || hostname.includes('dev')) {
-    basePath = 'https://sopt-internal-dev.pages.dev';
-  } else {
-    basePath = 'https://playground.sopt.org';
-  }
 
   const { mutateAsync: mutateCreateFeed, isPending: isSubmitting } = useMutation({
     mutationFn: (formData: FormCreateType) => postPost(formData),
@@ -131,6 +121,7 @@ function FeedCreateWithSelectMeetingModal({ isModalOpened, handleModalClose, isM
               onSubmit={formMethods.handleSubmit(handleSubmitClick)}
               disabled={isSubmitting || !isValid}
               shouldShowMumuLetter={isMumuEntry}
+              mumuText={MOCK_MUMU_TEXT.mumuText}
             />
           )}
         </FormProvider>

@@ -1,19 +1,11 @@
-// @TODO: 무무씨의 편지 API 명세 확정 후 OpenAPI schema 기반 응답 타입으로 교체
-export interface MumuFeedCardData {
-  meetingId: number;
-  meetingTitle: string;
-  meetingCategory: string;
-  postId: number;
-  likeCount: number;
-  isLiked: boolean;
-  commentCount: number;
-  title: string;
-  content: string;
-}
+import type { paths } from '@/__generated__/schema2';
 
-export interface MumuLetterSectionData {
-  isEmptyAppliedMeeting: boolean;
-  hasWrittenTodayMumuPost: boolean;
-  mumuText: string;
-  mumuPostHomeDtos: MumuFeedCardData[];
-}
+export type MumuLetterSectionData =
+  paths['/post/v2/mumu/home']['get']['responses']['200']['content']['application/json;charset=UTF-8'];
+
+export type MumuFeedCardData = MumuLetterSectionData['mumuPostHomeDtos'][number];
+
+export type MumuTextResponse =
+  paths['/post/v2/mumuText']['get']['responses']['200']['content']['application/json;charset=UTF-8'];
+
+export type MumuText = MumuTextResponse['mumuText'];
