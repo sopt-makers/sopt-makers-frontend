@@ -1,4 +1,3 @@
-import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import * as Dialog from '@radix-ui/react-dialog';
 import { colors } from '@sopt-makers/colors';
@@ -9,6 +8,7 @@ import type { FC, HTMLAttributes, PropsWithChildren, ReactNode } from 'react';
 import { ModalButton, ModalContent, ModalDescription, ModalFooter, ModalTitle } from '@/components/common/Modal/parts';
 import IconModalClose from '@/public/icons/icon-modal-close.svg';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
+import { zIndex as zIndexToken } from '@/styles/zIndex';
 
 const DialogPortal = dynamic(() => import('@radix-ui/react-dialog').then((mod) => mod.Portal), {
   ssr: false,
@@ -73,13 +73,8 @@ const StyledBackground = styled(Dialog.Overlay)<{ zIndex?: number }>`
   inset: 0;
   align-items: center;
   justify-content: center;
+  z-index: ${({ zIndex }) => zIndex ?? zIndexToken.모달};
   background: var(--semantic-color-background-dimmed, rgb(15 15 18 / 80%));
-
-  ${({ zIndex }) =>
-    zIndex &&
-    css`
-      z-index: ${zIndex};
-    `}
 `;
 
 const StyledModalContainer = styled(Dialog.Content)`

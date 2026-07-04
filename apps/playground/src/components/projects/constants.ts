@@ -1,3 +1,5 @@
+import { IconApple, IconGithub, IconInstagram, IconLink, IconPlaystore, IconVideoFilled } from '@sopt-mds/icons';
+
 import type { Member } from '@/api/endpoint_LEGACY/members/type';
 import type { Category, LinkTitle } from '@/components/projects/types';
 
@@ -48,19 +50,19 @@ export const categoryLabel: Record<Category, string> = {
 export const getLinkInfo = (linkTitle: LinkTitle | string) => {
   switch (linkTitle as LinkTitle) {
     case 'website':
-      return { icon: '/icons/icon-web.svg', label: '서비스 바로가기' };
+      return { Icon: IconLink, label: '서비스 바로가기' };
     case 'googlePlay':
-      return { icon: '/icons/icon-googleplay.svg', label: 'Google Play' };
+      return { Icon: IconPlaystore, label: 'Google Play' };
     case 'appStore':
-      return { icon: '/icons/icon-appstore.svg', label: 'App Store' };
+      return { Icon: IconApple, label: 'App Store' };
     case 'github':
-      return { icon: '/icons/icon-github.svg', label: 'Github' };
+      return { Icon: IconGithub, label: 'Github' };
     case 'instagram':
-      return { icon: '/icons/icon-instagram.svg', label: 'Instagram' };
+      return { Icon: IconInstagram, label: 'Instagram' };
     case 'media':
-      return { icon: '/icons/icon-media.svg', label: 'Media' };
+      return { Icon: IconVideoFilled, label: 'Media' };
     default:
-      return { icon: '/icons/icon-etc.svg', label: '기타' };
+      return { Icon: IconLink, label: '기타' };
   }
 };
 
