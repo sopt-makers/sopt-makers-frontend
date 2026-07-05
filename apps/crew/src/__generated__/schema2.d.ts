@@ -2793,6 +2793,11 @@ export interface components {
        */
       status: string;
       /**
+       * @description 본인이 작성한 모임 수요인지 여부
+       * @example true
+       */
+      isMine: boolean;
+      /**
        * Format: int32
        * @description 기다려요 수
        * @example 10
