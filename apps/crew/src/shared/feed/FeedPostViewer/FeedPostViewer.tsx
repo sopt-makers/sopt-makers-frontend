@@ -1,7 +1,6 @@
 import 'dayjs/locale/ko';
 
 import ArrowIcon from '@assets/svg/arrow_card.svg';
-import Avatar from '@common/avatar/Avatar';
 import { CATEGORY_OPTIONS } from '@constant/option';
 import { playgroundURL } from '@constant/url';
 import { Menu } from '@headlessui/react';
@@ -10,12 +9,13 @@ import ImageCarouselModal from '@shared/modal/ImageCarouselModal';
 import { parseTextToLink } from '@shared/util/parseTextToLink';
 import { playgroundLink } from '@sopt/constant';
 import { useToast } from '@sopt-makers/ui';
+import { colors } from '@sopt-mds/design-tokens';
+import { IconDotsVertical, IconShare } from '@sopt-mds/icons';
+import { Avatar as MdsAvatar } from '@sopt-mds/ui';
 import { fromNow } from '@util/dayjs';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import Link from 'next/link';
-import MenuIcon from 'public/assets/svg/ic_menu.svg';
-import ShareIcon from 'public/assets/svg/share.svg';
 import { styled } from 'stitches.config';
 
 import type { paths } from '@/__generated__/schema2';
@@ -78,7 +78,7 @@ export default function FeedPostViewer({
             href={`${playgroundURL}${playgroundLink.memberDetail(post.user.orgId)}`}
             onClick={onClickAuthor}
           >
-            <SAvatar src={post.user.profileImage || ''} alt={post.user.name} />
+            <MdsAvatar src={post.user.profileImage || undefined} alt={post.user.name} size={48} />
             <AuthorInfo>
               <AuthorName>{post.user.name}</AuthorName>
               <UpdatedDate>{fromNow(post.createdDate)}</UpdatedDate>
@@ -86,11 +86,11 @@ export default function FeedPostViewer({
           </AuthorWrapper>
           <ButtonContainer>
             <button onClick={handleClickShare}>
-              <ShareIcon />
+              <IconShare color={colors.fg.neutral.bold} width={24} height={24} />
             </button>
             <Menu as='div' style={{ position: 'relative' }}>
               <Menu.Button>
-                <MenuIcon />
+                <IconDotsVertical color={colors.fg.neutral.bold} width={24} height={24} />
               </Menu.Button>
               <MenuItems>
                 {Actions.map((Action, index) => (
@@ -408,17 +408,5 @@ const CommentListWrapper = styled('div', {
   '@mobile': {
     padding: '24px 0 32px 0',
     gap: '36px',
-  },
-});
-const SAvatar = styled(Avatar, {
-  'width': '44px',
-  'height': '44px',
-  '@mobile': {
-    width: '40px',
-    height: '40px',
-  },
-  'svg': {
-    width: '44px',
-    height: '44px',
   },
 });
