@@ -5,6 +5,7 @@ import { CATEGORY_OPTIONS } from '@constant/option';
 import { playgroundURL } from '@constant/url';
 import { Menu } from '@headlessui/react';
 import { useOverlay } from '@hook/useOverlay/Index';
+import MumuLetter from '@shared/feed/MumuLetter';
 import ImageCarouselModal from '@shared/modal/ImageCarouselModal';
 import { parseTextToLink } from '@shared/util/parseTextToLink';
 import { playgroundLink } from '@sopt/constant';
@@ -103,6 +104,10 @@ export default function FeedPostViewer({
           </ButtonContainer>
         </ContentHeader>
         <ContentBody>
+          {/* @TODO: 무무씨의 편지 답장 여부/질문 내용 API 연동 후 조건부 렌더링 처리 */}
+          <MumuLetterWrapper>
+            <MumuLetter content='매일 달라지는 무무의 질문 영역이고 최대 32글자까지 늘어나요 이점을 참고해서 후후후' />
+          </MumuLetterWrapper>
           <Title>{post.title}</Title>
           <Contents>{parseTextToLink(post.contents)}</Contents>
           {post.images && post.images.length > 0 && (
@@ -218,6 +223,15 @@ const UpdatedDate = styled('span', {
 const ContentBody = styled('div', {
   display: 'flex',
   flexDirection: 'column',
+});
+const MumuLetterWrapper = styled('div', {
+  'marginBottom': '$12',
+  '@desktop': {
+    marginBottom: '$20',
+  },
+  '@mobile': {
+    marginBottom: '$12',
+  },
 });
 const GroupButton = styled('a', {
   'display': 'flex',
