@@ -18,7 +18,10 @@ interface MumuLetterSectionProps {
 const MumuLetterSectionContent = ({ title, description }: MumuLetterSectionProps) => {
   const router = useRouter();
   const { data } = useSuspenseQuery(useMumuPostHomeQueryOption());
-  const { hasWrittenTodayMumuPost: isReplied, mumuText, mumuPostHomeDtos } = data;
+  const { isEmptyAppliedMeeting, hasWrittenTodayMumuPost: isReplied, mumuText, mumuPostHomeDtos } = data;
+
+  // 신규 회원이거나, 모임에 참여한 적이 없는 경우에는 일단 무무 편지 섹션을 노출하지 않음. 추후 생길 예정
+  if (isEmptyAppliedMeeting) return null;
 
   const handleReplyClick = () => {
     router.push(
