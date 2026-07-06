@@ -1,7 +1,7 @@
 import PostQueryKey from '@api/post/PostQueryKey';
 import { queryOptions, useInfiniteQuery } from '@tanstack/react-query';
 
-import { getPostDetail, getPostList } from '.';
+import { getMumuPostHome, getMumuText, getPostDetail, getPostList } from '.';
 
 export const useGetPostListInfiniteQuery = (take: number, meetingId?: number, enabled?: boolean) => {
   return useInfiniteQuery({
@@ -32,5 +32,19 @@ export const useGetPostDetailQueryOption = (postId: string) => {
     queryFn: () => getPostDetail(+postId),
     select: (res) => res,
     enabled: !!postId,
+  });
+};
+
+export const useMumuPostHomeQueryOption = () => {
+  return queryOptions({
+    queryKey: PostQueryKey.mumuHome(),
+    queryFn: getMumuPostHome,
+  });
+};
+
+export const useMumuTextQueryOption = () => {
+  return queryOptions({
+    queryKey: PostQueryKey.mumuText(),
+    queryFn: getMumuText,
   });
 };

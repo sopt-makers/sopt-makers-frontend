@@ -1,3 +1,4 @@
+import { CATEGORY_NAME } from '@constant/option';
 import { colors, radius, spacing, typography } from '@sopt-mds/design-tokens';
 import { IconChevronRight, IconHeartFilled, IconHeartOutlined } from '@sopt-mds/icons';
 import Link from 'next/link';
@@ -16,7 +17,7 @@ const MumuFeedCard = ({ post }: MumuFeedCardProps) => {
   return (
     <Container href={`/post?id=${post.postId}`}>
       <MeetingInfo>
-        <MeetingCategory>{post.meetingCategory}</MeetingCategory>
+        <MeetingCategory>{CATEGORY_NAME(post.meetingCategory)}</MeetingCategory>
         <MeetingTitle>{post.meetingTitle}</MeetingTitle>
         <IconChevronRight width={24} height={24} />
       </MeetingInfo>

@@ -1,31 +1,44 @@
+import { useCreateMeetingDemandMutation } from '@api/meetingDemand/mutation';
 import AdditionalInfoSection from '@domain/suggest/AdditionalInfoSection';
 import Header from '@domain/suggest/Header';
 import RequiredInfoSection from '@domain/suggest/RequiredInfoSection';
 import type { SuggestFormValues } from '@domain/suggest/schema';
 import { suggestFormSchema } from '@domain/suggest/schema';
 import SubmitButton from '@domain/suggest/SubmitButton';
+import useModal from '@hook/useModal';
 import { zodResolver } from '@hookform/resolvers/zod';
+import ConfirmationModal from '@shared/modal/ConfirmationModal';
 import { spacing } from '@sopt-mds/design-tokens';
 import { FormProvider, useForm } from 'react-hook-form';
 import { styled } from 'stitches.config';
 
 const SuggestMeetingPage = () => {
+  const { mutate: mutateCreateMeetingDemand, isPending } = useCreateMeetingDemandMutation();
+  const confirmationModal = useModal();
   const formMethods = useForm<SuggestFormValues>({
     mode: 'onChange',
     reValidateMode: 'onChange',
     resolver: zodResolver(suggestFormSchema),
     defaultValues: {
-      title: '',
+      shortIntro: '',
       expectation: '',
-      topics: [],
-      participationMethod: '',
-      participationLevel: '',
+      meetingKeywordTypes: [],
+      joinInfo: {},
     },
   });
-  const handleSubmit = formMethods.handleSubmit((formValues) => {
-    // @TODO: 모임 제안 API 연동
-    // @TODO: 제출 버튼 클릭 시 모달 (mds 2.0) 노출
-    void formValues;
+
+  const handleSubmit = formMethods.handleSubmit(() => {
+    confirmationModal.handleModalOpen();
+  });
+
+  const handleConfirm = formMethods.handleSubmit((formValues) => {
+    mutateCreateMeetingDemand(formValues, {
+      onSuccess: () => {
+        confirmationModal.handleModalClose();
+        formMethods.reset();
+        // @TODO: 응답의 meetingDemandId를 사용해 생성된 모임 수요 상세 페이지로 이동
+      },
+    });
   });
 
   return (
@@ -40,6 +53,17 @@ const SuggestMeetingPage = () => {
           <SubmitButton />
         </SForm>
       </SPage>
+
+      <ConfirmationModal
+        isOpen={confirmationModal.isModalOpened}
+        title='모임을 제안할까요?'
+        description={'원하는 내용을 모두 작성했나요?\n익명으로 제안되고 수정은 어려워요.'}
+        cancelLabel='잠깐만요'
+        confirmLabel='제안하기'
+        onClose={confirmationModal.handleModalClose}
+        onConfirm={handleConfirm}
+        isPending={isPending}
+      />
     </FormProvider>
   );
 };

@@ -1,41 +1,38 @@
+import type { GetMeetingDemandsResponse } from '@api/meetingDemand/type';
 import Arrow from '@assets/svg/group_browsing_arrow_left.svg';
 import { useDisplay } from '@hook/useDisplay';
 import { colors, radius, spacing } from '@sopt-mds/design-tokens';
-import useEmblaCarousel from 'embla-carousel-react';
-import { useEffect, useState } from 'react';
 import { styled } from 'stitches.config';
 
 import SuggestionCard from '../SuggestionCard';
-import type { MeetingDemandPageData } from '../types';
+import useMeetingDemandCarousel from './useMeetingDemandCarousel';
 
 interface CardListProps {
-  pages: MeetingDemandPageData[];
+  pages: GetMeetingDemandsResponse[];
+  hasNextPage: boolean;
+  isFetchingNextPage: boolean;
+  onFetchNextPage: () => Promise<unknown>;
   onCardClick: (meetingDemandId: number) => void;
   onWaitingChange: (meetingDemandId: number, isWaiting: boolean) => void;
 }
 
-const CardList = ({ pages, onCardClick, onWaitingChange }: CardListProps) => {
+const CardList = ({
+  pages,
+  hasNextPage,
+  isFetchingNextPage,
+  onFetchNextPage,
+  onCardClick,
+  onWaitingChange,
+}: CardListProps) => {
   const { isDesktop, isLaptop, isMobile } = useDisplay();
-  const [emblaRef, emblaApi] = useEmblaCarousel({
-    align: 'start',
+  const { emblaRef, selectedPage, scrollPrev, scrollNext, scrollTo } = useMeetingDemandCarousel({
+    loadedPageCount: pages.length,
+    hasNextPage,
+    isFetchingNextPage,
+    onFetchNextPage,
     dragFree: isDesktop && !isMobile,
   });
-  const [selectedPage, setSelectedPage] = useState(0);
-
-  useEffect(() => {
-    if (!emblaApi) return;
-
-    const handleSelect = () => setSelectedPage(emblaApi.selectedScrollSnap());
-
-    handleSelect();
-    emblaApi.on('select', handleSelect);
-    emblaApi.on('reInit', handleSelect);
-
-    return () => {
-      emblaApi.off('select', handleSelect);
-      emblaApi.off('reInit', handleSelect);
-    };
-  }, [emblaApi]);
+  const pageCount = pages[0]?.meta.pageCount ?? 0;
 
   if (pages.length === 0) return null;
 
@@ -43,7 +40,7 @@ const CardList = ({ pages, onCardClick, onWaitingChange }: CardListProps) => {
     <SCardList>
       <SCarousel>
         {isLaptop && selectedPage > 0 && (
-          <SArrowButton direction='left' onClick={() => emblaApi?.scrollPrev()}>
+          <SArrowButton direction='left' onClick={scrollPrev}>
             <Arrow />
           </SArrowButton>
         )}
@@ -66,20 +63,25 @@ const CardList = ({ pages, onCardClick, onWaitingChange }: CardListProps) => {
           </SSlideContainer>
         </SViewport>
 
-        {isLaptop && selectedPage < pages.length - 1 && (
-          <SArrowButton direction='right' onClick={() => emblaApi?.scrollNext()}>
+        {isLaptop && (selectedPage < pages.length - 1 || hasNextPage) && (
+          <SArrowButton
+            direction='right'
+            disabled={isFetchingNextPage && selectedPage === pages.length - 1}
+            onClick={scrollNext}
+          >
             <Arrow />
           </SArrowButton>
         )}
       </SCarousel>
 
-      {(isLaptop || isMobile) && pages.length > 1 && (
+      {(isLaptop || isMobile) && pageCount > 1 && (
         <SIndicatorList>
-          {pages.map(({ meta }, pageIndex) => (
+          {Array.from({ length: pageCount }, (_, pageIndex) => (
             <SIndicator
-              key={meta.page}
+              key={pageIndex}
               selected={selectedPage === pageIndex}
-              onClick={() => emblaApi?.scrollTo(pageIndex)}
+              disabled={pageIndex >= pages.length}
+              onClick={() => scrollTo(pageIndex)}
             />
           ))}
         </SIndicatorList>

@@ -1,12 +1,15 @@
 import type {
+  GetMumuPostHomeResponse,
+  GetMumuTextResponse,
   GetPostDetailResponse,
   GetPostListResponse,
   PostPostLikeResponse,
+  PostPostRequest,
   PostPostResponse,
   PostViewsResponse,
   PutPostResponse,
 } from '@api/post/type';
-import type { FormCreateType, FormEditType } from '@shared/feed/Modal/feedSchema';
+import type { FormEditType } from '@shared/feed/Modal/feedSchema';
 
 import { api } from '..';
 
@@ -22,7 +25,17 @@ export const getPostDetail = async (postId: number) => {
   return data;
 };
 
-export const postPost = async (formData: FormCreateType) => {
+export const getMumuPostHome = async () => {
+  const { data } = await api.get<GetMumuPostHomeResponse>('/post/v2/mumu/home');
+  return data;
+};
+
+export const getMumuText = async () => {
+  const { data } = await api.get<GetMumuTextResponse>('/post/v2/mumuText');
+  return data;
+};
+
+export const postPost = async (formData: PostPostRequest) => {
   const { data } = await api.post<PostPostResponse>('/post/v2', formData);
   return data;
 };

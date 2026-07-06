@@ -1,6 +1,8 @@
 import { useMutationPostPostWithMention } from '@api/mention/mutation';
 import { postPost } from '@api/post';
 import PostQueryKey from '@api/post/PostQueryKey';
+import { useMumuTextQueryOption } from '@api/post/query';
+import type { PostPostRequest } from '@api/post/type';
 import { useUserMeetingAllQueryOption, useUserProfileQueryOption } from '@api/user/query';
 import useModal from '@hook/useModal';
 import useThrottle from '@hook/useThrottle';
@@ -9,7 +11,6 @@ import ConfirmModal from '@shared/modal/ConfirmModal';
 import type { ModalContainerProps } from '@shared/modal/ModalContainer';
 import ModalContainer from '@shared/modal/ModalContainer';
 import { parseMentionedUserIds } from '@shared/util/parseMentionedUserIds';
-import { useToast } from '@sopt-makers/ui';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { formatDate } from '@util/dayjs';
 import dynamic from 'next/dynamic';
@@ -34,10 +35,13 @@ interface CreateModalProps extends ModalContainerProps {
 }
 
 function FeedCreateWithSelectMeetingModal({ isModalOpened, handleModalClose, isMumuEntry = false }: CreateModalProps) {
-  const queryClient = useQueryClient();
-  const { open } = useToast();
   const router = useRouter();
+  const queryClient = useQueryClient();
   const { data: attendMeetingList, isLoading: isFetchAttendMeetingLoading } = useQuery(useUserMeetingAllQueryOption());
+  const { data: mumuTextData } = useQuery({
+    ...useMumuTextQueryOption(),
+    enabled: isMumuEntry,
+  });
 
   const { data: me } = useQuery(useUserProfileQueryOption());
   const exitModal = useModal();
@@ -50,25 +54,13 @@ function FeedCreateWithSelectMeetingModal({ isModalOpened, handleModalClose, isM
   });
 
   const { isValid } = formMethods.formState;
-  const meetingType = formMethods.getValues('meetingId')
-    ? attendMeetingList?.filter((item) => item.id == formMethods.getValues('meetingId'))[0]?.category
-    : '';
 
-  const hostname = typeof window !== 'undefined' ? window.location.hostname : '';
-  let basePath = '';
   const { mutate: mutatePostPostWithMention } = useMutationPostPostWithMention({});
 
-  if (hostname === 'localhost' || hostname.includes('dev')) {
-    basePath = 'https://sopt-internal-dev.pages.dev';
-  } else {
-    basePath = 'https://playground.sopt.org';
-  }
-
   const { mutateAsync: mutateCreateFeed, isPending: isSubmitting } = useMutation({
-    mutationFn: (formData: FormCreateType) => postPost(formData),
+    mutationFn: (formData: PostPostRequest) => postPost(formData),
     onSuccess: (res) => {
       queryClient.invalidateQueries({ queryKey: PostQueryKey.all() });
-      alert('피드를 작성했습니다.');
       mutatePostPostWithMention({
         postId: res.postId,
         orgIds: parseMentionedUserIds(formMethods.getValues().contents),
@@ -76,6 +68,7 @@ function FeedCreateWithSelectMeetingModal({ isModalOpened, handleModalClose, isM
       });
       submitModal.handleModalClose();
       handleModalClose();
+      router.push(`/post?id=${res.postId}`);
     },
     onError: () => alert('피드 작성에 실패했습니다.'),
   });
@@ -91,7 +84,10 @@ function FeedCreateWithSelectMeetingModal({ isModalOpened, handleModalClose, isM
   };
 
   const onSubmit = useThrottle(async () => {
-    const createFeedParameter = { ...formMethods.getValues() };
+    const createFeedParameter: PostPostRequest = {
+      ...formMethods.getValues(),
+      postCategory: isMumuEntry ? 'MUMU' : 'NORMAL',
+    };
     await mutateCreateFeed(createFeedParameter);
     ampli.completedFeedPosting({
       user_id: Number(me?.orgId),
@@ -131,6 +127,7 @@ function FeedCreateWithSelectMeetingModal({ isModalOpened, handleModalClose, isM
               onSubmit={formMethods.handleSubmit(handleSubmitClick)}
               disabled={isSubmitting || !isValid}
               shouldShowMumuLetter={isMumuEntry}
+              mumuText={mumuTextData?.mumuText}
             />
           )}
         </FormProvider>

@@ -5,6 +5,7 @@ import MobileCard from '@domain/home/HomeCardList/MobileCard';
 import type { HomeMeetingCardProps } from '@domain/home/HomeCardList/type';
 import { useDisplay } from '@hook/useDisplay';
 import { fontsObject } from '@sopt-makers/fonts';
+import { colors, spacing, typography } from '@sopt-mds/design-tokens';
 import { useQuery } from '@tanstack/react-query';
 import { styled } from 'stitches.config';
 
@@ -30,7 +31,7 @@ const getMeetingCardProps = (meeting: MeetingData): HomeMeetingCardProps => ({
 });
 
 const CardList = ({ label, isMore = false, onMoreClick = () => {}, meetingIds }: HomeCardProps) => {
-  const { isTablet } = useDisplay();
+  const { isTablet, isLaptop } = useDisplay();
   const data = useQuery(useRecommendMeetingListQuery({ meetingIds })).data?.meetings;
 
   const MeetingCard = isTablet ? MobileCard : DesktopCard;
@@ -43,7 +44,7 @@ const CardList = ({ label, isMore = false, onMoreClick = () => {}, meetingIds }:
         {isMore && <SMoreBtn onClick={onMoreClick}>{'더보기 >'}</SMoreBtn>}
       </STitleWrapper>
       <SCardWrapper>
-        {data.map((meeting) => (
+        {data.slice(0, isLaptop ? 4 : 3).map((meeting) => (
           <MeetingCard key={meeting.id} {...getMeetingCardProps(meeting)} />
         ))}
       </SCardWrapper>
@@ -54,15 +55,11 @@ const CardList = ({ label, isMore = false, onMoreClick = () => {}, meetingIds }:
 export default CardList;
 
 const SCardListWrapper = styled('section', {
-  'display': 'flex',
-  'flexDirection': 'column',
+  display: 'flex',
+  flexDirection: 'column',
+  width: '100%',
 
-  'width': '100%',
-  'paddingBottom': '$80',
-
-  '@tablet': {
-    paddingBottom: '$40',
-  },
+  paddingBottom: spacing.s40,
 });
 
 const STitleWrapper = styled('div', {
@@ -71,21 +68,19 @@ const STitleWrapper = styled('div', {
   alignItems: 'center',
 
   width: '100%',
-  paddingBottom: '$20',
+  paddingBottom: spacing.s16,
 });
 
 const STitleStyle = styled('p', {
-  'padding': '4px 0 8px',
-
-  ...fontsObject.HEADING_4_24_B,
-  'color': '$white',
+  ...typography.heading2,
+  'color': colors.fg.neutral.bold,
 
   '@tablet': {
-    ...fontsObject.TITLE_4_20_SB,
+    ...typography.title3,
   },
 
   '@mobile': {
-    ...fontsObject.TITLE_6_16_SB,
+    ...typography.title4,
   },
 });
 
@@ -96,11 +91,13 @@ const SMoreBtn = styled('button', {
 
 const SCardWrapper = styled('div', {
   'display': 'flex',
-  'gap': '20px',
+  'justifyContent': 'space-between',
   'overflow': 'hidden',
 
   '@tablet': {
     flexDirection: 'column',
+    justifyContent: 'flex-start',
+    gap: '20px',
     width: '100%',
   },
 

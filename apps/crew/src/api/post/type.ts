@@ -6,6 +6,8 @@ export type GetPostListResponse =
 export type GetPostDetailResponse =
   paths['/post/v2/{postId}']['get']['responses']['200']['content']['application/json;charset=UTF-8'];
 
+export type PostPostRequest = paths['/post/v2']['post']['requestBody']['content']['application/json;charset=UTF-8'];
+
 export type PostPostResponse =
   paths['/post/v2']['post']['responses']['201']['content']['application/json;charset=UTF-8'];
 
@@ -17,3 +19,9 @@ export type PostPostLikeResponse =
 
 export type PostViewsResponse =
   paths['/post/v2/{postId}/views']['post']['responses']['200']['content']['application/json;charset=UTF-8'];
+
+export type GetMumuPostHomeResponse =
+  paths['/post/v2/mumu/home']['get']['responses']['200']['content']['application/json;charset=UTF-8'];
+
+export type GetMumuTextResponse =
+  paths['/post/v2/mumuText']['get']['responses']['200']['content']['application/json;charset=UTF-8'];

@@ -1,6 +1,7 @@
 import { TabList } from '@common/tabList/TabList';
 import { Flex } from '@shared/util/layout/Flex';
-import { Tag } from '@sopt-makers/ui';
+import { spacing } from '@sopt-mds/design-tokens';
+import { Tag } from '@sopt-mds/ui';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { ReactNode } from 'react';
@@ -28,7 +29,14 @@ const CrewTab = ({ children, className }: CrewTabProps) => {
     <Flex align='center' justify='between' className={className}>
       <TabList text={tabText[lastSegment]} size='big'>
         <Link href='/' onClick={() => ampli.clickNavbarGroup({ menu: '피드' })}>
-          <TabList.Item text='feedAll'>홈</TabList.Item>
+          <TabList.Item text='feedAll'>
+            <div style={{ display: 'flex', alignItems: 'center', gap: spacing.s4 }}>
+              홈
+              <Tag size='small' shape='rect' variant='primary' type='subtle'>
+                NEW
+              </Tag>
+            </div>
+          </TabList.Item>
         </Link>
         <Link href='/list' onClick={() => ampli.clickNavbarGroup({ menu: '전체 모임' })}>
           <TabList.Item text='groupAll'>전체 모임</TabList.Item>
@@ -37,15 +45,7 @@ const CrewTab = ({ children, className }: CrewTabProps) => {
           <TabList.Item text='mine'>내 모임</TabList.Item>
         </Link>
         <Link href='/map' onClick={() => ampli.clickNavbarGroup({ menu: '솝맵' })}>
-          <TabList.Item text='map'>
-            {/* 홍보 이후 New 키워드 제거 */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-              솝맵
-              <Tag size='md' shape='rect' variant='primary'>
-                New
-              </Tag>
-            </div>
-          </TabList.Item>
+          <TabList.Item text='map'>솝맵</TabList.Item>
         </Link>
       </TabList>
       {children}

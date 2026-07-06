@@ -13,18 +13,20 @@ const TEXTAREA_MIN_HEIGHT = 164;
 
 const RequiredInfoSection = () => {
   const { control } = useFormContext<SuggestFormValues>();
-  const { field: titleField } = useController({ control, name: 'title' });
+  const { field: shortIntroField } = useController({ control, name: 'shortIntro' });
   const { field: expectationField } = useController({ control, name: 'expectation' });
-  const { field: topicsField } = useController({ control, name: 'topics' });
+  const { field: meetingKeywordTypesField } = useController({ control, name: 'meetingKeywordTypes' });
 
   const handleTopicChange = (topic: string, checked: boolean) => {
     if (!checked) {
-      topicsField.onChange(topicsField.value.filter((selectedTopic) => selectedTopic !== topic));
+      meetingKeywordTypesField.onChange(
+        meetingKeywordTypesField.value.filter((selectedTopic) => selectedTopic !== topic),
+      );
       return;
     }
 
-    if (topicsField.value.length < MAX_TOPIC_COUNT) {
-      topicsField.onChange([...topicsField.value, topic]);
+    if (meetingKeywordTypesField.value.length < MAX_TOPIC_COUNT) {
+      meetingKeywordTypesField.onChange([...meetingKeywordTypesField.value, topic]);
     }
   };
 
@@ -38,7 +40,7 @@ const RequiredInfoSection = () => {
     expectationField.onChange(event);
   };
 
-  const isTopicSelected = (topic: string) => topicsField.value.includes(topic);
+  const isTopicSelected = (topic: string) => meetingKeywordTypesField.value.includes(topic);
 
   return (
     <FormSection order={1} title='필수 정보'>
@@ -48,8 +50,8 @@ const RequiredInfoSection = () => {
             원하는 모임 <SRequired>*</SRequired>
           </SLabel>
           <SHelpMessage>기다리는 모임을 한 줄로 적어주세요.</SHelpMessage>
-          <SInput {...titleField} type='text' placeholder='ex. 주 1회 같이 달리는 러닝 모임' maxLength={30} />
-          <SCharacterCount>{titleField.value.length}/30</SCharacterCount>
+          <SInput {...shortIntroField} type='text' placeholder='ex. 주 1회 같이 달리는 러닝 모임' maxLength={30} />
+          <SCharacterCount>{shortIntroField.value.length}/30</SCharacterCount>
         </SField>
 
         <SField>
