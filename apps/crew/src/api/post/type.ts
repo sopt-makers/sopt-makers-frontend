@@ -6,6 +6,8 @@ export type GetPostListResponse =
 export type GetPostDetailResponse =
   paths['/post/v2/{postId}']['get']['responses']['200']['content']['application/json;charset=UTF-8'];
 
+export type PostPostRequest = paths['/post/v2']['post']['requestBody']['content']['application/json;charset=UTF-8'];
+
 export type PostPostResponse =
   paths['/post/v2']['post']['responses']['201']['content']['application/json;charset=UTF-8'];
 

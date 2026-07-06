@@ -4,11 +4,12 @@ import type {
   GetPostDetailResponse,
   GetPostListResponse,
   PostPostLikeResponse,
+  PostPostRequest,
   PostPostResponse,
   PostViewsResponse,
   PutPostResponse,
 } from '@api/post/type';
-import type { FormCreateType, FormEditType } from '@shared/feed/Modal/feedSchema';
+import type { FormEditType } from '@shared/feed/Modal/feedSchema';
 
 import { api } from '..';
 
@@ -34,7 +35,7 @@ export const getMumuText = async () => {
   return data;
 };
 
-export const postPost = async (formData: FormCreateType) => {
+export const postPost = async (formData: PostPostRequest) => {
   const { data } = await api.post<PostPostResponse>('/post/v2', formData);
   return data;
 };

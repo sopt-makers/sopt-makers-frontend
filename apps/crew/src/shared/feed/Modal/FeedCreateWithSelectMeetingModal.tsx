@@ -2,6 +2,7 @@ import { useMutationPostPostWithMention } from '@api/mention/mutation';
 import { postPost } from '@api/post';
 import PostQueryKey from '@api/post/PostQueryKey';
 import { useMumuTextQueryOption } from '@api/post/query';
+import type { PostPostRequest } from '@api/post/type';
 import { useUserMeetingAllQueryOption, useUserProfileQueryOption } from '@api/user/query';
 import useModal from '@hook/useModal';
 import useThrottle from '@hook/useThrottle';
@@ -13,6 +14,7 @@ import { parseMentionedUserIds } from '@shared/util/parseMentionedUserIds';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { formatDate } from '@util/dayjs';
 import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -33,6 +35,7 @@ interface CreateModalProps extends ModalContainerProps {
 }
 
 function FeedCreateWithSelectMeetingModal({ isModalOpened, handleModalClose, isMumuEntry = false }: CreateModalProps) {
+  const router = useRouter();
   const queryClient = useQueryClient();
   const { data: attendMeetingList, isLoading: isFetchAttendMeetingLoading } = useQuery(useUserMeetingAllQueryOption());
   const { data: mumuTextData } = useQuery({
@@ -55,10 +58,9 @@ function FeedCreateWithSelectMeetingModal({ isModalOpened, handleModalClose, isM
   const { mutate: mutatePostPostWithMention } = useMutationPostPostWithMention({});
 
   const { mutateAsync: mutateCreateFeed, isPending: isSubmitting } = useMutation({
-    mutationFn: (formData: FormCreateType) => postPost(formData),
+    mutationFn: (formData: PostPostRequest) => postPost(formData),
     onSuccess: (res) => {
       queryClient.invalidateQueries({ queryKey: PostQueryKey.all() });
-      alert('피드를 작성했습니다.');
       mutatePostPostWithMention({
         postId: res.postId,
         orgIds: parseMentionedUserIds(formMethods.getValues().contents),
@@ -66,6 +68,7 @@ function FeedCreateWithSelectMeetingModal({ isModalOpened, handleModalClose, isM
       });
       submitModal.handleModalClose();
       handleModalClose();
+      router.push(`/post?id=${res.postId}`);
     },
     onError: () => alert('피드 작성에 실패했습니다.'),
   });
@@ -81,7 +84,10 @@ function FeedCreateWithSelectMeetingModal({ isModalOpened, handleModalClose, isM
   };
 
   const onSubmit = useThrottle(async () => {
-    const createFeedParameter = { ...formMethods.getValues() };
+    const createFeedParameter: PostPostRequest = {
+      ...formMethods.getValues(),
+      postCategory: isMumuEntry ? 'MUMU' : 'NORMAL',
+    };
     await mutateCreateFeed(createFeedParameter);
     ampli.completedFeedPosting({
       user_id: Number(me?.orgId),
