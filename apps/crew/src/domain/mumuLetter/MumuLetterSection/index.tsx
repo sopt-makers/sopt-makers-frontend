@@ -1,63 +1,27 @@
+import { useMumuPostHomeQueryOption } from '@api/post/query';
 import Letter from '@assets/svg/letter.svg';
 import PaperAirplane from '@assets/svg/paper_airplane.svg';
 import { colors, radius, spacing, typography } from '@sopt-mds/design-tokens';
 import { ActionButton } from '@sopt-mds/ui';
+import { Suspense } from '@suspensive/react';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { styled } from 'stitches.config';
 
 import MumuFeedCardList from '../MumuFeedCardList';
-import type { MumuLetterSectionData } from '../types';
-
-// @TODO: 홈 무무씨의 편지 조회 API 연동 후 Mock 데이터 제거
-const MOCK_MUMU_LETTER_HOME_DATA: MumuLetterSectionData = {
-  isEmptyAppliedMeeting: false,
-  hasWrittenTodayMumuPost: false,
-  mumuText: '스터디를 참여하면서 가장 좋았던 순간은 무엇이었음메메메메메?',
-  mumuPostHomeDtos: [
-    {
-      meetingId: 1,
-      meetingTitle: '크루 추억쌓기 크루 초장문 모임 제목',
-      meetingCategory: '스터디',
-      postId: 1,
-      likeCount: 2,
-      isLiked: true,
-      commentCount: 0,
-      title: '[불펌] I am 회고예요',
-      content: 'cr-all 늦은 시간 회고하느라 고생 많았어~! 항상 즐겁게 협업하기',
-    },
-    {
-      meetingId: 2,
-      meetingTitle: '함께 만드는 사이드 프로젝트',
-      meetingCategory: '스터디',
-      postId: 2,
-      likeCount: 3,
-      isLiked: false,
-      commentCount: 1,
-      title: '가장 기억에 남는 순간',
-      content: '서로의 고민을 나누면서 같이 성장할 수 있어서 좋았어요.',
-    },
-    {
-      meetingId: 3,
-      meetingTitle: '솝트 문화 행사 준비',
-      meetingCategory: '행사',
-      postId: 3,
-      likeCount: 5,
-      isLiked: true,
-      commentCount: 2,
-      title: '함께해서 즐거웠어요',
-      content: '모임 멤버들과 결과물을 완성했던 순간이 가장 기억에 남아요.',
-    },
-  ],
-};
 
 interface MumuLetterSectionProps {
   title: string;
   description: string;
 }
 
-const MumuLetterSection = ({ title, description }: MumuLetterSectionProps) => {
+const MumuLetterSectionContent = ({ title, description }: MumuLetterSectionProps) => {
   const router = useRouter();
-  const { hasWrittenTodayMumuPost: isReplied, mumuText, mumuPostHomeDtos } = MOCK_MUMU_LETTER_HOME_DATA;
+  const { data } = useSuspenseQuery(useMumuPostHomeQueryOption());
+  const { isEmptyAppliedMeeting, hasWrittenTodayMumuPost: isReplied, mumuText, mumuPostHomeDtos } = data;
+
+  // 신규 회원이거나, 모임에 참여한 적이 없는 경우에는 일단 무무 편지 섹션을 노출하지 않음. 추후 생길 예정
+  if (isEmptyAppliedMeeting) return null;
 
   const handleReplyClick = () => {
     router.push(
@@ -129,6 +93,14 @@ const MumuLetterSection = ({ title, description }: MumuLetterSectionProps) => {
         </div>
       </LetterContainer>
     </Container>
+  );
+};
+
+const MumuLetterSection = (props: MumuLetterSectionProps) => {
+  return (
+    <Suspense fallback={null}>
+      <MumuLetterSectionContent {...props} />
+    </Suspense>
   );
 };
 

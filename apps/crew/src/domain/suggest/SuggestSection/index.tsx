@@ -1,106 +1,39 @@
+import { useSwitchMeetingDemandWaitMutation } from '@api/meetingDemand/mutation';
+import { useMeetingDemandListInfiniteQueryOption } from '@api/meetingDemand/query';
 import { useDisplay } from '@hook/useDisplay';
 import { colors, spacing, typography } from '@sopt-mds/design-tokens';
 import { ActionButton } from '@sopt-mds/ui';
-import { useState } from 'react';
+import { Suspense } from '@suspensive/react';
+import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
+import { useRouter } from 'next/router';
 import { styled } from 'stitches.config';
 
 import CardList from '../CardList';
-import type { MeetingDemandPageData } from '../types';
-
-// @TODO: 모임 제안 목록 조회 API 연동
-const MOCK_MEETING_DEMAND_PAGES: MeetingDemandPageData[] = [
-  {
-    meetingDemands: [
-      {
-        id: 1,
-        shortIntro: '러닝크루 스터디를 원해요! 넘어가면 말줄임 표시',
-        expectation: '본문 내용 들어가고 영역 넘어가면 말줄임 표시 이렇게 잘릴라나',
-        status: 'BEFORE_OPEN',
-        waitCount: 4,
-        isWaiting: false,
-      },
-      {
-        id: 2,
-        shortIntro: '러닝크루 스터디를 원해요! 넘어가면 말줄임 표시',
-        expectation: '본문 내용 들어가고 영역 넘어가면 말줄임 표시 이렇게 잘릴라나',
-        status: 'BEFORE_OPEN',
-        waitCount: 5,
-        isWaiting: true,
-      },
-      {
-        id: 3,
-        shortIntro: '러닝크루 스터디를 원해요! 넘어가면 말줄임 표시',
-        expectation: '본문 내용 들어가고 영역 넘어가면 말줄임 표시 이렇게 잘릴라나',
-        status: 'OPENED',
-        waitCount: 4,
-        isWaiting: false,
-      },
-    ],
-    meta: {
-      page: 0,
-      take: 3,
-      itemCount: 3,
-      pageCount: 2,
-      hasPreviousPage: false,
-      hasNextPage: true,
-    },
-  },
-  {
-    meetingDemands: [
-      {
-        id: 4,
-        shortIntro: '러닝크루 스터디를 원해요! 넘어가면 말줄임 표시',
-        expectation: '본문 내용 들어가고 영역 넘어가면 말줄임 표시 이렇게 잘릴라나',
-        status: 'OPENED',
-        waitCount: 5,
-        isWaiting: true,
-      },
-    ],
-    meta: {
-      page: 1,
-      take: 3,
-      itemCount: 1,
-      pageCount: 2,
-      hasPreviousPage: true,
-      hasNextPage: false,
-    },
-  },
-];
 
 interface SuggestSectionProps {
   title: string;
   description: string;
 }
 
-const SuggestSection = ({ title, description }: SuggestSectionProps) => {
+const SuggestSectionContent = ({ title, description }: SuggestSectionProps) => {
   const { isMobile } = useDisplay();
-  const [meetingDemandPages, setMeetingDemandPages] = useState(MOCK_MEETING_DEMAND_PAGES);
+  const router = useRouter();
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useSuspenseInfiniteQuery(
+    useMeetingDemandListInfiniteQueryOption(),
+  );
+  const { mutate: switchMeetingDemandWait } = useSwitchMeetingDemandWaitMutation();
 
   const handleCardClick = (meetingDemandId: number) => {
     // @TODO: 모임 제안 상세 페이지 경로 확정 후 meetingDemandId에 해당하는 상세 페이지로 이동
     void meetingDemandId;
   };
 
-  const handleWaitingChange = (meetingDemandId: number, isWaiting: boolean) => {
-    // @TODO: 기다려요 수 증감 API 연동 후 서버 응답으로 상태 갱신
-    setMeetingDemandPages((currentPages) =>
-      currentPages.map((page) => ({
-        ...page,
-        meetingDemands: page.meetingDemands.map((meetingDemand) =>
-          meetingDemand.id === meetingDemandId
-            ? {
-                ...meetingDemand,
-                isWaiting,
-                waitCount: meetingDemand.waitCount + (isWaiting ? 1 : -1),
-              }
-            : meetingDemand,
-        ),
-      })),
-    );
+  const handleWaitingChange = (meetingDemandId: number) => {
+    switchMeetingDemandWait(meetingDemandId);
   };
 
   const handleSuggestClick = () => {
-    // @TODO: 모임 제안 등록 페이지 경로 연동
+    router.push('/suggest');
   };
 
   return (
@@ -121,7 +54,14 @@ const SuggestSection = ({ title, description }: SuggestSectionProps) => {
         )}
       </Header>
 
-      <CardList pages={meetingDemandPages} onCardClick={handleCardClick} onWaitingChange={handleWaitingChange} />
+      <CardList
+        pages={data.pages}
+        hasNextPage={hasNextPage}
+        isFetchingNextPage={isFetchingNextPage}
+        onFetchNextPage={fetchNextPage}
+        onCardClick={handleCardClick}
+        onWaitingChange={handleWaitingChange}
+      />
 
       {isMobile && (
         <MobileCTA>
@@ -135,6 +75,14 @@ const SuggestSection = ({ title, description }: SuggestSectionProps) => {
         </MobileCTA>
       )}
     </Container>
+  );
+};
+
+const SuggestSection = (props: SuggestSectionProps) => {
+  return (
+    <Suspense fallback={null}>
+      <SuggestSectionContent {...props} />
+    </Suspense>
   );
 };
 

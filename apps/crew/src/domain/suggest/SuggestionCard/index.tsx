@@ -5,20 +5,28 @@ import { ReactionButton, Tag } from '@sopt-mds/ui';
 import type { MouseEvent } from 'react';
 import { styled } from 'stitches.config';
 
-import type { MeetingDemandData } from '../types';
-
 interface SuggestionCardProps {
-  suggestion: MeetingDemandData;
+  suggestion: {
+    shortIntro: string;
+    expectation: string;
+    status: string;
+    isMine: boolean;
+    waitCount: number;
+    isWaiting: boolean;
+  };
   onClick: () => void;
   onWaitingChange: (isWaiting: boolean) => void;
 }
 
 const SuggestionCard = ({ suggestion, onClick, onWaitingChange }: SuggestionCardProps) => {
   const { isMobile } = useDisplay();
-  const { shortIntro, expectation, status, waitCount, isWaiting } = suggestion;
-  const HeartIcon = isWaiting ? IconHeartFilled : IconHeartOutlined;
+  const { shortIntro, expectation, status, isMine, waitCount, isWaiting } = suggestion;
+  const isWaitingSelected = !isMine && isWaiting;
+  const HeartIcon = isWaitingSelected ? IconHeartFilled : IconHeartOutlined;
   const handleWaitingClick = (event: MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
+    if (isMine) return;
+
     onWaitingChange(!isWaiting);
   };
 
@@ -38,9 +46,9 @@ const SuggestionCard = ({ suggestion, onClick, onWaitingChange }: SuggestionCard
       <SReactionArea>
         <SReactionButton
           size={isMobile ? 'xsmall' : 'small'}
-          selected={isWaiting}
+          selected={isWaitingSelected}
           leftAddon={<HeartIcon />}
-          count={waitCount}
+          count={isMine ? undefined : waitCount}
           onClick={handleWaitingClick}
         >
           기다려요

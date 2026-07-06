@@ -42,13 +42,14 @@ interface PresentationProps {
   onSubmit: React.FormEventHandler<HTMLFormElement>;
   disabled: boolean;
   shouldShowMumuLetter?: boolean;
+  mumuText?: string;
 }
 interface FileChangeHandler {
   imageUrls: string[];
   onChange: (urls: string[]) => void;
 }
 
-function FeedFormPresentation({
+const FeedFormPresentation = ({
   userId,
   groupInfo,
   attendGroupsInfo = [],
@@ -59,7 +60,8 @@ function FeedFormPresentation({
   onSubmit,
   disabled = true,
   shouldShowMumuLetter = false,
-}: PresentationProps) {
+  mumuText,
+}: PresentationProps) => {
   const { open } = useToast();
   const { isMobile } = useDisplay();
 
@@ -144,10 +146,9 @@ function FeedFormPresentation({
           )}
         </div>
 
-        {shouldShowMumuLetter && (
+        {shouldShowMumuLetter && mumuText && (
           <MumuLetterWrapper>
-            {/* //@TODO: 홈 페이지에서 조회하고 캐싱한 mumuText를 사용하도록 API 연동 */}
-            <MumuLetter content='요즘 가장 관심 있는 것은 무엇인가요?' />
+            <MumuLetter content={mumuText} />
           </MumuLetterWrapper>
         )}
 
@@ -232,7 +233,7 @@ function FeedFormPresentation({
       </SForm>
     </SFormContainer>
   );
-}
+};
 
 export default FeedFormPresentation;
 
