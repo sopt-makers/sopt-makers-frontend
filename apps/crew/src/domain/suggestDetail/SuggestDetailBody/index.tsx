@@ -91,15 +91,3 @@ const SKeywordList = styled('div', {
   flexWrap: 'wrap',
   gap: spacing.s6,
 });
-
-const SViewCount = styled('p', {
-  'alignSelf': 'flex-end',
-  'color': colors.fg.neutral.ghost,
-  ...typography.label4,
-
-  'marginTop': spacing.s40,
-
-  '@mobile': {
-    marginTop: spacing.s16,
-  },
-});
