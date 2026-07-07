@@ -86,7 +86,7 @@ export default ReportMenu;
 const SMenuButton = styled(Menu.Button, {
   display: 'flex',
   padding: spacing.s4,
-  color: colors.fg.neutral.subtle,
+  color: colors.fg.neutral.bold,
 });
 
 const SMenuItems = styled(Menu.Items, {
