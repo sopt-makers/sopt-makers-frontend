@@ -106,5 +106,5 @@ const SIconGroup = styled('div', {
 const SIconButton = styled('button', {
   display: 'flex',
   padding: 0,
-  color: colors.fg.neutral.default,
+  color: colors.fg.neutral.bold,
 });
