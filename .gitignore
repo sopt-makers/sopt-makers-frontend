@@ -65,3 +65,4 @@ apps/crew/src/__generated__/open-api-specification.json
 
 # local agent instructions
 AGENTS.md
+.gstack/
