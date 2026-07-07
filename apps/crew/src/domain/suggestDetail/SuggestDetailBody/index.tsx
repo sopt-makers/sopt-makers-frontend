@@ -1,4 +1,3 @@
-import type { MeetingDemandKeyword } from '@domain/suggestDetail/types';
 import { colors, spacing, typography } from '@sopt-mds/design-tokens';
 import { Tag } from '@sopt-mds/ui';
 import { styled } from 'stitches.config';
@@ -6,11 +5,10 @@ import { styled } from 'stitches.config';
 interface SuggestDetailBodyProps {
   title: string;
   expectation: string;
-  keywords: MeetingDemandKeyword[];
-  viewCount: number;
+  keywords: string[];
 }
 
-const SuggestDetailBody = ({ title, expectation, keywords, viewCount }: SuggestDetailBodyProps) => {
+const SuggestDetailBody = ({ title, expectation, keywords }: SuggestDetailBodyProps) => {
   return (
     <SContainer>
       <SContentContainer>
@@ -22,14 +20,12 @@ const SuggestDetailBody = ({ title, expectation, keywords, viewCount }: SuggestD
         <SKeywordTitle>💪🏻 이런 모임을 원해요</SKeywordTitle>
         <SKeywordList>
           {keywords.map((keyword) => (
-            <Tag key={keyword.label} size='medium' shape='pill' type='solid' variant='default'>
-              {keyword.hashed ? `#${keyword.label}` : keyword.label}
+            <Tag key={keyword} size='medium' shape='pill' type='solid' variant='default'>
+              {keyword}
             </Tag>
           ))}
         </SKeywordList>
       </SKeywordSection>
-
-      <SViewCount>조회 {viewCount}회</SViewCount>
     </SContainer>
   );
 };
@@ -94,16 +90,4 @@ const SKeywordList = styled('div', {
   display: 'flex',
   flexWrap: 'wrap',
   gap: spacing.s6,
-});
-
-const SViewCount = styled('p', {
-  'alignSelf': 'flex-end',
-  'color': colors.fg.neutral.ghost,
-  ...typography.label4,
-
-  'marginTop': spacing.s40,
-
-  '@mobile': {
-    marginTop: spacing.s16,
-  },
 });

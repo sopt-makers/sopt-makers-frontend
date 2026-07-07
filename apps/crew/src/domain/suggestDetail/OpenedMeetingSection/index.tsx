@@ -5,9 +5,10 @@ import { styled } from 'stitches.config';
 
 interface OpenedMeetingSectionProps {
   meetings: OpenedMeetingData[];
+  onClickMeeting: (meetingId: number) => void;
 }
 
-const OpenedMeetingSection = ({ meetings }: OpenedMeetingSectionProps) => {
+const OpenedMeetingSection = ({ meetings, onClickMeeting }: OpenedMeetingSectionProps) => {
   if (meetings.length === 0) return null;
 
   return (
@@ -20,7 +21,7 @@ const OpenedMeetingSection = ({ meetings }: OpenedMeetingSectionProps) => {
       <SList>
         {meetings.map((meeting) => (
           <li key={meeting.id}>
-            <OpenedMeetingCard meeting={meeting} />
+            <OpenedMeetingCard meeting={meeting} onClick={() => onClickMeeting(meeting.id)} />
           </li>
         ))}
       </SList>

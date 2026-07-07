@@ -1,6 +1,5 @@
 import type { OpenedMeetingData } from '@domain/suggestDetail/types';
 import { colors, radius, spacing, typography } from '@sopt-mds/design-tokens';
-import { IconUserOutlined } from '@sopt-mds/icons';
 import { Avatar } from '@sopt-mds/ui';
 import { styled } from 'stitches.config';
 
@@ -12,7 +11,7 @@ interface DesktopCardProps {
 const DesktopCard = ({ meeting, onClick }: DesktopCardProps) => {
   return (
     <SCard onClick={onClick}>
-      <SImage src={meeting.imageUrl} alt='' />
+      <SImage src={meeting.imageUrl ?? ''} alt='' />
 
       <SContents>
         <SProfileRow>
@@ -24,19 +23,7 @@ const DesktopCard = ({ meeting, onClick }: DesktopCardProps) => {
 
         <STextGroup>
           <STitle>{meeting.title}</STitle>
-          <SDescription>{meeting.description}</SDescription>
         </STextGroup>
-
-        <SCondition>
-          <IconUserOutlined width={16} height={16} />
-          <SConditionText>
-            {meeting.approvedCount}/{meeting.capacity}명
-          </SConditionText>
-          <SDot />
-          <SConditionText>
-            {meeting.generation} / {meeting.parts.join(', ')}
-          </SConditionText>
-        </SCondition>
       </SContents>
     </SCard>
   );
@@ -107,34 +94,4 @@ const STitle = styled('p', {
   WebkitLineClamp: 2,
   WebkitBoxOrient: 'vertical',
   ...typography.heading4,
-});
-
-const SDescription = styled('p', {
-  overflow: 'hidden',
-  color: colors.fg.neutral.subtle,
-  textOverflow: 'ellipsis',
-  whiteSpace: 'nowrap',
-  ...typography.body2,
-});
-
-const SCondition = styled('div', {
-  display: 'flex',
-  alignItems: 'center',
-  gap: spacing.s6,
-  color: colors.fg.neutral.subtle,
-});
-
-const SConditionText = styled('p', {
-  overflow: 'hidden',
-  whiteSpace: 'nowrap',
-  textOverflow: 'ellipsis',
-  ...typography.label4,
-});
-
-const SDot = styled('div', {
-  width: '2px',
-  height: '2px',
-  flexShrink: 0,
-  borderRadius: radius.full,
-  backgroundColor: colors.fg.neutral.subtle,
 });

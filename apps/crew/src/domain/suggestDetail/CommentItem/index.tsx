@@ -1,7 +1,5 @@
-import { playgroundURL } from '@constant/url';
 import ReportMenu from '@domain/suggestDetail/ReportMenu';
 import type { MeetingDemandCommentData } from '@domain/suggestDetail/types';
-import { playgroundLink } from '@sopt/constant';
 import { colors, spacing, typography } from '@sopt-mds/design-tokens';
 import { IconHeartFilled, IconHeartOutlined } from '@sopt-mds/icons';
 import { Avatar, ReactionButton } from '@sopt-mds/ui';
@@ -11,26 +9,37 @@ interface CommentItemProps {
   comment: MeetingDemandCommentData;
   onClickLike: (isLiked: boolean) => void;
   onReport: () => void;
+  onDelete: () => void;
 }
 
-const CommentItem = ({ comment, onClickLike, onReport }: CommentItemProps) => {
-  const { author, isAuthor, createdAt, content, likeCount, isLiked } = comment;
+const CommentItem = ({ comment, onClickLike, onReport, onDelete }: CommentItemProps) => {
+  const { author, isMine, createdAt, content, likeCount, isLiked, isBlocked } = comment;
   const HeartIcon = isLiked ? IconHeartFilled : IconHeartOutlined;
+  const nickname = author?.nickname ?? '알 수 없음';
+
+  if (isBlocked) {
+    return (
+      <SComment>
+        <SBlockedText>차단된 사용자의 댓글이에요.</SBlockedText>
+      </SComment>
+    );
+  }
 
   return (
     <SComment>
       <SHead>
-        <SAuthorLink
-          href={`${playgroundURL}${playgroundLink.memberDetail(author.orgId)}`}
-          target='_blank'
-          rel='noreferrer'
-        >
-          <Avatar size={32} alt={author.name} />
-          <SAuthorName>{author.name}</SAuthorName>
+        <SAuthor>
+          <Avatar size={32} src={author?.imageUrl} alt={nickname} />
+          <SAuthorName>{nickname}</SAuthorName>
           <SCreatedAt>{createdAt}</SCreatedAt>
-        </SAuthorLink>
+        </SAuthor>
 
-        {!isAuthor && <ReportMenu reportMessage='댓글을 신고하시겠습니까?' onConfirmReport={onReport} />}
+        <ReportMenu
+          reportMessage='댓글을 신고하시겠습니까?'
+          onConfirmReport={isMine ? undefined : onReport}
+          deleteMessage='댓글을 삭제할까요?'
+          onConfirmDelete={isMine ? onDelete : undefined}
+        />
       </SHead>
 
       <SBody>
@@ -64,10 +73,15 @@ const SHead = styled('div', {
   justifyContent: 'space-between',
 });
 
-const SAuthorLink = styled('a', {
+const SAuthor = styled('div', {
   display: 'flex',
   alignItems: 'center',
   gap: spacing.s8,
+});
+
+const SBlockedText = styled('p', {
+  color: colors.fg.neutral.ghost,
+  ...typography.body2,
 });
 
 const SAuthorName = styled('p', {

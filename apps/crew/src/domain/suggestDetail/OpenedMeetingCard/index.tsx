@@ -6,12 +6,17 @@ import MobileCard from './MobileCard';
 
 interface OpenedMeetingCardProps {
   meeting: OpenedMeetingData;
+  onClick?: () => void;
 }
 
-const OpenedMeetingCard = ({ meeting }: OpenedMeetingCardProps) => {
+const OpenedMeetingCard = ({ meeting, onClick }: OpenedMeetingCardProps) => {
   const { isMobile } = useDisplay();
 
-  return isMobile ? <MobileCard meeting={meeting} /> : <DesktopCard meeting={meeting} />;
+  return isMobile ? (
+    <MobileCard meeting={meeting} onClick={onClick} />
+  ) : (
+    <DesktopCard meeting={meeting} onClick={onClick} />
+  );
 };
 
 export default OpenedMeetingCard;
