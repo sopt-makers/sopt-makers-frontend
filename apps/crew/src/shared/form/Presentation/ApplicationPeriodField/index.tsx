@@ -11,7 +11,7 @@ const ApplicationPeriodField = () => {
       <Label required={true}>신청 기간</Label>
       <HelpMessage>설정한 신청 기간 시작일의 자정(AM 12:00)에 &apos;신청하기&apos; 버튼이 활성화돼요</HelpMessage>
       <SApplicationFieldWrapper>
-        <SApplicationField>
+        <div>
           <FormController
             name='dateRange'
             render={({ field, formState: { errors } }) => {
@@ -34,9 +34,9 @@ const ApplicationPeriodField = () => {
               );
             }}
           ></FormController>
-        </SApplicationField>
+        </div>
         <span style={{ marginTop: '14px' }}>-</span>
-        <SApplicationField>
+        <div>
           <FormController
             name='dateRange'
             render={({ field }) => (
@@ -48,7 +48,7 @@ const ApplicationPeriodField = () => {
               />
             )}
           ></FormController>
-        </SApplicationField>
+        </div>
       </SApplicationFieldWrapper>
     </div>
   );
@@ -59,13 +59,5 @@ export default ApplicationPeriodField;
 const SApplicationFieldWrapper = styled('div', {
   display: 'flex',
   color: '$gray500',
-  gap: '12px',
-});
-const SApplicationField = styled('div', {
-  'width': '100%',
-  'maxWidth': '205px',
-
-  '@mobile': {
-    maxWidth: '151px',
-  },
+  gap: '8px',
 });
