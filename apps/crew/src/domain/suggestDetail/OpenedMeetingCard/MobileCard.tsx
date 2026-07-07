@@ -4,11 +4,12 @@ import { styled } from 'stitches.config';
 
 interface MobileCardProps {
   meeting: OpenedMeetingData;
+  onClick?: () => void;
 }
 
-const MobileCard = ({ meeting }: MobileCardProps) => {
+const MobileCard = ({ meeting, onClick }: MobileCardProps) => {
   return (
-    <SCard>
+    <SCard onClick={onClick}>
       <SImage src={meeting.imageUrl ?? ''} alt={meeting.title} />
       <STitle>{meeting.title}</STitle>
       <SInfo>
@@ -28,6 +29,7 @@ const SCard = styled('div', {
   flexDirection: 'column',
   gap: spacing.s8,
   flexShrink: 0,
+  cursor: 'pointer',
 });
 
 const SImage = styled('img', {

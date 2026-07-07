@@ -94,6 +94,10 @@ const SuggestDetailPage = () => {
     router.push(`/make?meetingDemandId=${meetingDemandId}`);
   };
 
+  const handleClickOpenedMeeting = (meetingId: number) => {
+    router.push(`/detail?id=${meetingId}`);
+  };
+
   return (
     <SPageWrapper>
       <SContentCard>
@@ -126,7 +130,7 @@ const SuggestDetailPage = () => {
 
         {openedMeetings.length > 0 && (
           <SOpenedMeetingSection>
-            <OpenedMeetingSection meetings={openedMeetings} />
+            <OpenedMeetingSection meetings={openedMeetings} onClickMeeting={handleClickOpenedMeeting} />
           </SOpenedMeetingSection>
         )}
 
