@@ -24,8 +24,7 @@ const SuggestSectionContent = ({ title, description }: SuggestSectionProps) => {
   const { mutate: switchMeetingDemandWait } = useSwitchMeetingDemandWaitMutation();
 
   const handleCardClick = (meetingDemandId: number) => {
-    // @TODO: 모임 제안 상세 페이지 경로 확정 후 meetingDemandId에 해당하는 상세 페이지로 이동
-    void meetingDemandId;
+    router.push(`/suggest/detail?id=${meetingDemandId}`);
   };
 
   const handleWaitingChange = (meetingDemandId: number) => {
