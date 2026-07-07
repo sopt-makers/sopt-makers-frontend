@@ -49,7 +49,6 @@ const SuggestionCard = ({ suggestion, onClick, onWaitingChange }: SuggestionCard
           selected={isWaitingSelected}
           leftAddon={<HeartIcon />}
           count={waitCount}
-          disabled={isMine}
           onClick={handleWaitingClick}
         >
           기다려요
