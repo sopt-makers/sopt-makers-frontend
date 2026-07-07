@@ -1,9 +1,10 @@
+import { useToast } from '@sopt-makers/ui';
 import type { InfiniteData } from '@tanstack/react-query';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { createMeetingDemand, switchMeetingDemandWait } from '.';
+import { createMeetingDemand, deleteMeetingDemand, reportMeetingDemand, switchMeetingDemandWait } from '.';
 import MeetingDemandQueryKey from './MeetingDemandQueryKey';
-import type { GetMeetingDemandsResponse } from './type';
+import type { GetMeetingDemandResponse, GetMeetingDemandsResponse } from './type';
 
 export const useCreateMeetingDemandMutation = () => {
   const queryClient = useQueryClient();
@@ -38,6 +39,31 @@ export const useSwitchMeetingDemandWaitMutation = () => {
           };
         },
       );
+
+      queryClient.setQueryData<GetMeetingDemandResponse>(
+        MeetingDemandQueryKey.detail(meetingDemandId),
+        (currentData) => (currentData ? { ...currentData, ...response } : currentData),
+      );
     },
+  });
+};
+
+export const useReportMeetingDemandMutation = () => {
+  const { open } = useToast();
+
+  return useMutation({
+    mutationFn: (meetingDemandId: number) => reportMeetingDemand({ meetingDemandId }),
+    onSuccess: () => {
+      open({ icon: 'success', content: '모임 제안을 신고했습니다.' });
+    },
+    onError: () => {
+      open({ icon: 'error', content: '이미 신고한 모임 제안입니다.' });
+    },
+  });
+};
+
+export const useDeleteMeetingDemandMutation = () => {
+  return useMutation({
+    mutationFn: (meetingDemandId: number) => deleteMeetingDemand({ meetingDemandId }),
   });
 };

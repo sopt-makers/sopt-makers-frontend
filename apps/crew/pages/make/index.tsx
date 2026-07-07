@@ -25,6 +25,7 @@ const DevTool = dynamic(() => import('@hookform/devtools').then((module) => modu
 
 const MakePage = () => {
   const router = useRouter();
+  const meetingDemandId = router.query.meetingDemandId ? Number(router.query.meetingDemandId) : undefined;
   const { draftFormValues, removeDraftCreateMeeting } = useDraftCreateMeeting();
   const formMethods = useForm<FormType>({
     mode: 'onChange',
@@ -38,7 +39,7 @@ const MakePage = () => {
   });
   const { isValid, errors, isDirty } = formMethods.formState;
   const { watch } = formMethods;
-  const { mutate: mutateCreateMeeting, isPending: isSubmitting } = usePostMeetingMutation();
+  const { mutate: mutateCreateMeeting, isPending: isSubmitting } = usePostMeetingMutation(meetingDemandId);
   const submittedRef = useRef(false);
   const [hasDraftLoaded, setHasDraftLoaded] = useState(false);
 
