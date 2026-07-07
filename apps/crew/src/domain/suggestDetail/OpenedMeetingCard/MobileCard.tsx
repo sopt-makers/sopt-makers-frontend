@@ -9,7 +9,7 @@ interface MobileCardProps {
 const MobileCard = ({ meeting }: MobileCardProps) => {
   return (
     <SCard>
-      <SImage src={meeting.imageUrl} alt={meeting.title} />
+      <SImage src={meeting.imageUrl ?? ''} alt={meeting.title} />
       <STitle>{meeting.title}</STitle>
       <SInfo>
         <span>{meeting.category}</span>

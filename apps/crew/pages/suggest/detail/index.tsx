@@ -1,33 +1,56 @@
+import {
+  useDeleteMeetingDemandMutation,
+  useReportMeetingDemandMutation,
+  useSwitchMeetingDemandWaitMutation,
+} from '@api/meetingDemand/mutation';
+import { useMeetingDemandQueryOption, useOpenedMeetingsQueryOption } from '@api/meetingDemand/query';
 import CommentInput from '@domain/suggestDetail/CommentInput';
 import CommentList from '@domain/suggestDetail/CommentList';
-import { MOCK_MEETING_DEMAND_COMMENTS, MOCK_MEETING_DEMAND_DETAIL } from '@domain/suggestDetail/mock';
+import { MOCK_MEETING_DEMAND_COMMENTS } from '@domain/suggestDetail/mock';
 import OpenedMeetingSection from '@domain/suggestDetail/OpenedMeetingSection';
 import SuggestDetailBody from '@domain/suggestDetail/SuggestDetailBody';
 import SuggestDetailCta from '@domain/suggestDetail/SuggestDetailCta';
 import SuggestDetailProfile from '@domain/suggestDetail/SuggestDetailProfile';
 import SuggestDetailReactionBar from '@domain/suggestDetail/SuggestDetailReactionBar';
 import type { MeetingDemandCommentData } from '@domain/suggestDetail/types';
+import { useToast } from '@sopt-makers/ui';
 import { colors, radius, spacing } from '@sopt-mds/design-tokens';
+import { useQuery } from '@tanstack/react-query';
+import { fromNow } from '@util/dayjs';
 import { useRouter } from 'next/router';
 import { useRef, useState } from 'react';
 import { styled } from 'stitches.config';
 
 const SuggestDetailPage = () => {
   const router = useRouter();
-  // @TODO: router.query.id 로 모임 제안 상세 조회 API 연동
-  void router.query.id;
+  const meetingDemandId = Number(router.query.id);
 
-  const [detail, setDetail] = useState(MOCK_MEETING_DEMAND_DETAIL);
+  const { data: detail } = useQuery(useMeetingDemandQueryOption(meetingDemandId));
+  const { data: openedMeetingsData } = useQuery({
+    ...useOpenedMeetingsQueryOption(meetingDemandId),
+    enabled: !!meetingDemandId && !!detail?.openedMeetingCount,
+  });
+  const { mutate: mutateSwitchWait } = useSwitchMeetingDemandWaitMutation();
+  const { mutate: mutateReport } = useReportMeetingDemandMutation();
+  const { mutate: mutateDelete } = useDeleteMeetingDemandMutation();
+  const { open: openToast } = useToast();
+
   const [comments, setComments] = useState(MOCK_MEETING_DEMAND_COMMENTS);
   const commentInputRef = useRef<HTMLTextAreaElement>(null);
 
-  const handleClickWait = (isWaiting: boolean) => {
-    // @TODO: 기다려요 수 증감 API 연동 후 서버 응답으로 상태 갱신
-    setDetail((prev) => ({
-      ...prev,
-      isWaiting,
-      waitCount: prev.waitCount + (isWaiting ? 1 : -1),
-    }));
+  if (!detail) return null;
+
+  const openedMeetings =
+    openedMeetingsData?.meetings.map((meeting) => ({
+      id: meeting.meetingId,
+      imageUrl: meeting.imageUrl,
+      title: meeting.title,
+      category: meeting.category,
+      author: { id: meeting.user.id, name: meeting.user.name, profileImageUrl: meeting.user.profileImage },
+    })) ?? [];
+
+  const handleClickWait = () => {
+    mutateSwitchWait(meetingDemandId);
   };
 
   const handleClickComment = () => {
@@ -58,7 +81,16 @@ const SuggestDetailPage = () => {
   };
 
   const handleReportSuggestion = () => {
-    // @TODO: 모임 제안 신고 API 연동
+    mutateReport(meetingDemandId);
+  };
+
+  const handleDeleteSuggestion = () => {
+    mutateDelete(meetingDemandId, {
+      onSuccess: () => {
+        openToast({ icon: 'success', content: '모임 제안을 삭제했어요.' });
+        router.push('/suggest');
+      },
+    });
   };
 
   const handleReportComment = (commentId: number) => {
@@ -74,13 +106,19 @@ const SuggestDetailPage = () => {
     <SPageWrapper>
       <SContentCard>
         <SMainSection>
-          <SuggestDetailProfile author={detail.author} createdAt={detail.createdAt} onReport={handleReportSuggestion} />
+          <SuggestDetailProfile
+            nickname={detail.anonymousNickname}
+            imageUrl={detail.anonymousImageUrl}
+            createdAt={fromNow(detail.createdDate)}
+            isMine={detail.isMine}
+            onReport={handleReportSuggestion}
+            onDelete={handleDeleteSuggestion}
+          />
 
           <SuggestDetailBody
             title={detail.shortIntro}
             expectation={detail.expectation}
-            keywords={detail.keywords}
-            viewCount={detail.viewCount}
+            keywords={detail.meetingKeywordTypes}
           />
 
           <SuggestDetailCta onClick={handleClickCta} />
@@ -94,9 +132,9 @@ const SuggestDetailPage = () => {
           onClickWait={handleClickWait}
         />
 
-        {detail.openedMeetings.length > 0 && (
+        {openedMeetings.length > 0 && (
           <SOpenedMeetingSection>
-            <OpenedMeetingSection meetings={detail.openedMeetings} />
+            <OpenedMeetingSection meetings={openedMeetings} />
           </SOpenedMeetingSection>
         )}
 

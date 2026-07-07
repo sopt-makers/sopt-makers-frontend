@@ -1,7 +1,4 @@
-import { playgroundURL } from '@constant/url';
 import ReportMenu from '@domain/suggestDetail/ReportMenu';
-import type { MeetingDemandAuthor } from '@domain/suggestDetail/types';
-import { playgroundLink } from '@sopt/constant';
 import { useToast } from '@sopt-makers/ui';
 import { colors, spacing, typography } from '@sopt-mds/design-tokens';
 import { IconShare } from '@sopt-mds/icons';
@@ -9,12 +6,22 @@ import { Avatar } from '@sopt-mds/ui';
 import { styled } from 'stitches.config';
 
 interface SuggestDetailProfileProps {
-  author: MeetingDemandAuthor;
+  nickname: string;
+  imageUrl?: string;
   createdAt: string;
+  isMine: boolean;
   onReport: () => void;
+  onDelete: () => void;
 }
 
-const SuggestDetailProfile = ({ author, createdAt, onReport }: SuggestDetailProfileProps) => {
+const SuggestDetailProfile = ({
+  nickname,
+  imageUrl,
+  createdAt,
+  isMine,
+  onReport,
+  onDelete,
+}: SuggestDetailProfileProps) => {
   const { open } = useToast();
 
   const handleClickShare = async () => {
@@ -28,23 +35,24 @@ const SuggestDetailProfile = ({ author, createdAt, onReport }: SuggestDetailProf
 
   return (
     <SHeader>
-      <SProfileLink
-        href={`${playgroundURL}${playgroundLink.memberDetail(author.orgId)}`}
-        target='_blank'
-        rel='noreferrer'
-      >
-        <Avatar src={author.profileImageUrl} alt={author.name} size={48} />
+      <SProfile>
+        <Avatar src={imageUrl} alt={nickname} size={48} />
         <SProfileText>
-          <SAuthorName>{author.name}</SAuthorName>
+          <SAuthorName>{nickname}</SAuthorName>
           <SCreatedAt>{createdAt}</SCreatedAt>
         </SProfileText>
-      </SProfileLink>
+      </SProfile>
 
       <SIconGroup>
         <SIconButton type='button' aria-label='링크 공유' onClick={handleClickShare}>
           <IconShare width={24} height={24} />
         </SIconButton>
-        <ReportMenu reportMessage='모임 제안을 신고하시겠습니까?' onConfirmReport={onReport} />
+        <ReportMenu
+          reportMessage='모임 제안을 신고하시겠습니까?'
+          onConfirmReport={isMine ? undefined : onReport}
+          deleteMessage='모임 제안을 삭제할까요?'
+          onConfirmDelete={isMine ? onDelete : undefined}
+        />
       </SIconGroup>
     </SHeader>
   );
@@ -59,7 +67,7 @@ const SHeader = styled('div', {
   justifyContent: 'space-between',
 });
 
-const SProfileLink = styled('a', {
+const SProfile = styled('div', {
   display: 'flex',
   alignItems: 'center',
   gap: spacing.s12,

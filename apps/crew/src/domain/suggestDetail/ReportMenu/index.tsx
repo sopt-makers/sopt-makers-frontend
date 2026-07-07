@@ -1,17 +1,26 @@
 import { Menu } from '@headlessui/react';
 import { useOverlay } from '@hook/useOverlay/Index';
 import ConfirmModal from '@shared/modal/ConfirmModal';
+import { useDialog } from '@sopt-makers/ui';
 import { colors, radius, spacing, typography } from '@sopt-mds/design-tokens';
-import { IconAlertTriangleOutlined, IconDotsVertical } from '@sopt-mds/icons';
+import { IconAlertTriangleOutlined, IconDotsVertical, IconTrashOutlined } from '@sopt-mds/icons';
 import { styled } from 'stitches.config';
 
 interface ReportMenuProps {
   reportMessage: string;
-  onConfirmReport: () => void;
+  onConfirmReport?: () => void;
+  deleteMessage?: string;
+  onConfirmDelete?: () => void;
 }
 
-const ReportMenu = ({ reportMessage, onConfirmReport }: ReportMenuProps) => {
+const ReportMenu = ({
+  reportMessage,
+  onConfirmReport,
+  deleteMessage = '삭제하시겠어요?',
+  onConfirmDelete,
+}: ReportMenuProps) => {
   const overlay = useOverlay();
+  const { open: openDialog, close: closeDialog } = useDialog();
 
   const handleClickReport = () => {
     overlay.open(({ isOpen, close }) => (
@@ -22,11 +31,27 @@ const ReportMenu = ({ reportMessage, onConfirmReport }: ReportMenuProps) => {
         confirmButton='신고하기'
         handleModalClose={close}
         handleConfirm={() => {
-          onConfirmReport();
+          onConfirmReport?.();
           close();
         }}
       />
     ));
+  };
+
+  const handleClickDelete = () => {
+    openDialog({
+      title: deleteMessage,
+      description: '삭제하면 되돌릴 수 없어요.',
+      type: 'danger',
+      typeOptions: {
+        cancelButtonText: '취소',
+        approveButtonText: '삭제하기',
+        onApprove: () => {
+          onConfirmDelete?.();
+          closeDialog();
+        },
+      },
+    });
   };
 
   return (
@@ -35,12 +60,22 @@ const ReportMenu = ({ reportMessage, onConfirmReport }: ReportMenuProps) => {
         <IconDotsVertical width={20} height={20} />
       </SMenuButton>
       <SMenuItems>
-        <Menu.Item>
-          <SMenuItemButton type='button' onClick={handleClickReport}>
-            <IconAlertTriangleOutlined width={16} height={16} />
-            신고
-          </SMenuItemButton>
-        </Menu.Item>
+        {onConfirmReport && (
+          <Menu.Item>
+            <SMenuItemButton type='button' onClick={handleClickReport}>
+              <IconAlertTriangleOutlined width={16} height={16} />
+              신고
+            </SMenuItemButton>
+          </Menu.Item>
+        )}
+        {onConfirmDelete && (
+          <Menu.Item>
+            <SMenuItemButton type='button' onClick={handleClickDelete}>
+              <IconTrashOutlined width={16} height={16} />
+              삭제
+            </SMenuItemButton>
+          </Menu.Item>
+        )}
       </SMenuItems>
     </Menu>
   );
