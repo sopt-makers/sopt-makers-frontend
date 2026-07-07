@@ -1,9 +1,3 @@
-export interface MeetingDemandAuthor {
-  orgId: string;
-  name: string;
-  profileImageUrl?: string;
-}
-
 export interface OpenedMeetingAuthor {
   id: number;
   name: string;
@@ -18,12 +12,22 @@ export interface OpenedMeetingData {
   author: OpenedMeetingAuthor;
 }
 
+export interface MeetingDemandCommentAuthor {
+  nickname: string;
+  imageUrl?: string;
+}
+
 export interface MeetingDemandCommentData {
   id: number;
-  author: MeetingDemandAuthor;
-  isAuthor: boolean;
+  author?: MeetingDemandCommentAuthor;
+  isMine: boolean;
   createdAt: string;
   content: string;
   likeCount: number;
   isLiked: boolean;
+  isBlocked: boolean;
+}
+
+export interface MeetingDemandParentCommentData extends MeetingDemandCommentData {
+  replies: MeetingDemandCommentData[];
 }

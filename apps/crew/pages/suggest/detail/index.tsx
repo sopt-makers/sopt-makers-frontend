@@ -4,21 +4,26 @@ import {
   useSwitchMeetingDemandWaitMutation,
 } from '@api/meetingDemand/mutation';
 import { useMeetingDemandQueryOption, useOpenedMeetingsQueryOption } from '@api/meetingDemand/query';
+import {
+  useCreateMeetingDemandCommentMutation,
+  useDeleteMeetingDemandCommentMutation,
+  useReportMeetingDemandCommentMutation,
+  useSwitchMeetingDemandCommentLikeMutation,
+} from '@api/meetingDemandComment/mutation';
+import { useMeetingDemandCommentsQueryOption } from '@api/meetingDemandComment/query';
 import CommentInput from '@domain/suggestDetail/CommentInput';
 import CommentList from '@domain/suggestDetail/CommentList';
-import { MOCK_MEETING_DEMAND_COMMENTS } from '@domain/suggestDetail/mock';
 import OpenedMeetingSection from '@domain/suggestDetail/OpenedMeetingSection';
 import SuggestDetailBody from '@domain/suggestDetail/SuggestDetailBody';
 import SuggestDetailCta from '@domain/suggestDetail/SuggestDetailCta';
 import SuggestDetailProfile from '@domain/suggestDetail/SuggestDetailProfile';
 import SuggestDetailReactionBar from '@domain/suggestDetail/SuggestDetailReactionBar';
-import type { MeetingDemandCommentData } from '@domain/suggestDetail/types';
 import { useToast } from '@sopt-makers/ui';
 import { colors, radius, spacing } from '@sopt-mds/design-tokens';
 import { useQuery } from '@tanstack/react-query';
 import { fromNow } from '@util/dayjs';
 import { useRouter } from 'next/router';
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import { styled } from 'stitches.config';
 
 const SuggestDetailPage = () => {
@@ -30,12 +35,16 @@ const SuggestDetailPage = () => {
     ...useOpenedMeetingsQueryOption(meetingDemandId),
     enabled: !!meetingDemandId && !!detail?.openedMeetingCount,
   });
+  const { data: commentsData } = useQuery(useMeetingDemandCommentsQueryOption(meetingDemandId));
   const { mutate: mutateSwitchWait } = useSwitchMeetingDemandWaitMutation();
   const { mutate: mutateReport } = useReportMeetingDemandMutation();
   const { mutate: mutateDelete } = useDeleteMeetingDemandMutation();
+  const { mutate: mutateCreateComment } = useCreateMeetingDemandCommentMutation(meetingDemandId);
+  const { mutate: mutateDeleteComment } = useDeleteMeetingDemandCommentMutation(meetingDemandId);
+  const { mutate: mutateSwitchCommentLike } = useSwitchMeetingDemandCommentLikeMutation(meetingDemandId);
+  const { mutate: mutateReportComment } = useReportMeetingDemandCommentMutation();
   const { open: openToast } = useToast();
 
-  const [comments, setComments] = useState(MOCK_MEETING_DEMAND_COMMENTS);
   const commentInputRef = useRef<HTMLTextAreaElement>(null);
 
   if (!detail) return null;
@@ -49,6 +58,34 @@ const SuggestDetailPage = () => {
       author: { id: meeting.user.id, name: meeting.user.name, profileImageUrl: meeting.user.profileImage },
     })) ?? [];
 
+  const comments =
+    commentsData?.comments.map((comment) => ({
+      id: comment.id,
+      author: comment.writer && {
+        nickname: comment.writer.anonymousNickname ?? '',
+        imageUrl: comment.writer.anonymousImageUrl,
+      },
+      isMine: comment.isMine,
+      createdAt: fromNow(comment.createdDate),
+      content: comment.contents,
+      likeCount: comment.likeCount,
+      isLiked: comment.isLiked,
+      isBlocked: comment.isBlockedComment,
+      replies: comment.replies.map((reply) => ({
+        id: reply.id,
+        author: reply.writer && {
+          nickname: reply.writer.anonymousNickname ?? '',
+          imageUrl: reply.writer.anonymousImageUrl,
+        },
+        isMine: reply.isMine,
+        createdAt: fromNow(reply.createdDate),
+        content: reply.contents,
+        likeCount: reply.likeCount,
+        isLiked: reply.isLiked,
+        isBlocked: reply.isBlockedComment,
+      })),
+    })) ?? [];
+
   const handleClickWait = () => {
     mutateSwitchWait(meetingDemandId);
   };
@@ -58,26 +95,11 @@ const SuggestDetailPage = () => {
   };
 
   const handleSubmitComment = (content: string) => {
-    // @TODO: 댓글 작성 API 연동, 작성자 정보는 로그인한 유저 정보로 대체
-    const newComment: MeetingDemandCommentData = {
-      id: Date.now(),
-      author: { orgId: '', name: '나' },
-      isAuthor: true,
-      createdAt: '방금 전',
-      content,
-      likeCount: 0,
-      isLiked: false,
-    };
-    setComments((prev) => [...prev, newComment]);
+    mutateCreateComment({ contents: content, isParent: true });
   };
 
-  const handleClickCommentLike = (commentId: number, isLiked: boolean) => {
-    // @TODO: 댓글 좋아요 API 연동
-    setComments((prev) =>
-      prev.map((comment) =>
-        comment.id === commentId ? { ...comment, isLiked, likeCount: comment.likeCount + (isLiked ? 1 : -1) } : comment,
-      ),
-    );
+  const handleClickCommentLike = (commentId: number) => {
+    mutateSwitchCommentLike(commentId);
   };
 
   const handleReportSuggestion = () => {
@@ -94,8 +116,11 @@ const SuggestDetailPage = () => {
   };
 
   const handleReportComment = (commentId: number) => {
-    // @TODO: 댓글 신고 API 연동
-    void commentId;
+    mutateReportComment(commentId);
+  };
+
+  const handleDeleteComment = (commentId: number) => {
+    mutateDeleteComment(commentId);
   };
 
   const handleClickCta = () => {
@@ -125,7 +150,7 @@ const SuggestDetailPage = () => {
         </SMainSection>
 
         <SuggestDetailReactionBar
-          commentCount={comments.length}
+          commentCount={detail.commentCount}
           waitCount={detail.waitCount}
           isWaiting={detail.isWaiting}
           onClickComment={handleClickComment}
@@ -139,7 +164,13 @@ const SuggestDetailPage = () => {
         )}
 
         <SCommentSection>
-          <CommentList comments={comments} onClickLike={handleClickCommentLike} onReport={handleReportComment} />
+          <CommentList
+            comments={comments}
+            totalCount={detail.commentCount}
+            onClickLike={handleClickCommentLike}
+            onReport={handleReportComment}
+            onDelete={handleDeleteComment}
+          />
           <CommentInput ref={commentInputRef} onSubmit={handleSubmitComment} />
         </SCommentSection>
       </SContentCard>
