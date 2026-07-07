@@ -2,7 +2,7 @@ import type { FormType } from '@type/form';
 
 import type { PatchMeeting, PostMeeting } from './type';
 
-export const serializeMeetingData = (formData: FormType): PostMeeting['request'] => {
+export const serializeMeetingData = (formData: FormType, meetingDemandId?: number): PostMeeting['request'] => {
   const refinedParts = formData.detail.joinableParts
     // NOTE: value가 null, 'all' 인 것들을 필터링한다
     .filter((part) => part.value && part.value !== 'all')
@@ -31,6 +31,7 @@ export const serializeMeetingData = (formData: FormType): PostMeeting['request']
     joinableParts: refinedParts,
     coLeaderUserIds: formData.detail.coLeader?.map((user) => user.userId) ?? [],
     meetingKeywordTypes: formData.meetingKeywordTypes === null ? undefined : formData.meetingKeywordTypes,
+    meetingDemandId,
   };
 };
 

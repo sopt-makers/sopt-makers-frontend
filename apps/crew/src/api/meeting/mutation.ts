@@ -28,9 +28,9 @@ export const usePostMeetingApplicationMutation = () => {
   });
 };
 
-export const usePostMeetingMutation = () => {
+export const usePostMeetingMutation = (meetingDemandId?: number) => {
   return useMutation({
-    mutationFn: (formData: FormType) => postMeeting(serializeMeetingData(formData)),
+    mutationFn: (formData: FormType) => postMeeting(serializeMeetingData(formData, meetingDemandId)),
     onError: () => {
       alert('모임을 개설하지 못했습니다.');
     },

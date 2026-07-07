@@ -124,7 +124,7 @@ const SuggestDetailPage = () => {
   };
 
   const handleClickCta = () => {
-    // @TODO: 모임 개설 플로우 연동
+    router.push(`/make?meetingDemandId=${meetingDemandId}`);
   };
 
   return (
