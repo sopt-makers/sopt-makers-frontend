@@ -1,8 +1,5 @@
-import CommentIcon from 'public/assets/svg/comment.svg';
-import CommentHoverIcon from 'public/assets/svg/comment_hover.svg';
-import LikeIcon from 'public/assets/svg/like.svg';
-import LikeFillIcon from 'public/assets/svg/like_fill.svg';
-import LikeHoverIcon from 'public/assets/svg/like_hover.svg';
+import { IconHeartFilled, IconHeartOutlined, IconMessageDotsOutlined } from '@sopt-mds/icons';
+import { ReactionButton } from '@sopt-mds/ui';
 import { styled } from 'stitches.config';
 
 interface FeedCommentLikeSectionProps {
@@ -20,91 +17,43 @@ export default function FeedCommentLikeSection({
   onClickComment,
   onClickLike,
 }: FeedCommentLikeSectionProps) {
+  const HeartIcon = isLiked ? IconHeartFilled : IconHeartOutlined;
+
   return (
     <>
-      <CommentWrapper onClick={onClickComment}>
-        <StyledCommentIcon />
-        <StyledCommentHoverIcon />
-        <span style={{ marginLeft: '4px' }}>댓글 {commentCount}</span>
-      </CommentWrapper>
+      <SButtonArea>
+        <ReactionButton
+          size='xsmall'
+          leftAddon={<IconMessageDotsOutlined width={16} height={16} />}
+          count={commentCount}
+          onClick={onClickComment}
+        >
+          댓글
+        </ReactionButton>
+      </SButtonArea>
       <Divider />
-      <LikeWrapper onClick={onClickLike} isLiked={isLiked}>
-        {isLiked ? (
-          <LikeFillIcon />
-        ) : (
-          <>
-            <StyledLikeIcon />
-            <StyledLikeHoverIcon />
-          </>
-        )}
-        <Like isLiked={isLiked}>좋아요 {likeCount}</Like>
-      </LikeWrapper>
+      <SButtonArea>
+        <ReactionButton
+          size='xsmall'
+          selected={isLiked}
+          leftAddon={<HeartIcon width={16} height={16} />}
+          count={likeCount}
+          onClick={onClickLike}
+        >
+          좋아요
+        </ReactionButton>
+      </SButtonArea>
     </>
   );
 }
 
+const SButtonArea = styled('div', {
+  display: 'flex',
+  flex: 1,
+  justifyContent: 'center',
+});
 const Divider = styled('div', {
   background: '$gray700',
   width: '1px',
   height: '24px',
-});
-const CommentWrapper = styled('button', {
-  'width': '400px',
-  'display': 'flex',
-  'flexType': 'center',
-  'color': '$gray300',
-  'fontStyle': 'T5',
-  '@mobile': {
-    width: '50%',
-    fontStyle: 'T6',
-  },
-  '&:hover svg:first-of-type': {
-    display: 'none',
-  },
-  '&:hover svg:last-of-type': {
-    display: 'block',
-  },
-});
-const StyledCommentIcon = styled(CommentIcon, {
-  display: 'block',
-});
-const StyledCommentHoverIcon = styled(CommentHoverIcon, {
-  display: 'none',
-});
-const LikeWrapper = styled(CommentWrapper, {
-  'cursor': 'pointer',
-  'userSelect': 'none',
-  'variants': {
-    isLiked: {
-      true: {
-        '&:hover svg:first-of-type': {
-          display: 'block',
-        },
-      },
-    },
-  },
-  '&:hover svg:first-of-type': {
-    display: 'none',
-  },
-  '&:hover svg:nth-of-type(2)': {
-    display: 'block',
-  },
-});
-const StyledLikeIcon = styled(LikeIcon, {
-  display: 'block',
-});
-const StyledLikeHoverIcon = styled(LikeHoverIcon, {
-  display: 'none',
-  height: '24px',
-  width: '24px',
-});
-const Like = styled('span', {
-  marginLeft: '4px',
-  variants: {
-    isLiked: {
-      true: {
-        color: '#D70067',
-      },
-    },
-  },
 });

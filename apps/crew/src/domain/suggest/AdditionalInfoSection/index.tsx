@@ -9,8 +9,8 @@ import type { SuggestFormValues } from '../schema';
 
 const AdditionalInfoSection = () => {
   const { control } = useFormContext<SuggestFormValues>();
-  const { field: participationMethodField } = useController({ control, name: 'participationMethod' });
-  const { field: participationLevelField } = useController({ control, name: 'participationLevel' });
+  const { field: meetingTypeField } = useController({ control, name: 'joinInfo.meetingType' });
+  const { field: meetingFrequencyField } = useController({ control, name: 'joinInfo.meetingFrequency' });
 
   return (
     <FormSection order={2} title='추가 정보' optional>
@@ -24,8 +24,8 @@ const AdditionalInfoSection = () => {
               <Chip.Toggle
                 key={option.value}
                 size='small'
-                checked={participationMethodField.value === option.value}
-                onCheckedChange={(checked) => participationMethodField.onChange(checked ? option.value : '')}
+                checked={meetingTypeField.value === option.value}
+                onCheckedChange={(checked) => meetingTypeField.onChange(checked ? option.value : undefined)}
               >
                 {option.label}
               </Chip.Toggle>
@@ -39,8 +39,8 @@ const AdditionalInfoSection = () => {
               <Chip.Toggle
                 key={option.value}
                 size='small'
-                checked={participationLevelField.value === option.value}
-                onCheckedChange={(checked) => participationLevelField.onChange(checked ? option.value : '')}
+                checked={meetingFrequencyField.value === option.value}
+                onCheckedChange={(checked) => meetingFrequencyField.onChange(checked ? option.value : undefined)}
               >
                 {option.label}
               </Chip.Toggle>

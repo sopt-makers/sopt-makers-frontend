@@ -1,3 +1,4 @@
+import { spacing } from '@sopt-mds/design-tokens';
 import type { PropsWithChildren } from 'react';
 import { useMemo } from 'react';
 import { styled } from 'stitches.config';
@@ -94,13 +95,16 @@ const STab = styled('li', {
 
       false: {
         'pb': '$6',
-        'mr': '$20',
+        'marginRight': spacing.s20,
         'fontStyle': 'H1',
 
         '@tablet': {
           fontStyle: 'T3',
           pb: '$6',
-          mr: '$12',
+        },
+
+        '@mobile': {
+          marginRight: spacing.s16,
         },
       },
     },

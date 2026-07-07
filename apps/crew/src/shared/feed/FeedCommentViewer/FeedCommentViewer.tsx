@@ -1,17 +1,13 @@
 import type { GetCommentListResponse } from '@api/comment/type';
-import LikeHoverIcon from '@assets/svg/like_hover_in_comment.svg';
-import MessageIcon from '@assets/svg/message-dots.svg';
-import ReCommentHoverIcon from '@assets/svg/Recomment_Hover_Icon.svg';
 import Avatar from '@common/avatar/Avatar';
 import { playgroundURL } from '@constant/url';
 import { Menu } from '@headlessui/react';
 import { playgroundLink } from '@sopt/constant';
-import { colors } from '@sopt-makers/colors';
-import { fontsObject } from '@sopt-makers/fonts';
+import { colors } from '@sopt-mds/design-tokens';
+import { IconHeartFilled, IconHeartOutlined, IconMessageDotsOutlined } from '@sopt-mds/icons';
+import { ReactionButton } from '@sopt-mds/ui';
 import { fromNow } from '@util/dayjs';
 import MenuIcon from 'public/assets/svg/ic_menu.svg';
-import LikeFillIcon from 'public/assets/svg/like_fill_in_comment.svg';
-import LikeIcon from 'public/assets/svg/like_in_comment.svg';
 import React, { useContext } from 'react';
 import { styled } from 'stitches.config';
 
@@ -80,26 +76,26 @@ export default function FeedCommentViewer({
       <CommentBody>
         <CommentContents>{Content}</CommentContents>
         <CommentLikeWrapper>
-          <LikeWrapper onClick={() => onClickLike && onClickLike(comment.id)}>
-            <LikeIconWrapper isLiked={comment.isLiked}>
-              {comment.isLiked ? (
-                <LikeFillIcon />
+          <SLikeReactionButton
+            size='xsmall'
+            selected={comment.isLiked}
+            leftAddon={
+              comment.isLiked ? (
+                <IconHeartFilled color={colors.fg.brand.default} width={16} height={16} />
               ) : (
-                <>
-                  <SLikeIcon />
-                  <SLikeHoverIcon />
-                </>
-              )}
-            </LikeIconWrapper>
-            <LikeCount>{comment.likeCount}</LikeCount>
-          </LikeWrapper>
-          <ReCommentWrapper onClick={onClickReComment}>
-            <MessageIconWrapper>
-              <SMessageIcon />
-              <SMessageHoverIcon />
-            </MessageIconWrapper>
+                <IconHeartOutlined color={colors.fg.brand.default} width={16} height={16} />
+              )
+            }
+            count={comment.likeCount}
+            onClick={() => onClickLike && onClickLike(comment.id)}
+          />
+          <ReactionButton
+            size='xsmall'
+            leftAddon={<IconMessageDotsOutlined color={colors.fg.neutral.bold} width={16} height={16} />}
+            onClick={onClickReComment}
+          >
             답글 달기
-          </ReCommentWrapper>
+          </ReactionButton>
         </CommentLikeWrapper>
       </CommentBody>
     </Container>
@@ -178,69 +174,9 @@ const CommentLikeWrapper = styled('div', {
   flexType: 'verticalCenter',
   gap: '12px',
 });
-const LikeWrapper = styled('div', {
-  flexType: 'verticalCenter',
-  gap: '4px',
-  userSelect: 'none',
-  cursor: 'pointer',
-});
-const SLikeIcon = styled(LikeIcon, {
-  display: 'block',
-});
-const SLikeHoverIcon = styled(LikeHoverIcon, {
-  display: 'none',
-});
-const LikeIconWrapper = styled('div', {
-  'width': '20px',
-  'height': '20px',
-  'color': '$gray300',
-  'display': 'flex',
-  'flexType': 'center',
-  '&:hover svg:first-of-type': {
-    display: 'none',
+const SLikeReactionButton = styled(ReactionButton, {
+  'color': colors.fg.brand.default,
+  '&[aria-pressed="true"]:not(:disabled):not([aria-disabled="true"])': {
+    color: colors.fg.brand.default,
   },
-  '&:hover svg:nth-of-type(2)': {
-    display: 'block',
-  },
-  'variants': {
-    isLiked: {
-      true: {
-        '&:hover svg:first-of-type': {
-          display: 'block',
-        },
-      },
-    },
-  },
-});
-const LikeCount = styled('span', {
-  color: '$gray300',
-  fontStyle: 'B4',
-});
-const ReCommentWrapper = styled('div', {
-  flexType: 'verticalCenter',
-  gap: '4px',
-  userSelect: 'none',
-  cursor: 'pointer',
-  color: '$gray300',
-  ...fontsObject.LABEL_4_12_SB,
-});
-const MessageIconWrapper = styled('div', {
-  'width': '20px',
-  'height': '20px',
-  'color': '$gray300',
-  'display': 'flex',
-  'flexType': 'center',
-  '&:hover svg:first-of-type': {
-    display: 'none',
-  },
-  '&:hover svg:nth-of-type(2)': {
-    display: 'block',
-  },
-});
-const SMessageHoverIcon = styled(ReCommentHoverIcon, {
-  display: 'none',
-  fill: colors.gray300,
-});
-const SMessageIcon = styled(MessageIcon, {
-  display: 'block',
 });
