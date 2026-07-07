@@ -171,6 +171,7 @@ export default function PostPage() {
   const meetingId = meeting?.id;
   const { data: posts } = useGetPostListInfiniteQuery(TAKE_COUNT, meetingId as number); // meetingId가 undefined 일 때는 enabled되지 않음
   const postsInMeeting = posts?.pages.filter((_post) => _post?.id !== post?.id).slice(0, 3);
+  const hasPostsInMeeting = !!postsInMeeting && postsInMeeting.length > 0;
   const { mutate: mutateLike } = useUpdatePostLikeMutation(TAKE_COUNT, Number(meetingId));
 
   const handleClickLike =
@@ -187,6 +188,8 @@ export default function PostPage() {
   const { mutate: mutateLikeInAllPost } = useUpdatePostLikeMutation(TAKE_COUNT);
   const { data: allPosts, hasNextPage, fetchNextPage } = useGetPostListInfiniteQuery(TAKE_COUNT);
   const allMeetingPosts = allPosts?.pages.filter((_post) => _post?.meeting.id !== meetingId).slice(0, 5); // 현재 조회하는 게시글이 속한 모임의 게시글은 제외한다
+  const hasAllMeetingPosts = !!allMeetingPosts && allMeetingPosts.length > 0;
+  const isFeedListAlone = hasPostsInMeeting !== hasAllMeetingPosts;
   // 현재 모임의 게시글을 제외했는데 모임 게시글이 없다면 다음 페이지를 불러온다.
   useEffect(() => {
     if (!hasNextPage) return;
@@ -267,8 +270,8 @@ export default function PostPage() {
         }}
       />
       <FeedListContainer>
-        {postsInMeeting && postsInMeeting.length > 0 && (
-          <FeedListWrapper>
+        {hasPostsInMeeting && (
+          <FeedListWrapper alone={isFeedListAlone}>
             <FeedListTitle>이 모임의 다른 피드</FeedListTitle>
             <FeedList>
               {postsInMeeting?.map((post) => {
@@ -311,49 +314,51 @@ export default function PostPage() {
             </FeedList>
           </FeedListWrapper>
         )}
-        <FeedListWrapper>
-          <FeedListTitle>SOPT 모임들의 최신 피드</FeedListTitle>
-          <FeedList>
-            {allMeetingPosts?.map((post) => {
-              if (!post) return;
-              const isMyFeed = post.user.id === me?.id;
-              return (
-                <>
-                  {post.isBlockedPost ? (
-                    <ContentBlocker />
-                  ) : (
-                    <Link key={post.id} href={`/post?id=${post.id}`}>
-                      <FeedItem
-                        /* TODO: FeedItem 인터페이스 안 맞는거 맞춰주기. 내부에서 query params 의존하는 부분 수정하기. */
-                        /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
-                        /* @ts-ignore */
-                        post={post}
-                        meetingId={meetingId}
-                        HeaderSection={<MeetingInfo meetingInfo={post.meeting} />}
-                        LikeButton={
-                          <LikeButton
-                            isLiked={post.isLiked}
-                            likeCount={post.likeCount}
-                            onClickLike={handleClickLike(post.id)(mutateLikeInAllPost)}
-                          />
-                        }
-                        Actions={FeedActionsContainer({
-                          postId: post.id,
-                          isMine: isMyFeed,
-                          handleDelete: () => handleDeleteSubPost(post.id),
-                          handleReport: handleConfirmReportPost({
+        {hasAllMeetingPosts && (
+          <FeedListWrapper alone={isFeedListAlone}>
+            <FeedListTitle>SOPT 모임들의 최신 피드</FeedListTitle>
+            <FeedList>
+              {allMeetingPosts?.map((post) => {
+                if (!post) return;
+                const isMyFeed = post.user.id === me?.id;
+                return (
+                  <>
+                    {post.isBlockedPost ? (
+                      <ContentBlocker />
+                    ) : (
+                      <Link key={post.id} href={`/post?id=${post.id}`}>
+                        <FeedItem
+                          /* TODO: FeedItem 인터페이스 안 맞는거 맞춰주기. 내부에서 query params 의존하는 부분 수정하기. */
+                          /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
+                          /* @ts-ignore */
+                          post={post}
+                          meetingId={meetingId}
+                          HeaderSection={<MeetingInfo meetingInfo={post.meeting} />}
+                          LikeButton={
+                            <LikeButton
+                              isLiked={post.isLiked}
+                              likeCount={post.likeCount}
+                              onClickLike={handleClickLike(post.id)(mutateLikeInAllPost)}
+                            />
+                          }
+                          Actions={FeedActionsContainer({
                             postId: post.id,
-                          }),
-                          overlay: overlay,
-                        })}
-                      />
-                    </Link>
-                  )}
-                </>
-              );
-            })}
-          </FeedList>
-        </FeedListWrapper>
+                            isMine: isMyFeed,
+                            handleDelete: () => handleDeleteSubPost(post.id),
+                            handleReport: handleConfirmReportPost({
+                              postId: post.id,
+                            }),
+                            overlay: overlay,
+                          })}
+                        />
+                      </Link>
+                    )}
+                  </>
+                );
+              })}
+            </FeedList>
+          </FeedListWrapper>
+        )}
       </FeedListContainer>
     </Container>
   );
@@ -374,15 +379,17 @@ const FeedListContainer = styled('div', {
   'flexDirection': 'column',
   'gap': '80px',
   '@desktop': {
-    width: '800px',
+    width: 'min(100%, 800px)',
     flexDirection: 'row',
     alignItems: 'flex-start',
+    justifyContent: 'center',
     gap: '20px',
   },
   '@tablet': {
     width: 'min(100%, 800px)',
     flexDirection: 'row',
     alignItems: 'flex-start',
+    justifyContent: 'center',
     gap: '20px',
   },
   '@mobile': {
@@ -390,12 +397,32 @@ const FeedListContainer = styled('div', {
   },
 });
 const FeedListWrapper = styled('div', {
+  '@desktop': {
+    flex: '1 1 0%',
+    minWidth: 0,
+  },
   '@tablet': {
-    width: '100%',
+    flex: '1 1 0%',
+    minWidth: 0,
   },
 
   '&:last-child': {
     marginBottom: '140px',
+  },
+
+  'variants': {
+    alone: {
+      true: {
+        '@desktop': {
+          flex: 'none',
+          width: 'min(100%, 380px)',
+        },
+        '@tablet': {
+          flex: 'none',
+          width: 'min(100%, 380px)',
+        },
+      },
+    },
   },
 });
 const FeedListTitle = styled('h3', {
@@ -412,6 +439,9 @@ const FeedList = styled('ul', {
   a: {
     'width': '$380',
 
+    '@desktop': {
+      width: '100%',
+    },
     '@tablet': {
       width: '100%',
     },

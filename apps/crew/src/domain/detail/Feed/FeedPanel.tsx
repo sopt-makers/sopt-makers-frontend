@@ -233,6 +233,14 @@ const SMobileContainer = styled('div', {
   'display': 'flex',
   'flexDirection': 'column',
   'marginTop': 0,
+
+  '@tablet': {
+    gap: '$20',
+  },
+  '@mobile': {
+    gap: 0,
+  },
+
   '& a:not(:first-child)::before': {
     'content': '',
     'display': 'none',

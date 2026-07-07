@@ -1,7 +1,6 @@
-import LikeActiveIcon from '@assets/svg/like_active.svg';
-import LikeDefaultIcon from '@assets/svg/like_default.svg';
 import { LIKE_MAX_COUNT } from '@constant/feed';
-import { styled } from 'stitches.config';
+import { IconHeartFilled, IconHeartOutlined } from '@sopt-mds/icons';
+import { ReactionButton } from '@sopt-mds/ui';
 
 interface LikeButtonProps {
   isLiked: boolean;
@@ -11,32 +10,15 @@ interface LikeButtonProps {
 
 export default function LikeButton({ isLiked, likeCount, onClickLike }: LikeButtonProps) {
   const formattedLikeCount = likeCount > LIKE_MAX_COUNT ? `${LIKE_MAX_COUNT}+` : likeCount;
+  const HeartIcon = isLiked ? IconHeartFilled : IconHeartOutlined;
 
   return (
-    <SLikeButton like={isLiked} onClick={onClickLike}>
-      {isLiked ? <LikeActiveIcon /> : <LikeDefaultIcon />}
-      {formattedLikeCount}
-    </SLikeButton>
+    <ReactionButton
+      size='medium'
+      selected={isLiked}
+      leftAddon={<HeartIcon />}
+      count={formattedLikeCount}
+      onClick={onClickLike}
+    />
   );
 }
-
-const SLikeButton = styled('button', {
-  'display': 'flex',
-  'alignItems': 'center',
-  'fontStyle': 'H5',
-
-  'variants': {
-    like: {
-      true: {
-        color: '$red',
-      },
-      false: {
-        color: '$gray10',
-      },
-    },
-  },
-
-  '& > svg': {
-    mr: '$6',
-  },
-});

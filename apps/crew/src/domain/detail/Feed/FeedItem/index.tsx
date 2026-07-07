@@ -1,7 +1,6 @@
 import type { GetPostListResponse } from '@api/post/type';
 import ClickedMenuIcon from '@assets/svg/clicked-menu-icon.svg';
 import MenuIcon from '@assets/svg/menu_icon.svg';
-import ProfileDefaultIcon from '@assets/svg/profile_default.svg?rect';
 import Avatar from '@common/avatar/Avatar';
 import AvatarGroup from '@common/avatar/AvatarGroup';
 import { AVATAR_MAX_LENGTH, CARD_TITLE_MAX_LENGTH } from '@constant/feed';
@@ -10,6 +9,7 @@ import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { Flex } from '@shared/util/layout/Flex';
 import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
+import { Avatar as MdsAvatar } from '@sopt-mds/ui';
 import { fromNow } from '@util/dayjs';
 import truncateText from '@util/truncateText';
 import Link from 'next/link';
@@ -75,9 +75,7 @@ const FeedItem = ({ post, HeaderSection, LikeButton, onClick, Actions }: FeedIte
               window.location.href = `${playgroundLink.memberDetail(user.orgId)}`;
             }}
           >
-            <SProfileImageWrapper>
-              {user.profileImage ? <SProfileImage src={user.profileImage} alt='' /> : <ProfileDefaultIcon />}
-            </SProfileImageWrapper>
+            <MdsAvatar src={user.profileImage || undefined} alt='' size={32} />
             <SName>{user.name}</SName>
           </SProfileButton>
           <STime>{fromNow(createdDate)}</STime>
@@ -228,21 +226,6 @@ const SMenuItemContainer = styled('div', {
 const SProfileButton = styled('button', {
   flexType: 'verticalCenter',
   color: '$gray10',
-});
-
-const SProfileImageWrapper = styled('div', {
-  width: '$32',
-  height: '$32',
-  objectFit: 'cover',
-  borderRadius: '$round',
-  background: '$gray700',
-  overflow: 'hidden',
-});
-
-const SProfileImage = styled('img', {
-  width: '100%',
-  height: '100%',
-  objectFit: 'cover',
 });
 
 const SName = styled('span', {
