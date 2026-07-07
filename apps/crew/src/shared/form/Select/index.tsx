@@ -5,9 +5,9 @@ import BottomSheetSelect from './BottomSheetSelect/BottomSheetSelect';
 import type { MultipleSelectProps, SelectProps } from './types/props';
 
 function Select(props: SelectProps | MultipleSelectProps) {
-  const { isTablet } = useDisplay();
+  const { isMobile } = useDisplay();
 
-  return <div>{isTablet ? <BottomSheetSelect {...props} /> : <BaseSelect {...props} />}</div>;
+  return <div>{isMobile ? <BottomSheetSelect {...props} /> : <BaseSelect {...props} />}</div>;
 }
 
 export default Select;
