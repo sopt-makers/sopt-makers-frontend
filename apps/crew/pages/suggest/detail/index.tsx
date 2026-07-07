@@ -13,6 +13,7 @@ import {
 import { useMeetingDemandCommentsQueryOption } from '@api/meetingDemandComment/query';
 import CommentInput from '@domain/suggestDetail/CommentInput';
 import CommentList from '@domain/suggestDetail/CommentList';
+import { toCommentData, toOpenedMeetingData } from '@domain/suggestDetail/mapper';
 import OpenedMeetingSection from '@domain/suggestDetail/OpenedMeetingSection';
 import SuggestDetailBody from '@domain/suggestDetail/SuggestDetailBody';
 import SuggestDetailCta from '@domain/suggestDetail/SuggestDetailCta';
@@ -49,42 +50,8 @@ const SuggestDetailPage = () => {
 
   if (!detail) return null;
 
-  const openedMeetings =
-    openedMeetingsData?.meetings.map((meeting) => ({
-      id: meeting.meetingId,
-      imageUrl: meeting.imageUrl,
-      title: meeting.title,
-      category: meeting.category,
-      author: { id: meeting.user.id, name: meeting.user.name, profileImageUrl: meeting.user.profileImage },
-    })) ?? [];
-
-  const comments =
-    commentsData?.comments.map((comment) => ({
-      id: comment.id,
-      author: comment.writer && {
-        nickname: comment.writer.anonymousNickname ?? '',
-        imageUrl: comment.writer.anonymousImageUrl,
-      },
-      isMine: comment.isMine,
-      createdAt: fromNow(comment.createdDate),
-      content: comment.contents,
-      likeCount: comment.likeCount,
-      isLiked: comment.isLiked,
-      isBlocked: comment.isBlockedComment,
-      replies: comment.replies.map((reply) => ({
-        id: reply.id,
-        author: reply.writer && {
-          nickname: reply.writer.anonymousNickname ?? '',
-          imageUrl: reply.writer.anonymousImageUrl,
-        },
-        isMine: reply.isMine,
-        createdAt: fromNow(reply.createdDate),
-        content: reply.contents,
-        likeCount: reply.likeCount,
-        isLiked: reply.isLiked,
-        isBlocked: reply.isBlockedComment,
-      })),
-    })) ?? [];
+  const openedMeetings = openedMeetingsData?.meetings.map(toOpenedMeetingData) ?? [];
+  const comments = commentsData?.comments.map(toCommentData) ?? [];
 
   const handleClickWait = () => {
     mutateSwitchWait(meetingDemandId);
