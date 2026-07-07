@@ -135,7 +135,7 @@ const SRequired = styled('span', {
 });
 
 const SInput = styled('input', {
-  ...typography.title4,
+  ...typography.body1,
   'boxSizing': 'border-box',
   'width': '100%',
   'padding': `${spacing.s10} ${spacing.s16}`,
@@ -156,7 +156,7 @@ const SInput = styled('input', {
 });
 
 const STextarea = styled('textarea', {
-  ...typography.body2,
+  ...typography.body1,
   'boxSizing': 'border-box',
   'width': '100%',
   'minHeight': `${TEXTAREA_MIN_HEIGHT}px`,

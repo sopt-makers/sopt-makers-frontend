@@ -98,7 +98,7 @@ const CalendarInputForm = ({ selectedDate, setSelectedDate, error, dateType, sel
   };
 
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const { isDesktop, isMobile, isTablet } = useDisplay();
+  const { isMobile } = useDisplay();
 
   const handleOutsideClick = useCallback((event: MouseEvent) => {
     if (!containerRef.current || !containerRef.current.contains(event.target as Node)) {
@@ -132,13 +132,13 @@ const CalendarInputForm = ({ selectedDate, setSelectedDate, error, dateType, sel
   }, [selectedDate, dateType]);
 
   useEffect(() => {
-    if (isDesktop && !isMobile && !isTablet) {
+    if (!isMobile) {
       document.addEventListener('mousedown', handleOutsideClick);
       return () => {
         document.removeEventListener('mousedown', handleOutsideClick);
       };
     }
-  }, [isDesktop, containerRef, setIsOpen, handleOutsideClick, isMobile, isTablet]);
+  }, [containerRef, setIsOpen, handleOutsideClick, isMobile]);
 
   const isRange = dateType !== 'singleSelect';
 
@@ -175,94 +175,49 @@ const CalendarInputForm = ({ selectedDate, setSelectedDate, error, dateType, sel
     );
   };
 
+  const dateInput = (
+    <SInputWrapper onClick={() => setIsOpen(true)}>
+      <SInput
+        type='text'
+        name={selectedDateFieldName}
+        value={inputValue ?? ''}
+        onChange={handleInputChange}
+        maxLength={10}
+        placeholder='YYYY.MM.DD'
+        autoComplete='off'
+      />
+      {!isMobile && <IconCalendar style={{ width: '20', height: '20', flexShrink: 0 }} />}
+    </SInputWrapper>
+  );
+
+  if (isMobile) {
+    return (
+      <>
+        {dateInput}
+        {error && selectedDate?.[0] && <SErrorMessage>{error}</SErrorMessage>}
+        {isOpen && (
+          <BottomSheetDialog label={''} handleClose={() => setIsOpen(false)} isOpen={isOpen}>
+            <CalendarComponent />
+          </BottomSheetDialog>
+        )}
+      </>
+    );
+  }
+
   return (
     <>
-      {!isDesktop && (isMobile || isTablet) ? (
-        <>
-          <SInputWrapper onClick={() => setIsOpen(true)}>
-            <SInputCustom>
-              <span className='filled'>{inputValue}</span>
-              <span className='placeholder'>{'YYYY.MM.DD'.substring(inputValue?.length ?? 0)}</span>
-              <SInput
-                type='text'
-                name={selectedDateFieldName}
-                value={inputValue}
-                onChange={handleInputChange}
-                maxLength={10}
-                placeholder=''
-                autoComplete='off'
-              />
-            </SInputCustom>
-            {isMobile ? <IconCalendar style={{ width: '20' }} /> : <IconCalendar style={{ width: '24' }} />}
-          </SInputWrapper>
-          {error && selectedDate?.[0] && <SErrorMessage>{error}</SErrorMessage>}
-          {isOpen && (
-            <div>
-              <BottomSheetDialog label={''} handleClose={() => setIsOpen(false)} isOpen={isOpen}>
-                <CalendarComponent />
-              </BottomSheetDialog>
-            </div>
-          )}
-        </>
-      ) : (
-        <>
-          <SInputWrapper onClick={() => setIsOpen(true)}>
-            <SInputCustom>
-              <span className='filled'>{inputValue}</span>
-              <span className='placeholder'>{'YYYY.MM.DD'.substring(inputValue?.length ?? 0)}</span>
-              <SInput
-                type='text'
-                name={selectedDateFieldName}
-                value={inputValue}
-                onChange={handleInputChange}
-                maxLength={10}
-                placeholder='YYYY.MM.DD'
-                autoComplete='off'
-              />
-            </SInputCustom>
-            <IconCalendar style={{ width: '24' }} />
-          </SInputWrapper>
-          {error && dateType !== 'endDate' && <SErrorMessage>{error}</SErrorMessage>}
-          {isOpen && (
-            <SCalendarWrapper ref={containerRef}>
-              <CalendarComponent />
-            </SCalendarWrapper>
-          )}
-        </>
+      {dateInput}
+      {error && dateType !== 'endDate' && <SErrorMessage>{error}</SErrorMessage>}
+      {isOpen && (
+        <SCalendarWrapper ref={containerRef}>
+          <CalendarComponent />
+        </SCalendarWrapper>
       )}
     </>
   );
 };
 
 export default CalendarInputForm;
-
-const SInputCustom = styled('div', {
-  'position': 'relative',
-  'width': '80%',
-  'display': 'flex',
-  'alignItems': 'center',
-  'color': '$gray10',
-  'caretColor': '$gray10',
-
-  '& .filled': {
-    color: '$gray10',
-  },
-  '& .placeholder': {
-    color: '$gray500',
-  },
-
-  '& input': {
-    position: 'absolute',
-    width: '100%',
-    opacity: 0,
-    caretColor: '$gray10',
-    background: 'transparent',
-    letterSpacing: '-0.24px',
-    lineHeight: '26px',
-    border: 'none',
-    outline: 'none',
-  },
-});
 
 const SCalendarWrapper = styled('div', {
   backgroundColor: '$gray700',
@@ -288,16 +243,18 @@ const SDotWrapper = styled('div', {
 
 const SInputWrapper = styled('div', {
   'display': 'flex',
-  'width': '100%',
-  'padding': '18px 20px',
+  'boxSizing': 'border-box',
+  'width': '166px',
+  'padding': '12px 16px',
+  'alignItems': 'center',
+  'gap': '12px',
   'color': '$gray10',
   'background': '$gray800',
   'borderRadius': 10,
-  'justifyContent': 'space-between',
   'cursor': 'pointer',
 
   '@mobile': {
-    padding: '16px',
+    width: '134px',
   },
 });
 
@@ -312,17 +269,16 @@ const SDot = styled('div', {
 });
 
 const SInput = styled('input', {
-  'width': '80%',
-  'display': 'flex',
-  'alignItems': 'center',
+  'width': '102px',
+  'padding': 0,
   'cursor': 'pointer',
   ...fontsObject.BODY_2_16_M,
   'color': '$gray10',
-  'caretColor': '$transparent',
+  'border': 'none',
+  'outline': 'none',
+  'background': 'transparent',
+  'caretColor': '$gray10',
   '&::placeholder': {
-    'color': '$gray500',
-    '@mobile': {
-      ...fontsObject.LABEL_5_11_SB,
-    },
+    color: '$gray500',
   },
 });

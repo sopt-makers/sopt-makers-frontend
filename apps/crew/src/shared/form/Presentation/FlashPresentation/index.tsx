@@ -187,7 +187,7 @@ function FlashPresentation({
               Tip) 진행 예정 기간을 정해두고 신청자들과 협의해서 날짜를 정할 수도 있어요.
             </HelpMessage>
             <SDateFieldWrapper>
-              <SDateField>
+              <div>
                 <FormController
                   name='timeInfo.dateRange'
                   render={({ field, formState: { errors } }) => {
@@ -214,9 +214,9 @@ function FlashPresentation({
                     );
                   }}
                 ></FormController>
-              </SDateField>
+              </div>
               {timeState === '예정 기간 (협의 후 결정)' && <span style={{ marginTop: '14px' }}>-</span>}
-              <SDateField>
+              <div>
                 <FormController
                   name='timeInfo.dateRange'
                   render={({ field, formState: { errors } }) => {
@@ -243,7 +243,7 @@ function FlashPresentation({
                     );
                   }}
                 ></FormController>
-              </SDateField>
+              </div>
             </SDateFieldWrapper>
             <SCheckBoxWrapper>
               <FormController
@@ -495,18 +495,9 @@ const SFileInputWrapper = styled('div', {
 const SApplicationFieldWrapper = styled('div', {
   display: 'flex',
   color: '$gray500',
-  gap: '12px',
-});
-const SApplicationField = styled('div', {
-  'width': '100%',
-  'maxWidth': '205px',
-
-  '@mobile': {
-    maxWidth: '151px',
-  },
+  gap: '8px',
 });
 const SDateFieldWrapper = styled(SApplicationFieldWrapper);
-const SDateField = styled(SApplicationField);
 const STargetFieldWrapper = styled('div', {
   display: 'flex',
   flexDirection: 'column',

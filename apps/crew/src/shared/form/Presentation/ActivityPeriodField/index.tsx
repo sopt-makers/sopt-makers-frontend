@@ -16,7 +16,7 @@ const ActivityPeriodField = () => {
         <OfficialScheduleTooltip />
       </Flex>
       <SApplicationFieldWrapper>
-        <SApplicationField>
+        <div>
           <FormController
             name='detail.mDateRange'
             render={({ field, formState: { errors } }) => {
@@ -39,9 +39,9 @@ const ActivityPeriodField = () => {
               );
             }}
           ></FormController>
-        </SApplicationField>
+        </div>
         <span style={{ marginTop: '14px' }}>-</span>
-        <SApplicationField>
+        <div>
           <FormController
             name='detail.mDateRange'
             render={({ field, formState: { errors } }) => {
@@ -65,7 +65,7 @@ const ActivityPeriodField = () => {
               );
             }}
           ></FormController>
-        </SApplicationField>
+        </div>
       </SApplicationFieldWrapper>
     </div>
   );
@@ -76,14 +76,5 @@ export default ActivityPeriodField;
 const SApplicationFieldWrapper = styled('div', {
   display: 'flex',
   color: '$gray500',
-  gap: '12px',
-});
-
-const SApplicationField = styled('div', {
-  'width': '100%',
-  'maxWidth': '205px',
-
-  '@mobile': {
-    maxWidth: '151px',
-  },
+  gap: '8px',
 });
