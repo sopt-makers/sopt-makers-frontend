@@ -1,6 +1,7 @@
 import { useDisplay } from '@hook/useDisplay';
 import { colors, spacing, typography } from '@sopt-mds/design-tokens';
 import { ActionButton } from '@sopt-mds/ui';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { styled } from 'stitches.config';
 
@@ -74,11 +75,11 @@ interface SuggestSectionProps {
 
 const SuggestSection = ({ title, description }: SuggestSectionProps) => {
   const { isMobile } = useDisplay();
+  const router = useRouter();
   const [meetingDemandPages, setMeetingDemandPages] = useState(MOCK_MEETING_DEMAND_PAGES);
 
   const handleCardClick = (meetingDemandId: number) => {
-    // @TODO: 모임 제안 상세 페이지 경로 확정 후 meetingDemandId에 해당하는 상세 페이지로 이동
-    void meetingDemandId;
+    router.push(`/suggest/detail?id=${meetingDemandId}`);
   };
 
   const handleWaitingChange = (meetingDemandId: number, isWaiting: boolean) => {
