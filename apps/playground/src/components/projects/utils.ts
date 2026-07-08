@@ -8,6 +8,7 @@ import type {
   ProjectInput,
   ServiceType,
 } from '@/api/endpoint_LEGACY/projects/type';
+import { MemberRoleInfo } from '@/components/projects/constants';
 import { DEFAULT_IMAGE_URL } from '@/components/projects/upload/form/constants';
 import type { ProjectFormType } from '@/components/projects/upload/form/schema';
 
@@ -33,6 +34,26 @@ export const convertPeriodFormat = (period: string) => {
  */
 export const convertPeriodFormatReverse = (period: string) => {
   return dayjs(period, DEFAULT_FORMAT).format(DEFAULT_FORMAT);
+};
+
+/**
+ * @param members 폼의 팀원 배열 (memberRole만 사용)
+ * @desc 역할이 입력된 팀원 수와 역할별 인원을 요약하는 함수입니다.
+ * @returns count: 역할이 입력된 팀원 수, detail: '역할 N명 · 역할 M명' 형식의 요약 문자열
+ * @example getMemberSummary([{ memberRole: 'PM' }, { memberRole: 'DESIGN' }]) // { count: 2, detail: 'PM 1명 · Designer 1명' }
+ */
+export const getMemberSummary = (members?: Array<{ memberRole?: string } | undefined>) => {
+  const roles = (members ?? []).map((member) => member?.memberRole).filter((role): role is string => !!role);
+  const roleCount = roles.reduce<Record<string, number>>((acc, role) => {
+    const label = MemberRoleInfo[role as keyof typeof MemberRoleInfo] ?? role;
+    acc[label] = (acc[label] ?? 0) + 1;
+    return acc;
+  }, {});
+  const detail = Object.entries(roleCount)
+    .map(([label, count]) => `${label} ${count}명`)
+    .join(' · ');
+
+  return { count: roles.length, detail };
 };
 
 export const convertToProjectData = (formData: ProjectFormType, writerId: number): ProjectInput => ({

@@ -1,7 +1,11 @@
 import styled from '@emotion/styled';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { colors } from '@sopt-makers/colors';
-import type { FC, ReactNode } from 'react';
+import { colorFg, typography } from '@sopt-mds/design-tokens';
+import { IconPlus } from '@sopt-mds/icons';
+import { ActionButton } from '@sopt-mds/ui';
+import type { ReactNode } from 'react';
+import type { DefaultValues } from 'react-hook-form';
 import { Controller, useFieldArray, useForm, useFormState, useWatch } from 'react-hook-form';
 
 import Button from '@/components/common/Button';
@@ -12,8 +16,6 @@ import ErrorMessage from '@/components/common/Input/ErrorMessage';
 import Responsive from '@/components/common/Responsive';
 import Text from '@/components/common/Text';
 import TextArea from '@/components/common/TextArea';
-import type { CategoryType } from '@/components/projects/upload/form/constants';
-import { categoryLabel } from '@/components/projects/upload/form/constants';
 import { DEFAULT_IMAGE_URL, DEFAULT_LINK, DEFAULT_MEMBER } from '@/components/projects/upload/form/constants';
 import CategoryField from '@/components/projects/upload/form/fields/CategoryField';
 import GenerationField from '@/components/projects/upload/form/fields/GenerationField';
@@ -27,6 +29,7 @@ import FormEntry from '@/components/projects/upload/form/presenter/FormEntry';
 import type { ProjectFormType } from '@/components/projects/upload/form/schema';
 import { defaultUploadValues, uploadSchema } from '@/components/projects/upload/form/schema';
 import UploadProjectProgress from '@/components/projects/upload/form/UploadProjectProgress';
+import { getMemberSummary } from '@/components/projects/utils';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 import { textStyles } from '@/styles/typography';
 
@@ -35,16 +38,16 @@ const PROJECT_IMAGE_MAX_LENGTH = 10;
 interface ProjectFormProps {
   onSubmit?: (formData: ProjectFormType) => void;
   submitButtonContent: ReactNode;
-  defaultValues?: ProjectFormType;
+  defaultValues?: DefaultValues<ProjectFormType>;
   hideProgress?: boolean;
 }
 
-const ProjectForm: FC<ProjectFormProps> = ({
+const ProjectForm = ({
   onSubmit,
   submitButtonContent,
   defaultValues = defaultUploadValues,
   hideProgress = false,
-}) => {
+}: ProjectFormProps) => {
   const { control, handleSubmit, register, formState } = useForm<ProjectFormType>({
     resolver: zodResolver(uploadSchema),
     defaultValues,
@@ -83,9 +86,16 @@ const ProjectForm: FC<ProjectFormProps> = ({
     name: 'links',
   });
 
-  const { category, projectImages } = useWatch({
+  const {
+    projectImages,
+    members: watchedMembers,
+    releaseMembers: watchedReleaseMembers,
+  } = useWatch({
     control,
   });
+
+  const memberSummary = getMemberSummary(watchedMembers);
+  const releaseMemberSummary = getMemberSummary(watchedReleaseMembers);
 
   const { errors } = useFormState({
     control,
@@ -139,9 +149,9 @@ const ProjectForm: FC<ProjectFormProps> = ({
           <Controller control={control} name='status' render={({ field }) => <StatusField {...field} />} />
         </FormEntry>
         <FormEntry
-          title={`${category ? categoryLabel[category as CategoryType] + ' ' : ''}팀원`}
+          title={`프로젝트 팀원`}
           required
-          description='회원가입을 한 사람만 팀원 등록이 가능해요'
+          description='회원가입을 한 사람만 팀원 등록이 가능해요. 등록 시 입력한 순서대로 표시되니, 자유롭게 순서를 조정하세요.'
         >
           <StyledFieldsWrapper>
             {memberFields.map((field, index) => (
@@ -155,7 +165,6 @@ const ProjectForm: FC<ProjectFormProps> = ({
                       ...(errors.members && {
                         memberId: errors.members[index]?.memberId?.message,
                         memberRole: errors.members[index]?.memberRole?.message,
-                        memberDescription: errors.members[index]?.memberDescription?.message,
                       }),
                     }}
                     value={field.value}
@@ -166,9 +175,21 @@ const ProjectForm: FC<ProjectFormProps> = ({
               />
             ))}
           </StyledFieldsWrapper>
-          <StyledAddButton type='button' onClick={() => appendMember(DEFAULT_MEMBER)}>
-            + 추가하기
-          </StyledAddButton>
+          <StyledBottomContainer>
+            <StyledInfo>
+              <InfoTitle>현재 {memberSummary.count}명 입력</InfoTitle>
+              {memberSummary.count > 0 && <InfoDetail>{memberSummary.detail}</InfoDetail>}
+            </StyledInfo>
+            <ActionButton
+              variant='secondary'
+              size='medium'
+              leftAddon={<IconPlus />}
+              type='button'
+              onClick={() => appendMember(DEFAULT_MEMBER)}
+            >
+              팀원 추가하기
+            </ActionButton>
+          </StyledBottomContainer>
         </FormEntry>
         <FormEntry
           title='추가 합류한 팀원'
@@ -183,10 +204,9 @@ const ProjectForm: FC<ProjectFormProps> = ({
                 render={({ field }) => (
                   <MemberField
                     errorMessage={{
-                      ...(errors.members && {
-                        memberId: errors.members[index]?.memberId?.message,
-                        memberRole: errors.members[index]?.memberRole?.message,
-                        memberDescription: errors.members[index]?.memberDescription?.message,
+                      ...(errors.releaseMembers && {
+                        memberId: errors.releaseMembers[index]?.memberId?.message,
+                        memberRole: errors.releaseMembers[index]?.memberRole?.message,
                       }),
                     }}
                     value={field.value}
@@ -197,9 +217,23 @@ const ProjectForm: FC<ProjectFormProps> = ({
               />
             ))}
           </StyledFieldsWrapper>
-          <StyledAddButton type='button' onClick={() => appendReleaseMember(DEFAULT_MEMBER)}>
-            + 추가하기
-          </StyledAddButton>
+          <StyledBottomContainer>
+            <StyledInfo>
+              <StyledInfo>
+                <InfoTitle>현재 {releaseMemberSummary.count}명 입력</InfoTitle>
+                {releaseMemberSummary.count > 0 && <InfoDetail>{releaseMemberSummary.detail}</InfoDetail>}
+              </StyledInfo>
+            </StyledInfo>
+            <ActionButton
+              variant='secondary'
+              size='medium'
+              leftAddon={<IconPlus />}
+              type='button'
+              onClick={() => appendReleaseMember(DEFAULT_MEMBER)}
+            >
+              팀원 추가하기
+            </ActionButton>
+          </StyledBottomContainer>
         </FormEntry>
         <FormEntry title='서비스 형태' required comment='복수 선택 가능'>
           <Controller
@@ -347,24 +381,21 @@ const ProjectForm: FC<ProjectFormProps> = ({
                 key={field.id}
                 control={control}
                 name={`links.${index}`}
-                render={({ field }) => (
-                  <LinkField
-                    {...field}
-                    onRemove={() => removeLink(index)}
-                    errorMessage={{
-                      ...(errors.links && {
-                        linkTitle: errors.links[index]?.linkTitle?.message,
-                        linkUrl: errors.links[index]?.linkUrl?.message,
-                      }),
-                    }}
-                  />
-                )}
+                render={({ field }) => <LinkField {...field} onRemove={() => removeLink(index)} />}
               />
             ))}
           </StyledFieldsWrapper>
-          <StyledAddButton type='button' onClick={() => appendLink(DEFAULT_LINK)}>
-            + 추가하기
-          </StyledAddButton>
+          <StyledLinkBtnContainer>
+            <ActionButton
+              variant='secondary'
+              size='medium'
+              leftAddon={<IconPlus />}
+              type='button'
+              onClick={() => appendLink(DEFAULT_LINK)}
+            >
+              링크 추가하기
+            </ActionButton>
+          </StyledLinkBtnContainer>
         </FormEntry>
         <SubmitContainer>
           <StyledSubmitButton type='submit' variant='primary'>
@@ -428,28 +459,6 @@ const StyledFieldsWrapper = styled.div`
   row-gap: 10px;
 `;
 
-const StyledAddButton = styled.button`
-  display: flex;
-  align-items: center;
-  align-self: start;
-  justify-content: center;
-  margin: 14px 0 0 20px;
-  cursor: pointer;
-  color: ${colors.gray600};
-
-  ${textStyles.SUIT_16_M};
-
-  @media ${MOBILE_MEDIA_QUERY} {
-    margin: 12px 0 0;
-    border: 1px solid ${colors.gray600};
-    border-radius: 6px;
-    background-color: ${colors.gray700};
-    padding: 14px 16px;
-    width: 100%;
-    ${textStyles.SUIT_14_M};
-  }
-`;
-
 const StyledInput = styled(Input)`
   width: 340px;
 
@@ -502,4 +511,33 @@ const StyledSubmitButton = styled(Button)`
     border-radius: 12px;
     width: 100%;
   }
+`;
+
+const StyledBottomContainer = styled.div`
+  width: 100%;
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const StyledInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  ${typography.label3}
+`;
+
+const InfoTitle = styled.p`
+  color: ${colorFg.neutral.bold};
+`;
+
+const InfoDetail = styled.p`
+  color: ${colorFg.neutral.subtle};
+`;
+
+const StyledLinkBtnContainer = styled.div`
+  display: flex;
+  justify-content: end;
+  margin-top: 20px;
 `;
