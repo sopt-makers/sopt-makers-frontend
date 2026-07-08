@@ -1,7 +1,8 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
-import type { FC, ReactNode } from 'react';
+import { colorFg } from '@sopt-mds/design-tokens';
+import { IconPlus } from '@sopt-mds/icons';
 import { useEffect, useRef, useState } from 'react';
 
 import ErrorMessage from '@/components/common/Input/ErrorMessage';
@@ -18,23 +19,21 @@ interface ImageUploaderProps {
   height?: CSSValueWithLength;
   value?: string;
   className?: string;
-  emptyIcon?: ReactNode;
   errorMessage?: string;
   onChange?: (value: string) => void;
   onDelete?: () => void;
 }
 
-const ListImageUploader: FC<ImageUploaderProps> = ({
+const ListImageUploader = ({
   width = 192,
   height = 108,
   onChange,
   onDelete,
   value,
   className,
-  emptyIcon: EmptyIcon = <IconPlus />,
   errorMessage,
   src,
-}) => {
+}: ImageUploaderProps) => {
   const selectorRef = useRef<HTMLDivElement>(null);
   const [previewImage, setPreviewImage] = useState<string | undefined>();
   const [isSelectorOpened, setIsSelectorOpened] = useState<boolean>(false);
@@ -115,7 +114,7 @@ const ListImageUploader: FC<ImageUploaderProps> = ({
             </StyledSelector>
           </Background>
         )}
-        {previewImageSrc ? <StyledPreview src={previewImageSrc} alt='preview-image' /> : EmptyIcon}
+        {previewImageSrc ? <StyledPreview src={previewImageSrc} alt='preview-image' /> : <StyledIconPlus />}
       </ImageUploader>
       {errorMessage && <ErrorMessage message={errorMessage} />}
     </Container>
@@ -215,10 +214,8 @@ const StyledPreview = styled.img`
   height: inherit;
   object-fit: cover;
 `;
-
-const IconPlus = () => (
-  <svg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'>
-    <path d='M1 9H17' stroke='#606265' stroke-width='2' stroke-linecap='round' />
-    <path d='M9 1L9 17' stroke='#606265' stroke-width='2' stroke-linecap='round' />
-  </svg>
-);
+const StyledIconPlus = styled(IconPlus)`
+  width: 24px;
+  height: 24px;
+  color: ${colorFg.neutral.ghost};
+`;
