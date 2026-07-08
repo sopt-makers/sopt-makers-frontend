@@ -1,15 +1,16 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
+import { colorBg, colorFg, colorStroke, typography } from '@sopt-mds/design-tokens';
+import { IconSearchOutlined } from '@sopt-mds/icons';
 import { Command } from 'cmdk';
-import type { FC } from 'react';
 
 import Text from '@/components/common/Text';
 import type { Member } from '@/components/projects/upload/form/fields/member/MemberSearchContext';
 import { useMemberSearch } from '@/components/projects/upload/form/fields/member/MemberSearchContext';
 import IconClear from '@/public/icons/icon-member-search-clear.svg';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
-import { textStyles } from '@/styles/typography';
+import { zIndex } from '@/styles/zIndex';
 
 const getProfileImage = (profileImage: Member['profileImage']) => {
   if (profileImage === null || profileImage === '') {
@@ -27,14 +28,14 @@ interface MemberSearchProps {
   onClear: () => void;
 }
 
-const MemberSearch: FC<MemberSearchProps> = ({
+const MemberSearch = ({
   className,
   placeholder,
   selectedMember: selectedMemberProp,
   isError,
   onSelect,
   onClear,
-}) => {
+}: MemberSearchProps) => {
   const { name, onValueChange, onValueClear, searchedMemberList, defaultValue } = useMemberSearch();
   const selectedMember = selectedMemberProp || defaultValue;
 
@@ -49,102 +50,85 @@ const MemberSearch: FC<MemberSearchProps> = ({
   };
 
   return (
-    <StyledSearch className={className} shouldFilter={false}>
-      <>
-        <StyledInput
-          placeholder={!selectedMember ? placeholder : ''}
-          isError={isError}
-          value={name}
-          onValueChange={onValueChange}
-        />
-        {selectedMember && (
-          <StyledLabel>
-            <ProfileImageWrapper>
-              <ProfileImage width={24} height={24} src={getProfileImage(selectedMember.profileImage)} />
-              <Text>{selectedMember.name}</Text>
-            </ProfileImageWrapper>
-            <StyledIconClear onClick={handleClear} alt='검색된 멤버 제거 아이콘' />
-          </StyledLabel>
-        )}
-        {searchedMemberList && searchedMemberList.length > 0 && (
-          <StyledList>
-            {searchedMemberList.map((member) => (
-              <StyledItem
-                key={member.id}
-                value={String(member.id)}
-                onSelect={() => {
-                  handleSelect(member);
-                }}
-              >
-                <MemberInfo>
-                  <ProfileImage src={getProfileImage(member.profileImage)} alt={`${member.name}-profileImage`} />
-                  <Text color={colors.gray400}>{member.name}</Text>
-                </MemberInfo>
-                <Text>{`${member.generation}기`}</Text>
-              </StyledItem>
-            ))}
-          </StyledList>
-        )}
-      </>
+    <StyledSearch className={className} shouldFilter={false} isError={isError}>
+      <StyledIconSearchOutlined />
+      {selectedMember ? (
+        <StyledLabel>
+          <p>{selectedMember.name}</p>
+          <StyledIconClear onClick={handleClear} alt='검색된 멤버 제거 아이콘' />
+        </StyledLabel>
+      ) : (
+        <StyledInput placeholder={!selectedMember ? placeholder : ''} value={name} onValueChange={onValueChange} />
+      )}
+
+      {searchedMemberList && searchedMemberList.length > 0 && (
+        <StyledList>
+          {searchedMemberList.map((member) => (
+            <StyledItem
+              key={member.id}
+              value={String(member.id)}
+              onSelect={() => {
+                handleSelect(member);
+              }}
+            >
+              <MemberInfo>
+                <ProfileImage src={getProfileImage(member.profileImage)} alt={`${member.name}-profileImage`} />
+                <Text color={colors.gray400}>{member.name}</Text>
+              </MemberInfo>
+              <Text>{`${member.generation}기`}</Text>
+            </StyledItem>
+          ))}
+        </StyledList>
+      )}
     </StyledSearch>
   );
 };
 
 export default MemberSearch;
 
-const StyledSearch = styled(Command)`
+const StyledSearch = styled(Command)<{ isError?: boolean }>`
+  display: flex;
   position: relative;
-  border-radius: 6px;
+  align-items: center;
+  gap: 8px;
+  padding: 10px;
+  border-radius: 10px;
+  width: 220px;
+  height: 46px;
 
-  ${textStyles.SUIT_14_M};
-
-  & input {
-    width: 100%;
-  }
-
-  @media ${MOBILE_MEDIA_QUERY} {
-    max-width: 135px;
-  }
-`;
-
-const StyledInput = styled(Command.Input)<{ isError?: boolean }>`
-  transition: all 0.2s;
-  border: 1px solid ${colors.gray600};
-  border-radius: 6px;
-  background: ${colors.gray700};
-  padding: 14px 20px;
-  color: ${colors.gray10};
-
-  &:focus {
-    outline: none;
-    border-color: ${colors.gray200};
-    background-color: ${colors.gray800};
-  }
+  ${typography.body1};
+  background: ${colorBg.neutral.ghost};
+  color: ${colorFg.neutral.ghost};
 
   ${({ isError }) =>
     isError &&
     css`
-      border-color: ${colors.error};
-      /* stylelint-disable-next-line no-duplicate-selectors */
+      border: 1px solid ${colorStroke.danger.default};
       &:focus {
-        border-color: ${colors.error};
+        border-color: ${colorStroke.danger.default};
       }
     `}
+
+  @media ${MOBILE_MEDIA_QUERY} {
+    width: 100%;
+  }
+`;
+
+const StyledInput = styled(Command.Input)`
+  transition: all 0.2s;
+
+  &:focus {
+    outline: none;
+  }
 `;
 
 const StyledLabel = styled.label`
   display: flex;
-  position: absolute;
-  top: 0;
-  column-gap: 6px;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 20px;
   width: 100%;
-
-  ${textStyles.SUIT_16_SB};
-  ${colors.gray30};
-
+  justify-content: space-between;
+  cursor: pointer;
+  ${typography.body1};
+  color: ${colorFg.neutral.default};
   &:hover {
     svg {
       opacity: 1;
@@ -152,18 +136,19 @@ const StyledLabel = styled.label`
   }
 `;
 
+const StyledIconSearchOutlined = styled(IconSearchOutlined)`
+  width: 20px;
+  height: 20px;
+  color: ${colorFg.neutral.default};
+  flex-shrink: 0;
+`;
+
 const StyledIconClear = styled(IconClear)`
   transition: opacity 0.1s linear;
   opacity: 0;
   cursor: pointer;
-  width: 24px;
-  height: 24px;
-`;
-
-const ProfileImageWrapper = styled.div`
-  display: flex;
-  column-gap: 6px;
-  align-items: center;
+  width: 20px;
+  height: 20px;
 `;
 
 const StyledList = styled(Command.List)`
@@ -172,14 +157,14 @@ const StyledList = styled(Command.List)`
   flex-direction: column;
   gap: 8px;
   border-radius: 6px;
-  background: ${colors.gray700};
+  background: ${colorBg.neutral.ghost};
   padding: 8px 0;
   width: 100%;
-
+  top: 66px;
+  left: 0;
   @media ${MOBILE_MEDIA_QUERY} {
-    position: absolute;
     top: 49px;
-    border: 1px solid ${colors.gray600};
+    z-index: ${zIndex.드롭다운};
   }
 `;
 
@@ -187,17 +172,13 @@ const StyledItem = styled(Command.Item)`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: ${colors.gray700};
+  background: ${colorBg.neutral.ghost};
   cursor: pointer;
   padding: 10px 16px;
+  width: 100%;
   color: ${colors.gray600};
-
   &:hover {
     background-color: ${colors.gray600};
-  }
-
-  @media ${MOBILE_MEDIA_QUERY} {
-    max-width: 135px;
   }
 `;
 

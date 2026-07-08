@@ -100,6 +100,5 @@ const convertMemberToMemberFormType = (member: ProjectDetail['members'][number])
   return {
     memberId: `${member.memberId}`,
     memberRole: member.memberRole,
-    memberDescription: member.memberDescription,
   };
 };

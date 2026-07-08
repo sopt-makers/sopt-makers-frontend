@@ -28,7 +28,6 @@ export type ProjectDetail = {
   members: {
     memberId: number;
     memberRole: MemberRole;
-    memberDescription: string;
     isTeamMember: boolean;
     memberName: string;
     memberGenerations: number[];
@@ -87,7 +86,6 @@ export type ProjectInput = {
   members: {
     memberId: number;
     memberRole: MemberRole;
-    memberDescription: string;
     isTeamMember: boolean;
     memberHasProfile?: boolean;
   }[];
