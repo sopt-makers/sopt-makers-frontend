@@ -1,36 +1,23 @@
 import styled from '@emotion/styled';
-import { colors } from '@sopt-makers/colors';
-import { isEmpty } from 'lodash-es';
-import type { FC } from 'react';
-import React, { useMemo, useState } from 'react';
+import { colorBg, colorFg, typography } from '@sopt-mds/design-tokens';
+import { IconTrashOutlined } from '@sopt-mds/icons';
+import React from 'react';
 
-import Input from '@/components/common/Input';
-import ErrorMessage from '@/components/common/Input/ErrorMessage';
 import Select from '@/components/common/Select';
-import useToast from '@/components/common/Toast/useToast';
 import type { LinkType } from '@/components/projects/upload/form/constants';
 import { linkTitles } from '@/components/projects/upload/form/constants';
-import IconTrash from '@/public/icons/icon-trash.svg';
-import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
-import { textStyles } from '@/styles/typography';
+import { MOBILE_MEDIA_QUERY, PCTA_S_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 const HTTPS_PREFIX = 'https://';
-
-type ErrorMessage = Partial<Record<keyof LinkType, string>>;
 
 interface LinkFieldProps {
   className?: string;
   value: LinkType;
   onChange: (value: LinkType) => void;
   onRemove: () => void;
-  errorMessage?: ErrorMessage;
 }
 
-const LinkField: FC<LinkFieldProps> = ({ className, value, onChange, onRemove, errorMessage }) => {
-  const [isEdit, setIsEdit] = useState<boolean>(true);
-  const isError = useMemo(() => !isEmpty(errorMessage), [errorMessage]);
-  const toast = useToast();
-
+const LinkField = ({ className, value, onChange, onRemove }: LinkFieldProps) => {
   const onBlur = (e: React.FocusEvent<HTMLInputElement, Element>) => {
     const linkUrl = e.target.value;
     if (linkUrl && !/^https?:\/\//i.test(linkUrl)) {
@@ -55,66 +42,36 @@ const LinkField: FC<LinkFieldProps> = ({ className, value, onChange, onRemove, e
     });
   };
 
-  const onEdit = () => {
-    setIsEdit(true);
-  };
-
-  const onEditComplete = () => {
-    if (isError) {
-      toast.show({
-        title: '알림',
-        message: '링크 필드를 모두 채워주세요.',
-      });
-      return;
-    }
-    setIsEdit(false);
-  };
-
   return (
     <StyledLinkField className={className}>
-      {isEdit ? (
-        <StyledLinkEditView isError={isError}>
-          <StyledFormWrapper>
-            <StyledSelect
-              value={value.linkTitle}
-              onChange={(e) => onSelectLinkTitle(e.target.value)}
-              error={!!errorMessage?.linkTitle}
-            >
-              {linkTitles.map((title) => (
-                <option key={title} value={title}>
-                  {title}
-                </option>
-              ))}
-            </StyledSelect>
-            {errorMessage?.linkUrl && <ErrorMessage message={errorMessage.linkTitle} />}
-          </StyledFormWrapper>
+      <StyledFormContainer>
+        <StyledSelectWrapper>
+          <StyledSelect
+            width='100%'
+            value={value.linkTitle}
+            onChange={(e) => onSelectLinkTitle(e.target.value)}
+            hasValue={!!value.linkTitle}
+          >
+            {linkTitles.map((title) => (
+              <option key={title} value={title}>
+                {title}
+              </option>
+            ))}
+          </StyledSelect>
+        </StyledSelectWrapper>
+        {/* @TODO: 추후 mds-ui2 SearchField 컴포넌트로 변경 */}
+        <StyledInputWrapper>
           <StyledInput
             placeholder={HTTPS_PREFIX}
             value={value.linkUrl}
             onChange={(e) => onChangeLinkUrl(e.target.value)}
             onBlur={onBlur}
-            error={!!errorMessage?.linkUrl}
-            errorMessage={errorMessage?.linkUrl}
           />
-          <StyledEditCompleteButton
-            type='button'
-            onClick={(e) => {
-              e.stopPropagation();
-              onEditComplete();
-            }}
-          >
-            완료
-          </StyledEditCompleteButton>
-          <IconDeleteWrapper>
-            <IconTrash onClick={onRemove} />
-          </IconDeleteWrapper>
-        </StyledLinkEditView>
-      ) : (
-        <StyledLinkView onClick={onEdit}>
-          <span className='title'>{value.linkTitle}</span>
-          <span className='url'>{value.linkUrl}</span>
-        </StyledLinkView>
-      )}
+        </StyledInputWrapper>
+      </StyledFormContainer>
+      <IconDeleteWrapper>
+        <IconTrashOutlined onClick={onRemove} />
+      </IconDeleteWrapper>
     </StyledLinkField>
   );
 };
@@ -123,113 +80,70 @@ export default LinkField;
 
 const StyledLinkField = styled.div`
   display: flex;
-  column-gap: 10px;
-  align-items: center;
+  gap: 20px;
   width: 100%;
+  padding: 12px;
+  background-color: ${colorBg.layer.default};
+  border-radius: 8px;
 `;
 
-const StyledLinkEditView = styled.div<{ isError?: boolean }>`
+const StyledFormContainer = styled.div`
   display: flex;
-  column-gap: 10px;
-  align-items: ${({ isError }) => (isError ? 'flex-start' : 'center')};
-  border-radius: 6px;
-  background-color: ${colors.gray700};
-  padding: 10px;
+  gap: 8px;
   width: 100%;
-
   @media ${MOBILE_MEDIA_QUERY} {
-    display: grid;
-    grid-template-areas: 'title url';
-    grid-template-columns: 135px 1fr;
-    grid-row-gap: 10px;
-    padding: 12px;
+    flex-direction: column;
   }
 `;
 
 const StyledFormWrapper = styled.div`
   display: flex;
-  flex-direction: column;
-  row-gap: 10px;
 `;
 
-const StyledLinkView = styled.div`
-  display: flex;
-  gap: 42px;
-  border-radius: 6px;
-  background-color: ${colors.gray700};
+const StyledInputWrapper = styled(StyledFormWrapper)`
+  flex: 1;
+  height: 46px;
+`;
+
+const StyledSelectWrapper = styled(StyledFormWrapper)`
+  width: 200px;
+  @media ${MOBILE_MEDIA_QUERY} {
+    width: 100%;
+  }
+`;
+
+const StyledSelect = styled(Select, {
+  shouldForwardProp: (prop) => prop !== 'hasValue',
+})<{ hasValue: boolean }>`
+  border: none;
+  color: ${({ hasValue }) => (hasValue ? colorFg.neutral.default : colorFg.neutral.ghost)};
   cursor: pointer;
-  padding: 14px 30px;
-  width: 100%;
-  min-height: 42px;
-  white-space: nowrap;
-  color: ${colors.gray600};
-
-  ${textStyles.SUIT_14_M};
-
-  & > .title {
-    flex-basis: 105px;
-  }
-
-  & > .url {
-    flex-basis: 126px;
-  }
 `;
 
-const StyledSelect = styled(Select)`
-  border: 1px solid ${colors.gray600};
-  border-radius: 6px;
-  color: ${colors.gray400};
+const StyledInput = styled.input`
+  flex: 1;
+  border-radius: 10px;
+  ${typography.body1};
+  color: ${colorFg.neutral.default};
+  background-color: ${colorBg.neutral.ghost};
+  padding: 10px 16px;
 
-  @media ${MOBILE_MEDIA_QUERY} {
-    grid-area: title;
-    max-width: 135px;
-  }
-`;
-
-const StyledInput = styled(Input)`
-  flex: 1 1 330px;
-  border-radius: 6px;
-
-  & > input {
-    border: 1px solid ${colors.gray600};
-
-    ::placeholder {
-      color: ${colors.gray400};
-    }
-  }
-
-  @media ${MOBILE_MEDIA_QUERY} {
-    grid-area: url;
-  }
-`;
-
-const StyledEditCompleteButton = styled.button`
-  border-radius: 4px;
-  background-color: ${colors.gray600};
-  padding: 16px 36px;
-  white-space: nowrap;
-  color: ${colors.gray200};
-
-  ${textStyles.SUIT_14_M};
-
-  @media ${MOBILE_MEDIA_QUERY} {
-    align-self: center;
-    justify-self: end;
-    order: 2;
-    padding: 6.5px 30px;
+  &::placeholder {
+    color: ${colorFg.neutral.ghost};
   }
 `;
 
 const IconDeleteWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
   cursor: pointer;
-  min-width: 42px;
-  min-height: 42px;
+  margin-top: 10px;
 
-  @media ${MOBILE_MEDIA_QUERY} {
-    justify-self: start;
-    order: 1;
+  color: ${colorFg.neutral.ghost};
+  @media ${PCTA_S_MEDIA_QUERY} {
+    min-width: 40px;
+    min-height: 40px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 `;
