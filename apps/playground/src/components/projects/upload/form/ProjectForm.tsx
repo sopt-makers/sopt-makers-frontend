@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { colors } from '@sopt-makers/colors';
-import { colorFg, typography } from '@sopt-mds/design-tokens';
+import { colorFg, spacing, typography } from '@sopt-mds/design-tokens';
 import { IconPlus } from '@sopt-mds/icons';
 import { ActionButton } from '@sopt-mds/ui';
 import type { ReactNode } from 'react';
@@ -515,7 +515,7 @@ const StyledSubmitButton = styled(Button)`
 
 const StyledBottomContainer = styled.div`
   width: 100%;
-  margin-top: 20px;
+  margin-top: ${spacing.s20};
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -524,7 +524,7 @@ const StyledBottomContainer = styled.div`
 const StyledInfo = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: ${spacing.s4};
   ${typography.label3}
 `;
 
@@ -539,5 +539,5 @@ const InfoDetail = styled.p`
 const StyledLinkBtnContainer = styled.div`
   display: flex;
   justify-content: end;
-  margin-top: 20px;
+  margin-top: ${spacing.s20};
 `;

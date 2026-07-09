@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
-import { colorBg, colorFg, colorStroke, typography } from '@sopt-mds/design-tokens';
+import { colorBg, colorFg, colorStroke, radius, spacing, typography } from '@sopt-mds/design-tokens';
 import { IconSearchOutlined } from '@sopt-mds/icons';
 import { Command } from 'cmdk';
 
@@ -100,9 +100,9 @@ const StyledSearch = styled(Command)<{ isError?: boolean }>`
   display: flex;
   position: relative;
   align-items: center;
-  gap: 8px;
-  padding: 10px;
-  border-radius: 10px;
+  gap: ${spacing.s8};
+  padding: ${spacing.s10};
+  border-radius: ${radius.r10};
   width: 220px;
   height: 46px;
 
@@ -165,8 +165,8 @@ const StyledList = styled(Command.List)`
   display: flex;
   position: absolute;
   flex-direction: column;
-  gap: 8px;
-  border-radius: 6px;
+  gap: ${spacing.s8};
+  border-radius: ${radius.r6};
   background: ${colorBg.neutral.ghost};
   padding: 8px 0;
   width: 100%;
@@ -201,6 +201,6 @@ const ProfileImage = styled.img`
 
 const MemberInfo = styled.div`
   display: flex;
-  gap: 4px;
+  gap: ${spacing.s4};
   align-items: center;
 `;

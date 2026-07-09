@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { colorBg, colorFg } from '@sopt-mds/design-tokens';
+import { colorBg, colorFg, radius, spacing } from '@sopt-mds/design-tokens';
 import { IconTrashOutlined } from '@sopt-mds/icons';
 import { isEmpty } from 'lodash-es';
 import { useMemo, useState } from 'react';
@@ -119,28 +119,28 @@ export default MemberField;
 
 const StyledMemberEditView = styled.div`
   display: flex;
-  gap: 8px;
-  border-radius: 8px;
+  gap: ${spacing.s8};
+  border-radius: ${radius.r8};
   background-color: ${colorBg.layer.default};
-  padding: 12px;
+  padding: ${spacing.s12};
   width: 100%;
 `;
 
 const StyledFormContainer = styled.div<{ isError: boolean }>`
   display: flex;
-  gap: 8px;
+  gap: ${spacing.s8};
   width: 100%;
   align-items: ${({ isError }) => (isError ? 'flex-start' : 'center')};
   @media ${MOBILE_MEDIA_QUERY} {
     flex-direction: column;
-    gap: 4px;
+    gap: ${spacing.s4};
   }
 `;
 
 const StyledFormWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: ${spacing.s10};
   @media ${MOBILE_MEDIA_QUERY} {
     width: 100%;
   }
@@ -152,7 +152,7 @@ const StyledSelectWrapper = styled(StyledFormWrapper)`
 
 const IconDeleteWrapper = styled.div`
   cursor: pointer;
-  margin-top: 10px;
+  margin-top: ${spacing.s10};
 
   color: ${colorFg.neutral.ghost};
   @media ${PCTA_S_MEDIA_QUERY} {

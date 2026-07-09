@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { colorBg, colorFg, typography } from '@sopt-mds/design-tokens';
+import { colorBg, colorFg, radius, spacing, typography } from '@sopt-mds/design-tokens';
 import { IconTrashOutlined } from '@sopt-mds/icons';
 import React from 'react';
 
@@ -80,16 +80,16 @@ export default LinkField;
 
 const StyledLinkField = styled.div`
   display: flex;
-  gap: 20px;
+  gap: ${spacing.s20};
   width: 100%;
-  padding: 12px;
+  padding: ${spacing.s12};
   background-color: ${colorBg.layer.default};
-  border-radius: 8px;
+  border-radius: ${radius.r8};
 `;
 
 const StyledFormContainer = styled.div`
   display: flex;
-  gap: 8px;
+  gap: ${spacing.s8};
   width: 100%;
   @media ${MOBILE_MEDIA_QUERY} {
     flex-direction: column;
@@ -122,11 +122,11 @@ const StyledSelect = styled(Select, {
 
 const StyledInput = styled.input`
   flex: 1;
-  border-radius: 10px;
+  border-radius: ${radius.r10};
   ${typography.body1};
   color: ${colorFg.neutral.default};
   background-color: ${colorBg.neutral.ghost};
-  padding: 10px 16px;
+  padding: ${spacing.s10} ${spacing.s16};
 
   &::placeholder {
     color: ${colorFg.neutral.ghost};
@@ -135,7 +135,7 @@ const StyledInput = styled.input`
 
 const IconDeleteWrapper = styled.div`
   cursor: pointer;
-  margin-top: 10px;
+  margin-top: ${spacing.s10};
 
   color: ${colorFg.neutral.ghost};
   @media ${PCTA_S_MEDIA_QUERY} {
