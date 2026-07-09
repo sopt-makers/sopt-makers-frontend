@@ -10,8 +10,7 @@ import ErrorMessage from '@/components/common/Input/ErrorMessage';
 import Select from '@/components/common/Select';
 import { MemberRoleInfo } from '@/components/projects/constants';
 import MemberSearch from '@/components/projects/upload/form/fields/member/MemberSearch';
-import type { Member } from '@/components/projects/upload/form/fields/member/MemberSearchContext';
-import { MemberSearchContext } from '@/components/projects/upload/form/fields/member/MemberSearchContext';
+import type { Member } from '@/components/projects/upload/form/fields/member/useMemberSearch';
 import { MOBILE_MEDIA_QUERY, PCTA_S_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 type Value = {
@@ -76,25 +75,20 @@ const MemberField = ({ value, errorMessage, onChange, onRemove }: MemberFieldPro
   return (
     <StyledMemberEditView>
       <StyledFormContainer isError={isError}>
-        <MemberSearchContext.Provider
-          value={{
-            searchMember,
-            memberId: value.memberId,
-            getMemberById: fetchMemberById,
-          }}
-        >
-          <StyledFormWrapper>
-            {/* @TODO: sopt-mds/ui의 SearchFieid 컴포넌트로 교체 예정*/}
-            <MemberSearch
-              isError={!!errorMessage?.memberId}
-              selectedMember={selectedMember}
-              placeholder='SOPT 회원 검색'
-              onSelect={onSelectMember}
-              onClear={onClearMember}
-            />
-            {errorMessage?.memberId && <ErrorMessage message={errorMessage?.memberId} />}
-          </StyledFormWrapper>
-        </MemberSearchContext.Provider>
+        <StyledFormWrapper>
+          {/* @TODO: sopt-mds/ui의 SearchFieid 컴포넌트로 교체 예정*/}
+          <MemberSearch
+            isError={!!errorMessage?.memberId}
+            selectedMember={selectedMember}
+            placeholder='SOPT 회원 검색'
+            memberId={value.memberId}
+            searchMember={searchMember}
+            getMemberById={fetchMemberById}
+            onSelect={onSelectMember}
+            onClear={onClearMember}
+          />
+          {errorMessage?.memberId && <ErrorMessage message={errorMessage?.memberId} />}
+        </StyledFormWrapper>
         <StyledSelectWrapper>
           <StyledSelect
             width='100%'

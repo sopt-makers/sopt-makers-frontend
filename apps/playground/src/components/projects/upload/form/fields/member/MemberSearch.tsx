@@ -6,8 +6,8 @@ import { IconSearchOutlined } from '@sopt-mds/icons';
 import { Command } from 'cmdk';
 
 import Text from '@/components/common/Text';
-import type { Member } from '@/components/projects/upload/form/fields/member/MemberSearchContext';
-import { useMemberSearch } from '@/components/projects/upload/form/fields/member/MemberSearchContext';
+import type { Member } from '@/components/projects/upload/form/fields/member/useMemberSearch';
+import { useMemberSearch } from '@/components/projects/upload/form/fields/member/useMemberSearch';
 import IconClear from '@/public/icons/icon-member-search-clear.svg';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 import { zIndex } from '@/styles/zIndex';
@@ -24,6 +24,9 @@ interface MemberSearchProps {
   isError?: boolean;
   placeholder?: string;
   selectedMember?: Member;
+  memberId?: string;
+  searchMember: (name: string) => Promise<Member[]>;
+  getMemberById: (id: string) => Promise<Member | undefined>;
   onSelect: (member: Member) => void;
   onClear: () => void;
 }
@@ -33,10 +36,17 @@ const MemberSearch = ({
   placeholder,
   selectedMember: selectedMemberProp,
   isError,
+  memberId,
+  searchMember,
+  getMemberById,
   onSelect,
   onClear,
 }: MemberSearchProps) => {
-  const { name, onValueChange, onValueClear, searchedMemberList, defaultValue } = useMemberSearch();
+  const { name, onValueChange, onValueClear, searchedMemberList, defaultValue } = useMemberSearch({
+    memberId,
+    searchMember,
+    getMemberById,
+  });
   const selectedMember = selectedMemberProp || defaultValue;
 
   const handleSelect = (member: Member) => {
