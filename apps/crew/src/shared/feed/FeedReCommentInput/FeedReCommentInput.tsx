@@ -1,14 +1,15 @@
 import RecommentPointIcon from '@assets/svg/recomment_point_icon.svg';
 import SendIcon from 'public/assets/svg/send.svg';
 import SendFillIcon from 'public/assets/svg/send_fill.svg';
-import { forwardRef, useRef, useState } from 'react';
+import { forwardRef, useContext, useEffect, useRef, useState } from 'react';
 import { styled } from 'stitches.config';
 
 import type { FeedCommentInputProps } from '../FeedCommentInput/FeedCommentInput';
 import CommonMention from '../Mention';
+import { MentionContext } from '../Mention/MentionContext';
 
 const FeedReCommentInput = forwardRef<HTMLTextAreaElement, Omit<FeedCommentInputProps, 'writerName'>>(
-  ({ commentId, onSubmit, disabled }) => {
+  ({ onSubmit, disabled }) => {
     const [comment, setComment] = useState('');
     const [isFocused, setIsFocused] = useState(false);
     const [userIds, setUserIds] = useState<number[] | null>(null);
@@ -16,6 +17,16 @@ const FeedReCommentInput = forwardRef<HTMLTextAreaElement, Omit<FeedCommentInput
     const urlParams = new URLSearchParams(window.location.search);
     const postId = Number(urlParams.get('id'));
     const inputRef = useRef<HTMLTextAreaElement | null>(null);
+    const { isReCommentClicked, user } = useContext(MentionContext);
+
+    useEffect(() => {
+      inputRef.current?.focus();
+
+      if (isReCommentClicked) {
+        // react-mentions markup 포맷에 맞춘 값입니다. -~!@#@와 %^&*+는 멘션 범위를 표시하고, [] 안의 userId를 멘션 id로 추출합니다.
+        setComment(`-~!@#@${user.userName}[${user.userId}]%^&*+`);
+      }
+    }, [isReCommentClicked, user.userId, user.userName]);
 
     const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
       event.preventDefault();
@@ -44,7 +55,6 @@ const FeedReCommentInput = forwardRef<HTMLTextAreaElement, Omit<FeedCommentInput
               setIsFocused={setIsFocused}
               setUserIds={setUserIds}
               isComment={true}
-              commentId={commentId}
             />
           </CommentInput>
 
