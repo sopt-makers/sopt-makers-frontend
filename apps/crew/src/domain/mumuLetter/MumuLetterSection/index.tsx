@@ -3,7 +3,7 @@ import Letter from '@assets/svg/letter.svg';
 import PaperAirplane from '@assets/svg/paper_airplane.svg';
 import { colors, radius, spacing, typography } from '@sopt-mds/design-tokens';
 import { ActionButton } from '@sopt-mds/ui';
-import { Suspense } from '@suspensive/react';
+import { ErrorBoundary, Suspense } from '@suspensive/react';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { styled } from 'stitches.config';
@@ -98,9 +98,11 @@ const MumuLetterSectionContent = ({ title, description }: MumuLetterSectionProps
 
 const MumuLetterSection = (props: MumuLetterSectionProps) => {
   return (
-    <Suspense fallback={null}>
-      <MumuLetterSectionContent {...props} />
-    </Suspense>
+    <ErrorBoundary fallback={null}>
+      <Suspense fallback={null}>
+        <MumuLetterSectionContent {...props} />
+      </Suspense>
+    </ErrorBoundary>
   );
 };
 

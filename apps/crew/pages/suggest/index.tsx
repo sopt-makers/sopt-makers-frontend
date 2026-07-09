@@ -1,4 +1,5 @@
 import { useCreateMeetingDemandMutation } from '@api/meetingDemand/mutation';
+import type { CreateMeetingDemandRequest } from '@api/meetingDemand/type';
 import AdditionalInfoSection from '@domain/suggest/AdditionalInfoSection';
 import Header from '@domain/suggest/Header';
 import RequiredInfoSection from '@domain/suggest/RequiredInfoSection';
@@ -9,10 +10,21 @@ import useModal from '@hook/useModal';
 import { zodResolver } from '@hookform/resolvers/zod';
 import ConfirmationModal from '@shared/modal/ConfirmationModal';
 import { spacing } from '@sopt-mds/design-tokens';
+import { useRouter } from 'next/router';
 import { FormProvider, useForm } from 'react-hook-form';
 import { styled } from 'stitches.config';
 
+const getCreateMeetingDemandRequest = ({ joinInfo, ...formValues }: SuggestFormValues): CreateMeetingDemandRequest => {
+  const hasJoinInfo = joinInfo?.meetingType != null || joinInfo?.meetingFrequency != null;
+
+  return {
+    ...formValues,
+    ...(hasJoinInfo ? { joinInfo } : {}),
+  };
+};
+
 const SuggestMeetingPage = () => {
+  const router = useRouter();
   const { mutate: mutateCreateMeetingDemand, isPending } = useCreateMeetingDemandMutation();
   const confirmationModal = useModal();
   const formMethods = useForm<SuggestFormValues>({
@@ -26,17 +38,16 @@ const SuggestMeetingPage = () => {
       joinInfo: {},
     },
   });
-
   const handleSubmit = formMethods.handleSubmit(() => {
     confirmationModal.handleModalOpen();
   });
 
   const handleConfirm = formMethods.handleSubmit((formValues) => {
-    mutateCreateMeetingDemand(formValues, {
-      onSuccess: () => {
+    mutateCreateMeetingDemand(getCreateMeetingDemandRequest(formValues), {
+      onSuccess: ({ meetingDemandId }) => {
         confirmationModal.handleModalClose();
         formMethods.reset();
-        // @TODO: 응답의 meetingDemandId를 사용해 생성된 모임 수요 상세 페이지로 이동
+        router.push(`/suggest/detail?id=${meetingDemandId}`);
       },
     });
   });
@@ -50,7 +61,7 @@ const SuggestMeetingPage = () => {
           {/* 두 Section 모두 Input, textArea mds2.0버전 교체 필요 */}
           <RequiredInfoSection />
           <AdditionalInfoSection />
-          <SubmitButton />
+          <SubmitButton disabled={!formMethods.formState.isValid} />
         </SForm>
       </SPage>
 
