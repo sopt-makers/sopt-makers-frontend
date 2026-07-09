@@ -67,7 +67,7 @@ const SField = styled('div', {
 const SFieldTitle = styled('p', {
   margin: `0 0 ${spacing.s4}`,
   color: colors.fg.neutral.bold,
-  ...typography.title4,
+  ...typography.title5,
 });
 
 const SHelpMessage = styled('span', {
