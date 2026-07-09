@@ -1,6 +1,7 @@
 import { useMumuPostHomeQueryOption } from '@api/post/query';
 import Letter from '@assets/svg/letter.svg';
 import PaperAirplane from '@assets/svg/paper_airplane.svg';
+import { useDisplay } from '@hook/useDisplay';
 import { colors, radius, spacing, typography } from '@sopt-mds/design-tokens';
 import { ActionButton } from '@sopt-mds/ui';
 import { ErrorBoundary, Suspense } from '@suspensive/react';
@@ -17,8 +18,15 @@ interface MumuLetterSectionProps {
 
 const MumuLetterSectionContent = ({ title, description }: MumuLetterSectionProps) => {
   const router = useRouter();
+  const { isMobile } = useDisplay();
   const { data } = useSuspenseQuery(useMumuPostHomeQueryOption());
-  const { isEmptyAppliedMeeting, hasWrittenTodayMumuPost: isReplied, mumuText, mumuPostHomeDtos } = data;
+  const {
+    isEmptyAppliedMeeting,
+    hasWrittenTodayMumuPost: isReplied,
+    hasMumuPostHomeFeed,
+    mumuText,
+    mumuPostHomeDtos,
+  } = data;
 
   // 신규 회원이거나, 모임에 참여한 적이 없는 경우에는 일단 무무 편지 섹션을 노출하지 않음. 추후 생길 예정
   if (isEmptyAppliedMeeting) return null;
@@ -70,7 +78,7 @@ const MumuLetterSectionContent = ({ title, description }: MumuLetterSectionProps
           </QuestionMessage>
 
           <SActionButton
-            size='medium'
+            size={isMobile ? 'medium' : 'large'}
             variant='primary'
             highlighted={!isReplied}
             onClick={isReplied ? handleViewAllClick : handleReplyClick}
@@ -82,10 +90,10 @@ const MumuLetterSectionContent = ({ title, description }: MumuLetterSectionProps
         <div>
           <ReplyFeedTitle>
             내 모임 답장 피드
-            {isReplied && <ReplyFeedCount>{mumuPostHomeDtos.length}</ReplyFeedCount>}
+            {hasMumuPostHomeFeed && <ReplyFeedCount>{mumuPostHomeDtos.length}</ReplyFeedCount>}
           </ReplyFeedTitle>
 
-          {isReplied ? (
+          {hasMumuPostHomeFeed ? (
             <MumuFeedCardList posts={mumuPostHomeDtos} />
           ) : (
             <EmptyDescription>모임 멤버의 답장 피드가 여기에 나타나요</EmptyDescription>
@@ -219,26 +227,37 @@ const QuestionBody = styled('div', {
 });
 
 const DeliveryStatus = styled('div', {
+  'boxSizing': 'border-box',
   'display': 'inline-flex',
   'alignItems': 'center',
   'gap': spacing.s8,
+  'width': '168px',
+
   'padding': `${spacing.s8} ${spacing.s16}`,
   'backgroundColor': colors.bg.neutral.subtle,
-  'borderRadius': `${radius.r12} ${radius.r12} ${radius.r12} ${radius.r0}`,
+  'borderRadius': `${radius.r20} ${radius.r20} ${radius.r20} ${radius.r0}`,
   'color': colors.fg.neutral.bold,
   'whiteSpace': 'nowrap',
   ...typography.label1,
 
   '@mobile': {
+    width: '118px',
     padding: `${spacing.s6} ${spacing.s12}`,
+    borderRadius: `${radius.r12} ${radius.r12} ${radius.r12} ${radius.r0}`,
     ...typography.label4,
   },
 });
 
 const SPaperAirplane = styled(PaperAirplane, {
-  width: 'auto',
-  height: '16px',
-  flexShrink: 0,
+  'object-fit': 'cover',
+  'width': '27px',
+  'height': '27px',
+  'flexShrink': 0,
+
+  '@mobile': {
+    width: '19px',
+    height: '19px',
+  },
 });
 
 const SLetter = styled(Letter, {
