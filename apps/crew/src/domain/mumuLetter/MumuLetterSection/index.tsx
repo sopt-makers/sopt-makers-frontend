@@ -18,7 +18,13 @@ interface MumuLetterSectionProps {
 const MumuLetterSectionContent = ({ title, description }: MumuLetterSectionProps) => {
   const router = useRouter();
   const { data } = useSuspenseQuery(useMumuPostHomeQueryOption());
-  const { isEmptyAppliedMeeting, hasWrittenTodayMumuPost: isReplied, mumuText, mumuPostHomeDtos } = data;
+  const {
+    isEmptyAppliedMeeting,
+    hasWrittenTodayMumuPost: isReplied,
+    hasMumuPostHomeFeed,
+    mumuText,
+    mumuPostHomeDtos,
+  } = data;
 
   // 신규 회원이거나, 모임에 참여한 적이 없는 경우에는 일단 무무 편지 섹션을 노출하지 않음. 추후 생길 예정
   if (isEmptyAppliedMeeting) return null;
@@ -82,10 +88,10 @@ const MumuLetterSectionContent = ({ title, description }: MumuLetterSectionProps
         <div>
           <ReplyFeedTitle>
             내 모임 답장 피드
-            {isReplied && <ReplyFeedCount>{mumuPostHomeDtos.length}</ReplyFeedCount>}
+            {hasMumuPostHomeFeed && <ReplyFeedCount>{mumuPostHomeDtos.length}</ReplyFeedCount>}
           </ReplyFeedTitle>
 
-          {isReplied ? (
+          {hasMumuPostHomeFeed ? (
             <MumuFeedCardList posts={mumuPostHomeDtos} />
           ) : (
             <EmptyDescription>모임 멤버의 답장 피드가 여기에 나타나요</EmptyDescription>
