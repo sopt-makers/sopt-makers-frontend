@@ -49,7 +49,7 @@ const ContentWrapper = styled('div', {
 
 const Title = styled('h3', {
   'color': colors.bg.brand.default,
-  ...typography.title4,
+  ...typography.title5,
 
   '@mobile': {
     ...typography.label3,
@@ -58,7 +58,7 @@ const Title = styled('h3', {
 
 const Content = styled('p', {
   'color': colors.fg.neutral.bold,
-  ...typography.title4,
+  ...typography.title5,
 
   '@mobile': {
     ...typography.body2,

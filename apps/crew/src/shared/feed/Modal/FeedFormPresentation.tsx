@@ -289,7 +289,7 @@ const SCancelIcon = styled(CancelIcon, {
 });
 
 const SSubmitButton = styled('button', {
-  ...typography.title4,
+  ...typography.title5,
   color: colors.fg.neutral.bold,
   variants: {
     disabled: {
@@ -385,7 +385,7 @@ const STitleInput = styled('input', {
     'width': `calc(100% - ${spacing.s40})`,
     'padding': `${spacing.s16} ${spacing.s8}`,
     'margin': `0 ${spacing.s20}`,
-    ...typography.title4,
+    ...typography.title5,
 
     '&::placeholder': {
       color: colors.fg.neutral.ghost,

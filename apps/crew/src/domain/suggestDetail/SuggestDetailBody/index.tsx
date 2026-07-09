@@ -50,7 +50,7 @@ const STitle = styled('h1', {
   ...typography.heading2,
 
   '@mobile': {
-    ...typography.title4,
+    ...typography.title5,
   },
 });
 

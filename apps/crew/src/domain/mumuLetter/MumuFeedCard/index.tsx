@@ -112,7 +112,7 @@ const PostTitle = styled('h3', {
   'textOverflow': 'ellipsis',
   'whiteSpace': 'nowrap',
   'color': colors.fg.neutral.bold,
-  ...typography.title4,
+  ...typography.title5,
 
   '@mobile': {
     ...typography.title5,
