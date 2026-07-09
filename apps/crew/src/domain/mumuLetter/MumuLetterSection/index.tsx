@@ -227,26 +227,37 @@ const QuestionBody = styled('div', {
 });
 
 const DeliveryStatus = styled('div', {
+  'boxSizing': 'border-box',
   'display': 'inline-flex',
   'alignItems': 'center',
   'gap': spacing.s8,
+  'width': '168px',
+
   'padding': `${spacing.s8} ${spacing.s16}`,
   'backgroundColor': colors.bg.neutral.subtle,
-  'borderRadius': `${radius.r12} ${radius.r12} ${radius.r12} ${radius.r0}`,
+  'borderRadius': `${radius.r20} ${radius.r20} ${radius.r20} ${radius.r0}`,
   'color': colors.fg.neutral.bold,
   'whiteSpace': 'nowrap',
   ...typography.label1,
 
   '@mobile': {
+    width: '118px',
     padding: `${spacing.s6} ${spacing.s12}`,
+    borderRadius: `${radius.r12} ${radius.r12} ${radius.r12} ${radius.r0}`,
     ...typography.label4,
   },
 });
 
 const SPaperAirplane = styled(PaperAirplane, {
-  width: 'auto',
-  height: '16px',
-  flexShrink: 0,
+  'object-fit': 'cover',
+  'width': '27px',
+  'height': '27px',
+  'flexShrink': 0,
+
+  '@mobile': {
+    width: '19px',
+    height: '19px',
+  },
 });
 
 const SLetter = styled(Letter, {
