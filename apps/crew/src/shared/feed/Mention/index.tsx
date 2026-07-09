@@ -6,11 +6,10 @@ import { fontsObject } from '@sopt-makers/fonts';
 import { keyframes, styled } from '@stitches/react';
 import { useQuery } from '@tanstack/react-query';
 import DefaultProfile from 'public/assets/svg/mention_profile_default.svg';
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import type { SuggestionDataItem } from 'react-mentions';
 import { Mention, MentionsInput } from 'react-mentions';
 
-import { MentionContext } from './MentionContext';
 interface mentionableDataType {
   id: number;
   display: string;
@@ -30,7 +29,6 @@ interface CommonMentionProps {
   setIsFocused: React.Dispatch<React.SetStateAction<boolean>>;
   setUserIds: React.Dispatch<React.SetStateAction<number[] | null>>;
   isComment: boolean;
-  commentId?: number;
   onClick?: () => void;
 }
 
@@ -42,35 +40,9 @@ const CommonMention = ({
   setIsFocused,
   setUserIds,
   isComment,
-  commentId,
   onClick,
 }: CommonMentionProps) => {
   const { data: mentionUserList } = useQuery(useUserQueryOption());
-
-  const { parentComment, user, isReCommentClicked } = useContext(MentionContext);
-
-  useEffect(() => {
-    //컨테이너의 ID일 경우 (즉, 답글 달기에 매칭되는 댓글 or 대댓글인 경우)
-    if (parentComment.parentCommentId === commentId) {
-      //고치기
-      if (inputRef.current) {
-        inputRef.current.focus();
-      }
-
-      //고치기
-      if (isReCommentClicked) {
-        setValue(`-~!@#@${user.userName}[${user.userId}]%^&*+`);
-      }
-    }
-  }, [isReCommentClicked, inputRef, setValue, user, parentComment.parentCommentId, commentId]);
-
-  //다시 답글 달기 안누른 상태로 돌려주는 코드
-  // useEffect(() => {
-  //   if (!value.startsWith('-~!@#')) {
-  //     setIsReCommentClicked(false);
-  //     setParentComment(prev => ({ ...prev, parentComment: true }));
-  //   }
-  // }, [value, setIsReCommentClicked, setParentComment]);
 
   const filterUsersBySearchTerm = (searchTerm: string, users: mentionableDataType[]) => {
     return users?.filter((v: mentionableDataType) => v.userName.includes(searchTerm));
@@ -125,10 +97,10 @@ const CommonMention = ({
   }, []);
 
   useEffect(() => {
-    if (inputRef.current) {
-      inputRef.current.focus();
+    if (isComment) {
+      inputRef.current?.focus();
     }
-  }, [inputRef]);
+  }, [inputRef, isComment]);
 
   return (
     <MentionsInput

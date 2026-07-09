@@ -158,6 +158,7 @@ const FeedFormPresentation = ({
           defaultValue=''
           render={({ field: { value: titleValue, onChange, onBlur } }) => (
             <STitleInput
+              autoFocus
               type='text'
               placeholder='제목을 입력해 주세요. (최대 100자)'
               value={titleValue}

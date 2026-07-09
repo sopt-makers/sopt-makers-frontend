@@ -176,7 +176,7 @@ export default function FeedCommentContainer({
             );
           })}
           {comment.id === parentComment.parentCommentId && (
-            <FeedReCommentInput commentId={comment.id} onSubmit={handleCreateComment} disabled={isCreatingComment} />
+            <FeedReCommentInput onSubmit={handleCreateComment} disabled={isCreatingComment} />
           )}
         </>
       )}
