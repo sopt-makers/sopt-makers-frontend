@@ -1,6 +1,7 @@
 import { useMumuPostHomeQueryOption } from '@api/post/query';
 import Letter from '@assets/svg/letter.svg';
 import PaperAirplane from '@assets/svg/paper_airplane.svg';
+import { useDisplay } from '@hook/useDisplay';
 import { colors, radius, spacing, typography } from '@sopt-mds/design-tokens';
 import { ActionButton } from '@sopt-mds/ui';
 import { ErrorBoundary, Suspense } from '@suspensive/react';
@@ -17,6 +18,7 @@ interface MumuLetterSectionProps {
 
 const MumuLetterSectionContent = ({ title, description }: MumuLetterSectionProps) => {
   const router = useRouter();
+  const { isMobile } = useDisplay();
   const { data } = useSuspenseQuery(useMumuPostHomeQueryOption());
   const {
     isEmptyAppliedMeeting,
@@ -76,7 +78,7 @@ const MumuLetterSectionContent = ({ title, description }: MumuLetterSectionProps
           </QuestionMessage>
 
           <SActionButton
-            size='medium'
+            size={isMobile ? 'medium' : 'large'}
             variant='primary'
             highlighted={!isReplied}
             onClick={isReplied ? handleViewAllClick : handleReplyClick}
