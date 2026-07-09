@@ -9,10 +9,12 @@ import useModal from '@hook/useModal';
 import { zodResolver } from '@hookform/resolvers/zod';
 import ConfirmationModal from '@shared/modal/ConfirmationModal';
 import { spacing } from '@sopt-mds/design-tokens';
+import { useRouter } from 'next/router';
 import { FormProvider, useForm } from 'react-hook-form';
 import { styled } from 'stitches.config';
 
 const SuggestMeetingPage = () => {
+  const router = useRouter();
   const { mutate: mutateCreateMeetingDemand, isPending } = useCreateMeetingDemandMutation();
   const confirmationModal = useModal();
   const formMethods = useForm<SuggestFormValues>({
@@ -33,10 +35,10 @@ const SuggestMeetingPage = () => {
 
   const handleConfirm = formMethods.handleSubmit((formValues) => {
     mutateCreateMeetingDemand(formValues, {
-      onSuccess: () => {
+      onSuccess: ({ meetingDemandId }) => {
         confirmationModal.handleModalClose();
         formMethods.reset();
-        // @TODO: 응답의 meetingDemandId를 사용해 생성된 모임 수요 상세 페이지로 이동
+        router.push(`/suggest/detail?id=${meetingDemandId}`);
       },
     });
   });
