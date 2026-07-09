@@ -117,7 +117,7 @@ const Title = styled('h2', {
   ...typography.heading2,
 
   '@mobile': {
-    ...typography.title4,
+    ...typography.title5,
   },
 });
 
@@ -160,7 +160,7 @@ const MobileCTAText = styled('div', {
 
 const MobileCTATitle = styled('p', {
   color: colors.fg.neutral.bold,
-  ...typography.title4,
+  ...typography.title5,
 });
 
 const MobileCTADescription = styled('p', {

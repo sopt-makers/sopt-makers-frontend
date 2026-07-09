@@ -80,7 +80,7 @@ const STitleStyle = styled('p', {
   },
 
   '@mobile': {
-    ...typography.title4,
+    ...typography.title5,
   },
 });
 
