@@ -1,4 +1,5 @@
 import { useCreateMeetingDemandMutation } from '@api/meetingDemand/mutation';
+import type { CreateMeetingDemandRequest } from '@api/meetingDemand/type';
 import AdditionalInfoSection from '@domain/suggest/AdditionalInfoSection';
 import Header from '@domain/suggest/Header';
 import RequiredInfoSection from '@domain/suggest/RequiredInfoSection';
@@ -11,6 +12,15 @@ import ConfirmationModal from '@shared/modal/ConfirmationModal';
 import { spacing } from '@sopt-mds/design-tokens';
 import { FormProvider, useForm } from 'react-hook-form';
 import { styled } from 'stitches.config';
+
+const getCreateMeetingDemandRequest = ({ joinInfo, ...formValues }: SuggestFormValues): CreateMeetingDemandRequest => {
+  const hasJoinInfo = joinInfo?.meetingType != null || joinInfo?.meetingFrequency != null;
+
+  return {
+    ...formValues,
+    ...(hasJoinInfo ? { joinInfo } : {}),
+  };
+};
 
 const SuggestMeetingPage = () => {
   const { mutate: mutateCreateMeetingDemand, isPending } = useCreateMeetingDemandMutation();
@@ -26,13 +36,12 @@ const SuggestMeetingPage = () => {
       joinInfo: {},
     },
   });
-
   const handleSubmit = formMethods.handleSubmit(() => {
     confirmationModal.handleModalOpen();
   });
 
   const handleConfirm = formMethods.handleSubmit((formValues) => {
-    mutateCreateMeetingDemand(formValues, {
+    mutateCreateMeetingDemand(getCreateMeetingDemandRequest(formValues), {
       onSuccess: () => {
         confirmationModal.handleModalClose();
         formMethods.reset();
@@ -50,7 +59,7 @@ const SuggestMeetingPage = () => {
           {/* 두 Section 모두 Input, textArea mds2.0버전 교체 필요 */}
           <RequiredInfoSection />
           <AdditionalInfoSection />
-          <SubmitButton />
+          <SubmitButton disabled={!formMethods.formState.isValid} />
         </SForm>
       </SPage>
 

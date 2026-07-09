@@ -139,7 +139,7 @@ export interface paths {
     get: operations['getComments'];
     /**
      * 모임 수요 댓글 작성
-     * @description 모임 수요 댓글 또는 대댓글 생성
+     * @description 모임 수요 댓글 또는 대댓글 생성. 알림은 부모 댓글 생성 시에만 전송
      */
     post: operations['createComment'];
   };
@@ -160,7 +160,8 @@ export interface paths {
   '/meeting-demand/v2/comments/mention': {
     /**
      * 모임 수요 댓글 멘션 알림
-     * @description 모임 수요 댓글에서 멘션된 사용자에게 푸시 알림 전송
+     * @deprecated
+     * @description 사용하지 않습니다. 모임 수요 알림 정책에서 대댓글/멘션 알림은 제외합니다.
      */
     post: operations['mentionUserInComment'];
   };
@@ -958,7 +959,7 @@ export interface components {
        * ]
        */
       meetingKeywordTypes: string[];
-      joinInfo: components['schemas']['MeetingJoinInfo'];
+      joinInfo?: components['schemas']['MeetingJoinInfo'];
     };
     /** @description 모임 수요 생성 응답 Dto */
     MeetingDemandV2CreateMeetingDemandResponseDto: {
@@ -1000,13 +1001,13 @@ export interface components {
        */
       contents: string;
       /**
-       * @description 댓글/대댓글 여부, true면 부모 댓글
+       * @description 댓글/대댓글 여부, true면 부모 댓글. 알림은 부모 댓글 생성 시에만 전송
        * @example true
        */
       isParent: boolean;
       /**
        * Format: int32
-       * @description 대댓글인 경우 부모 댓글 id
+       * @description 대댓글인 경우 부모 댓글 id. 대댓글 알림은 전송하지 않음
        * @example 3
        */
       parentCommentId?: number;
@@ -1969,6 +1970,11 @@ export interface components {
        */
       hasWrittenTodayMumuPost: boolean;
       /**
+       * @description 내 모임 피드 카드 노출 여부
+       * @example true
+       */
+      hasMumuPostHomeFeed: boolean;
+      /**
        * @description 오늘의 무무 멘트
        * @example true
        */
@@ -2867,7 +2873,7 @@ export interface components {
        * ]
        */
       meetingKeywordTypes: string[];
-      joinInfo: components['schemas']['MeetingJoinInfo'];
+      joinInfo?: components['schemas']['MeetingJoinInfo'];
       /**
        * Format: int32
        * @description 기다려요 수
@@ -4543,7 +4549,7 @@ export interface operations {
   };
   /**
    * 모임 수요 댓글 작성
-   * @description 모임 수요 댓글 또는 대댓글 생성
+   * @description 모임 수요 댓글 또는 대댓글 생성. 알림은 부모 댓글 생성 시에만 전송
    */
   createComment: {
     parameters: {
@@ -4605,7 +4611,8 @@ export interface operations {
   };
   /**
    * 모임 수요 댓글 멘션 알림
-   * @description 모임 수요 댓글에서 멘션된 사용자에게 푸시 알림 전송
+   * @deprecated
+   * @description 사용하지 않습니다. 모임 수요 알림 정책에서 대댓글/멘션 알림은 제외합니다.
    */
   mentionUserInComment: {
     requestBody: {
