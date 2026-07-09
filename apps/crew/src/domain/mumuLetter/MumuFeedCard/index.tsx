@@ -13,7 +13,6 @@ interface MumuFeedCardProps {
 const MumuFeedCard = ({ post }: MumuFeedCardProps) => {
   const HeartIcon = post.isLiked ? IconHeartFilled : IconHeartOutlined;
 
-  // @TODO: 피드 상세 페이지 경로 확정 후 postId에 해당하는 피드 상세 페이지로 이동
   return (
     <Container href={`/post?id=${post.postId}`}>
       <MeetingInfo>

@@ -1,21 +1,18 @@
 import { useDisplay } from '@hook/useDisplay';
 import { spacing } from '@sopt-mds/design-tokens';
 import { ActionButton } from '@sopt-mds/ui';
-import { useFormContext } from 'react-hook-form';
 import { styled } from 'stitches.config';
 
-import type { SuggestFormValues } from '../schema';
+interface SubmitButtonProps {
+  disabled: boolean;
+}
 
-const SubmitButton = () => {
+const SubmitButton = ({ disabled }: SubmitButtonProps) => {
   const { isMobile } = useDisplay();
-  const {
-    formState: { isSubmitting, isValid },
-  } = useFormContext<SuggestFormValues>();
-  const isDisabled = isSubmitting || !isValid;
 
   return (
     <SButtonContainer>
-      <ActionButton type='submit' size='large' variant='primary' disabled={isDisabled}>
+      <ActionButton type='submit' size='large' variant='primary' disabled={disabled}>
         {isMobile ? '제안하기' : '모임 제안하기'}
       </ActionButton>
     </SButtonContainer>
