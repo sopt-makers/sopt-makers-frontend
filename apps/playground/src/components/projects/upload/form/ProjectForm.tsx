@@ -94,8 +94,8 @@ const ProjectForm = ({
     control,
   });
 
-  const memberSummary = getMemberSummary(watchedMembers);
-  const releaseMemberSummary = getMemberSummary(watchedReleaseMembers);
+  const memberSummary = getMemberSummary(watchedMembers ?? []);
+  const releaseMemberSummary = getMemberSummary(watchedReleaseMembers ?? []);
 
   const { errors } = useFormState({
     control,

@@ -42,8 +42,8 @@ export const convertPeriodFormatReverse = (period: string) => {
  * @returns count: 역할이 입력된 팀원 수, detail: '역할 N명 · 역할 M명' 형식의 요약 문자열
  * @example getMemberSummary([{ memberRole: 'PM' }, { memberRole: 'DESIGN' }]) // { count: 2, detail: 'PM 1명 · Designer 1명' }
  */
-export const getMemberSummary = (members?: Array<{ memberRole?: string } | undefined>) => {
-  const roles = (members ?? []).map((member) => member?.memberRole).filter((role): role is string => !!role);
+export const getMemberSummary = (members: Array<{ memberRole?: string }>) => {
+  const roles = members.map((member) => member.memberRole).filter((role): role is string => !!role);
   const roleCount = roles.reduce<Record<string, number>>((acc, role) => {
     const label = MemberRoleInfo[role as keyof typeof MemberRoleInfo] ?? role;
     acc[label] = (acc[label] ?? 0) + 1;
