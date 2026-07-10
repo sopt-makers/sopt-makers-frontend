@@ -647,6 +647,27 @@ export interface CompletedMakeGroupProperties {
   from_resume: boolean;
 }
 
+export interface CompletedMakeGroupSuggestProperties {
+  location?: string;
+  platform_type?: string;
+  /**
+   * 모임수요의 고유 ID 값을 의미합니다.
+   *
+   * | Rule | Value |
+   * |---|---|
+   * | Type | number |
+   */
+  suggest_id?: number;
+  /**
+   * 유저 아이디값
+   *
+   * | Rule | Value |
+   * |---|---|
+   * | Type | integer |
+   */
+  user_id?: number;
+}
+
 export interface FilterListOptionManagementProperties {
   /**
    * | Rule | Value |
@@ -1103,6 +1124,14 @@ export class CompletedMakeGroup implements BaseEvent {
   event_type = 'Completed-makeGroup';
 
   constructor(public event_properties: CompletedMakeGroupProperties) {
+    this.event_properties = event_properties;
+  }
+}
+
+export class CompletedMakeGroupSuggest implements BaseEvent {
+  event_type = 'Completed-makeGroupSuggest';
+
+  constructor(public event_properties?: CompletedMakeGroupSuggestProperties) {
     this.event_properties = event_properties;
   }
 }
@@ -1717,7 +1746,7 @@ export class Ampli {
    *
    * [View in Tracking Plan](https://data.amplitude.com/sopt-makers/sopt-makers-crew-prd/events/main/latest/Click-GroupDemandCreateCTA)
    *
-   * 모임 수요 영역에서 **모임 제안하기**CTA를 클릭한 경우 발생하는 이벤트
+   * 홈 모임 수요 영역에서 **모임 제안하기**CTA를 클릭한 경우 발생하는 이벤트
    *
    * @param properties The event's properties (e.g. location)
    * @param options Amplitude event options.
@@ -2155,6 +2184,23 @@ export class Ampli {
     options?: EventOptions,
   ) {
     return this.track(new CompletedMakeGroup(properties), options);
+  }
+
+  /**
+   * Completed-makeGroupSuggest
+   *
+   * [View in Tracking Plan](https://data.amplitude.com/sopt-makers/sopt-makers-crew-prd/events/main/latest/Completed-makeGroupSuggest)
+   *
+   * Event has no description in tracking plan.
+   *
+   * @param properties The event's properties (e.g. location)
+   * @param options Amplitude event options.
+   */
+  completedMakeGroupSuggest(
+    properties?: CompletedMakeGroupSuggestProperties,
+    options?: EventOptions,
+  ) {
+    return this.track(new CompletedMakeGroupSuggest(properties), options);
   }
 
   /**
