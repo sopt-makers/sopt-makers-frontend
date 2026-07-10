@@ -1,18 +1,23 @@
 import { useCreateMeetingDemandMutation } from '@api/meetingDemand/mutation';
 import type { CreateMeetingDemandRequest } from '@api/meetingDemand/type';
+import { useUserProfileQueryOption } from '@api/user/query';
 import AdditionalInfoSection from '@domain/suggest/AdditionalInfoSection';
 import Header from '@domain/suggest/Header';
 import RequiredInfoSection from '@domain/suggest/RequiredInfoSection';
 import type { SuggestFormValues } from '@domain/suggest/schema';
 import { suggestFormSchema } from '@domain/suggest/schema';
 import SubmitButton from '@domain/suggest/SubmitButton';
+import { useDisplay } from '@hook/useDisplay';
 import useModal from '@hook/useModal';
 import { zodResolver } from '@hookform/resolvers/zod';
 import ConfirmationModal from '@shared/modal/ConfirmationModal';
 import { spacing } from '@sopt-mds/design-tokens';
+import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { FormProvider, useForm } from 'react-hook-form';
 import { styled } from 'stitches.config';
+
+import { ampli } from '@/ampli';
 
 const getCreateMeetingDemandRequest = ({ joinInfo, ...formValues }: SuggestFormValues): CreateMeetingDemandRequest => {
   const hasJoinInfo = joinInfo?.meetingType != null || joinInfo?.meetingFrequency != null;
@@ -25,6 +30,8 @@ const getCreateMeetingDemandRequest = ({ joinInfo, ...formValues }: SuggestFormV
 
 const SuggestMeetingPage = () => {
   const router = useRouter();
+  const { isMobile } = useDisplay();
+  const { data: me } = useQuery(useUserProfileQueryOption());
   const { mutate: mutateCreateMeetingDemand, isPending } = useCreateMeetingDemandMutation();
   const confirmationModal = useModal();
   const formMethods = useForm<SuggestFormValues>({
@@ -45,6 +52,12 @@ const SuggestMeetingPage = () => {
   const handleConfirm = formMethods.handleSubmit((formValues) => {
     mutateCreateMeetingDemand(getCreateMeetingDemandRequest(formValues), {
       onSuccess: ({ meetingDemandId }) => {
+        ampli.completedMakeGroupSuggest({
+          location: router.pathname,
+          platform_type: isMobile ? 'MO' : 'PC',
+          suggest_id: meetingDemandId,
+          user_id: Number(me?.orgId),
+        });
         confirmationModal.handleModalClose();
         formMethods.reset();
         router.push(`/suggest/detail?id=${meetingDemandId}`);

@@ -160,6 +160,7 @@ const FeedPanel = ({ isMember }: FeedPanelProps) => {
                   crew_status: meeting?.approved,
                   platform_type: isMobile ? 'MO' : 'PC',
                   location: router.pathname,
+                  from_mumu_letter: false,
                 })
               }
               Actions={FeedActionsContainer({

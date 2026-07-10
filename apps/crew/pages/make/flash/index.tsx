@@ -1,9 +1,12 @@
 import { usePostFlashMutation } from '@api/flash/mutation';
+import { useUserProfileQueryOption } from '@api/user/query';
 import BungaeIcon from '@assets/svg/bungae.svg';
+import { useDisplay } from '@hook/useDisplay';
 import { zodResolver } from '@hookform/resolvers/zod';
 import FlashPresentation from '@shared/form/Presentation/FlashPresentation';
 import { colors } from '@sopt-makers/colors';
 import { fontsObject } from '@sopt-makers/fonts';
+import { useQuery } from '@tanstack/react-query';
 import type { FlashFormType } from '@type/form';
 import { flashSchema } from '@type/form';
 import dynamic from 'next/dynamic';
@@ -20,6 +23,8 @@ const DevTool = dynamic(() => import('@hookform/devtools').then((module) => modu
 
 const Flash = () => {
   const router = useRouter();
+  const { isMobile } = useDisplay();
+  const { data: me } = useQuery(useUserProfileQueryOption());
   const formMethods = useForm<FlashFormType>({
     mode: 'onChange',
     resolver: zodResolver(flashSchema),
@@ -42,7 +47,16 @@ const Flash = () => {
   const onSubmit: SubmitHandler<FlashFormType> = async (formData) => {
     mutateCreateFlash(formData, {
       onSuccess: (data) => {
-        ampli.completedMakeGroup({ from_resume: false });
+        ampli.completedMakeGroup({
+          from_resume: false,
+          from_group_suggest: false,
+          group_category: '번쩍',
+          group_id: data.meetingId,
+          group_owner_id: Number(me?.orgId),
+          location: router.pathname,
+          platform_type: isMobile ? 'MO' : 'PC',
+          user_id: Number(me?.orgId),
+        });
         router.push(`/detail/flash?id=${data.meetingId}`);
       },
     });
