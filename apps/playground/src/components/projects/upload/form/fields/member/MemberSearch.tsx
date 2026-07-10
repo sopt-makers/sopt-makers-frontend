@@ -62,7 +62,7 @@ const MemberSearch = ({
   return (
     <StyledSearch className={className} shouldFilter={false} isError={isError}>
       <StyledIconSearchOutlined />
-      {selectedMember ? (
+      {selectedMember != undefined ? (
         <StyledLabel>
           <p>{selectedMember.name}</p>
           <StyledIconClear onClick={handleClear} alt='검색된 멤버 제거 아이콘' />
