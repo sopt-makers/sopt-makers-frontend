@@ -692,9 +692,37 @@ export interface CompletedFeedPostingCanceledProperties {
 
 export interface CompletedMakeGroupProperties {
   /**
+   * 모임 수요 상세에서 **열어볼래요** CTA를 통해 진입했는지 구분하기 위한 유입소스를 의미합니다.
+   */
+  from_group_suggest?: boolean;
+  /**
    * 사용자가 ‘이어서 쓰기’를 통해 모임 개설하기 페이지에 진입했는지를 의미합니다.
    */
   from_resume: boolean;
+  group_category?: string;
+  /**
+   * | Rule | Value |
+   * |---|---|
+   * | Type | integer |
+   */
+  group_id?: number;
+  /**
+   * | Rule | Value |
+   * |---|---|
+   * | Type | integer |
+   */
+  group_owner_id?: number;
+  group_status?: string;
+  location?: string;
+  platform_type?: string;
+  /**
+   * 유저 아이디값
+   *
+   * | Rule | Value |
+   * |---|---|
+   * | Type | integer |
+   */
+  user_id?: number;
 }
 
 export interface CompletedMakeGroupSuggestProperties {
@@ -2274,9 +2302,9 @@ export class Ampli {
    *
    * [View in Tracking Plan](https://data.amplitude.com/sopt-makers/sopt-makers-crew-prd/events/main/latest/Completed-makeGroup)
    *
-   * 모임 생성을 완료했을 경우
+   * 모임 생성을 완료했을 경우에 대한 이벤트를 의미합니다
    *
-   * @param properties The event's properties (e.g. from_resume)
+   * @param properties The event's properties (e.g. from_group_suggest)
    * @param options Amplitude event options.
    */
   completedMakeGroup(
