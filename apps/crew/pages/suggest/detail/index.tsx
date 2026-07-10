@@ -105,6 +105,12 @@ const SuggestDetailPage = () => {
   };
 
   const handleClickCta = () => {
+    ampli.clickMakeGroup({
+      from_group_suggest: true,
+      location: router.pathname,
+      platform_type: isMobile ? 'MO' : 'PC',
+      user_id: Number(me?.orgId),
+    });
     router.push(`/make?meetingDemandId=${meetingDemandId}`);
   };
 

@@ -422,7 +422,26 @@ export interface ClickGroupSuggestWaitProperties {
 }
 
 export interface ClickMakeGroupProperties {
+  /**
+   * 모임 수요 상세에서 **열어볼래요** CTA를 통해 진입했는지 구분하기 위한 유입소스를 의미합니다.
+   */
+  from_group_suggest?: boolean;
+  /**
+   * | Rule | Value |
+   * |---|---|
+   * | Type | integer |
+   */
+  group_id?: number;
   location?: string;
+  platform_type?: string;
+  /**
+   * 유저 아이디값
+   *
+   * | Rule | Value |
+   * |---|---|
+   * | Type | integer |
+   */
+  user_id?: number;
 }
 
 export interface ClickMemberStatusProperties {
@@ -1908,7 +1927,7 @@ export class Ampli {
    *
    * Event has no description in tracking plan.
    *
-   * @param properties The event's properties (e.g. location)
+   * @param properties The event's properties (e.g. from_group_suggest)
    * @param options Amplitude event options.
    */
   clickMakeGroup(
