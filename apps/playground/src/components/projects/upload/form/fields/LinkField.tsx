@@ -18,7 +18,7 @@ interface LinkFieldProps {
 }
 
 const LinkField = ({ className, value, onChange, onRemove }: LinkFieldProps) => {
-  const onBlur = (e: React.FocusEvent<HTMLInputElement, Element>) => {
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement, Element>) => {
     const linkUrl = e.target.value;
     if (linkUrl && !/^https?:\/\//i.test(linkUrl)) {
       onChange({
@@ -28,14 +28,14 @@ const LinkField = ({ className, value, onChange, onRemove }: LinkFieldProps) => 
     }
   };
 
-  const onSelectLinkTitle = (linkTitle: string) => {
+  const handleSelectLinkTitle = (linkTitle: string) => {
     onChange({
       ...value,
       linkTitle,
     });
   };
 
-  const onChangeLinkUrl = (linkUrl: string) => {
+  const handleChangeLinkUrl = (linkUrl: string) => {
     onChange({
       ...value,
       linkUrl,
@@ -49,7 +49,7 @@ const LinkField = ({ className, value, onChange, onRemove }: LinkFieldProps) => 
           <StyledSelect
             width='100%'
             value={value.linkTitle}
-            onChange={(e) => onSelectLinkTitle(e.target.value)}
+            onChange={(e) => handleSelectLinkTitle(e.target.value)}
             hasValue={!!value.linkTitle}
           >
             {linkTitles.map((title) => (
@@ -64,8 +64,8 @@ const LinkField = ({ className, value, onChange, onRemove }: LinkFieldProps) => 
           <StyledInput
             placeholder={HTTPS_PREFIX}
             value={value.linkUrl}
-            onChange={(e) => onChangeLinkUrl(e.target.value)}
-            onBlur={onBlur}
+            onChange={(e) => handleChangeLinkUrl(e.target.value)}
+            onBlur={handleBlur}
           />
         </StyledInputWrapper>
       </StyledFormContainer>
