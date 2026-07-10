@@ -39,7 +39,15 @@ const SuggestSectionContent = ({ title, description }: SuggestSectionProps) => {
     router.push(`/suggest/detail?id=${meetingDemandId}`);
   };
 
-  const handleWaitingChange = (meetingDemandId: number) => {
+  const handleWaitingChange = (meetingDemandId: number, status: string) => {
+    ampli.clickGroupSuggestWait({
+      location: router.pathname,
+      platform_type: isMobile ? 'MO' : 'PC',
+      suggest_id: meetingDemandId,
+      suggest_status: status === 'BEFORE_OPEN' ? 'BEFORE_OPEN' : 'OPEN',
+      user_id: Number(me.orgId),
+    });
+
     switchMeetingDemandWait(meetingDemandId);
   };
 
