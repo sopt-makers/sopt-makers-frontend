@@ -102,6 +102,7 @@ function FeedCreateWithSelectMeetingModal({ isModalOpened, handleModalClose, isM
       ampli.completedFeedPostingCanceled({
         user_id: Number(me?.orgId),
         platform_type: platform,
+        from_mumu_letter: isMumuEntry,
       });
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
