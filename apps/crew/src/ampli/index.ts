@@ -358,6 +358,19 @@ export interface ClickGroupCardProperties {
   group_title?: string;
 }
 
+export interface ClickGroupDemandCreateCtaProperties {
+  location?: string;
+  platform_type?: string;
+  /**
+   * 유저 아이디값
+   *
+   * | Rule | Value |
+   * |---|---|
+   * | Type | integer |
+   */
+  user_id?: number;
+}
+
 export interface ClickMakeGroupProperties {
   location?: string;
 }
@@ -374,6 +387,7 @@ export interface ClickMumuAnswerProperties {
    */
   group_id?: number;
   location?: string;
+  platform_type?: string;
   /**
    * 유저 아이디값
    *
@@ -392,6 +406,7 @@ export interface ClickMumuFeedViewCtaProperties {
    */
   group_id?: number;
   location?: string;
+  platform_type?: string;
   /**
    * 유저 아이디값
    *
@@ -590,11 +605,17 @@ export interface CompletedCommentPostingProperties {
 }
 
 export interface CompletedFeedPostingProperties {
-  feed_type?: any;
-  feed_upload?: any;
-  from_mumu_letter?: boolean;
-  location?: string;
-  platform_type?: string;
+  'feed_type (삭제해야돼용'?: {
+    ''?: {
+      ' 잘못만듦)'?: {
+        [k: string]: any;
+      };
+    };
+  };
+  'feed_upload'?: any;
+  'from_mumu_letter'?: boolean;
+  'location'?: string;
+  'platform_type'?: string;
   /**
    * 유저 아이디값
    *
@@ -602,7 +623,7 @@ export interface CompletedFeedPostingProperties {
    * |---|---|
    * | Type | integer |
    */
-  user_id?: number;
+  'user_id'?: number;
 }
 
 export interface CompletedFeedPostingCanceledProperties {
@@ -894,6 +915,14 @@ export class ClickGroupCard implements BaseEvent {
   event_type = 'Click-groupCard';
 
   constructor(public event_properties?: ClickGroupCardProperties) {
+    this.event_properties = event_properties;
+  }
+}
+
+export class ClickGroupDemandCreateCta implements BaseEvent {
+  event_type = 'Click-GroupDemandCreateCTA';
+
+  constructor(public event_properties?: ClickGroupDemandCreateCtaProperties) {
     this.event_properties = event_properties;
   }
 }
@@ -1684,6 +1713,23 @@ export class Ampli {
   }
 
   /**
+   * Click-GroupDemandCreateCTA
+   *
+   * [View in Tracking Plan](https://data.amplitude.com/sopt-makers/sopt-makers-crew-prd/events/main/latest/Click-GroupDemandCreateCTA)
+   *
+   * 모임 수요 영역에서 **모임 제안하기**CTA를 클릭한 경우 발생하는 이벤트
+   *
+   * @param properties The event's properties (e.g. location)
+   * @param options Amplitude event options.
+   */
+  clickGroupDemandCreateCta(
+    properties?: ClickGroupDemandCreateCtaProperties,
+    options?: EventOptions,
+  ) {
+    return this.track(new ClickGroupDemandCreateCta(properties), options);
+  }
+
+  /**
    * Click-makebymeGroup
    *
    * [View in Tracking Plan](https://data.amplitude.com/sopt-makers/sopt-makers-crew-prd/events/main/latest/Click-makebymeGroup)
@@ -2067,7 +2113,7 @@ export class Ampli {
    *
    * Event has no description in tracking plan.
    *
-   * @param properties The event's properties (e.g. feed_type)
+   * @param properties The event's properties (e.g. feed_type (삭제해야돼용)
    * @param options Amplitude event options.
    */
   completedFeedPosting(
