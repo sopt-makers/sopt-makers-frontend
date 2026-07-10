@@ -181,6 +181,17 @@ export interface ClickEventApplyProperties {
   user_id?: number;
 }
 
+export interface ClickEventbannerProperties {
+  /**
+   * cta 버튼을 누른 고유 ID 값을 의미
+   *
+   * | Rule | Value |
+   * |---|---|
+   * | Type | number |
+   */
+  event_id?: number;
+}
+
 export interface ClickEventbannerMainCtaProperties {
   /**
    * cta 버튼을 누른 고유 ID 값을 의미
@@ -254,6 +265,7 @@ export interface ClickFeedCardProperties {
   feed_like_total?: number;
   feed_title?: string;
   feed_upload?: any;
+  from_mumu_letter?: boolean;
   /**
    * | Rule | Value |
    * |---|---|
@@ -352,6 +364,42 @@ export interface ClickMakeGroupProperties {
 
 export interface ClickMemberStatusProperties {
   crew_status?: boolean;
+}
+
+export interface ClickMumuAnswerProperties {
+  /**
+   * | Rule | Value |
+   * |---|---|
+   * | Type | integer |
+   */
+  group_id?: number;
+  location?: string;
+  /**
+   * 유저 아이디값
+   *
+   * | Rule | Value |
+   * |---|---|
+   * | Type | integer |
+   */
+  user_id?: number;
+}
+
+export interface ClickMumuFeedViewCtaProperties {
+  /**
+   * | Rule | Value |
+   * |---|---|
+   * | Type | integer |
+   */
+  group_id?: number;
+  location?: string;
+  /**
+   * 유저 아이디값
+   *
+   * | Rule | Value |
+   * |---|---|
+   * | Type | integer |
+   */
+  user_id?: number;
 }
 
 export interface ClickNavbarGroupProperties {
@@ -542,7 +590,9 @@ export interface CompletedCommentPostingProperties {
 }
 
 export interface CompletedFeedPostingProperties {
+  feed_type?: any;
   feed_upload?: any;
+  from_mumu_letter?: boolean;
   location?: string;
   platform_type?: string;
   /**
@@ -556,6 +606,7 @@ export interface CompletedFeedPostingProperties {
 }
 
 export interface CompletedFeedPostingCanceledProperties {
+  from_mumu_letter?: boolean;
   location?: string;
   platform_type?: string;
   /**
@@ -715,6 +766,14 @@ export class ClickEventApply implements BaseEvent {
   }
 }
 
+export class ClickEventbanner implements BaseEvent {
+  event_type = 'Click-eventbanner';
+
+  constructor(public event_properties?: ClickEventbannerProperties) {
+    this.event_properties = event_properties;
+  }
+}
+
 export class ClickEventbannerMainCta implements BaseEvent {
   event_type = 'Click-eventbanner-mainCTA';
 
@@ -867,6 +926,22 @@ export class ClickMemberStatus implements BaseEvent {
   event_type = 'Click-memberStatus';
 
   constructor(public event_properties?: ClickMemberStatusProperties) {
+    this.event_properties = event_properties;
+  }
+}
+
+export class ClickMumuAnswer implements BaseEvent {
+  event_type = 'Click-mumu-answer';
+
+  constructor(public event_properties?: ClickMumuAnswerProperties) {
+    this.event_properties = event_properties;
+  }
+}
+
+export class ClickMumuFeedViewCta implements BaseEvent {
+  event_type = 'Click-mumuFeedView-CTA';
+
+  constructor(public event_properties?: ClickMumuFeedViewCtaProperties) {
     this.event_properties = event_properties;
   }
 }
@@ -1309,6 +1384,23 @@ export class Ampli {
   }
 
   /**
+   * Click-eventbanner
+   *
+   * [View in Tracking Plan](https://data.amplitude.com/sopt-makers/sopt-makers-crew-prd/events/main/latest/Click-eventbanner)
+   *
+   * 유저가 행사 전용 배너 **CTA 외 배너 영역을 클릭 시도**할 때 발생하는 이벤트
+   *
+   * @param properties The event's properties (e.g. event_id)
+   * @param options Amplitude event options.
+   */
+  clickEventbanner(
+    properties?: ClickEventbannerProperties,
+    options?: EventOptions,
+  ) {
+    return this.track(new ClickEventbanner(properties), options);
+  }
+
+  /**
    * Click-eventbanner-mainCTA
    *
    * [View in Tracking Plan](https://data.amplitude.com/sopt-makers/sopt-makers-crew-prd/events/main/latest/Click-eventbanner-mainCTA)
@@ -1686,6 +1778,40 @@ export class Ampli {
   }
 
   /**
+   * Click-mumu-answer
+   *
+   * [View in Tracking Plan](https://data.amplitude.com/sopt-makers/sopt-makers-crew-prd/events/main/latest/Click-mumu-answer)
+   *
+   * 홈 내 무무의 편지에 **답장하러가기** 버튼 클릭했을 때 발생
+   *
+   * @param properties The event's properties (e.g. group_id)
+   * @param options Amplitude event options.
+   */
+  clickMumuAnswer(
+    properties?: ClickMumuAnswerProperties,
+    options?: EventOptions,
+  ) {
+    return this.track(new ClickMumuAnswer(properties), options);
+  }
+
+  /**
+   * Click-mumuFeedView-CTA
+   *
+   * [View in Tracking Plan](https://data.amplitude.com/sopt-makers/sopt-makers-crew-prd/events/main/latest/Click-mumuFeedView-CTA)
+   *
+   * 무무의 편지 답장 작성 완료 후, **전체 피드 보러가기** CTA를 클릭한 경우 발생하는 이벤트
+   *
+   * @param properties The event's properties (e.g. group_id)
+   * @param options Amplitude event options.
+   */
+  clickMumuFeedViewCta(
+    properties?: ClickMumuFeedViewCtaProperties,
+    options?: EventOptions,
+  ) {
+    return this.track(new ClickMumuFeedViewCta(properties), options);
+  }
+
+  /**
    * Click-navbarGroup
    *
    * [View in Tracking Plan](https://data.amplitude.com/sopt-makers/sopt-makers-crew-prd/events/main/latest/Click-navbarGroup)
@@ -1941,7 +2067,7 @@ export class Ampli {
    *
    * Event has no description in tracking plan.
    *
-   * @param properties The event's properties (e.g. feed_upload)
+   * @param properties The event's properties (e.g. feed_type)
    * @param options Amplitude event options.
    */
   completedFeedPosting(
@@ -1958,7 +2084,7 @@ export class Ampli {
    *
    * Event has no description in tracking plan.
    *
-   * @param properties The event's properties (e.g. location)
+   * @param properties The event's properties (e.g. from_mumu_letter)
    * @param options Amplitude event options.
    */
   completedFeedPostingCanceled(

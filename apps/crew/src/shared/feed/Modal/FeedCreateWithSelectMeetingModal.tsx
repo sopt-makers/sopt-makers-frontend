@@ -93,6 +93,7 @@ function FeedCreateWithSelectMeetingModal({ isModalOpened, handleModalClose, isM
       user_id: Number(me?.orgId),
       platform_type: platform,
       feed_upload: formatDate(),
+      from_mumu_letter: isMumuEntry,
     });
   }, 5000);
 
