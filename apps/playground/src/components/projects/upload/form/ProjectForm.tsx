@@ -162,7 +162,7 @@ const ProjectForm = ({
                 render={({ field }) => (
                   <MemberField
                     errorMessage={{
-                      ...(errors.members && {
+                      ...(errors.members?.length && {
                         memberId: errors.members[index]?.memberId?.message,
                         memberRole: errors.members[index]?.memberRole?.message,
                       }),
@@ -204,7 +204,7 @@ const ProjectForm = ({
                 render={({ field }) => (
                   <MemberField
                     errorMessage={{
-                      ...(errors.releaseMembers && {
+                      ...(errors.releaseMembers?.length && {
                         memberId: errors.releaseMembers[index]?.memberId?.message,
                         memberRole: errors.releaseMembers[index]?.memberRole?.message,
                       }),
