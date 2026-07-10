@@ -1,12 +1,15 @@
 import { useSwitchMeetingDemandWaitMutation } from '@api/meetingDemand/mutation';
 import { useMeetingDemandListInfiniteQueryOption } from '@api/meetingDemand/query';
+import { useUserProfileQueryOption } from '@api/user/query';
 import { useDisplay } from '@hook/useDisplay';
 import { colors, spacing, typography } from '@sopt-mds/design-tokens';
 import { ActionButton } from '@sopt-mds/ui';
 import { Suspense } from '@suspensive/react';
-import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
+import { useSuspenseInfiniteQuery, useSuspenseQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { styled } from 'stitches.config';
+
+import { ampli } from '@/ampli';
 
 import CardList from '../CardList';
 
@@ -21,17 +24,40 @@ const SuggestSectionContent = ({ title, description }: SuggestSectionProps) => {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useSuspenseInfiniteQuery(
     useMeetingDemandListInfiniteQueryOption(),
   );
+  const { data: me } = useSuspenseQuery(useUserProfileQueryOption());
   const { mutate: switchMeetingDemandWait } = useSwitchMeetingDemandWaitMutation();
 
-  const handleCardClick = (meetingDemandId: number) => {
+  const handleCardClick = (meetingDemandId: number, status: string) => {
+    ampli.clickGroupSuggestCard({
+      location: router.pathname,
+      platform_type: isMobile ? 'MO' : 'PC',
+      suggest_id: meetingDemandId,
+      suggest_status: status === 'BEFORE_OPEN' ? 'BEFORE_OPEN' : 'OPEN',
+      user_id: Number(me.orgId),
+    });
+
     router.push(`/suggest/detail?id=${meetingDemandId}`);
   };
 
-  const handleWaitingChange = (meetingDemandId: number) => {
+  const handleWaitingChange = (meetingDemandId: number, status: string) => {
+    ampli.clickGroupSuggestWait({
+      location: router.pathname,
+      platform_type: isMobile ? 'MO' : 'PC',
+      suggest_id: meetingDemandId,
+      suggest_status: status === 'BEFORE_OPEN' ? 'BEFORE_OPEN' : 'OPEN',
+      user_id: Number(me.orgId),
+    });
+
     switchMeetingDemandWait(meetingDemandId);
   };
 
   const handleSuggestClick = () => {
+    ampli.clickGroupDemandCreateCta({
+      location: router.pathname,
+      platform_type: isMobile ? 'MO' : 'PC',
+      user_id: Number(me.orgId),
+    });
+
     router.push('/suggest');
   };
 

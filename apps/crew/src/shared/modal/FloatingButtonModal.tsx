@@ -1,9 +1,12 @@
+import { useUserProfileQueryOption } from '@api/user/query';
 import BoltIcon from '@assets/svg/bolt_md.svg';
 import FeedIcon from '@assets/svg/floating_button_feed_icon.svg';
 import GroupIcon from '@assets/svg/floating_button_group_icon.svg';
 import MapIcon from '@assets/svg/floating_button_map_icon.svg';
 import KakaoLogoIcon from '@assets/svg/logo_kakao.svg';
+import { useDisplay } from '@hook/useDisplay';
 import { colors, radius, spacing, typography } from '@sopt-mds/design-tokens';
+import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { keyframes, styled } from 'stitches.config';
 
@@ -16,15 +19,27 @@ interface FloatingButtonModalProps {
 
 const FloatingButtonModal = ({ isActive, onClose }: FloatingButtonModalProps) => {
   const router = useRouter();
+  const { isMobile } = useDisplay();
+  const { data: me } = useQuery(useUserProfileQueryOption());
 
   const handleGroupCreateButtonClick = () => {
-    ampli.clickMakeGroup({ location: router.pathname });
+    ampli.clickMakeGroup({
+      from_group_suggest: false,
+      location: router.pathname,
+      platform_type: isMobile ? 'MO' : 'PC',
+      user_id: Number(me?.orgId),
+    });
     router.push('/make');
   };
 
   const handleBoltCreateButtonClick = () => {
     //todo: 번쩍 개설을 위한 정보를 넘겨주면서 라우팅하기
-    ampli.clickMakeGroup({ location: router.pathname });
+    ampli.clickMakeGroup({
+      from_group_suggest: false,
+      location: router.pathname,
+      platform_type: isMobile ? 'MO' : 'PC',
+      user_id: Number(me?.orgId),
+    });
     router.push('/make/flash');
   };
 

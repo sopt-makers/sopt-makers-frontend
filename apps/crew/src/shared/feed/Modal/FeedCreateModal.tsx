@@ -99,6 +99,7 @@ function FeedCreateModal({ isModalOpened, meetingId, handleModalClose }: CreateM
       platform_type: platform,
       feed_upload: formatDate(),
       location: router.pathname,
+      from_mumu_letter: false,
     });
   }, 5000);
 
@@ -113,6 +114,7 @@ function FeedCreateModal({ isModalOpened, meetingId, handleModalClose }: CreateM
         user_id: Number(me?.orgId),
         platform_type: platform,
         location: router.pathname,
+        from_mumu_letter: false,
       });
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps

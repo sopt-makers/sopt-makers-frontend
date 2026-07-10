@@ -1,4 +1,5 @@
 import { useMumuPostHomeQueryOption } from '@api/post/query';
+import { useUserProfileQueryOption } from '@api/user/query';
 import Letter from '@assets/svg/letter.svg';
 import PaperAirplane from '@assets/svg/paper_airplane.svg';
 import { useDisplay } from '@hook/useDisplay';
@@ -8,6 +9,8 @@ import { ErrorBoundary, Suspense } from '@suspensive/react';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { styled } from 'stitches.config';
+
+import { ampli } from '@/ampli';
 
 import MumuFeedCardList from '../MumuFeedCardList';
 
@@ -20,6 +23,7 @@ const MumuLetterSectionContent = ({ title, description }: MumuLetterSectionProps
   const router = useRouter();
   const { isMobile } = useDisplay();
   const { data } = useSuspenseQuery(useMumuPostHomeQueryOption());
+  const { data: me } = useSuspenseQuery(useUserProfileQueryOption());
   const {
     isEmptyAppliedMeeting,
     hasWrittenTodayMumuPost: isReplied,
@@ -31,7 +35,15 @@ const MumuLetterSectionContent = ({ title, description }: MumuLetterSectionProps
   // 신규 회원이거나, 모임에 참여한 적이 없는 경우에는 일단 무무 편지 섹션을 노출하지 않음. 추후 생길 예정
   if (isEmptyAppliedMeeting) return null;
 
+  const mumuCtaEventProperties = {
+    location: router.pathname,
+    platform_type: isMobile ? 'MO' : 'PC',
+    user_id: Number(me.orgId),
+  };
+
   const handleReplyClick = () => {
+    ampli.clickMumuAnswer(mumuCtaEventProperties);
+
     router.push(
       {
         pathname: router.pathname,
@@ -47,6 +59,8 @@ const MumuLetterSectionContent = ({ title, description }: MumuLetterSectionProps
   };
 
   const handleViewAllClick = () => {
+    ampli.clickMumuFeedViewCta(mumuCtaEventProperties);
+
     window.location.assign('/feed');
   };
 

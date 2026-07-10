@@ -1,11 +1,14 @@
 import { usePostMeetingMutation } from '@api/meeting/mutation';
+import { useUserProfileQueryOption } from '@api/user/query';
 import useDraftCreateMeeting from '@domain/meeting/DraftCreateMeetingModal';
+import { useDisplay } from '@hook/useDisplay';
 import useThrottle from '@hook/useThrottle';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Presentation from '@shared/form/Presentation';
 import TableOfContents from '@shared/form/TableOfContents';
 import { colors } from '@sopt-makers/colors';
 import { fontsObject } from '@sopt-makers/fonts';
+import { useQuery } from '@tanstack/react-query';
 import type { FormType } from '@type/form';
 import { createSchema } from '@type/form';
 import dynamic from 'next/dynamic';
@@ -25,7 +28,9 @@ const DevTool = dynamic(() => import('@hookform/devtools').then((module) => modu
 
 const MakePage = () => {
   const router = useRouter();
+  const { isMobile } = useDisplay();
   const meetingDemandId = router.query.meetingDemandId ? Number(router.query.meetingDemandId) : undefined;
+  const { data: me } = useQuery(useUserProfileQueryOption());
   const { draftFormValues, removeDraftCreateMeeting } = useDraftCreateMeeting();
   const formMethods = useForm<FormType>({
     mode: 'onChange',
@@ -58,7 +63,16 @@ const MakePage = () => {
   const onSubmit: SubmitHandler<FormType> = async (formData) => {
     mutateCreateMeeting(formData, {
       onSuccess: (data) => {
-        ampli.completedMakeGroup({ from_resume: false });
+        ampli.completedMakeGroup({
+          from_resume: false,
+          from_group_suggest: meetingDemandId != null,
+          group_category: formData.category.value,
+          group_id: data.meetingId,
+          group_owner_id: Number(me?.orgId),
+          location: router.pathname,
+          platform_type: isMobile ? 'MO' : 'PC',
+          user_id: Number(me?.orgId),
+        });
         submittedRef.current = true;
         removeDraftCreateMeeting();
         alert('모임을 개설했습니다.');
