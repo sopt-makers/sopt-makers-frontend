@@ -12,7 +12,7 @@ interface CardListProps {
   hasNextPage: boolean;
   isFetchingNextPage: boolean;
   onFetchNextPage: () => Promise<unknown>;
-  onCardClick: (meetingDemandId: number) => void;
+  onCardClick: (meetingDemandId: number, status: string) => void;
   onWaitingChange: (meetingDemandId: number, isWaiting: boolean) => void;
 }
 
@@ -53,7 +53,7 @@ const CardList = ({
                   <li key={suggestion.id}>
                     <SuggestionCard
                       suggestion={suggestion}
-                      onClick={() => onCardClick(suggestion.id)}
+                      onClick={() => onCardClick(suggestion.id, suggestion.status)}
                       onWaitingChange={(isWaiting) => onWaitingChange(suggestion.id, isWaiting)}
                     />
                   </li>

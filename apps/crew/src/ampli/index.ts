@@ -371,6 +371,31 @@ export interface ClickGroupDemandCreateCtaProperties {
   user_id?: number;
 }
 
+export interface ClickGroupSuggestCardProperties {
+  location?: string;
+  platform_type?: string;
+  /**
+   * 모임수요의 고유 ID 값을 의미합니다.
+   *
+   * | Rule | Value |
+   * |---|---|
+   * | Type | number |
+   */
+  suggest_id?: number;
+  /**
+   * 모임 수요의 현재 개설 상태를 구분하는 값 **개설전 /개설 완료**
+   */
+  suggest_status?: string;
+  /**
+   * 유저 아이디값
+   *
+   * | Rule | Value |
+   * |---|---|
+   * | Type | integer |
+   */
+  user_id?: number;
+}
+
 export interface ClickMakeGroupProperties {
   location?: string;
 }
@@ -944,6 +969,14 @@ export class ClickGroupDemandCreateCta implements BaseEvent {
   event_type = 'Click-GroupDemandCreateCTA';
 
   constructor(public event_properties?: ClickGroupDemandCreateCtaProperties) {
+    this.event_properties = event_properties;
+  }
+}
+
+export class ClickGroupSuggestCard implements BaseEvent {
+  event_type = 'Click-GroupSuggestCard';
+
+  constructor(public event_properties?: ClickGroupSuggestCardProperties) {
     this.event_properties = event_properties;
   }
 }
@@ -1756,6 +1789,23 @@ export class Ampli {
     options?: EventOptions,
   ) {
     return this.track(new ClickGroupDemandCreateCta(properties), options);
+  }
+
+  /**
+   * Click-GroupSuggestCard
+   *
+   * [View in Tracking Plan](https://data.amplitude.com/sopt-makers/sopt-makers-crew-prd/events/main/latest/Click-GroupSuggestCard)
+   *
+   * 모임 수요 카드를 클릭한 경우 발생하는 이벤트
+   *
+   * @param properties The event's properties (e.g. location)
+   * @param options Amplitude event options.
+   */
+  clickGroupSuggestCard(
+    properties?: ClickGroupSuggestCardProperties,
+    options?: EventOptions,
+  ) {
+    return this.track(new ClickGroupSuggestCard(properties), options);
   }
 
   /**

@@ -27,7 +27,15 @@ const SuggestSectionContent = ({ title, description }: SuggestSectionProps) => {
   const { data: me } = useSuspenseQuery(useUserProfileQueryOption());
   const { mutate: switchMeetingDemandWait } = useSwitchMeetingDemandWaitMutation();
 
-  const handleCardClick = (meetingDemandId: number) => {
+  const handleCardClick = (meetingDemandId: number, status: string) => {
+    ampli.clickGroupSuggestCard({
+      location: router.pathname,
+      platform_type: isMobile ? 'MO' : 'PC',
+      suggest_id: meetingDemandId,
+      suggest_status: status === 'BEFORE_OPEN' ? 'BEFORE_OPEN' : 'OPEN',
+      user_id: Number(me.orgId),
+    });
+
     router.push(`/suggest/detail?id=${meetingDemandId}`);
   };
 
