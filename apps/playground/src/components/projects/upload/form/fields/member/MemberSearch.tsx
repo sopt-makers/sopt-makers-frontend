@@ -47,7 +47,7 @@ const MemberSearch = ({
     searchMember,
     getMemberById,
   });
-  const selectedMember = selectedMemberProp || defaultValue;
+  const selectedMember = selectedMemberProp ?? defaultValue;
 
   const handleSelect = (member: Member) => {
     onSelect(member);
