@@ -163,7 +163,7 @@ const Description = styled('p', {
   ...typography.body1,
 
   '@mobile': {
-    ...typography.label3,
+    ...typography.body2,
   },
 });
 
