@@ -72,7 +72,7 @@ const SuggestSectionContent = ({ title, description }: SuggestSectionProps) => {
         {!isMobile && (
           <DesktopCTA>
             <DesktopCTAText>원하는 모임이 없다면?</DesktopCTAText>
-            <ActionButton size='medium' variant='primary' onClick={handleSuggestClick}>
+            <ActionButton size='large' variant='primary' onClick={handleSuggestClick}>
               모임 제안하기
             </ActionButton>
           </DesktopCTA>
@@ -94,7 +94,7 @@ const SuggestSectionContent = ({ title, description }: SuggestSectionProps) => {
             <MobileCTATitle>원하는 모임이 없다면 직접 남겨보세요!</MobileCTATitle>
             <MobileCTADescription>비슷한 생각이 모이면, 관심 있는 멤버가 모임을 열 수 있어요</MobileCTADescription>
           </MobileCTAText>
-          <ActionButton size='large' variant='primary' onClick={handleSuggestClick}>
+          <ActionButton size='medium' variant='primary' onClick={handleSuggestClick}>
             모임 제안하기
           </ActionButton>
         </MobileCTA>
@@ -159,7 +159,7 @@ const Description = styled('p', {
 const DesktopCTA = styled('div', {
   display: 'flex',
   alignItems: 'center',
-  gap: spacing.s16,
+  gap: spacing.s20,
 });
 
 const DesktopCTAText = styled('p', {

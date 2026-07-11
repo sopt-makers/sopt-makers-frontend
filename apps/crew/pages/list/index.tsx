@@ -34,7 +34,6 @@ const SListLayout = styled('div', {
   'width': '100%',
 
   '@desktop': {
-    width: '790px',
     mx: '$auto',
   },
 
