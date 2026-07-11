@@ -1,9 +1,7 @@
 import type { Meta } from '@storybook/react';
-import type { FC, PropsWithChildren } from 'react';
 import { useState } from 'react';
 
-import type { Member } from '@/components/projects/upload/form/fields/member/MemberSearchContext';
-import { MemberSearchContext } from '@/components/projects/upload/form/fields/member/MemberSearchContext';
+import type { Member } from '@/components/projects/upload/form/fields/member/useMemberSearch';
 
 import MemberSearch from './MemberSearch';
 
@@ -70,32 +68,18 @@ const dummyData: Member[] = [
   },
 ];
 
-const DummyMemberSeacrhProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
-  return (
-    <MemberSearchContext.Provider
-      value={{
-        getMemberById: async (id) => dummyData.find((data) => data.id === id),
-        searchMember: async (name) => dummyData.filter((data) => data.name.includes(name)),
-      }}
-    >
-      {children}
-    </MemberSearchContext.Provider>
-  );
-};
+const dummySearchMember = async (name: string) => dummyData.filter((data) => data.name.includes(name));
+const dummyGetMemberById = async (id: string) => dummyData.find((data) => data.id === id);
 
 export default {
   component: MemberSearch,
-  decorators: [
-    (Story) => (
-      <DummyMemberSeacrhProvider>
-        <Story />
-      </DummyMemberSeacrhProvider>
-    ),
-  ],
+  args: {
+    searchMember: dummySearchMember,
+    getMemberById: dummyGetMemberById,
+  },
 } as Meta<typeof MemberSearch>;
 
 export const Default = {
-  args: {},
   name: '기본',
 };
 
@@ -116,6 +100,13 @@ export const WithState = () => {
   };
 
   return (
-    <MemberSearch placeholder='SOPT 회원 검색' selectedMember={selectedMember} onSelect={onSelect} onClear={onClear} />
+    <MemberSearch
+      placeholder='SOPT 회원 검색'
+      selectedMember={selectedMember}
+      searchMember={dummySearchMember}
+      getMemberById={dummyGetMemberById}
+      onSelect={onSelect}
+      onClear={onClear}
+    />
   );
 };

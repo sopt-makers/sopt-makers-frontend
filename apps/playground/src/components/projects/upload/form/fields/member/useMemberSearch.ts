@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { debounce } from 'lodash-es';
-import { createContext, useContext, useState } from 'react';
+import { useState } from 'react';
 
 export type Member = {
   generation: number;
@@ -9,24 +9,15 @@ export type Member = {
   profileImage: string | null;
 };
 
-interface MemberSearchContextType {
+interface UseMemberSearchParams {
   memberId?: string;
   searchMember: (name: string) => Promise<Member[]>;
   getMemberById: (id: string) => Promise<Member | undefined>;
 }
 
-export const MemberSearchContext = createContext(
-  new Proxy({} as MemberSearchContextType, {
-    get() {
-      throw new Error('MemberSearchProvider가 필요합니다.');
-    },
-  }),
-);
-
-export function useMemberSearch() {
+export function useMemberSearch({ memberId, searchMember, getMemberById }: UseMemberSearchParams) {
   const [name, setName] = useState<string>('');
   const [searchQuery, setSearchQuery] = useState<string>('');
-  const { memberId, searchMember, getMemberById } = useContext(MemberSearchContext);
 
   const { data: searchedMemberData } = useQuery({
     queryKey: ['searchMember', searchQuery],

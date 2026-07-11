@@ -6,7 +6,6 @@ import type { Category, LinkTitle } from '@/components/projects/types';
 export type MemberFormType = {
   memberId: number;
   memberRole: MemberRole;
-  memberDescription: string;
   isTeamMember: boolean;
   memberName: string;
   memberGeneration: number;
@@ -19,7 +18,6 @@ type MemberRole = 'TEAMLEADER' | 'MAINPM' | 'PM' | 'TEAMIMPROVEMENT' | 'DESIGN' 
 
 export const DEFAULT_MEMBER: Partial<MemberFormType> = {
   memberRole: undefined,
-  memberDescription: '',
   isTeamMember: true,
   memberName: '',
   memberGeneration: undefined,

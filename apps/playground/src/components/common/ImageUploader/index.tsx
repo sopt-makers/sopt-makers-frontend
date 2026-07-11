@@ -1,6 +1,8 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
+import { colorFg } from '@sopt-mds/design-tokens';
+import { IconPlus } from '@sopt-mds/icons';
 import type { FC } from 'react';
 import { useEffect, useRef, useState } from 'react';
 
@@ -94,10 +96,7 @@ const ImageUploader: FC<ImageUploaderProps> = ({
         error={Boolean(errorMessage)}
       >
         <StyledInput type='file' accept='image/*' ref={imageInputRef} />
-        {previewImageSrc ? <StyledPreview src={previewImageSrc} alt='preview-image' /> : <EmptyIcon />}
-        <StyledSelectorControlButton type='button'>
-          <IconPencil />
-        </StyledSelectorControlButton>
+        {previewImageSrc ? <StyledPreview src={previewImageSrc} alt='preview-image' /> : <StyledIconPlus />}
         <StyledSelector ref={selectorRef} isOpen={isOpenSelector}>
           <StyledEditButton type='button' onClick={handleClickImageInput}>
             <IconPencil />
@@ -146,31 +145,17 @@ const StyledInput = styled.input`
 `;
 
 const StyledPreview = styled.img`
-  border-radius: 26px;
+  border-radius: 6px;
   width: inherit;
   height: inherit;
   object-fit: cover;
 `;
 
-const StyledSelectorControlButton = styled.button`
-  display: flex;
-  position: absolute;
-  right: 12px;
-  bottom: 12px;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  background-color: ${colors.gray600};
-  cursor: pointer;
-  width: 22px;
-  height: 22px;
-`;
-
 const StyledSelector = styled.div<{ isOpen: boolean }>`
   display: ${({ isOpen }) => (isOpen ? 'flex' : 'none')};
   position: absolute;
-  right: -40px;
-  bottom: 35px;
+  justify-content: center;
+  align-items: center;
 `;
 
 const editButtonStyle = css`
@@ -190,6 +175,7 @@ const StyledEditButton = styled.button`
   border-bottom-left-radius: 25px;
   cursor: pointer;
   line-height: 0;
+  flex-shrink: 0;
 
   ${editButtonStyle}
 
@@ -208,6 +194,13 @@ const StyledRemoveButton = styled.button`
   border-top-right-radius: 25px;
   border-bottom-right-radius: 25px;
   cursor: pointer;
+  flex-shrink: 0;
 
   ${editButtonStyle}
+`;
+
+const StyledIconPlus = styled(IconPlus)`
+  width: 24px;
+  height: 24px;
+  color: ${colorFg.neutral.ghost};
 `;
