@@ -91,7 +91,7 @@ const SuggestDetailPage = () => {
     mutateDelete(meetingDemandId, {
       onSuccess: () => {
         openToast({ icon: 'success', content: '모임 제안을 삭제했어요.' });
-        router.push('/suggest');
+        router.push('/');
       },
     });
   };
