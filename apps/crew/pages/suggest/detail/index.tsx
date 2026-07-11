@@ -58,6 +58,17 @@ const SuggestDetailPage = () => {
 
   const openedMeetings = openedMeetingsData?.meetings.map(toOpenedMeetingData) ?? [];
   const comments = commentsData?.comments.map(toCommentData) ?? [];
+  const joinInfoTags: string[] = [];
+
+  if (detail.joinInfo?.meetingType) {
+    joinInfoTags.push(`# ${detail.joinInfo.meetingType}`);
+  }
+
+  if (detail.joinInfo?.meetingFrequency) {
+    joinInfoTags.push(`# ${detail.joinInfo.meetingFrequency}`);
+  }
+
+  const detailTags = [...detail.meetingKeywordTypes, ...joinInfoTags];
 
   const handleClickWait = () => {
     ampli.clickGroupSuggestWait({
@@ -131,11 +142,7 @@ const SuggestDetailPage = () => {
             onDelete={handleDeleteSuggestion}
           />
 
-          <SuggestDetailBody
-            title={detail.shortIntro}
-            expectation={detail.expectation}
-            keywords={detail.meetingKeywordTypes}
-          />
+          <SuggestDetailBody title={detail.shortIntro} expectation={detail.expectation} tags={detailTags} />
 
           <SuggestDetailCta onClick={handleClickCta} />
         </SMainSection>

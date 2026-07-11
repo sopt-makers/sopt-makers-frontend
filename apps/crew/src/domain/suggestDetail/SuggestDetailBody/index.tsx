@@ -5,10 +5,10 @@ import { styled } from 'stitches.config';
 interface SuggestDetailBodyProps {
   title: string;
   expectation: string;
-  keywords: string[];
+  tags: string[];
 }
 
-const SuggestDetailBody = ({ title, expectation, keywords }: SuggestDetailBodyProps) => {
+const SuggestDetailBody = ({ title, expectation, tags }: SuggestDetailBodyProps) => {
   return (
     <SContainer>
       <SContentContainer>
@@ -19,9 +19,9 @@ const SuggestDetailBody = ({ title, expectation, keywords }: SuggestDetailBodyPr
       <SKeywordSection>
         <SKeywordTitle>💪🏻 이런 모임을 원해요</SKeywordTitle>
         <SKeywordList>
-          {keywords.map((keyword) => (
-            <Tag key={keyword} size='medium' shape='pill' type='solid' variant='default'>
-              {keyword}
+          {tags.map((tag) => (
+            <Tag key={tag} size='medium' shape='pill' type='solid' variant='default'>
+              {tag}
             </Tag>
           ))}
         </SKeywordList>
