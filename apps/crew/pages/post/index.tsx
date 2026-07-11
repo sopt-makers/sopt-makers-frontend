@@ -11,7 +11,7 @@ import {
   usePostViewsMutation,
   useUpdatePostLikeMutation,
 } from '@api/post/mutation';
-import { useGetPostDetailQueryOption, useGetPostListInfiniteQuery } from '@api/post/query';
+import { useGetPostDetailQueryOption, useGetPostListInfiniteQuery, useMumuTextQueryOption } from '@api/post/query';
 import { useUserProfileQueryOption } from '@api/user/query';
 import LikeButton from '@common/button/LikeButton';
 import Loader from '@common/loader/Loader';
@@ -50,6 +50,10 @@ export default function PostPage() {
   const { data: me } = useQuery(useUserProfileQueryOption());
 
   const { data: post } = useQuery(useGetPostDetailQueryOption(query.id as string));
+  const { data: mumuTextData } = useQuery({
+    ...useMumuTextQueryOption(),
+    enabled: post?.category === 'MUMU',
+  });
 
   const commentQuery = useQuery(useGetCommentQueryOption());
 
@@ -212,6 +216,7 @@ export default function PostPage() {
     <Container>
       <FeedPostViewer
         post={post}
+        mumuText={mumuTextData?.mumuText}
         viewCount={viewCount.viewCount}
         Actions={FeedActionsContainer({
           postId: post.id,

@@ -26,6 +26,7 @@ dayjs.locale('ko');
 
 interface FeedPostViewerProps {
   post: paths['/post/v2/{postId}']['get']['responses']['200']['content']['application/json;charset=UTF-8'];
+  mumuText?: string;
   viewCount: number;
   Actions: React.ReactNode[];
   CommentLikeSection: React.ReactNode;
@@ -37,6 +38,7 @@ interface FeedPostViewerProps {
 
 export default function FeedPostViewer({
   post,
+  mumuText,
   viewCount,
   Actions,
   CommentLikeSection,
@@ -104,10 +106,11 @@ export default function FeedPostViewer({
           </ButtonContainer>
         </ContentHeader>
         <ContentBody>
-          {/* @TODO: 무무씨의 편지 답장 여부/질문 내용 API 연동 후 조건부 렌더링 처리 */}
-          <MumuLetterWrapper>
-            <MumuLetter content='매일 달라지는 무무의 질문 영역이고 최대 32글자까지 늘어나요 이점을 참고해서 후후후' />
-          </MumuLetterWrapper>
+          {post.category === 'MUMU' && mumuText && (
+            <MumuLetterWrapper>
+              <MumuLetter content={mumuText} />
+            </MumuLetterWrapper>
+          )}
           <Title>{post.title}</Title>
           <Contents>{parseTextToLink(post.contents)}</Contents>
           {post.images && post.images.length > 0 && (
