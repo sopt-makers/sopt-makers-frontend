@@ -245,7 +245,6 @@ const DeliveryStatus = styled('div', {
   'display': 'inline-flex',
   'alignItems': 'center',
   'gap': spacing.s8,
-  'width': '168px',
 
   'padding': `${spacing.s8} ${spacing.s16}`,
   'backgroundColor': colors.bg.neutral.subtle,
