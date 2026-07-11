@@ -159,7 +159,7 @@ const Description = styled('p', {
 const DesktopCTA = styled('div', {
   display: 'flex',
   alignItems: 'center',
-  gap: spacing.s16,
+  gap: spacing.s20,
 });
 
 const DesktopCTAText = styled('p', {
