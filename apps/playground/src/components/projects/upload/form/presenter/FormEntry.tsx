@@ -1,9 +1,8 @@
 import styled from '@emotion/styled';
-import { colors } from '@sopt-makers/colors';
-import type { FC, ReactNode } from 'react';
+import { colors, spacing, typography } from '@sopt-mds/design-tokens';
+import type { ReactNode } from 'react';
 
 import Text from '@/components/common/Text';
-import { textStyles } from '@/styles/typography';
 
 export interface FormEntryProps {
   className?: string;
@@ -14,15 +13,19 @@ export interface FormEntryProps {
   description?: ReactNode;
 }
 
-const FormEntry: FC<FormEntryProps> = ({ className, title, required, comment, children, description }) => {
+const FormEntry = ({ className, title, required, comment, children, description }: FormEntryProps) => {
   return (
     <StyledFormEntry className={className}>
-      <TitleSlot>
-        <Text typography='SUIT_18_SB'>{title}</Text>
-        {required && <Essential>*</Essential>}
-        {comment && <Comment>{comment}</Comment>}
-      </TitleSlot>
-      {description && <Description>{description}</Description>}
+      <div>
+        <TitleSlot>
+          <Text typography='SUIT_18_SB' color={colors.fg.neutral.bold}>
+            {title}
+          </Text>
+          {required && <Essential>*</Essential>}
+          {comment && <Comment>{comment}</Comment>}
+        </TitleSlot>
+        {description && <Description>{description}</Description>}
+      </div>
 
       {children}
     </StyledFormEntry>
@@ -34,27 +37,27 @@ export default FormEntry;
 const StyledFormEntry = styled.div`
   display: flex;
   flex-direction: column;
+  gap: ${spacing.s10};
 `;
 
 const TitleSlot = styled.div`
   display: flex;
-  margin-bottom: 9px;
 `;
 
 const Description = styled.div`
-  margin-bottom: 18px;
-  color: ${colors.gray400};
-  ${textStyles.SUIT_14_M};
+  margin-top: ${spacing.s2};
+  color: ${colors.fg.neutral.default};
+  ${typography.body2}
 `;
 
 const Essential = styled(Text)`
-  margin: 0 0 0 4px;
-  color: ${colors.secondary};
-  ${textStyles.SUIT_16_M};
+  margin-left: ${spacing.s4};
+  color: ${colors.fg.brand.default};
+  ${typography.title4}
 `;
 
 const Comment = styled(Text)`
   align-self: center;
-  margin: 0 0 0 10px;
-  color: ${colors.secondary};
+  margin-left: ${spacing.s6};
+  color: ${colors.fg.brand.default};
 `;

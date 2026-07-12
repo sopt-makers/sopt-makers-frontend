@@ -59,7 +59,7 @@ const UploadProjectProgress: FC<UploadProjectProgressProps> = ({ formState }) =>
     },
   ];
 
-  return <StyledFormProgress title='등록 진행' progressLabel='프로젝트를 등록해주세요.' items={items} />;
+  return <StyledFormProgress title='등록 진행' items={items} />;
 };
 
 export default UploadProjectProgress;

@@ -1,11 +1,9 @@
 import styled from '@emotion/styled';
-import { colors } from '@sopt-makers/colors';
-import type { FC } from 'react';
+import { colors, spacing } from '@sopt-mds/design-tokens';
+import { Checkbox } from '@sopt-mds/ui';
 
-import Checkbox from '@/components/common/Checkbox';
 import Input from '@/components/common/Input';
 import ErrorMessage from '@/components/common/Input/ErrorMessage';
-import Text from '@/components/common/Text';
 import { textStyles } from '@/styles/typography';
 
 interface PeriodFieldProps {
@@ -18,7 +16,7 @@ interface PeriodFieldProps {
 
 type Value = { startAt: string; endAt: string | null };
 
-const PeriodField: FC<PeriodFieldProps> = ({ value, onChange, errorMessage, isStartError, isEndError }) => {
+const PeriodField = ({ value, onChange, errorMessage, isStartError, isEndError }: PeriodFieldProps) => {
   const handleChange =
     <K extends keyof Value>(key: K) =>
     (e: { target: { value: string } }) => {
@@ -54,12 +52,12 @@ const PeriodField: FC<PeriodFieldProps> = ({ value, onChange, errorMessage, isSt
           </>
         )}
       </InputGroup>
-      <CheckboxContainer>
-        <Checkbox checked={value.endAt === null} onChange={(e) => handleOngoingChange(e.target.checked)} />
-        <Text typography='SUIT_12_M' color={colors.gray600}>
-          진행중
-        </Text>
-      </CheckboxContainer>
+      <StyledCheckbox
+        size='small'
+        label='진행중'
+        checked={value.endAt === null}
+        onCheckedChange={handleOngoingChange}
+      />
       <StyledErrorMessage message={errorMessage} />
     </StyledPeriodField>
   );
@@ -73,13 +71,18 @@ const StyledInput = styled(Input)`
   max-width: 163px;
 
   input::placeholder {
-    color: ${colors.gray400};
+    color: ${colors.fg.neutral.ghost};
   }
 `;
 
 const InputGroup = styled.div`
   display: flex;
   align-items: center;
+`;
+
+const StyledCheckbox = styled(Checkbox)`
+  margin-top: ${spacing.s12};
+  color: ${colors.fg.neutral.subtle};
 `;
 
 const StyledErrorMessage = styled(ErrorMessage)`
@@ -89,16 +92,6 @@ const StyledErrorMessage = styled(ErrorMessage)`
 
 const Separator = styled.span`
   margin: 0 11px;
-  color: ${colors.gray600};
+  color: ${colors.fg.neutral.subtle};
   ${textStyles.SUIT_16_M};
-`;
-
-const CheckboxContainer = styled.div`
-  display: flex;
-  align-items: center;
-  margin: 13px 0 0;
-
-  & > span {
-    margin: 0 0 0 9.25px;
-  }
 `;

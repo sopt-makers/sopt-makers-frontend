@@ -175,7 +175,7 @@ const Title = styled.h1`
   ${typography.title3}
 
   @media ${MOBILE_MEDIA_QUERY} {
-    ${typography.title4}
+    ${typography.title5}
   }
 `;
 
