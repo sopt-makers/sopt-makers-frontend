@@ -36,6 +36,7 @@ const ProjectFilterSection = ({ value, onValueChange, queryParams, setQueryParam
       </StyledSearchFieldContainer>
       <StyledClickFilterContainer>
         <StyledSelectContainer>
+          {/* @TODO: 추후 mds 2.0의 드롭다운 컴포넌트로 교체 예정 */}
           <ProjectCategorySelect
             placeholder='프로젝트 전체'
             allowClear
@@ -44,6 +45,7 @@ const ProjectFilterSection = ({ value, onValueChange, queryParams, setQueryParam
             onValueChange={(value) => setQueryParams({ category: value as ProjectCategory })}
             option={PROJECT_CATEGORY_LIST}
           />
+          {/* @TODO: 추후 mds 2.0의 드롭다운 컴포넌트로 교체 예정 */}
           <ProjectCategorySelect
             placeholder='기수 전체'
             allowClear
