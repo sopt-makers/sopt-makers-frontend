@@ -280,7 +280,7 @@ const StyledGridContainer = styled.div`
   }
 
   @media ${MOBILE_MEDIA_QUERY} {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 0;
     justify-content: start;
     margin-top: 0;

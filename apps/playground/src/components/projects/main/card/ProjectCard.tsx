@@ -148,6 +148,7 @@ const Header = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${spacing.s2};
+  min-width: 0;
 
   @media ${MOBILE_MEDIA_QUERY} {
     gap: ${spacing.s6};
@@ -158,6 +159,7 @@ const TitleRow = styled.div`
   display: flex;
   align-items: center;
   gap: ${spacing.s4};
+  min-width: 0;
 
   @media ${MOBILE_MEDIA_QUERY} {
     gap: ${spacing.s6};
@@ -165,12 +167,10 @@ const TitleRow = styled.div`
 `;
 
 const Title = styled.h1`
-  /* stylelint-disable-next-line value-no-vendor-prefix */
-  display: -webkit-box;
+  min-width: 0;
   overflow: hidden;
+  white-space: nowrap;
   text-overflow: ellipsis;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
   color: ${colors.fg.neutral.bold};
   ${typography.title3}
 
@@ -188,6 +188,7 @@ const Content = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${spacing.s8};
+  flex: 1;
 
   @media ${MOBILE_MEDIA_QUERY} {
     gap: ${spacing.s6};
@@ -208,6 +209,7 @@ const Summary = styled.div`
 
 const MetaRow = styled.div`
   display: flex;
+  flex: 1;
 `;
 
 const StatusArea = styled.div`

@@ -261,6 +261,9 @@ const MobileServiceTypeWrapper = styled.div`
 `;
 
 const Name = styled.h2`
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   color: ${colors.fg.neutral.bold};
   ${typography.heading1}
 
