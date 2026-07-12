@@ -1,33 +1,32 @@
 import styled from '@emotion/styled';
-import { colors } from '@sopt-makers/colors';
-import { fonts } from '@sopt-makers/fonts';
-import { Flex } from '@toss/emotion-utils';
+import { colors, spacing, typography } from '@sopt-mds/design-tokens';
 import type { PropsWithChildren } from 'react';
-
-import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 const ProjectCardStatus = ({ children }: PropsWithChildren<unknown>) => {
   return (
-    <Flex css={{ gap: 4 }} align='center'>
-      <IconCircleSuccess />
+    <Container>
+      <Circle />
       <StatusText>{children}</StatusText>
-    </Flex>
+    </Container>
   );
 };
 
 export default ProjectCardStatus;
 
-const StatusText = styled.span`
-  color: ${colors.gray100};
-  ${fonts.LABEL_12_SB}
-
-  ${MOBILE_MEDIA_QUERY} {
-    ${fonts.LABEL_11_SB};
-  }
+const Container = styled.div`
+  display: flex;
+  align-items: center;
+  gap: ${spacing.s4};
 `;
 
-const IconCircleSuccess = () => (
-  <svg width='5' height='6' viewBox='0 0 5 6' fill='none' xmlns='http://www.w3.org/2000/svg'>
-    <circle cx='2.5' cy='3' r='2.5' fill='#16BF81' />
-  </svg>
-);
+const Circle = styled.div`
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: ${colors.fg.secondary.default};
+`;
+
+const StatusText = styled.span`
+  color: ${colors.fg.neutral.subtle};
+  ${typography.label4}
+`;

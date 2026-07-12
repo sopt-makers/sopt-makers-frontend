@@ -9,6 +9,7 @@ import { useRouter } from 'next/router';
 import { useMemo } from 'react';
 
 import { useGetMemberOfMe } from '@/api/endpoint/members/getMemberOfMe';
+import { useGetProjectsQuery } from '@/api/endpoint/projects/getProjects';
 import { deleteProject } from '@/api/endpoint_LEGACY/projects';
 import useConfirm from '@/components/common/Modal/useConfirm';
 import Responsive from '@/components/common/Responsive';
@@ -16,7 +17,6 @@ import MemberBlock from '@/components/members/common/MemberBlock';
 import { getLinkInfo } from '@/components/projects/constants';
 import { MemberRoleInfo } from '@/components/projects/constants';
 import ProjectImageSlider from '@/components/projects/main/ProjectImageSlider';
-import useGetProjectListQuery from '@/components/projects/upload/hooks/useGetProjectListQuery';
 import useGetProjectQuery from '@/components/projects/upload/hooks/useGetProjectQuery';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
@@ -43,7 +43,7 @@ const ProjectDetail = ({ projectId }: ProjectDetailProps) => {
 
   const { data: project } = useGetProjectQuery({ id: projectId });
   const { data: me } = useGetMemberOfMe();
-  const { refetch } = useGetProjectListQuery();
+  const { refetch } = useGetProjectsQuery();
 
   const startAt = dayjs(project?.startAt).format('YYYY-MM');
   const endAt = project?.endAt ? dayjs(project.endAt).format('YYYY-MM') : '';
@@ -261,6 +261,9 @@ const MobileServiceTypeWrapper = styled.div`
 `;
 
 const Name = styled.h2`
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   color: ${colors.fg.neutral.bold};
   ${typography.heading1}
 
@@ -388,7 +391,8 @@ const DetailContainer = styled.div`
   border-radius: ${radius.r12};
   background: ${colors.bg.layer.default};
   padding: ${spacing.s48};
-  width: 100%;
+  flex: 1;
+  min-width: 0;
 
   @media ${MOBILE_MEDIA_QUERY} {
     border-radius: ${radius.r0};
@@ -412,6 +416,7 @@ const DetailContent = styled.div`
   margin-bottom: ${spacing.s64};
   color: ${colors.fg.neutral.bold};
   white-space: pre-wrap; /* or pre-line */
+  overflow-wrap: break-word;
   ${typography.body1}
 
   @media ${MOBILE_MEDIA_QUERY} {

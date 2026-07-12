@@ -6,6 +6,7 @@ import type { FC } from 'react';
 import { useEffect } from 'react';
 
 import { useGetMemberOfMe } from '@/api/endpoint/members/getMemberOfMe';
+import { projectsQueryKey } from '@/api/endpoint/projects/getProjects';
 import { getProjectById, putProject } from '@/api/endpoint_LEGACY/projects';
 import AuthRequired from '@/components/auth/AuthRequired';
 import useAlert from '@/components/common/Modal/useAlert';
@@ -14,7 +15,6 @@ import useToast from '@/components/common/Toast/useToast';
 import useEventLogger from '@/components/eventLogger/hooks/useEventLogger';
 import ProjectForm from '@/components/projects/upload/form/ProjectForm';
 import type { ProjectFormType } from '@/components/projects/upload/form/schema';
-import { getProjectListQueryKey } from '@/components/projects/upload/hooks/useGetProjectListQuery';
 import { getProjectQueryKey } from '@/components/projects/upload/hooks/useGetProjectQuery';
 import { convertProjectToFormType, convertToProjectData } from '@/components/projects/utils';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
@@ -58,7 +58,7 @@ const ProjectEdit: FC<ProjectEditProps> = ({ projectId }) => {
               queryKey: getProjectQueryKey(projectId),
             });
             queryClient.invalidateQueries({
-              queryKey: getProjectListQueryKey(),
+              queryKey: projectsQueryKey.all,
             });
             queryClient.invalidateQueries({
               queryKey: ['getProjectById', projectId],
