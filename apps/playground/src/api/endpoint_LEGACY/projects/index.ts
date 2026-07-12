@@ -1,12 +1,5 @@
-import { QS } from '@toss/utils';
-
 import { axiosInstance } from '@/api';
-import type {
-  ProjectDetail,
-  ProjectInput,
-  ProjectListResponse,
-  ProjectsRequestParams,
-} from '@/api/endpoint_LEGACY/projects/type';
+import type { ProjectDetail, ProjectInput } from '@/api/endpoint_LEGACY/projects/type';
 
 // project id로 조회
 export const getProjectById = async (id: string) => {
@@ -15,19 +8,6 @@ export const getProjectById = async (id: string) => {
     url: `api/v1/projects/${id}`,
   });
 
-  return data;
-};
-
-// project 전체 조회
-export const getProjects = async (params: ProjectsRequestParams) => {
-  const { data } = await axiosInstance.request<{
-    projectList: ProjectListResponse[];
-    hasNext: boolean;
-    totalCount: number;
-  }>({
-    method: 'GET',
-    url: `api/v1/projects${QS.create(params)}`,
-  });
   return data;
 };
 

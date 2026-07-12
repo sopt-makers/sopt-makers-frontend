@@ -4,6 +4,8 @@ import { IconChevronRight, IconHeartFilled, IconHeartOutlined } from '@sopt-mds/
 import Link from 'next/link';
 import { styled } from 'stitches.config';
 
+import { ampli } from '@/ampli';
+
 import type { MumuFeedCardData } from '../types';
 
 interface MumuFeedCardProps {
@@ -14,7 +16,18 @@ const MumuFeedCard = ({ post }: MumuFeedCardProps) => {
   const HeartIcon = post.isLiked ? IconHeartFilled : IconHeartOutlined;
 
   return (
-    <Container href={`/post?id=${post.postId}`}>
+    <Container
+      href={`/post?id=${post.postId}`}
+      onClick={() =>
+        ampli.clickFeedCard({
+          feed_id: post.postId,
+          feed_title: post.title,
+          feed_comment_total: post.commentCount,
+          feed_like_total: post.likeCount,
+          from_mumu_letter: true,
+        })
+      }
+    >
       <MeetingInfo>
         <MeetingCategory>{CATEGORY_NAME(post.meetingCategory)}</MeetingCategory>
         <MeetingTitle>{post.meetingTitle}</MeetingTitle>

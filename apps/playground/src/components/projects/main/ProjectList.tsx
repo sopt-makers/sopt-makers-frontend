@@ -10,18 +10,17 @@ import Link from 'next/link';
 import React, { useState } from 'react';
 import { BooleanParam, createEnumParam, StringParam, useQueryParams, withDefault } from 'use-query-params';
 
+import { useGetProjectsQuery } from '@/api/endpoint/projects/getProjects';
 import EmptyView from '@/components/common/EmptyView';
 import Loading from '@/components/common/Loading';
 import Responsive from '@/components/common/Responsive';
 import Text from '@/components/common/Text';
 import { LoggingClick } from '@/components/eventLogger/components/LoggingClick';
 import useEventLogger from '@/components/eventLogger/hooks/useEventLogger';
-import MobileProjectCard from '@/components/projects/main/card/MobileProjectCard';
 import ProjectCard from '@/components/projects/main/card/ProjectCard';
 import ProjectCategorySelect from '@/components/projects/main/ProjectCategorySelect';
 import ProjectFilterChip from '@/components/projects/main/ProjectFilterChip';
 import ProjectSearch from '@/components/projects/main/ProjectSearch';
-import useGetProjectListQuery from '@/components/projects/upload/hooks/useGetProjectListQuery';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 type ProjectCategory = 'APPJAM' | 'SOPKATHON' | 'SOPTERM' | 'STUDY' | 'ETC';
@@ -43,7 +42,7 @@ const ProjectList = () => {
   });
   const [value, setValue] = useState(queryParams.name);
   const debouncedChangeName = useDebounce((value: string | null) => setQueryParams({ name: value }), 300);
-  const { data, isLoading, fetchNextPage } = useGetProjectListQuery({
+  const { data, isLoading, fetchNextPage } = useGetProjectsQuery({
     limit: 20,
     name: queryParams.name,
     isAvailable: queryParams.isAvailable,
@@ -148,43 +147,11 @@ const ProjectList = () => {
               page.projectList.map((project) => {
                 return (
                   <React.Fragment key={project.id}>
-                    <Responsive only='desktop' asChild>
-                      <LoggingClick eventKey='projectCard' param={{ projectId: project.id, referral: 'projectTab' }}>
-                        <Link href={playgroundLink.projectDetail(project.id)}>
-                          <ProjectCard
-                            key={project.id}
-                            image={project.thumbnailImage}
-                            title={project.name}
-                            serviceType={project.serviceType}
-                            summary={project.summary}
-                            isAvailable={project.isAvailable}
-                            isFounding={project.isFounding}
-                          />
-                        </Link>
-                      </LoggingClick>
-                    </Responsive>
-                    <Responsive only='mobile' asChild>
-                      <LoggingClick eventKey='projectCard' param={{ projectId: project.id, referral: 'projectTab' }}>
-                        <Link href={playgroundLink.projectDetail(project.id)}>
-                          <MobileProjectCard
-                            key={project.id}
-                            logoImage={project.logoImage}
-                            title={project.name}
-                            serviceType={project.serviceType}
-                            summary={project.summary}
-                            isAvailable={project.isAvailable}
-                            isFounding={project.isFounding}
-                          />
-                          <div
-                            css={{
-                              width: '100%',
-                              height: '1px',
-                              background: colors.gray700,
-                            }}
-                          />
-                        </Link>
-                      </LoggingClick>
-                    </Responsive>
+                    <LoggingClick eventKey='projectCard' param={{ projectId: project.id, referral: 'projectTab' }}>
+                      <Link href={playgroundLink.projectDetail(project.id)}>
+                        <ProjectCard key={project.id} project={project} />
+                      </Link>
+                    </LoggingClick>
                   </React.Fragment>
                 );
               }),
@@ -313,7 +280,7 @@ const StyledGridContainer = styled.div`
   }
 
   @media ${MOBILE_MEDIA_QUERY} {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 0;
     justify-content: start;
     margin-top: 0;

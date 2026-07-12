@@ -1,14 +1,5 @@
 import { PROJECT_CATEGORY } from '@/components/projects/constants';
 
-export interface ProjectsRequestParams {
-  limit?: number;
-  cursor?: number;
-  name?: string | null;
-  isAvailable?: boolean | null;
-  isFounding?: boolean | null;
-  category?: string | null;
-}
-
 export type ProjectDetail = {
   id: number;
   name: string;
@@ -28,7 +19,6 @@ export type ProjectDetail = {
   members: {
     memberId: number;
     memberRole: MemberRole;
-    memberDescription: string;
     isTeamMember: boolean;
     memberName: string;
     memberGenerations: number[];
@@ -41,29 +31,6 @@ export type ProjectDetail = {
     linkUrl: string;
   }[];
 };
-
-interface ProjectLink {
-  linkId: number;
-  linkTitle: string;
-  linkUrl: string;
-}
-
-export interface ProjectListResponse {
-  id: number;
-  writerId: number;
-  generation: number | null;
-  category: ProjectCategory;
-  startAt: string;
-  isAvailable: boolean;
-  isFounding: boolean;
-  detail: string;
-  name: string;
-  logoImage: string;
-  links: ProjectLink[];
-  serviceType: ServiceType[];
-  summary: string;
-  thumbnailImage: string;
-}
 
 export type ProjectInput = {
   name: string;
@@ -87,7 +54,6 @@ export type ProjectInput = {
   members: {
     memberId: number;
     memberRole: MemberRole;
-    memberDescription: string;
     isTeamMember: boolean;
     memberHasProfile?: boolean;
   }[];

@@ -11,6 +11,7 @@ import {
   useSwitchMeetingDemandCommentLikeMutation,
 } from '@api/meetingDemandComment/mutation';
 import { useMeetingDemandCommentsQueryOption } from '@api/meetingDemandComment/query';
+import { useUserProfileQueryOption } from '@api/user/query';
 import CommentInput from '@domain/suggestDetail/CommentInput';
 import CommentList from '@domain/suggestDetail/CommentList';
 import { toCommentData, toOpenedMeetingData } from '@domain/suggestDetail/mapper';
@@ -19,6 +20,7 @@ import SuggestDetailBody from '@domain/suggestDetail/SuggestDetailBody';
 import SuggestDetailCta from '@domain/suggestDetail/SuggestDetailCta';
 import SuggestDetailProfile from '@domain/suggestDetail/SuggestDetailProfile';
 import SuggestDetailReactionBar from '@domain/suggestDetail/SuggestDetailReactionBar';
+import { useDisplay } from '@hook/useDisplay';
 import { useToast } from '@sopt-makers/ui';
 import { colors, radius, spacing } from '@sopt-mds/design-tokens';
 import { useQuery } from '@tanstack/react-query';
@@ -27,10 +29,14 @@ import { useRouter } from 'next/router';
 import { useRef } from 'react';
 import { styled } from 'stitches.config';
 
+import { ampli } from '@/ampli';
+
 const SuggestDetailPage = () => {
   const router = useRouter();
+  const { isMobile } = useDisplay();
   const meetingDemandId = Number(router.query.id);
 
+  const { data: me } = useQuery(useUserProfileQueryOption());
   const { data: detail } = useQuery(useMeetingDemandQueryOption(meetingDemandId));
   const { data: openedMeetingsData } = useQuery({
     ...useOpenedMeetingsQueryOption(meetingDemandId),
@@ -52,8 +58,27 @@ const SuggestDetailPage = () => {
 
   const openedMeetings = openedMeetingsData?.meetings.map(toOpenedMeetingData) ?? [];
   const comments = commentsData?.comments.map(toCommentData) ?? [];
+  const joinInfoTags: string[] = [];
+
+  if (detail.joinInfo?.meetingType) {
+    joinInfoTags.push(`# ${detail.joinInfo.meetingType}`);
+  }
+
+  if (detail.joinInfo?.meetingFrequency) {
+    joinInfoTags.push(`# ${detail.joinInfo.meetingFrequency}`);
+  }
+
+  const detailTags = [...detail.meetingKeywordTypes, ...joinInfoTags];
 
   const handleClickWait = () => {
+    ampli.clickGroupSuggestWait({
+      location: router.pathname,
+      platform_type: isMobile ? 'MO' : 'PC',
+      suggest_id: meetingDemandId,
+      suggest_status: detail.status === 'BEFORE_OPEN' ? 'BEFORE_OPEN' : 'OPEN',
+      user_id: Number(me?.orgId),
+    });
+
     mutateSwitchWait(meetingDemandId);
   };
 
@@ -77,7 +102,7 @@ const SuggestDetailPage = () => {
     mutateDelete(meetingDemandId, {
       onSuccess: () => {
         openToast({ icon: 'success', content: '모임 제안을 삭제했어요.' });
-        router.push('/suggest');
+        router.push('/');
       },
     });
   };
@@ -91,6 +116,12 @@ const SuggestDetailPage = () => {
   };
 
   const handleClickCta = () => {
+    ampli.clickMakeGroup({
+      from_group_suggest: true,
+      location: router.pathname,
+      platform_type: isMobile ? 'MO' : 'PC',
+      user_id: Number(me?.orgId),
+    });
     router.push(`/make?meetingDemandId=${meetingDemandId}`);
   };
 
@@ -111,11 +142,7 @@ const SuggestDetailPage = () => {
             onDelete={handleDeleteSuggestion}
           />
 
-          <SuggestDetailBody
-            title={detail.shortIntro}
-            expectation={detail.expectation}
-            keywords={detail.meetingKeywordTypes}
-          />
+          <SuggestDetailBody title={detail.shortIntro} expectation={detail.expectation} tags={detailTags} />
 
           <SuggestDetailCta onClick={handleClickCta} />
         </SMainSection>

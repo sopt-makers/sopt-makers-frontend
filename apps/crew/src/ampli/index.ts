@@ -181,6 +181,17 @@ export interface ClickEventApplyProperties {
   user_id?: number;
 }
 
+export interface ClickEventbannerProperties {
+  /**
+   * cta 버튼을 누른 고유 ID 값을 의미
+   *
+   * | Rule | Value |
+   * |---|---|
+   * | Type | number |
+   */
+  event_id?: number;
+}
+
 export interface ClickEventbannerMainCtaProperties {
   /**
    * cta 버튼을 누른 고유 ID 값을 의미
@@ -254,6 +265,7 @@ export interface ClickFeedCardProperties {
   feed_like_total?: number;
   feed_title?: string;
   feed_upload?: any;
+  from_mumu_letter?: boolean;
   /**
    * | Rule | Value |
    * |---|---|
@@ -346,12 +358,132 @@ export interface ClickGroupCardProperties {
   group_title?: string;
 }
 
-export interface ClickMakeGroupProperties {
+export interface ClickGroupDemandCreateCtaProperties {
   location?: string;
+  platform_type?: string;
+  /**
+   * 유저 아이디값
+   *
+   * | Rule | Value |
+   * |---|---|
+   * | Type | integer |
+   */
+  user_id?: number;
+}
+
+export interface ClickGroupSuggestCardProperties {
+  location?: string;
+  platform_type?: string;
+  /**
+   * 모임수요의 고유 ID 값을 의미합니다.
+   *
+   * | Rule | Value |
+   * |---|---|
+   * | Type | number |
+   */
+  suggest_id?: number;
+  /**
+   * 모임 수요의 현재 개설 상태를 구분하는 값 **개설전 /개설 완료**
+   */
+  suggest_status?: string;
+  /**
+   * 유저 아이디값
+   *
+   * | Rule | Value |
+   * |---|---|
+   * | Type | integer |
+   */
+  user_id?: number;
+}
+
+export interface ClickGroupSuggestWaitProperties {
+  location?: string;
+  platform_type?: string;
+  /**
+   * 모임수요의 고유 ID 값을 의미합니다.
+   *
+   * | Rule | Value |
+   * |---|---|
+   * | Type | number |
+   */
+  suggest_id?: number;
+  /**
+   * 모임 수요의 현재 개설 상태를 구분하는 값 **개설전 /개설 완료**
+   */
+  suggest_status?: string;
+  /**
+   * 유저 아이디값
+   *
+   * | Rule | Value |
+   * |---|---|
+   * | Type | integer |
+   */
+  user_id?: number;
+}
+
+export interface ClickMakeGroupProperties {
+  /**
+   * 모임 수요 상세에서 **열어볼래요** CTA를 통해 진입했는지 구분하기 위한 유입소스를 의미합니다.
+   */
+  from_group_suggest?: boolean;
+  /**
+   * | Rule | Value |
+   * |---|---|
+   * | Type | integer |
+   */
+  group_id?: number;
+  location?: string;
+  platform_type?: string;
+  /**
+   * 유저 아이디값
+   *
+   * | Rule | Value |
+   * |---|---|
+   * | Type | integer |
+   */
+  user_id?: number;
 }
 
 export interface ClickMemberStatusProperties {
   crew_status?: boolean;
+}
+
+export interface ClickMumuAnswerProperties {
+  /**
+   * | Rule | Value |
+   * |---|---|
+   * | Type | integer |
+   */
+  group_id?: number;
+  location?: string;
+  platform_type?: string;
+  /**
+   * 유저 아이디값
+   *
+   * | Rule | Value |
+   * |---|---|
+   * | Type | integer |
+   */
+  user_id?: number;
+}
+
+export interface ClickMumuFeedViewCtaProperties {
+  /**
+   * | Rule | Value |
+   * |---|---|
+   * | Type | integer |
+   */
+  group_id?: number;
+  location?: string;
+  platform_type?: string;
+  /**
+   * 유저 아이디값
+   *
+   * | Rule | Value |
+   * |---|---|
+   * | Type | integer |
+   */
+  user_id?: number;
 }
 
 export interface ClickNavbarGroupProperties {
@@ -542,9 +674,17 @@ export interface CompletedCommentPostingProperties {
 }
 
 export interface CompletedFeedPostingProperties {
-  feed_upload?: any;
-  location?: string;
-  platform_type?: string;
+  'feed_type (삭제해야돼용'?: {
+    ''?: {
+      ' 잘못만듦)'?: {
+        [k: string]: any;
+      };
+    };
+  };
+  'feed_upload'?: any;
+  'from_mumu_letter'?: boolean;
+  'location'?: string;
+  'platform_type'?: string;
   /**
    * 유저 아이디값
    *
@@ -552,10 +692,11 @@ export interface CompletedFeedPostingProperties {
    * |---|---|
    * | Type | integer |
    */
-  user_id?: number;
+  'user_id'?: number;
 }
 
 export interface CompletedFeedPostingCanceledProperties {
+  from_mumu_letter?: boolean;
   location?: string;
   platform_type?: string;
   /**
@@ -570,9 +711,58 @@ export interface CompletedFeedPostingCanceledProperties {
 
 export interface CompletedMakeGroupProperties {
   /**
+   * 모임 수요 상세에서 **열어볼래요** CTA를 통해 진입했는지 구분하기 위한 유입소스를 의미합니다.
+   */
+  from_group_suggest?: boolean;
+  /**
    * 사용자가 ‘이어서 쓰기’를 통해 모임 개설하기 페이지에 진입했는지를 의미합니다.
    */
   from_resume: boolean;
+  group_category?: string;
+  /**
+   * | Rule | Value |
+   * |---|---|
+   * | Type | integer |
+   */
+  group_id?: number;
+  /**
+   * | Rule | Value |
+   * |---|---|
+   * | Type | integer |
+   */
+  group_owner_id?: number;
+  group_status?: string;
+  location?: string;
+  platform_type?: string;
+  /**
+   * 유저 아이디값
+   *
+   * | Rule | Value |
+   * |---|---|
+   * | Type | integer |
+   */
+  user_id?: number;
+}
+
+export interface CompletedMakeGroupSuggestProperties {
+  location?: string;
+  platform_type?: string;
+  /**
+   * 모임수요의 고유 ID 값을 의미합니다.
+   *
+   * | Rule | Value |
+   * |---|---|
+   * | Type | number |
+   */
+  suggest_id?: number;
+  /**
+   * 유저 아이디값
+   *
+   * | Rule | Value |
+   * |---|---|
+   * | Type | integer |
+   */
+  user_id?: number;
 }
 
 export interface FilterListOptionManagementProperties {
@@ -715,6 +905,14 @@ export class ClickEventApply implements BaseEvent {
   }
 }
 
+export class ClickEventbanner implements BaseEvent {
+  event_type = 'Click-eventbanner';
+
+  constructor(public event_properties?: ClickEventbannerProperties) {
+    this.event_properties = event_properties;
+  }
+}
+
 export class ClickEventbannerMainCta implements BaseEvent {
   event_type = 'Click-eventbanner-mainCTA';
 
@@ -839,6 +1037,30 @@ export class ClickGroupCard implements BaseEvent {
   }
 }
 
+export class ClickGroupDemandCreateCta implements BaseEvent {
+  event_type = 'Click-GroupDemandCreateCTA';
+
+  constructor(public event_properties?: ClickGroupDemandCreateCtaProperties) {
+    this.event_properties = event_properties;
+  }
+}
+
+export class ClickGroupSuggestCard implements BaseEvent {
+  event_type = 'Click-GroupSuggestCard';
+
+  constructor(public event_properties?: ClickGroupSuggestCardProperties) {
+    this.event_properties = event_properties;
+  }
+}
+
+export class ClickGroupSuggestWait implements BaseEvent {
+  event_type = 'Click-GroupSuggestWait';
+
+  constructor(public event_properties?: ClickGroupSuggestWaitProperties) {
+    this.event_properties = event_properties;
+  }
+}
+
 export class ClickMakebymeGroup implements BaseEvent {
   event_type = 'Click-makebymeGroup';
 }
@@ -867,6 +1089,22 @@ export class ClickMemberStatus implements BaseEvent {
   event_type = 'Click-memberStatus';
 
   constructor(public event_properties?: ClickMemberStatusProperties) {
+    this.event_properties = event_properties;
+  }
+}
+
+export class ClickMumuAnswer implements BaseEvent {
+  event_type = 'Click-mumu-answer';
+
+  constructor(public event_properties?: ClickMumuAnswerProperties) {
+    this.event_properties = event_properties;
+  }
+}
+
+export class ClickMumuFeedViewCta implements BaseEvent {
+  event_type = 'Click-mumuFeedView-CTA';
+
+  constructor(public event_properties?: ClickMumuFeedViewCtaProperties) {
     this.event_properties = event_properties;
   }
 }
@@ -999,6 +1237,14 @@ export class CompletedMakeGroup implements BaseEvent {
   event_type = 'Completed-makeGroup';
 
   constructor(public event_properties: CompletedMakeGroupProperties) {
+    this.event_properties = event_properties;
+  }
+}
+
+export class CompletedMakeGroupSuggest implements BaseEvent {
+  event_type = 'Completed-makeGroupSuggest';
+
+  constructor(public event_properties?: CompletedMakeGroupSuggestProperties) {
     this.event_properties = event_properties;
   }
 }
@@ -1309,6 +1555,23 @@ export class Ampli {
   }
 
   /**
+   * Click-eventbanner
+   *
+   * [View in Tracking Plan](https://data.amplitude.com/sopt-makers/sopt-makers-crew-prd/events/main/latest/Click-eventbanner)
+   *
+   * 유저가 행사 전용 배너 **CTA 외 배너 영역을 클릭 시도**할 때 발생하는 이벤트
+   *
+   * @param properties The event's properties (e.g. event_id)
+   * @param options Amplitude event options.
+   */
+  clickEventbanner(
+    properties?: ClickEventbannerProperties,
+    options?: EventOptions,
+  ) {
+    return this.track(new ClickEventbanner(properties), options);
+  }
+
+  /**
    * Click-eventbanner-mainCTA
    *
    * [View in Tracking Plan](https://data.amplitude.com/sopt-makers/sopt-makers-crew-prd/events/main/latest/Click-eventbanner-mainCTA)
@@ -1592,6 +1855,57 @@ export class Ampli {
   }
 
   /**
+   * Click-GroupDemandCreateCTA
+   *
+   * [View in Tracking Plan](https://data.amplitude.com/sopt-makers/sopt-makers-crew-prd/events/main/latest/Click-GroupDemandCreateCTA)
+   *
+   * 홈 모임 수요 영역에서 **모임 제안하기**CTA를 클릭한 경우 발생하는 이벤트
+   *
+   * @param properties The event's properties (e.g. location)
+   * @param options Amplitude event options.
+   */
+  clickGroupDemandCreateCta(
+    properties?: ClickGroupDemandCreateCtaProperties,
+    options?: EventOptions,
+  ) {
+    return this.track(new ClickGroupDemandCreateCta(properties), options);
+  }
+
+  /**
+   * Click-GroupSuggestCard
+   *
+   * [View in Tracking Plan](https://data.amplitude.com/sopt-makers/sopt-makers-crew-prd/events/main/latest/Click-GroupSuggestCard)
+   *
+   * 모임 수요 카드를 클릭한 경우 발생하는 이벤트
+   *
+   * @param properties The event's properties (e.g. location)
+   * @param options Amplitude event options.
+   */
+  clickGroupSuggestCard(
+    properties?: ClickGroupSuggestCardProperties,
+    options?: EventOptions,
+  ) {
+    return this.track(new ClickGroupSuggestCard(properties), options);
+  }
+
+  /**
+   * Click-GroupSuggestWait
+   *
+   * [View in Tracking Plan](https://data.amplitude.com/sopt-makers/sopt-makers-crew-prd/events/main/latest/Click-GroupSuggestWait)
+   *
+   * **기다려요** 버튼을 클릭한 경우 발생하는 이벤트
+   *
+   * @param properties The event's properties (e.g. location)
+   * @param options Amplitude event options.
+   */
+  clickGroupSuggestWait(
+    properties?: ClickGroupSuggestWaitProperties,
+    options?: EventOptions,
+  ) {
+    return this.track(new ClickGroupSuggestWait(properties), options);
+  }
+
+  /**
    * Click-makebymeGroup
    *
    * [View in Tracking Plan](https://data.amplitude.com/sopt-makers/sopt-makers-crew-prd/events/main/latest/Click-makebymeGroup)
@@ -1613,7 +1927,7 @@ export class Ampli {
    *
    * Event has no description in tracking plan.
    *
-   * @param properties The event's properties (e.g. location)
+   * @param properties The event's properties (e.g. from_group_suggest)
    * @param options Amplitude event options.
    */
   clickMakeGroup(
@@ -1683,6 +1997,40 @@ export class Ampli {
     options?: EventOptions,
   ) {
     return this.track(new ClickMemberStatus(properties), options);
+  }
+
+  /**
+   * Click-mumu-answer
+   *
+   * [View in Tracking Plan](https://data.amplitude.com/sopt-makers/sopt-makers-crew-prd/events/main/latest/Click-mumu-answer)
+   *
+   * 홈 내 무무의 편지에 **답장하러가기** 버튼 클릭했을 때 발생
+   *
+   * @param properties The event's properties (e.g. group_id)
+   * @param options Amplitude event options.
+   */
+  clickMumuAnswer(
+    properties?: ClickMumuAnswerProperties,
+    options?: EventOptions,
+  ) {
+    return this.track(new ClickMumuAnswer(properties), options);
+  }
+
+  /**
+   * Click-mumuFeedView-CTA
+   *
+   * [View in Tracking Plan](https://data.amplitude.com/sopt-makers/sopt-makers-crew-prd/events/main/latest/Click-mumuFeedView-CTA)
+   *
+   * 무무의 편지 답장 작성 완료 후, **전체 피드 보러가기** CTA를 클릭한 경우 발생하는 이벤트
+   *
+   * @param properties The event's properties (e.g. group_id)
+   * @param options Amplitude event options.
+   */
+  clickMumuFeedViewCta(
+    properties?: ClickMumuFeedViewCtaProperties,
+    options?: EventOptions,
+  ) {
+    return this.track(new ClickMumuFeedViewCta(properties), options);
   }
 
   /**
@@ -1941,7 +2289,7 @@ export class Ampli {
    *
    * Event has no description in tracking plan.
    *
-   * @param properties The event's properties (e.g. feed_upload)
+   * @param properties The event's properties (e.g. feed_type (삭제해야돼용)
    * @param options Amplitude event options.
    */
   completedFeedPosting(
@@ -1958,7 +2306,7 @@ export class Ampli {
    *
    * Event has no description in tracking plan.
    *
-   * @param properties The event's properties (e.g. location)
+   * @param properties The event's properties (e.g. from_mumu_letter)
    * @param options Amplitude event options.
    */
   completedFeedPostingCanceled(
@@ -1973,9 +2321,9 @@ export class Ampli {
    *
    * [View in Tracking Plan](https://data.amplitude.com/sopt-makers/sopt-makers-crew-prd/events/main/latest/Completed-makeGroup)
    *
-   * 모임 생성을 완료했을 경우
+   * 모임 생성을 완료했을 경우에 대한 이벤트를 의미합니다
    *
-   * @param properties The event's properties (e.g. from_resume)
+   * @param properties The event's properties (e.g. from_group_suggest)
    * @param options Amplitude event options.
    */
   completedMakeGroup(
@@ -1983,6 +2331,23 @@ export class Ampli {
     options?: EventOptions,
   ) {
     return this.track(new CompletedMakeGroup(properties), options);
+  }
+
+  /**
+   * Completed-makeGroupSuggest
+   *
+   * [View in Tracking Plan](https://data.amplitude.com/sopt-makers/sopt-makers-crew-prd/events/main/latest/Completed-makeGroupSuggest)
+   *
+   * Event has no description in tracking plan.
+   *
+   * @param properties The event's properties (e.g. location)
+   * @param options Amplitude event options.
+   */
+  completedMakeGroupSuggest(
+    properties?: CompletedMakeGroupSuggestProperties,
+    options?: EventOptions,
+  ) {
+    return this.track(new CompletedMakeGroupSuggest(properties), options);
   }
 
   /**

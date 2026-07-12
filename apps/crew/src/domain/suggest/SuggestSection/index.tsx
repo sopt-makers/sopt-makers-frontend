@@ -1,12 +1,15 @@
 import { useSwitchMeetingDemandWaitMutation } from '@api/meetingDemand/mutation';
 import { useMeetingDemandListInfiniteQueryOption } from '@api/meetingDemand/query';
+import { useUserProfileQueryOption } from '@api/user/query';
 import { useDisplay } from '@hook/useDisplay';
 import { colors, spacing, typography } from '@sopt-mds/design-tokens';
 import { ActionButton } from '@sopt-mds/ui';
 import { Suspense } from '@suspensive/react';
-import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
+import { useSuspenseInfiniteQuery, useSuspenseQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { styled } from 'stitches.config';
+
+import { ampli } from '@/ampli';
 
 import CardList from '../CardList';
 
@@ -21,17 +24,40 @@ const SuggestSectionContent = ({ title, description }: SuggestSectionProps) => {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useSuspenseInfiniteQuery(
     useMeetingDemandListInfiniteQueryOption(),
   );
+  const { data: me } = useSuspenseQuery(useUserProfileQueryOption());
   const { mutate: switchMeetingDemandWait } = useSwitchMeetingDemandWaitMutation();
 
-  const handleCardClick = (meetingDemandId: number) => {
+  const handleCardClick = (meetingDemandId: number, status: string) => {
+    ampli.clickGroupSuggestCard({
+      location: router.pathname,
+      platform_type: isMobile ? 'MO' : 'PC',
+      suggest_id: meetingDemandId,
+      suggest_status: status === 'BEFORE_OPEN' ? 'BEFORE_OPEN' : 'OPEN',
+      user_id: Number(me.orgId),
+    });
+
     router.push(`/suggest/detail?id=${meetingDemandId}`);
   };
 
-  const handleWaitingChange = (meetingDemandId: number) => {
+  const handleWaitingChange = (meetingDemandId: number, status: string) => {
+    ampli.clickGroupSuggestWait({
+      location: router.pathname,
+      platform_type: isMobile ? 'MO' : 'PC',
+      suggest_id: meetingDemandId,
+      suggest_status: status === 'BEFORE_OPEN' ? 'BEFORE_OPEN' : 'OPEN',
+      user_id: Number(me.orgId),
+    });
+
     switchMeetingDemandWait(meetingDemandId);
   };
 
   const handleSuggestClick = () => {
+    ampli.clickGroupDemandCreateCta({
+      location: router.pathname,
+      platform_type: isMobile ? 'MO' : 'PC',
+      user_id: Number(me.orgId),
+    });
+
     router.push('/suggest');
   };
 
@@ -46,7 +72,7 @@ const SuggestSectionContent = ({ title, description }: SuggestSectionProps) => {
         {!isMobile && (
           <DesktopCTA>
             <DesktopCTAText>원하는 모임이 없다면?</DesktopCTAText>
-            <ActionButton size='medium' variant='primary' onClick={handleSuggestClick}>
+            <ActionButton size='large' variant='primary' onClick={handleSuggestClick}>
               모임 제안하기
             </ActionButton>
           </DesktopCTA>
@@ -68,7 +94,7 @@ const SuggestSectionContent = ({ title, description }: SuggestSectionProps) => {
             <MobileCTATitle>원하는 모임이 없다면 직접 남겨보세요!</MobileCTATitle>
             <MobileCTADescription>비슷한 생각이 모이면, 관심 있는 멤버가 모임을 열 수 있어요</MobileCTADescription>
           </MobileCTAText>
-          <ActionButton size='large' variant='primary' onClick={handleSuggestClick}>
+          <ActionButton size='medium' variant='primary' onClick={handleSuggestClick}>
             모임 제안하기
           </ActionButton>
         </MobileCTA>
@@ -133,7 +159,7 @@ const Description = styled('p', {
 const DesktopCTA = styled('div', {
   display: 'flex',
   alignItems: 'center',
-  gap: spacing.s16,
+  gap: spacing.s20,
 });
 
 const DesktopCTAText = styled('p', {

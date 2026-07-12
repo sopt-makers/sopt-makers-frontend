@@ -1,7 +1,7 @@
 import type { DefaultValues } from 'react-hook-form';
 import * as z from 'zod';
 
-import { DEFAULT_MEMBER } from '@/components/projects/upload/form/constants';
+import { DEFAULT_LINK, DEFAULT_MEMBER } from '@/components/projects/upload/form/constants';
 
 export const dateStringSchema = z.string().regex(/^\d{4}.(0[1-9]|1[0-2])/g, '날짜 형식에 맞게 입력해주세요.');
 
@@ -24,7 +24,6 @@ export const uploadSchema = z.object({
           })
           .min(1, '유저를 선택해주세요.'),
         memberRole: z.string().min(1, '역할을 선택해주세요.'),
-        memberDescription: z.string().min(1, '어떤 역할을 맡았는지 입력해주세요.'),
       }),
     )
     .min(1, '프로젝트를 멤버를 추가해주세요.'),
@@ -36,7 +35,6 @@ export const uploadSchema = z.object({
         })
         .min(1, '유저를 선택해주세요.'),
       memberRole: z.string().min(1, '역할을 선택해주세요.'),
-      memberDescription: z.string().min(1, '어떤 역할을 맡았는지 입력해주세요.'),
     }),
   ),
   summary: z.string().min(1, '프로젝트 한줄 소개를 입력해주세요.'),
@@ -80,7 +78,7 @@ export const defaultUploadValues: DefaultValues<ProjectFormType> = {
   },
   category: undefined,
   members: [DEFAULT_MEMBER],
-  releaseMembers: [],
+  releaseMembers: [DEFAULT_MEMBER],
   detail: '',
   summary: '',
   status: {
@@ -95,5 +93,5 @@ export const defaultUploadValues: DefaultValues<ProjectFormType> = {
       imageUrl: '',
     },
   ],
-  links: [],
+  links: [DEFAULT_LINK],
 };

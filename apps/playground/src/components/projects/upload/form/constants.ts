@@ -12,7 +12,6 @@ export type CategoryType = keyof typeof categoryLabel;
 export const DEFAULT_MEMBER = {
   memberId: '',
   memberRole: '',
-  memberDescription: '',
 };
 
 export const DEFAULT_IMAGE_URL = '';
