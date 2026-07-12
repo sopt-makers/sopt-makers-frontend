@@ -1,7 +1,8 @@
 import styled from '@emotion/styled';
 import { playgroundLink } from '@sopt/constant';
-import { colors } from '@sopt-makers/colors';
-import { fonts } from '@sopt-makers/fonts';
+import { spacing, typography } from '@sopt-mds/design-tokens';
+import { IconPlus } from '@sopt-mds/icons';
+import { ActionButton } from '@sopt-mds/ui';
 import { ImpressionArea } from '@toss/impression-area';
 import { useDebounce } from '@toss/react';
 import Link from 'next/link';
@@ -12,12 +13,13 @@ import { BooleanParam, createEnumParam, NumberParam, StringParam, useQueryParams
 import { useGetProjectsQuery } from '@/api/endpoint/projects/getProjects';
 import EmptyView from '@/components/common/EmptyView';
 import Loading from '@/components/common/Loading';
+import Responsive from '@/components/common/Responsive';
 import Text from '@/components/common/Text';
 import { LoggingClick } from '@/components/eventLogger/components/LoggingClick';
 import useEventLogger from '@/components/eventLogger/hooks/useEventLogger';
 import type { ProjectCategory } from '@/components/members/detail/types';
 import ProjectCard from '@/components/projects/main/card/ProjectCard';
-import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
+import { DESKTOP_ONE_MEDIA_QUERY, DESKTOP_TWO_MEDIA_QUERY, MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 import ProjectFilterSection from './ProjectFilterSection';
 
@@ -48,7 +50,6 @@ const ProjectList = () => {
   const totalCount = data?.pages && data.pages[0].totalCount;
 
   const { logClickEvent } = useEventLogger();
-
   return (
     <StyledContainer>
       <StyledContent>
@@ -92,13 +93,26 @@ const ProjectList = () => {
           </StyledGridContainer>
         )}
       </StyledContent>
-      <ProjectUploadButton
-        onClick={() => logClickEvent('projectUpload', { referral: 'project' })}
-        href={playgroundLink.projectUpload()}
-      >
-        <PlusIcon />
-        프로젝트 올리기
-      </ProjectUploadButton>
+      <Responsive only='desktop'>
+        <StyledActionButton
+          leftAddon={<IconPlus />}
+          variant='primary'
+          size='large'
+          onClick={() => logClickEvent('projectUpload', { referral: 'project' })}
+        >
+          프로젝트 올리기
+        </StyledActionButton>
+      </Responsive>
+      <Responsive only='mobile'>
+        <StyledActionButton
+          leftAddon={<IconPlus />}
+          variant='primary'
+          size='small'
+          onClick={() => logClickEvent('projectUpload', { referral: 'project' })}
+        >
+          프로젝트 올리기
+        </StyledActionButton>
+      </Responsive>
     </StyledContainer>
   );
 };
@@ -115,98 +129,63 @@ const StyledContainer = styled.div`
 const CONTAINER_MAX_WIDTH = 1480;
 
 const StyledContent = styled.div`
-  justify-self: flex-start;
-  margin: 40px 0;
-  min-width: ${CONTAINER_MAX_WIDTH}px;
-
-  @media screen and (max-width: ${CONTAINER_MAX_WIDTH}px) {
-    min-width: calc(352px * 3 + 15px * 2);
-  }
-
-  @media screen and (max-width: 1120px) {
-    min-width: calc(352px * 2 + 15px * 1);
-  }
+  margin: ${spacing.s40} 0;
 
   @media ${MOBILE_MEDIA_QUERY} {
-    gap: 12px;
-    margin: 0;
-    pading: 0 20px;
+    margin: ${spacing.s0};
     width: 100%;
     min-width: 352px;
   }
 `;
 
-const ProjectUploadButton = styled(Link)`
+const StyledActionButton = styled(ActionButton)`
   display: flex;
   position: fixed;
-  right: 60px;
-  bottom: 80px;
-  gap: 8px;
-  align-items: center;
-  border-radius: 18px;
-  background-color: ${colors.gray10};
-  padding: 14px 30px 14px 27px;
-  color: ${colors.gray950};
-  ${fonts.TITLE_20_SB};
-
-  &:hover {
-    background-color: ${colors.gray50};
-  }
+  right: 56px;
+  bottom: 58px;
 
   @media ${MOBILE_MEDIA_QUERY} {
-    right: 16px;
-    bottom: 16px;
-    padding: 12px;
-    ${fonts.LABEL_16_SB}
+    right: ${spacing.s16};
+    bottom: 30px;
+  }
+
+  @media ${DESKTOP_TWO_MEDIA_QUERY} {
+    right: ${spacing.s24};
+    bottom: 54px;
   }
 `;
 
-const PlusIcon = () => (
-  <svg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'>
-    <path
-      d='M10.9208 2.58751C10.9208 2.07966 10.5091 1.66797 10.0013 1.66797C9.49345 1.66797 9.08176 2.07966 9.08176 2.58751V9.08176H2.58751C2.07966 9.08176 1.66797 9.49345 1.66797 10.0013C1.66797 10.5091 2.07966 10.9208 2.58751 10.9208H9.08176V17.4151C9.08176 17.9229 9.49345 18.3346 10.0013 18.3346C10.5091 18.3346 10.9208 17.9229 10.9208 17.4151V10.9208H17.4151C17.9229 10.9208 18.3346 10.5091 18.3346 10.0013C18.3346 9.49345 17.9229 9.08176 17.4151 9.08176H10.9208V2.58751Z'
-      fill='#0F0F12'
-    />
-  </svg>
-);
-
 const LengthWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 20px;
-  width: 100%;
+  margin-top: ${spacing.s28};
+  margin-bottom: ${spacing.s20};
 
   @media ${MOBILE_MEDIA_QUERY} {
-    flex-direction: column;
-    align-items: flex-start;
-    margin-top: 18.5px;
+    margin: ${spacing.s0};
+    padding: ${spacing.s12} ${spacing.s20};
+    width: 100%;
   }
 `;
 
 const StyledLength = styled(Text)`
-  ${fonts.BODY_16_M};
+  ${typography.label1}
 
   @media ${MOBILE_MEDIA_QUERY} {
-    ${fonts.BODY_14_M};
+    ${typography.body2};
   }
 `;
 
 const StyledGridContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 15px;
-  margin-top: 22px;
+  gap: ${spacing.s16};
   min-width: ${CONTAINER_MAX_WIDTH}px;
 
-  @media screen and (max-width: ${CONTAINER_MAX_WIDTH}px) {
+  @media ${DESKTOP_ONE_MEDIA_QUERY} {
     grid-template-columns: repeat(3, 1fr);
-    justify-content: start;
     min-width: 0;
-    min-width: 790px;
   }
 
-  @media screen and (max-width: 1120px) {
+  @media ${DESKTOP_TWO_MEDIA_QUERY} {
     grid-template-columns: repeat(2, 1fr);
     min-width: 0;
   }
@@ -214,7 +193,6 @@ const StyledGridContainer = styled.div`
   @media ${MOBILE_MEDIA_QUERY} {
     grid-template-columns: minmax(0, 1fr);
     gap: 0;
-    justify-content: start;
     margin-top: 0;
   }
 `;
