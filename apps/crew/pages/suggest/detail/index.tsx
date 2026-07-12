@@ -209,8 +209,8 @@ const SContentCard = styled('div', {
 const SMainSection = styled('div', {
   'display': 'flex',
   'flexDirection': 'column',
-  'gap': spacing.s32,
-  'padding': `${spacing.s32} ${spacing.s32} ${spacing.s20}`,
+  'gap': spacing.s40,
+  'padding': `${spacing.s32} ${spacing.s32} ${spacing.s40}`,
 
   '@mobile': {
     gap: spacing.s16,
