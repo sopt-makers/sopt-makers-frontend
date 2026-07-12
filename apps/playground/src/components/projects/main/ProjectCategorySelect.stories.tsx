@@ -8,15 +8,6 @@ const meta = {
 } satisfies Meta<typeof ProjectCategorySelect>;
 export default meta;
 
-export const 기본 = () => {
-  return (
-    <ProjectCategorySelect placeholder='프로젝트 전체'>
-      <ProjectCategorySelect.Item value='APPJAM'>앱잼</ProjectCategorySelect.Item>
-      <ProjectCategorySelect.Item value='SOPTKATON'>솝커톤</ProjectCategorySelect.Item>
-    </ProjectCategorySelect>
-  );
-};
-
 type ProjectCategory = 'APPJAM' | 'SOPKATHON' | 'SOPTERM' | 'STUDY' | 'ETC';
 
 const PROJECT_CATEGORY_LIST: Array<{ value: ProjectCategory; label: string }> = [
@@ -26,6 +17,10 @@ const PROJECT_CATEGORY_LIST: Array<{ value: ProjectCategory; label: string }> = 
   { value: 'STUDY', label: '스터디' },
   { value: 'ETC', label: '사이드 프로젝트' },
 ];
+
+export const 기본 = () => {
+  return <ProjectCategorySelect placeholder='프로젝트 전체' option={PROJECT_CATEGORY_LIST} />;
+};
 
 export const Controlled예시 = () => {
   const [value, onValueChange] = useState<ProjectCategory | undefined>();
@@ -37,12 +32,7 @@ export const Controlled예시 = () => {
       onValueChange={(value) => onValueChange(value as ProjectCategory)}
       allowClear
       onClear={() => onValueChange(undefined)}
-    >
-      {PROJECT_CATEGORY_LIST.map(({ label, value }) => (
-        <ProjectCategorySelect.Item key={value} value={value}>
-          {label}
-        </ProjectCategorySelect.Item>
-      ))}
-    </ProjectCategorySelect>
+      option={PROJECT_CATEGORY_LIST}
+    />
   );
 };
