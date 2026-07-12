@@ -44,7 +44,7 @@
     "@sopt-makers/ui": "2.8.9",
     "@sopt-mds/design-tokens": "^1.0.7",
     "@sopt-mds/icons": "^0.0.2",
-    "@sopt-mds/ui": "^1.0.12",
+    "@sopt-mds/ui": "^1.1.0",
     "@sopt/constant": "workspace:*",
     "@sopt/ui": "workspace:*",
     "@tanstack/react-query": "^5",

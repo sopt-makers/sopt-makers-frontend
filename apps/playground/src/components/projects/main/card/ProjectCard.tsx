@@ -110,7 +110,7 @@ const StyledCard = styled.article`
     border: none;
     border-bottom: 1px solid ${colors.stroke.neutral.ghost};
     border-radius: ${radius.r0};
-    padding: ${spacing.s16};
+    padding: ${spacing.s12} ${spacing.s20};
 
     &:hover {
       transform: none;

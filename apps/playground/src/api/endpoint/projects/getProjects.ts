@@ -11,6 +11,7 @@ export interface ProjectsRequestParams {
   isAvailable?: boolean | null;
   isFounding?: boolean | null;
   category?: string | null;
+  generation?: number | null;
 }
 
 const linkSchema = z.object({
