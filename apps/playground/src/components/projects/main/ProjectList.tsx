@@ -2,44 +2,38 @@ import styled from '@emotion/styled';
 import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
-import { Flex, width100 } from '@toss/emotion-utils';
 import { ImpressionArea } from '@toss/impression-area';
 import { useDebounce } from '@toss/react';
-import { uniqBy as _uniqBy } from 'lodash-es';
 import Link from 'next/link';
 import React, { useState } from 'react';
-import { BooleanParam, createEnumParam, StringParam, useQueryParams, withDefault } from 'use-query-params';
+import type { DecodedValueMap, SetQuery } from 'use-query-params';
+import { BooleanParam, createEnumParam, NumberParam, StringParam, useQueryParams, withDefault } from 'use-query-params';
 
 import { useGetProjectsQuery } from '@/api/endpoint/projects/getProjects';
 import EmptyView from '@/components/common/EmptyView';
 import Loading from '@/components/common/Loading';
-import Responsive from '@/components/common/Responsive';
 import Text from '@/components/common/Text';
 import { LoggingClick } from '@/components/eventLogger/components/LoggingClick';
 import useEventLogger from '@/components/eventLogger/hooks/useEventLogger';
+import type { ProjectCategory } from '@/components/members/detail/types';
 import ProjectCard from '@/components/projects/main/card/ProjectCard';
-import ProjectCategorySelect from '@/components/projects/main/ProjectCategorySelect';
-import ProjectFilterChip from '@/components/projects/main/ProjectFilterChip';
-import ProjectSearch from '@/components/projects/main/ProjectSearch';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
-type ProjectCategory = 'APPJAM' | 'SOPKATHON' | 'SOPTERM' | 'STUDY' | 'ETC';
+import ProjectFilterSection from './ProjectFilterSection';
 
-const PROJECT_CATEGORY_LIST: Array<{ value: ProjectCategory; label: string }> = [
-  { value: 'APPJAM', label: '앱잼' },
-  { value: 'SOPKATHON', label: '솝커톤' },
-  { value: 'SOPTERM', label: '솝텀 프로젝트' },
-  { value: 'STUDY', label: '스터디' },
-  { value: 'ETC', label: '사이드 프로젝트' },
-];
+const PROJECT_QUERY_PARAM_CONFIG = {
+  name: withDefault(StringParam, null),
+  isAvailable: withDefault(BooleanParam, null),
+  isFounding: withDefault(BooleanParam, null),
+  category: createEnumParam<ProjectCategory>(['APPJAM', 'SOPKATHON', 'SOPTERM', 'STUDY', 'ETC']),
+  generation: withDefault(NumberParam, null),
+};
+
+export type ProjectQueryParams = DecodedValueMap<typeof PROJECT_QUERY_PARAM_CONFIG>;
+export type SetProjectQueryParams = SetQuery<typeof PROJECT_QUERY_PARAM_CONFIG>;
 
 const ProjectList = () => {
-  const [queryParams, setQueryParams] = useQueryParams({
-    name: withDefault(StringParam, null),
-    isAvailable: withDefault(BooleanParam, null),
-    isFounding: withDefault(BooleanParam, null),
-    category: createEnumParam<ProjectCategory>(['APPJAM', 'SOPKATHON', 'SOPTERM', 'STUDY', 'ETC']),
-  });
+  const [queryParams, setQueryParams] = useQueryParams(PROJECT_QUERY_PARAM_CONFIG);
   const [value, setValue] = useState(queryParams.name);
   const debouncedChangeName = useDebounce((value: string | null) => setQueryParams({ name: value }), 300);
   const { data, isLoading, fetchNextPage } = useGetProjectsQuery({
@@ -48,6 +42,7 @@ const ProjectList = () => {
     isAvailable: queryParams.isAvailable,
     isFounding: queryParams.isFounding,
     category: queryParams.category,
+    generation: queryParams.generation,
   });
 
   const totalCount = data?.pages && data.pages[0].totalCount;
@@ -57,13 +52,14 @@ const ProjectList = () => {
   return (
     <StyledContainer>
       <StyledContent>
-        <ProjectSearch
+        <ProjectFilterSection
           value={value ?? ''}
           onValueChange={(value) => {
             setValue(value);
             debouncedChangeName(value === '' ? null : value);
           }}
-          placeholder='프로젝트 검색'
+          queryParams={queryParams}
+          setQueryParams={setQueryParams}
         />
         {isLoading ? (
           <LoadingContainer>
@@ -72,70 +68,6 @@ const ProjectList = () => {
         ) : (
           <LengthWrapper>
             <StyledLength typography='SUIT_18_M'>전체 {totalCount}개</StyledLength>
-            <Responsive only='desktop'>
-              <Flex css={{ gap: 6 }} align='center'>
-                <ProjectFilterChip
-                  checked={queryParams.isAvailable ?? false}
-                  onCheckedChange={(checked) => setQueryParams({ isAvailable: checked || null })}
-                >
-                  이용 가능한 서비스
-                </ProjectFilterChip>
-                <ProjectFilterChip
-                  checked={queryParams.isFounding ?? false}
-                  onCheckedChange={(checked) => setQueryParams({ isFounding: checked || null })}
-                >
-                  창업 중
-                </ProjectFilterChip>
-                <ProjectCategorySelect
-                  css={{ marginLeft: 10 }}
-                  placeholder='프로젝트 전체'
-                  allowClear
-                  onClear={() => setQueryParams({ category: null })}
-                  value={queryParams.category ?? undefined}
-                  onValueChange={(value) => setQueryParams({ category: value as ProjectCategory })}
-                >
-                  {PROJECT_CATEGORY_LIST.map(({ label, value }) => (
-                    <ProjectCategorySelect.Item key={value} value={value}>
-                      {label}
-                    </ProjectCategorySelect.Item>
-                  ))}
-                </ProjectCategorySelect>
-              </Flex>
-            </Responsive>
-            <Responsive only='mobile' css={width100}>
-              <Flex css={{ marginTop: 4.5, padding: '8px 0' }} justify='space-between' align='center'>
-                <Flex css={{ gap: 6 }}>
-                  <ProjectFilterChip
-                    size='small'
-                    checked={queryParams.isAvailable ?? false}
-                    onCheckedChange={(checked) => setQueryParams({ isAvailable: checked })}
-                  >
-                    이용 가능한 서비스
-                  </ProjectFilterChip>
-                  <ProjectFilterChip
-                    size='small'
-                    checked={queryParams.isFounding ?? false}
-                    onCheckedChange={(checked) => setQueryParams({ isFounding: checked })}
-                  >
-                    창업 중
-                  </ProjectFilterChip>
-                </Flex>
-                <ProjectCategorySelect
-                  placeholder='프로젝트 전체'
-                  size='small'
-                  allowClear
-                  onClear={() => setQueryParams({ category: null })}
-                  value={queryParams.category ?? undefined}
-                  onValueChange={(value) => setQueryParams({ category: value as ProjectCategory })}
-                >
-                  {PROJECT_CATEGORY_LIST.map(({ label, value }) => (
-                    <ProjectCategorySelect.Item key={value} value={value}>
-                      {label}
-                    </ProjectCategorySelect.Item>
-                  ))}
-                </ProjectCategorySelect>
-              </Flex>
-            </Responsive>
           </LengthWrapper>
         )}
 
@@ -184,7 +116,7 @@ const CONTAINER_MAX_WIDTH = 1480;
 
 const StyledContent = styled.div`
   justify-self: flex-start;
-  margin: 64px 0;
+  margin: 40px 0;
   min-width: ${CONTAINER_MAX_WIDTH}px;
 
   @media screen and (max-width: ${CONTAINER_MAX_WIDTH}px) {
@@ -198,7 +130,7 @@ const StyledContent = styled.div`
   @media ${MOBILE_MEDIA_QUERY} {
     gap: 12px;
     margin: 0;
-    padding: 12px 10px;
+    pading: 0 20px;
     width: 100%;
     min-width: 352px;
   }

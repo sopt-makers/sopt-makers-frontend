@@ -7,7 +7,7 @@ import { GENERATION_OPTIONS } from '@/components/members/main/MemberList/filters
 import { DESKTOP_TWO_MEDIA_QUERY, MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 import ProjectCategorySelect from './ProjectCategorySelect';
-import type { ProjectQueryParams, SetProjectQueryParams } from './projectQueryParams';
+import type { ProjectQueryParams, SetProjectQueryParams } from './ProjectList';
 
 interface ProjectFilterSectionProps {
   value: string;
