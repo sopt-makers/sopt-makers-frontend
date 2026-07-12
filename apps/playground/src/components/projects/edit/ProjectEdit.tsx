@@ -6,7 +6,7 @@ import type { FC } from 'react';
 import { useEffect } from 'react';
 
 import { useGetMemberOfMe } from '@/api/endpoint/members/getMemberOfMe';
-import { getProjectsQueryKey } from '@/api/endpoint/projects/getProjects';
+import { projectsQueryKey } from '@/api/endpoint/projects/getProjects';
 import { getProjectById, putProject } from '@/api/endpoint_LEGACY/projects';
 import AuthRequired from '@/components/auth/AuthRequired';
 import useAlert from '@/components/common/Modal/useAlert';
@@ -58,7 +58,7 @@ const ProjectEdit: FC<ProjectEditProps> = ({ projectId }) => {
               queryKey: getProjectQueryKey(projectId),
             });
             queryClient.invalidateQueries({
-              queryKey: getProjectsQueryKey(),
+              queryKey: projectsQueryKey.all,
             });
             queryClient.invalidateQueries({
               queryKey: ['getProjectById', projectId],

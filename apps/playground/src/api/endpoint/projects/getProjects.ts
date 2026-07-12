@@ -46,11 +46,14 @@ const getProjectsEndpoint = createEndpoint({
   }),
 });
 
-export const getProjectsQueryKey = (params: ProjectsRequestParams = {}) => ['getProjectsQuery', params];
+export const projectsQueryKey = {
+  all: ['getProjectsQuery'] as const,
+  list: (params: ProjectsRequestParams = {}) => [...projectsQueryKey.all, params] as const,
+};
 
 export const useGetProjectsQuery = (params: ProjectsRequestParams = {}) => {
   return useInfiniteQuery({
-    queryKey: getProjectsQueryKey(params),
+    queryKey: projectsQueryKey.list(params),
     queryFn: ({ pageParam = 0 }) => getProjectsEndpoint.request({ ...params, cursor: pageParam }),
     initialPageParam: 0,
     getNextPageParam: (lastPage) => {

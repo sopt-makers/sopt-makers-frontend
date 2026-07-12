@@ -4,7 +4,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 
 import { useGetMemberOfMe } from '@/api/endpoint/members/getMemberOfMe';
-import { getProjectsQueryKey } from '@/api/endpoint/projects/getProjects';
+import { projectsQueryKey } from '@/api/endpoint/projects/getProjects';
 import AuthRequired from '@/components/auth/AuthRequired';
 import useConfirm from '@/components/common/Modal/useConfirm';
 import useSlideUp from '@/components/common/SlideUp/useToast';
@@ -35,7 +35,7 @@ const ProjectUploadPage = () => {
     if (notify && myProfileData) {
       createProjectMutate(convertToProjectData(formData, myProfileData.id), {
         onSuccess: async () => {
-          queryClient.invalidateQueries({ queryKey: getProjectsQueryKey() });
+          queryClient.invalidateQueries({ queryKey: projectsQueryKey.all });
 
           logSubmitEvent('projectUpload', {
             writerId: String(myProfileData.id),
