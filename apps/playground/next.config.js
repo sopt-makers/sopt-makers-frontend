@@ -10,7 +10,7 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 const nextConfig = {
   output: 'export',
   reactStrictMode: true,
-  transpilePackages: ['@sopt/ui', '@sopt/constant'],
+  transpilePackages: ['@sopt/ui', '@sopt/constant', '@sopt-mds/ui'],
   // https://nextjs.org/docs/api-reference/next.config.js/custom-page-extensions
   pageExtensions: ['tsx', 'ts', 'jsx', 'js'],
   webpack: (config) => {
