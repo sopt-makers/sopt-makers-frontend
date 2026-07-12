@@ -254,7 +254,6 @@ const DeliveryStatus = styled('div', {
   ...typography.label1,
 
   '@mobile': {
-    width: '118px',
     padding: `${spacing.s6} ${spacing.s12}`,
     borderRadius: `${radius.r12} ${radius.r12} ${radius.r12} ${radius.r0}`,
     ...typography.label4,
