@@ -1,11 +1,11 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
+import { colorBg, colorFg } from '@sopt-mds/design-tokens';
 import type { ChangeEvent, FocusEvent } from 'react';
 import { forwardRef } from 'react';
 
 import ErrorMessage from '@/components/common/Input/ErrorMessage';
-import Text from '@/components/common/Text';
 import { textStyles } from '@/styles/typography';
 
 export interface InputProps {
@@ -79,16 +79,16 @@ export default Input;
 const StyledInput = styled.input<InputProps>`
   box-sizing: border-box;
   transition: all 0.2s;
-  border: 1.5px solid ${colors.gray700};
+  background-color: ${colorBg.layer.default};
+  border: 1.5px solid transparent;
   border-radius: 6px;
-  background-color: ${colors.gray700};
   padding: 14px 20px;
   width: ${(props) => props.width};
-  color: ${colors.gray10};
+  color: ${colorFg.neutral.bold};
   ${textStyles.SUIT_16_M};
 
   &::placeholder {
-    color: ${colors.gray400};
+    color: ${colorFg.neutral.ghost};
   }
 
   &:focus {

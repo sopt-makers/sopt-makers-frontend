@@ -12,9 +12,9 @@ interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
 }
 
 const Select = forwardRef<HTMLSelectElement, SelectProps>(
-  ({ width = 200, disabled = false, children, error, placeholder = '', ...props }, ref) => {
+  ({ width = 200, disabled = false, children, error, placeholder = '', className, ...props }, ref) => {
     return (
-      <StyledSelectContainer width={width} error={error}>
+      <StyledSelectContainer className={className} width={width} error={error}>
         <select ref={ref} disabled={disabled} {...props}>
           <option value='' selected disabled hidden>
             {placeholder}
@@ -41,6 +41,17 @@ const StyledSelectContainer = styled.div<Pick<SelectProps, 'width' | 'error'>>`
   ${typography.body1}
   color: ${colorFg.neutral.ghost};
   transition: all 0.2s;
+
+  select {
+    flex: 1;
+    appearance: none;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+  }
 
   ${({ error }) =>
     error &&

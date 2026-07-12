@@ -43,7 +43,7 @@ export default TextArea;
 
 const StyledTextArea = styled.textarea<TextAreaProps>`
   transition: all 0.2s;
-  border: 1.5px solid ${colors.gray700};
+  border: 1.5px solid transparent;
   border-radius: 6px;
   background-color: ${colors.gray700};
   padding: 14px 20px;

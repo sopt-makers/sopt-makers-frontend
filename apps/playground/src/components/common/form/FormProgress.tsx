@@ -1,18 +1,14 @@
 import styled from '@emotion/styled';
 import * as Progress from '@radix-ui/react-progress';
-import { colors } from '@sopt-makers/colors';
-import type { FC } from 'react';
+import { colors, radius, spacing, typography } from '@sopt-mds/design-tokens';
+import { Tag } from '@sopt-mds/ui';
 import { useMemo } from 'react';
 
-import FormTitle from '@/components/common/form/FormTitle';
-import Text from '@/components/common/Text';
 import IconDoneCheck from '@/public/icons/icon-done-check.svg';
-import { textStyles } from '@/styles/typography';
 
 interface FormProgressProps {
   className?: string;
   title: string;
-  progressLabel: string;
   items: FormProgressItem[];
 }
 
@@ -22,34 +18,26 @@ export type FormProgressItem = {
   active?: boolean;
 };
 
-const FormProgress: FC<FormProgressProps> = ({ className, title, progressLabel, items }) => {
+const FormProgress = ({ className, title, items }: FormProgressProps) => {
   const activeItems = useMemo(() => items.filter((item) => item.active), [items]);
   const progressPercentage = Math.round((activeItems.length / items.length) * 100);
 
   return (
     <StyledFormProgress className={className}>
       <StyledHeader>
-        <FormTitle typography='SUIT_24_SB'>{title}</FormTitle>
-        <ProgressNumber>
-          <Text typography='SUIT_12_M' color={colors.success}>
-            {`${activeItems.length}/${items.length}`}
-          </Text>
-        </ProgressNumber>
+        <StyledTitle>{title}</StyledTitle>
+        <Tag size='small'>{`${activeItems.length}/${items.length}`}</Tag>
       </StyledHeader>
-      <Divider />
-      <Text typography='SUIT_16_M' color={colors.gray400}>
-        {progressLabel}
-      </Text>
       <StyledProgressRoot value={progressPercentage}>
-        <StyledProgressIndicator style={{ transform: `translateX(-${100 - progressPercentage}%)` }} />
+        <StyledProgressIndicator percentage={progressPercentage} />
       </StyledProgressRoot>
       <StatusList>
         {items.map(({ title, required, active }) => (
-          <ListItem key={title} isDirty={active}>
-            <ListItemLeft>
+          <ListItem key={title}>
+            <ListItemTitle isCompleted={active}>
               {title}
-              {required && <span className='text-required'>*</span>}
-            </ListItemLeft>
+              {required && <RequiredMark> *</RequiredMark>}
+            </ListItemTitle>
             {active && (
               <Checked>
                 <IconDoneCheck />
@@ -65,11 +53,13 @@ const FormProgress: FC<FormProgressProps> = ({ className, title, progressLabel, 
 export default FormProgress;
 
 const StyledFormProgress = styled.div`
-  border-radius: 12px;
-  background-color: ${colors.gray800};
-  padding: 47px 40px;
-  width: 278px;
+  border-radius: ${radius.r12};
+  background-color: ${colors.bg.layer.default};
+  padding: ${spacing.s48} ${spacing.s40};
+  width: 290px;
   height: fit-content;
+  position: sticky;
+  top: 100px;
 `;
 
 const StyledHeader = styled.div`
@@ -79,57 +69,53 @@ const StyledHeader = styled.div`
   white-space: nowrap;
 `;
 
-const ProgressNumber = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 6px;
-  background-color: ${colors.gray700};
-  width: 50px;
-  height: 24px;
+const StyledTitle = styled.span`
+  color: ${colors.fg.neutral.bold};
+  ${typography.heading3};
 `;
 
 const StyledProgressRoot = styled(Progress.Root)`
   position: relative;
   transform: translateZ(0);
-  margin: 17px 0 0;
+  margin-top: ${spacing.s20};
   border-radius: 100px;
-  background-color: ${colors.gray600};
+  background-color: ${colors.bg.neutral.subtle};
   width: 100%;
   height: 6px;
   overflow: hidden;
 `;
 
-const StyledProgressIndicator = styled(Progress.Indicator)`
+const StyledProgressIndicator = styled(Progress.Indicator)<{ percentage: number }>`
   transition: transform 0.3s;
-  background-color: ${colors.success};
+  transform: translateX(-${({ percentage }) => 100 - percentage}%);
+  background-color: ${colors.bg.secondary.default};
   width: 100%;
   height: 100%;
 `;
 
 const StatusList = styled.ul`
-  margin: 29px 0 0;
-  border-radius: 6px;
-  background-color: ${colors.gray700};
-  padding: 11px 0;
+  margin-top: ${spacing.s28};
+  border-radius: ${radius.r6};
+  background-color: ${colors.bg.neutral.defaultDisabled};
+  padding: ${spacing.s12} ${spacing.s0};
   list-style: none;
 `;
 
-const ListItem = styled.li<{ isDirty?: boolean }>`
+const ListItem = styled.li`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  transition: color 0.2s;
-  padding: 14px 20px;
-  color: ${({ isDirty }) => (isDirty ? colors.gray10 : colors.gray400)};
-  ${textStyles.SUIT_16_M};
+  padding: ${spacing.s14} ${spacing.s20};
 `;
 
-const ListItemLeft = styled.span`
-  & .text-required {
-    align-self: flex-start;
-    margin: 0 0 0 2px;
-  }
+const ListItemTitle = styled.span<{ isCompleted?: boolean }>`
+  transition: color 0.2s;
+  color: ${({ isCompleted }) => (isCompleted ? colors.fg.neutral.bold : colors.fg.neutral.subtle)};
+  ${typography.title4};
+`;
+
+const RequiredMark = styled.span`
+  ${typography.label4};
 `;
 
 const Checked = styled.div`
@@ -137,15 +123,7 @@ const Checked = styled.div`
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background-color: ${colors.success};
+  background-color: ${colors.fg.secondary.default};
   width: 14px;
   height: 14px;
-`;
-
-const Divider = styled.hr`
-  margin: 36px 0 28px;
-  border: none;
-  background-color: ${colors.gray700};
-  width: 100%;
-  height: 1.5px;
 `;

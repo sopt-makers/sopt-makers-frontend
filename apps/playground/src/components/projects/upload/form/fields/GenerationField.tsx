@@ -1,15 +1,11 @@
 import styled from '@emotion/styled';
-import { colors } from '@sopt-makers/colors';
-import type { FC } from 'react';
-import React from 'react';
+import { colors, radius, typography } from '@sopt-mds/design-tokens';
+import { spacing } from '@sopt-mds/design-tokens';
+import { Checkbox } from '@sopt-mds/ui';
 
-import Checkbox from '@/components/common/Checkbox';
 import ErrorMessage from '@/components/common/Input/ErrorMessage';
 import Select from '@/components/common/Select';
-import Text from '@/components/common/Text';
 import { GENERATIONS } from '@/constants/generation';
-import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
-import { textStyles } from '@/styles/typography';
 
 interface GenerationFieldProps {
   value: string | null;
@@ -18,19 +14,11 @@ interface GenerationFieldProps {
   errorMessage?: string;
 }
 
-const GenerationField: FC<GenerationFieldProps> = ({ value, defaultValue, onChange, errorMessage }) => {
-  const handleCheckboxChange = () => {
-    if (value === null) {
-      onChange(defaultValue);
-    } else {
-      onChange(null);
-    }
-  };
-
+const GenerationField = ({ value, defaultValue, onChange, errorMessage }: GenerationFieldProps) => {
   return (
     <StyledGenerationField>
       <StyledSelect
-        width={236}
+        width={200}
         placeholder='선택'
         value={value ?? defaultValue}
         onChange={(e) => onChange(e.target.value)}
@@ -43,12 +31,13 @@ const GenerationField: FC<GenerationFieldProps> = ({ value, defaultValue, onChan
           </option>
         ))}
       </StyledSelect>
-      <StyledCheckboxWrapper>
-        <Checkbox checked={value === null} onChange={handleCheckboxChange} />
-        <Text typography='SUIT_12_M' color={colors.gray600}>
-          특정 기수 활동으로 진행하지 않았어요
-        </Text>
-      </StyledCheckboxWrapper>
+      <StyledCheckbox
+        size='small'
+        label='특정 기수 활동으로 진행하지 않았어요'
+        checked={value === null}
+        onCheckedChange={(checked) => onChange(checked ? null : defaultValue)}
+      />
+
       <StyledErrorMessage message={errorMessage} />
     </StyledGenerationField>
   );
@@ -62,21 +51,17 @@ const StyledGenerationField = styled.div`
 `;
 
 const StyledSelect = styled(Select)`
-  width: 236px;
-  color: ${colors.gray400};
-
-  @media ${MOBILE_MEDIA_QUERY} {
-    ${textStyles.SUIT_14_M}
-
-    width: 160px;
-  }
+  width: 200px;
+  color: ${colors.fg.neutral.ghost};
+  background-color: ${colors.bg.layer.default};
+  border-radius: ${radius.r10};
+  padding: 15px ${spacing.s16};
+  ${typography.body1};
 `;
 
-const StyledCheckboxWrapper = styled.div`
-  display: flex;
-  column-gap: 10px;
-  align-items: center;
-  margin: 13px 0;
+const StyledCheckbox = styled(Checkbox)`
+  margin-top: ${spacing.s12};
+  color: ${colors.fg.neutral.subtle};
 `;
 
 const StyledErrorMessage = styled(ErrorMessage)`
