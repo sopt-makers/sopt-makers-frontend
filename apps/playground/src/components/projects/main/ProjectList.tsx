@@ -6,6 +6,7 @@ import { ActionButton } from '@sopt-mds/ui';
 import { ImpressionArea } from '@toss/impression-area';
 import { useDebounce } from '@toss/react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import type { DecodedValueMap, SetQuery } from 'use-query-params';
 import { BooleanParam, createEnumParam, NumberParam, StringParam, useQueryParams, withDefault } from 'use-query-params';
@@ -35,6 +36,7 @@ export type ProjectQueryParams = DecodedValueMap<typeof PROJECT_QUERY_PARAM_CONF
 export type SetProjectQueryParams = SetQuery<typeof PROJECT_QUERY_PARAM_CONFIG>;
 
 const ProjectList = () => {
+  const router = useRouter();
   const [queryParams, setQueryParams] = useQueryParams(PROJECT_QUERY_PARAM_CONFIG);
   const [value, setValue] = useState(queryParams.name);
   const debouncedChangeName = useDebounce((value: string | null) => setQueryParams({ name: value }), 300);
@@ -50,6 +52,12 @@ const ProjectList = () => {
   const totalCount = data?.pages && data.pages[0].totalCount;
 
   const { logClickEvent } = useEventLogger();
+
+  const handleProjectUploadClick = () => {
+    logClickEvent('projectUpload', { referral: 'project' });
+    router.push(playgroundLink.projectUpload());
+  };
+
   return (
     <StyledContainer>
       <StyledContent>
@@ -94,22 +102,12 @@ const ProjectList = () => {
         )}
       </StyledContent>
       <Responsive only='desktop'>
-        <StyledActionButton
-          leftAddon={<IconPlus />}
-          variant='primary'
-          size='large'
-          onClick={() => logClickEvent('projectUpload', { referral: 'project' })}
-        >
+        <StyledActionButton leftAddon={<IconPlus />} variant='primary' size='large' onClick={handleProjectUploadClick}>
           프로젝트 올리기
         </StyledActionButton>
       </Responsive>
       <Responsive only='mobile'>
-        <StyledActionButton
-          leftAddon={<IconPlus />}
-          variant='primary'
-          size='small'
-          onClick={() => logClickEvent('projectUpload', { referral: 'project' })}
-        >
+        <StyledActionButton leftAddon={<IconPlus />} variant='primary' size='small' onClick={handleProjectUploadClick}>
           프로젝트 올리기
         </StyledActionButton>
       </Responsive>
