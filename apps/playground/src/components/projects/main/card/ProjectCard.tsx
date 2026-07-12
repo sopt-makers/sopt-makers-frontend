@@ -69,11 +69,11 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
             {hasLinks && (
               <LinkArea>
                 {links.map((link) => {
-                  const { Icon } = getLinkInfo(link.linkTitle);
+                  const { Icon: LinkIcon } = getLinkInfo(link.linkTitle);
                   return (
-                    <LinkIcon key={link.linkId}>
-                      <Icon />
-                    </LinkIcon>
+                    <LinkIconWrapper key={link.linkId}>
+                      <LinkIcon width={16} height={16} />
+                    </LinkIconWrapper>
                   );
                 })}
               </LinkArea>
@@ -223,7 +223,7 @@ const LinkArea = styled.div`
   margin-left: auto;
 `;
 
-const LinkIcon = styled.div`
+const LinkIconWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -231,9 +231,4 @@ const LinkIcon = styled.div`
   background-color: ${colors.bg.neutral.ghost};
   padding: ${spacing.s4};
   color: ${colors.fg.neutral.bold};
-
-  & svg {
-    width: 16px;
-    height: 16px;
-  }
 `;
