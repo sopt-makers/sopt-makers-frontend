@@ -129,6 +129,17 @@ const CONTAINER_MAX_WIDTH = 1480;
 const StyledContent = styled.div`
   margin: ${spacing.s40} 0;
 
+  margin: 40px 0;
+  min-width: ${CONTAINER_MAX_WIDTH}px;
+
+  @media ${DESKTOP_ONE_MEDIA_QUERY} {
+    min-width: calc(352px * 3 + 15px * 2);
+  }
+
+  @media ${DESKTOP_TWO_MEDIA_QUERY} {
+    min-width: calc(352px * 2 + 15px * 1);
+  }
+
   @media ${MOBILE_MEDIA_QUERY} {
     margin: ${spacing.s0};
     width: 100%;
