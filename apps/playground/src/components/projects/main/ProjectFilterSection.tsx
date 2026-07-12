@@ -101,8 +101,15 @@ const StyledSearchField = styled(SearchField)`
 const StyledClickFilterContainer = styled.div`
   display: flex;
   gap: ${spacing.s10};
-  overflow: hidden;
   align-items: center;
+  overflow-x: auto;
+
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
   @media ${MOBILE_MEDIA_QUERY} {
     margin: ${spacing.s8} ${spacing.s20};
@@ -115,6 +122,7 @@ const StyledClickFilterContainer = styled.div`
 
 const StyledSelectContainer = styled.div`
   display: flex;
+  flex-shrink: 0;
   gap: ${spacing.s6};
 `;
 
