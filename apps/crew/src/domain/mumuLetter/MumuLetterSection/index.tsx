@@ -61,7 +61,7 @@ const MumuLetterSectionContent = ({ title, description }: MumuLetterSectionProps
   const handleViewAllClick = () => {
     ampli.clickMumuFeedViewCta(mumuCtaEventProperties);
 
-    window.location.assign('/feed');
+    window.location.assign('/feed?category=FREE');
   };
 
   return (
