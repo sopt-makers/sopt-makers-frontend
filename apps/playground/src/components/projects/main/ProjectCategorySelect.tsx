@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import * as Select from '@radix-ui/react-select';
-import { colorBg, radius, spacing } from '@sopt-mds/design-tokens';
+import { colors, radius, spacing } from '@sopt-mds/design-tokens';
 import { IconChevronUp } from '@sopt-mds/icons';
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
@@ -116,17 +116,18 @@ const StyledTrigger = styled(Select.Trigger)<{ open: boolean }>`
   gap: ${spacing.s8};
   transition: background 0.3s;
   border-radius: ${radius.r10};
-  background-color: ${colorBg.layer.default};
+  background-color: ${colors.bg.layer.default};
+  color: ${colors.fg.neutral.subtle};
 
   &:hover {
-    background: ${colorBg.layer.defaultHover};
+    background: ${colors.bg.layer.defaultHover};
   }
 `;
 
 const StyledIconChevronUp = styled(IconChevronUp)<{ open: boolean }>`
   width: 18px;
   height: 18px;
-  color: ${colorBg.neutral.bold};
+  color: ${colors.bg.neutral.bold};
   transition: transform 0.3s;
   transform: ${({ open }) => (open ? undefined : 'rotate(-180deg)')};
 `;
@@ -134,7 +135,7 @@ const StyledIconChevronUp = styled(IconChevronUp)<{ open: boolean }>`
 const StyledContent = styled(Select.Content)`
   gap: 10px;
   border-radius: 8px;
-  background-color: ${colorBg.layer.default};
+  background-color: ${colors.bg.layer.default};
   padding: 8px;
   margin-top: 8px;
   width: 100%;
@@ -145,14 +146,14 @@ const StyledItem = styled(Select.Item)`
   transition: color 0.3s background-color 0.3s;
   outline: none;
   border-radius: 8px;
-  background-color: ${colorBg.layer.default};
+  background-color: ${colors.bg.layer.default};
   cursor: pointer;
   width: 100%;
   padding: ${spacing.s10};
 
   &[data-highlighted] {
     outline: none;
-    background-color: ${colorBg.layer.defaultHover};
+    background-color: ${colors.bg.layer.defaultHover};
   }
 
   /* &[data-disabled] {
