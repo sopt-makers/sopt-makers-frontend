@@ -153,14 +153,14 @@ const StyledActionButton = styled(ActionButton)`
   right: 56px;
   bottom: 58px;
 
-  @media ${MOBILE_MEDIA_QUERY} {
-    right: ${spacing.s16};
-    bottom: 30px;
-  }
-
   @media ${DESKTOP_TWO_MEDIA_QUERY} {
     right: ${spacing.s24};
     bottom: 54px;
+  }
+
+  @media ${MOBILE_MEDIA_QUERY} {
+    right: ${spacing.s16};
+    bottom: 30px;
   }
 `;
 

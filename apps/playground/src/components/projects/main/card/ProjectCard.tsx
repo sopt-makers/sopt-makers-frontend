@@ -91,8 +91,7 @@ const StyledCard = styled.article`
   display: flex;
   flex-direction: column;
   gap: ${spacing.s16};
-  // TODO: border color 피그마 반영 후 변경
-  border: 1px solid ${colors.stroke.neutral.ghost};
+  border: 1px solid ${colors.stroke.neutral.subtle};
   border-radius: ${radius.r20};
   padding: ${spacing.s14};
   width: 352px;
