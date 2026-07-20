@@ -125,6 +125,8 @@ const StyledSearch = styled(Command)<{ isError?: boolean }>`
 `;
 
 const StyledInput = styled(Command.Input)`
+  min-width: 0;
+  width: 100%;
   transition: all 0.2s;
 
   &:focus {
