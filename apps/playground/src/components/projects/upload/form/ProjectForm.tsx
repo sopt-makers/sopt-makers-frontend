@@ -70,6 +70,7 @@ const ProjectForm = ({
   const {
     fields: projectImageFields,
     append: appendProjectImage,
+    update: updateProjectImage,
     remove: removeProjectImage,
   } = useFieldArray({
     control,
@@ -325,8 +326,8 @@ const ProjectForm = ({
                       ...field,
                       value: field.value.imageUrl,
                       onChange: (value: string) => {
-                        field.onChange({ imageUrl: value });
                         const isEdit = field.value.imageUrl !== DEFAULT_IMAGE_URL;
+                        updateProjectImage(index, { imageUrl: value });
                         if (!isEdit && value && projectImageFields.length < PROJECT_IMAGE_MAX_LENGTH) {
                           appendProjectImage({ imageUrl: DEFAULT_IMAGE_URL });
                         }
@@ -338,7 +339,7 @@ const ProjectForm = ({
                         if (projectImageFields.length > 1 && !isFilled) {
                           removeProjectImage(index);
                         } else {
-                          field.onChange({ imageUrl: DEFAULT_IMAGE_URL });
+                          updateProjectImage(index, { imageUrl: DEFAULT_IMAGE_URL });
                         }
                       },
                       errorMessage: errors.projectImages?.message,
