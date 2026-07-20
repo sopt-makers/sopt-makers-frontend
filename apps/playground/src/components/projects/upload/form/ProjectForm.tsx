@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import { zodResolver } from '@hookform/resolvers/zod';
-// import { colors } from '@sopt-makers/colors';
 import { colors, radius } from '@sopt-mds/design-tokens';
 import { spacing, typography } from '@sopt-mds/design-tokens';
 import { IconPlus } from '@sopt-mds/icons';
@@ -9,7 +8,6 @@ import type { ReactNode } from 'react';
 import type { DefaultValues } from 'react-hook-form';
 import { Controller, useFieldArray, useForm, useFormState, useWatch } from 'react-hook-form';
 
-import Button from '@/components/common/Button';
 import Divider from '@/components/common/Divider/Divider';
 import ImageUploader from '@/components/common/ImageUploader';
 import Input from '@/components/common/Input';
@@ -32,7 +30,6 @@ import { defaultUploadValues, uploadSchema } from '@/components/projects/upload/
 import UploadProjectProgress from '@/components/projects/upload/form/UploadProjectProgress';
 import { getMemberSummary } from '@/components/projects/utils';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
-import { textStyles } from '@/styles/typography';
 
 const PROJECT_IMAGE_MAX_LENGTH = 10;
 
@@ -181,7 +178,7 @@ const ProjectForm = ({
                 <InfoTitle>현재 {memberSummary.count}명 입력</InfoTitle>
                 {memberSummary.count > 0 && <InfoDetail>{memberSummary.detail}</InfoDetail>}
               </StyledInfo>
-              <ActionButton
+              <StyledActionButton
                 variant='secondary'
                 size='medium'
                 leftAddon={<IconPlus />}
@@ -189,7 +186,7 @@ const ProjectForm = ({
                 onClick={() => appendMember(DEFAULT_MEMBER)}
               >
                 팀원 추가하기
-              </ActionButton>
+              </StyledActionButton>
             </StyledBottomContainer>
           </FormEntry>
           <FormEntry
@@ -225,7 +222,7 @@ const ProjectForm = ({
                   {releaseMemberSummary.count > 0 && <InfoDetail>{releaseMemberSummary.detail}</InfoDetail>}
                 </StyledInfo>
               </StyledInfo>
-              <ActionButton
+              <StyledActionButton
                 variant='secondary'
                 size='medium'
                 leftAddon={<IconPlus />}
@@ -233,7 +230,7 @@ const ProjectForm = ({
                 onClick={() => appendReleaseMember(DEFAULT_MEMBER)}
               >
                 팀원 추가하기
-              </ActionButton>
+              </StyledActionButton>
             </StyledBottomContainer>
           </FormEntry>
           <FormEntry title='서비스 형태' required comment='복수 선택 가능'>
@@ -363,15 +360,7 @@ const ProjectForm = ({
           </FormEntry>
           <FormEntry
             title='링크'
-            description={
-              <>
-                <Responsive only='desktop'>
-                  웹사이트, 구글 플레이스토어, 앱스토어, Github, 발표영상, 관련자료, instagram 등을 자유롭게
-                  업로드해주세요
-                </Responsive>
-                <Responsive only='mobile'>관련 자료를 자유롭게 업로드해주세요</Responsive>
-              </>
-            }
+            description='웹사이트, 구글 플레이스토어, 앱스토어, Github, 발표영상, 관련자료, instagram 등을 자유롭게 업로드해주세요.'
           >
             <StyledFieldsWrapper>
               {linkFields.map((field, index) => (
@@ -383,23 +372,21 @@ const ProjectForm = ({
                 />
               ))}
             </StyledFieldsWrapper>
-            <StyledLinkBtnContainer>
-              <ActionButton
-                variant='secondary'
-                size='medium'
-                leftAddon={<IconPlus />}
-                type='button'
-                onClick={() => appendLink(DEFAULT_LINK)}
-              >
-                링크 추가하기
-              </ActionButton>
-            </StyledLinkBtnContainer>
+            <StyledActionButton
+              variant='secondary'
+              size='medium'
+              leftAddon={<IconPlus />}
+              type='button'
+              onClick={() => appendLink(DEFAULT_LINK)}
+            >
+              링크 추가하기
+            </StyledActionButton>
           </FormEntry>
         </StyledBody>
         <SubmitContainer>
-          <StyledSubmitButton type='submit' variant='primary'>
+          <StyledActionButton type='submit' size='large' variant='primary'>
             {submitButtonContent}
-          </StyledSubmitButton>
+          </StyledActionButton>
         </SubmitContainer>
       </StyledForm>
     </StyledFormContainer>
@@ -506,27 +493,25 @@ const ProjectImageWrapper = styled.div`
 const SubmitContainer = styled.div`
   display: flex;
   justify-content: flex-end;
-  margin-top: 60px;
+  margin-top: 26px;
 
   @media ${MOBILE_MEDIA_QUERY} {
-    margin-top: 0;
-  }
-`;
-
-const StyledSubmitButton = styled(Button)`
-  ${textStyles.SUIT_14_M};
-  @media ${MOBILE_MEDIA_QUERY} {
-    border-radius: 12px;
-    width: 100%;
+    margin-top: 28px;
   }
 `;
 
 const StyledBottomContainer = styled.div`
   width: 100%;
-  margin-top: ${spacing.s20};
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  @media ${MOBILE_MEDIA_QUERY} {
+    flex-direction: column-reverse;
+    align-items: start;
+    gap: ${spacing.s20};
+    margin-top: ${spacing.s0};
+  }
 `;
 
 const StyledInfo = styled.div`
@@ -544,8 +529,10 @@ const InfoDetail = styled.p`
   color: ${colors.fg.neutral.subtle};
 `;
 
-const StyledLinkBtnContainer = styled.div`
-  display: flex;
-  justify-content: end;
-  margin-top: ${spacing.s20};
+const StyledActionButton = styled(ActionButton)`
+  align-self: end;
+
+  @media ${MOBILE_MEDIA_QUERY} {
+    width: 100%;
+  }
 `;

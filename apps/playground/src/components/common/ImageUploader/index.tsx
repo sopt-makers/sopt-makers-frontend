@@ -1,18 +1,14 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { colors } from '@sopt-makers/colors';
-import { colorFg } from '@sopt-mds/design-tokens';
-import { IconPlus } from '@sopt-mds/icons';
+import { colors, radius, spacing, typography } from '@sopt-mds/design-tokens';
+import { IconPlus, IconWriteFilled, IconXClose } from '@sopt-mds/icons';
 import type { FC } from 'react';
 import { useEffect, useRef, useState } from 'react';
 
 import ErrorMessage from '@/components/common/Input/ErrorMessage';
 import { MAX_FEED_IMAGE_LENGTH } from '@/components/feed/upload/ImageUploadButton';
 import useImageUploader from '@/hooks/useImageUploader';
-import IconCancel from '@/public/icons/icon-cancel.svg';
 import IconImage from '@/public/icons/icon-image.svg';
-import IconPencil from '@/public/icons/icon-pencil.svg';
-import { textStyles } from '@/styles/typography';
 
 const DEFAULT_IMAGE_URL = '';
 
@@ -99,11 +95,11 @@ const ImageUploader: FC<ImageUploaderProps> = ({
         {previewImageSrc ? <StyledPreview src={previewImageSrc} alt='preview-image' /> : <StyledIconPlus />}
         <StyledSelector ref={selectorRef} isOpen={isOpenSelector}>
           <StyledEditButton type='button' onClick={handleClickImageInput}>
-            <IconPencil />
+            <IconWriteFilled width={14} height={14} />
             <div>수정</div>
           </StyledEditButton>
           <StyledRemoveButton type='button' onClick={handleRemove}>
-            <IconCancel />
+            <IconXClose width={14} height={14} />
             <div>삭제</div>
           </StyledRemoveButton>
         </StyledSelector>
@@ -128,7 +124,7 @@ const Container = styled.div<Pick<ImageUploaderProps, 'width' | 'height'> & { er
   align-items: center;
   justify-content: center;
   border-radius: 6px;
-  background-color: ${colors.gray700};
+  background-color: ${colors.bg.layer.default};
   cursor: pointer;
   width: ${({ width }) => (typeof width === 'string' ? width : `${width}px`)};
   height: ${({ height }) => (typeof height === 'string' ? height : `${height}px`)};
@@ -136,7 +132,7 @@ const Container = styled.div<Pick<ImageUploaderProps, 'width' | 'height'> & { er
   ${({ error }) =>
     error &&
     css`
-      border: 1px solid ${colors.error};
+      border: 1px solid ${colors.fg.danger.default};
     `}
 `;
 
@@ -145,7 +141,7 @@ const StyledInput = styled.input`
 `;
 
 const StyledPreview = styled.img`
-  border-radius: 6px;
+  border-radius: ${radius.r6};
   width: inherit;
   height: inherit;
   object-fit: cover;
@@ -158,15 +154,14 @@ const StyledSelector = styled.div<{ isOpen: boolean }>`
   align-items: center;
 `;
 
-const editButtonStyle = css`
+const buttonStyle = css`
   display: flex;
-  gap: 4px;
-  background-color: ${colors.gray600};
-  padding: 10px 12px;
-  line-height: 100%;
-  letter-spacing: -0.01em;
-
-  ${textStyles.SUIT_12_M};
+  align-items: center;
+  gap: ${spacing.s4};
+  background-color: ${colors.bg.neutral.default};
+  padding: ${spacing.s10} ${spacing.s12};
+  color: ${colors.fg.neutral.bold};
+  ${typography.label4};
 `;
 
 const StyledEditButton = styled.button`
@@ -177,13 +172,13 @@ const StyledEditButton = styled.button`
   line-height: 0;
   flex-shrink: 0;
 
-  ${editButtonStyle}
+  ${buttonStyle}
 
   &::after {
     position: absolute;
     top: 10px;
     right: 0;
-    background-color: ${colors.gray400};
+    background-color: ${colors.bg.neutral.default};
     width: 1px;
     height: 14px;
     content: '';
@@ -196,11 +191,11 @@ const StyledRemoveButton = styled.button`
   cursor: pointer;
   flex-shrink: 0;
 
-  ${editButtonStyle}
+  ${buttonStyle}
 `;
 
 const StyledIconPlus = styled(IconPlus)`
   width: 24px;
   height: 24px;
-  color: ${colorFg.neutral.ghost};
+  color: ${colors.stroke.neutral.default};
 `;
