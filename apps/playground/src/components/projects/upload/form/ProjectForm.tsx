@@ -258,12 +258,12 @@ const ProjectForm = ({
             />
           </FormEntry>
           <FormEntry title='프로젝트 한줄 소개' required>
-            <StyledInput
-              {...register('summary')}
-              placeholder='프로젝트 한줄 소개'
-              error={!!errors.summary}
-              count
-              maxCount={30}
+            <Controller
+              control={control}
+              name='summary'
+              render={({ field }) => (
+                <StyledInput {...field} placeholder='프로젝트 한줄 소개' error={!!errors.summary} count maxCount={30} />
+              )}
             />
             <ErrorMessage message={errors.summary?.message} />
           </FormEntry>
