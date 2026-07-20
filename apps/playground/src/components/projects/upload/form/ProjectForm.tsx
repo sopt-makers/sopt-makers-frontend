@@ -293,12 +293,9 @@ const ProjectForm = ({
           <FormEntry
             title='썸네일 이미지'
             required
-            description={
-              <>
-                16:9 비율로 가로 368px 세로208px을 권장해요.
-                <Responsive only='mobile'>웹페이지에서 등록을 권장해요.</Responsive>
-              </>
-            }
+            description='
+              
+                16:9 비율로 가로 368px 세로 208px을 권장해요.'
           >
             <Controller
               control={control}
@@ -317,7 +314,7 @@ const ProjectForm = ({
           </FormEntry>
           <FormEntry
             title='프로젝트 이미지 (최대 10장까지 업로드 가능)'
-            description='10MB 이내로 가로 1200px, 세로는 675px 사이즈를 권장해요.'
+            description='10MB 이내로 가로 1200px, 세로는 675px 사이즈로 제작해주세요.'
             required
           >
             <ProjectImageWrapper>
@@ -414,6 +411,11 @@ export default ProjectForm;
 const StyledFormContainer = styled.div`
   display: flex;
   gap: ${spacing.s64};
+
+  @media ${MOBILE_MEDIA_QUERY} {
+    width: 100%;
+    min-width: 0;
+  }
 `;
 
 const StyledFormProgress = styled(UploadProjectProgress)`
@@ -432,6 +434,7 @@ const StyledForm = styled.form`
   }
 
   @media ${MOBILE_MEDIA_QUERY} {
+    min-width: 0;
     padding: ${spacing.s24} ${spacing.s20};
   }
 `;
@@ -493,11 +496,10 @@ const StyledTextArea = styled(TextArea)`
 const ProjectImageWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 192px);
-  gap: 15px;
+  gap: ${spacing.s12};
 
   @media ${MOBILE_MEDIA_QUERY} {
     grid-template-columns: repeat(2, 158px);
-    gap: 10px;
   }
 `;
 
