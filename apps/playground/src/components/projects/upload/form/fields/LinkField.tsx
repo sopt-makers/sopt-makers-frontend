@@ -3,6 +3,7 @@ import { colors, radius, spacing, typography } from '@sopt-mds/design-tokens';
 import { IconTrashOutlined } from '@sopt-mds/icons';
 import React from 'react';
 
+import ErrorMessage from '@/components/common/Input/ErrorMessage';
 import Select from '@/components/common/Select';
 import type { LinkType } from '@/components/projects/upload/form/constants';
 import { linkTitles } from '@/components/projects/upload/form/constants';
@@ -15,9 +16,10 @@ interface LinkFieldProps {
   value: LinkType;
   onChange: (value: LinkType) => void;
   onRemove: () => void;
+  errorMessage?: string;
 }
 
-const LinkField = ({ className, value, onChange, onRemove }: LinkFieldProps) => {
+const LinkField = ({ className, value, onChange, onRemove, errorMessage }: LinkFieldProps) => {
   const handleBlur = (e: React.FocusEvent<HTMLInputElement, Element>) => {
     const linkUrl = e.target.value;
     if (linkUrl && !/^https?:\/\//i.test(linkUrl)) {
@@ -66,7 +68,9 @@ const LinkField = ({ className, value, onChange, onRemove }: LinkFieldProps) => 
             value={value.linkUrl}
             onChange={(e) => handleChangeLinkUrl(e.target.value)}
             onBlur={handleBlur}
+            isError={!!errorMessage}
           />
+          {errorMessage && <ErrorMessage message={errorMessage} />}
         </StyledInputWrapper>
       </StyledFormContainer>
       <IconDeleteWrapper>
@@ -107,11 +111,16 @@ const StyledFormContainer = styled.div`
 
 const StyledFormWrapper = styled.div`
   display: flex;
+  flex-direction: column;
+  gap: ${spacing.s10};
+
+  @media ${MOBILE_MEDIA_QUERY} {
+    width: 100%;
+  }
 `;
 
 const StyledInputWrapper = styled(StyledFormWrapper)`
   flex: 1;
-  height: 46px;
 `;
 
 const StyledSelectWrapper = styled(StyledFormWrapper)`
@@ -130,9 +139,13 @@ const StyledSelect = styled(Select, {
   cursor: pointer;
 `;
 
-const StyledInput = styled.input`
-  flex: 1;
+const StyledInput = styled('input', {
+  shouldForwardProp: (prop) => prop !== 'isError',
+})<{ isError: boolean }>`
+  width: 100%;
   min-width: 0;
+  height: 46px;
+  border: 1px solid ${({ isError }) => (isError ? colors.stroke.danger.default : 'transparent')};
   border-radius: ${radius.r10};
   ${typography.body1};
   color: ${colors.fg.neutral.default};

@@ -27,16 +27,27 @@ export const uploadSchema = z.object({
       }),
     )
     .min(1, '프로젝트를 멤버를 추가해주세요.'),
-  releaseMembers: z.array(
-    z.object({
-      memberId: z
-        .string({
-          required_error: '유저를 선택해주세요.',
-        })
-        .min(1, '유저를 선택해주세요.'),
-      memberRole: z.string().min(1, '역할을 선택해주세요.'),
-    }),
-  ),
+  releaseMembers: z
+    .array(
+      z.object({
+        memberId: z.string(),
+        memberRole: z.string(),
+      }),
+    )
+    .superRefine((members, ctx) => {
+      members.forEach((member, index) => {
+        const isEmpty = member.memberId === '' && member.memberRole === '';
+        if (isEmpty) return;
+
+        if (member.memberId === '') {
+          ctx.addIssue({ code: z.ZodIssueCode.custom, path: [index, 'memberId'], message: '유저를 선택해주세요.' });
+        }
+        if (member.memberRole === '') {
+          ctx.addIssue({ code: z.ZodIssueCode.custom, path: [index, 'memberRole'], message: '역할을 선택해주세요.' });
+        }
+      });
+    })
+    .transform((members) => members.filter((member) => member.memberId !== '' || member.memberRole !== '')),
   summary: z.string().min(1, '프로젝트 한줄 소개를 입력해주세요.'),
   detail: z.string().min(1, '프로젝트 설명을 입력해주세요.'),
   status: z.object({
@@ -59,12 +70,27 @@ export const uploadSchema = z.object({
       }
       return true;
     }, '프로젝트 이미지를 업로드해주세요.'),
-  links: z.array(
-    z.object({
-      linkTitle: z.string().min(1, '프로젝트 타입을 선택해주세요.'),
-      linkUrl: z.string().min(1, '프로젝트 링크를 입력해주세요.').url('올바른 링크를 입력해주세요.'),
-    }),
-  ),
+  links: z
+    .array(
+      z.object({
+        linkTitle: z.string(),
+        linkUrl: z.string(),
+      }),
+    )
+    .superRefine((links, ctx) => {
+      links.forEach((link, index) => {
+        if (link.linkUrl === '') return;
+
+        if (!z.string().url().safeParse(link.linkUrl).success) {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            path: [index, 'linkUrl'],
+            message: '올바른 링크를 입력해주세요.',
+          });
+        }
+      });
+    })
+    .transform((links) => links.filter((link) => link.linkUrl !== '')),
 });
 
 export type ProjectFormType = z.infer<typeof uploadSchema>;
