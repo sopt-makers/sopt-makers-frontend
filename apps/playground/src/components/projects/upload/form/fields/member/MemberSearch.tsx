@@ -174,9 +174,9 @@ const StyledList = styled(Command.List)`
   width: 100%;
   top: 66px;
   left: 0;
+  z-index: ${zIndex.드롭다운};
   @media ${MOBILE_MEDIA_QUERY} {
     top: 49px;
-    z-index: ${zIndex.드롭다운};
   }
 `;
 

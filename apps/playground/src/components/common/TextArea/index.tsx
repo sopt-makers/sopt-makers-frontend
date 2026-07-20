@@ -25,6 +25,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
           }}
           error={error}
           ref={ref}
+          maxLength={maxCount}
           {...props}
         />
         {count && (

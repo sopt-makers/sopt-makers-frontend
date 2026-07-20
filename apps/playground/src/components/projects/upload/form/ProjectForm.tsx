@@ -70,6 +70,7 @@ const ProjectForm = ({
   const {
     fields: projectImageFields,
     append: appendProjectImage,
+    update: updateProjectImage,
     remove: removeProjectImage,
   } = useFieldArray({
     control,
@@ -105,7 +106,9 @@ const ProjectForm = ({
 
   return (
     <StyledFormContainer>
-      <Responsive only='desktop'>{!hideProgress && <StyledFormProgress formState={formState} />}</Responsive>
+      <Responsive only='desktop'>
+        {!hideProgress && <StyledFormProgress formState={formState} control={control} />}
+      </Responsive>
       <StyledForm onSubmit={handleSubmit(submit)}>
         <StyledTitle>
           <Text typography='SUIT_24_B' color={colors.fg.neutral.bold}>
@@ -255,12 +258,12 @@ const ProjectForm = ({
             />
           </FormEntry>
           <FormEntry title='프로젝트 한줄 소개' required>
-            <StyledInput
-              {...register('summary')}
-              placeholder='프로젝트 한줄 소개'
-              error={!!errors.summary}
-              count
-              maxCount={30}
+            <Controller
+              control={control}
+              name='summary'
+              render={({ field }) => (
+                <StyledInput {...field} placeholder='프로젝트 한줄 소개' error={!!errors.summary} count maxCount={30} />
+              )}
             />
             <ErrorMessage message={errors.summary?.message} />
           </FormEntry>
@@ -325,8 +328,8 @@ const ProjectForm = ({
                       ...field,
                       value: field.value.imageUrl,
                       onChange: (value: string) => {
-                        field.onChange({ imageUrl: value });
                         const isEdit = field.value.imageUrl !== DEFAULT_IMAGE_URL;
+                        updateProjectImage(index, { imageUrl: value });
                         if (!isEdit && value && projectImageFields.length < PROJECT_IMAGE_MAX_LENGTH) {
                           appendProjectImage({ imageUrl: DEFAULT_IMAGE_URL });
                         }
@@ -338,7 +341,7 @@ const ProjectForm = ({
                         if (projectImageFields.length > 1 && !isFilled) {
                           removeProjectImage(index);
                         } else {
-                          field.onChange({ imageUrl: DEFAULT_IMAGE_URL });
+                          updateProjectImage(index, { imageUrl: DEFAULT_IMAGE_URL });
                         }
                       },
                       errorMessage: errors.projectImages?.message,
@@ -368,7 +371,13 @@ const ProjectForm = ({
                   key={field.id}
                   control={control}
                   name={`links.${index}`}
-                  render={({ field }) => <LinkField {...field} onRemove={() => removeLink(index)} />}
+                  render={({ field }) => (
+                    <LinkField
+                      {...field}
+                      errorMessage={errors.links?.[index]?.linkUrl?.message}
+                      onRemove={() => removeLink(index)}
+                    />
+                  )}
                 />
               ))}
             </StyledFieldsWrapper>

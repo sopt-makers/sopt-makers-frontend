@@ -62,6 +62,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           ref={ref}
           autoFocus={autoFocus}
           width={width}
+          maxLength={maxCount}
         />
         {errorMessage !== undefined || !!count ? (
           <Additional>
