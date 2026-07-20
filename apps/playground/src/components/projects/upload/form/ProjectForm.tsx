@@ -106,7 +106,9 @@ const ProjectForm = ({
 
   return (
     <StyledFormContainer>
-      <Responsive only='desktop'>{!hideProgress && <StyledFormProgress formState={formState} />}</Responsive>
+      <Responsive only='desktop'>
+        {!hideProgress && <StyledFormProgress formState={formState} control={control} />}
+      </Responsive>
       <StyledForm onSubmit={handleSubmit(submit)}>
         <StyledTitle>
           <Text typography='SUIT_24_B' color={colors.fg.neutral.bold}>
@@ -369,7 +371,13 @@ const ProjectForm = ({
                   key={field.id}
                   control={control}
                   name={`links.${index}`}
-                  render={({ field }) => <LinkField {...field} onRemove={() => removeLink(index)} />}
+                  render={({ field }) => (
+                    <LinkField
+                      {...field}
+                      errorMessage={errors.links?.[index]?.linkUrl?.message}
+                      onRemove={() => removeLink(index)}
+                    />
+                  )}
                 />
               ))}
             </StyledFieldsWrapper>
