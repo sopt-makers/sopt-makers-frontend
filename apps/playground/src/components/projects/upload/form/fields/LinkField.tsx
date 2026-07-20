@@ -1,12 +1,12 @@
 import styled from '@emotion/styled';
-import { colorBg, colorFg, radius, spacing, typography } from '@sopt-mds/design-tokens';
+import { colors, radius, spacing, typography } from '@sopt-mds/design-tokens';
 import { IconTrashOutlined } from '@sopt-mds/icons';
 import React from 'react';
 
 import Select from '@/components/common/Select';
 import type { LinkType } from '@/components/projects/upload/form/constants';
 import { linkTitles } from '@/components/projects/upload/form/constants';
-import { MOBILE_MEDIA_QUERY, PCTA_S_MEDIA_QUERY } from '@/styles/mediaQuery';
+import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 const HTTPS_PREFIX = 'https://';
 
@@ -70,7 +70,7 @@ const LinkField = ({ className, value, onChange, onRemove }: LinkFieldProps) => 
         </StyledInputWrapper>
       </StyledFormContainer>
       <IconDeleteWrapper>
-        <IconTrashOutlined onClick={onRemove} />
+        <IconTrashOutlined width={24} height={24} color={colors.fg.neutral.ghost} onClick={onRemove} />
       </IconDeleteWrapper>
     </StyledLinkField>
   );
@@ -80,19 +80,28 @@ export default LinkField;
 
 const StyledLinkField = styled.div`
   display: flex;
+  align-items: center;
   gap: ${spacing.s20};
   width: 100%;
   padding: ${spacing.s12};
-  background-color: ${colorBg.layer.default};
+  background-color: ${colors.bg.layer.default};
   border-radius: ${radius.r8};
+
+  @media ${MOBILE_MEDIA_QUERY} {
+    gap: ${spacing.s12};
+    border-radius: ${radius.r10};
+  }
 `;
 
 const StyledFormContainer = styled.div`
   display: flex;
   gap: ${spacing.s8};
   width: 100%;
+  min-width: 0;
+
   @media ${MOBILE_MEDIA_QUERY} {
     flex-direction: column;
+    gap: ${spacing.s4};
   }
 `;
 
@@ -107,6 +116,7 @@ const StyledInputWrapper = styled(StyledFormWrapper)`
 
 const StyledSelectWrapper = styled(StyledFormWrapper)`
   width: 200px;
+
   @media ${MOBILE_MEDIA_QUERY} {
     width: 100%;
   }
@@ -116,34 +126,34 @@ const StyledSelect = styled(Select, {
   shouldForwardProp: (prop) => prop !== 'hasValue',
 })<{ hasValue: boolean }>`
   border: none;
-  color: ${({ hasValue }) => (hasValue ? colorFg.neutral.default : colorFg.neutral.ghost)};
+  color: ${({ hasValue }) => (hasValue ? colors.fg.neutral.default : colors.fg.neutral.ghost)};
   cursor: pointer;
 `;
 
 const StyledInput = styled.input`
   flex: 1;
+  min-width: 0;
   border-radius: ${radius.r10};
   ${typography.body1};
-  color: ${colorFg.neutral.default};
-  background-color: ${colorBg.neutral.ghost};
+  color: ${colors.fg.neutral.default};
+  background-color: ${colors.bg.neutral.ghost};
   padding: ${spacing.s10} ${spacing.s16};
 
   &::placeholder {
-    color: ${colorFg.neutral.ghost};
+    color: ${colors.fg.neutral.ghost};
   }
 `;
 
 const IconDeleteWrapper = styled.div`
   cursor: pointer;
-  margin-top: ${spacing.s10};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
 
-  color: ${colorFg.neutral.ghost};
-  @media ${PCTA_S_MEDIA_QUERY} {
-    min-width: 40px;
-    min-height: 40px;
-    margin: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  @media ${MOBILE_MEDIA_QUERY} {
+    width: auto;
+    height: auto;
   }
 `;

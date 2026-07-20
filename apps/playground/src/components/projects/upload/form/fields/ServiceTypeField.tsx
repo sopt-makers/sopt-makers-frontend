@@ -4,7 +4,6 @@ import { colors, spacing, typography } from '@sopt-mds/design-tokens';
 import type { ChangeEvent, FC } from 'react';
 
 import ErrorMessage from '@/components/common/Input/ErrorMessage';
-import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 export const serviceType = {
   WEB: 'WEB',
@@ -53,8 +52,7 @@ export default ServiceTypeField;
 
 const StyledServiceTypeField = styled.div`
   display: flex;
-  column-gap: 10px;
-  align-items: center;
+  gap: ${spacing.s8};
 `;
 
 const StyledLabel = styled.label<{ checked?: boolean }>`
@@ -80,8 +78,8 @@ const StyledLabel = styled.label<{ checked?: boolean }>`
       color: ${colors.fg.neutral.inverse};
     `}
 
-  @media ${MOBILE_MEDIA_QUERY} {
-    width: 158px;
+    input {
+    display: none;
   }
 `;
 

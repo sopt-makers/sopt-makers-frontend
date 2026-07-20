@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { colorBg, colorFg, radius, spacing } from '@sopt-mds/design-tokens';
+import { colors, radius, spacing } from '@sopt-mds/design-tokens';
 import { IconTrashOutlined } from '@sopt-mds/icons';
 import { isEmpty } from 'lodash-es';
 import { useMemo, useState } from 'react';
@@ -11,7 +11,7 @@ import Select from '@/components/common/Select';
 import { MemberRoleInfo } from '@/components/projects/constants';
 import MemberSearch from '@/components/projects/upload/form/fields/member/MemberSearch';
 import type { Member } from '@/components/projects/upload/form/fields/member/useMemberSearch';
-import { MOBILE_MEDIA_QUERY, PCTA_S_MEDIA_QUERY } from '@/styles/mediaQuery';
+import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 type Value = {
   memberId: string;
@@ -109,7 +109,7 @@ const MemberField = ({ value, errorMessage, onChange, onRemove }: MemberFieldPro
       </StyledFormContainer>
 
       <IconDeleteWrapper>
-        <IconTrashOutlined onClick={onRemove} />
+        <IconTrashOutlined width={24} height={24} color={colors.fg.neutral.ghost} onClick={onRemove} />
       </IconDeleteWrapper>
     </StyledMemberEditView>
   );
@@ -119,11 +119,17 @@ export default MemberField;
 
 const StyledMemberEditView = styled.div`
   display: flex;
-  gap: ${spacing.s8};
+  align-items: center;
+  gap: ${spacing.s20};
   border-radius: ${radius.r8};
-  background-color: ${colorBg.layer.default};
+  background-color: ${colors.bg.layer.default};
   padding: ${spacing.s12};
   width: 100%;
+
+  @media ${MOBILE_MEDIA_QUERY} {
+    gap: ${spacing.s12};
+    border-radius: ${radius.r10};
+  }
 `;
 
 const StyledFormContainer = styled.div<{ isError: boolean }>`
@@ -152,16 +158,15 @@ const StyledSelectWrapper = styled(StyledFormWrapper)`
 
 const IconDeleteWrapper = styled.div`
   cursor: pointer;
-  margin-top: ${spacing.s10};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
 
-  color: ${colorFg.neutral.ghost};
-  @media ${PCTA_S_MEDIA_QUERY} {
-    min-width: 40px;
-    min-height: 40px;
-    margin: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  @media ${MOBILE_MEDIA_QUERY} {
+    width: auto;
+    height: auto;
   }
 `;
 
@@ -169,6 +174,6 @@ const StyledSelect = styled(Select, {
   shouldForwardProp: (prop) => prop !== 'hasValue',
 })<{ hasValue: boolean }>`
   flex: 1;
-  color: ${({ hasValue }) => (hasValue ? colorFg.neutral.default : colorFg.neutral.ghost)};
+  color: ${({ hasValue }) => (hasValue ? colors.fg.neutral.default : colors.fg.neutral.ghost)};
   cursor: pointer;
 `;

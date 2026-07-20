@@ -1,15 +1,11 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { colors } from '@sopt-makers/colors';
-import { colorFg } from '@sopt-mds/design-tokens';
-import { IconPlus } from '@sopt-mds/icons';
+import { colors, spacing, typography } from '@sopt-mds/design-tokens';
+import { IconPlus, IconWriteFilled, IconXClose } from '@sopt-mds/icons';
 import { useEffect, useRef, useState } from 'react';
 
 import ErrorMessage from '@/components/common/Input/ErrorMessage';
 import useImageUploader from '@/hooks/useImageUploader';
-import IconCancel from '@/public/icons/icon-cancel.svg';
-import IconPencil from '@/public/icons/icon-pencil.svg';
-import { textStyles } from '@/styles/typography';
 import type { CSSValueWithLength } from '@/utils';
 import { buildCSSWithLength } from '@/utils';
 
@@ -104,11 +100,11 @@ const ListImageUploader = ({
           <Background width={width} height={height}>
             <StyledSelector ref={selectorRef}>
               <StyledEditButton type='button' onClick={handleEdit}>
-                <IconPencil />
+                <IconWriteFilled width={14} height={14} />
                 <div>수정</div>
               </StyledEditButton>
               <StyledRemoveButton type='button' onClick={handleDelete}>
-                <IconCancel />
+                <IconXClose width={14} height={14} />
                 <div>삭제</div>
               </StyledRemoveButton>
             </StyledSelector>
@@ -136,7 +132,7 @@ const ImageUploader = styled.div<Pick<ImageUploaderProps, 'width' | 'height'> & 
   align-items: center;
   justify-content: center;
   border-radius: 6px;
-  background-color: ${colors.gray700};
+  background-color: ${colors.bg.layer.default};
   cursor: pointer;
 
   ${({ width }) => buildCSSWithLength('width', width)};
@@ -144,7 +140,7 @@ const ImageUploader = styled.div<Pick<ImageUploaderProps, 'width' | 'height'> & 
   ${({ error }) =>
     error &&
     css`
-      border: 1px solid ${colors.error};
+      border: 1px solid ${colors.fg.danger.default};
     `}
 `;
 
@@ -166,15 +162,14 @@ const StyledSelector = styled.div`
   display: flex;
 `;
 
-const editButtonStyle = css`
+const buttonStyle = css`
   display: flex;
-  gap: 4px;
-  background-color: ${colors.gray600};
-  padding: 10px 12px;
-  line-height: 100%;
-  letter-spacing: -0.01em;
-
-  ${textStyles.SUIT_12_M};
+  align-items: center;
+  gap: ${spacing.s4};
+  background-color: ${colors.bg.neutral.default};
+  padding: ${spacing.s10} ${spacing.s12};
+  color: ${colors.fg.neutral.bold};
+  ${typography.label4};
 `;
 
 const StyledEditButton = styled.button`
@@ -183,13 +178,13 @@ const StyledEditButton = styled.button`
   border-bottom-left-radius: 25px;
   cursor: pointer;
 
-  ${editButtonStyle}
+  ${buttonStyle}
 
   &::after {
     position: absolute;
     top: 10px;
     right: 0;
-    background-color: ${colors.gray600};
+    background-color: ${colors.bg.neutral.default};
     width: 1px;
     height: 14px;
     content: '';
@@ -201,7 +196,7 @@ const StyledRemoveButton = styled.button`
   border-bottom-right-radius: 25px;
   cursor: pointer;
 
-  ${editButtonStyle}
+  ${buttonStyle}
 `;
 
 const StyledInput = styled.input`
@@ -217,5 +212,5 @@ const StyledPreview = styled.img`
 const StyledIconPlus = styled(IconPlus)`
   width: 24px;
   height: 24px;
-  color: ${colorFg.neutral.ghost};
+  color: ${colors.stroke.neutral.default};
 `;
