@@ -44,6 +44,7 @@ const StyledContainer = styled.div`
   width: 1312px;
   padding-bottom: 142px;
   margin: 0 auto;
+  padding-top: 24px;
 
   @media ${DESKTOP_ONE_MEDIA_QUERY} {
     width: 978px;
