@@ -1,34 +1,52 @@
-import styled from '@emotion/styled';
-import type { FC } from 'react';
-
 import { useGetMemberOfMe } from '@/api/endpoint/members/getMemberOfMe';
-import AdsBanner from '@/components/common/Banner/AdsBanner';
-import BalanceGameBanner from '@/components/common/Banner/BalanceGameBanner';
-import { ClosingBanner } from '@/components/common/Banner/ClosingBanner';
-import WelcomeBannerContainer from '@/components/common/Banner/WelcomeBanner/WelcomeBannerContainer';
-interface ActiveBannerSlotProps {}
+import Skeleton from '@/components/common/Skeleton';
+import { LATEST_GENERATION } from '@/constants/generation';
 
-const isTimecapsopOpen = false; // 타임캡솝 오픈 기간에만 이 값을 true로 변경
-const isBalanceGameOpen = false;
+import { ReadTimeCapsopBanner } from './ReadTimeCapsopBanner';
+import RecruitingBanner from './RecruitingBanner';
+import WelcomeBanner from './WelcomeBanner';
+import WriteTimeCapsopBanner from './WriteTimeCapsopBanner';
 
-const ActiveBannerSlot: FC<ActiveBannerSlotProps> = () => {
-  const { data: myData } = useGetMemberOfMe();
+/**
+ * 노출할 배너를 수기로 전환하는 설정값
+ *
+ * [상시 이벤트] 기수마다 반복
+ * - timecapsopWrite: 기수 시작, 타임캡솝 작성 기간
+ * - timecapsopReveal: 기수 종료, 타임캡솝 열람 기간
+ * - recruiting: 메이커스 리크루팅 기간
+ *
+ * [기본]
+ * - none: 진행 중인 이벤트 없음
+ *
+ * 일회성 이벤트 배너 추가 시 union에 값을 추가하고 switch에 case를 작성하세요.
+ * (예시: 'balanceGame')
+ */
+type BannerPhase = 'timecapsopWrite' | 'timecapsopReveal' | 'recruiting' | 'none';
 
-  return (
-    <StyledActiveBanner>
-      {/* 이 밑에 노출할 배너를 넣으세요. */}
-      {isTimecapsopOpen ? (
-        // <WelcomeBannerContainer />
-        <ClosingBanner />
-      ) : isBalanceGameOpen && myData?.enableWorkPreferenceEvent ? (
-        <BalanceGameBanner />
-      ) : (
-        <AdsBanner />
-      )}
-    </StyledActiveBanner>
-  );
+// 수기로 변경
+const bannerPhase = 'timecapsopReveal' as BannerPhase;
+
+const ActiveBannerSlot = () => {
+  const { data: myData, isPending } = useGetMemberOfMe();
+
+  if (isPending) return <Skeleton height={168} margin='0 0 16px 0' />;
+
+  const isLatestGeneration = myData?.generation === LATEST_GENERATION;
+
+  const renderBanner = () => {
+    switch (bannerPhase) {
+      case 'timecapsopWrite':
+        return isLatestGeneration ? <WriteTimeCapsopBanner /> : <WelcomeBanner />;
+      case 'timecapsopReveal':
+        return isLatestGeneration ? <ReadTimeCapsopBanner /> : <WelcomeBanner />;
+      case 'recruiting':
+        return <RecruitingBanner />;
+      case 'none':
+        return <WelcomeBanner />;
+    }
+  };
+
+  return <>{renderBanner()}</>;
 };
 
 export default ActiveBannerSlot;
-
-const StyledActiveBanner = styled.div``;

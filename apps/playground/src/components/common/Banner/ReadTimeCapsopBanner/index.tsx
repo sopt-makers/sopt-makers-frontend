@@ -34,7 +34,7 @@ type textType = {
   buttonContent: string;
 };
 
-export const ClosingBanner = () => {
+export const ReadTimeCapsopBanner = () => {
   const {
     isOpen: isOpenResolutionModal,
     onClose: onCloseResolutionModal,
