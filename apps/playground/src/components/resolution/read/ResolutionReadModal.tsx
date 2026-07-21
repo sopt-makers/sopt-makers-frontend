@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
-import { colors } from '@sopt-makers/colors';
-import { Button, useToast } from '@sopt-makers/ui';
+import { useToast } from '@sopt-makers/ui';
+import { ActionButton } from '@sopt-mds/ui';
 import { useRouter } from 'next/router';
 
 import { useGetResolution } from '@/api/endpoint/resolution/getResolution';
@@ -46,20 +46,25 @@ const ResolutionReadModal = ({ isOpen, onClose }: ModalProps) => {
   return (
     <>
       <Responsive only='desktop'>
-        <StyledModal isOpen={isOpen} onClose={onClose} zIndex={zIndex.헤더 + 100}>
+        <StyledModal isOpen={isOpen} onClose={onClose} zIndex={zIndex.모달}>
           <StyledModalContent ref={imageRef}>
             <ResolutionMessage isMessageExist={isRegistration ?? false} />
           </StyledModalContent>
           <StyledModalFooter align='stretch'>
             <LoggingClick eventKey='saveResolutionImage'>
-              <Button size='md' theme='black' onClick={handleClickDownloadButton}>
+              <ActionButton size='medium' variant='secondary' onClick={handleClickDownloadButton}>
                 이미지로 저장하기
-              </Button>
+              </ActionButton>
             </LoggingClick>
             <LoggingClick eventKey='luckyTimeCapsule'>
-              <Button size='md' onClick={handleClickLucky} disabled={resolutionData?.hasDrawnLuckyPick}>
+              <ActionButton
+                size='medium'
+                variant='primary'
+                onClick={handleClickLucky}
+                disabled={resolutionData?.hasDrawnLuckyPick}
+              >
                 행운의 타임캡솝 뽑기
-              </Button>
+              </ActionButton>
             </LoggingClick>
           </StyledModalFooter>
         </StyledModal>
@@ -72,19 +77,19 @@ const ResolutionReadModal = ({ isOpen, onClose }: ModalProps) => {
             </StyledModalContent>
             <StyledModalFooter align='stretch'>
               <LoggingClick eventKey='saveResolutionImage'>
-                <Button size='md' theme='black' onClick={handleClickDownloadButton}>
+                <ActionButton size='medium' variant='secondary' onClick={handleClickDownloadButton}>
                   이미지로 저장하기
-                </Button>
+                </ActionButton>
               </LoggingClick>
               <LoggingClick eventKey='luckyTimeCapsule'>
-                <Button
-                  style={{ width: 140 }}
-                  size='md'
+                <ActionButton
+                  size='medium'
+                  variant='primary'
                   onClick={handleClickLucky}
                   disabled={resolutionData?.hasDrawnLuckyPick}
                 >
                   행운의 타임캡솝 뽑기
-                </Button>
+                </ActionButton>
               </LoggingClick>
             </StyledModalFooter>
           </BottomSheetContent>
@@ -97,7 +102,6 @@ const ResolutionReadModal = ({ isOpen, onClose }: ModalProps) => {
 export default ResolutionReadModal;
 
 const StyledModal = styled(Modal)`
-  background-color: ${colors.gray900};
   padding: 48px 0 20px;
   width: 375px;
   max-height: 100vh;

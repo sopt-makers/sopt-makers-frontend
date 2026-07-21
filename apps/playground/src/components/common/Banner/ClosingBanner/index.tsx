@@ -1,8 +1,7 @@
 import styled from '@emotion/styled';
-import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import { IconChevronRight } from '@sopt-makers/icons';
-import { useRouter } from 'next/router';
+import { colorFg } from '@sopt-mds/design-tokens';
 
 import { useGetMemberOfMe } from '@/api/endpoint/members/getMemberOfMe';
 import useModalState from '@/components/common/Modal/useModalState';
@@ -10,7 +9,7 @@ import Responsive from '@/components/common/Responsive';
 import Text from '@/components/common/Text';
 import { LoggingClick } from '@/components/eventLogger/components/LoggingClick';
 import ResolutionReadModal from '@/components/resolution/read/ResolutionReadModal';
-import { LATEST_GENERATION } from '@/constants/generation';
+import { LATEST_GENERATION, LATEST_GENERATION_NAME } from '@/constants/generation';
 import closingBannerDesktop from '@/public/icons/img/banner_closing_desktop.jpg';
 import closingBannerMobile from '@/public/icons/img/banner_closing_mobile.jpg';
 import bannerOthersDesktop from '@/public/icons/img/welcome-banner_other_desktop.gif';
@@ -36,8 +35,6 @@ type textType = {
 };
 
 export const ClosingBanner = () => {
-  const router = useRouter();
-
   const {
     isOpen: isOpenResolutionModal,
     onClose: onCloseResolutionModal,
@@ -59,9 +56,9 @@ export const ClosingBanner = () => {
   };
 
   const text: textType = {
-    title: 'DIVE SOPT 수료를 축하드려요!',
+    title: `${LATEST_GENERATION_NAME} 수료를 축하드려요!`,
     subtitle: 'SOPT playground가 준비한 타임캡솝 선물 받아가세요',
-    buttonContent: '타임캡솝 열고, 행운 뽑기',
+    buttonContent: '타임캡솝 열고 행운 뽑기',
   };
 
   return (
@@ -71,10 +68,10 @@ export const ClosingBanner = () => {
           {isLastGeneration && (
             <Contents>
               <TextWrapper>
-                <Text typography='SUIT_18_B' color={colors.white}>
+                <Text typography='SUIT_18_B' color={colorFg.neutral.bold}>
                   {text.title}
                 </Text>
-                <Text typography='SUIT_12_M' color={colors.gray300}>
+                <Text typography='SUIT_12_M' color={colorFg.neutral.subtle}>
                   {text.subtitle}
                 </Text>
               </TextWrapper>
@@ -109,7 +106,6 @@ const ClosingCeremonyBannerWrapper = styled.header`
   position: relative;
   justify-content: center;
   margin-bottom: 16px;
-  border-bottom: 1px solid ${colors.gray800};
   width: 100%;
   height: 168px;
 `;
