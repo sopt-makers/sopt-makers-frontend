@@ -21,10 +21,27 @@ import WriteTimeCapsopBanner from './WriteTimeCapsopBanner';
  * 일회성 이벤트 배너 추가 시 union에 값을 추가하고 switch에 case를 작성하세요.
  * (예시: 'balanceGame')
  */
-type BannerPhase = 'timecapsopWrite' | 'timecapsopReveal' | 'recruiting' | 'none';
+type BannerPhaseType = 'timecapsopWrite' | 'timecapsopReveal' | 'recruiting' | 'none';
 
 // 수기로 변경
-const bannerPhase = 'timecapsopReveal' as BannerPhase;
+const BANNER_PHASE: BannerPhaseType = 'timecapsopReveal';
+
+const renderBanner = (phase: BannerPhaseType, isLatestGeneration: boolean) => {
+  switch (phase) {
+    case 'timecapsopWrite':
+      return isLatestGeneration ? <WriteTimeCapsopBanner /> : <WelcomeBanner />;
+    case 'timecapsopReveal':
+      return isLatestGeneration ? <ReadTimeCapsopBanner /> : <WelcomeBanner />;
+    case 'recruiting':
+      return <RecruitingBanner />;
+    case 'none':
+      return <WelcomeBanner />;
+    default: {
+      phase satisfies never;
+      return null;
+    }
+  }
+};
 
 const ActiveBannerSlot = () => {
   const { data: myData, isPending } = useGetMemberOfMe();
@@ -33,20 +50,7 @@ const ActiveBannerSlot = () => {
 
   const isLatestGeneration = myData?.generation === LATEST_GENERATION;
 
-  const renderBanner = () => {
-    switch (bannerPhase) {
-      case 'timecapsopWrite':
-        return isLatestGeneration ? <WriteTimeCapsopBanner /> : <WelcomeBanner />;
-      case 'timecapsopReveal':
-        return isLatestGeneration ? <ReadTimeCapsopBanner /> : <WelcomeBanner />;
-      case 'recruiting':
-        return <RecruitingBanner />;
-      case 'none':
-        return <WelcomeBanner />;
-    }
-  };
-
-  return <>{renderBanner()}</>;
+  return <>{renderBanner(BANNER_PHASE, isLatestGeneration)}</>;
 };
 
 export default ActiveBannerSlot;
