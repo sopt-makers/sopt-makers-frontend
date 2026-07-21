@@ -6,6 +6,7 @@ import { useGetMemberOfMe } from '@/api/endpoint/members/getMemberOfMe';
 import { useGetResolution } from '@/api/endpoint/resolution/getResolution';
 import Text from '@/components/common/Text';
 import { TAG } from '@/components/resolution/constants';
+import { LATEST_GENERATION_NAME } from '@/constants/generation';
 import resolutionBG from '@/public/icons/img/resolution/resolutionBG.png';
 
 interface ResolutionMessageProps {
@@ -67,7 +68,7 @@ const ResolutionMessage = ({ isMessageExist }: ResolutionMessageProps) => {
       <ResolutionBackground src={resolutionBG.src} alt='타임캡솝 배경 이미지' />
       <Contents>
         <TitleText color={colors.white}>
-          {`DIVE SOPT를 마친\n`}
+          {`${LATEST_GENERATION_NAME}를 마친\n`}
           <Text color={colors.secondary} typography='SUIT_18_B'>{`${name?.slice(1)}`}</Text>
           에게
         </TitleText>
@@ -85,7 +86,7 @@ const ResolutionMessage = ({ isMessageExist }: ResolutionMessageProps) => {
               <>
                 {`(`}
                 <Text color={colors.secondary} typography='SUIT_14_M'>{`${name?.slice(1)}`}</Text>
-                {`님은 OT날 타임캡솝을 작성하지 않아,\n메이커스가 직접 편지를 준비했어요)\n\n안녕하세요, SOPT makers입니다.\n한 학기 동안 바쁘고 치열한 일정 속에서도\n끝까지 DIVE SOPT으로서 여정을 마쳐주셔서 감사합니다.\n\n여러분이 보여준 도전과 협업의 과정은,\n분명 어디서든 빛날 수 있는 힘이 되어줄 거라 믿습니다.\n수료를 진심으로 축하드리며, 앞으로의 여정에도\n늘 응원과 박수를 보냅니다.\n고생 많으셨습니다. 감사합니다!`}
+                {`님은 OT날 타임캡솝을 작성하지 않아,\n메이커스가 직접 편지를 준비했어요)\n\n안녕하세요, SOPT makers입니다.\n한 학기 동안 바쁘고 치열한 일정 속에서도\n끝까지 ${LATEST_GENERATION_NAME}으로서 여정을 마쳐주셔서 감사합니다.\n\n여러분이 보여준 도전과 협업의 과정은,\n분명 어디서든 빛날 수 있는 힘이 되어줄 거라 믿습니다.\n수료를 진심으로 축하드리며, 앞으로의 여정에도\n늘 응원과 박수를 보냅니다.\n고생 많으셨습니다. 감사합니다!`}
               </>
             </Message>
             <MessageFrom>From. 메이커스🧡</MessageFrom>
