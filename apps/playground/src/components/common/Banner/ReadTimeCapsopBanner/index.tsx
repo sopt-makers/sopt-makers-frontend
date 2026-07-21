@@ -3,35 +3,37 @@ import { colors } from '@sopt-makers/colors';
 import { IconChevronRight } from '@sopt-makers/icons';
 import { colorFg } from '@sopt-mds/design-tokens';
 
-import { useGetMemberOfMe } from '@/api/endpoint/members/getMemberOfMe';
 import useModalState from '@/components/common/Modal/useModalState';
 import Responsive from '@/components/common/Responsive';
 import Text from '@/components/common/Text';
 import { LoggingClick } from '@/components/eventLogger/components/LoggingClick';
 import ResolutionReadModal from '@/components/resolution/read/ResolutionReadModal';
-import { LATEST_GENERATION, LATEST_GENERATION_NAME } from '@/constants/generation';
+import { LATEST_GENERATION_NAME } from '@/constants/generation';
 import closingBannerDesktop from '@/public/icons/img/banner_closing_desktop.jpg';
 import closingBannerMobile from '@/public/icons/img/banner_closing_mobile.jpg';
-import bannerOthersDesktop from '@/public/icons/img/welcome-banner_other_desktop.gif';
-import bannerOthersMobile from '@/public/icons/img/welcome-banner_other_mobile.gif';
 import { pgColors } from '@/styles/colors';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 type BannerType = {
-  default: {
-    desktop: string;
-    mobile: string;
-  };
-  resolution: {
-    desktop: string;
-    mobile: string;
-  };
+  desktop: string;
+  mobile: string;
 };
 
 type textType = {
   title: string;
   subtitle: string;
   buttonContent: string;
+};
+
+const Banner: BannerType = {
+  desktop: closingBannerDesktop.src,
+  mobile: closingBannerMobile.src,
+};
+
+const text: textType = {
+  title: `${LATEST_GENERATION_NAME} 수료를 축하드려요!`,
+  subtitle: 'SOPT playground가 준비한 타임캡솝 선물 받아가세요',
+  buttonContent: '타임캡솝 열고 행운 뽑기',
 };
 
 export const ReadTimeCapsopBanner = () => {
@@ -41,60 +43,37 @@ export const ReadTimeCapsopBanner = () => {
     onOpen: onOpenResolutionModal,
   } = useModalState();
 
-  const { data: myData, isLoading } = useGetMemberOfMe();
-  const isLastGeneration = myData?.generation === LATEST_GENERATION;
-
-  const Banner: BannerType = {
-    default: {
-      desktop: bannerOthersDesktop.src,
-      mobile: bannerOthersMobile.src,
-    },
-    resolution: {
-      desktop: closingBannerDesktop.src,
-      mobile: closingBannerMobile.src,
-    },
-  };
-
-  const text: textType = {
-    title: `${LATEST_GENERATION_NAME} 수료를 축하드려요!`,
-    subtitle: 'SOPT playground가 준비한 타임캡솝 선물 받아가세요',
-    buttonContent: '타임캡솝 열고 행운 뽑기',
-  };
-
   return (
     <>
-      {!isLoading && (
-        <ClosingCeremonyBannerWrapper>
-          {isLastGeneration && (
-            <Contents>
-              <TextWrapper>
-                <Text typography='SUIT_18_B' color={colorFg.neutral.bold}>
-                  {text.title}
+      <ClosingCeremonyBannerWrapper>
+        <Contents>
+          <TextWrapper>
+            <Text typography='SUIT_18_B' color={colorFg.neutral.bold}>
+              {text.title}
+            </Text>
+            <Text typography='SUIT_12_M' color={colorFg.neutral.subtle}>
+              {text.subtitle}
+            </Text>
+          </TextWrapper>
+          <ButtonWrapper>
+            <LoggingClick eventKey='bannerOpenResolution'>
+              <StyledButton color='primary' onClick={onOpenResolutionModal}>
+                <Text typography='SUIT_14_SB' color={colors.black}>
+                  {text.buttonContent}
                 </Text>
-                <Text typography='SUIT_12_M' color={colorFg.neutral.subtle}>
-                  {text.subtitle}
-                </Text>
-              </TextWrapper>
-              <ButtonWrapper>
-                <LoggingClick eventKey='bannerOpenResolution'>
-                  <StyledButton color='primary' onClick={onOpenResolutionModal}>
-                    <Text typography='SUIT_14_SB' color={colors.black}>
-                      {text.buttonContent}
-                    </Text>
-                    <IconChevronRight />
-                  </StyledButton>
-                </LoggingClick>
-              </ButtonWrapper>
-            </Contents>
-          )}
-          <Responsive only='desktop'>
-            <StyledBanner src={isLastGeneration ? Banner.resolution.desktop : Banner.default.desktop} />
-          </Responsive>
-          <Responsive only='mobile'>
-            <StyledBanner src={isLastGeneration ? Banner.resolution.mobile : Banner.default.mobile} />
-          </Responsive>
-        </ClosingCeremonyBannerWrapper>
-      )}
+                <IconChevronRight />
+              </StyledButton>
+            </LoggingClick>
+          </ButtonWrapper>
+        </Contents>
+
+        <Responsive only='desktop'>
+          <StyledBanner src={Banner.desktop} />
+        </Responsive>
+        <Responsive only='mobile'>
+          <StyledBanner src={Banner.mobile} />
+        </Responsive>
+      </ClosingCeremonyBannerWrapper>
 
       <ResolutionReadModal isOpen={isOpenResolutionModal} onClose={onCloseResolutionModal} />
     </>
