@@ -114,7 +114,7 @@ const StyledClickFilterContainer = styled.div`
   }
 
   @media ${MOBILE_MEDIA_QUERY} {
-    margin: ${spacing.s8} ${spacing.s20};
+    margin: ${spacing.s8} ${spacing.s0} ${spacing.s8} ${spacing.s20};
   }
 
   @media ${DESKTOP_TWO_MEDIA_QUERY} {
