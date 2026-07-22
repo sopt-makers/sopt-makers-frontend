@@ -3,6 +3,7 @@ import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 import { Button } from '@sopt-makers/ui';
 
+import { LATEST_GENERATION_NAME } from '@/constants/generation';
 import loserImage from '@/public/icons/img/luckyDraw/LoserImage.png';
 import winnerImage from '@/public/icons/img/luckyDraw/WinnerImage.png';
 import { pgColors } from '@/styles/colors';
@@ -29,7 +30,7 @@ const LuckyResult = ({ isWinner, username, onClickButton }: LuckyResultProps) =>
           <>
             꽝! 아쉬워요.ㅠ.ㅠ
             <br />
-            DIVE SOPT과 함께한 추억
+            {LATEST_GENERATION_NAME}과 함께한 추억
             <MobileLineBreak />
             잊지 않을게요
           </>

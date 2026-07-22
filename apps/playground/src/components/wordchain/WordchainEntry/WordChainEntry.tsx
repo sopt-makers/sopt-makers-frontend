@@ -3,6 +3,7 @@ import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 import { IconChevronRight } from '@sopt-makers/icons';
+import { baseColor } from '@sopt-mds/design-tokens';
 import Link from 'next/link';
 
 import { useGetEntryWordchain } from '@/api/endpoint/wordchain/getWordchain';
@@ -75,7 +76,7 @@ const GotoWordChainWrapper = styled(Link)`
   justify-content: space-between;
   transition: background-color 0.2s;
   border-radius: 12px;
-  background-color: ${colors.gray900};
+  background-color: ${baseColor.gray950};
   padding: 18px 20px;
   margin: 0 auto;
   width: 100%;
@@ -83,7 +84,7 @@ const GotoWordChainWrapper = styled(Link)`
   cursor: pointer;
 
   &:hover {
-    background-color: ${colors.gray800};
+    background-color: ${baseColor.gray900};
   }
 `;
 

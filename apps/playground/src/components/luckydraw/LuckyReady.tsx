@@ -3,6 +3,7 @@ import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 import { Button } from '@sopt-makers/ui';
 
+import { LATEST_GENERATION_NAME } from '@/constants/generation';
 import luckyReadyImg from '@/public/icons/img/luckyDraw/ready.png';
 import { pgColors } from '@/styles/colors';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
@@ -20,7 +21,7 @@ const LuckyReady = ({ onStart }: LuckyReadyProps) => {
           <br />
           타임캡솝 열고 수료 선물 받기
         </StyledTitle>
-        <StyledSubTitle>랜덤으로 소수의 인원에게 DIVE SOPT 수료 선물이 나와요</StyledSubTitle>
+        <StyledSubTitle>{`랜덤으로 소수의 인원에게 ${LATEST_GENERATION_NAME} 수료 선물이 나와요`}</StyledSubTitle>
       </HeaderSection>
       <StyledImg src={luckyReadyImg.src} />
       <StyledButton onClick={onStart}>두근두근. 타임캡솝의 주인공은 바로 나!</StyledButton>
