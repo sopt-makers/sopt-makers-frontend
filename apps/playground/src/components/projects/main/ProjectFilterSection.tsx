@@ -113,12 +113,13 @@ const StyledClickFilterContainer = styled.div`
     display: none;
   }
 
-  @media ${MOBILE_MEDIA_QUERY} {
-    margin: ${spacing.s8} ${spacing.s0} ${spacing.s8} ${spacing.s20};
-  }
-
   @media ${DESKTOP_TWO_MEDIA_QUERY} {
     margin-top: ${spacing.s20};
+  }
+
+  @media ${MOBILE_MEDIA_QUERY} {
+    padding: ${spacing.s8} ${spacing.s20} ${spacing.s8} ${spacing.s20};
+    margin: 0;
   }
 `;
 
