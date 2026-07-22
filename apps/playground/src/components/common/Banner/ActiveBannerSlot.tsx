@@ -50,7 +50,7 @@ const ActiveBannerSlot = () => {
 
   const isLatestGeneration = myData?.generation === LATEST_GENERATION;
 
-  return <>{renderBanner(BANNER_PHASE, isLatestGeneration)}</>;
+  return renderBanner(BANNER_PHASE, isLatestGeneration);
 };
 
 export default ActiveBannerSlot;
