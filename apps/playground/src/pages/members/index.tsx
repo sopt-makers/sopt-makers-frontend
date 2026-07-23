@@ -1,15 +1,14 @@
 import styled from '@emotion/styled';
-import type { FC } from 'react';
 
 import { useGetMemberOfMe } from '@/api/endpoint/members/getMemberOfMe';
 import AuthRequired from '@/components/auth/AuthRequired';
-import CoffeeChatList from '@/components/coffeechat/CoffeeRecentChatList';
+import HomePopupContainer from '@/components/common/HomePopup/HomePopupContainer';
 import MemberList from '@/components/members/main/MemberList';
 import OnBoardingBanner from '@/components/members/main/MemberList/OnBoardingBanner';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 import { setLayout } from '@/utils/layout';
 
-const MemberPage: FC = () => {
+const MemberPage = () => {
   const { data: memberOfMeData } = useGetMemberOfMe();
 
   const hasProfile = !!memberOfMeData?.hasProfile;
@@ -17,6 +16,8 @@ const MemberPage: FC = () => {
 
   return (
     <AuthRequired>
+      {/* TODO: 타임캡솝 닫을 때 팝업 코드 제거 */}
+      <HomePopupContainer />
       <MemberList banner={onboardingBanner} />
     </AuthRequired>
   );
