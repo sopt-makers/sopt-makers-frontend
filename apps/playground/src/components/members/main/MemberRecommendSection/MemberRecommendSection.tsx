@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import * as Tooltip from '@radix-ui/react-tooltip';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { useGetMemberRecommendOfMe } from '@/api/endpoint/members/getMemberRecommendOfMe';
 import useEventLogger from '@/components/eventLogger/hooks/useEventLogger';
@@ -12,8 +12,6 @@ import { DESKTOP_TWO_MEDIA_QUERY, MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery
 import MemberRecommendCard from '../../common/MemberRecommendCard/MemberRecommendCard';
 import MemberRecommendCardSkeleton from '../../common/MemberRecommendCard/MemberRecommendCardSkeleton';
 
-const PC_MEDIA_WIDTH = 1200;
-const PC_MEDIA_QUERY = `screen and (min-width: ${PC_MEDIA_WIDTH}px)`;
 const SKELETON_COUNT = 4;
 
 const MemberRecommendSection = () => {
@@ -21,17 +19,6 @@ const MemberRecommendSection = () => {
   const { data, isLoading, refetch } = useGetMemberRecommendOfMe();
   const memberRecommendData = data?.members;
   const [isTooltipOpen, setIsTooltipOpen] = useState(true);
-  const [isWideViewport, setIsWideViewport] = useState(false);
-
-  // TODO: viewpoint 판단은 추후 상위 컴포넌트로 이동
-  useEffect(() => {
-    const media = window.matchMedia(PC_MEDIA_QUERY);
-    setIsWideViewport(media.matches);
-
-    const handleChange = (e: MediaQueryListEvent) => setIsWideViewport(e.matches);
-    media.addEventListener('change', handleChange);
-    return () => media.removeEventListener('change', handleChange);
-  }, []);
 
   const handleRefreshClick = () => {
     setIsTooltipOpen(false);
@@ -43,28 +30,22 @@ const MemberRecommendSection = () => {
     <StyledSection>
       <StyledSectionHeader>
         <StyledSectionTitle>나와 접점이 있는 멤버</StyledSectionTitle>
-        {isWideViewport ? (
-          //TODO: 추후 디자인 시스템 툴팁으로 변경
-          <Tooltip.Provider>
-            <Tooltip.Root open={isTooltipOpen}>
-              <Tooltip.Trigger asChild>
-                <button onClick={handleRefreshClick}>
-                  <StyledRefreshIcon />
-                </button>
-              </Tooltip.Trigger>
-              <Tooltip.Portal>
-                <TooltipContent side='top' avoidCollisions={false}>
-                  더 많은 멤버를 찾아보세요!
-                  <TooltipArrow />
-                </TooltipContent>
-              </Tooltip.Portal>
-            </Tooltip.Root>
-          </Tooltip.Provider>
-        ) : (
-          <button onClick={handleRefreshClick}>
-            <StyledRefreshIcon />
-          </button>
-        )}
+        {/* TODO: 추후 디자인 시스템 툴팁으로 변경 */}
+        <Tooltip.Provider>
+          <Tooltip.Root open={isTooltipOpen}>
+            <Tooltip.Trigger asChild>
+              <button onClick={handleRefreshClick}>
+                <StyledRefreshIcon />
+              </button>
+            </Tooltip.Trigger>
+            <Tooltip.Portal>
+              <TooltipContent side='top' avoidCollisions={false}>
+                더 많은 멤버를 찾아보세요!
+                <TooltipArrow />
+              </TooltipContent>
+            </Tooltip.Portal>
+          </Tooltip.Root>
+        </Tooltip.Provider>
       </StyledSectionHeader>
       <StyledCardGrid>
         {isLoading
@@ -127,6 +108,12 @@ const StyledRefreshIcon = styled(RefreshIcon)`
 
 const TooltipContent = styled(Tooltip.Content)`
   position: relative;
+
+  /* 1200px 미만에서는 툴팁을 노출하지 않는다. JS로 분기하면 뷰포트 판단 전 첫 렌더에서 깜빡임이 생기므로 CSS로 처리 */
+  @media ${DESKTOP_TWO_MEDIA_QUERY} {
+    display: none;
+  }
+
   padding: 12px 14px;
   border-radius: 12px;
   background-color: ${colors.gray600};
