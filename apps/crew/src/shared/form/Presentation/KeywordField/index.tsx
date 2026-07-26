@@ -5,6 +5,7 @@ import HelpMessage from '@shared/form/HelpMessage';
 import Label from '@shared/form/Label';
 import type { Option } from '@shared/form/Select/OptionItem';
 import { Chip } from '@sopt-makers/ui';
+import { updateSelectedItems } from '@util/updateSelectedItems';
 import { useCallback } from 'react';
 import { styled } from 'stitches.config';
 
@@ -14,16 +15,16 @@ const KeywordField = () => {
   const handleClick = useCallback((option: Option, value: string[], onChange: (value: string[]) => void) => {
     if (!option.value) return;
 
-    let updatedKeywords = [...value];
-    if (updatedKeywords.includes(option.value)) {
-      updatedKeywords = updatedKeywords.filter((keyword) => keyword !== option.value);
-    } else {
-      updatedKeywords.push(option.value);
+    const nextKeywords = updateSelectedItems({
+      selectedItems: value,
+      targetItem: option.value,
+      isSelected: !value.includes(option.value),
+      maxSelectionCount: MAX_KEYWORD_COUNT,
+    });
+
+    if (nextKeywords) {
+      onChange(nextKeywords);
     }
-
-    if (updatedKeywords.length > MAX_KEYWORD_COUNT) return;
-
-    onChange(updatedKeywords);
   }, []);
 
   return (
