@@ -1,6 +1,7 @@
 import { keywordOptions } from '@data/options';
 import { colors, radius, spacing, typography } from '@sopt-mds/design-tokens';
 import { Chip } from '@sopt-mds/ui';
+import { updateSelectedItems } from '@util/updateSelectedItems';
 import type { ChangeEvent } from 'react';
 import { useController, useFormContext } from 'react-hook-form';
 import { styled } from 'stitches.config';
@@ -18,15 +19,15 @@ const RequiredInfoSection = () => {
   const { field: meetingKeywordTypesField } = useController({ control, name: 'meetingKeywordTypes' });
 
   const handleTopicChange = (topic: string, checked: boolean) => {
-    if (!checked) {
-      meetingKeywordTypesField.onChange(
-        meetingKeywordTypesField.value.filter((selectedTopic) => selectedTopic !== topic),
-      );
-      return;
-    }
+    const nextTopics = updateSelectedItems({
+      selectedItems: meetingKeywordTypesField.value,
+      targetItem: topic,
+      isSelected: checked,
+      maxSelectionCount: MAX_TOPIC_COUNT,
+    });
 
-    if (meetingKeywordTypesField.value.length < MAX_TOPIC_COUNT) {
-      meetingKeywordTypesField.onChange([...meetingKeywordTypesField.value, topic]);
+    if (nextTopics) {
+      meetingKeywordTypesField.onChange(nextTopics);
     }
   };
 

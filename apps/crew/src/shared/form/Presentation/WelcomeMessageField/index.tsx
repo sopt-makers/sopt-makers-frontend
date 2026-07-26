@@ -4,23 +4,26 @@ import HelpMessage from '@shared/form/HelpMessage';
 import Label from '@shared/form/Label';
 import type { Option } from '@shared/form/Select/OptionItem';
 import { Chip } from '@sopt-makers/ui';
+import { updateSelectedItems } from '@util/updateSelectedItems';
 import { useCallback } from 'react';
 import { styled } from 'stitches.config';
+
+const MAX_WELCOME_MESSAGE_COUNT = 3;
 
 const WelcomeMessageField = () => {
   const handleClick = useCallback((option: Option, value: string[], onChange: (value: string[]) => void) => {
     if (!option.value) return;
 
-    let updatedKeywords = [...value];
-    if (updatedKeywords.includes(option.value)) {
-      updatedKeywords = updatedKeywords.filter((keyword) => keyword !== option.value);
-    } else {
-      updatedKeywords.push(option.value);
+    const nextWelcomeMessages = updateSelectedItems({
+      selectedItems: value,
+      targetItem: option.value,
+      isSelected: !value.includes(option.value),
+      maxSelectionCount: MAX_WELCOME_MESSAGE_COUNT,
+    });
+
+    if (nextWelcomeMessages) {
+      onChange(nextWelcomeMessages);
     }
-
-    if (updatedKeywords.length > 3) return;
-
-    onChange(updatedKeywords);
   }, []);
 
   return (
