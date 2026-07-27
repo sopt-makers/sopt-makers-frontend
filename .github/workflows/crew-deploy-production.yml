@@ -1,14 +1,12 @@
 name: Crew - Production Deploy
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'apps/crew/**'
-      - 'packages/**'
-      - 'package.json'
-      - 'yarn.lock'
   workflow_dispatch:
+    inputs:
+      release_sha:
+        description: 'Production에 배포할 Git 커밋 SHA'
+        required: true
+        type: string
 
 jobs:
   deploy:
@@ -21,6 +19,8 @@ jobs:
     steps:
       - name: Checkout Branch
         uses: actions/checkout@v3
+        with:
+          ref: ${{ inputs.release_sha }}
 
       - uses: actions/setup-node@v3
         with:
@@ -70,7 +70,7 @@ jobs:
         run: cd apps/crew && mkdir group && mv out/* group/ && mv group out
 
       - name: Deploy
-        run: yarn run wrangler pages deploy "apps/crew/out" --project-name "${{ secrets.CLOUDFLARE_PAGES_CREW_PROJECT_NAME }}" --commit-message "${{ github.sha }}" --branch=main
+        run: yarn run wrangler pages deploy "apps/crew/out" --project-name "${{ secrets.CLOUDFLARE_PAGES_CREW_PROJECT_NAME }}" --commit-message "${{ inputs.release_sha }}" --branch=main
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
