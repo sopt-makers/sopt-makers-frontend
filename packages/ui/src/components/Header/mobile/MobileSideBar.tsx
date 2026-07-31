@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import * as Dialog from '@radix-ui/react-dialog';
-import { MAKERS_TEAM_URL, playgroundLink } from '@sopt/constant';
+import { MAKERS_TEAM_URL, playgroundLink, PRIVACY_POLICY_URL } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import dynamic from 'next/dynamic';
 import type { FC, ReactNode } from 'react';
@@ -134,6 +134,9 @@ const MobileSideBar: FC<MobileSideBarProps> = ({
               <NavLinkSmall onClick={close}>메이커스 소개</NavLinkSmall>
             </a>
             <NavLinkSmall onClick={onKakaoChat}>의견 제안하기</NavLinkSmall>
+            <a href={PRIVACY_POLICY_URL} target='_blank' rel='noreferrer'>
+              <NavLinkSmall onClick={close}>개인정보처리방침</NavLinkSmall>
+            </a>
             <NavLinkSmall
               onClick={() => {
                 onLogout?.();

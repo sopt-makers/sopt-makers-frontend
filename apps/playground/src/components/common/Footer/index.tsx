@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { MAKERS_TEAM_URL, playgroundLink } from '@sopt/constant';
+import { MAKERS_TEAM_URL, playgroundLink, PRIVACY_POLICY_URL } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -35,6 +35,9 @@ const Footer: FC<FooterProps> = () => {
       <FooterButton type='button' onClick={handleKakaoChat}>
         의견 제안하기
       </FooterButton>
+      <FooterLink href={PRIVACY_POLICY_URL} target='_blank'>
+        개인정보처리방침
+      </FooterLink>
     </StyledFooter>
   );
 };
