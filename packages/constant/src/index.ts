@@ -1,1 +1,1 @@
-export { crewLink, MAKERS_TEAM_URL, playgroundLink } from './links';
+export { crewLink, MAKERS_TEAM_URL, playgroundLink, PRIVACY_POLICY_URL } from './links';

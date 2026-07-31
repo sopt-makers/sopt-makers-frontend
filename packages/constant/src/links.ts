@@ -1,5 +1,6 @@
 export const MAKERS_TEAM_URL =
   'https://makers.sopt.org/?utm_source=playground&utm_medium=footer&utm_campaign=recruiting&utm_id=3rd_makers';
+export const PRIVACY_POLICY_URL = 'https://sopt-makers.notion.site/d17c0071ab0e440baadd36c548bc36e4';
 
 export const playgroundLink = {
   home: () => `/`,
