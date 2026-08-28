@@ -17,15 +17,9 @@ import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 interface MemberSoptActivityFormSectionProps {
   isEditable?: boolean;
-  isCheckPage?: boolean;
-  handleClickDisabled?: () => void;
 }
 
-export default function MemberSoptActivityFormSection({
-  isEditable,
-  isCheckPage = false,
-  handleClickDisabled,
-}: MemberSoptActivityFormSectionProps) {
+export default function MemberSoptActivityFormSection({ isEditable }: MemberSoptActivityFormSectionProps) {
   const {
     control,
     formState: { errors },
@@ -70,10 +64,8 @@ export default function MemberSoptActivityFormSection({
 
   return (
     <StyledFormSection>
-      {!isCheckPage && (
-        <FormHeader title='SOPT 활동 정보' description='추가적인 수정은 채널톡 문의를 통해서만 가능합니다.' required />
-      )}
-      <StyledAddableWrapper onAppend={onAppend} isCheckPage={isCheckPage}>
+      <FormHeader title='SOPT 활동 정보' description='추가적인 수정은 채널톡 문의를 통해서만 가능합니다.' required />
+      <StyledAddableWrapper onAppend={onAppend} isCheckPage={false}>
         {fields.map((field, index) =>
           isEditable && checkEditableGeneration(field.generation) ? (
             <AddableItem
@@ -95,10 +87,7 @@ export default function MemberSoptActivityFormSection({
                         <StyledSelect
                           placeholder='활동기수'
                           options={FILTERED_GENERATIONS}
-                          onChange={(value) => {
-                            field.onChange(value);
-                            handleClickDisabled?.();
-                          }}
+                          onChange={(value) => field.onChange(value)}
                         />
                       </Responsive>
                       <Responsive only='mobile'>
@@ -106,10 +95,7 @@ export default function MemberSoptActivityFormSection({
                           options={FILTERED_GENERATIONS}
                           value={field.value}
                           placeholder='활동기수'
-                          onChange={(value) => {
-                            field.onChange(value);
-                            handleClickDisabled?.();
-                          }}
+                          onChange={(value) => field.onChange(value)}
                         />
                       </Responsive>
                     </>
@@ -125,10 +111,7 @@ export default function MemberSoptActivityFormSection({
                           placeholder='파트'
                           options={PARTS}
                           value={PARTS.find((option) => option.value === field.value)}
-                          onChange={(value) => {
-                            field.onChange(value);
-                            handleClickDisabled?.();
-                          }}
+                          onChange={(value) => field.onChange(value)}
                         />
                       </Responsive>
                       <Responsive only='mobile'>
@@ -136,10 +119,7 @@ export default function MemberSoptActivityFormSection({
                           options={PARTS}
                           value={field.value}
                           placeholder='파트'
-                          onChange={(value) => {
-                            field.onChange(value);
-                            handleClickDisabled?.();
-                          }}
+                          onChange={(value) => field.onChange(value)}
                         />
                       </Responsive>
                     </>
@@ -154,10 +134,7 @@ export default function MemberSoptActivityFormSection({
                         <StyledSelect
                           placeholder='운팀/미팀 여부'
                           options={TEAMS}
-                          onChange={(value) => {
-                            field.onChange(value);
-                            handleClickDisabled?.();
-                          }}
+                          onChange={(value) => field.onChange(value)}
                         />
                       </Responsive>
                       <Responsive only='mobile'>
@@ -165,10 +142,7 @@ export default function MemberSoptActivityFormSection({
                           options={TEAMS}
                           value={field.value}
                           placeholder='운팀/미팀 여부'
-                          onChange={(value) => {
-                            field.onChange(value);
-                            handleClickDisabled?.();
-                          }}
+                          onChange={(value) => field.onChange(value)}
                         />
                       </Responsive>
                     </>
@@ -203,10 +177,7 @@ export default function MemberSoptActivityFormSection({
                         options={FILTERED_GENERATIONS}
                         value={field.value}
                         placeholder='활동기수'
-                        onChange={(value) => {
-                          field.onChange(value);
-                          handleClickDisabled?.();
-                        }}
+                        onChange={(value) => field.onChange(value)}
                       />
                     </Responsive>
                   </>
@@ -232,10 +203,7 @@ export default function MemberSoptActivityFormSection({
                         options={PARTS}
                         value={field.value}
                         placeholder='파트'
-                        onChange={(value) => {
-                          field.onChange(value);
-                          handleClickDisabled?.();
-                        }}
+                        onChange={(value) => field.onChange(value)}
                       />
                     </Responsive>
                   </>
@@ -260,10 +228,7 @@ export default function MemberSoptActivityFormSection({
                         options={TEAMS}
                         value={field.value}
                         placeholder='운팀/미팀 여부'
-                        onChange={(value) => {
-                          field.onChange(value);
-                          handleClickDisabled?.();
-                        }}
+                        onChange={(value) => field.onChange(value)}
                       />
                     </Responsive>
                   </>
@@ -291,11 +256,11 @@ const StyledFormSection = styled(FormSection)`
   }
 `;
 
-const StyledAddableWrapper = styled(AddableWrapper)<{ isCheckPage: boolean }>`
-  margin-top: ${({ isCheckPage }) => !isCheckPage && '32px'};
+const StyledAddableWrapper = styled(AddableWrapper)`
+  margin-top: 32px;
   width: 683px;
   @media ${MOBILE_MEDIA_QUERY} {
-    margin-top: ${({ isCheckPage }) => !isCheckPage && '32px'};
+    margin-top: 32px;
     width: 100%;
   }
 `;
