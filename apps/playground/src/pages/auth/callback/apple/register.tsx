@@ -69,7 +69,7 @@ const AppleRegisterCallbackPage = () => {
   const handleSuccess = () => {
     setLastLoginMethod('apple');
     if (registerToken?.type === 'register') {
-      router.replace(playgroundLink.memberCheckSoptActivity());
+      router.replace(playgroundLink.memberUpload());
     } else if (registerToken?.type === 'reset') {
       router.replace(playgroundLink.home());
     }
