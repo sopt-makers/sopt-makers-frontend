@@ -3,6 +3,10 @@ name: Playground - Build App
 on:
   workflow_call:
     inputs:
+      checkout_ref:
+        required: false
+        type: string
+        default: ''
       env:
         required: true
         type: string
@@ -17,6 +21,8 @@ jobs:
     steps:
       - name: Checkout Branch
         uses: actions/checkout@v3
+        with:
+          ref: ${{ inputs.checkout_ref || github.sha }}
 
       - uses: actions/setup-node@v3
         with:
@@ -41,13 +47,12 @@ jobs:
         run: yarn install --immutable
 
       - name: Nextjs Build Cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
-          path: |
-            ${{ github.workspace }}/.next/cache
-          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx', '**.json') }}
+          path: ${{ github.workspace }}/apps/playground/.next/cache
+          key: ${{ runner.os }}-playground-nextjs-${{ hashFiles('yarn.lock') }}-${{ hashFiles('apps/playground/**/*.[jt]s', 'apps/playground/**/*.[jt]sx', 'apps/playground/next.config.js', 'apps/playground/package.json', 'packages/**/*.[jt]s', 'packages/**/*.[jt]sx', 'packages/**/package.json') }}
           restore-keys: |
-            ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn.lock') }}-
+            ${{ runner.os }}-playground-nextjs-${{ hashFiles('yarn.lock') }}-
 
       - name: Set .env
         run: |
