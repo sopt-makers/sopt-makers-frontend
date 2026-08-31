@@ -10,16 +10,16 @@ interface NotifierProps {
   className?: string;
 }
 
-const RECRUITING_URL = 'https://sopt-makers.notion.site/38-2fd76042aac280f39548e46b98e2a06a?pvs=73';
+const RECRUITING_URL = 'https://sopt-makers.notion.site/39-2fb76042aac2800baf8ac068ce9e2b06';
 // 'https://makers.sopt.org/recruit?utm_source=playground&utm_medium=depth2_button&utm_campaign=recruiting&utm_id=3rd_makers';
 
 const Notifier = ({ className }: NotifierProps) => {
   return (
     <StyledJoinNotifier className={className}>
-      {/* MEMO: 39기 모집 시작 시 주석 해제 */}
-      {/* <Title>현재 39기 makers 팀 모집이 진행 중이에요. 곧 만나요!</Title> */}
-      <Title>39기 makers 모집은 2026년 8월 중에 진행될 예정이에요.</Title>
-      {/* <SubTitle>39기 모집은 2026년 2월 6일 금요일부터 2월 13일 금요일 23:59까지 진행될 예정이에요.</SubTitle> */}
+      {/* MEMO: 40기 모집 시작 시 주석 해제 */}
+      {/* <Title>현재 40기 makers 팀 모집이 진행 중이에요. 곧 만나요!</Title> */}
+      <Title>40기 makers 모집은 2027년 2월 중에 진행될 예정이에요.</Title>
+      {/* <SubTitle>40기 모집은 2026년 2월 6일 금요일부터 2월 13일 금요일 23:59까지 진행될 예정이에요.</SubTitle> */}
       <ButtonGroup>
         {/* MEMO: 39기 모집 알림 신청시에 다시 주석 해제 */}
         {/* <SubscribeButton href={RECRUIT_NOTIFY_GENERATION_URL} target='_blank'>
@@ -28,7 +28,7 @@ const Notifier = ({ className }: NotifierProps) => {
         </SubscribeButton> */}
         <ExpiredButton href={RECRUITING_URL} target='_blank'>
           <StyledOutgoingIcon />
-          38기 메이커스팀 모집글 보기
+          39기 메이커스팀 모집글 보기
         </ExpiredButton>
       </ButtonGroup>
     </StyledJoinNotifier>
