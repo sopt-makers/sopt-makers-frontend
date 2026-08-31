@@ -25,7 +25,7 @@ export const generation39: MakersGeneration = {
     {
       title: 'Crew 팀',
       description:
-        'Crew 팀은 SOPT 회원들이 스터디 및 모임을 쉽고 빠르게 개설할 수 있도록 적극적으로 돕고 있어요. SOPT 회원들이 모임 서비스를 통해 활기차고 즐거운 SOPT 생활을 누릴 수 있도록, 안정적인 모임 플랫폼 구축에 힘쓰고 있어요.',
+        'Crew 팀은 Playground와 SOPT APP 내 모임탭을 관리하면서 SOPT 회원분들이 모임을 통해 더 많이, 더 즐겁게 연결될 수 있도록 돕는 팀이에요. 모임 서비스를 통해 활기차고 즐거운 SOPT 생활을 누릴 수 있도록, 안정적인 모임 플랫폼 구축에 힘쓰고 있어요.',
       people: [
         { type: 'member', id: 1326, name: '이정원', position: 'PM' },
         { type: 'member', id: 1360, name: '주혜진', position: '프로덕트 디자이너' },
@@ -54,7 +54,7 @@ export const generation39: MakersGeneration = {
     {
       title: 'SOPT APP 팀',
       description:
-        '내 손 안의 SOPT, 연결과 재미의 가치를 창출하는 공식 앱을 만드는 App팀이에요. 세미나 출석기능으로 시작하여, 솝탬프, 콕찌르기, 오늘의솝마디 등 회원들의 즐거운 SOPT 경험을 위한 시도를 하는 팀이에요.',
+        '내 손 안의 SOPT, 연결과 재미의 가치를 창출하는 공식 앱을 만드는 App팀이에요. 세미나 출석기능과 마이페이지로 시작하여, 솝탬프, 콕찌르기 등 회원들의 즐거운 SOPT 경험을 위한 시도를 하는 팀이에요.',
       people: [
         { type: 'member', id: 1109, name: '이가은', position: 'PM' },
         { type: 'member', id: 1031, name: '이재영', position: '프로덕트 디자이너' },
