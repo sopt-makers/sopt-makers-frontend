@@ -72,5 +72,7 @@ jobs:
         with:
           name: built-app
           path: deploy
+          # .well-known이 제외되지 않도록
+          include-hidden-files: true
           if-no-files-found: error
           retention-days: 7
