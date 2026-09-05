@@ -1,10 +1,14 @@
 const APPLE_APP_SITE_ASSOCIATION = `{
   "applinks": {
-    "apps": [],
     "details": [
       {
-        "appID": "95YWTT5L8K.com.sopt-stamp-iOS.release",
-        "paths": ["*"]
+        "appIDs": [
+          "95YWTT5L8K.com.sopt-stamp-iOS.release",
+          "95YWTT5L8K.com.sopt-stamp-iOS.alpha"
+        ],
+        "components": [
+          { "/": "/*" }
+        ]
       }
     ]
   }
