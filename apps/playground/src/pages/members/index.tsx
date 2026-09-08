@@ -2,7 +2,6 @@ import styled from '@emotion/styled';
 
 import { useGetMemberOfMe } from '@/api/endpoint/members/getMemberOfMe';
 import AuthRequired from '@/components/auth/AuthRequired';
-import HomePopupContainer from '@/components/common/HomePopup/HomePopupContainer';
 import MemberList from '@/components/members/main/MemberList';
 import OnBoardingBanner from '@/components/members/main/MemberList/OnBoardingBanner';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
@@ -16,8 +15,6 @@ const MemberPage = () => {
 
   return (
     <AuthRequired>
-      {/* TODO: 타임캡솝 닫을 때 팝업 코드 제거 */}
-      <HomePopupContainer />
       <MemberList banner={onboardingBanner} />
     </AuthRequired>
   );
