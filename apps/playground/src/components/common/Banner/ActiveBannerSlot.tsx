@@ -31,7 +31,7 @@ const BANNER_PHASE = {
 type BannerPhaseType = (typeof BANNER_PHASE)[keyof typeof BANNER_PHASE];
 
 /** [수기 변경] 이벤트 기간에 맞춰 변경해주세요. (각 phase 설명은 BANNER_PHASE 참고) */
-const CURRENT_BANNER_PHASE: BannerPhaseType = BANNER_PHASE.TIMECAPSOP_REVEAL;
+const CURRENT_BANNER_PHASE: BannerPhaseType = BANNER_PHASE.NONE;
 
 const renderBanner = (phase: BannerPhaseType, isLatestGeneration: boolean) => {
   switch (phase) {
