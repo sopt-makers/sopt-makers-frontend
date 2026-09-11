@@ -2,12 +2,13 @@ import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 import { IconChevronDown } from '@sopt-makers/icons';
-import { SearchField, SelectV2 } from '@sopt-makers/ui';
+import { SelectV2 } from '@sopt-makers/ui';
 import { useEffect, useState } from 'react';
 
 import { useGetMembersCoffeeChat } from '@/api/endpoint/members/getMembersCoffeeChat';
 import CoffeeChatCard from '@/components/coffeechat/CoffeeChatCard';
 import CoffeeChatFilterSheet from '@/components/coffeechat/CoffeeChatCategory/CoffeeChatFilterSheet';
+import CoffeeChatSearchField from '@/components/coffeechat/CoffeeChatCategory/CoffeeChatSearchField';
 import {
   CAREER_FILTER_OPTIONS,
   categoryList,
@@ -186,31 +187,35 @@ export default function CoffeeChatCategory() {
             <SelectionArea />
           </SelectFilterArea>
           <StyledSearchField
-            placeholder='회사, 학교, 이름을 검색해보세요!'
             value={clientSearch}
-            onChange={(e) => setClientSearch(e.target.value)}
+            onChange={setClientSearch}
             onSubmit={() => {
               logSubmitEvent('searchCoffeeChat', {
                 search_content: clientSearch,
               });
               setSearch(clientSearch);
             }}
-            onReset={() => setClientSearch('')}
+            onReset={() => {
+              setClientSearch('');
+              setSearch('');
+            }}
           />
         </FilterArea>
       </Responsive>
       <Responsive only='mobile'>
         <StyledSearchField
-          placeholder='회사, 학교, 이름을 검색해보세요!'
           value={clientSearch}
-          onChange={(e) => setClientSearch(e.target.value)}
+          onChange={setClientSearch}
           onSubmit={() => {
             logSubmitEvent('searchCoffeeChat', {
               search_content: clientSearch,
             });
             setSearch(clientSearch);
           }}
-          onReset={() => setClientSearch('')}
+          onReset={() => {
+            setClientSearch('');
+            setSearch('');
+          }}
         />
         <StyledMobileFilterWrapper>
           <StyledMobileFilter
@@ -563,7 +568,7 @@ const SelectFilterArea = styled.div`
   }
 `;
 
-const StyledSearchField = styled(SearchField)`
+const StyledSearchField = styled(CoffeeChatSearchField)`
   min-width: 335px;
   font-size: 16px;
   @media ${PCTA_SM_MEDIA_QUERY} {
