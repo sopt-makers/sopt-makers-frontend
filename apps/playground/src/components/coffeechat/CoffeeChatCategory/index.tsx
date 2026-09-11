@@ -58,6 +58,7 @@ export default function CoffeeChatCategory() {
     return { generation: generations, part: parts };
   };
   const { data, isLoading } = useGetMembersCoffeeChat(apiParams, { enabled: isReady });
+  const sortedCoffeeChats = [...(data?.coffeeChatList ?? [])].sort((a, b) => Number(b.isMine) - Number(a.isMine));
 
   return (
     <Container>
@@ -192,41 +193,39 @@ export default function CoffeeChatCategory() {
             </StyledEmpty>
           )}
           <StyledCardList>
-            {data?.coffeeChatList
-              ?.sort((a, b) => (b.isMine === true ? 1 : -1) - (a.isMine === true ? 1 : -1))
-              .map((item) => (
-                <LoggingClick
-                  key={String(item?.memberId)}
-                  eventKey='coffeechatCard'
-                  param={{
-                    career: item.career === '아직 없음' ? '없음' : item.career?.split(' ')[0],
-                    organization: item?.organization,
-                    job: item.companyJob || undefined,
-                    section: section,
-                    title: item.bio || undefined,
-                    topic_tag: topicType && topicType !== '' && topicType !== '전체' ? topicType : undefined,
-                    ...formatSoptActivities(item?.soptActivities || []),
-                    channel: 'basic',
-                  }}
-                >
-                  <div>
-                    <CoffeeChatCard
-                      key={String(item.memberId)}
-                      id={String(item.memberId)}
-                      name={item.name ?? ''}
-                      topicTypeList={item.topicTypeList ?? ['']}
-                      career={item.career ?? ''}
-                      profileImage={item.profileImage ?? ''}
-                      organization={item.organization ?? ''}
-                      companyJob={item.companyJob ?? ''}
-                      soptActivities={item.soptActivities ?? ['']}
-                      title={item.bio ?? ''}
-                      isBlurred={item.isBlind ?? false}
-                      isMine={item.isMine ?? false}
-                    />
-                  </div>
-                </LoggingClick>
-              ))}
+            {sortedCoffeeChats.map((item) => (
+              <LoggingClick
+                key={String(item?.memberId)}
+                eventKey='coffeechatCard'
+                param={{
+                  career: item.career === '아직 없음' ? '없음' : item.career?.split(' ')[0],
+                  organization: item?.organization,
+                  job: item.companyJob || undefined,
+                  section: section,
+                  title: item.bio || undefined,
+                  topic_tag: topicType && topicType !== '' && topicType !== '전체' ? topicType : undefined,
+                  ...formatSoptActivities(item?.soptActivities || []),
+                  channel: 'basic',
+                }}
+              >
+                <div>
+                  <CoffeeChatCard
+                    key={String(item.memberId)}
+                    id={String(item.memberId)}
+                    name={item.name ?? ''}
+                    topicTypeList={item.topicTypeList ?? ['']}
+                    career={item.career ?? ''}
+                    profileImage={item.profileImage ?? ''}
+                    organization={item.organization ?? ''}
+                    companyJob={item.companyJob ?? ''}
+                    soptActivities={item.soptActivities ?? ['']}
+                    title={item.bio ?? ''}
+                    isBlurred={item.isBlind ?? false}
+                    isMine={item.isMine ?? false}
+                  />
+                </div>
+              </LoggingClick>
+            ))}
           </StyledCardList>
         </>
       )}
