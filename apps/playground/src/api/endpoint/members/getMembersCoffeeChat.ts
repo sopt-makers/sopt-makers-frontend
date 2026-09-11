@@ -28,8 +28,12 @@ export const getMembersCoffeeChat = createEndpoint({
   }),
 });
 
-export const useGetMembersCoffeeChat = (queryParams?: { [key: string]: string }) => {
+export const useGetMembersCoffeeChat = (
+  queryParams?: { [key: string]: string },
+  { enabled = true }: { enabled?: boolean } = {},
+) => {
   return useQuery({
+    enabled,
     queryKey: ['getMembersCoffeeChat', queryParams],
     queryFn: () => getMembersCoffeeChat.request({ query: queryParams }),
   });

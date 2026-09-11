@@ -31,7 +31,10 @@ const CoffeeChatFilterSheet: FC<PropsWithChildren<CoffeeChatFilterSheetProps>> =
   onChange,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const currentOption = useMemo(() => options.find((option) => option.value === value), [options, value]);
+  const currentOption = useMemo(
+    () => (value ? options.find((option) => option.value === value) : undefined),
+    [options, value],
+  );
 
   const onClose = () => {
     setIsOpen(false);
