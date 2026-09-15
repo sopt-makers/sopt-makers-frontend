@@ -38,7 +38,11 @@ const CoffeeChatFilterSelects = ({ filters, setFilter }: Props) => {
               <LoggingClick
                 key={option.value}
                 eventKey='coffeechatFilter'
-                param={{ topic_tag: filters.topicType, career: filters.career, part: filters.part }}
+                param={{
+                  topic_tag: key === 'topicType' ? option.value : filters.topicType,
+                  career: key === 'career' ? option.value : filters.career,
+                  part: key === 'part' ? option.value : filters.part,
+                }}
               >
                 <SelectV2.MenuItem option={option} />
               </LoggingClick>

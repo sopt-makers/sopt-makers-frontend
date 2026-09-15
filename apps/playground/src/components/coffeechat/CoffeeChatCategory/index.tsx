@@ -40,7 +40,7 @@ export default function CoffeeChatCategory() {
     setSearchInput(appliedSearch);
   }, [appliedSearch]);
 
-  const { logSubmitEvent } = useEventLogger();
+  const { logSubmitEvent, logClickEvent } = useEventLogger();
   const submitSearch = () => {
     logSubmitEvent('searchCoffeeChat', { search_content: searchInput });
     setFilter('search', searchInput);
@@ -48,6 +48,16 @@ export default function CoffeeChatCategory() {
   const resetSearch = () => {
     setSearchInput('');
     setFilter('search', '');
+  };
+
+  const changeMobileFilter = (key: 'topicType' | 'career' | 'part', value: string) => {
+    const nextFilters = { ...filters, [key]: value };
+    logClickEvent('coffeechatFilter', {
+      topic_tag: nextFilters.topicType,
+      career: nextFilters.career,
+      part: nextFilters.part,
+    });
+    setFilter(key, value);
   };
 
   const formatSoptActivities = (soptActivities: string[]) => {
@@ -115,69 +125,42 @@ export default function CoffeeChatCategory() {
               </MobileFilterTrigger>
             )}
           />
-          <LoggingClick
-            eventKey='coffeechatFilter'
-            param={{
-              topic_tag: topicType,
-              career: career,
-              part: part,
-            }}
-          >
-            <StyledMobileFilter
-              value={topicType}
-              onChange={(value) => setFilter('topicType', value)}
-              options={TOPIC_FILTER_OPTIONS}
-              placeholder='주제'
-              trigger={(placeholder) => (
-                <MobileFilterTrigger selected={topicType.length > 0}>
-                  {placeholder}
-                  <StyledChevronDown />
-                </MobileFilterTrigger>
-              )}
-            />
-          </LoggingClick>
-          <LoggingClick
-            eventKey='coffeechatFilter'
-            param={{
-              topic_tag: topicType,
-              career: career,
-              part: part,
-            }}
-          >
-            <StyledMobileFilter
-              value={career}
-              onChange={(value) => setFilter('career', value)}
-              options={CAREER_FILTER_OPTIONS}
-              placeholder='경력'
-              trigger={(placeholder) => (
-                <MobileFilterTrigger selected={career.length > 0}>
-                  {placeholder}
-                  <StyledChevronDown />
-                </MobileFilterTrigger>
-              )}
-            />
-          </LoggingClick>
-          <LoggingClick
-            eventKey='coffeechatFilter'
-            param={{
-              topic_tag: topicType,
-              career: career,
-              part: part,
-            }}
-          >
-            <StyledMobileFilter
-              value={part}
-              onChange={(value) => setFilter('part', value)}
-              options={PART_FILTER_OPTIONS}
-              placeholder='파트'
-              trigger={(placeholder) => (
-                <MobileFilterTrigger selected={part.length > 0}>
-                  {placeholder}
-                  <StyledChevronDown />
-                </MobileFilterTrigger>
-              )}
-            />
-          </LoggingClick>
+          <StyledMobileFilter
+            value={topicType}
+            onChange={(value) => changeMobileFilter('topicType', value)}
+            options={TOPIC_FILTER_OPTIONS}
+            placeholder='주제'
+            trigger={(placeholder) => (
+              <MobileFilterTrigger selected={topicType.length > 0}>
+                {placeholder}
+                <StyledChevronDown />
+              </MobileFilterTrigger>
+            )}
+          />
+          <StyledMobileFilter
+            value={career}
+            onChange={(value) => changeMobileFilter('career', value)}
+            options={CAREER_FILTER_OPTIONS}
+            placeholder='경력'
+            trigger={(placeholder) => (
+              <MobileFilterTrigger selected={career.length > 0}>
+                {placeholder}
+                <StyledChevronDown />
+              </MobileFilterTrigger>
+            )}
+          />
+          <StyledMobileFilter
+            value={part}
+            onChange={(value) => changeMobileFilter('part', value)}
+            options={PART_FILTER_OPTIONS}
+            placeholder='파트'
+            trigger={(placeholder) => (
+              <MobileFilterTrigger selected={part.length > 0}>
+                {placeholder}
+                <StyledChevronDown />
+              </MobileFilterTrigger>
+            )}
+          />
         </StyledMobileFilterWrapper>
       </Responsive>
       {!isReady || isLoading ? (
@@ -203,7 +186,7 @@ export default function CoffeeChatCategory() {
                   job: item.companyJob || undefined,
                   section: section,
                   title: item.bio || undefined,
-                  topic_tag: topicType && topicType !== '' && topicType !== '전체' ? topicType : undefined,
+                  topic_tag: topicType || undefined,
                   ...formatSoptActivities(item?.soptActivities || []),
                   channel: 'basic',
                 }}
