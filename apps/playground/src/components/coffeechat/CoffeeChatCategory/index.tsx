@@ -31,7 +31,7 @@ import {
 } from '@/styles/mediaQuery';
 
 export default function CoffeeChatCategory() {
-  const { filters, apiParams, setFilter, isReady } = useCoffeeChatFilters();
+  const { filters, setFilter, isReady } = useCoffeeChatFilters();
   const { section, topicType, career, part, search: appliedSearch } = filters;
   const [searchInput, setSearchInput] = useState(appliedSearch);
 
@@ -57,7 +57,7 @@ export default function CoffeeChatCategory() {
     const parts = [...new Set(soptActivities.map((item) => item.replace(/^\d+기 /, '')))];
     return { generation: generations, part: parts };
   };
-  const { data, isLoading } = useGetMembersCoffeeChat(apiParams, { enabled: isReady });
+  const { data, isLoading } = useGetMembersCoffeeChat(filters, { enabled: isReady });
   const sortedCoffeeChats = [...(data?.coffeeChatList ?? [])].sort((a, b) => Number(b.isMine) - Number(a.isMine));
 
   return (

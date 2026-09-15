@@ -19,7 +19,7 @@ const navigate = (url: string) => {
 describe('커피솝 필터 URL', () => {
   beforeEach(() => navigate('/coffeechat'));
 
-  it('공유 URL의 조건을 복원하고 UI 표시값을 API 값으로 변환한다', () => {
+  it('공유 URL의 필터 조건을 복원한다', () => {
     navigate('/coffeechat?section=프론트엔드&topicType=커리어&career=인턴&part=웹&search=토스');
     const { result } = renderHook(useCoffeeChatFilters, { wrapper: Wrapper });
 
@@ -27,13 +27,6 @@ describe('커피솝 필터 URL', () => {
       section: '프론트엔드',
       topicType: '커리어',
       career: '인턴',
-      part: '웹',
-      search: '토스',
-    });
-    expect(result.current.apiParams).toEqual({
-      section: '프론트',
-      topicType: '커리어',
-      career: '인턴 경험만 있어요',
       part: '웹',
       search: '토스',
     });
@@ -55,12 +48,12 @@ describe('커피솝 필터 URL', () => {
     navigate('/coffeechat?section=프론트엔드&search=토스');
     const { result } = renderHook(useCoffeeChatFilters, { wrapper: Wrapper });
 
-    act(() => result.current.setFilter('section', '전체'));
+    act(() => result.current.setFilter('section', ''));
     await waitFor(() => expect(result.current.filters.section).toBe(''));
     expect(new URLSearchParams(window.location.search).has('section')).toBe(false);
     act(() => result.current.setFilter('search', ''));
     await waitFor(() => expect(window.location.search).toBe(''));
-    expect(result.current.apiParams).toEqual({});
+    expect(result.current.filters).toEqual({ section: '', topicType: '', career: '', part: '', search: '' });
   });
 
   it('방문 기록 복원과 query 없는 메뉴 재진입을 구분한다', () => {
@@ -69,12 +62,18 @@ describe('커피솝 필터 URL', () => {
     expect(result.current.filters.section).toBe('프론트엔드');
     expect(result.current.filters.search).toBe('토스');
     act(() => navigate('/coffeechat'));
-    expect(result.current.apiParams).toEqual({});
+    expect(result.current.filters).toEqual({ section: '', topicType: '', career: '', part: '', search: '' });
   });
 
   it('잘못된 필터와 전체는 무시하고 검색어 전체는 그대로 전달한다', () => {
     navigate('/coffeechat?section=unknown&topicType=전체&career=아직 없음&part=&search=전체');
     const { result } = renderHook(useCoffeeChatFilters, { wrapper: Wrapper });
-    expect(result.current.apiParams).toEqual({ career: '아직 없어요', search: '전체' });
+    expect(result.current.filters).toEqual({
+      section: '',
+      topicType: '',
+      career: '아직 없음',
+      part: '',
+      search: '전체',
+    });
   });
 });

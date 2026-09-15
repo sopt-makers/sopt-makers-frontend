@@ -3,7 +3,8 @@ import { SelectV2 } from '@sopt-makers/ui';
 import { CAREER_FILTER_OPTIONS, PART_FILTER_OPTIONS, TOPIC_FILTER_OPTIONS } from '@/components/coffeechat/constants';
 import { LoggingClick } from '@/components/eventLogger/components/LoggingClick';
 
-import type { CoffeeChatFilters, SetCoffeeChatFilter } from './useCoffeeChatFilters';
+import type { CoffeeChatFilters } from './coffeeChatFilters.types';
+import type { SetCoffeeChatFilter } from './useCoffeeChatFilters';
 
 const SELECTS = [
   { key: 'topicType', className: 'topic-select', placeholder: '주제', options: TOPIC_FILTER_OPTIONS },

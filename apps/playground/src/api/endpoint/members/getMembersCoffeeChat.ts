@@ -2,6 +2,8 @@ import { useQuery } from '@tanstack/react-query';
 import { z } from 'zod';
 
 import { createEndpoint } from '@/api/typedAxios';
+import type { CoffeeChatFilters } from '@/components/coffeechat/CoffeeChatCategory/coffeeChatFilters.types';
+import { COFFEE_CHAT_FILTER_OPTIONS } from '@/components/coffeechat/constants';
 
 export const getMembersCoffeeChat = createEndpoint({
   request: ({ query }: { query?: { [key: string]: string } }) => ({
@@ -28,13 +30,25 @@ export const getMembersCoffeeChat = createEndpoint({
   }),
 });
 
-export const useGetMembersCoffeeChat = (
-  queryParams?: { [key: string]: string },
-  { enabled = true }: { enabled?: boolean } = {},
-) => {
+const toCoffeeChatApiParams = (filters: CoffeeChatFilters): Record<string, string> => {
+  const params: Record<string, string> = {};
+
+  for (const key of Object.keys(COFFEE_CHAT_FILTER_OPTIONS) as (keyof typeof COFFEE_CHAT_FILTER_OPTIONS)[]) {
+    const option = COFFEE_CHAT_FILTER_OPTIONS[key].find(({ value }) => value === filters[key]);
+    if (option?.apiValue) params[key] = option.apiValue;
+  }
+
+  if (filters.search) params.search = filters.search;
+
+  return params;
+};
+
+export const useGetMembersCoffeeChat = (filters: CoffeeChatFilters, { enabled }: { enabled: boolean }) => {
+  const apiParams = toCoffeeChatApiParams(filters);
+
   return useQuery({
     enabled,
-    queryKey: ['getMembersCoffeeChat', queryParams],
-    queryFn: () => getMembersCoffeeChat.request({ query: queryParams }),
+    queryKey: ['getMembersCoffeeChat', apiParams],
+    queryFn: () => getMembersCoffeeChat.request({ query: apiParams }),
   });
 };
