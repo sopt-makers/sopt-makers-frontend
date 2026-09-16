@@ -84,183 +84,102 @@ export const COFFECHAT_SAMPLE_DATA = {
     },
   ],
 };
-export const categoryList = {
-  categoryList: [
-    {
-      categoryName: '전체',
-      icon: '/icons/logo/coffeechatCategory/ic_default.svg',
-    },
-    {
-      categoryName: 'SOPT 활동',
-      icon: '/icons/logo/coffeechatCategory/ic_sopt.svg',
-    },
-    {
-      categoryName: '기획',
-      icon: '/icons/logo/coffeechatCategory/ic_plan.svg',
-    },
-    {
-      categoryName: '디자인',
-      icon: '/icons/logo/coffeechatCategory/ic_design.svg',
-    },
-    {
-      categoryName: '프론트엔드',
-      icon: '/icons/logo/coffeechatCategory/ic_frontend.svg',
-    },
-    {
-      categoryName: '백엔드',
-      icon: '/icons/logo/coffeechatCategory/ic_backend.svg',
-    },
-    {
-      categoryName: '앱 개발',
-      icon: '/icons/logo/coffeechatCategory/ic_app.svg',
-    },
-    {
-      categoryName: '기타',
-      icon: '/icons/logo/coffeechatCategory/ic_etc.svg',
-    },
-  ],
-};
+export interface CoffeeChatFilterOption {
+  value: string;
+  label: string;
+  apiValue: string;
+  mobileLabel?: string;
+}
 
-export const TOPIC_FILTER_OPTIONS = [
+export const SECTION_FILTER_OPTIONS: (CoffeeChatFilterOption & { icon: string })[] = [
   {
+    value: '',
     label: '전체',
-    value: 1,
+    apiValue: '',
+    icon: '/icons/logo/coffeechatCategory/ic_default.svg',
   },
   {
-    label: '창업',
-    value: 2,
-  },
-  {
-    label: '네트워킹',
-    value: 3,
-  },
-  {
-    label: '커리어',
-    value: 4,
-  },
-  {
-    label: '포트폴리오',
-    value: 5,
-  },
-  {
-    label: '이력서/자소서',
-    value: 6,
-  },
-  {
-    label: '면접',
-    value: 7,
-  },
-  {
-    label: '직무 전문성',
-    value: 8,
-  },
-  {
-    label: '프로젝트',
-    value: 9,
-  },
-  {
-    label: '자기계발',
-    value: 10,
-  },
-  {
-    label: '기타',
-    value: 11,
-  },
-];
-
-export const CAREER_FILTER_OPTIONS = [
-  {
-    label: '전체',
-    value: 1,
-  },
-  {
-    label: '아직 없음',
-    value: 2,
-  },
-  {
-    label: '인턴',
-    value: 3,
-  },
-  {
-    label: '주니어 (0-3년)',
-    value: 4,
-  },
-  {
-    label: '미들 (4-8년)',
-    value: 5,
-  },
-  {
-    label: '시니어 (9년 이상)',
-    value: 6,
-  },
-  {
-    label: '창업 중',
-    value: 7,
-  },
-];
-
-export const PART_FILTER_OPTIONS = [
-  {
-    label: '전체',
-    value: 1,
-  },
-  {
-    label: '기획',
-    value: 2,
-  },
-  {
-    label: '디자인',
-    value: 3,
-  },
-  {
-    label: '안드로이드',
-    value: 4,
-  },
-  {
-    label: 'iOS',
-    value: 5,
-  },
-  {
-    label: '웹',
-    value: 6,
-  },
-  {
-    label: '서버',
-    value: 7,
-  },
-];
-
-export const SECTION_FILTER_OPTIONS = [
-  {
-    label: '전체',
-    value: 1,
-  },
-  {
+    value: 'SOPT 활동',
     label: 'SOPT 활동',
-    value: 2,
+    apiValue: 'SOPT 활동',
+    icon: '/icons/logo/coffeechatCategory/ic_sopt.svg',
   },
   {
+    value: '기획',
     label: '기획',
-    value: 3,
+    apiValue: '기획',
+    icon: '/icons/logo/coffeechatCategory/ic_plan.svg',
   },
   {
+    value: '디자인',
     label: '디자인',
-    value: 4,
+    apiValue: '디자인',
+    icon: '/icons/logo/coffeechatCategory/ic_design.svg',
   },
   {
-    label: '프론트',
-    value: 5,
+    value: '프론트엔드',
+    label: '프론트엔드',
+    mobileLabel: '프론트',
+    apiValue: '프론트',
+    icon: '/icons/logo/coffeechatCategory/ic_frontend.svg',
   },
   {
+    value: '백엔드',
     label: '백엔드',
-    value: 6,
+    apiValue: '백엔드',
+    icon: '/icons/logo/coffeechatCategory/ic_backend.svg',
   },
   {
+    value: '앱 개발',
     label: '앱 개발',
-    value: 7,
+    apiValue: '앱 개발',
+    icon: '/icons/logo/coffeechatCategory/ic_app.svg',
   },
   {
+    value: '기타',
     label: '기타',
-    value: 8,
+    apiValue: '기타',
+    icon: '/icons/logo/coffeechatCategory/ic_etc.svg',
   },
 ];
+
+export const TOPIC_FILTER_OPTIONS: CoffeeChatFilterOption[] = [
+  { value: '', label: '전체', apiValue: '' },
+  { value: '창업', label: '창업', apiValue: '창업' },
+  { value: '네트워킹', label: '네트워킹', apiValue: '네트워킹' },
+  { value: '커리어', label: '커리어', apiValue: '커리어' },
+  { value: '포트폴리오', label: '포트폴리오', apiValue: '포트폴리오' },
+  { value: '이력서/자소서', label: '이력서/자소서', apiValue: '이력서/자소서' },
+  { value: '면접', label: '면접', apiValue: '면접' },
+  { value: '직무 전문성', label: '직무 전문성', apiValue: '직무 전문성' },
+  { value: '프로젝트', label: '프로젝트', apiValue: '프로젝트' },
+  { value: '자기계발', label: '자기계발', apiValue: '자기계발' },
+  { value: '기타', label: '기타', apiValue: '기타' },
+];
+
+export const CAREER_FILTER_OPTIONS: CoffeeChatFilterOption[] = [
+  { value: '', label: '전체', apiValue: '' },
+  { value: '아직 없음', label: '아직 없음', apiValue: '아직 없어요' },
+  { value: '인턴', label: '인턴', apiValue: '인턴 경험만 있어요' },
+  { value: '주니어 (0-3년)', label: '주니어 (0-3년)', apiValue: '주니어 (0-3년)' },
+  { value: '미들 (4-8년)', label: '미들 (4-8년)', apiValue: '미들 (4-8년)' },
+  { value: '시니어 (9년 이상)', label: '시니어 (9년 이상)', apiValue: '시니어 (9년 이상)' },
+  { value: '창업 중', label: '창업 중', apiValue: '창업 중' },
+];
+
+export const PART_FILTER_OPTIONS: CoffeeChatFilterOption[] = [
+  { value: '', label: '전체', apiValue: '' },
+  { value: '기획', label: '기획', apiValue: '기획' },
+  { value: '디자인', label: '디자인', apiValue: '디자인' },
+  { value: '안드로이드', label: '안드로이드', apiValue: '안드로이드' },
+  { value: 'iOS', label: 'iOS', apiValue: 'iOS' },
+  { value: '웹', label: '웹', apiValue: '웹' },
+  { value: '서버', label: '서버', apiValue: '서버' },
+];
+
+export const COFFEE_CHAT_FILTER_OPTIONS = {
+  section: SECTION_FILTER_OPTIONS,
+  topicType: TOPIC_FILTER_OPTIONS,
+  career: CAREER_FILTER_OPTIONS,
+  part: PART_FILTER_OPTIONS,
+};
