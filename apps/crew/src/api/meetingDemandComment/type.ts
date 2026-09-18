@@ -1,4 +1,4 @@
-import type { paths } from '@/__generated__/schema2';
+import type { paths } from '@/__generated__/crew-v2';
 
 export type GetMeetingDemandCommentsRequest =
   paths['/meeting-demand/v2/{meetingDemandId}/comments']['get']['parameters']['path'] &
