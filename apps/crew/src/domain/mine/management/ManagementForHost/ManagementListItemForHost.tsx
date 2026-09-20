@@ -24,12 +24,12 @@ type ManagementListItemForHostProps = {
   application: GetMeetingMemberList['response']['apply'][number];
 };
 
-type ApprovalStatus = keyof typeof APPROVAL_STATUS_ENGLISH_TO_KOREAN;
+type ApprovalStatusKey = keyof typeof APPROVAL_STATUS_ENGLISH_TO_KOREAN;
 
 type StatusButtonConfig = Record<
   'desktop' | 'mobile',
   Record<
-    ApprovalStatus,
+    ApprovalStatusKey,
     {
       type: string;
       label: string;
