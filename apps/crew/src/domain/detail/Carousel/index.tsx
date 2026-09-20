@@ -3,7 +3,7 @@ import 'slick-carousel/slick/slick.css';
 import Slider from 'react-slick';
 import { styled } from 'stitches.config';
 
-import type { paths } from '@/__generated__/crew-v2';
+import type { paths } from '@/__generated__/schema';
 
 import NextArrow from './NextArrow';
 

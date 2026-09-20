@@ -19,7 +19,7 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import Link from 'next/link';
 import { styled } from 'stitches.config';
 
-import type { paths } from '@/__generated__/crew-v2';
+import type { paths } from '@/__generated__/schema';
 
 dayjs.extend(relativeTime);
 dayjs.locale('ko');

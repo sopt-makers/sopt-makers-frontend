@@ -31,7 +31,7 @@
     },
     "api:generate": {
       "cache": false,
-      "outputs": ["src/__generated__/crew-v2.d.ts"]
+      "outputs": ["src/__generated__/schema.d.ts"]
     },
     "api:check": {
       "cache": false,

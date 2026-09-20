@@ -1,4 +1,4 @@
-import type { paths } from '@/__generated__/crew-v2';
+import type { paths } from '@/__generated__/schema';
 
 export type PostFlash = {
   request: paths['/flash/v2']['post']['requestBody']['content']['application/json;charset=UTF-8'];

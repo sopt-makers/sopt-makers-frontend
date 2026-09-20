@@ -8,7 +8,7 @@ import Select from '@shared/form/Select';
 import type { Option } from '@shared/form/Select/OptionItem';
 import { styled } from 'stitches.config';
 
-import type { components } from '@/__generated__/crew-v2';
+import type { components } from '@/__generated__/schema';
 
 type ManagementForHostProps = {
   isManagementDataLoading: boolean;

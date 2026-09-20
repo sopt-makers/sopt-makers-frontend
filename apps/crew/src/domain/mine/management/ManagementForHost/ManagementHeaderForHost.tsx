@@ -2,7 +2,7 @@ import { useDownloadMeetingMemberCSVMutation } from '@api/meeting/mutation';
 import DownloadIcon from '@assets/svg/download.svg';
 import { styled } from 'stitches.config';
 
-import type { components } from '@/__generated__/crew-v2';
+import type { components } from '@/__generated__/schema';
 
 type ManagementHeaderForHostProps = {
   id: string;
