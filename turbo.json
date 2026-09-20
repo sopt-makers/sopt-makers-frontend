@@ -29,7 +29,7 @@
       "dependsOn": ["^build"],
       "outputs": ["storybook-static/**"]
     },
-    "api:generate": {
+    "api:generate-types": {
       "cache": false,
       "outputs": ["src/__generated__/schema.d.ts"]
     },
