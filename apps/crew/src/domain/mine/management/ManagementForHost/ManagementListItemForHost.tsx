@@ -15,6 +15,7 @@ import {
 } from '@domain/mine/management/ManagementForGuest/ManagementListItemForGuest';
 import { addHyphenToPhoneNumber } from '@util/addHypenToPhoneNumber';
 import dayjs from 'dayjs';
+import type { ButtonHTMLAttributes, ComponentType } from 'react';
 import { useState } from 'react';
 import { styled } from 'stitches.config';
 
@@ -22,6 +23,21 @@ type ManagementListItemForHostProps = {
   meetingId: number;
   application: GetMeetingMemberList['response']['apply'][number];
 };
+
+type ApprovalStatusKey = keyof typeof APPROVAL_STATUS_ENGLISH_TO_KOREAN;
+
+type StatusButtonConfig = Record<
+  'desktop' | 'mobile',
+  Record<
+    ApprovalStatusKey,
+    {
+      type: string;
+      label: string;
+      action: EApprovalStatus;
+      ButtonComponent: ComponentType<ButtonHTMLAttributes<HTMLButtonElement>>;
+    }[]
+  >
+>;
 
 const ManagementListItemForHost = ({ meetingId, application }: ManagementListItemForHostProps) => {
   const { appliedDate, status = 'WAITING', user, applyNumber } = application;
@@ -49,7 +65,7 @@ const ManagementListItemForHost = ({ meetingId, application }: ManagementListIte
     );
   };
 
-  const statusButtonConfig = {
+  const statusButtonConfig: StatusButtonConfig = {
     desktop: {
       WAITING: [
         {
