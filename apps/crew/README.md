@@ -19,8 +19,14 @@ yarn
 ### 3. API 코드 제너레이션
 
 ```sh
-yarn generate-types
+yarn workspace crew api:generate-types
 ```
+
+OpenAPI 스키마는 Crew API v2 문서에서 생성하며, 생성된 파일은 직접 수정하지 않습니다.
+
+| 명령어 | 설명 | 생성 파일 |
+| --- | --- | --- |
+| `yarn workspace crew api:generate-types` | Crew API v2 스키마 생성 | `src/__generated__/schema.d.ts` |
 
 ### 4. 개발 서버 실행
 

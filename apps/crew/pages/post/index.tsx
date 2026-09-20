@@ -36,7 +36,7 @@ import { useRouter } from 'next/router';
 import React, { useContext, useEffect, useRef } from 'react';
 import { styled } from 'stitches.config';
 
-import type { paths } from '@/__generated__/schema2';
+import type { paths } from '@/__generated__/schema';
 import { ampli } from '@/ampli';
 
 export default function PostPage() {

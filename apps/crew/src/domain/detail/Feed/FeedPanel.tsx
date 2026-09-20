@@ -20,7 +20,7 @@ import React, { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { styled } from 'stitches.config';
 
-import type { paths } from '@/__generated__/schema2';
+import type { paths } from '@/__generated__/schema';
 import { ampli } from '@/ampli';
 import { api } from '@/api';
 

@@ -1,4 +1,4 @@
-import type { paths } from '@/__generated__/schema2';
+import type { paths } from '@/__generated__/schema';
 
 export type GetPostListResponse =
   paths['/post/v2']['get']['responses']['200']['content']['application/json;charset=UTF-8'];
