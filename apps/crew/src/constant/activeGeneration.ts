@@ -1,1 +1,1 @@
-export const ACTIVE_GENERATION = 38;
+export const ACTIVE_GENERATION = 39;
