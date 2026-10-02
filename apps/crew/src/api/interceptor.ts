@@ -28,7 +28,7 @@ let refreshPromise: Promise<string> | null = null;
 export const refreshToken = async (error: AxiosError<unknown>, instance: AxiosInstance) => {
   const originRequest = error.config as RetryableRequestConfig | undefined;
 
-  if (!error.response || !originRequest) throw new Error('에러가 발생했습니다.');
+  if (!error.response || !originRequest) throw error;
 
   const { status } = error.response;
 
