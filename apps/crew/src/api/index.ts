@@ -58,7 +58,7 @@ export const apiV2 = computed(authToken, (currentToken) =>
   }),
 );
 
-api.interceptors.request.use(checkToken, (err) => err);
+api.interceptors.request.use(checkToken);
 
 api.interceptors.response.use(
   (res) => res,
