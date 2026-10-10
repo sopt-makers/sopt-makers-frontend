@@ -34,7 +34,7 @@ export const refreshToken = async (error: AxiosError<unknown>, instance: AxiosIn
 
   if (status === 401) {
     if (originRequest._retry) {
-      return Promise.reject(error);
+      throw error;
     }
 
     originRequest._retry = true;
@@ -44,7 +44,7 @@ export const refreshToken = async (error: AxiosError<unknown>, instance: AxiosIn
 
       if (!currentToken) {
         redirectToLoginPage();
-        return Promise.reject(error);
+        throw error;
       }
 
       refreshPromise = authApi
@@ -75,5 +75,5 @@ export const refreshToken = async (error: AxiosError<unknown>, instance: AxiosIn
     return instance(originRequest);
   }
 
-  return Promise.reject(error);
+  throw error;
 };
