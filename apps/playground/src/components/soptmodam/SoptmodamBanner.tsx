@@ -6,7 +6,6 @@ import { useRouter } from 'next/router';
 
 import { BANNER_CONTENT } from '@/components/soptmodam/constants';
 import { SOPTMODAM_BANNER_MOCK } from '@/components/soptmodam/mock';
-import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 const SoptmodamBanner = () => {
   const router = useRouter();
@@ -93,11 +92,7 @@ const SQuestionLabel = styled.p`
 
 const SHeadline = styled.div`
   color: ${colors.fg.neutral.bold};
-  ${typography.title2}
-
-  @media ${MOBILE_MEDIA_QUERY} {
-    ${typography.title3}
-  }
+  ${typography.title3}
 `;
 
 const SEventName = styled.p`
@@ -106,11 +101,7 @@ const SEventName = styled.p`
 
 const SDescription = styled.div`
   color: ${colors.fg.neutral.default};
-  ${typography.body1}
-
-  @media ${MOBILE_MEDIA_QUERY} {
-    ${typography.body2}
-  }
+  ${typography.body2}
 `;
 
 const SActionButton = styled(ActionButton)`
