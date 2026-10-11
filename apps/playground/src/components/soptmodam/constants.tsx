@@ -28,7 +28,7 @@ export const BANNER_CONTENT: Record<SoptmodamCardType, (_data: SoptmodamBannerRe
     ),
   }),
   ANSWER_COLLECTING: ({ roundId, dDay }) => ({
-    tag: `경험담 모집 중 · ${formatDDay(dDay)}`,
+    tag: `답변 모집 중 · ${formatDDay(dDay)}`,
     description: '먼저 경험한 OB라면, 나의 이야기를 담아 주세요.',
     button: { label: '내 경험 담기', href: playgroundLink.soptmodamUpload(roundId) },
   }),
