@@ -10,9 +10,11 @@ interface BannerContent {
   button?: { label: string; href: string };
 }
 
+const formatDDay = (dDay: number) => (dDay === 0 ? '오늘 마감' : `D-${dDay}`);
+
 export const BANNER_CONTENT: Record<SoptmodamCardType, (_data: SoptmodamBannerResponse) => BannerContent> = {
   VOTE: ({ roundId, dDay }) => ({
-    tag: `질문 투표 · D-${dDay}`,
+    tag: `질문 투표 · ${formatDDay(dDay)}`,
     description: '먼저 경험한 OB들이 답해드려요.',
     button: { label: '궁금한 질문에 투표하기', href: playgroundLink.soptmodamVote(roundId) },
   }),
@@ -26,7 +28,7 @@ export const BANNER_CONTENT: Record<SoptmodamCardType, (_data: SoptmodamBannerRe
     ),
   }),
   ANSWER_COLLECTING: ({ roundId, dDay }) => ({
-    tag: `경험담 모집 중 · D-${dDay}`,
+    tag: `경험담 모집 중 · ${formatDDay(dDay)}`,
     description: '먼저 경험한 OB라면, 나의 이야기를 담아 주세요.',
     button: { label: '내 경험 담기', href: playgroundLink.soptmodamUpload(roundId) },
   }),
