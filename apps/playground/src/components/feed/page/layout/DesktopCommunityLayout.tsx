@@ -1,9 +1,11 @@
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
+import { spacing } from '@sopt-mds/design-tokens';
 import { m } from 'framer-motion';
 import type { ReactNode } from 'react';
 
 import { layoutCSSVariable } from '@/components/layout/utils';
+import SoptmodamBanner from '@/components/soptmodam/SoptmodamBanner';
 import WordChainEntry from '@/components/wordchain/WordchainEntry/WordChainEntry';
 
 interface DesktopCommunityLayoutProps {
@@ -16,11 +18,12 @@ const DETAIL_SLOT_WIDTH = 560;
 
 const DesktopCommunityLayout = ({ isDetailOpen, listSlot, detailSlot }: DesktopCommunityLayoutProps) => {
   return (
-    <div style={{ margin: '0 30px' }}>
-      <WordChainWrapper>
+    <Container>
+      <TopSection>
+        <SoptmodamBanner />
         <StyledWordChainEntry />
-      </WordChainWrapper>
-      <Container>
+      </TopSection>
+      <FeedWrapper>
         <ListSlot isDetailOpen={isDetailOpen}>{listSlot}</ListSlot>
         <DetailSlot
           initial={{ width: 0 }}
@@ -31,23 +34,34 @@ const DesktopCommunityLayout = ({ isDetailOpen, listSlot, detailSlot }: DesktopC
             <DetailSlotInner isDetailOpen={isDetailOpen}>{detailSlot}</DetailSlotInner>
           </DetailSlotSticky>
         </DetailSlot>
-      </Container>
-    </div>
+      </FeedWrapper>
+    </Container>
   );
 };
 
 export default DesktopCommunityLayout;
 
-const WordChainWrapper = styled.div`
-  width: 100%;
-  padding: 32px 0 16px 0;
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${spacing.s16};
+  margin-top: ${spacing.s32};
 `;
 
-const StyledWordChainEntry = styled(WordChainEntry)`
+const TopSection = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${spacing.s16};
+  margin: 0 auto;
+  width: 100%;
   max-width: 560px;
 `;
 
-const Container = styled.div`
+const StyledWordChainEntry = styled(WordChainEntry)`
+  max-width: none;
+`;
+
+const FeedWrapper = styled.div`
   display: flex;
   position: relative;
   justify-content: center;
