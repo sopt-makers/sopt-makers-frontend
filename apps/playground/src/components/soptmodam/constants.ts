@@ -1,12 +1,11 @@
 import { playgroundLink } from '@sopt/constant';
-import type { ReactNode } from 'react';
 
 import type { SoptmodamBannerResponse, SoptmodamCardType } from '@/components/soptmodam/mock';
 import { dateIntoMonthDay } from '@/utils/parseDate';
 
 interface BannerContent {
   tag: string;
-  description: ReactNode;
+  description: string;
   button?: { label: string; href: string };
 }
 
@@ -20,12 +19,7 @@ export const BANNER_CONTENT: Record<SoptmodamCardType, (_data: SoptmodamBannerRe
   }),
   ANSWER_PREPARING: ({ answerEndAt }) => ({
     tag: '답변 준비 중',
-    description: (
-      <>
-        <p>OB들의 경험을 차곡차곡 담고 있어요.</p>
-        <p>{dateIntoMonthDay(answerEndAt)}에 모아 보여드릴게요.</p>
-      </>
-    ),
+    description: `OB들의 경험을 차곡차곡 담고 있어요.\n${dateIntoMonthDay(answerEndAt)}에 모아 보여드릴게요.`,
   }),
   ANSWER_COLLECTING: ({ roundId, dDay }) => ({
     tag: `답변 모집 중 · ${formatDDay(dDay)}`,

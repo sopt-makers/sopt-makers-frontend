@@ -99,7 +99,8 @@ const SEventName = styled.p`
   color: ${colors.fg.brand.default};
 `;
 
-const SDescription = styled.div`
+const SDescription = styled.p`
+  white-space: pre-line;
   color: ${colors.fg.neutral.default};
   ${typography.body2}
 `;
