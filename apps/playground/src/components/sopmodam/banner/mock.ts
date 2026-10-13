@@ -1,8 +1,8 @@
 // TODO: API 연동 시 삭제
-import type { SoptmodamBannerResponse } from '@/components/soptmodam/types';
+import type { SopmodamBannerResponse } from '@/components/sopmodam/banner/types';
 
 // 서버가 204(노출할 카드 없음)를 내려주면 null
-export const SOPTMODAM_BANNER_MOCK: SoptmodamBannerResponse | null = {
+export const SOPMODAM_BANNER_MOCK: SopmodamBannerResponse | null = {
   roundId: 1,
   eventName: 'SOPT 첫 협업',
   phase: 'VOTING',

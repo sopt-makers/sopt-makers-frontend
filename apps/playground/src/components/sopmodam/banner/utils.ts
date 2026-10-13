@@ -1,6 +1,6 @@
-import type { SoptmodamBannerData, SoptmodamBannerResponse } from '@/components/soptmodam/types';
+import type { SopmodamBannerData, SopmodamBannerResponse } from '@/components/sopmodam/banner/types';
 
-export const toBannerData = (res: SoptmodamBannerResponse): SoptmodamBannerData => {
+export const toBannerData = (res: SopmodamBannerResponse): SopmodamBannerData => {
   switch (res.cardType) {
     case 'VOTE':
       return { cardType: 'VOTE', roundId: res.roundId, eventName: res.eventName, dDay: res.dDay ?? 0 };

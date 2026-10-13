@@ -4,14 +4,14 @@ import { IconChevronRight } from '@sopt-mds/icons';
 import { ActionButton, Tag } from '@sopt-mds/ui';
 import Link from 'next/link';
 
-import type { SoptmodamBannerContent } from '@/components/soptmodam/types';
+import type { SopmodamBannerContent } from '@/components/sopmodam/banner/types';
 
-type SoptmodamBannerProps = { content: SoptmodamBannerContent } & (
+type SopmodamBannerProps = { content: SopmodamBannerContent } & (
   | { variant: 'vote'; eventName: string }
   | { variant: 'answer'; question: string }
 );
 
-const SoptmodamBanner = (props: SoptmodamBannerProps) => {
+const SopmodamBanner = (props: SopmodamBannerProps) => {
   const { tag, description, button } = props.content;
 
   return (
@@ -51,9 +51,9 @@ const SoptmodamBanner = (props: SoptmodamBannerProps) => {
   );
 };
 
-export default SoptmodamBanner;
+export default SopmodamBanner;
 
-const SContainer = styled.div<{ variant: SoptmodamBannerProps['variant'] }>`
+const SContainer = styled.div<{ variant: SopmodamBannerProps['variant'] }>`
   display: flex;
   flex-direction: column;
   gap: ${({ variant }) => (variant === 'vote' ? spacing.s12 : spacing.s20)};

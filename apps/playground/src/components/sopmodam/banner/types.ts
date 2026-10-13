@@ -1,18 +1,18 @@
-export type SoptmodamPhase = 'VOTING' | 'ANSWERING' | 'REVEALED';
+export type SopmodamPhase = 'VOTING' | 'ANSWERING' | 'REVEALED';
 
-export type SoptmodamBannerData =
+export type SopmodamBannerData =
   | { cardType: 'VOTE'; roundId: number; eventName: string; dDay: number }
   | { cardType: 'ANSWER_PREPARING'; selectedQuestion: string; answerEndAt: string }
   | { cardType: 'ANSWER_COLLECTING'; roundId: number; selectedQuestion: string; dDay: number }
   | { cardType: 'REVEALED'; roundId: number; selectedQuestion: string; answerCount: number };
 
-export type SoptmodamCardType = SoptmodamBannerData['cardType'];
+export type SopmodamCardType = SopmodamBannerData['cardType'];
 
-export interface SoptmodamBannerResponse {
+export interface SopmodamBannerResponse {
   roundId: number;
   eventName: string;
-  phase: SoptmodamPhase;
-  cardType: SoptmodamCardType;
+  phase: SopmodamPhase;
+  cardType: SopmodamCardType;
   voteEndAt: string;
   answerEndAt: string;
   dDay: number | null;
@@ -26,11 +26,11 @@ export interface SoptmodamBannerResponse {
 
 // getBannerContent 타입 추론용
 type BannerFieldsByCardType = {
-  [T in SoptmodamCardType]: Omit<Extract<SoptmodamBannerData, { cardType: T }>, 'cardType'>;
+  [T in SopmodamCardType]: Omit<Extract<SopmodamBannerData, { cardType: T }>, 'cardType'>;
 };
-export type SoptmodamBannerDataOf<T extends SoptmodamCardType> = { cardType: T } & BannerFieldsByCardType[T];
+export type SopmodamBannerDataOf<T extends SopmodamCardType> = { cardType: T } & BannerFieldsByCardType[T];
 
-export interface SoptmodamBannerContent {
+export interface SopmodamBannerContent {
   tag: string;
   description: string;
   button?: { label: string; href: string };

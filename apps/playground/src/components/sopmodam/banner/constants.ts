@@ -1,15 +1,15 @@
 import { playgroundLink } from '@sopt/constant';
 
-import type { SoptmodamBannerContent, SoptmodamBannerDataOf, SoptmodamCardType } from '@/components/soptmodam/types';
+import type { SopmodamBannerContent, SopmodamBannerDataOf, SopmodamCardType } from '@/components/sopmodam/banner/types';
 import { dateIntoMonthDay } from '@/utils/parseDate';
 
 const formatDDay = (dDay: number) => (dDay === 0 ? '오늘 마감' : `D-${dDay}`);
 
-const BANNER_CONTENT: { [T in SoptmodamCardType]: (_data: SoptmodamBannerDataOf<T>) => SoptmodamBannerContent } = {
+const BANNER_CONTENT: { [T in SopmodamCardType]: (_data: SopmodamBannerDataOf<T>) => SopmodamBannerContent } = {
   VOTE: ({ roundId, dDay }) => ({
     tag: `질문 투표 · ${formatDDay(dDay)}`,
     description: '먼저 경험한 OB들이 답해드려요.',
-    button: { label: '궁금한 질문에 투표하기', href: playgroundLink.soptmodamVote(roundId) },
+    button: { label: '궁금한 질문에 투표하기', href: playgroundLink.sopmodamVote(roundId) },
   }),
   ANSWER_PREPARING: ({ answerEndAt }) => ({
     tag: '답변 준비 중',
@@ -18,14 +18,14 @@ const BANNER_CONTENT: { [T in SoptmodamCardType]: (_data: SoptmodamBannerDataOf<
   ANSWER_COLLECTING: ({ roundId, dDay }) => ({
     tag: `답변 모집 중 · ${formatDDay(dDay)}`,
     description: '먼저 경험한 OB라면, 나의 이야기를 담아 주세요.',
-    button: { label: '내 경험 담기', href: playgroundLink.soptmodamUpload(roundId) },
+    button: { label: '내 경험 담기', href: playgroundLink.sopmodamUpload(roundId) },
   }),
   REVEALED: ({ roundId, answerCount }) => ({
     tag: `답변 공개 · ${answerCount}명 참여`,
     description: '먼저 경험한 OB들의 다양한 이야기를 확인해보세요.',
-    button: { label: '솝모담 열어보기', href: playgroundLink.soptmodam(roundId) },
+    button: { label: '솝모담 열어보기', href: playgroundLink.sopmodam(roundId) },
   }),
 };
 
-export const getBannerContent = <T extends SoptmodamCardType>(data: SoptmodamBannerDataOf<T>) =>
+export const getBannerContent = <T extends SopmodamCardType>(data: SopmodamBannerDataOf<T>) =>
   BANNER_CONTENT[data.cardType](data);

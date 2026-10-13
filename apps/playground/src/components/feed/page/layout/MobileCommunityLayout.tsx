@@ -4,7 +4,7 @@ import { spacing } from '@sopt-mds/design-tokens';
 import type { ReactNode } from 'react';
 import { RemoveScroll } from 'react-remove-scroll';
 
-import SoptmodamBannerContainer from '@/components/soptmodam/SoptmodamBannerContainer';
+import SopmodamBannerContainer from '@/components/sopmodam/banner/SopmodamBannerContainer';
 import WordChainEntry from '@/components/wordchain/WordchainEntry/WordChainEntry';
 import { zIndex } from '@/styles/zIndex';
 
@@ -18,7 +18,7 @@ const MobileCommunityLayout = ({ listSlot, detailSlot, isDetailOpen }: MobileCom
   return (
     <Container>
       <TopSection>
-        <SoptmodamBannerContainer />
+        <SopmodamBannerContainer />
         <StyledWordChainEntry />
       </TopSection>
       <ListSlotBox>{listSlot}</ListSlotBox>
