@@ -2,13 +2,12 @@ import styled from '@emotion/styled';
 import { colors, radius, spacing, typography } from '@sopt-mds/design-tokens';
 import { IconChevronRight } from '@sopt-mds/icons';
 import { ActionButton, Tag } from '@sopt-mds/ui';
-import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 import { BANNER_CONTENT } from '@/components/soptmodam/constants';
 import { SOPTMODAM_BANNER_MOCK } from '@/components/soptmodam/mock';
 
 const SoptmodamBanner = () => {
-  const router = useRouter();
   // TODO: API 연동 시 교체
   const data = SOPTMODAM_BANNER_MOCK;
   const { cardType, canVote, eventName, selectedQuestion } = data;
@@ -36,14 +35,11 @@ const SoptmodamBanner = () => {
           <SDescription>{description}</SDescription>
         </STextGroup>
         {button && (
-          <SActionButton
-            size='medium'
-            variant='primary'
-            rightAddon={<IconChevronRight />}
-            onClick={() => router.push(button.href)}
-          >
-            {button.label}
-          </SActionButton>
+          <SButtonLink href={button.href}>
+            <SActionButton size='medium' variant='primary' rightAddon={<IconChevronRight />}>
+              {button.label}
+            </SActionButton>
+          </SButtonLink>
         )}
       </SContent>
     </SContainer>
@@ -103,6 +99,10 @@ const SDescription = styled.p`
   white-space: pre-line;
   color: ${colors.fg.neutral.default};
   ${typography.body2}
+`;
+
+const SButtonLink = styled(Link)`
+  width: 100%;
 `;
 
 const SActionButton = styled(ActionButton)`
