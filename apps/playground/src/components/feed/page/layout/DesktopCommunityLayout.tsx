@@ -5,7 +5,7 @@ import { m } from 'framer-motion';
 import type { ReactNode } from 'react';
 
 import { layoutCSSVariable } from '@/components/layout/utils';
-import SoptmodamBanner from '@/components/soptmodam/SoptmodamBanner';
+import SoptmodamBannerContainer from '@/components/soptmodam/SoptmodamBannerContainer';
 import WordChainEntry from '@/components/wordchain/WordchainEntry/WordChainEntry';
 
 interface DesktopCommunityLayoutProps {
@@ -20,7 +20,7 @@ const DesktopCommunityLayout = ({ isDetailOpen, listSlot, detailSlot }: DesktopC
   return (
     <Container>
       <TopSection>
-        <SoptmodamBanner />
+        <SoptmodamBannerContainer />
         <StyledWordChainEntry />
       </TopSection>
       <FeedWrapper>

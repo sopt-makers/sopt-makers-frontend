@@ -4,21 +4,18 @@ import { IconChevronRight } from '@sopt-mds/icons';
 import { ActionButton, Tag } from '@sopt-mds/ui';
 import Link from 'next/link';
 
-import { BANNER_CONTENT } from '@/components/soptmodam/constants';
-import { SOPTMODAM_BANNER_MOCK } from '@/components/soptmodam/mock';
+import type { SoptmodamBannerContent } from '@/components/soptmodam/types';
 
-const SoptmodamBanner = () => {
-  // TODO: API 연동 시 교체
-  const data = SOPTMODAM_BANNER_MOCK;
-  const { cardType, canVote, eventName, selectedQuestion } = data;
+type SoptmodamBannerProps = { content: SoptmodamBannerContent } & (
+  | { variant: 'vote'; eventName: string }
+  | { variant: 'answer'; question: string }
+);
 
-  if (cardType === 'VOTE' && !canVote) return null;
-
-  const isVote = cardType === 'VOTE';
-  const { tag, description, button } = BANNER_CONTENT[cardType](data);
+const SoptmodamBanner = (props: SoptmodamBannerProps) => {
+  const { tag, description, button } = props.content;
 
   return (
-    <SContainer isVote={isVote}>
+    <SContainer variant={props.variant}>
       <SHeader>
         <STitle>솝모담</STitle>
         <Tag size='small' shape='rect' variant='primary' type='subtle'>
@@ -27,11 +24,19 @@ const SoptmodamBanner = () => {
       </SHeader>
       <SContent>
         <STextGroup>
-          {!isVote && <SQuestionLabel>이번 솝모담 질문</SQuestionLabel>}
-          <SHeadline>
-            {isVote && <SEventName>{eventName},</SEventName>}
-            <p>{isVote ? '무엇이 가장 궁금한가요?' : selectedQuestion}</p>
-          </SHeadline>
+          {props.variant === 'vote' ? (
+            <SHeadline>
+              <SEventName>{props.eventName},</SEventName>
+              <p>무엇이 가장 궁금한가요?</p>
+            </SHeadline>
+          ) : (
+            <>
+              <SQuestionLabel>이번 솝모담 질문</SQuestionLabel>
+              <SHeadline>
+                <p>{props.question}</p>
+              </SHeadline>
+            </>
+          )}
           <SDescription>{description}</SDescription>
         </STextGroup>
         {button && (
@@ -48,13 +53,13 @@ const SoptmodamBanner = () => {
 
 export default SoptmodamBanner;
 
-const SContainer = styled.div<{ isVote: boolean }>`
+const SContainer = styled.div<{ variant: SoptmodamBannerProps['variant'] }>`
   display: flex;
   flex-direction: column;
-  gap: ${({ isVote }) => (isVote ? spacing.s12 : spacing.s20)};
+  gap: ${({ variant }) => (variant === 'vote' ? spacing.s12 : spacing.s20)};
   padding: 18px ${spacing.s20};
   width: 100%;
-  background-color: ${colors.base.gray800};
+  background-color: ${colors.bg.neutral.ghost};
   border-radius: ${radius.r14};
 `;
 
