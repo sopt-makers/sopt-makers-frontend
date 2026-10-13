@@ -1,17 +1,11 @@
 import { playgroundLink } from '@sopt/constant';
 
-import type { SoptmodamBannerResponse, SoptmodamCardType } from '@/components/soptmodam/mock';
+import type { SoptmodamBannerContent, SoptmodamBannerDataOf, SoptmodamCardType } from '@/components/soptmodam/types';
 import { dateIntoMonthDay } from '@/utils/parseDate';
-
-interface BannerContent {
-  tag: string;
-  description: string;
-  button?: { label: string; href: string };
-}
 
 const formatDDay = (dDay: number) => (dDay === 0 ? '오늘 마감' : `D-${dDay}`);
 
-export const BANNER_CONTENT: Record<SoptmodamCardType, (_data: SoptmodamBannerResponse) => BannerContent> = {
+const BANNER_CONTENT: { [T in SoptmodamCardType]: (_data: SoptmodamBannerDataOf<T>) => SoptmodamBannerContent } = {
   VOTE: ({ roundId, dDay }) => ({
     tag: `질문 투표 · ${formatDDay(dDay)}`,
     description: '먼저 경험한 OB들이 답해드려요.',
@@ -27,8 +21,11 @@ export const BANNER_CONTENT: Record<SoptmodamCardType, (_data: SoptmodamBannerRe
     button: { label: '내 경험 담기', href: playgroundLink.soptmodamUpload(roundId) },
   }),
   REVEALED: ({ roundId, answerCount }) => ({
-    tag: `답변 공개 · ${answerCount ?? 0}명 참여`,
+    tag: `답변 공개 · ${answerCount}명 참여`,
     description: '먼저 경험한 OB들의 다양한 이야기를 확인해보세요.',
     button: { label: '솝모담 열어보기', href: playgroundLink.soptmodam(roundId) },
   }),
 };
+
+export const getBannerContent = <T extends SoptmodamCardType>(data: SoptmodamBannerDataOf<T>) =>
+  BANNER_CONTENT[data.cardType](data);
