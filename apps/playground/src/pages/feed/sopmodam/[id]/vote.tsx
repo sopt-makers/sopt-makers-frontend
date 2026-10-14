@@ -8,6 +8,7 @@ import { useState } from 'react';
 import Responsive from '@/components/common/Responsive';
 import SopmodamHeader from '@/components/sopmodam/common/SopmodamHeader';
 import { useSopmodamBack } from '@/components/sopmodam/common/useSopmodamBack';
+import { getVoteStatus } from '@/components/sopmodam/vote/getVoteStatus';
 import { sopmodamVoteMockData } from '@/components/sopmodam/vote/mockData';
 import SopmodamVoteIntro from '@/components/sopmodam/vote/SopmodamVoteIntro';
 import SopmodamVoteSection from '@/components/sopmodam/vote/SopmodamVoteSection';
@@ -30,6 +31,8 @@ const SopmodamVotePage = () => {
     return <ErrorPage statusCode={404} />;
   }
 
+  const voteStatus = getVoteStatus(sopmodamVoteMockData);
+
   return (
     <>
       <Head>
@@ -43,9 +46,7 @@ const SopmodamVotePage = () => {
           <SopmodamVoteIntro eventName={sopmodamVoteMockData.eventName} />
           <SopmodamVoteSection
             questions={sopmodamVoteMockData.questions}
-            canVote={sopmodamVoteMockData.canVote}
-            hasVoted={sopmodamVoteMockData.hasVoted}
-            myVoteQuestionId={sopmodamVoteMockData.myVoteQuestionId}
+            status={voteStatus}
             selectedQuestionId={selectedQuestionId}
             isSubmitting={false}
             onSelect={setSelectedQuestionId}

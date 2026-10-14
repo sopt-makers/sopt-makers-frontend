@@ -9,3 +9,8 @@ export interface SopmodamVoteState {
   hasVoted: boolean;
   myVoteQuestionId: number | null;
 }
+
+export type SopmodamVoteStatus =
+  | { type: 'available' }
+  | { type: 'unavailable' }
+  | { type: 'voted'; questionId: number };

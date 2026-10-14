@@ -4,32 +4,38 @@ import { ActionButton } from '@sopt-mds/ui';
 import { useId } from 'react';
 
 import SopmodamVoteOption from '@/components/sopmodam/vote/SopmodamVoteOption';
-import type { SopmodamVoteState } from '@/components/sopmodam/vote/types';
+import type { SopmodamVoteQuestion, SopmodamVoteStatus } from '@/components/sopmodam/vote/types';
 import CheckSquareIcon from '@/public/icons/icon-sopmodam-check-square.svg';
 
-interface SopmodamVoteSectionProps extends SopmodamVoteState {
+interface SopmodamVoteSectionProps {
+  questions: SopmodamVoteQuestion[];
+  status: SopmodamVoteStatus;
   selectedQuestionId: number | null;
   isSubmitting: boolean;
   onSelect: (questionId: number) => void;
   onSubmit: (questionId: number) => void;
 }
 
+const SUBMIT_LABEL = {
+  available: '투표하기',
+  unavailable: '투표하기',
+  voted: '투표 완료',
+} satisfies Record<SopmodamVoteStatus['type'], string>;
+
 const SopmodamVoteSection = ({
   questions,
-  canVote,
-  hasVoted,
-  myVoteQuestionId,
+  status,
   selectedQuestionId,
   isSubmitting,
   onSelect,
   onSubmit,
 }: SopmodamVoteSectionProps) => {
   const id = useId();
-  const isLocked = hasVoted || !canVote || isSubmitting;
-  const checkedQuestionId = hasVoted ? myVoteQuestionId : selectedQuestionId;
+  const isLocked = status.type !== 'available' || isSubmitting;
+  const checkedQuestionId = status.type === 'voted' ? status.questionId : selectedQuestionId;
   const hasSelection = questions.some((question) => question.questionId === checkedQuestionId);
   const canSubmit = !isLocked && hasSelection;
-  const buttonLabel = hasVoted ? '투표 완료' : '투표하기';
+  const buttonLabel = SUBMIT_LABEL[status.type];
 
   return (
     <Container
