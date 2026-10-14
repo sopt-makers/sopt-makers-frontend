@@ -1,43 +1,32 @@
 import styled from '@emotion/styled';
-import { playgroundLink } from '@sopt/constant';
+import { parseRoundId } from '@shared/parseRoundId';
 import { useToast } from '@sopt-makers/ui';
 import { colors, spacing, typography } from '@sopt-mds/design-tokens';
 import { IconCheckCircleFilled } from '@sopt-mds/icons';
 import ErrorPage from 'next/error';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
-import { useContext, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 
 import Responsive from '@/components/common/Responsive';
-import { NavigationContext } from '@/components/navigation/navigationContext';
 import { saveSopmodamAnswerMock, sopmodamAnswerMockData } from '@/components/sopmodam/answer/mockData';
 import SopmodamAnswerContent from '@/components/sopmodam/answer/SopmodamAnswerContent';
 import SopmodamAnswerForm from '@/components/sopmodam/answer/SopmodamAnswerForm';
 import SopmodamAnswerIntro from '@/components/sopmodam/answer/SopmodamAnswerIntro';
 import type { SopmodamAnswer } from '@/components/sopmodam/answer/types';
 import SopmodamHeader from '@/components/sopmodam/common/SopmodamHeader';
+import { useSopmodamBack } from '@/components/sopmodam/common/useSopmodamBack';
+import useStringRouterQuery from '@/hooks/useStringRouterQuery';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 import { setLayout } from '@/utils/layout';
-import { parseRoundId } from '@/utils/parseRoundId';
 
 const SopmodamAnswerUploadPage = () => {
-  const router = useRouter();
-  const { getLastRouteState } = useContext(NavigationContext);
+  const routeQuery = useStringRouterQuery(['id'] as const);
+  const handleBack = useSopmodamBack();
   const { open: openToast } = useToast();
-  const roundId = parseRoundId(router.query.id);
   const [myAnswer, setMyAnswer] = useState<SopmodamAnswer | null>(sopmodamAnswerMockData.myAnswer);
   const [isEditing, setIsEditing] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const submittingRef = useRef(false);
-
-  const handleBack = () => {
-    const lastRoute = getLastRouteState();
-    if (lastRoute?.type === 'move' && lastRoute.fromPath !== router.asPath) {
-      router.back();
-    } else {
-      void router.replace(playgroundLink.feedList());
-    }
-  };
 
   const handleSubmit = async (content: string) => {
     if (!sopmodamAnswerMockData.canWrite || submittingRef.current) {
@@ -82,9 +71,11 @@ const SopmodamAnswerUploadPage = () => {
     }
   };
 
-  if (!router.isReady) {
+  if (routeQuery.status === 'loading') {
     return null;
   }
+
+  const roundId = routeQuery.status === 'success' ? parseRoundId(routeQuery.query.id) : null;
 
   if (roundId === null) {
     return <ErrorPage statusCode={404} />;
