@@ -4343,6 +4343,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@radix-ui/react-compose-refs@npm:1.1.5":
+  version: 1.1.5
+  resolution: "@radix-ui/react-compose-refs@npm:1.1.5"
+  peerDependencies:
+    "@types/react": "*"
+    react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+  checksum: 10c0/ab5cc8cc2f5be285981cffb64aa956d3a28427c649a953d125e900e1befb8b9a55f2d7a31bc01059d29df43ff4ae14ebc6cca7e4c2084d638cef5e5aef7cc263
+  languageName: node
+  linkType: hard
+
 "@radix-ui/react-context@npm:1.0.0":
   version: 1.0.0
   resolution: "@radix-ui/react-context@npm:1.0.0"
@@ -5169,6 +5182,21 @@ __metadata:
     "@types/react":
       optional: true
   checksum: 10c0/8b719bb934f1ae5ac0e37214783085c17c2f1080217caf514c1c6cc3d9ca56c7e19d25470b26da79aa6e605ab36589edaade149b76f5fc0666f1063e2fc0a0dc
+  languageName: node
+  linkType: hard
+
+"@radix-ui/react-slot@npm:^1.3.3":
+  version: 1.5.0
+  resolution: "@radix-ui/react-slot@npm:1.5.0"
+  dependencies:
+    "@radix-ui/react-compose-refs": "npm:1.1.5"
+  peerDependencies:
+    "@types/react": "*"
+    react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+  checksum: 10c0/8bc25dc5569d50b5b019811b51ef43a55bf1c0eb69d46bd132bac7c4f124b57805ad1a81b2c94e8f4faf115ce9dad91490411a2f631af2e43f9cfe060c0d6f79
   languageName: node
   linkType: hard
 
@@ -6177,12 +6205,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sopt-mds/icons@npm:^0.0.2":
-  version: 0.0.2
-  resolution: "@sopt-mds/icons@npm:0.0.2"
+"@sopt-mds/icons@npm:0.2.0, @sopt-mds/icons@npm:^0.2.0":
+  version: 0.2.0
+  resolution: "@sopt-mds/icons@npm:0.2.0"
   peerDependencies:
     react: ">=18"
-  checksum: 10c0/1fda199a2b380dda02885f748cbaf3905a101e6e9f4706d4b732ace08df2f19e365a46e9b5e74b6b20731352fa93d7f5ecbec4ffa6db66a4d0e3393fe62c0355
+  checksum: 10c0/20f0f34663a802885f22ab8d7d40920540a89f124e0315b5698d8838aad502b32a290133ca891e84a6d25df4822b4641027d8bc5d79022e8174bb6527090c67a
   languageName: node
   linkType: hard
 
@@ -6202,19 +6230,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sopt-mds/ui@npm:^1.1.0":
-  version: 1.1.0
-  resolution: "@sopt-mds/ui@npm:1.1.0"
+"@sopt-mds/ui@npm:^1.10.0":
+  version: 1.10.0
+  resolution: "@sopt-mds/ui@npm:1.10.0"
   dependencies:
+    "@radix-ui/react-slot": "npm:^1.3.3"
     "@sopt-mds/design-tokens": "npm:1.0.7"
-    "@sopt-mds/icons": "npm:0.1.0"
+    "@sopt-mds/icons": "npm:0.2.0"
     "@vanilla-extract/css": "npm:^1.15.5"
     "@vanilla-extract/recipes": "npm:^0.5.7"
     clsx: "npm:^2.1.1"
   peerDependencies:
     react: ">=18"
     react-dom: ">=18"
-  checksum: 10c0/5187bea80c9749917bedb019559fc55429f159f0e7463b2f1a4195378680f465e88f7899229b3b4e5b3fc78c89b730677654921d7acd109c358e3850f2fe2f16
+  checksum: 10c0/7c8f60c873a5b9bea9c0c2ffc0112127735cbcf55a233147528e067eef1a9e62c760fbda6222edede685acc82b791d18c1cd8a0103b5fe9dde69c8f0a49e9248
   languageName: node
   linkType: hard
 
@@ -19334,8 +19363,8 @@ __metadata:
     "@sopt-makers/icons": "npm:^1.1.0"
     "@sopt-makers/ui": "npm:2.8.9"
     "@sopt-mds/design-tokens": "npm:^1.0.7"
-    "@sopt-mds/icons": "npm:^0.0.2"
-    "@sopt-mds/ui": "npm:^1.1.0"
+    "@sopt-mds/icons": "npm:^0.2.0"
+    "@sopt-mds/ui": "npm:^1.10.0"
     "@sopt/constant": "workspace:*"
     "@sopt/ui": "workspace:*"
     "@storybook/addon-actions": "npm:^7.6.20"
