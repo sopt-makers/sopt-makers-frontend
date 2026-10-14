@@ -1,16 +1,15 @@
-import { useGetSopmodamAnswers } from '@/api/endpoint/sopmodam/getSopmodamAnswers';
+import type { SopmodamAnswer } from '@/api/endpoint/sopmodam/getSopmodamAnswers';
 import SopmodamAnswerCard from '@/components/sopmodam/answer/SopmodamAnswerCard';
 import SopmodamAnswerCardSkeleton from '@/components/sopmodam/answer/SopmodamAnswerCardSkeleton';
 
 const SKELETON_COUNT = 3;
 
 interface SopmodamAnswerListProps {
-  roundId: number;
+  isLoading: boolean;
+  answers?: SopmodamAnswer[];
 }
 
-const SopmodamAnswerList = ({ roundId }: SopmodamAnswerListProps) => {
-  const { data, isLoading } = useGetSopmodamAnswers(roundId);
-
+const SopmodamAnswerList = ({ isLoading, answers }: SopmodamAnswerListProps) => {
   if (isLoading) {
     return (
       <>
@@ -21,11 +20,11 @@ const SopmodamAnswerList = ({ roundId }: SopmodamAnswerListProps) => {
     );
   }
 
-  if (!data) return null;
+  if (!answers) return null;
 
   return (
     <>
-      {data.answers.map((answer) => (
+      {answers.map((answer) => (
         <SopmodamAnswerCard key={answer.answerId} answer={answer} />
       ))}
     </>
