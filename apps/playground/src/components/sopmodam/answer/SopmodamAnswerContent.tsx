@@ -1,29 +1,34 @@
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { colors, radius, spacing, typography } from '@sopt-mds/design-tokens';
 import { IconReply } from '@sopt-mds/icons';
 import { ActionButton } from '@sopt-mds/ui';
 
 import SopmodamAnswerNotice from '@/components/sopmodam/answer/SopmodamAnswerNotice';
-import type { SopmodamAnswer } from '@/components/sopmodam/answer/types';
+import type { SopmodamAnswerStatus } from '@/components/sopmodam/answer/types';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
-interface SopmodamAnswerContentProps {
-  answer: SopmodamAnswer;
+type SopmodamAnswerContentProps = {
   releaseDate: string;
-  canWrite: boolean;
-  onEdit: () => void;
-}
+} & (
+  | { status: Extract<SopmodamAnswerStatus, { type: 'editable' }>; onEdit: () => void }
+  | { status: Extract<SopmodamAnswerStatus, { type: 'readonly' }>; onEdit?: never }
+);
 
-const SopmodamAnswerContent = ({ answer, releaseDate, canWrite, onEdit }: SopmodamAnswerContentProps) => {
+const SopmodamAnswerContent = ({ status, releaseDate, onEdit }: SopmodamAnswerContentProps) => {
+  const isEditable = status.type === 'editable';
+
   return (
-    <Container>
+    <Container isEditable={isEditable}>
       <Answer>
         <ReplyIcon width={16} height={16} aria-hidden='true' focusable='false' />
-        <Content>{answer.content}</Content>
+        <Content>{status.answer.content}</Content>
       </Answer>
-      <EditButton type='button' variant='secondary' size='large' disabled={!canWrite} onClick={onEdit}>
-        수정하기
-      </EditButton>
+      {isEditable && (
+        <EditButton type='button' variant='secondary' size='large' onClick={onEdit}>
+          수정하기
+        </EditButton>
+      )}
       <Notice>
         <SopmodamAnswerNotice releaseDate={releaseDate} />
       </Notice>
@@ -33,20 +38,28 @@ const SopmodamAnswerContent = ({ answer, releaseDate, canWrite, onEdit }: Sopmod
 
 export default SopmodamAnswerContent;
 
-const Container = styled.section`
+const Container = styled.section<{ isEditable: boolean }>`
   display: grid;
   grid-template-areas:
     'answer'
-    'notice'
-    'action';
+    'notice';
   gap: ${spacing.s16};
 
-  @media ${MOBILE_MEDIA_QUERY} {
-    grid-template-areas:
-      'answer'
-      'action'
-      'notice';
-  }
+  ${({ isEditable }) =>
+    isEditable &&
+    css`
+      grid-template-areas:
+        'answer'
+        'notice'
+        'action';
+
+      @media ${MOBILE_MEDIA_QUERY} {
+        grid-template-areas:
+          'answer'
+          'action'
+          'notice';
+      }
+    `}
 `;
 
 const Answer = styled.div`

@@ -3,39 +3,33 @@ import { TextArea } from '@sopt-makers/ui';
 import { colors, radius, spacing, typography } from '@sopt-mds/design-tokens';
 import { IconInfoCircleOutlined } from '@sopt-mds/icons';
 import { ActionButton } from '@sopt-mds/ui';
-import { useId, useRef, useState } from 'react';
+import { useId, useState } from 'react';
 
 import SopmodamAnswerNotice from '@/components/sopmodam/answer/SopmodamAnswerNotice';
+import type { SopmodamAnswerStatus } from '@/components/sopmodam/answer/types';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 interface SopmodamAnswerFormProps {
-  initialContent: string;
-  mode: 'create' | 'edit';
+  status: Extract<SopmodamAnswerStatus, { type: 'available' | 'unavailable' | 'editable' }>;
   releaseDate: string;
-  canWrite: boolean;
   isSubmitting: boolean;
   onSubmit: (content: string) => Promise<void> | void;
 }
 
 const MAX_ANSWER_LENGTH = 500;
 
-const SopmodamAnswerForm = ({
-  initialContent,
-  mode,
-  releaseDate,
-  canWrite,
-  isSubmitting,
-  onSubmit,
-}: SopmodamAnswerFormProps) => {
+const SopmodamAnswerForm = ({ status, releaseDate, isSubmitting, onSubmit }: SopmodamAnswerFormProps) => {
   const id = useId();
+  const isEditing = status.type === 'editable';
+  const initialContent = isEditing ? status.answer.content : '';
   const [content, setContent] = useState(initialContent);
   // 폼을 열었을 때의 내용을 기준으로 비교해, 재조회가 작성 중인 내용을 덮어쓰지 않도록 합니다.
-  const originalContent = useRef(initialContent);
+  const [originalContent] = useState(initialContent);
   const isOverLimit = content.length > MAX_ANSWER_LENGTH;
   const isValid = content.trim().length > 0 && !isOverLimit;
-  const isChanged = content !== originalContent.current;
-  const isLocked = !canWrite || isSubmitting;
-  const canSubmit = isValid && !isLocked && (mode === 'create' || isChanged);
+  const isChanged = content !== originalContent;
+  const isLocked = status.type === 'unavailable' || isSubmitting;
+  const canSubmit = isValid && !isLocked && (!isEditing || isChanged);
 
   return (
     <form
@@ -75,7 +69,7 @@ const SopmodamAnswerForm = ({
           </Helper>
         </Input>
         <SubmitButton type='submit' variant='primary' size='large' disabled={!canSubmit}>
-          {mode === 'edit' ? '수정 완료' : '내 경험 담기'}
+          {isEditing ? '수정 완료' : '내 경험 담기'}
         </SubmitButton>
         <Notice>
           <SopmodamAnswerNotice releaseDate={releaseDate} />

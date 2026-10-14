@@ -8,11 +8,15 @@ import Head from 'next/head';
 import { useRef, useState } from 'react';
 
 import Responsive from '@/components/common/Responsive';
-import { saveSopmodamAnswerMock, sopmodamAnswerMockData } from '@/components/sopmodam/answer/mockData';
+import { getAnswerStatus } from '@/components/sopmodam/answer/getAnswerStatus';
+import {
+  saveSopmodamAnswerMock,
+  sopmodamAnswerMockData,
+  sopmodamAnswerReleaseDateMock,
+} from '@/components/sopmodam/answer/mockData';
 import SopmodamAnswerContent from '@/components/sopmodam/answer/SopmodamAnswerContent';
 import SopmodamAnswerForm from '@/components/sopmodam/answer/SopmodamAnswerForm';
 import SopmodamAnswerIntro from '@/components/sopmodam/answer/SopmodamAnswerIntro';
-import type { SopmodamAnswer } from '@/components/sopmodam/answer/types';
 import SopmodamHeader from '@/components/sopmodam/common/SopmodamHeader';
 import { useSopmodamBack } from '@/components/sopmodam/common/useSopmodamBack';
 import useStringRouterQuery from '@/hooks/useStringRouterQuery';
@@ -23,24 +27,26 @@ const SopmodamAnswerUploadPage = () => {
   const routeQuery = useStringRouterQuery(['id'] as const);
   const handleBack = useSopmodamBack();
   const { open: openToast } = useToast();
-  const [myAnswer, setMyAnswer] = useState<SopmodamAnswer | null>(sopmodamAnswerMockData.myAnswer);
+  const [data, setData] = useState(sopmodamAnswerMockData);
   const [isEditing, setIsEditing] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const submittingRef = useRef(false);
+  const answerStatus = getAnswerStatus(data);
 
   const handleSubmit = async (content: string) => {
-    if (!sopmodamAnswerMockData.canWrite || submittingRef.current) {
+    if ((answerStatus.type !== 'available' && answerStatus.type !== 'editable') || submittingRef.current) {
       return;
     }
 
     submittingRef.current = true;
     setIsSubmitting(true);
-    const isUpdate = myAnswer !== null;
+    const previousAnswer = answerStatus.type === 'editable' ? answerStatus.answer : null;
+    const isUpdate = previousAnswer !== null;
 
     try {
       // API 연동 시 실제 저장 응답과 내 답변 query 갱신으로 교체합니다.
-      const answer = await saveSopmodamAnswerMock(content, myAnswer?.answerId ?? null);
-      setMyAnswer(answer);
+      const answer = await saveSopmodamAnswerMock(content, previousAnswer);
+      setData((previous) => ({ ...previous, answer }));
       setIsEditing(false);
       openToast({
         icon: (
@@ -91,20 +97,19 @@ const SopmodamAnswerUploadPage = () => {
           <SopmodamHeader onBack={handleBack} />
         </Responsive>
         <Content>
-          <SopmodamAnswerIntro questionContent={sopmodamAnswerMockData.questionContent} />
-          {myAnswer && !isEditing ? (
+          <SopmodamAnswerIntro questionContent={data.question.content} />
+          {answerStatus.type === 'readonly' ? (
+            <SopmodamAnswerContent status={answerStatus} releaseDate={sopmodamAnswerReleaseDateMock} />
+          ) : answerStatus.type === 'editable' && !isEditing ? (
             <SopmodamAnswerContent
-              answer={myAnswer}
-              releaseDate={sopmodamAnswerMockData.releaseDate}
-              canWrite={sopmodamAnswerMockData.canWrite}
+              status={answerStatus}
+              releaseDate={sopmodamAnswerReleaseDateMock}
               onEdit={() => setIsEditing(true)}
             />
           ) : (
             <SopmodamAnswerForm
-              initialContent={myAnswer?.content ?? ''}
-              mode={myAnswer ? 'edit' : 'create'}
-              releaseDate={sopmodamAnswerMockData.releaseDate}
-              canWrite={sopmodamAnswerMockData.canWrite}
+              status={answerStatus}
+              releaseDate={sopmodamAnswerReleaseDateMock}
               isSubmitting={isSubmitting}
               onSubmit={handleSubmit}
             />
