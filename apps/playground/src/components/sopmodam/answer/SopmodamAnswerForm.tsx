@@ -1,10 +1,9 @@
 import styled from '@emotion/styled';
+import { TextArea } from '@sopt-makers/ui';
 import { colors, radius, spacing, typography } from '@sopt-mds/design-tokens';
-import { IconInfoCircleOutlined } from '@sopt-mds/icons';
 import { ActionButton } from '@sopt-mds/ui';
 import { useId, useState } from 'react';
 
-import TextArea from '@/components/common/TextArea';
 import SopmodamAnswerNotice from '@/components/sopmodam/answer/SopmodamAnswerNotice';
 import type { SopmodamAnswerStatus } from '@/components/sopmodam/answer/types';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
@@ -17,6 +16,7 @@ interface SopmodamAnswerFormProps {
 }
 
 const MAX_ANSWER_LENGTH = 500;
+const ANSWER_LENGTH_ERROR_MESSAGE = `${MAX_ANSWER_LENGTH}자 이내로 입력해주세요.`;
 
 const SopmodamAnswerForm = ({ status, releaseDate, isSubmitting, onSubmit }: SopmodamAnswerFormProps) => {
   const id = useId();
@@ -50,20 +50,21 @@ const SopmodamAnswerForm = ({ status, releaseDate, isSubmitting, onSubmit }: Sop
             aria-describedby={`${id}-count${isOverLimit ? ` ${id}-error` : ''}`}
             aria-invalid={isOverLimit}
             placeholder='먼저 경험한 솝트인으로서 나누고 싶은 경험을 편하게 담아주세요.'
-            error={isOverLimit}
+            isError={isOverLimit}
+            errorMessage={ANSWER_LENGTH_ERROR_MESSAGE}
+            fixedHeight={148}
+            maxHeight={148}
+            disableEnterSubmit
             disabled={isLocked}
           />
-          <Helper>
-            {isOverLimit && (
-              <ErrorMessage id={`${id}-error`}>
-                <IconInfoCircleOutlined width={14} height={14} aria-hidden='true' focusable='false' />
-                {MAX_ANSWER_LENGTH}자 이내로 입력해주세요.
-              </ErrorMessage>
-            )}
-            <Count id={`${id}-count`} isError={isOverLimit}>
-              {content.length}/{MAX_ANSWER_LENGTH}
-            </Count>
-          </Helper>
+          {isOverLimit && (
+            <span id={`${id}-error`} hidden>
+              {ANSWER_LENGTH_ERROR_MESSAGE}
+            </span>
+          )}
+          <Count id={`${id}-count`} isError={isOverLimit}>
+            {content.length}/{MAX_ANSWER_LENGTH}
+          </Count>
         </Input>
         <SubmitButton type='submit' variant='primary' size='large' disabled={!canSubmit}>
           {isEditing ? '수정 완료' : '내 경험 담기'}
@@ -99,68 +100,36 @@ const Fields = styled.fieldset`
 `;
 
 const Input = styled.div`
-  display: flex;
-  flex-direction: column;
+  position: relative;
   grid-area: input;
-  gap: ${spacing.s6};
+  min-height: 196px;
+
+  @media ${MOBILE_MEDIA_QUERY} {
+    min-height: 176px;
+  }
 `;
 
 const InputArea = styled(TextArea)`
-  ${typography.body1};
-
-  margin: 0;
-  border: 1px solid ${({ error }) => (error ? colors.stroke.danger.default : 'transparent')};
-  border-radius: ${radius.r10};
-  box-shadow: none;
-  background-color: ${colors.bg.layer.default};
-  padding: ${spacing.s10} ${spacing.s16};
-  width: 100%;
-  height: 170px;
-  overflow-y: auto;
-  resize: none;
-  color: ${colors.fg.neutral.bold};
-
-  &::placeholder {
-    color: ${colors.fg.neutral.ghost};
-  }
-
-  &:focus {
-    border-color: ${({ error }) => (error ? colors.stroke.danger.default : colors.stroke.neutral.defaultFocused)};
-    background-color: ${colors.bg.layer.default};
+  /* MDS 입력 박스의 padding과 border(22px)를 포함해 PC 170px, 모바일 150px로 맞춥니다. */
+  & textarea {
+    ${typography.body1};
   }
 
   @media ${MOBILE_MEDIA_QUERY} {
-    height: 150px;
-  }
-`;
-
-const Helper = styled.div`
-  display: flex;
-  gap: ${spacing.s8};
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 ${spacing.s2};
-  height: 16px;
-`;
-
-const ErrorMessage = styled.p`
-  ${typography.body3};
-
-  display: flex;
-  gap: ${spacing.s4};
-  align-items: center;
-  color: ${colors.fg.danger.default};
-
-  & > svg {
-    flex-shrink: 0;
+    & textarea {
+      /* MDS fixedHeight/maxHeight의 inline style보다 모바일 높이를 우선 적용합니다. */
+      height: 128px !important;
+      max-height: 128px !important;
+    }
   }
 `;
 
 const Count = styled.p<{ isError: boolean }>`
   ${typography.body3};
 
-  flex-shrink: 0;
-  margin-left: auto;
+  position: absolute;
+  right: ${spacing.s2};
+  bottom: 0;
   color: ${({ isError }) => (isError ? colors.fg.danger.default : colors.fg.neutral.ghost)};
 `;
 
