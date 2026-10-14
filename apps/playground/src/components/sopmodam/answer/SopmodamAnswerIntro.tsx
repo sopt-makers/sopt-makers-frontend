@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import { colors, spacing, typography } from '@sopt-mds/design-tokens';
 
 import { useGetSopmodamAnswers } from '@/api/endpoint/sopmodam/getSopmodamAnswers';
+import Skeleton from '@/components/common/Skeleton';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 interface SopmodamAnswerIntroProps {
@@ -9,16 +10,22 @@ interface SopmodamAnswerIntroProps {
 }
 
 const SopmodamAnswerIntro = ({ roundId }: SopmodamAnswerIntroProps) => {
-  const { data } = useGetSopmodamAnswers(roundId);
-
-  if (!data) return null;
+  const { data, isLoading } = useGetSopmodamAnswers(roundId);
 
   return (
     <SContainer>
       <SEyebrow>이번 솝모담 질문</SEyebrow>
-      <SQuestionTitle>{data.question.content}</SQuestionTitle>
+      {isLoading ? (
+        <Skeleton height={36} borderRadius='8px' />
+      ) : (
+        <SQuestionTitle>{data?.question.content}</SQuestionTitle>
+      )}
       <SDescription>
-        <p>{data.answerCount}명의 OB가 각자의 경험을 담아주었어요.</p>
+        {isLoading ? (
+          <Skeleton width={240} height={22} borderRadius='4px' />
+        ) : (
+          <p>{data?.answerCount}명의 OB가 각자의 경험을 담아주었어요.</p>
+        )}
         <p>더 궁금한 이야기는 답변자에게 에스크로 질문해보세요.</p>
       </SDescription>
     </SContainer>
@@ -49,7 +56,7 @@ const SQuestionTitle = styled.h1`
   ${typography.title2}
 `;
 
-const SDescription = styled.p`
+const SDescription = styled.div`
   color: ${colors.fg.neutral.bold};
   ${typography.body2}
 `;

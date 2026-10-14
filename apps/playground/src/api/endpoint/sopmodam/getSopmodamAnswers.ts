@@ -41,7 +41,10 @@ export const useGetSopmodamAnswers = (roundId: number) => {
   return useQuery({
     queryKey: getSopmodamAnswersEndpoint.cacheKey(roundId),
     // TODO: API 연동 시 getSopmodamAnswersEndpoint.request(roundId)로 교체
-    queryFn: async () => SOPMODAM_ANSWERS_MOCK,
+    queryFn: async () => {
+      await new Promise((r) => setTimeout(r, 2000));
+      return SOPMODAM_ANSWERS_MOCK;
+    },
   });
 };
 
