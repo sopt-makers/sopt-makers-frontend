@@ -24,6 +24,11 @@ export const dateIntoPeriod = (startDate: string, endDate: string) => {
 };
 
 /**
+ * @desc 날짜를 'M월 D일' 형태로 변환합니다.
+ */
+export const dateIntoMonthDay = (date: string) => dayjs(date).format('M월 D일');
+
+/**
  * @desc 현재 날짜가 시작일과 종료일 기간 사이에 포함되는지 확인합니다.
  */
 export const isTodayInPeriod = (startDate: string, endDate: string): boolean => {

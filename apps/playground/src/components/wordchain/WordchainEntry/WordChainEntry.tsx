@@ -75,7 +75,7 @@ const GotoWordChainWrapper = styled(Link)`
   align-items: center;
   justify-content: space-between;
   transition: background-color 0.2s;
-  border-radius: 12px;
+  border-radius: 14px;
   background-color: ${baseColor.gray950};
   padding: 18px 20px;
   margin: 0 auto;

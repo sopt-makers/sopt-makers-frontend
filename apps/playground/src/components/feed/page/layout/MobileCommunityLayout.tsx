@@ -1,8 +1,10 @@
 import styled from '@emotion/styled';
 import { colors } from '@sopt-makers/colors';
+import { spacing } from '@sopt-mds/design-tokens';
 import type { ReactNode } from 'react';
 import { RemoveScroll } from 'react-remove-scroll';
 
+import SopmodamBannerContainer from '@/components/sopmodam/banner/SopmodamBannerContainer';
 import WordChainEntry from '@/components/wordchain/WordchainEntry/WordChainEntry';
 import { zIndex } from '@/styles/zIndex';
 
@@ -15,9 +17,10 @@ interface MobileCommunityLayoutProps {
 const MobileCommunityLayout = ({ listSlot, detailSlot, isDetailOpen }: MobileCommunityLayoutProps) => {
   return (
     <Container>
-      <WordChainWrapper>
+      <TopSection>
+        <SopmodamBannerContainer />
         <StyledWordChainEntry />
-      </WordChainWrapper>
+      </TopSection>
       <ListSlotBox>{listSlot}</ListSlotBox>
       {isDetailOpen && (
         <Overlay>
@@ -32,17 +35,19 @@ const MobileCommunityLayout = ({ listSlot, detailSlot, isDetailOpen }: MobileCom
 
 export default MobileCommunityLayout;
 
-const WordChainWrapper = styled.div`
-  margin: 0 auto;
-  padding: 12px 20px;
+const Container = styled.div`
+  position: relative;
+`;
+
+const TopSection = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${spacing.s24};
+  padding: ${spacing.s12} ${spacing.s20};
 `;
 
 const StyledWordChainEntry = styled(WordChainEntry)`
   max-width: none;
-`;
-
-const Container = styled.div`
-  position: relative;
 `;
 
 const ListSlotBox = styled.div`
