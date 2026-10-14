@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { parseRoundId } from '@shared/parseRoundId';
 import { playgroundLink } from '@sopt/constant';
 import { colors, spacing } from '@sopt-mds/design-tokens';
 import ErrorPage from 'next/error';
@@ -12,14 +13,14 @@ import SopmodamHeader from '@/components/sopmodam/common/SopmodamHeader';
 import { sopmodamVoteMockData } from '@/components/sopmodam/vote/mockData';
 import SopmodamVoteIntro from '@/components/sopmodam/vote/SopmodamVoteIntro';
 import SopmodamVoteSection from '@/components/sopmodam/vote/SopmodamVoteSection';
+import useStringRouterQuery from '@/hooks/useStringRouterQuery';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 import { setLayout } from '@/utils/layout';
-import { parseRoundId } from '@/utils/parseRoundId';
 
 const SopmodamVotePage = () => {
   const router = useRouter();
+  const routeQuery = useStringRouterQuery(['id'] as const);
   const { getLastRouteState } = useContext(NavigationContext);
-  const roundId = parseRoundId(router.query.id);
   const [selectedQuestionId, setSelectedQuestionId] = useState<number | null>(null);
 
   const handleBack = () => {
@@ -31,9 +32,11 @@ const SopmodamVotePage = () => {
     }
   };
 
-  if (!router.isReady) {
+  if (routeQuery.status === 'loading') {
     return null;
   }
+
+  const roundId = routeQuery.status === 'success' ? parseRoundId(routeQuery.query.id) : null;
 
   if (roundId === null) {
     return <ErrorPage statusCode={404} />;
