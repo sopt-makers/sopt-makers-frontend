@@ -1,11 +1,11 @@
 import styled from '@emotion/styled';
 import { colors, radius, spacing, typography } from '@sopt-mds/design-tokens';
+import { IconCheckSquareOutlined } from '@sopt-mds/icons';
 import { ActionButton } from '@sopt-mds/ui';
 import { useId } from 'react';
 
 import SopmodamVoteOption from '@/components/sopmodam/vote/SopmodamVoteOption';
 import type { SopmodamVoteQuestion, SopmodamVoteStatus } from '@/components/sopmodam/vote/types';
-import CheckSquareIcon from '@/public/icons/icon-sopmodam-check-square.svg';
 
 interface SopmodamVoteSectionProps {
   questions: SopmodamVoteQuestion[];
@@ -49,7 +49,7 @@ const SopmodamVoteSection = ({
     >
       <Options disabled={isLocked} aria-describedby={`${id}-guidance`}>
         <Title>
-          <CheckSquareIcon aria-hidden='true' focusable='false' />
+          <IconCheckSquareOutlined width={16} height={16} aria-hidden='true' focusable='false' />
           투표
         </Title>
         <OptionList>

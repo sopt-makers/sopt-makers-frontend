@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 import { colors, radius, spacing, typography } from '@sopt-mds/design-tokens';
+import { IconCheck } from '@sopt-mds/icons';
 
 import type { SopmodamVoteQuestion } from '@/components/sopmodam/vote/types';
-import CheckIcon from '@/public/icons/icon-sopmodam-check.svg';
 
 interface SopmodamVoteOptionProps {
   question: SopmodamVoteQuestion;
@@ -24,7 +24,7 @@ const SopmodamVoteOption = ({ question, name, checked, disabled, onSelect }: Sop
         onChange={() => onSelect(question.questionId)}
       />
       <Content>
-        {checked && <Check aria-hidden='true' focusable='false' />}
+        {checked && <Check width={16} height={16} aria-hidden='true' focusable='false' />}
         <Question>{question.content}</Question>
       </Content>
     </Container>
@@ -74,8 +74,9 @@ const Content = styled.span`
   }
 `;
 
-const Check = styled(CheckIcon)`
+const Check = styled(IconCheck)`
   flex-shrink: 0;
+  color: ${colors.fg.brand.default};
 `;
 
 const Question = styled.span`
