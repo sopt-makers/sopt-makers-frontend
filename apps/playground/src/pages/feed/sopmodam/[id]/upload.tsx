@@ -4,7 +4,6 @@ import { useToast } from '@sopt-makers/ui';
 import { colors, spacing, typography } from '@sopt-mds/design-tokens';
 import { IconCheckCircleFilled } from '@sopt-mds/icons';
 import ErrorPage from 'next/error';
-import Head from 'next/head';
 import { useRef, useState } from 'react';
 
 import Responsive from '@/components/common/Responsive';
@@ -88,35 +87,30 @@ const SopmodamAnswerUploadPage = () => {
   }
 
   return (
-    <>
-      <Head>
-        <title>솝모담 경험담 작성 | SOPT Playground</title>
-      </Head>
-      <Container>
-        <Responsive only='mobile'>
-          <SopmodamHeader onBack={handleBack} />
-        </Responsive>
-        <Content>
-          <SopmodamAnswerIntro questionContent={data.question.content} />
-          {answerStatus.type === 'readonly' ? (
-            <SopmodamAnswerContent status={answerStatus} releaseDate={sopmodamAnswerReleaseDateMock} />
-          ) : answerStatus.type === 'editable' && !isEditing ? (
-            <SopmodamAnswerContent
-              status={answerStatus}
-              releaseDate={sopmodamAnswerReleaseDateMock}
-              onEdit={() => setIsEditing(true)}
-            />
-          ) : (
-            <SopmodamAnswerForm
-              status={answerStatus}
-              releaseDate={sopmodamAnswerReleaseDateMock}
-              isSubmitting={isSubmitting}
-              onSubmit={handleSubmit}
-            />
-          )}
-        </Content>
-      </Container>
-    </>
+    <Container>
+      <Responsive only='mobile'>
+        <SopmodamHeader onBack={handleBack} />
+      </Responsive>
+      <Content>
+        <SopmodamAnswerIntro questionContent={data.question.content} />
+        {answerStatus.type === 'readonly' ? (
+          <SopmodamAnswerContent status={answerStatus} releaseDate={sopmodamAnswerReleaseDateMock} />
+        ) : answerStatus.type === 'editable' && !isEditing ? (
+          <SopmodamAnswerContent
+            status={answerStatus}
+            releaseDate={sopmodamAnswerReleaseDateMock}
+            onEdit={() => setIsEditing(true)}
+          />
+        ) : (
+          <SopmodamAnswerForm
+            status={answerStatus}
+            releaseDate={sopmodamAnswerReleaseDateMock}
+            isSubmitting={isSubmitting}
+            onSubmit={handleSubmit}
+          />
+        )}
+      </Content>
+    </Container>
   );
 };
 

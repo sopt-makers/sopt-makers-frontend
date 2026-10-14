@@ -2,7 +2,6 @@ import styled from '@emotion/styled';
 import { parseRoundId } from '@shared/parseRoundId';
 import { colors, spacing } from '@sopt-mds/design-tokens';
 import ErrorPage from 'next/error';
-import Head from 'next/head';
 import { useState } from 'react';
 
 import Responsive from '@/components/common/Responsive';
@@ -34,28 +33,23 @@ const SopmodamVotePage = () => {
   const voteStatus = getVoteStatus(sopmodamVoteMockData);
 
   return (
-    <>
-      <Head>
-        <title>솝모담 투표 | SOPT Playground</title>
-      </Head>
-      <Container>
-        <Responsive only='mobile'>
-          <SopmodamHeader onBack={handleBack} />
-        </Responsive>
-        <Content>
-          <SopmodamVoteIntro eventName={sopmodamVoteMockData.eventName} />
-          <SopmodamVoteSection
-            questions={sopmodamVoteMockData.questions}
-            status={voteStatus}
-            selectedQuestionId={selectedQuestionId}
-            isSubmitting={false}
-            onSelect={setSelectedQuestionId}
-            // 실제 투표 저장은 API 연동 작업에서 연결합니다.
-            onSubmit={() => {}}
-          />
-        </Content>
-      </Container>
-    </>
+    <Container>
+      <Responsive only='mobile'>
+        <SopmodamHeader onBack={handleBack} />
+      </Responsive>
+      <Content>
+        <SopmodamVoteIntro eventName={sopmodamVoteMockData.eventName} />
+        <SopmodamVoteSection
+          questions={sopmodamVoteMockData.questions}
+          status={voteStatus}
+          selectedQuestionId={selectedQuestionId}
+          isSubmitting={false}
+          onSelect={setSelectedQuestionId}
+          // 실제 투표 저장은 API 연동 작업에서 연결합니다.
+          onSubmit={() => {}}
+        />
+      </Content>
+    </Container>
   );
 };
 
