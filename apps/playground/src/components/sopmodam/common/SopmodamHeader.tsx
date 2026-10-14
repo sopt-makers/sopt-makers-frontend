@@ -3,17 +3,16 @@ import { colors, spacing, typography } from '@sopt-mds/design-tokens';
 import { IconChevronLeft } from '@sopt-mds/icons';
 
 interface SopmodamHeaderProps {
-  title?: string;
   onBack: () => void;
 }
 
-const SopmodamHeader = ({ title = '솝모담', onBack }: SopmodamHeaderProps) => {
+const SopmodamHeader = ({ onBack }: SopmodamHeaderProps) => {
   return (
     <Container>
       <BackButton type='button' aria-label='뒤로가기' onClick={onBack}>
         <IconChevronLeft width={28} height={28} aria-hidden='true' focusable='false' />
       </BackButton>
-      <Title>{title}</Title>
+      <Title>솝모담</Title>
     </Container>
   );
 };
