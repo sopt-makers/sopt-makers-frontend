@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
-import { TextArea } from '@sopt-makers/ui';
 import { colors, radius, spacing, typography } from '@sopt-mds/design-tokens';
 import { IconInfoCircleOutlined } from '@sopt-mds/icons';
 import { ActionButton } from '@sopt-mds/ui';
 import { useId, useState } from 'react';
 
+import TextArea from '@/components/common/TextArea';
 import SopmodamAnswerNotice from '@/components/sopmodam/answer/SopmodamAnswerNotice';
 import type { SopmodamAnswerStatus } from '@/components/sopmodam/answer/types';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
@@ -50,17 +50,14 @@ const SopmodamAnswerForm = ({ status, releaseDate, isSubmitting, onSubmit }: Sop
             aria-describedby={`${id}-count${isOverLimit ? ` ${id}-error` : ''}`}
             aria-invalid={isOverLimit}
             placeholder='먼저 경험한 솝트인으로서 나누고 싶은 경험을 편하게 담아주세요.'
-            isError={isOverLimit}
-            fixedHeight={170}
-            maxHeight={170}
-            disableEnterSubmit
+            error={isOverLimit}
             disabled={isLocked}
           />
           <Helper>
             {isOverLimit && (
               <ErrorMessage id={`${id}-error`}>
                 <IconInfoCircleOutlined width={14} height={14} aria-hidden='true' focusable='false' />
-                500자 이내로 입력해주세요.
+                {MAX_ANSWER_LENGTH}자 이내로 입력해주세요.
               </ErrorMessage>
             )}
             <Count id={`${id}-count`} isError={isOverLimit}>
@@ -109,50 +106,31 @@ const Input = styled.div`
 `;
 
 const InputArea = styled(TextArea)`
+  ${typography.body1};
+
+  margin: 0;
+  border: 1px solid ${({ error }) => (error ? colors.stroke.danger.default : 'transparent')};
+  border-radius: ${radius.r10};
+  box-shadow: none;
+  background-color: ${colors.bg.layer.default};
+  padding: ${spacing.s10} ${spacing.s16};
   width: 100%;
+  height: 170px;
+  overflow-y: auto;
+  resize: none;
+  color: ${colors.fg.neutral.bold};
 
-  /* 사용하지 않는 상단 addon과 MDS 자체 helper 대신 같은 입력값으로 계산한 helper를 사용합니다. */
-  & > div:first-of-type,
-  & > div:nth-of-type(3) {
-    display: none;
+  &::placeholder {
+    color: ${colors.fg.neutral.ghost};
   }
 
-  & > div:nth-of-type(2) {
-    border: 1px solid ${({ isError }) => (isError ? colors.stroke.danger.default : 'transparent')};
-    border-radius: ${radius.r10};
-    box-shadow: none;
+  &:focus {
+    border-color: ${({ error }) => (error ? colors.stroke.danger.default : colors.stroke.neutral.defaultFocused)};
     background-color: ${colors.bg.layer.default};
-    padding: ${spacing.s10} ${spacing.s16};
-    height: 170px;
-
-    &:focus-within {
-      border-color: ${({ isError }) => (isError ? colors.stroke.danger.default : colors.stroke.neutral.defaultFocused)};
-    }
-  }
-
-  & textarea {
-    ${typography.body1};
-
-    margin: 0;
-    border: 0;
-    background: transparent;
-    padding: 0;
-    width: 100%;
-    height: 100% !important;
-    max-height: none !important;
-    overflow-y: auto;
-    resize: none;
-    color: ${colors.fg.neutral.bold};
-
-    &::placeholder {
-      color: ${colors.fg.neutral.ghost};
-    }
   }
 
   @media ${MOBILE_MEDIA_QUERY} {
-    & > div:nth-of-type(2) {
-      height: 150px;
-    }
+    height: 150px;
   }
 `;
 
