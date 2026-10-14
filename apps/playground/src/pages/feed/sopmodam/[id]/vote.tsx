@@ -1,15 +1,13 @@
 import styled from '@emotion/styled';
 import { parseRoundId } from '@shared/parseRoundId';
-import { playgroundLink } from '@sopt/constant';
 import { colors, spacing } from '@sopt-mds/design-tokens';
 import ErrorPage from 'next/error';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 
 import Responsive from '@/components/common/Responsive';
-import { NavigationContext } from '@/components/navigation/navigationContext';
 import SopmodamHeader from '@/components/sopmodam/common/SopmodamHeader';
+import { useSopmodamBack } from '@/components/sopmodam/common/useSopmodamBack';
 import { sopmodamVoteMockData } from '@/components/sopmodam/vote/mockData';
 import SopmodamVoteIntro from '@/components/sopmodam/vote/SopmodamVoteIntro';
 import SopmodamVoteSection from '@/components/sopmodam/vote/SopmodamVoteSection';
@@ -18,19 +16,9 @@ import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 import { setLayout } from '@/utils/layout';
 
 const SopmodamVotePage = () => {
-  const router = useRouter();
   const routeQuery = useStringRouterQuery(['id'] as const);
-  const { getLastRouteState } = useContext(NavigationContext);
+  const handleBack = useSopmodamBack();
   const [selectedQuestionId, setSelectedQuestionId] = useState<number | null>(null);
-
-  const handleBack = () => {
-    const lastRoute = getLastRouteState();
-    if (lastRoute?.type === 'move' && lastRoute.fromPath !== router.asPath) {
-      router.back();
-    } else {
-      void router.replace(playgroundLink.feedList());
-    }
-  };
 
   if (routeQuery.status === 'loading') {
     return null;
