@@ -1,6 +1,7 @@
-import type { SopmodamVoteState, SopmodamVoteStatus } from '@/components/sopmodam/vote/types';
+import type { SopmodamQuestionsResponse } from '@/api/endpoint/sopmodam/getSopmodamQuestions';
+import type { SopmodamVoteStatus } from '@/components/sopmodam/vote/types';
 
-type VoteStatusInput = Pick<SopmodamVoteState, 'canVote' | 'hasVoted' | 'myVoteQuestionId'>;
+type VoteStatusInput = Pick<SopmodamQuestionsResponse, 'canVote' | 'hasVoted' | 'myVoteQuestionId'>;
 
 export const getVoteStatus = ({ canVote, hasVoted, myVoteQuestionId }: VoteStatusInput): SopmodamVoteStatus => {
   if (hasVoted) {
