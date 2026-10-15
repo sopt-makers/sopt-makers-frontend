@@ -2,34 +2,40 @@ import styled from '@emotion/styled';
 import { TextArea } from '@sopt-makers/ui';
 import { colors, radius, spacing, typography } from '@sopt-mds/design-tokens';
 import { ActionButton } from '@sopt-mds/ui';
-import { useId, useState } from 'react';
+import { useId } from 'react';
 
+import { MAX_SOPMODAM_ANSWER_LENGTH, SopmodamAnswerContentSchema } from '@/api/endpoint/sopmodam/answerSchemas';
 import SopmodamUploadNotice from '@/components/sopmodam/answer/upload/SopmodamUploadNotice';
-import type { SopmodamAnswerStatus } from '@/components/sopmodam/answer/upload/types';
+import type { SopmodamAnswerFormState } from '@/components/sopmodam/answer/upload/types';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 interface SopmodamUploadFormProps {
-  status: Extract<SopmodamAnswerStatus, { type: 'available' | 'unavailable' | 'editable' }>;
+  form: SopmodamAnswerFormState;
+  canEdit: boolean;
   releaseDate: string;
   isSubmitting: boolean;
-  onSubmit: (content: string) => Promise<void> | void;
+  onChange: (content: string) => void;
+  onSubmit: () => void;
 }
 
-const MAX_ANSWER_LENGTH = 500;
-const ANSWER_LENGTH_ERROR_MESSAGE = `${MAX_ANSWER_LENGTH}자 이내로 입력해주세요.`;
+const ANSWER_LENGTH_ERROR_MESSAGE = `${MAX_SOPMODAM_ANSWER_LENGTH}자 이내로 입력해주세요.`;
 
-const SopmodamUploadForm = ({ status, releaseDate, isSubmitting, onSubmit }: SopmodamUploadFormProps) => {
+const SopmodamUploadForm = ({
+  form,
+  canEdit,
+  releaseDate,
+  isSubmitting,
+  onChange,
+  onSubmit,
+}: SopmodamUploadFormProps) => {
   const id = useId();
-  const isEditing = status.type === 'editable';
-  const initialContent = isEditing ? status.answer.content : '';
-  const [content, setContent] = useState(initialContent);
-  // 폼을 열었을 때의 내용을 기준으로 비교해, 재조회가 작성 중인 내용을 덮어쓰지 않도록 합니다.
-  const [originalContent] = useState(initialContent);
-  const isOverLimit = content.length > MAX_ANSWER_LENGTH;
-  const isValid = content.trim().length > 0 && !isOverLimit;
-  const isChanged = content !== originalContent;
-  const isLocked = status.type === 'unavailable' || isSubmitting;
-  const canSubmit = isValid && !isLocked && (!isEditing || isChanged);
+  const { content } = form;
+  const isEditing = form.type === 'update';
+  const isOverLimit = content.length > MAX_SOPMODAM_ANSWER_LENGTH;
+  const isValid = SopmodamAnswerContentSchema.safeParse(content).success;
+  const isChanged = form.type === 'create' || content !== form.originalContent;
+  const isLocked = !canEdit || isSubmitting;
+  const canSubmit = isValid && !isLocked && isChanged;
 
   return (
     <form
@@ -37,7 +43,7 @@ const SopmodamUploadForm = ({ status, releaseDate, isSubmitting, onSubmit }: Sop
       onSubmit={(event) => {
         event.preventDefault();
         if (canSubmit) {
-          void onSubmit(content);
+          onSubmit();
         }
       }}
     >
@@ -45,7 +51,7 @@ const SopmodamUploadForm = ({ status, releaseDate, isSubmitting, onSubmit }: Sop
         <Input>
           <InputArea
             value={content}
-            onChange={(event) => setContent(event.target.value)}
+            onChange={(event) => onChange(event.target.value)}
             aria-label='경험담'
             aria-describedby={`${id}-count${isOverLimit ? ` ${id}-error` : ''}`}
             aria-invalid={isOverLimit}
@@ -63,7 +69,7 @@ const SopmodamUploadForm = ({ status, releaseDate, isSubmitting, onSubmit }: Sop
             </span>
           )}
           <Count id={`${id}-count`} isError={isOverLimit}>
-            {content.length}/{MAX_ANSWER_LENGTH}
+            {content.length}/{MAX_SOPMODAM_ANSWER_LENGTH}
           </Count>
         </Input>
         <SubmitButton type='submit' variant='primary' size='large' disabled={!canSubmit}>
