@@ -6,7 +6,7 @@ interface SopmodamAnswerNoticeProps {
   releaseDate: string;
 }
 
-const SopmodamAnswerNotice = ({ releaseDate }: SopmodamAnswerNoticeProps) => {
+const SopmodamUploadNotice = ({ releaseDate }: SopmodamAnswerNoticeProps) => {
   return (
     <Container>
       <InfoIcon width={20} height={20} aria-hidden='true' focusable='false' />
@@ -19,7 +19,7 @@ const SopmodamAnswerNotice = ({ releaseDate }: SopmodamAnswerNoticeProps) => {
   );
 };
 
-export default SopmodamAnswerNotice;
+export default SopmodamUploadNotice;
 
 const Container = styled.aside`
   display: flex;

@@ -5,7 +5,7 @@ interface SopmodamAnswerIntroProps {
   questionContent: string;
 }
 
-const SopmodamAnswerIntro = ({ questionContent }: SopmodamAnswerIntroProps) => {
+const SopmodamUploadIntro = ({ questionContent }: SopmodamAnswerIntroProps) => {
   return (
     <Container>
       <Label>이번 솝모담 질문</Label>
@@ -14,7 +14,7 @@ const SopmodamAnswerIntro = ({ questionContent }: SopmodamAnswerIntroProps) => {
   );
 };
 
-export default SopmodamAnswerIntro;
+export default SopmodamUploadIntro;
 
 const Container = styled.section`
   display: flex;
