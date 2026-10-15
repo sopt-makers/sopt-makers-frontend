@@ -5,24 +5,22 @@ import { IconReply } from '@sopt-mds/icons';
 import { ActionButton } from '@sopt-mds/ui';
 
 import SopmodamAnswerNotice from '@/components/sopmodam/answer/SopmodamAnswerNotice';
-import type { SopmodamAnswerStatus } from '@/components/sopmodam/answer/types';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
-type SopmodamAnswerContentProps = {
+interface SopmodamAnswerContentProps {
+  content: string;
   releaseDate: string;
-} & (
-  | { status: Extract<SopmodamAnswerStatus, { type: 'editable' }>; onEdit: () => void }
-  | { status: Extract<SopmodamAnswerStatus, { type: 'readonly' }>; onEdit?: never }
-);
+  onEdit?: () => void;
+}
 
-const SopmodamAnswerContent = ({ status, releaseDate, onEdit }: SopmodamAnswerContentProps) => {
-  const isEditable = status.type === 'editable';
+const SopmodamAnswerContent = ({ content, releaseDate, onEdit }: SopmodamAnswerContentProps) => {
+  const isEditable = onEdit !== undefined;
 
   return (
     <Container isEditable={isEditable}>
       <Answer>
         <ReplyIcon width={16} height={16} aria-hidden='true' focusable='false' />
-        <Content>{status.answer.content}</Content>
+        <Content>{content}</Content>
       </Answer>
       {isEditable && (
         <EditButton type='button' variant='secondary' size='large' onClick={onEdit}>
