@@ -2,10 +2,13 @@ import styled from '@emotion/styled';
 import { spacing } from '@sopt-mds/design-tokens';
 import { isAxiosError } from 'axios';
 import ErrorPage from 'next/error';
-import type { ReactNode } from 'react';
 import { useState } from 'react';
 
 import { useGetSopmodamQuestionsSuspenseQuery } from '@/api/endpoint/sopmodam/getSopmodamQuestions';
+import Header from '@/components/common/Header';
+import Responsive from '@/components/common/Responsive';
+import SopmodamHeader from '@/components/sopmodam/common/SopmodamHeader';
+import { useSopmodamBack } from '@/components/sopmodam/common/useSopmodamBack';
 import { getVoteStatus } from '@/components/sopmodam/vote/getVoteStatus';
 import SopmodamVoteClosed from '@/components/sopmodam/vote/SopmodamVoteClosed';
 import SopmodamVoteIntro from '@/components/sopmodam/vote/SopmodamVoteIntro';
@@ -15,17 +18,21 @@ import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 interface SopmodamVoteContentProps {
   roundId: number;
-  header: ReactNode;
-  closedHeader: ReactNode;
 }
 
-const SopmodamVoteContent = ({ roundId, header, closedHeader }: SopmodamVoteContentProps) => {
+const SopmodamVoteContent = ({ roundId }: SopmodamVoteContentProps) => {
+  const handleBack = useSopmodamBack();
   const { data: result, isError, error } = useGetSopmodamQuestionsSuspenseQuery(roundId);
   const [selectedQuestionId, setSelectedQuestionId] = useState<number | null>(null);
   const { submitVote, isSubmitting, isVoteConflictUnresolved } = useSubmitSopmodamVote({
     roundId,
     data: result.type === 'success' ? result.data : null,
   });
+  const header = (
+    <Responsive only='mobile'>
+      <SopmodamHeader onBack={handleBack} />
+    </Responsive>
+  );
 
   if (result.type === 'error') {
     return (
@@ -43,7 +50,9 @@ const SopmodamVoteContent = ({ roundId, header, closedHeader }: SopmodamVoteCont
   if (isVoteClosed) {
     return (
       <>
-        {closedHeader}
+        <Responsive only='mobile'>
+          <Header />
+        </Responsive>
         <SopmodamVoteClosed />
       </>
     );

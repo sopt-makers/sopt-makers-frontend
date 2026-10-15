@@ -9,7 +9,6 @@ import { Suspense, useEffect, useRef } from 'react';
 
 import type { SopmodamQuestionsQueryResult } from '@/api/endpoint/sopmodam/getSopmodamQuestions';
 import { getSopmodamQuestions } from '@/api/endpoint/sopmodam/getSopmodamQuestions';
-import Header from '@/components/common/Header';
 import Loading from '@/components/common/Loading';
 import Responsive from '@/components/common/Responsive';
 import SopmodamHeader from '@/components/sopmodam/common/SopmodamHeader';
@@ -28,11 +27,6 @@ const SopmodamVotePage = () => {
   const header = (
     <Responsive only='mobile'>
       <SopmodamHeader onBack={handleBack} />
-    </Responsive>
-  );
-  const closedHeader = (
-    <Responsive only='mobile'>
-      <Header />
     </Responsive>
   );
   const loadingFallback = (
@@ -88,7 +82,7 @@ const SopmodamVotePage = () => {
         )}
       >
         <Suspense fallback={loadingFallback}>
-          <SopmodamVoteContent roundId={roundId} header={header} closedHeader={closedHeader} />
+          <SopmodamVoteContent roundId={roundId} />
         </Suspense>
       </ErrorBoundary>
     </Container>
