@@ -4,8 +4,8 @@ import SopmodamBanner from '@/components/sopmodam/banner/SopmodamBanner';
 import { toBannerData } from '@/components/sopmodam/banner/utils';
 
 const SopmodamBannerContainer = () => {
-  // TODO: API 연동 시 교체
-  // - 204(노출할 카드 없음) 시 null로 변환 필요
+  // TODO: 서버 데이터 추가 시 교체
+  // const { data: response } = useGetSopmodamCurrent();
   const response = SOPMODAM_BANNER_MOCK;
 
   if (!response) return null;
