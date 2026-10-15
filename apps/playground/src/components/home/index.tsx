@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 
+import { usePrefetchSopmodamCurrent } from '@/api/endpoint/sopmodam/getSopmodamCurrent';
 import { DESKTOP_ONE_MEDIA_QUERY, DESKTOP_TWO_MEDIA_QUERY, MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 import WordChainEntry from '../wordchain/WordchainEntry/WordChainEntry';
@@ -11,6 +12,8 @@ import MemberPreview from './MembersPreview';
 import ProjectPreview from './ProjectPreview';
 
 const HomePage = () => {
+  usePrefetchSopmodamCurrent();
+
   return (
     <StyledContainer>
       <WordChainEntry />
