@@ -36,6 +36,7 @@ const getSopmodamCurrentEndpoint = createEndpoint({
 const sopmodamCurrentQueryOptions = {
   queryKey: getSopmodamCurrentEndpoint.cacheKey(),
   queryFn: () => getSopmodamCurrentEndpoint.request(),
+  gcTime: 1000 * 60 * 30,
 };
 
 export const useGetSopmodamCurrent = () => {
