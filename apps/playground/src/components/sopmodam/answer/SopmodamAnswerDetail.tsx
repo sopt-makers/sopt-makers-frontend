@@ -4,7 +4,7 @@ import ErrorPage from 'next/error';
 
 import { isSopmodamAnswersUnavailableError, useGetSopmodamAnswers } from '@/api/endpoint/sopmodam/getSopmodamAnswers';
 import Responsive from '@/components/common/Responsive';
-import SopmodamAnswerIntro from '@/components/sopmodam/answer/SopmodamAnswerIntro';
+import SopmodamAnswerIntro from '@/components/sopmodam/answer/SopmodamAnswerIntro2';
 import SopmodamAnswerList from '@/components/sopmodam/answer/SopmodamAnswerList';
 import SopmodamNotifyCard from '@/components/sopmodam/answer/SopmodamNotifyCard';
 import SopmodamHeader from '@/components/sopmodam/common/SopmodamHeader';
