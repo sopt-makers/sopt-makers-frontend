@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import { parseRoundId } from '@shared/parseRoundId';
-import { colors } from '@sopt-mds/design-tokens';
 import { useQueryClient } from '@tanstack/react-query';
 import { ErrorBoundary } from '@toss/error-boundary';
 import { isAxiosError } from 'axios';
@@ -10,9 +9,7 @@ import { Suspense, useEffect, useRef } from 'react';
 import type { SopmodamQuestionsQueryResult } from '@/api/endpoint/sopmodam/getSopmodamQuestions';
 import { getSopmodamQuestions } from '@/api/endpoint/sopmodam/getSopmodamQuestions';
 import Loading from '@/components/common/Loading';
-import Responsive from '@/components/common/Responsive';
-import SopmodamHeader from '@/components/sopmodam/common/SopmodamHeader';
-import { useSopmodamBack } from '@/components/sopmodam/common/useSopmodamBack';
+import SopmodamLayout from '@/components/sopmodam/common/SopmodamLayout';
 import SopmodamVoteContent from '@/components/sopmodam/vote/SopmodamVoteContent';
 import useStringRouterQuery from '@/hooks/useStringRouterQuery';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
@@ -20,22 +17,15 @@ import { setLayout } from '@/utils/layout';
 
 const SopmodamVotePage = () => {
   const routeQuery = useStringRouterQuery(['id'] as const);
-  const handleBack = useSopmodamBack();
   const queryClient = useQueryClient();
   const errorBoundaryRef = useRef<{ reset: () => void }>(null);
   const roundId = routeQuery.status === 'success' ? parseRoundId(routeQuery.query.id) : null;
-  const header = (
-    <Responsive only='mobile'>
-      <SopmodamHeader onBack={handleBack} />
-    </Responsive>
-  );
   const loadingFallback = (
-    <>
-      {header}
+    <SopmodamLayout>
       <LoadingContent role='status' aria-label='투표 질문을 불러오는 중'>
         <Loading />
       </LoadingContent>
-    </>
+    </SopmodamLayout>
   );
 
   useEffect(() => {
@@ -51,56 +41,43 @@ const SopmodamVotePage = () => {
   }, [queryClient, roundId]);
 
   if (routeQuery.status === 'loading') {
-    return <Container>{loadingFallback}</Container>;
+    return loadingFallback;
   }
 
   if (roundId === null) {
     return (
-      <Container>
-        {header}
+      <SopmodamLayout>
         <ErrorPage statusCode={404} />
-      </Container>
+      </SopmodamLayout>
     );
   }
 
   return (
-    <Container>
-      <ErrorBoundary
-        key={roundId}
-        ref={errorBoundaryRef}
-        onReset={() => {
-          void queryClient.resetQueries({
-            queryKey: getSopmodamQuestions.cacheKey(roundId),
-            exact: true,
-          });
-        }}
-        renderFallback={({ error }) => (
-          <>
-            {header}
-            <ErrorPage statusCode={isAxiosError(error) ? (error.response?.status ?? 500) : 500} />
-          </>
-        )}
-      >
-        <Suspense fallback={loadingFallback}>
-          <SopmodamVoteContent roundId={roundId} />
-        </Suspense>
-      </ErrorBoundary>
-    </Container>
+    <ErrorBoundary
+      key={roundId}
+      ref={errorBoundaryRef}
+      onReset={() => {
+        void queryClient.resetQueries({
+          queryKey: getSopmodamQuestions.cacheKey(roundId),
+          exact: true,
+        });
+      }}
+      renderFallback={({ error }) => (
+        <SopmodamLayout>
+          <ErrorPage statusCode={isAxiosError(error) ? (error.response?.status ?? 500) : 500} />
+        </SopmodamLayout>
+      )}
+    >
+      <Suspense fallback={loadingFallback}>
+        <SopmodamVoteContent roundId={roundId} />
+      </Suspense>
+    </ErrorBoundary>
   );
 };
 
 export default SopmodamVotePage;
 
 setLayout(SopmodamVotePage, 'headerOnlyDesktop');
-
-const Container = styled.div`
-  background-color: ${colors.bg.layer.basement};
-  min-height: calc(100vh - 80px);
-
-  @media ${MOBILE_MEDIA_QUERY} {
-    min-height: 100vh;
-  }
-`;
 
 const LoadingContent = styled.div`
   display: flex;

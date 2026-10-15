@@ -5,10 +5,7 @@ import ErrorPage from 'next/error';
 import { useState } from 'react';
 
 import { useGetSopmodamQuestionsSuspenseQuery } from '@/api/endpoint/sopmodam/getSopmodamQuestions';
-import Header from '@/components/common/Header';
-import Responsive from '@/components/common/Responsive';
-import SopmodamHeader from '@/components/sopmodam/common/SopmodamHeader';
-import { useSopmodamBack } from '@/components/sopmodam/common/useSopmodamBack';
+import SopmodamLayout from '@/components/sopmodam/common/SopmodamLayout';
 import { getVoteStatus } from '@/components/sopmodam/vote/getVoteStatus';
 import SopmodamVoteClosed from '@/components/sopmodam/vote/SopmodamVoteClosed';
 import SopmodamVoteIntro from '@/components/sopmodam/vote/SopmodamVoteIntro';
@@ -21,25 +18,18 @@ interface SopmodamVoteContentProps {
 }
 
 const SopmodamVoteContent = ({ roundId }: SopmodamVoteContentProps) => {
-  const handleBack = useSopmodamBack();
   const { data: result, isError, error } = useGetSopmodamQuestionsSuspenseQuery(roundId);
   const [selectedQuestionId, setSelectedQuestionId] = useState<number | null>(null);
   const { submitVote, isSubmitting, isVoteConflictUnresolved } = useSubmitSopmodamVote({
     roundId,
     data: result.type === 'success' ? result.data : null,
   });
-  const header = (
-    <Responsive only='mobile'>
-      <SopmodamHeader onBack={handleBack} />
-    </Responsive>
-  );
 
   if (result.type === 'error') {
     return (
-      <>
-        {header}
+      <SopmodamLayout>
         <ErrorPage statusCode={result.statusCode} />
-      </>
+      </SopmodamLayout>
     );
   }
 
@@ -49,12 +39,9 @@ const SopmodamVoteContent = ({ roundId }: SopmodamVoteContentProps) => {
 
   if (isVoteClosed) {
     return (
-      <>
-        <Responsive only='mobile'>
-          <Header />
-        </Responsive>
+      <SopmodamLayout headerType='playground'>
         <SopmodamVoteClosed />
-      </>
+      </SopmodamLayout>
     );
   }
 
@@ -64,25 +51,22 @@ const SopmodamVoteContent = ({ roundId }: SopmodamVoteContentProps) => {
     isError && (!data.hasVoted || (queryErrorStatus !== undefined && queryErrorStatus < 500));
   if (shouldShowQueryError) {
     return (
-      <>
-        {header}
+      <SopmodamLayout>
         <ErrorPage statusCode={queryErrorStatus ?? 500} />
-      </>
+      </SopmodamLayout>
     );
   }
 
   if (isVoteConflictUnresolved) {
     return (
-      <>
-        {header}
+      <SopmodamLayout>
         <ErrorPage statusCode={409} />
-      </>
+      </SopmodamLayout>
     );
   }
 
   return (
-    <>
-      {header}
+    <SopmodamLayout>
       <Content>
         <SopmodamVoteIntro eventName={data.eventName} />
         <SopmodamVoteSection
@@ -94,7 +78,7 @@ const SopmodamVoteContent = ({ roundId }: SopmodamVoteContentProps) => {
           onSubmit={(questionId) => void submitVote(questionId)}
         />
       </Content>
-    </>
+    </SopmodamLayout>
   );
 };
 
