@@ -135,8 +135,8 @@ const SContentWrapper = styled.div`
 `;
 
 const SContent = styled.p<{ isExpanded: boolean }>`
-  /* width: 100%; */
   white-space: pre-line;
+  overflow-wrap: anywhere;
   color: ${colors.fg.neutral.bold};
   ${typography.body1}
 

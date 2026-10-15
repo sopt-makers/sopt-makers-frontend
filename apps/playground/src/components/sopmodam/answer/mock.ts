@@ -105,5 +105,13 @@ export const SOPMODAM_ANSWERS_MOCK: SopmodamAnswersResponse = {
       updatedAt: '2026-10-22T09:40:00',
       writer: { memberId: 115, name: '장민수', profileImage: null, generation: 34, part: '서버' },
     },
+    {
+      answerId: 13,
+      content:
+        'abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg',
+      createdAt: '2026-10-22T09:40:00',
+      updatedAt: '2026-10-22T09:40:00',
+      writer: { memberId: 115, name: '장민수', profileImage: null, generation: 34, part: '서버' },
+    },
   ],
 };
