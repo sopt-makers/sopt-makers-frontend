@@ -41,7 +41,7 @@ const SopmodamAnswerCard = ({ answer }: SopmodamAnswerCardProps) => {
   return (
     <SContainer>
       <SAuthor>
-        <Avatar size={32} src={writer.profileImage ?? undefined} type='ghost' alt={`${writer.name} 프로필 이미지`} />
+        <Avatar size={32} src={writer.profileImage || undefined} type='ghost' alt={`${writer.name} 프로필 이미지`} />
         <SInfo>
           <SName>{writer.name}</SName>
           <span>∙</span>
