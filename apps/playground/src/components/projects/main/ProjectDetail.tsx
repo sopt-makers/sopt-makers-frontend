@@ -82,7 +82,7 @@ const ProjectDetail = ({ projectId }: ProjectDetailProps) => {
           <PrimaryInfo>
             <ServiceTypeWrapper>
               {project?.serviceType.map((type) => (
-                <Tag key={type} size='large'>
+                <Tag key={type} size='medium'>
                   {type}
                 </Tag>
               ))}
