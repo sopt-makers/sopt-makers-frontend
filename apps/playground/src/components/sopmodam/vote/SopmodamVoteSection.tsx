@@ -11,7 +11,7 @@ interface SopmodamVoteSectionProps {
   questions: SopmodamVoteQuestion[];
   status: SopmodamVoteStatus;
   selectedQuestionId: number | null;
-  isSubmitting: boolean;
+  isBusy: boolean;
   onSelect: (questionId: number) => void;
   onSubmit: (questionId: number) => void;
 }
@@ -26,12 +26,12 @@ const SopmodamVoteSection = ({
   questions,
   status,
   selectedQuestionId,
-  isSubmitting,
+  isBusy,
   onSelect,
   onSubmit,
 }: SopmodamVoteSectionProps) => {
   const id = useId();
-  const isLocked = status.type !== 'available' || isSubmitting;
+  const isLocked = status.type !== 'available' || isBusy;
   const checkedQuestionId = status.type === 'voted' ? status.questionId : selectedQuestionId;
   const hasSelection = questions.some((question) => question.questionId === checkedQuestionId);
   const canSubmit = !isLocked && hasSelection;
@@ -39,7 +39,7 @@ const SopmodamVoteSection = ({
 
   return (
     <Container
-      aria-busy={isSubmitting}
+      aria-busy={isBusy}
       onSubmit={(event) => {
         event.preventDefault();
         if (canSubmit && selectedQuestionId !== null) {
