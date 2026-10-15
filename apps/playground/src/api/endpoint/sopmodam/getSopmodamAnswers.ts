@@ -3,7 +3,6 @@ import { isAxiosError } from 'axios';
 import z from 'zod';
 
 import { createEndpoint } from '@/api/typedAxios';
-import { SOPMODAM_ANSWERS_MOCK } from '@/components/sopmodam/answer/mock';
 
 const sopmodamAnswerSchema = z.object({
   answerId: z.number(),
@@ -43,11 +42,7 @@ const MAX_RETRY_COUNT = 1;
 export const useGetSopmodamAnswers = (roundId: number) => {
   return useQuery({
     queryKey: getSopmodamAnswersEndpoint.cacheKey(roundId),
-    // TODO: API 연동 시 getSopmodamAnswersEndpoint.request(roundId)로 교체
-    queryFn: async () => {
-      await new Promise((r) => setTimeout(r, 2000));
-      return SOPMODAM_ANSWERS_MOCK;
-    },
+    queryFn: () => getSopmodamAnswersEndpoint.request(roundId),
     retry: (failureCount, error) => !isSopmodamAnswersUnavailableError(error) && failureCount < MAX_RETRY_COUNT,
   });
 };
