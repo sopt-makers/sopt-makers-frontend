@@ -7,10 +7,9 @@ import { usePostSopmodamVoteMutation } from '@/api/endpoint/sopmodam/postSopmoda
 interface UseSubmitSopmodamVoteOptions {
   roundId: number;
   data: Pick<SopmodamQuestionsResponse, 'dDay' | 'canVote' | 'hasVoted' | 'questions'> | null;
-  isFetching: boolean;
 }
 
-export const useSubmitSopmodamVote = ({ roundId, data, isFetching }: UseSubmitSopmodamVoteOptions) => {
+export const useSubmitSopmodamVote = ({ roundId, data }: UseSubmitSopmodamVoteOptions) => {
   const { mutateAsync, isPending: isSubmitting, error, variables } = usePostSopmodamVoteMutation();
   // isPending이 다음 렌더링에 반영되기 전 연속 호출도 즉시 차단합니다.
   const submittingRef = useRef(false);
@@ -21,7 +20,7 @@ export const useSubmitSopmodamVote = ({ roundId, data, isFetching }: UseSubmitSo
     }
 
     const isValidQuestion = data.questions.some((question) => question.questionId === questionId);
-    const canSubmit = data.dDay !== null && data.canVote && !data.hasVoted && isValidQuestion && !isFetching;
+    const canSubmit = data.dDay !== null && data.canVote && !data.hasVoted && isValidQuestion;
     if (!canSubmit || isSubmitting || submittingRef.current) {
       return;
     }

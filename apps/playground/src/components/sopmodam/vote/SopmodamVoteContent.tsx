@@ -20,12 +20,11 @@ interface SopmodamVoteContentProps {
 }
 
 const SopmodamVoteContent = ({ roundId, header, closedHeader }: SopmodamVoteContentProps) => {
-  const { data: result, isFetching, isError, error } = useGetSopmodamQuestionsSuspenseQuery(roundId);
+  const { data: result, isError, error } = useGetSopmodamQuestionsSuspenseQuery(roundId);
   const [selectedQuestionId, setSelectedQuestionId] = useState<number | null>(null);
   const { submitVote, isSubmitting, isVoteConflictUnresolved } = useSubmitSopmodamVote({
     roundId,
     data: result.type === 'success' ? result.data : null,
-    isFetching,
   });
 
   if (result.type === 'error') {
@@ -40,7 +39,6 @@ const SopmodamVoteContent = ({ roundId, header, closedHeader }: SopmodamVoteCont
   const { data } = result;
   const voteStatus = getVoteStatus(data);
   const isVoteClosed = data.dDay === null;
-  const isBusy = isSubmitting || isFetching;
 
   if (isVoteClosed) {
     return (
@@ -82,7 +80,7 @@ const SopmodamVoteContent = ({ roundId, header, closedHeader }: SopmodamVoteCont
           questions={data.questions}
           status={voteStatus}
           selectedQuestionId={selectedQuestionId}
-          isBusy={isBusy}
+          isSubmitting={isSubmitting}
           onSelect={setSelectedQuestionId}
           onSubmit={(questionId) => void submitVote(questionId)}
         />
