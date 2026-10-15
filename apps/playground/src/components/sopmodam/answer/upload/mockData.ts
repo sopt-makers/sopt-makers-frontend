@@ -1,4 +1,4 @@
-import type { SopmodamAnswer, SopmodamMyAnswerResponse } from '@/components/sopmodam/answer/types';
+import type { SopmodamAnswer, SopmodamMyAnswerResponse } from '@/components/sopmodam/answer/upload/types';
 
 // UI 구현 단계의 디자인 예시. API 연동 시 질문과 내 답변 조회 결과로 교체합니다.
 export const sopmodamAnswerMockData: SopmodamMyAnswerResponse = {

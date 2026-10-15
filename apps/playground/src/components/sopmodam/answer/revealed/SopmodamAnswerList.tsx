@@ -1,6 +1,6 @@
 import type { SopmodamAnswer } from '@/api/endpoint/sopmodam/getSopmodamAnswers';
-import SopmodamAnswerCard from '@/components/sopmodam/answer/SopmodamAnswerCard';
-import SopmodamAnswerCardSkeleton from '@/components/sopmodam/answer/SopmodamAnswerCardSkeleton';
+import SopmodamAnswerCard from '@/components/sopmodam/answer/revealed/SopmodamAnswerCard';
+import SopmodamAnswerCardSkeleton from '@/components/sopmodam/answer/revealed/SopmodamAnswerCardSkeleton';
 
 const SKELETON_COUNT = 3;
 

@@ -4,9 +4,9 @@ import ErrorPage from 'next/error';
 
 import { isSopmodamAnswersUnavailableError, useGetSopmodamAnswers } from '@/api/endpoint/sopmodam/getSopmodamAnswers';
 import Responsive from '@/components/common/Responsive';
-import SopmodamAnswerIntro from '@/components/sopmodam/answer/SopmodamAnswerIntro2';
-import SopmodamAnswerList from '@/components/sopmodam/answer/SopmodamAnswerList';
-import SopmodamNotifyCard from '@/components/sopmodam/answer/SopmodamNotifyCard';
+import SopmodamAnswerIntro from '@/components/sopmodam/answer/revealed/SopmodamAnswerIntro';
+import SopmodamAnswerList from '@/components/sopmodam/answer/revealed/SopmodamAnswerList';
+import SopmodamNotifyCard from '@/components/sopmodam/answer/revealed/SopmodamNotifyCard';
 import SopmodamHeader from '@/components/sopmodam/common/SopmodamHeader';
 import { useSopmodamBack } from '@/components/sopmodam/common/useSopmodamBack';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';

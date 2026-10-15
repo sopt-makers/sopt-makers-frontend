@@ -4,11 +4,11 @@ import { colors, radius, spacing, typography } from '@sopt-mds/design-tokens';
 import { ActionButton } from '@sopt-mds/ui';
 import { useId, useState } from 'react';
 
-import SopmodamAnswerNotice from '@/components/sopmodam/answer/SopmodamAnswerNotice';
-import type { SopmodamAnswerStatus } from '@/components/sopmodam/answer/types';
+import SopmodamUploadNotice from '@/components/sopmodam/answer/upload/SopmodamUploadNotice';
+import type { SopmodamAnswerStatus } from '@/components/sopmodam/answer/upload/types';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
-interface SopmodamAnswerFormProps {
+interface SopmodamUploadFormProps {
   status: Extract<SopmodamAnswerStatus, { type: 'available' | 'unavailable' | 'editable' }>;
   releaseDate: string;
   isSubmitting: boolean;
@@ -18,7 +18,7 @@ interface SopmodamAnswerFormProps {
 const MAX_ANSWER_LENGTH = 500;
 const ANSWER_LENGTH_ERROR_MESSAGE = `${MAX_ANSWER_LENGTH}자 이내로 입력해주세요.`;
 
-const SopmodamAnswerForm = ({ status, releaseDate, isSubmitting, onSubmit }: SopmodamAnswerFormProps) => {
+const SopmodamUploadForm = ({ status, releaseDate, isSubmitting, onSubmit }: SopmodamUploadFormProps) => {
   const id = useId();
   const isEditing = status.type === 'editable';
   const initialContent = isEditing ? status.answer.content : '';
@@ -70,14 +70,14 @@ const SopmodamAnswerForm = ({ status, releaseDate, isSubmitting, onSubmit }: Sop
           {isEditing ? '수정 완료' : '내 경험 담기'}
         </SubmitButton>
         <Notice>
-          <SopmodamAnswerNotice releaseDate={releaseDate} />
+          <SopmodamUploadNotice releaseDate={releaseDate} />
         </Notice>
       </Fields>
     </form>
   );
 };
 
-export default SopmodamAnswerForm;
+export default SopmodamUploadForm;
 
 const Fields = styled.fieldset`
   display: grid;

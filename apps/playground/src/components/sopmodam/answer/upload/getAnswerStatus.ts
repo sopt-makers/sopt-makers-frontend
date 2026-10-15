@@ -1,4 +1,4 @@
-import type { SopmodamAnswerStatus, SopmodamMyAnswerResponse } from '@/components/sopmodam/answer/types';
+import type { SopmodamAnswerStatus, SopmodamMyAnswerResponse } from '@/components/sopmodam/answer/upload/types';
 
 type AnswerStatusInput = Pick<SopmodamMyAnswerResponse, 'answer' | 'canEdit'>;
 

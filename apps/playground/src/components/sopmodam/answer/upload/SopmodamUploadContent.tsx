@@ -4,8 +4,8 @@ import { colors, radius, spacing, typography } from '@sopt-mds/design-tokens';
 import { IconReply } from '@sopt-mds/icons';
 import { ActionButton } from '@sopt-mds/ui';
 
-import SopmodamAnswerNotice from '@/components/sopmodam/answer/SopmodamAnswerNotice';
-import type { SopmodamAnswerStatus } from '@/components/sopmodam/answer/types';
+import SopmodamUploadNotice from '@/components/sopmodam/answer/upload/SopmodamUploadNotice';
+import type { SopmodamAnswerStatus } from '@/components/sopmodam/answer/upload/types';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 type SopmodamAnswerContentProps = {
@@ -15,7 +15,7 @@ type SopmodamAnswerContentProps = {
   | { status: Extract<SopmodamAnswerStatus, { type: 'readonly' }>; onEdit?: never }
 );
 
-const SopmodamAnswerContent = ({ status, releaseDate, onEdit }: SopmodamAnswerContentProps) => {
+const SopmodamUploadContent = ({ status, releaseDate, onEdit }: SopmodamAnswerContentProps) => {
   const isEditable = status.type === 'editable';
 
   return (
@@ -30,13 +30,13 @@ const SopmodamAnswerContent = ({ status, releaseDate, onEdit }: SopmodamAnswerCo
         </EditButton>
       )}
       <Notice>
-        <SopmodamAnswerNotice releaseDate={releaseDate} />
+        <SopmodamUploadNotice releaseDate={releaseDate} />
       </Notice>
     </Container>
   );
 };
 
-export default SopmodamAnswerContent;
+export default SopmodamUploadContent;
 
 const Container = styled.section<{ isEditable: boolean }>`
   display: grid;

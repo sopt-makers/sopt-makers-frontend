@@ -7,15 +7,15 @@ import ErrorPage from 'next/error';
 import { useRef, useState } from 'react';
 
 import Responsive from '@/components/common/Responsive';
-import { getAnswerStatus } from '@/components/sopmodam/answer/getAnswerStatus';
+import { getAnswerStatus } from '@/components/sopmodam/answer/upload/getAnswerStatus';
 import {
   saveSopmodamAnswerMock,
   sopmodamAnswerMockData,
   sopmodamAnswerReleaseDateMock,
-} from '@/components/sopmodam/answer/mockData';
-import SopmodamAnswerContent from '@/components/sopmodam/answer/SopmodamAnswerContent';
-import SopmodamAnswerForm from '@/components/sopmodam/answer/SopmodamAnswerForm';
-import SopmodamAnswerIntro from '@/components/sopmodam/answer/SopmodamAnswerIntro';
+} from '@/components/sopmodam/answer/upload/mockData';
+import SopmodamUploadContent from '@/components/sopmodam/answer/upload/SopmodamUploadContent';
+import SopmodamUploadForm from '@/components/sopmodam/answer/upload/SopmodamUploadForm';
+import SopmodamUploadIntro from '@/components/sopmodam/answer/upload/SopmodamUploadIntro';
 import SopmodamHeader from '@/components/sopmodam/common/SopmodamHeader';
 import { useSopmodamBack } from '@/components/sopmodam/common/useSopmodamBack';
 import useStringRouterQuery from '@/hooks/useStringRouterQuery';
@@ -92,17 +92,17 @@ const SopmodamAnswerUploadPage = () => {
         <SopmodamHeader onBack={handleBack} />
       </Responsive>
       <Content>
-        <SopmodamAnswerIntro questionContent={data.question.content} />
+        <SopmodamUploadIntro questionContent={data.question.content} />
         {answerStatus.type === 'readonly' ? (
-          <SopmodamAnswerContent status={answerStatus} releaseDate={sopmodamAnswerReleaseDateMock} />
+          <SopmodamUploadContent status={answerStatus} releaseDate={sopmodamAnswerReleaseDateMock} />
         ) : answerStatus.type === 'editable' && !isEditing ? (
-          <SopmodamAnswerContent
+          <SopmodamUploadContent
             status={answerStatus}
             releaseDate={sopmodamAnswerReleaseDateMock}
             onEdit={() => setIsEditing(true)}
           />
         ) : (
-          <SopmodamAnswerForm
+          <SopmodamUploadForm
             status={answerStatus}
             releaseDate={sopmodamAnswerReleaseDateMock}
             isSubmitting={isSubmitting}

@@ -1,7 +1,7 @@
 import { parseRoundId } from '@shared/parseRoundId';
 import ErrorPage from 'next/error';
 
-import SopmodamAnswerDetail from '@/components/sopmodam/answer/SopmodamAnswerDetail';
+import SopmodamAnswerDetail from '@/components/sopmodam/answer/revealed/SopmodamAnswerDetail';
 import useStringRouterQuery from '@/hooks/useStringRouterQuery';
 import { setLayout } from '@/utils/layout';
 
