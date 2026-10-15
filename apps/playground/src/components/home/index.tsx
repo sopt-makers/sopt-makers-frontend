@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
+import { usePrefetchQuery } from '@tanstack/react-query';
 
-import { usePrefetchSopmodamCurrent } from '@/api/endpoint/sopmodam/getSopmodamCurrent';
+import { sopmodamCurrentQueryOptions } from '@/api/endpoint/sopmodam/getSopmodamCurrent';
 import { DESKTOP_ONE_MEDIA_QUERY, DESKTOP_TWO_MEDIA_QUERY, MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 import WordChainEntry from '../wordchain/WordchainEntry/WordChainEntry';
@@ -12,7 +13,8 @@ import MemberPreview from './MembersPreview';
 import ProjectPreview from './ProjectPreview';
 
 const HomePage = () => {
-  usePrefetchSopmodamCurrent();
+  // 커뮤니티 진입 시 배너로 인한 레이아웃 밀림을 줄이기 위해 미리 캐싱
+  usePrefetchQuery(sopmodamCurrentQueryOptions);
 
   return (
     <StyledContainer>

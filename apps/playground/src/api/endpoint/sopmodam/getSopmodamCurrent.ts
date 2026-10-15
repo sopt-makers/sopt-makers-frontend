@@ -1,4 +1,4 @@
-import { usePrefetchQuery, useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import z from 'zod';
 
 import { createEndpoint } from '@/api/typedAxios';
@@ -33,7 +33,7 @@ const getSopmodamCurrentEndpoint = createEndpoint({
   serverResponseScheme: z.preprocess((data) => data || null, sopmodamCurrentSchema.nullable()),
 });
 
-const sopmodamCurrentQueryOptions = {
+export const sopmodamCurrentQueryOptions = {
   queryKey: getSopmodamCurrentEndpoint.cacheKey(),
   queryFn: () => getSopmodamCurrentEndpoint.request(),
   gcTime: 1000 * 60 * 30,
@@ -41,11 +41,6 @@ const sopmodamCurrentQueryOptions = {
 
 export const useGetSopmodamCurrent = () => {
   return useQuery(sopmodamCurrentQueryOptions);
-};
-
-// 커뮤니티 진입 시 배너로 인한 레이아웃 밀림을 줄이기 위해 미리 캐싱
-export const usePrefetchSopmodamCurrent = () => {
-  usePrefetchQuery(sopmodamCurrentQueryOptions);
 };
 
 export type SopmodamCurrent = z.infer<typeof sopmodamCurrentSchema>;
