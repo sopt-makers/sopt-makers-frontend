@@ -9,7 +9,7 @@ import { Suspense, useEffect, useRef } from 'react';
 import type { SopmodamMyAnswerQueryResult } from '@/api/endpoint/sopmodam/getSopmodamMyAnswer';
 import { getSopmodamMyAnswer } from '@/api/endpoint/sopmodam/getSopmodamMyAnswer';
 import Loading from '@/components/common/Loading';
-import SopmodamAnswerUploadContent from '@/components/sopmodam/answer/SopmodamAnswerUploadContent';
+import SopmodamAnswerUploadContent from '@/components/sopmodam/answer/upload/SopmodamAnswerUploadContent';
 import SopmodamLayout from '@/components/sopmodam/common/SopmodamLayout';
 import useStringRouterQuery from '@/hooks/useStringRouterQuery';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';

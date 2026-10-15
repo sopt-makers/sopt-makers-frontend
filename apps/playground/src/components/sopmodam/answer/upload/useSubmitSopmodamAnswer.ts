@@ -4,7 +4,7 @@ import { useRef } from 'react';
 import type { SopmodamMyAnswerResponse } from '@/api/endpoint/sopmodam/answerSchemas';
 import { SopmodamAnswerContentSchema } from '@/api/endpoint/sopmodam/answerSchemas';
 import { useSaveSopmodamAnswerMutation } from '@/api/endpoint/sopmodam/useSaveSopmodamAnswerMutation';
-import type { SopmodamAnswerFormState } from '@/components/sopmodam/answer/types';
+import type { SopmodamAnswerFormState } from '@/components/sopmodam/answer/upload/types';
 
 interface UseSubmitSopmodamAnswerOptions {
   roundId: number;

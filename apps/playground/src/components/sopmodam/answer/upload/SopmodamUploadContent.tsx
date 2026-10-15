@@ -4,16 +4,16 @@ import { colors, radius, spacing, typography } from '@sopt-mds/design-tokens';
 import { IconReply } from '@sopt-mds/icons';
 import { ActionButton } from '@sopt-mds/ui';
 
-import SopmodamAnswerNotice from '@/components/sopmodam/answer/SopmodamAnswerNotice';
+import SopmodamUploadNotice from '@/components/sopmodam/answer/upload/SopmodamUploadNotice';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
-interface SopmodamAnswerContentProps {
+interface SopmodamUploadContentProps {
   content: string;
   releaseDate: string;
   onEdit?: () => void;
 }
 
-const SopmodamAnswerContent = ({ content, releaseDate, onEdit }: SopmodamAnswerContentProps) => {
+const SopmodamUploadContent = ({ content, releaseDate, onEdit }: SopmodamUploadContentProps) => {
   const isEditable = onEdit !== undefined;
 
   return (
@@ -28,13 +28,13 @@ const SopmodamAnswerContent = ({ content, releaseDate, onEdit }: SopmodamAnswerC
         </EditButton>
       )}
       <Notice>
-        <SopmodamAnswerNotice releaseDate={releaseDate} />
+        <SopmodamUploadNotice releaseDate={releaseDate} />
       </Notice>
     </Container>
   );
 };
 
-export default SopmodamAnswerContent;
+export default SopmodamUploadContent;
 
 const Container = styled.section<{ isEditable: boolean }>`
   display: grid;

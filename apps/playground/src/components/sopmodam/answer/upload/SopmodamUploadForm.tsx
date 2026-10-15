@@ -5,11 +5,11 @@ import { ActionButton } from '@sopt-mds/ui';
 import { useId } from 'react';
 
 import { MAX_SOPMODAM_ANSWER_LENGTH, SopmodamAnswerContentSchema } from '@/api/endpoint/sopmodam/answerSchemas';
-import SopmodamAnswerNotice from '@/components/sopmodam/answer/SopmodamAnswerNotice';
-import type { SopmodamAnswerFormState } from '@/components/sopmodam/answer/types';
+import SopmodamUploadNotice from '@/components/sopmodam/answer/upload/SopmodamUploadNotice';
+import type { SopmodamAnswerFormState } from '@/components/sopmodam/answer/upload/types';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
-interface SopmodamAnswerFormProps {
+interface SopmodamUploadFormProps {
   form: SopmodamAnswerFormState;
   canEdit: boolean;
   releaseDate: string;
@@ -20,14 +20,14 @@ interface SopmodamAnswerFormProps {
 
 const ANSWER_LENGTH_ERROR_MESSAGE = `${MAX_SOPMODAM_ANSWER_LENGTH}자 이내로 입력해주세요.`;
 
-const SopmodamAnswerForm = ({
+const SopmodamUploadForm = ({
   form,
   canEdit,
   releaseDate,
   isSubmitting,
   onChange,
   onSubmit,
-}: SopmodamAnswerFormProps) => {
+}: SopmodamUploadFormProps) => {
   const id = useId();
   const { content } = form;
   const isEditing = form.type === 'update';
@@ -76,14 +76,14 @@ const SopmodamAnswerForm = ({
           {isEditing ? '수정 완료' : '내 경험 담기'}
         </SubmitButton>
         <Notice>
-          <SopmodamAnswerNotice releaseDate={releaseDate} />
+          <SopmodamUploadNotice releaseDate={releaseDate} />
         </Notice>
       </Fields>
     </form>
   );
 };
 
-export default SopmodamAnswerForm;
+export default SopmodamUploadForm;
 
 const Fields = styled.fieldset`
   display: grid;

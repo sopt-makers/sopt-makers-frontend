@@ -1,22 +1,20 @@
+import { useGetSopmodamCurrent } from '@/api/endpoint/sopmodam/getSopmodamCurrent';
 import { getBannerContent } from '@/components/sopmodam/banner/constants';
-import { SOPMODAM_BANNER_MOCK } from '@/components/sopmodam/banner/mock';
 import SopmodamBanner from '@/components/sopmodam/banner/SopmodamBanner';
 import { toBannerData } from '@/components/sopmodam/banner/utils';
 
 const SopmodamBannerContainer = () => {
-  // TODO: API 연동 시 교체
-  // - 204(노출할 카드 없음) 시 null로 변환 필요
-  const response = SOPMODAM_BANNER_MOCK;
+  const { data: sopmodamCurrent } = useGetSopmodamCurrent();
 
-  if (!response) return null;
+  if (!sopmodamCurrent) return null;
 
-  const data = toBannerData(response);
-  const content = getBannerContent(data);
+  const bannerData = toBannerData(sopmodamCurrent);
+  const content = getBannerContent(bannerData);
 
-  return data.cardType === 'VOTE' ? (
-    <SopmodamBanner variant='vote' eventName={data.eventName} content={content} />
+  return bannerData.cardType === 'VOTE' ? (
+    <SopmodamBanner variant='vote' eventName={bannerData.eventName} content={content} />
   ) : (
-    <SopmodamBanner variant='answer' question={data.selectedQuestion} content={content} />
+    <SopmodamBanner variant='answer' question={bannerData.selectedQuestion} content={content} />
   );
 };
 

@@ -7,11 +7,11 @@ import { useState } from 'react';
 
 import { getSopmodamAnswerEndTime } from '@/api/endpoint/sopmodam/answerSchemas';
 import { useGetSopmodamMyAnswerSuspenseQuery } from '@/api/endpoint/sopmodam/getSopmodamMyAnswer';
-import SopmodamAnswerContent from '@/components/sopmodam/answer/SopmodamAnswerContent';
-import SopmodamAnswerForm from '@/components/sopmodam/answer/SopmodamAnswerForm';
-import SopmodamAnswerIntro from '@/components/sopmodam/answer/SopmodamAnswerIntro';
-import type { SopmodamAnswerFormState } from '@/components/sopmodam/answer/types';
-import { useSubmitSopmodamAnswer } from '@/components/sopmodam/answer/useSubmitSopmodamAnswer';
+import SopmodamUploadContent from '@/components/sopmodam/answer/upload/SopmodamUploadContent';
+import SopmodamUploadForm from '@/components/sopmodam/answer/upload/SopmodamUploadForm';
+import SopmodamUploadIntro from '@/components/sopmodam/answer/upload/SopmodamUploadIntro';
+import type { SopmodamAnswerFormState } from '@/components/sopmodam/answer/upload/types';
+import { useSubmitSopmodamAnswer } from '@/components/sopmodam/answer/upload/useSubmitSopmodamAnswer';
 import SopmodamLayout from '@/components/sopmodam/common/SopmodamLayout';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
@@ -108,9 +108,9 @@ const SopmodamAnswerUploadContent = ({ roundId }: SopmodamAnswerUploadContentPro
   return (
     <SopmodamLayout>
       <Content>
-        <SopmodamAnswerIntro questionContent={data.question.content} />
+        <SopmodamUploadIntro questionContent={data.question.content} />
         {shouldShowForm && (
-          <SopmodamAnswerForm
+          <SopmodamUploadForm
             form={form}
             canEdit={data.canEdit && !isError && matchesAnswer}
             releaseDate={releaseDate}
@@ -120,7 +120,7 @@ const SopmodamAnswerUploadContent = ({ roundId }: SopmodamAnswerUploadContentPro
           />
         )}
         {!shouldShowForm && data.answer !== null && (
-          <SopmodamAnswerContent
+          <SopmodamUploadContent
             content={data.answer.content}
             releaseDate={releaseDate}
             onEdit={data.canEdit ? handleEdit : undefined}
