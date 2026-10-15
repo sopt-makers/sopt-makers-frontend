@@ -4,17 +4,17 @@ import SopmodamBanner from '@/components/sopmodam/banner/SopmodamBanner';
 import { toBannerData } from '@/components/sopmodam/banner/utils';
 
 const SopmodamBannerContainer = () => {
-  const { data: response } = useGetSopmodamCurrent();
+  const { data: sopmodamCurrent } = useGetSopmodamCurrent();
 
-  if (!response) return null;
+  if (!sopmodamCurrent) return null;
 
-  const data = toBannerData(response);
-  const content = getBannerContent(data);
+  const bannerData = toBannerData(sopmodamCurrent);
+  const content = getBannerContent(bannerData);
 
-  return data.cardType === 'VOTE' ? (
-    <SopmodamBanner variant='vote' eventName={data.eventName} content={content} />
+  return bannerData.cardType === 'VOTE' ? (
+    <SopmodamBanner variant='vote' eventName={bannerData.eventName} content={content} />
   ) : (
-    <SopmodamBanner variant='answer' question={data.selectedQuestion} content={content} />
+    <SopmodamBanner variant='answer' question={bannerData.selectedQuestion} content={content} />
   );
 };
 
