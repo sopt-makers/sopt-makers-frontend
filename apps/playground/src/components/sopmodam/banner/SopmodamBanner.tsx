@@ -4,6 +4,7 @@ import { IconChevronRight } from '@sopt-mds/icons';
 import { ActionButton, Tag } from '@sopt-mds/ui';
 import Link from 'next/link';
 
+import { LoggingClick } from '@/components/eventLogger/components/LoggingClick';
 import type { SopmodamBannerContent } from '@/components/sopmodam/banner/types';
 
 type SopmodamBannerProps = { content: SopmodamBannerContent } & (
@@ -40,11 +41,13 @@ const SopmodamBanner = (props: SopmodamBannerProps) => {
           <SDescription>{description}</SDescription>
         </STextGroup>
         {button && (
-          <SButtonLink href={button.href}>
-            <SActionButton size='medium' variant='primary' rightAddon={<IconChevronRight />}>
-              {button.label}
-            </SActionButton>
-          </SButtonLink>
+          <LoggingClick eventKey='sopmodamCard'>
+            <SButtonLink href={button.href}>
+              <SActionButton size='medium' variant='primary' rightAddon={<IconChevronRight />}>
+                {button.label}
+              </SActionButton>
+            </SButtonLink>
+          </LoggingClick>
         )}
       </SContent>
     </SContainer>
