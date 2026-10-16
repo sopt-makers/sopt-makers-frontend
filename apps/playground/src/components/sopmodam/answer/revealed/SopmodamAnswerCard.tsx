@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 
 import type { SopmodamAnswer } from '@/api/endpoint/sopmodam/getSopmodamAnswers';
+import { LoggingClick } from '@/components/eventLogger/components/LoggingClick';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 const COLLAPSED_LINE_COUNT = 5;
@@ -22,6 +23,8 @@ const SopmodamAnswerCard = ({ answer }: SopmodamAnswerCardProps) => {
   const contentRef = useRef<HTMLParagraphElement>(null);
   const [isExpanded, setIsExpanded] = useState(false);
   const [isTruncated, setIsTruncated] = useState(false);
+
+  const loggingParam = { id: writer.memberId, name: writer.name };
 
   useEffect(
     function detectContentTruncation() {
@@ -61,13 +64,15 @@ const SopmodamAnswerCard = ({ answer }: SopmodamAnswerCardProps) => {
             </SToggleButton>
           )}
         </SContentWrapper>
-        <ReactionButton
-          size='medium'
-          rightAddon={<IconChevronRight />}
-          onClick={() => router.push(`${playgroundLink.memberDetail(writer.memberId)}?tab=ask`)}
-        >
-          에스크로 더 물어보기
-        </ReactionButton>
+        <LoggingClick eventKey='sopmodamAskButton' param={{ ...loggingParam }}>
+          <ReactionButton
+            size='medium'
+            rightAddon={<IconChevronRight />}
+            onClick={() => router.push(`${playgroundLink.memberDetail(writer.memberId)}?tab=ask`)}
+          >
+            에스크로 더 물어보기
+          </ReactionButton>
+        </LoggingClick>
       </SBody>
     </SContainer>
   );
