@@ -1,6 +1,7 @@
 import { parseRoundId } from '@shared/parseRoundId';
 import ErrorPage from 'next/error';
 
+import { LoggingPageView } from '@/components/eventLogger/components/LoggingPageView';
 import SopmodamAnswerDetail from '@/components/sopmodam/answer/revealed/SopmodamAnswerDetail';
 import useStringRouterQuery from '@/hooks/useStringRouterQuery';
 import { setLayout } from '@/utils/layout';
@@ -18,7 +19,11 @@ const SopmodamAnswerRevealedPage = () => {
     return <ErrorPage statusCode={404} />;
   }
 
-  return <SopmodamAnswerDetail roundId={roundId} />;
+  return (
+    <LoggingPageView eventKey='sopmodamResultPage'>
+      <SopmodamAnswerDetail roundId={roundId} />
+    </LoggingPageView>
+  );
 };
 
 export default SopmodamAnswerRevealedPage;
