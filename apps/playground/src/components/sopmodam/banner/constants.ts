@@ -18,7 +18,7 @@ const BANNER_CONTENT: { [T in SopmodamCardType]: (_data: SopmodamBannerDataOf<T>
   ANSWER_COLLECTING: ({ roundId, dDay }) => ({
     tag: `답변 모집 중 · ${formatDDay(dDay)}`,
     description: '먼저 경험한 OB라면, 나의 이야기를 담아 주세요.',
-    button: { label: '내 경험 담기', href: playgroundLink.sopmodamUpload(roundId) },
+    button: { label: '내 경험 담기', href: playgroundLink.sopmodamUpload(roundId), eventKey: 'sopmodamWriteButton' },
   }),
   REVEALED: ({ roundId, answerCount }) => ({
     tag: `답변 공개 · ${answerCount}명 참여`,

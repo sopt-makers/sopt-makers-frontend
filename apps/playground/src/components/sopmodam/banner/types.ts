@@ -1,3 +1,5 @@
+import type { ClickEvents } from '@/components/eventLogger/events';
+
 export type SopmodamPhase = 'VOTING' | 'ANSWERING' | 'REVEALED';
 
 export type SopmodamBannerData =
@@ -33,5 +35,5 @@ export type SopmodamBannerDataOf<T extends SopmodamCardType> = { cardType: T } &
 export interface SopmodamBannerContent {
   tag: string;
   description: string;
-  button?: { label: string; href: string };
+  button?: { label: string; href: string; eventKey?: keyof ClickEvents };
 }
