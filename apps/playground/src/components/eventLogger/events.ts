@@ -282,6 +282,11 @@ export interface ClickEvents {
     name: string;
   };
 
+  // ==== 솝모담 ====
+  sopmodamCard: undefined;
+  sopmodamVote: undefined;
+  sopmodamSubscribeButton: undefined;
+
   // ==== 기획경선 특집 ====
   balancegame: undefined;
   newmember: undefined;
@@ -431,6 +436,9 @@ export interface ImpressionEvents {
       | 'SAME_PROJECT';
     screen: 'memberTab' | 'profile' | 'home';
   };
+
+  // ==== 솝모담 ====
+  sopmodamCard: undefined;
 
   // ==== 기획경선 특집 ====
   balancegame: undefined;
