@@ -2,6 +2,7 @@ import { useGetMemberOfMe } from '@/api/endpoint/members/getMemberOfMe';
 import Skeleton from '@/components/common/Skeleton';
 import { LATEST_GENERATION } from '@/constants/generation';
 
+import AdsBanner from './AdsBanner';
 import { ReadTimeCapsopBanner } from './ReadTimeCapsopBanner';
 import RecruitingBanner from './RecruitingBanner';
 import WelcomeBanner from './WelcomeBanner';
@@ -16,7 +17,7 @@ import WriteTimeCapsopBanner from './WriteTimeCapsopBanner';
  * - RECRUITING: 메이커스 리크루팅 기간
  *
  * [기본]
- * - NONE: 진행 중인 이벤트 없음
+ * - NONE: 진행 중인 이벤트 없음 (어드민에 등록된 광고 배너가 있으면 광고, 없으면 웰컴 배너)
  *
  * 일회성 이벤트 배너 추가 시 여기에 값을 추가하고 switch에 case를 작성하세요.
  * (예시: BALANCE_GAME: 'balanceGame')
@@ -42,7 +43,7 @@ const renderBanner = (phase: BannerPhaseType, isLatestGeneration: boolean) => {
     case BANNER_PHASE.RECRUITING:
       return <RecruitingBanner />;
     case BANNER_PHASE.NONE:
-      return <WelcomeBanner />;
+      return <AdsBanner />;
     default: {
       phase satisfies never;
       return null;
