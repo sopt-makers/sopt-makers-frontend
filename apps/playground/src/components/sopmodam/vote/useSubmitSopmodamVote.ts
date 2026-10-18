@@ -14,22 +14,23 @@ export const useSubmitSopmodamVote = ({ roundId, data }: UseSubmitSopmodamVoteOp
   // isPending이 다음 렌더링에 반영되기 전 연속 호출도 즉시 차단합니다.
   const submittingRef = useRef(false);
 
-  const submitVote = async (questionId: number): Promise<void> => {
+  const submitVote = async (questionId: number): Promise<boolean> => {
     if (data === null) {
-      return;
+      return false;
     }
 
     const isValidQuestion = data.questions.some((question) => question.questionId === questionId);
     const canSubmit = data.dDay !== null && data.canVote && !data.hasVoted && isValidQuestion;
     if (!canSubmit || isSubmitting || submittingRef.current) {
-      return;
+      return false;
     }
 
     submittingRef.current = true;
     try {
       await mutateAsync({ roundId, questionId });
+      return true;
     } catch {
-      // 실패 복구는 mutation의 onError에서 처리합니다.
+      return false;
     } finally {
       submittingRef.current = false;
     }

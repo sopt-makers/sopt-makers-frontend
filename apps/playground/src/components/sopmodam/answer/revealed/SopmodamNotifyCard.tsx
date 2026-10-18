@@ -3,6 +3,7 @@ import { colors, radius, spacing, typography } from '@sopt-mds/design-tokens';
 import { ActionButton } from '@sopt-mds/ui';
 
 import Responsive from '@/components/common/Responsive';
+import { LoggingClick } from '@/components/eventLogger/components/LoggingClick';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 
 const SopmodamNotifyCard = () => {
@@ -13,14 +14,18 @@ const SopmodamNotifyCard = () => {
         <SDescription>새 솝모담 질문이 열리면 알려드릴게요.</SDescription>
       </STextGroup>
       <Responsive only='desktop'>
-        <ActionButton size='large' variant='primary'>
-          다음 솝모담 소식 받기
-        </ActionButton>
+        <LoggingClick eventKey='sopmodamSubscribeButton'>
+          <ActionButton size='large' variant='primary'>
+            다음 솝모담 소식 받기
+          </ActionButton>
+        </LoggingClick>
       </Responsive>
       <Responsive only='mobile'>
-        <SActionButton size='small' variant='primary'>
-          다음 솝모담 소식 받기
-        </SActionButton>
+        <LoggingClick eventKey='sopmodamSubscribeButton'>
+          <SActionButton size='small' variant='primary'>
+            다음 솝모담 소식 받기
+          </SActionButton>
+        </LoggingClick>
       </Responsive>
     </SContainer>
   );

@@ -5,6 +5,7 @@ import ErrorPage from 'next/error';
 import { useState } from 'react';
 
 import { useGetSopmodamQuestionsSuspenseQuery } from '@/api/endpoint/sopmodam/getSopmodamQuestions';
+import useEventLogger from '@/components/eventLogger/hooks/useEventLogger';
 import SopmodamLayout from '@/components/sopmodam/common/SopmodamLayout';
 import { getVoteStatus } from '@/components/sopmodam/vote/getVoteStatus';
 import SopmodamVoteClosed from '@/components/sopmodam/vote/SopmodamVoteClosed';
@@ -18,12 +19,21 @@ interface SopmodamVoteContentProps {
 }
 
 const SopmodamVoteContent = ({ roundId }: SopmodamVoteContentProps) => {
+  const { logClickEvent } = useEventLogger();
   const { data: result, isError, error } = useGetSopmodamQuestionsSuspenseQuery(roundId);
   const [selectedQuestionId, setSelectedQuestionId] = useState<number | null>(null);
   const { submitVote, isSubmitting, isVoteConflictUnresolved } = useSubmitSopmodamVote({
     roundId,
     data: result.type === 'success' ? result.data : null,
   });
+
+  const handleSubmit = async (questionId: number) => {
+    const succeeded = await submitVote(questionId);
+
+    if (succeeded) {
+      logClickEvent('sopmodamVote');
+    }
+  };
 
   if (result.type === 'error') {
     return (
@@ -75,7 +85,7 @@ const SopmodamVoteContent = ({ roundId }: SopmodamVoteContentProps) => {
           selectedQuestionId={selectedQuestionId}
           isSubmitting={isSubmitting}
           onSelect={setSelectedQuestionId}
-          onSubmit={(questionId) => void submitVote(questionId)}
+          onSubmit={(questionId) => void handleSubmit(questionId)}
         />
       </Content>
     </SopmodamLayout>
