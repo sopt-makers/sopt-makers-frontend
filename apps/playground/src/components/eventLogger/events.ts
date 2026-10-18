@@ -179,6 +179,15 @@ export interface ClickEvents {
   // 투표
   vote: Vote;
   voteResult: Vote;
+  // 솝모담
+  sopmodamWriteButton: {
+    id: string;
+    name: string;
+  };
+  sopmodamAskButton: {
+    id: number;
+    name: string;
+  };
 
   // ==== 커피솝 ====
   coffeechatCard: {
@@ -337,6 +346,8 @@ export interface SubmitEvents {
     category: string;
     mention: boolean;
   };
+  // 솝모담
+  submitSopmodamAnswer: undefined;
 
   // ==== 커피솝 ====
   searchCoffeeChat: {
@@ -391,6 +402,10 @@ export interface PageViewEvents {
 
   // ==== 끝말잇기 ====
   wordchain: undefined;
+
+  // ==== 피드 ====
+  // 솝모담
+  sopmodamResultPage: undefined;
 }
 
 export interface ImpressionEvents {

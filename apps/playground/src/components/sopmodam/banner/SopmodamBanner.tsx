@@ -5,6 +5,7 @@ import { ActionButton, Tag } from '@sopt-mds/ui';
 import Link from 'next/link';
 
 import { LoggingClick } from '@/components/eventLogger/components/LoggingClick';
+import useEventLogger from '@/components/eventLogger/hooks/useEventLogger';
 import type { SopmodamBannerContent } from '@/components/sopmodam/banner/types';
 
 type SopmodamBannerProps = { content: SopmodamBannerContent } & (
@@ -14,6 +15,7 @@ type SopmodamBannerProps = { content: SopmodamBannerContent } & (
 
 const SopmodamBanner = (props: SopmodamBannerProps) => {
   const { tag, description, button } = props.content;
+  const { logClickEvent } = useEventLogger();
 
   return (
     <SContainer variant={props.variant}>
@@ -43,7 +45,12 @@ const SopmodamBanner = (props: SopmodamBannerProps) => {
         {button && (
           <LoggingClick eventKey='sopmodamCard'>
             <SButtonLink href={button.href}>
-              <SActionButton size='medium' variant='primary' rightAddon={<IconChevronRight />}>
+              <SActionButton
+                size='medium'
+                variant='primary'
+                rightAddon={<IconChevronRight />}
+                onClick={() => button.eventKey && logClickEvent(button.eventKey)}
+              >
                 {button.label}
               </SActionButton>
             </SButtonLink>

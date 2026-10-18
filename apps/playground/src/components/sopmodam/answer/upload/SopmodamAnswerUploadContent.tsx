@@ -7,6 +7,7 @@ import { useState } from 'react';
 
 import { getSopmodamAnswerEndTime } from '@/api/endpoint/sopmodam/answerSchemas';
 import { useGetSopmodamMyAnswerSuspenseQuery } from '@/api/endpoint/sopmodam/getSopmodamMyAnswer';
+import useEventLogger from '@/components/eventLogger/hooks/useEventLogger';
 import SopmodamUploadContent from '@/components/sopmodam/answer/upload/SopmodamUploadContent';
 import SopmodamUploadForm from '@/components/sopmodam/answer/upload/SopmodamUploadForm';
 import SopmodamUploadIntro from '@/components/sopmodam/answer/upload/SopmodamUploadIntro';
@@ -21,6 +22,7 @@ interface SopmodamAnswerUploadContentProps {
 
 const SopmodamAnswerUploadContent = ({ roundId }: SopmodamAnswerUploadContentProps) => {
   const { open: openToast } = useToast();
+  const { logSubmitEvent } = useEventLogger();
   const { data: result, isError } = useGetSopmodamMyAnswerSuspenseQuery(roundId);
   const [isFormOpen, setIsFormOpen] = useState(false);
   // 오류 화면으로 전환돼도 제출 전 입력값과 수정 기준은 유지합니다.
@@ -35,6 +37,9 @@ const SopmodamAnswerUploadContent = ({ roundId }: SopmodamAnswerUploadContentPro
     const isSaved = await submitAnswer(form);
     if (!isSaved) {
       return;
+    }
+    if (form.type === 'create') {
+      logSubmitEvent('submitSopmodamAnswer');
     }
     setIsFormOpen(false);
     setForm({ type: 'create', content: '' });
