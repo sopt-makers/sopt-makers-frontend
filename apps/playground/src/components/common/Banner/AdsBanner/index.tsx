@@ -11,7 +11,7 @@ import Slider from 'react-slick';
 import { useBannersImages } from '@/api/endpoint/homeBanner/getBannersImages';
 import { useGetMemberOfMe } from '@/api/endpoint/members/getMemberOfMe';
 import AdsBox from '@/components/common/Banner/AdsBanner/AdsBox';
-import { ADS } from '@/components/common/Banner/AdsBanner/constants/ads';
+import WelcomeBanner from '@/components/common/Banner/WelcomeBanner';
 import Skeleton from '@/components/common/Skeleton';
 import { LoggingClick } from '@/components/eventLogger/components/LoggingClick';
 import { LoggingImpression } from '@/components/eventLogger/components/LoggingImpression';
@@ -28,7 +28,10 @@ const AdsBanner: React.FC = () => {
   };
 
   const { data: bannersData, isLoading } = useBannersImages();
-  const banners = bannersData?.data && bannersData.data.length > 0 ? bannersData.data : ADS;
+  const banners = bannersData?.data ?? [];
+
+  if (isLoading) return <Skeleton height={168} margin='0 0 16px 0' />;
+  if (banners.length === 0) return <WelcomeBanner />;
 
   const settings: Settings = {
     dots: true,
@@ -40,9 +43,9 @@ const AdsBanner: React.FC = () => {
     autoplaySpeed: 5000,
     arrows: true, // 좌,우 버튼
     initialSlide: 0, // 첫 컨텐츠 번호
-    prevArrow: banners && banners.length > 1 ? <PrevArrow /> : <></>,
-    nextArrow: banners && banners.length > 1 ? <NextArrow /> : <></>,
-    dotsClass: banners && banners.length > 1 ? 'custom-dots' : 'hide-dots',
+    prevArrow: banners.length > 1 ? <PrevArrow /> : <></>,
+    nextArrow: banners.length > 1 ? <NextArrow /> : <></>,
+    dotsClass: banners.length > 1 ? 'custom-dots' : 'hide-dots',
     beforeChange: handleTimeFlag,
     afterChange: handleTimeFlag,
   };
@@ -51,34 +54,30 @@ const AdsBanner: React.FC = () => {
 
   return (
     <SliderWrapper>
-      {isLoading ? (
-        <Skeleton width={912} height={164} borderRadius={'12px'} margin='0 30px' color={colors.gray800} />
-      ) : (
-        <AdsSlider {...settings}>
-          {banners.map((ad, idx) => (
-            <LoggingClick
-              key={idx}
+      <AdsSlider {...settings}>
+        {banners.map((ad, idx) => (
+          <LoggingClick
+            key={idx}
+            eventKey='ads'
+            param={{
+              id: myId,
+              bannerId: idx,
+              pageUrl: ad.link,
+              timeStamp: time,
+            }}
+          >
+            <LoggingImpression
+              areaThreshold={1}
               eventKey='ads'
-              param={{
-                id: myId,
-                bannerId: idx,
-                pageUrl: ad.link,
-                timeStamp: time,
-              }}
+              param={{ bannerId: idx, pageUrl: ad.link, timeStamp: time }}
             >
-              <LoggingImpression
-                areaThreshold={1}
-                eventKey='ads'
-                param={{ bannerId: idx, pageUrl: ad.link, timeStamp: time }}
-              >
-                <div onClick={handleTimeFlag}>
-                  <AdsBox {...ad} />
-                </div>
-              </LoggingImpression>
-            </LoggingClick>
-          ))}
-        </AdsSlider>
-      )}
+              <div onClick={handleTimeFlag}>
+                <AdsBox {...ad} />
+              </div>
+            </LoggingImpression>
+          </LoggingClick>
+        ))}
+      </AdsSlider>
     </SliderWrapper>
   );
 };
