@@ -53,17 +53,17 @@ const SettlementToolbar = () => {
   );
 };
 
-interface SettlementFilterProps<Value extends string> {
+interface SettlementFilterProps {
   label: string;
-  options: readonly { value: Value; label: string }[];
+  options: readonly { value: string; label: string }[];
 }
 
-const SettlementFilter = <Value extends string>({ label, options }: SettlementFilterProps<Value>) => {
+const SettlementFilter = ({ label, options }: SettlementFilterProps) => {
   const [hasMultipleSelections, setHasMultipleSelections] = useState(false);
 
   return (
     <div role='group' aria-label={label}>
-      <SelectV2.Root<Value>
+      <SelectV2.Root<string>
         type='text'
         visibleOptions={6}
         onChange={(selected) => setHasMultipleSelections(Array.isArray(selected) && selected.length > 1)}
