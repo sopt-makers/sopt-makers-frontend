@@ -5,7 +5,7 @@ import { styled } from 'stitches.config';
 import { settlementFixtures } from '../fixtures';
 import SettlementCard from '../SettlementCard';
 
-export default function SettlementList() {
+const SettlementList = () => {
   return (
     <SResults>
       <SCount role='status' aria-live='polite'>
@@ -18,7 +18,9 @@ export default function SettlementList() {
       </SGrid>
     </SResults>
   );
-}
+};
+
+export default SettlementList;
 
 const SResults = styled('div', {
   'display': 'flex',

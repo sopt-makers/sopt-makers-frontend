@@ -12,7 +12,7 @@ interface SettlementCardProps {
 
 const DEFAULT_THUMBNAIL_SRC = '/group/assets/images/settlement/thumbnail.svg';
 
-export default function SettlementCard({ item }: SettlementCardProps) {
+const SettlementCard = ({ item }: SettlementCardProps) => {
   return (
     <SCard>
       <SThumbnail>
@@ -63,7 +63,9 @@ export default function SettlementCard({ item }: SettlementCardProps) {
       </SInfo>
     </SCard>
   );
-}
+};
+
+export default SettlementCard;
 
 const SCard = styled('article', {
   'display': 'flex',

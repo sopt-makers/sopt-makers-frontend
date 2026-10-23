@@ -7,7 +7,7 @@ import { styled } from 'stitches.config';
 
 import { SETTLEMENT_PART_OPTIONS, SETTLEMENT_STATUS_OPTIONS } from '../types';
 
-export default function SettlementToolbar() {
+const SettlementToolbar = () => {
   const [searchInput, setSearchInput] = useState('');
   const [filterResetVersion, setFilterResetVersion] = useState(0);
 
@@ -51,14 +51,14 @@ export default function SettlementToolbar() {
       </SSearchWrapper>
     </SToolbar>
   );
-}
+};
 
 interface SettlementFilterProps<Value extends string> {
   label: string;
   options: readonly { value: Value; label: string }[];
 }
 
-function SettlementFilter<Value extends string>({ label, options }: SettlementFilterProps<Value>) {
+const SettlementFilter = <Value extends string>({ label, options }: SettlementFilterProps<Value>) => {
   const [hasMultipleSelections, setHasMultipleSelections] = useState(false);
 
   return (
@@ -80,7 +80,9 @@ function SettlementFilter<Value extends string>({ label, options }: SettlementFi
       </SelectV2.Root>
     </div>
   );
-}
+};
+
+export default SettlementToolbar;
 
 const SToolbar = styled('div', {
   'display': 'flex',
