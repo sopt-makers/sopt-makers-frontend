@@ -5,6 +5,7 @@ import { Tag } from '@sopt-mds/ui';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { ReactNode } from 'react';
+import { styled } from 'stitches.config';
 
 import { ampli } from '@/ampli';
 
@@ -20,6 +21,7 @@ const CrewTab = ({ children, className }: CrewTabProps) => {
     list: 'groupAll',
     mine: 'mine',
     management: 'mine',
+    settlement: 'settlement',
     map: 'map',
   };
 
@@ -28,25 +30,28 @@ const CrewTab = ({ children, className }: CrewTabProps) => {
   return (
     <Flex align='center' justify='between' className={className}>
       <TabList text={tabText[lastSegment]} size='big'>
-        <Link href='/' onClick={() => ampli.clickNavbarGroup({ menu: '피드' })}>
-          <TabList.Item text='feedAll'>
+        <SLink href='/' onClick={() => ampli.clickNavbarGroup({ menu: '피드' })}>
+          <TabList.Item text='feedAll'>홈</TabList.Item>
+        </SLink>
+        <SLink href='/list' onClick={() => ampli.clickNavbarGroup({ menu: '전체 모임' })}>
+          <TabList.Item text='groupAll'>전체 모임</TabList.Item>
+        </SLink>
+        <SLink href='/mine' onClick={() => ampli.clickNavbarGroup({ menu: '내 모임' })}>
+          <TabList.Item text='mine'>내 모임</TabList.Item>
+        </SLink>
+        <SLink href='/settlement'>
+          <TabList.Item text='settlement'>
             <div style={{ display: 'flex', alignItems: 'center', gap: spacing.s4 }}>
-              홈
+              회식
               <Tag size='small' shape='rect' variant='primary' type='subtle'>
-                NEW
+                New
               </Tag>
             </div>
           </TabList.Item>
-        </Link>
-        <Link href='/list' onClick={() => ampli.clickNavbarGroup({ menu: '전체 모임' })}>
-          <TabList.Item text='groupAll'>전체 모임</TabList.Item>
-        </Link>
-        <Link href='/mine' onClick={() => ampli.clickNavbarGroup({ menu: '내 모임' })}>
-          <TabList.Item text='mine'>내 모임</TabList.Item>
-        </Link>
-        <Link href='/map' onClick={() => ampli.clickNavbarGroup({ menu: '솝맵' })}>
+        </SLink>
+        <SLink href='/map' onClick={() => ampli.clickNavbarGroup({ menu: '솝맵' })}>
           <TabList.Item text='map'>솝맵</TabList.Item>
-        </Link>
+        </SLink>
       </TabList>
       {children}
     </Flex>
@@ -54,3 +59,7 @@ const CrewTab = ({ children, className }: CrewTabProps) => {
 };
 
 export default CrewTab;
+
+const SLink = styled(Link, {
+  flexShrink: 0,
+});
