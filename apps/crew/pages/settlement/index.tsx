@@ -22,8 +22,10 @@ const SettlementPage: NextPage = () => {
           </SViewButton>
         </SViewSelector>
 
-        <SettlementToolbar />
-        <SettlementList />
+        <SContent>
+          <SettlementToolbar />
+          <SettlementList />
+        </SContent>
       </SLayout>
       <FloatingButton />
     </>
@@ -35,21 +37,26 @@ export default SettlementPage;
 const SLayout = styled('section', {
   'display': 'flex',
   'flexDirection': 'column',
-  'gap': spacing.s40,
   'paddingBottom': spacing.s120,
   '@desktop': { maxWidth: 790, marginInline: 'auto' },
   '@tablet': { maxWidth: 783 },
-  '@mobile': { gap: spacing.s20, paddingTop: spacing.s10, paddingBottom: spacing.s12 },
+  '@mobile': { paddingTop: spacing.s10, paddingBottom: spacing.s12 },
 });
 
 const SViewSelector = styled('div', {
   'display': 'flex',
   'justifyContent': 'center',
   'gap': spacing.s8,
-  'marginTop': 103,
-  'marginBottom': spacing.s40,
-  '@tablet': { marginTop: 99 },
-  '@mobile': { marginTop: spacing.s14, marginBottom: spacing.s12 },
+  'marginTop': 125,
+  'marginBottom': spacing.s80,
+  '@mobile': { marginTop: 34, marginBottom: spacing.s32 },
+});
+
+const SContent = styled('div', {
+  'display': 'flex',
+  'flexDirection': 'column',
+  'gap': spacing.s40,
+  '@mobile': { gap: spacing.s20 },
 });
 
 const SViewButton = styled(ActionButton, {
