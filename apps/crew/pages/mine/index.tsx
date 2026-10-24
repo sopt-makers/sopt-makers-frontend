@@ -4,8 +4,9 @@ import { Tab } from '@headlessui/react';
 import useSessionStorage from '@hook/useSessionStorage';
 import CrewTab from '@shared/CrewTab';
 import KakaoFloatingButton from '@shared/FloatingButton/kakaoFloatingButton/KakaoFloatingButton';
+import { colors, radius, spacing, typography } from '@sopt-mds/design-tokens';
+import { ActionButton } from '@sopt-mds/ui';
 import type { NextPage } from 'next';
-import { Fragment } from 'react';
 import { styled } from 'stitches.config';
 
 import { ampli } from '@/ampli';
@@ -26,21 +27,23 @@ const MinePage: NextPage = () => {
       <CrewTab />
       <Tab.Group selectedIndex={Number(selectedMeetingType)} onChange={setSelectedMeetingType}>
         <STabList>
-          <Tab as={Fragment}>
-            <STab
-              isSelected={Number(selectedMeetingType) === MeetingType.APPLIED}
-              onClick={() => ampli.clickRegisteredGroup()}
-            >
-              내가 신청한 모임
-            </STab>
+          <Tab
+            as={SViewButton}
+            type='button'
+            size='large'
+            variant='secondary'
+            onClick={() => ampli.clickRegisteredGroup()}
+          >
+            내가 신청한 모임
           </Tab>
-          <Tab as={Fragment}>
-            <STab
-              isSelected={Number(selectedMeetingType) === MeetingType.MADE}
-              onClick={() => ampli.clickMakebymeGroup()}
-            >
-              내가 만든 모임
-            </STab>
+          <Tab
+            as={SViewButton}
+            type='button'
+            size='large'
+            variant='secondary'
+            onClick={() => ampli.clickMakebymeGroup()}
+          >
+            내가 만든 모임
           </Tab>
         </STabList>
 
@@ -79,6 +82,7 @@ const SMineLayout = styled('div', {
 
 const STabList = styled(Tab.List, {
   'flexType': 'center',
+  'gap': spacing.s8,
   'marginTop': '126px',
   'paddingBottom': '64px',
   '@mobile': {
@@ -87,22 +91,21 @@ const STabList = styled(Tab.List, {
   },
 });
 
-const STab = styled('button', {
-  'fontAg': '20_bold_100',
-  'px': '$16',
-  'py': '$14',
-  'borderRadius': '10px',
-  'variants': {
-    isSelected: {
-      true: {
-        color: '$gray10',
-        backgroundColor: '$gray600',
-      },
-      false: { color: '$gray500' },
-    },
+const SViewButton = styled(ActionButton, {
+  '&&': {
+    paddingInline: spacing.s20,
+    backgroundColor: colors.bg.layer.basement,
+    color: colors.fg.neutral.subtle,
+  },
+  '&&[aria-selected=true]': {
+    backgroundColor: colors.bg.neutral.subtle,
+    color: colors.fg.neutral.bold,
+  },
+  '&&:disabled': {
+    backgroundColor: colors.bg.layer.basement,
+    color: colors.fg.neutral.subtle,
   },
   '@mobile': {
-    fontAg: '14_bold_100',
-    py: '$12',
+    '&&': { ...typography.label3, height: 38, padding: `${spacing.s10} ${spacing.s12}`, borderRadius: radius.r8 },
   },
 });
