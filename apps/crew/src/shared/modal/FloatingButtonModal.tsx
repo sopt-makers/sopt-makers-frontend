@@ -3,6 +3,7 @@ import BoltIcon from '@assets/svg/bolt_md.svg';
 import FeedIcon from '@assets/svg/floating_button_feed_icon.svg';
 import GroupIcon from '@assets/svg/floating_button_group_icon.svg';
 import MapIcon from '@assets/svg/floating_button_map_icon.svg';
+import SettlementIcon from '@assets/svg/floating_button_settlement_icon.svg';
 import KakaoLogoIcon from '@assets/svg/logo_kakao.svg';
 import { useDisplay } from '@hook/useDisplay';
 import { colors, radius, spacing, typography } from '@sopt-mds/design-tokens';
@@ -76,26 +77,30 @@ const FloatingButtonModal = ({ isActive, onClose }: FloatingButtonModalProps) =>
             });
           }}
         >
-          <KakaoLogoIcon width={22} height={22} />
+          <KakaoLogoIcon width={22} height={22} aria-hidden focusable='false' />
           카카오톡 문의
         </KakaoQuestionButton>
       )}
 
       <Container isActive={isActive}>
         <Button onClick={handleBoltCreateButtonClick}>
-          <BoltIcon width={22} height={22} />
+          <BoltIcon width={22} height={22} aria-hidden focusable='false' />
           번쩍 개설
         </Button>
         <Button onClick={handleGroupCreateButtonClick}>
-          <GroupIcon width={22} height={22} />
+          <GroupIcon width={22} height={22} aria-hidden focusable='false' />
           모임 개설
         </Button>
         <Button onClick={handleFeedCreateButtonClick}>
-          <FeedIcon width={22} height={22} />
+          <FeedIcon width={22} height={22} aria-hidden focusable='false' />
           피드 작성
         </Button>
+        <Button type='button'>
+          <SettlementIcon width={22} height={22} aria-hidden focusable='false' />
+          회식 등록
+        </Button>
         <Button onClick={handleMapRegisterButtonClick}>
-          <MapIcon width={22} height={22} />
+          <MapIcon width={22} height={22} aria-hidden focusable='false' />
           솝맵 등록
         </Button>
       </Container>
@@ -145,11 +150,14 @@ const Wrapper = styled('div', {
 });
 
 const Container = styled('div', {
-  'width': '160px',
+  'display': 'flex',
+  'flexDirection': 'column',
+  'gap': spacing.s4,
+  'width': '162px',
   'height': 'auto',
 
   'backgroundColor': colors.bg.neutral.inverse,
-  'borderRadius': '20px',
+  'borderRadius': radius.r20,
   'color': colors.fg.neutral.inverse,
   'transition': 'all 0.3s ease',
   'padding': `${spacing.s8} ${spacing.s6}`,
@@ -179,7 +187,7 @@ const Button = styled('button', {
   'width': '100%',
   'height': '46px',
   'padding': spacing.s12,
-  'gap': spacing.s4,
+  'gap': spacing.s6,
   'borderRadius': radius.r16,
   'backgroundColor': colors.bg.neutral.inverse,
   'color': colors.fg.neutral.inverse,
