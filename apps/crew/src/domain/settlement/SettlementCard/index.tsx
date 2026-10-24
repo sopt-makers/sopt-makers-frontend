@@ -5,7 +5,7 @@ import { Avatar, Tag } from '@sopt-mds/ui';
 import { styled } from 'stitches.config';
 
 import type { SettlementCardItem } from '../types';
-import { SETTLEMENT_STATUS_OPTIONS } from '../types';
+import { SETTLEMENT_STATUS_LABELS } from '../types';
 
 interface SettlementCardProps {
   item: SettlementCardItem;
@@ -30,7 +30,7 @@ const SettlementCard = ({ item }: SettlementCardProps) => {
           variant={item.status === 'ongoing' ? 'primary' : 'default'}
           type='solid'
         >
-          {SETTLEMENT_STATUS_OPTIONS.find(({ value }) => value === item.status)?.label}
+          {SETTLEMENT_STATUS_LABELS[item.status]}
         </SStatusBadge>
         <SParticipantBadge
           size='medium'
