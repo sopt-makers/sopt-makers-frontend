@@ -36,7 +36,4 @@ export const SSettingButton = styled('button', {
   'path': {
     stroke: '$gray10',
   },
-  '@media (max-width: 320px)': {
-    display: 'none',
-  },
 });
