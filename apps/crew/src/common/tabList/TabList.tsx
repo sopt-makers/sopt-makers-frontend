@@ -6,6 +6,7 @@ import { styled } from 'stitches.config';
 import { TabListContext, useTabListContext } from './TabListContext';
 
 interface TabListProps {
+  className?: string;
   text: string;
   size: string;
   onChange?: (text: string) => void;
@@ -15,7 +16,7 @@ interface TabProps {
   text: string;
 }
 
-export function TabList({ text, size, onChange, children }: PropsWithChildren<TabListProps>) {
+export function TabList({ className, text, size, onChange, children }: PropsWithChildren<TabListProps>) {
   const tabListContextValue = useMemo(
     () => ({
       text,
@@ -25,7 +26,7 @@ export function TabList({ text, size, onChange, children }: PropsWithChildren<Ta
     [text, size, onChange],
   );
   return (
-    <STabList>
+    <STabList className={className}>
       <TabListContext.Provider value={tabListContextValue}>{children}</TabListContext.Provider>
     </STabList>
   );

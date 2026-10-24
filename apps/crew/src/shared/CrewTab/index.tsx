@@ -28,8 +28,8 @@ const CrewTab = ({ children, className }: CrewTabProps) => {
   const lastSegment = (path.split('/').at(-1) || 'group') as keyof typeof tabText;
 
   return (
-    <Flex align='center' justify='between' className={className}>
-      <TabList text={tabText[lastSegment]} size='big'>
+    <SContainer align='center' justify='between' className={className}>
+      <SScrollableTabList text={tabText[lastSegment]} size='big'>
         <SLink href='/' onClick={() => ampli.clickNavbarGroup({ menu: '피드' })}>
           <TabList.Item text='feedAll'>홈</TabList.Item>
         </SLink>
@@ -52,13 +52,34 @@ const CrewTab = ({ children, className }: CrewTabProps) => {
         <SLink href='/map' onClick={() => ampli.clickNavbarGroup({ menu: '솝맵' })}>
           <TabList.Item text='map'>솝맵</TabList.Item>
         </SLink>
-      </TabList>
-      {children}
-    </Flex>
+      </SScrollableTabList>
+      {children && <SActions>{children}</SActions>}
+    </SContainer>
   );
 };
 
 export default CrewTab;
+
+const SContainer = styled(Flex, {
+  minWidth: 0,
+  gap: spacing.s16,
+});
+
+const SScrollableTabList = styled(TabList, {
+  'minWidth': 0,
+  'overflowX': 'auto',
+  'scrollPaddingInline': spacing.s16,
+  'scrollbarWidth': 'none',
+  '&::-webkit-scrollbar': { display: 'none' },
+});
+
+const SActions = styled('div', {
+  'display': 'flex',
+  'alignItems': 'center',
+  'justifyContent': 'flex-end',
+  'flexShrink': 0,
+  '@mobile': { minWidth: 24 },
+});
 
 const SLink = styled(Link, {
   flexShrink: 0,
