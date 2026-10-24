@@ -43,7 +43,7 @@ const CrewTab = ({ children, className }: CrewTabProps) => {
           <TabList.Item text='settlement'>
             <div style={{ display: 'flex', alignItems: 'center', gap: spacing.s4 }}>
               회식
-              <Tag size='small' shape='rect' variant='primary' type='subtle'>
+              <Tag size='small' shape='pill' variant='primary' type='subtle'>
                 New
               </Tag>
             </div>
