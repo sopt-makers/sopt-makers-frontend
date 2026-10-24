@@ -33,7 +33,6 @@ const SettlementPage: NextPage = () => {
 export default SettlementPage;
 
 const SLayout = styled('section', {
-  'paddingTop': 7,
   'display': 'flex',
   'flexDirection': 'column',
   'gap': spacing.s40,
