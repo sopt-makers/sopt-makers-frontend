@@ -7,7 +7,7 @@ export const settlementFixtures: SettlementCardItem[] = Array.from({ length: 12 
   title: '회식명',
   dateLabel: '[26.05.12]',
   thumbnailSrc: '',
-  parts: ['PLAN', 'DESIGN'],
+  parts: ['PM', 'DESIGN'],
   status: index % 3 === 1 ? 'ongoing' : 'ended',
   participantCount: 99,
   participantLabel: '홍길동 외 nn명이 참여 중',

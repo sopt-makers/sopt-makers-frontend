@@ -1,10 +1,11 @@
+import { PART_NAME } from '@constant/option';
 import { colors, radius, spacing, typography } from '@sopt-mds/design-tokens';
 import { IconUsersFilled } from '@sopt-mds/icons';
 import { Avatar, Tag } from '@sopt-mds/ui';
 import { styled } from 'stitches.config';
 
 import type { SettlementCardItem } from '../types';
-import { SETTLEMENT_PART_OPTIONS, SETTLEMENT_STATUS_OPTIONS } from '../types';
+import { SETTLEMENT_STATUS_OPTIONS } from '../types';
 
 interface SettlementCardProps {
   item: SettlementCardItem;
@@ -46,7 +47,7 @@ const SettlementCard = ({ item }: SettlementCardProps) => {
         <SParts aria-label='참여 파트'>
           {item.parts.map((part) => (
             <SPartTag key={part} size='small' shape='rect' variant='default' type='solid'>
-              {SETTLEMENT_PART_OPTIONS.find(({ value }) => value === part)?.label}
+              {PART_NAME[part]}
             </SPartTag>
           ))}
         </SParts>
