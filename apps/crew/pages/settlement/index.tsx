@@ -1,5 +1,6 @@
 import SettlementList from '@domain/settlement/SettlementList';
 import SettlementToolbar from '@domain/settlement/SettlementToolbar';
+import { Tab } from '@headlessui/react';
 import CrewTab from '@shared/CrewTab';
 import FloatingButton from '@shared/FloatingButton';
 import { colors, radius, spacing, typography } from '@sopt-mds/design-tokens';
@@ -13,19 +14,26 @@ const SettlementPage: NextPage = () => {
       <SLayout aria-label='전체 회식'>
         <CrewTab />
 
-        <SViewSelector role='group' aria-label='회식 목록 범위'>
-          <SViewButton type='button' size='large' variant='secondary' aria-pressed>
-            전체 회식
-          </SViewButton>
-          <SViewButton type='button' size='large' variant='secondary' disabled aria-pressed={false}>
-            내 회식
-          </SViewButton>
-        </SViewSelector>
+        <Tab.Group>
+          <SViewSelector aria-label='회식 목록 범위'>
+            <Tab as={SViewButton} type='button' size='large' variant='secondary'>
+              전체 회식
+            </Tab>
+            <Tab as={SViewButton} type='button' size='large' variant='secondary' disabled>
+              내 회식
+            </Tab>
+          </SViewSelector>
 
-        <SContent>
-          <SettlementToolbar />
-          <SettlementList />
-        </SContent>
+          <Tab.Panels>
+            <Tab.Panel>
+              <SContent>
+                <SettlementToolbar />
+                <SettlementList />
+              </SContent>
+            </Tab.Panel>
+            <Tab.Panel>{/* TODO: 내 회식 뷰 구현 후 탭 활성화 및 데이터 조회 연결 */}</Tab.Panel>
+          </Tab.Panels>
+        </Tab.Group>
       </SLayout>
       <FloatingButton />
     </>
@@ -43,7 +51,7 @@ const SLayout = styled('section', {
   '@mobile': { paddingTop: spacing.s10, paddingBottom: spacing.s12 },
 });
 
-const SViewSelector = styled('div', {
+const SViewSelector = styled(Tab.List, {
   'display': 'flex',
   'justifyContent': 'center',
   'gap': spacing.s8,
@@ -65,7 +73,7 @@ const SViewButton = styled(ActionButton, {
     backgroundColor: colors.bg.layer.basement,
     color: colors.fg.neutral.subtle,
   },
-  '&&[aria-pressed=true]': {
+  '&&[aria-selected=true]': {
     backgroundColor: colors.bg.neutral.subtle,
     color: colors.fg.neutral.bold,
   },
