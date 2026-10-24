@@ -21,7 +21,8 @@ export default function useScrollRestoration() {
       sessionStorage.setItem(router.asPath, JSON.stringify(scrollPos));
     };
 
-    const onRouteChangeComplete = () => {
+    const onRouteChangeComplete = (_url: string, { shallow }: { shallow: boolean }) => {
+      if (shallow) return;
       restoreScrollPosition();
     };
 

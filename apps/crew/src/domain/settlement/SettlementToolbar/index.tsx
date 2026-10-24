@@ -2,25 +2,82 @@ import { SearchField, SelectV2 } from '@sopt-makers/ui';
 import { colors, radius, spacing } from '@sopt-mds/design-tokens';
 import { IconRefresh } from '@sopt-mds/icons';
 import { ActionButton } from '@sopt-mds/ui';
-import { useState } from 'react';
+import { useRouter } from 'next/router';
+import { useEffect, useRef, useState } from 'react';
 import { styled } from 'stitches.config';
 
 import { SETTLEMENT_PART_OPTIONS, SETTLEMENT_STATUS_OPTIONS } from '../types';
 
+interface SettlementQuery {
+  status?: string;
+  part?: string;
+  search?: string;
+}
+
 const SettlementToolbar = () => {
-  const [searchInput, setSearchInput] = useState('');
-  const [filterResetVersion, setFilterResetVersion] = useState(0);
+  const router = useRouter();
+  const searchQuery = (Array.isArray(router.query.search) ? router.query.search[0] : router.query.search) ?? '';
+  const [searchInput, setSearchInput] = useState(searchQuery);
+  const selectedStatuses = getSelectedValues(router.query.status, SETTLEMENT_STATUS_OPTIONS);
+  const selectedParts = getSelectedValues(router.query.part, SETTLEMENT_PART_OPTIONS);
+
+  useEffect(() => {
+    setSearchInput(searchQuery);
+  }, [searchQuery]);
+
+  const updateQuery = (updates: SettlementQuery) => {
+    const nextQuery = { ...router.query };
+
+    Object.entries(updates).forEach(([key, value]) => {
+      if (value) {
+        nextQuery[key] = value;
+      } else {
+        delete nextQuery[key];
+      }
+    });
+
+    if ('page' in nextQuery) {
+      nextQuery.page = '1';
+    }
+
+    void router.push({ pathname: router.pathname, query: nextQuery }, undefined, { shallow: true, scroll: false });
+  };
+
+  const handleSearchSubmit = () => {
+    const search = searchInput.trim();
+    setSearchInput(search);
+    updateQuery({ search });
+  };
+
+  const handleSearchReset = () => {
+    setSearchInput('');
+    updateQuery({ search: undefined });
+  };
+
+  const handleFilterReset = () => {
+    updateQuery({ status: undefined, part: undefined });
+  };
 
   return (
     <SToolbar>
       <SFilters>
-        <SettlementFilter key={`status-${filterResetVersion}`} label='진행 상태' options={SETTLEMENT_STATUS_OPTIONS} />
-        <SettlementFilter key={`parts-${filterResetVersion}`} label='파트' options={SETTLEMENT_PART_OPTIONS} />
+        <SettlementFilter
+          label='진행 상태'
+          options={SETTLEMENT_STATUS_OPTIONS}
+          selectedValues={selectedStatuses}
+          onChange={(values) => updateQuery({ status: values.join(',') })}
+        />
+        <SettlementFilter
+          label='파트'
+          options={SETTLEMENT_PART_OPTIONS}
+          selectedValues={selectedParts}
+          onChange={(values) => updateQuery({ part: values.join(',') })}
+        />
         <SResetButton
           type='button'
           size='medium'
           variant='secondary'
-          onClick={() => setFilterResetVersion((version) => version + 1)}
+          onClick={handleFilterReset}
           aria-label='필터 초기화'
         >
           <IconRefresh width={20} height={20} aria-hidden />
@@ -28,10 +85,13 @@ const SettlementToolbar = () => {
       </SFilters>
       <SSearchWrapper
         role='search'
-        onSubmit={(event) => event.preventDefault()}
+        onSubmit={(event) => {
+          event.preventDefault();
+          handleSearchSubmit();
+        }}
         onReset={(event) => {
           event.preventDefault();
-          setSearchInput('');
+          handleSearchReset();
           event.currentTarget.querySelector('input')?.focus();
         }}
         onBlurCapture={(event) => {
@@ -53,24 +113,53 @@ const SettlementToolbar = () => {
   );
 };
 
-interface SettlementFilterProps {
+interface FilterOption {
+  value: string;
   label: string;
-  options: readonly { value: string; label: string }[];
 }
 
-const SettlementFilter = ({ label, options }: SettlementFilterProps) => {
-  const [hasMultipleSelections, setHasMultipleSelections] = useState(false);
+interface SettlementFilterProps {
+  label: string;
+  options: FilterOption[];
+  selectedValues: string[];
+  onChange: (values: string[]) => void;
+}
+
+const getSelectedValues = (query: string | string[] | undefined, options: FilterOption[]) => {
+  const values = (Array.isArray(query) ? query : [query ?? '']).flatMap((value) => value.split(','));
+  return options.filter((option) => values.includes(option.value)).map((option) => option.value);
+};
+
+const SettlementFilter = ({ label, options, selectedValues, onChange }: SettlementFilterProps) => {
+  const valueKey = selectedValues.join(',');
+  const lastSelectionKey = useRef(valueKey);
+  const [selectInstanceKey, setSelectInstanceKey] = useState(0);
+
+  useEffect(() => {
+    if (lastSelectionKey.current !== valueKey) {
+      lastSelectionKey.current = valueKey;
+      setSelectInstanceKey((key) => key + 1);
+    }
+  }, [valueKey]);
+
+  const handleChange = (selected: string | string[]) => {
+    const nextValues = getSelectedValues(selected, options);
+    lastSelectionKey.current = nextValues.join(',');
+    onChange(nextValues);
+  };
 
   return (
     <div role='group' aria-label={label}>
-      <SelectV2.Root<string>
+      <SelectV2.Root
+        key={selectInstanceKey}
         type='text'
         visibleOptions={6}
-        onChange={(selected) => setHasMultipleSelections(Array.isArray(selected) && selected.length > 1)}
+        defaultValue={options.filter((option) => selectedValues.includes(option.value))}
+        onChange={handleChange}
         multiple
       >
         <SelectV2.Trigger>
-          <SFilterTriggerContent placeholder={label} label={hasMultipleSelections ? label : undefined} />
+          <SFilterTriggerContent placeholder={label} label={selectedValues.length > 1 ? label : undefined} />
         </SelectV2.Trigger>
         <SelectV2.Menu>
           {options.map((option) => (
