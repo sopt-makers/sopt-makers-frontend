@@ -30,7 +30,7 @@
     "@sopt-makers/ui": "^2.10.2",
     "@sopt-mds/design-tokens": "^1.0.7",
     "@sopt-mds/icons": "^0.1.0",
-    "@sopt-mds/ui": "^1.0.14",
+    "@sopt-mds/ui": "^1.10.0",
     "@sopt/constant": "workspace:*",
     "@sopt/ui": "workspace:*",
     "@stitches/react": "^1.2.8",

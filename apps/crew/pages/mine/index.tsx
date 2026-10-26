@@ -1,10 +1,11 @@
 import MeetingListOfApplied from '@domain/list/Meeting/MeetingListOfApplied';
 import MeetingListOfMine from '@domain/list/Meeting/MeetingListOfMine';
 import { Tab } from '@headlessui/react';
+import { useDisplay } from '@hook/useDisplay';
 import useSessionStorage from '@hook/useSessionStorage';
 import CrewTab from '@shared/CrewTab';
 import KakaoFloatingButton from '@shared/FloatingButton/kakaoFloatingButton/KakaoFloatingButton';
-import { colors, radius, spacing, typography } from '@sopt-mds/design-tokens';
+import { colors, spacing } from '@sopt-mds/design-tokens';
 import { ActionButton } from '@sopt-mds/ui';
 import type { NextPage } from 'next';
 import { styled } from 'stitches.config';
@@ -17,6 +18,7 @@ const enum MeetingType {
 }
 
 const MinePage: NextPage = () => {
+  const { isMobile } = useDisplay();
   const [selectedMeetingType, setSelectedMeetingType] = useSessionStorage<MeetingType>(
     'meetingType',
     MeetingType.APPLIED,
@@ -30,7 +32,7 @@ const MinePage: NextPage = () => {
           <Tab
             as={SViewButton}
             type='button'
-            size='large'
+            size={isMobile ? 'small' : 'large'}
             variant='secondary'
             onClick={() => ampli.clickRegisteredGroup()}
           >
@@ -39,7 +41,7 @@ const MinePage: NextPage = () => {
           <Tab
             as={SViewButton}
             type='button'
-            size='large'
+            size={isMobile ? 'small' : 'large'}
             variant='secondary'
             onClick={() => ampli.clickMakebymeGroup()}
           >
@@ -93,7 +95,6 @@ const STabList = styled(Tab.List, {
 
 const SViewButton = styled(ActionButton, {
   '&&': {
-    paddingInline: spacing.s20,
     backgroundColor: colors.bg.layer.basement,
     color: colors.fg.neutral.subtle,
   },
@@ -104,8 +105,5 @@ const SViewButton = styled(ActionButton, {
   '&&:disabled': {
     backgroundColor: colors.bg.layer.basement,
     color: colors.fg.neutral.subtle,
-  },
-  '@mobile': {
-    '&&': { ...typography.label3, height: 38, padding: `${spacing.s10} ${spacing.s12}`, borderRadius: radius.r8 },
   },
 });

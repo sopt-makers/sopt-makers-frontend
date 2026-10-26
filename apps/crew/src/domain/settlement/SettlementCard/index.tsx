@@ -1,4 +1,5 @@
 import { PART_NAME } from '@constant/option';
+import { useDisplay } from '@hook/useDisplay';
 import { colors, radius, spacing, typography } from '@sopt-mds/design-tokens';
 import { IconUsersFilled } from '@sopt-mds/icons';
 import { Avatar, Tag } from '@sopt-mds/ui';
@@ -14,6 +15,8 @@ interface SettlementCardProps {
 const DEFAULT_THUMBNAIL_SRC = '/group/assets/images/settlement/thumbnail.svg';
 
 const SettlementCard = ({ item }: SettlementCardProps) => {
+  const { isMobile } = useDisplay();
+
   return (
     <SCard>
       <SThumbnail>
@@ -25,7 +28,7 @@ const SettlementCard = ({ item }: SettlementCardProps) => {
           loading='lazy'
         />
         <SStatusBadge
-          size='medium'
+          size={isMobile ? 'small' : 'medium'}
           shape='rect'
           variant={item.status === 'ongoing' ? 'primary' : 'default'}
           type='solid'
@@ -46,9 +49,9 @@ const SettlementCard = ({ item }: SettlementCardProps) => {
       <SInfo>
         <SParts aria-label='참여 파트'>
           {item.parts.map((part) => (
-            <SPartTag key={part} size='small' shape='rect' variant='default' type='solid'>
+            <Tag key={part} size='small' shape='rect' variant='default' type='solid'>
               {PART_NAME[part]}
-            </SPartTag>
+            </Tag>
           ))}
         </SParts>
         <div>
@@ -57,7 +60,7 @@ const SettlementCard = ({ item }: SettlementCardProps) => {
             <STitleText title={item.title}>{item.title}</STitleText>
           </STitle>
           <SParticipants>
-            <SParticipantAvatar size={24} src={item.avatarSrc || undefined} strokeColor='neutralGhost' aria-hidden />
+            <Avatar size={24} src={item.avatarSrc || undefined} strokeColor='neutralGhost' aria-hidden />
             <SParticipantLabel>{item.participantLabel}</SParticipantLabel>
           </SParticipants>
         </div>
@@ -99,21 +102,14 @@ const SThumbnailImage = styled('img', {
   objectFit: 'cover',
 });
 
-const SCardBadge = styled(Tag, {
-  '&&': { height: 26, gap: spacing.s4 },
-  '@mobile': { '&&': { ...typography.label4, height: 24 } },
-});
-
-const SPartTag = styled(Tag, { '&&': { height: 24 } });
-
-const SStatusBadge = styled(SCardBadge, {
+const SStatusBadge = styled(Tag, {
   'position': 'absolute',
   'top': spacing.s16,
   'left': spacing.s16,
   '@mobile': { top: spacing.s10, left: spacing.s10 },
 });
 
-const SParticipantBadge = styled(SCardBadge, {
+const SParticipantBadge = styled(Tag, {
   'position': 'absolute',
   'top': spacing.s16,
   'right': spacing.s16,
@@ -161,10 +157,6 @@ const SParticipants = styled('div', {
   'gap': spacing.s8,
   'marginTop': spacing.s8,
   '@mobile': { marginTop: spacing.s4, gap: spacing.s4 },
-});
-
-const SParticipantAvatar = styled(Avatar, {
-  '&&': { backgroundColor: colors.bg.neutral.ghost },
 });
 
 const SParticipantLabel = styled('p', {
