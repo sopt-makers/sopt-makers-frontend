@@ -88,7 +88,7 @@ interface StringKeyObject {
   [key: string]: string;
 }
 
-export type CategoryType = 'STUDY' | 'LECTURE' | 'FLASH' | 'EVENT' | 'SEMINAR';
+export type CategoryType = 'STUDY' | 'LECTURE' | 'FLASH' | 'EVENT' | 'SEMINAR' | 'DINING';
 export type CategoryKoType = '스터디' | '행사' | '세미나' | '번쩍';
 export const CATEGORY_NAME = (category: CategoryType) => {
   switch (category) {
@@ -102,6 +102,8 @@ export const CATEGORY_NAME = (category: CategoryType) => {
       return '행사';
     case 'SEMINAR':
       return '세미나';
+    case 'DINING':
+      return '회식';
     default:
       return '';
   }

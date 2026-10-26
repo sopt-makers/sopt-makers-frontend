@@ -37,6 +37,35 @@ export interface paths {
     /** 번쩍 모임 수정 */
     put: operations['updateFlash'];
   };
+  '/dining/v2/{meetingId}': {
+    /**
+     * 회식 상세 조회
+     * @description 회식 정보와 회차 목록, 조회자의 회차별 참석 상태를 조회합니다.
+     */
+    get: operations['getDiningDetail'];
+    /**
+     * 회식 수정
+     * @description 회식 정보와 1차 회차 정보를 수정합니다. 개설자만 가능합니다.
+     */
+    put: operations['updateDining'];
+    /**
+     * 회식 삭제
+     * @description 회식과 모든 회차, 참석 기록을 삭제합니다. 마감된 회차가 있거나 종료된 회식은 삭제할 수 없습니다.
+     */
+    delete: operations['deleteDining'];
+  };
+  '/dining/v2/{meetingId}/rounds/{roundId}': {
+    /**
+     * 회차 수정
+     * @description 회차의 장소, 링크, 시작 시간을 수정합니다. 마감된 회차도 수정할 수 있습니다.
+     */
+    put: operations['updateRound'];
+    /**
+     * 회차 삭제
+     * @description 2차 이상 회차와 해당 회차의 참석 기록을 삭제합니다. 1차와 마감된 회차는 삭제할 수 없습니다.
+     */
+    delete: operations['deleteRound'];
+  };
   '/comment/v2/{commentId}': {
     /** 모임 게시글 댓글 수정 */
     put: operations['updateComment_1'];
@@ -187,6 +216,96 @@ export interface paths {
   '/flash/v2': {
     /** 번쩍 모임 생성 */
     post: operations['createFlash'];
+  };
+  '/dining/v2': {
+    /**
+     * 회식 메인 목록 조회
+     * @description 전체 회식 또는 내 회식(개설했거나 참석 중인 회식)을 조회합니다. 정렬은 진행 중 우선, 회식 일자 최신순, 등록 최신순입니다.
+     */
+    get: operations['getDinings'];
+    /**
+     * 회식 등록
+     * @description 회식과 1차 회차를 생성하고, 개설자를 1차 참석자로 등록합니다.
+     */
+    post: operations['createDining'];
+  };
+  '/dining/v2/{meetingId}/rounds': {
+    /**
+     * 회차 추가
+     * @description 새 회차를 추가하고 개설자를 참석자로 등록합니다. 새 회차 생성 시점에 이전 회차에 참석 중인 사용자에게 알림을 보냅니다.
+     */
+    post: operations['createRound'];
+  };
+  '/dining/v2/{meetingId}/rounds/{roundId}/payer-requests': {
+    /**
+     * 공동 결제자 요청
+     * @description 해당 회차 참석자 본인만 요청할 수 있습니다. 개설자는 요청할 수 없습니다. 마감된 회차와 종료된 회식에서도 가능합니다.
+     */
+    post: operations['requestPayer'];
+  };
+  '/dining/v2/{meetingId}/rounds/{roundId}/payer-requests/{requesterUserId}/revoke': {
+    /**
+     * 공동 결제자 승인 해제
+     * @description 개설자만 가능합니다. 마감된 회차와 종료된 회식에서도 가능합니다. 참석 기록은 유지합니다.
+     */
+    post: operations['revokePayer'];
+  };
+  '/dining/v2/{meetingId}/rounds/{roundId}/payer-requests/{requesterUserId}/reject': {
+    /**
+     * 공동 결제자 거절
+     * @description 개설자만 가능합니다. 마감된 회차와 종료된 회식에서도 가능합니다. 참석 기록은 유지합니다.
+     */
+    post: operations['rejectPayer'];
+  };
+  '/dining/v2/{meetingId}/rounds/{roundId}/payer-requests/{requesterUserId}/approve': {
+    /**
+     * 공동 결제자 승인
+     * @description 개설자만 가능합니다. 마감된 회차와 종료된 회식에서도 가능합니다. 참석 기록은 유지합니다.
+     */
+    post: operations['approvePayer'];
+  };
+  '/dining/v2/{meetingId}/rounds/{roundId}/close': {
+    /**
+     * 회차 마감
+     * @description 회차를 마감(확정)합니다.
+     */
+    post: operations['closeRound'];
+  };
+  '/dining/v2/{meetingId}/rounds/{roundId}/attendees': {
+    /**
+     * 회차 참석자 목록 조회
+     * @description 개설자 또는 승인된 공동 결제자가 상세 정보를 조회합니다. 등록 시각 최신순이 기본이며 10/30/50명씩 조회합니다.
+     */
+    get: operations['getAttendees'];
+    /**
+     * 회차 참석자 직접 추가
+     * @description 개설자 또는 승인된 공동 결제자가 추가합니다. 종료 후에도 가능합니다.
+     */
+    post: operations['addAttendee'];
+  };
+  '/dining/v2/{meetingId}/rounds/{roundId}/attendance': {
+    /**
+     * 회차 참석 현황 조회
+     * @description 현재 참석 인원과 본인의 참석 여부 및 해당 회차 공동 결제자 상태를 조회합니다.
+     */
+    get: operations['getAttendance'];
+    /**
+     * 회차 참석 신청
+     * @description 마감 전 회차에 본인의 참석을 등록합니다. 기수와 파트 제한이 없습니다.
+     */
+    post: operations['applyAttendance'];
+    /**
+     * 회차 참석 취소
+     * @description 마감 전 회차의 본인 참석 기록을 삭제하고 삭제 이력을 보관합니다.
+     */
+    delete: operations['cancelAttendance'];
+  };
+  '/dining/v2/{meetingId}/end': {
+    /**
+     * 회식 종료
+     * @description 회식을 종료하고 마감하지 않은 회차를 함께 마감합니다. 종료 후에는 회차 추가와 회식·회차 수정이 불가합니다.
+     */
+    post: operations['endDining'];
   };
   '/comment/v2': {
     /** 모임 게시글 댓글 리스트 조회 */
@@ -390,6 +509,20 @@ export interface paths {
      */
     get: operations['getApprovedStudyCountByOrgId'];
   };
+  '/dining/v2/{meetingId}/rounds/{roundId}/attendance/attendees': {
+    /**
+     * 회차 참석 현황 모달 목록 조회
+     * @description 로그인한 모든 사용자가 참석자의 ID, 이름, 프로필 이미지를 조회합니다.
+     */
+    get: operations['getAttendanceAttendees'];
+  };
+  '/dining/v2/{meetingId}/payer-requests': {
+    /**
+     * 공동 결제자 대기 요청 목록
+     * @description 개설자만 회식 전체의 PENDING 요청을 요청 시각 오름차순으로 조회합니다. 회차 번호는 현재 기준입니다.
+     */
+    get: operations['getPayerRequests'];
+  };
   '/api/v2/map/search/subway': {
     /** 지하철역 검색 api */
     get: operations['findSubwayStations'];
@@ -419,6 +552,13 @@ export interface paths {
   '/meeting/v2/{meetingId}/apply': {
     /** 모임 지원 취소 */
     delete: operations['applyMeetingCancel'];
+  };
+  '/dining/v2/{meetingId}/rounds/{roundId}/attendees/{attendeeUserId}': {
+    /**
+     * 회차 참석자 삭제
+     * @description 개설자 또는 승인된 공동 결제자가 삭제합니다. 개설자 삭제 및 종료 후 삭제도 가능합니다.
+     */
+    delete: operations['deleteAttendee'];
   };
 }
 
@@ -597,6 +737,77 @@ export interface components {
        * ]
        */
       files: string[];
+    };
+    /** @description 회식 등록 및 수정 request body dto (1차 회차 정보 포함) */
+    DiningV2CreateAndUpdateDiningBodyDto: {
+      /**
+       * @description 회식명
+       * @example 서버 파트 회식
+       */
+      title: string;
+      /**
+       * @description 1차 회식 장소 (선택)
+       * @example 비틀비틀 비틀스 타코 서순라길 점
+       */
+      place?: string;
+      /**
+       * @description 1차 네이버지도 링크 (선택)
+       * @example https://naver.me/xKjC1aBc
+       */
+      naverMapLink?: string;
+      /**
+       * @description 1차 카카오맵 링크 (선택)
+       * @example https://kko.to/aBcDeFg
+       */
+      kakaoMapLink?: string;
+      /**
+       * @description 회식 일자 (yyyy.MM.dd)
+       * @example 2026.10.30
+       */
+      diningDate: string;
+      /**
+       * @description 1차 시작 시간 (HH:mm, 선택)
+       * @example 18:00
+       */
+      startTime?: string;
+      /**
+       * @description 참여 파트 목록. 전체 파트는 6개 모두 전달
+       * @example [
+       *   "SERVER",
+       *   "WEB"
+       * ]
+       */
+      joinableParts: ('PM' | 'DESIGN' | 'IOS' | 'ANDROID' | 'SERVER' | 'WEB')[];
+      /**
+       * @description 대표 이미지, 최대 1개. 비어 있으면 기본 이미지
+       * @example [
+       *   "https://makers-web-img.s3.ap-northeast-2.amazonaws.com/meeting/2026/10/21/image.png"
+       * ]
+       */
+      files?: string[];
+    };
+    /** @description 회차 추가 및 수정 request body dto */
+    DiningV2CreateAndUpdateRoundBodyDto: {
+      /**
+       * @description 회차 장소 (선택)
+       * @example 비틀비틀 비틀스 타코 서순라길 점
+       */
+      place?: string;
+      /**
+       * @description 네이버지도 링크 (선택)
+       * @example https://naver.me/xKjC1aBc
+       */
+      naverMapLink?: string;
+      /**
+       * @description 카카오맵 링크 (선택)
+       * @example https://kko.to/aBcDeFg
+       */
+      kakaoMapLink?: string;
+      /**
+       * @description 시작 시간 (HH:mm, 선택)
+       * @example 21:00
+       */
+      startTime?: string;
     };
     /** @description 댓글 수정 request body dto */
     CommentV2UpdateCommentBodyDto: {
@@ -1115,6 +1326,32 @@ export interface components {
        * @example 1
        */
       tagId: number;
+    };
+    /** @description 회식 등록 응답 Dto */
+    DiningV2CreateDiningResponseDto: {
+      /**
+       * Format: int32
+       * @description 회식(모임) id
+       * @example 1
+       */
+      meetingId: number;
+    };
+    /** @description 회차 추가 응답 Dto */
+    DiningV2CreateRoundResponseDto: {
+      /**
+       * Format: int32
+       * @description 회차 id
+       * @example 2
+       */
+      roundId: number;
+    };
+    DiningV2AddAttendeeBodyDto: {
+      /**
+       * Format: int32
+       * @description 추가할 참석자의 크루 사용자 ID
+       * @example 1
+       */
+      userId: number;
     };
     /** @description 댓글 생성 request body dto */
     CommentV2CreateCommentBodyDto: {
@@ -1925,7 +2162,7 @@ export interface components {
        * @example 스터디
        * @enum {string}
        */
-      meetingCategory: 'STUDY' | 'LECTURE' | 'FLASH' | 'EVENT' | 'SEMINAR';
+      meetingCategory: 'STUDY' | 'LECTURE' | 'FLASH' | 'EVENT' | 'SEMINAR' | 'DINING';
       /**
        * Format: int32
        * @description 피드 id
@@ -2685,7 +2922,7 @@ export interface components {
        * @example 스터디
        * @enum {string}
        */
-      category: 'STUDY' | 'LECTURE' | 'FLASH' | 'EVENT' | 'SEMINAR';
+      category: 'STUDY' | 'LECTURE' | 'FLASH' | 'EVENT' | 'SEMINAR' | 'DINING';
       /**
        * @description 모임 사진
        * @example [url] 형식
@@ -3274,7 +3511,18 @@ export interface components {
        * @example 스터디
        * @enum {string}
        */
-      category?: 'STUDY' | 'LECTURE' | 'FLASH' | 'EVENT' | 'SEMINAR' | '스터디' | '행사' | '세미나' | ' 번쩍' | ' 강연';
+      category?:
+        | 'STUDY'
+        | 'LECTURE'
+        | 'FLASH'
+        | 'EVENT'
+        | 'SEMINAR'
+        | 'DINING'
+        | '스터디'
+        | '행사'
+        | '세미나'
+        | ' 번쩍'
+        | ' 강연';
       /**
        * @description 모임 이미지
        * @example [url 형식]
@@ -3426,6 +3674,337 @@ export interface components {
       user: components['schemas']['MeetingCreatorDto'];
       /** @description 신청 목록 */
       appliedInfo: components['schemas']['ApplyWholeInfoDto'][];
+    };
+    DiningV2GetDiningsQueryDto: {
+      /**
+       * Format: int32
+       * @description 각 페이지
+       * @default 1
+       * @example 1
+       */
+      page?: number;
+      /**
+       * Format: int32
+       * @description 가져올 데이터 개수
+       * @default 12
+       * @example 12
+       */
+      take?: number;
+      /**
+       * @description 목록 탭. ALL: 전체 회식, MY: 내 회식(개설했거나 참석 중인 회식)
+       * @default ALL
+       * @enum {string}
+       */
+      tab?: 'ALL' | 'MY';
+      /**
+       * @description 진행 상태. 생략하면 전체 상태
+       * @enum {string}
+       */
+      status?: 'IN_PROGRESS' | 'ENDED';
+      /**
+       * @description 파트. 생략하면 전체 파트이며, 전체 파트 회식은 모든 파트 필터에 포함된다
+       * @example SERVER
+       * @enum {string}
+       */
+      part?: 'PM' | 'DESIGN' | 'IOS' | 'ANDROID' | 'SERVER' | 'WEB';
+      /**
+       * @description 회식명 검색어
+       * @example 서버
+       */
+      query?: string;
+      myTab?: boolean;
+    };
+    /** @description 회식 카드 */
+    DiningV2DiningCardDto: {
+      /**
+       * Format: int32
+       * @description 회식(모임) id
+       * @example 1
+       */
+      meetingId?: number;
+      /**
+       * @description 회식명
+       * @example 서버 파트 회식
+       */
+      title?: string;
+      /**
+       * Format: date
+       * @description 회식 일자
+       * @example 2026-10-30
+       */
+      diningDate?: string;
+      /**
+       * @description 대표 이미지
+       * @example [url] 형식
+       */
+      imageUrl?: string;
+      /**
+       * @description 종료 여부. false 면 진행 중
+       * @example false
+       */
+      isEnded?: boolean;
+      /**
+       * @description 참여 파트
+       * @example [
+       *   "SERVER",
+       *   "WEB"
+       * ]
+       */
+      joinableParts?: ('PM' | 'DESIGN' | 'IOS' | 'ANDROID' | 'SERVER' | 'WEB')[];
+      /**
+       * Format: int64
+       * @description 전체 회차의 고유 참석자 수
+       * @example 12
+       */
+      attendeeCount?: number;
+      leader?: components['schemas']['DiningV2LeaderDto'];
+      /**
+       * @description 참석자 관리 버튼 노출 여부 (개설자 또는 승인된 공동 결제자)
+       * @example true
+       */
+      canManageAttendees?: boolean;
+    };
+    /** @description 회식 메인 목록 응답 Dto */
+    DiningV2GetDiningsResponseDto: {
+      dinings?: components['schemas']['DiningV2DiningCardDto'][];
+      meta?: components['schemas']['PageMetaDto'];
+    };
+    /** @description 회식 개설자 */
+    DiningV2LeaderDto: {
+      /**
+       * Format: int32
+       * @description 개설자 크루 사용자 id
+       * @example 1
+       */
+      id?: number;
+      /**
+       * @description 개설자 이름
+       * @example 홍길동
+       */
+      name?: string;
+      /**
+       * @description 개설자 프로필 이미지
+       * @example [url] 형식
+       */
+      profileImage?: string;
+    };
+    /** @description 회식 상세 응답 Dto */
+    DiningV2GetDiningDetailResponseDto: {
+      /**
+       * Format: int32
+       * @description 회식(모임) id
+       * @example 1
+       */
+      meetingId?: number;
+      /**
+       * @description 회식명
+       * @example 서버 파트 회식
+       */
+      title?: string;
+      /**
+       * Format: date
+       * @description 회식 일자
+       * @example 2026-10-30
+       */
+      diningDate?: string;
+      /**
+       * @description 회식 일자 (수정됨) 표시 여부
+       * @example false
+       */
+      isDateModified?: boolean;
+      /**
+       * @description 대표 이미지
+       * @example [url] 형식
+       */
+      imageUrl?: string;
+      /**
+       * @description 종료 여부. false 면 진행 중
+       * @example false
+       */
+      isEnded?: boolean;
+      /**
+       * @description 참여 파트
+       * @example [
+       *   "SERVER",
+       *   "WEB"
+       * ]
+       */
+      joinableParts?: ('PM' | 'DESIGN' | 'IOS' | 'ANDROID' | 'SERVER' | 'WEB')[];
+      leader?: components['schemas']['DiningV2LeaderDto'];
+      /**
+       * @description 조회자가 개설자인지 여부
+       * @example false
+       */
+      isLeader?: boolean;
+      /**
+       * @description 조회자가 승인된 공동 결제자인지 여부
+       * @example false
+       */
+      isApprovedPayer?: boolean;
+      /** @description 회차 목록 (1차부터 순서대로) */
+      rounds?: components['schemas']['DiningV2RoundDto'][];
+    };
+    /** @description 회차 */
+    DiningV2RoundDto: {
+      /**
+       * Format: int32
+       * @description 회차 id
+       * @example 3
+       */
+      roundId?: number;
+      /**
+       * Format: int32
+       * @description 회차 번호 (1차 = 1)
+       * @example 2
+       */
+      roundNumber?: number;
+      /**
+       * @description 장소. null 이면 장소 미정
+       * @example 비틀비틀 비틀스 타코 서순라길 점
+       */
+      place?: string;
+      /**
+       * @description 네이버지도 링크
+       * @example https://naver.me/abcdef
+       */
+      naverMapLink?: string;
+      /**
+       * @description 카카오맵 링크
+       * @example https://kko.to/abcdef
+       */
+      kakaoMapLink?: string;
+      /**
+       * @description 시작 시간 (HH:mm). null 이면 미노출
+       * @example 19:45
+       */
+      startTime?: string;
+      /**
+       * @description 마감(확정) 여부
+       * @example false
+       */
+      isClosed?: boolean;
+      /**
+       * @description 장소 (수정됨) 표시 여부
+       * @example false
+       */
+      isPlaceModified?: boolean;
+      /**
+       * @description 장소 링크 (수정됨) 표시 여부
+       * @example false
+       */
+      isLinkModified?: boolean;
+      /**
+       * @description 시작 시간 (수정됨) 표시 여부
+       * @example false
+       */
+      isStartTimeModified?: boolean;
+      /**
+       * @description NEW 표시 여부 (1차를 제외한 최신 회차이고 생성 24시간 이내)
+       * @example true
+       */
+      isNew?: boolean;
+      /**
+       * Format: int64
+       * @description 현재 참석 인원
+       * @example 8
+       */
+      attendeeCount?: number;
+      /**
+       * @description 내 참석 상태. NOT_ATTENDING: 미참석, ATTENDING: 참석, ATTENDED: 참석 완료(마감된 회차)
+       * @example ATTENDING
+       * @enum {string}
+       */
+      myAttendanceStatus?: 'NOT_ATTENDING' | 'ATTENDING' | 'ATTENDED';
+      /**
+       * @description 내 공동 결제자 요청 상태. null 이면 요청 없음
+       * @example PENDING
+       * @enum {string}
+       */
+      myPayerStatus?: 'PENDING' | 'APPROVED';
+      /**
+       * @description 신규 회차 신청 안내 문구 노출 여부 (이전 회차에 참석했고 이 회차는 미신청)
+       * @example false
+       */
+      showNewRoundGuide?: boolean;
+    };
+    DiningV2GetAttendeesQueryDto: {
+      /**
+       * Format: int32
+       * @description 각 페이지
+       * @default 1
+       * @example 1
+       */
+      page?: number;
+      /**
+       * Format: int32
+       * @description 가져올 데이터 개수
+       * @default 10
+       * @enum {integer}
+       */
+      take?: 10 | 30 | 50;
+      /**
+       * @description 등록 시각 정렬 방향
+       * @default desc
+       * @enum {string}
+       */
+      date?: 'asc' | 'desc';
+      validTake?: boolean;
+    };
+    Attendee: {
+      /**
+       * Format: int32
+       * @description 크루 사용자 ID
+       */
+      id?: number;
+      /**
+       * Format: int64
+       * @description 현재 참석자의 등록 시각 기준 번호 (오래된 순서부터 1번)
+       */
+      attendanceNumber?: number;
+      name?: string;
+      profileImage?: string;
+      /**
+       * Format: int32
+       * @description 가장 최근 활동 기수
+       */
+      recentGeneration?: number;
+      phone?: string;
+    };
+    /** @description 관리자용 회차 참석자 목록 */
+    DiningV2GetAttendeeManagementResponseDto: {
+      attendees?: components['schemas']['Attendee'][];
+      meta?: components['schemas']['PageMetaDto'];
+    };
+    /** @description 회차 참석 현황 */
+    DiningV2GetAttendanceResponseDto: {
+      /** Format: int64 */
+      attendeeCount?: number;
+      isAttending?: boolean;
+      /**
+       * @description 본인의 해당 회차 공동 결제자 상태. 미참석 또는 요청 없음이면 null
+       * @enum {string}
+       */
+      payerStatus?: 'PENDING' | 'APPROVED';
+    };
+    /** @description 로그인 사용자용 회차 참석 현황 모달 목록 */
+    DiningV2GetAttendeesResponseDto: {
+      attendees?: components['schemas']['Attendee'][];
+    };
+    /** @description 개설자 전용 공동 결제자 대기 요청 목록. 요청 시각 오름차순 */
+    DiningV2GetPayerRequestsResponseDto: {
+      requests?: components['schemas']['PayerRequest'][];
+    };
+    PayerRequest: {
+      /** Format: int32 */
+      userId?: number;
+      name?: string;
+      profileImage?: string;
+      /** Format: int32 */
+      roundId?: number;
+      /** Format: int32 */
+      roundNumber?: number;
+      /** Format: date-time */
+      requestedAt?: string;
     };
     /** @description 댓글 객체 응답 Dto */
     CommentDto: {
@@ -3997,6 +4576,157 @@ export interface operations {
       };
       /** @description VALIDATION_EXCEPTION */
       400: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * 회식 상세 조회
+   * @description 회식 정보와 회차 목록, 조회자의 회차별 참석 상태를 조회합니다.
+   */
+  getDiningDetail: {
+    parameters: {
+      path: {
+        meetingId: number;
+      };
+    };
+    responses: {
+      /** @description 회식 상세 조회 성공 */
+      200: {
+        content: {
+          'application/json;charset=UTF-8': components['schemas']['DiningV2GetDiningDetailResponseDto'];
+        };
+      };
+      /** @description 존재하지 않는 회식입니다. */
+      404: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * 회식 수정
+   * @description 회식 정보와 1차 회차 정보를 수정합니다. 개설자만 가능합니다.
+   */
+  updateDining: {
+    parameters: {
+      path: {
+        meetingId: number;
+      };
+    };
+    requestBody: {
+      content: {
+        'application/json;charset=UTF-8': components['schemas']['DiningV2CreateAndUpdateDiningBodyDto'];
+      };
+    };
+    responses: {
+      /** @description 회식 수정 성공 */
+      200: {
+        content: never;
+      };
+      /** @description VALIDATION_EXCEPTION, 종료된 회식입니다. */
+      400: {
+        content: never;
+      };
+      /** @description 권한이 없습니다. */
+      403: {
+        content: never;
+      };
+      /** @description 존재하지 않는 회식입니다. */
+      404: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * 회식 삭제
+   * @description 회식과 모든 회차, 참석 기록을 삭제합니다. 마감된 회차가 있거나 종료된 회식은 삭제할 수 없습니다.
+   */
+  deleteDining: {
+    parameters: {
+      path: {
+        meetingId: number;
+      };
+    };
+    responses: {
+      /** @description 회식 삭제 성공 */
+      204: {
+        content: never;
+      };
+      /** @description 종료된 회식입니다., 마감된 회차가 있는 회식은 삭제할 수 없습니다. */
+      400: {
+        content: never;
+      };
+      /** @description 권한이 없습니다. */
+      403: {
+        content: never;
+      };
+      /** @description 존재하지 않는 회식입니다. */
+      404: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * 회차 수정
+   * @description 회차의 장소, 링크, 시작 시간을 수정합니다. 마감된 회차도 수정할 수 있습니다.
+   */
+  updateRound: {
+    parameters: {
+      path: {
+        meetingId: number;
+        roundId: number;
+      };
+    };
+    requestBody: {
+      content: {
+        'application/json;charset=UTF-8': components['schemas']['DiningV2CreateAndUpdateRoundBodyDto'];
+      };
+    };
+    responses: {
+      /** @description 회차 수정 성공 */
+      200: {
+        content: never;
+      };
+      /** @description VALIDATION_EXCEPTION, 종료된 회식입니다. */
+      400: {
+        content: never;
+      };
+      /** @description 권한이 없습니다. */
+      403: {
+        content: never;
+      };
+      /** @description 존재하지 않는 회식입니다., 존재하지 않는 회차입니다. */
+      404: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * 회차 삭제
+   * @description 2차 이상 회차와 해당 회차의 참석 기록을 삭제합니다. 1차와 마감된 회차는 삭제할 수 없습니다.
+   */
+  deleteRound: {
+    parameters: {
+      path: {
+        meetingId: number;
+        roundId: number;
+      };
+    };
+    responses: {
+      /** @description 회차 삭제 성공 */
+      204: {
+        content: never;
+      };
+      /** @description 종료된 회식입니다., 1차는 회식 삭제로만 삭제할 수 있습니다., 마감된 회차는 삭제할 수 없습니다. */
+      400: {
+        content: never;
+      };
+      /** @description 권한이 없습니다. */
+      403: {
+        content: never;
+      };
+      /** @description 존재하지 않는 회식입니다., 존재하지 않는 회차입니다. */
+      404: {
         content: never;
       };
     };
@@ -4727,6 +5457,420 @@ export interface operations {
       };
       /** @description VALIDATION_EXCEPTION */
       400: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * 회식 메인 목록 조회
+   * @description 전체 회식 또는 내 회식(개설했거나 참석 중인 회식)을 조회합니다. 정렬은 진행 중 우선, 회식 일자 최신순, 등록 최신순입니다.
+   */
+  getDinings: {
+    parameters: {
+      query: {
+        queryCommand: components['schemas']['DiningV2GetDiningsQueryDto'];
+      };
+    };
+    responses: {
+      /** @description 회식 목록 조회 성공 */
+      200: {
+        content: {
+          'application/json;charset=UTF-8': components['schemas']['DiningV2GetDiningsResponseDto'];
+        };
+      };
+      /** @description VALIDATION_EXCEPTION */
+      400: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * 회식 등록
+   * @description 회식과 1차 회차를 생성하고, 개설자를 1차 참석자로 등록합니다.
+   */
+  createDining: {
+    requestBody: {
+      content: {
+        'application/json;charset=UTF-8': components['schemas']['DiningV2CreateAndUpdateDiningBodyDto'];
+      };
+    };
+    responses: {
+      /** @description meetingId: 10 */
+      201: {
+        content: {
+          'application/json;charset=UTF-8': components['schemas']['DiningV2CreateDiningResponseDto'];
+        };
+      };
+      /** @description VALIDATION_EXCEPTION, 지난 날짜로 회식을 등록할 수 없습니다., 네이버지도 또는 카카오맵 링크만 등록할 수 있습니다. */
+      400: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * 회차 추가
+   * @description 새 회차를 추가하고 개설자를 참석자로 등록합니다. 새 회차 생성 시점에 이전 회차에 참석 중인 사용자에게 알림을 보냅니다.
+   */
+  createRound: {
+    parameters: {
+      path: {
+        meetingId: number;
+      };
+    };
+    requestBody: {
+      content: {
+        'application/json;charset=UTF-8': components['schemas']['DiningV2CreateAndUpdateRoundBodyDto'];
+      };
+    };
+    responses: {
+      /** @description roundId: 2 */
+      201: {
+        content: {
+          'application/json;charset=UTF-8': components['schemas']['DiningV2CreateRoundResponseDto'];
+        };
+      };
+      /** @description VALIDATION_EXCEPTION, 종료된 회식입니다. */
+      400: {
+        content: never;
+      };
+      /** @description 권한이 없습니다. */
+      403: {
+        content: never;
+      };
+      /** @description 존재하지 않는 회식입니다. */
+      404: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * 공동 결제자 요청
+   * @description 해당 회차 참석자 본인만 요청할 수 있습니다. 개설자는 요청할 수 없습니다. 마감된 회차와 종료된 회식에서도 가능합니다.
+   */
+  requestPayer: {
+    parameters: {
+      path: {
+        meetingId: number;
+        roundId: number;
+      };
+    };
+    responses: {
+      /** @description 공동 결제자 요청 성공 */
+      201: {
+        content: never;
+      };
+      /** @description 이미 결제자 요청을 했습니다., 개설자는 공동 결제자를 요청할 수 없습니다. */
+      400: {
+        content: never;
+      };
+      /** @description 회식, 회차 또는 참석 기록을 찾을 수 없습니다. */
+      404: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * 공동 결제자 승인 해제
+   * @description 개설자만 가능합니다. 마감된 회차와 종료된 회식에서도 가능합니다. 참석 기록은 유지합니다.
+   */
+  revokePayer: {
+    parameters: {
+      path: {
+        meetingId: number;
+        roundId: number;
+        requesterUserId: number;
+      };
+    };
+    responses: {
+      /** @description 공동 결제자 승인 해제 성공 */
+      200: {
+        content: never;
+      };
+      /** @description 승인된 공동 결제자가 아닙니다. */
+      400: {
+        content: never;
+      };
+      /** @description 권한이 없습니다. */
+      403: {
+        content: never;
+      };
+      /** @description 회식, 회차 또는 참석 기록을 찾을 수 없습니다. */
+      404: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * 공동 결제자 거절
+   * @description 개설자만 가능합니다. 마감된 회차와 종료된 회식에서도 가능합니다. 참석 기록은 유지합니다.
+   */
+  rejectPayer: {
+    parameters: {
+      path: {
+        meetingId: number;
+        roundId: number;
+        requesterUserId: number;
+      };
+    };
+    responses: {
+      /** @description 공동 결제자 거절 성공 */
+      200: {
+        content: never;
+      };
+      /** @description 승인 대기 중인 결제자 요청이 없습니다. */
+      400: {
+        content: never;
+      };
+      /** @description 권한이 없습니다. */
+      403: {
+        content: never;
+      };
+      /** @description 회식, 회차 또는 참석 기록을 찾을 수 없습니다. */
+      404: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * 공동 결제자 승인
+   * @description 개설자만 가능합니다. 마감된 회차와 종료된 회식에서도 가능합니다. 참석 기록은 유지합니다.
+   */
+  approvePayer: {
+    parameters: {
+      path: {
+        meetingId: number;
+        roundId: number;
+        requesterUserId: number;
+      };
+    };
+    responses: {
+      /** @description 공동 결제자 승인 성공 */
+      200: {
+        content: never;
+      };
+      /** @description 승인 대기 중인 결제자 요청이 없습니다. */
+      400: {
+        content: never;
+      };
+      /** @description 권한이 없습니다. */
+      403: {
+        content: never;
+      };
+      /** @description 회식, 회차 또는 참석 기록을 찾을 수 없습니다. */
+      404: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * 회차 마감
+   * @description 회차를 마감(확정)합니다.
+   */
+  closeRound: {
+    parameters: {
+      path: {
+        meetingId: number;
+        roundId: number;
+      };
+    };
+    responses: {
+      /** @description 회차 마감 성공 */
+      200: {
+        content: never;
+      };
+      /** @description 이미 마감된 회차입니다. */
+      400: {
+        content: never;
+      };
+      /** @description 권한이 없습니다. */
+      403: {
+        content: never;
+      };
+      /** @description 존재하지 않는 회식입니다., 존재하지 않는 회차입니다. */
+      404: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * 회차 참석자 목록 조회
+   * @description 개설자 또는 승인된 공동 결제자가 상세 정보를 조회합니다. 등록 시각 최신순이 기본이며 10/30/50명씩 조회합니다.
+   */
+  getAttendees: {
+    parameters: {
+      query: {
+        queryCommand: components['schemas']['DiningV2GetAttendeesQueryDto'];
+      };
+      path: {
+        meetingId: number;
+        roundId: number;
+      };
+    };
+    responses: {
+      /** @description 참석자 목록 조회 성공 */
+      200: {
+        content: {
+          'application/json;charset=UTF-8': components['schemas']['DiningV2GetAttendeeManagementResponseDto'];
+        };
+      };
+      /** @description VALIDATION_EXCEPTION */
+      400: {
+        content: never;
+      };
+      /** @description 권한이 없습니다. */
+      403: {
+        content: never;
+      };
+      /** @description 회식, 회차 또는 참석 기록을 찾을 수 없습니다. */
+      404: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * 회차 참석자 직접 추가
+   * @description 개설자 또는 승인된 공동 결제자가 추가합니다. 종료 후에도 가능합니다.
+   */
+  addAttendee: {
+    parameters: {
+      path: {
+        meetingId: number;
+        roundId: number;
+      };
+    };
+    requestBody: {
+      content: {
+        'application/json;charset=UTF-8': components['schemas']['DiningV2AddAttendeeBodyDto'];
+      };
+    };
+    responses: {
+      /** @description 참석자 추가 성공 */
+      201: {
+        content: never;
+      };
+      /** @description VALIDATION_EXCEPTION, 이미 참석 중인 회차입니다. */
+      400: {
+        content: never;
+      };
+      /** @description 존재하지 않거나 유효하지 않은 유저입니다. */
+      401: {
+        content: never;
+      };
+      /** @description 권한이 없습니다. */
+      403: {
+        content: never;
+      };
+      /** @description 회식, 회차 또는 참석 기록을 찾을 수 없습니다. */
+      404: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * 회차 참석 현황 조회
+   * @description 현재 참석 인원과 본인의 참석 여부 및 해당 회차 공동 결제자 상태를 조회합니다.
+   */
+  getAttendance: {
+    parameters: {
+      path: {
+        meetingId: number;
+        roundId: number;
+      };
+    };
+    responses: {
+      /** @description 참석 현황 조회 성공 */
+      200: {
+        content: {
+          'application/json;charset=UTF-8': components['schemas']['DiningV2GetAttendanceResponseDto'];
+        };
+      };
+      /** @description 회식, 회차 또는 참석 기록을 찾을 수 없습니다. */
+      404: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * 회차 참석 신청
+   * @description 마감 전 회차에 본인의 참석을 등록합니다. 기수와 파트 제한이 없습니다.
+   */
+  applyAttendance: {
+    parameters: {
+      path: {
+        meetingId: number;
+        roundId: number;
+      };
+    };
+    responses: {
+      /** @description 참석 신청 성공 */
+      201: {
+        content: never;
+      };
+      /** @description VALIDATION_EXCEPTION, 이미 참석 중인 회차입니다., 이미 마감된 회차입니다. */
+      400: {
+        content: never;
+      };
+      /** @description 존재하지 않거나 유효하지 않은 유저입니다. */
+      401: {
+        content: never;
+      };
+      /** @description 회식, 회차 또는 참석 기록을 찾을 수 없습니다. */
+      404: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * 회차 참석 취소
+   * @description 마감 전 회차의 본인 참석 기록을 삭제하고 삭제 이력을 보관합니다.
+   */
+  cancelAttendance: {
+    parameters: {
+      path: {
+        meetingId: number;
+        roundId: number;
+      };
+    };
+    responses: {
+      /** @description 참석 취소 성공 */
+      204: {
+        content: never;
+      };
+      /** @description 이미 마감된 회차입니다. */
+      400: {
+        content: never;
+      };
+      /** @description 회식, 회차 또는 참석 기록을 찾을 수 없습니다. */
+      404: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * 회식 종료
+   * @description 회식을 종료하고 마감하지 않은 회차를 함께 마감합니다. 종료 후에는 회차 추가와 회식·회차 수정이 불가합니다.
+   */
+  endDining: {
+    parameters: {
+      path: {
+        meetingId: number;
+      };
+    };
+    responses: {
+      /** @description 회식 종료 성공 */
+      200: {
+        content: never;
+      };
+      /** @description 종료된 회식입니다. */
+      400: {
+        content: never;
+      };
+      /** @description 권한이 없습니다. */
+      403: {
+        content: never;
+      };
+      /** @description 존재하지 않는 회식입니다. */
+      404: {
         content: never;
       };
     };
@@ -5579,6 +6723,57 @@ export interface operations {
       };
     };
   };
+  /**
+   * 회차 참석 현황 모달 목록 조회
+   * @description 로그인한 모든 사용자가 참석자의 ID, 이름, 프로필 이미지를 조회합니다.
+   */
+  getAttendanceAttendees: {
+    parameters: {
+      path: {
+        meetingId: number;
+        roundId: number;
+      };
+    };
+    responses: {
+      /** @description 참석 현황 모달 목록 조회 성공 */
+      200: {
+        content: {
+          'application/json;charset=UTF-8': components['schemas']['DiningV2GetAttendeesResponseDto'];
+        };
+      };
+      /** @description 회식 또는 회차를 찾을 수 없습니다. */
+      404: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * 공동 결제자 대기 요청 목록
+   * @description 개설자만 회식 전체의 PENDING 요청을 요청 시각 오름차순으로 조회합니다. 회차 번호는 현재 기준입니다.
+   */
+  getPayerRequests: {
+    parameters: {
+      path: {
+        meetingId: number;
+      };
+    };
+    responses: {
+      /** @description 대기 요청 목록 조회 성공. 요청이 없으면 빈 리스트 */
+      200: {
+        content: {
+          'application/json;charset=UTF-8': components['schemas']['DiningV2GetPayerRequestsResponseDto'];
+        };
+      };
+      /** @description 권한이 없습니다. */
+      403: {
+        content: never;
+      };
+      /** @description 존재하지 않는 회식입니다. */
+      404: {
+        content: never;
+      };
+    };
+  };
   /** 지하철역 검색 api */
   findSubwayStations: {
     parameters: {
@@ -5691,6 +6886,33 @@ export interface operations {
       };
       /** @description 존재하지 않는 모임 신청입니다. */
       400: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * 회차 참석자 삭제
+   * @description 개설자 또는 승인된 공동 결제자가 삭제합니다. 개설자 삭제 및 종료 후 삭제도 가능합니다.
+   */
+  deleteAttendee: {
+    parameters: {
+      path: {
+        meetingId: number;
+        roundId: number;
+        attendeeUserId: number;
+      };
+    };
+    responses: {
+      /** @description 참석자 삭제 성공 */
+      204: {
+        content: never;
+      };
+      /** @description 권한이 없습니다. */
+      403: {
+        content: never;
+      };
+      /** @description 회식, 회차 또는 참석 기록을 찾을 수 없습니다. */
+      404: {
         content: never;
       };
     };
