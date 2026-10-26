@@ -1,6 +1,8 @@
+import type { CategoryType } from '@constant/option';
+
 export interface MumuFeedCardData {
   meetingTitle: string;
-  meetingCategory: 'STUDY' | 'LECTURE' | 'FLASH' | 'EVENT' | 'SEMINAR';
+  meetingCategory: CategoryType;
   postId: number;
   likeCount: number;
   commentCount: number;
