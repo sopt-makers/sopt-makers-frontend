@@ -1,14 +1,17 @@
 import SettlementList from '@domain/settlement/SettlementList';
 import SettlementToolbar from '@domain/settlement/SettlementToolbar';
 import { Tab } from '@headlessui/react';
+import { useDisplay } from '@hook/useDisplay';
 import CrewTab from '@shared/CrewTab';
 import FloatingButton from '@shared/FloatingButton';
-import { colors, radius, spacing, typography } from '@sopt-mds/design-tokens';
+import { colors, spacing } from '@sopt-mds/design-tokens';
 import { ActionButton } from '@sopt-mds/ui';
 import type { NextPage } from 'next';
 import { styled } from 'stitches.config';
 
 const SettlementPage: NextPage = () => {
+  const { isMobile } = useDisplay();
+
   return (
     <>
       <SLayout aria-label='전체 회식'>
@@ -16,10 +19,10 @@ const SettlementPage: NextPage = () => {
 
         <Tab.Group>
           <SViewSelector aria-label='회식 목록 범위'>
-            <Tab as={SViewButton} type='button' size='large' variant='secondary'>
+            <Tab as={SViewButton} type='button' size={isMobile ? 'small' : 'large'} variant='secondary'>
               전체 회식
             </Tab>
-            <Tab as={SViewButton} type='button' size='large' variant='secondary' disabled>
+            <Tab as={SViewButton} type='button' size={isMobile ? 'small' : 'large'} variant='secondary' disabled>
               내 회식
             </Tab>
           </SViewSelector>
@@ -69,7 +72,6 @@ const SContent = styled('div', {
 
 const SViewButton = styled(ActionButton, {
   '&&': {
-    paddingInline: spacing.s20,
     backgroundColor: colors.bg.layer.basement,
     color: colors.fg.neutral.subtle,
   },
@@ -80,8 +82,5 @@ const SViewButton = styled(ActionButton, {
   '&&:disabled': {
     backgroundColor: colors.bg.layer.basement,
     color: colors.fg.neutral.subtle,
-  },
-  '@mobile': {
-    '&&': { ...typography.label3, height: 38, padding: `${spacing.s10} ${spacing.s12}`, borderRadius: radius.r8 },
   },
 });

@@ -195,7 +195,6 @@ const SFilterTriggerContent = styled(SelectV2.TriggerContent, {
 
 const SResetButton = styled(ActionButton, {
   '&&': {
-    paddingInline: spacing.s16,
     color: colors.base.gray200,
     backgroundColor: colors.bg.neutral.ghost,
   },
