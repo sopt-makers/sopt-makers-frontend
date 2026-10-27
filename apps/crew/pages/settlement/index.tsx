@@ -14,28 +14,35 @@ const SettlementPage: NextPage = () => {
 
   return (
     <>
-      <SLayout aria-label='전체 회식'>
+      <SLayout aria-label='회식'>
         <CrewTab />
 
         <Tab.Group>
-          <SViewSelector aria-label='회식 목록 범위'>
-            <Tab as={SViewButton} type='button' size={isMobile ? 'small' : 'large'} variant='secondary'>
-              전체 회식
-            </Tab>
-            <Tab as={SViewButton} type='button' size={isMobile ? 'small' : 'large'} variant='secondary' disabled>
-              내 회식
-            </Tab>
-          </SViewSelector>
+          {({ selectedIndex }) => (
+            <>
+              <SViewSelector aria-label='회식 목록 범위'>
+                <Tab as={SViewButton} type='button' size={isMobile ? 'small' : 'large'} variant='secondary'>
+                  전체 회식
+                </Tab>
+                <Tab as={SViewButton} type='button' size={isMobile ? 'small' : 'large'} variant='secondary'>
+                  내 회식
+                </Tab>
+              </SViewSelector>
 
-          <Tab.Panels>
-            <Tab.Panel>
               <SContent>
-                <SettlementToolbar />
-                <SettlementList />
+                <SettlementToolbar showFilters={selectedIndex === 0} />
+
+                <Tab.Panels>
+                  <Tab.Panel>
+                    <SettlementList tab='ALL' />
+                  </Tab.Panel>
+                  <Tab.Panel>
+                    <SettlementList tab='MY' />
+                  </Tab.Panel>
+                </Tab.Panels>
               </SContent>
-            </Tab.Panel>
-            <Tab.Panel>{/* TODO: 내 회식 뷰 구현 후 탭 활성화 및 데이터 조회 연결 */}</Tab.Panel>
-          </Tab.Panels>
+            </>
+          )}
         </Tab.Group>
       </SLayout>
       <FloatingButton />
@@ -78,9 +85,5 @@ const SViewButton = styled(ActionButton, {
   '&&[aria-selected=true]': {
     backgroundColor: colors.bg.neutral.subtle,
     color: colors.fg.neutral.bold,
-  },
-  '&&:disabled': {
-    backgroundColor: colors.bg.layer.basement,
-    color: colors.fg.neutral.subtle,
   },
 });
