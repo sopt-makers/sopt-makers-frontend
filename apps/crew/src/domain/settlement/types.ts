@@ -1,6 +1,8 @@
 import type { MeetingData } from '@api/meeting/type';
 import { PART_NAME } from '@constant/option';
 
+import type { paths } from '@/__generated__/schema';
+
 export const SETTLEMENT_STATUS_LABELS = {
   ongoing: '진행 중',
   ended: '종료',
@@ -16,8 +18,14 @@ export const SETTLEMENT_PART_OPTIONS = Object.entries(PART_NAME).map(([value, la
 export type SettlementDisplayStatus = keyof typeof SETTLEMENT_STATUS_LABELS;
 export type SettlementPart = MeetingData['joinableParts'][number];
 
+type SettlementDetailResponse =
+  paths['/dining/v2/{meetingId}']['get']['responses']['200']['content']['application/json;charset=UTF-8'];
+
+export type SettlementDetail = SettlementDetailResponse &
+  Required<Pick<SettlementDetailResponse, 'diningDate' | 'leader'>>;
+
 export interface SettlementCardItem {
-  id: string;
+  id: number;
   title: string;
   dateLabel: string;
   thumbnailSrc: string;
