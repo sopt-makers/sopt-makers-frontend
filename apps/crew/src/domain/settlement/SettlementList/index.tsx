@@ -1,5 +1,6 @@
 import { SCardGrid } from '@shared/util/layout/CardGrid';
 import { colors, spacing, typography } from '@sopt-mds/design-tokens';
+import Link from 'next/link';
 import { styled } from 'stitches.config';
 
 import { settlementFixtures } from '../fixtures';
@@ -13,7 +14,9 @@ const SettlementList = () => {
       </SCount>
       <SGrid>
         {settlementFixtures.map((item) => (
-          <SettlementCard key={item.id} item={item} />
+          <Link key={item.id} href={`/settlement/${item.id}`}>
+            <SettlementCard item={item} />
+          </Link>
         ))}
       </SGrid>
     </SResults>
