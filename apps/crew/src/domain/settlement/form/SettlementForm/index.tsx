@@ -1,0 +1,79 @@
+import { useUploadImageMutation } from '@api/image/mutation';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { TextField } from '@sopt-mds/ui';
+import { FormProvider, useController, useForm } from 'react-hook-form';
+
+import CoverImageField from '../fields/CoverImageField';
+import DiningDateField from '../fields/DiningDateField';
+import JoinablePartsField from '../fields/JoinablePartsField';
+import LocationFields from '../fields/LocationFields';
+import StartTimeField from '../fields/StartTimeField';
+import FormActions from '../FormActions';
+import FormLayout from '../FormLayout';
+import type { SettlementFormValues } from '../schema';
+import { createSettlementFormSchema } from '../schema';
+
+const DEFAULT_SETTLEMENT_FORM_VALUES: SettlementFormValues = {
+  title: '',
+  place: '',
+  naverMapLink: '',
+  kakaoMapLink: '',
+  diningDate: '',
+  startTime: '',
+  joinableParts: [],
+  files: [],
+};
+
+interface SettlementFormProps {
+  mode: 'create' | 'edit';
+  initialValues?: SettlementFormValues;
+  // TODO: API 연결 시 onSubmit을 필수로 변경하고, 옵셔널 호출과 버튼의 !onSubmit 조건을 제거
+  onSubmit?: (values: SettlementFormValues) => void | Promise<void>;
+  onDelete?: () => void;
+}
+
+const SettlementForm = ({ mode, initialValues, onSubmit, onDelete }: SettlementFormProps) => {
+  const methods = useForm<SettlementFormValues>({
+    defaultValues: initialValues ?? DEFAULT_SETTLEMENT_FORM_VALUES,
+    resolver: zodResolver(createSettlementFormSchema(mode)),
+    mode: 'onBlur',
+  });
+  const { field: titleField, fieldState: titleState } = useController({ control: methods.control, name: 'title' });
+  const { mutateAsync: uploadImage, isPending: isUploading } = useUploadImageMutation();
+  const isPending = methods.formState.isSubmitting || isUploading;
+
+  return (
+    <FormProvider {...methods}>
+      <FormLayout
+        title={mode === 'edit' ? '회식 정보 수정' : '회식 정보 입력'}
+        description='회식 등록에 필요한 필수 항목이 모두 입력되었는지 꼼꼼하게 확인해주세요.'
+        onSubmit={methods.handleSubmit((values) => onSubmit?.(values))}
+        actions={
+          <FormActions
+            submitLabel={mode === 'edit' ? '회식 수정하기' : '회식 등록하기'}
+            submitDisabled={!onSubmit || !methods.formState.isValid || isPending}
+            deleteLabel={mode === 'edit' ? '회식 삭제하기' : undefined}
+            deleteDisabled={isPending}
+            onDelete={onDelete}
+          />
+        }
+      >
+        <TextField
+          {...titleField}
+          label='회식명'
+          placeholder='회식명'
+          maxLength={30}
+          required
+          errorMessage={titleState.error?.message}
+        />
+        <LocationFields />
+        <DiningDateField allowPast={mode === 'edit'} />
+        <StartTimeField />
+        <JoinablePartsField />
+        <CoverImageField isUploading={isUploading} onUpload={uploadImage} />
+      </FormLayout>
+    </FormProvider>
+  );
+};
+
+export default SettlementForm;
