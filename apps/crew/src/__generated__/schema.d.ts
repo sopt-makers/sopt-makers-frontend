@@ -509,6 +509,13 @@ export interface paths {
      */
     get: operations['getApprovedStudyCountByOrgId'];
   };
+  '/dining/v2/{meetingId}/rounds/{roundId}/attendees/csv': {
+    /**
+     * 회차 전체 참석자 CSV 다운로드
+     * @description 선택한 회차의 전체 참석자를 페이지네이션 없이 CSV로 생성하여 S3 파일 URL을 반환합니다. 개설자 또는 해당 회식의 어느 회차에서든 승인된 공동 결제자만 가능하며, 종료된 회식에서도 가능합니다. CSV 컬럼: 번호 / 이름 / 최근 기수 / 연락처. 등록 시각 오름차순, 동일 시각에는 참석 기록 ID 오름차순으로 정렬하고 번호는 1부터 부여합니다.
+     */
+    get: operations['getAttendeesCsv'];
+  };
   '/dining/v2/{meetingId}/rounds/{roundId}/attendance/attendees': {
     /**
      * 회차 참석 현황 모달 목록 조회
@@ -3675,45 +3682,6 @@ export interface components {
       /** @description 신청 목록 */
       appliedInfo: components['schemas']['ApplyWholeInfoDto'][];
     };
-    DiningV2GetDiningsQueryDto: {
-      /**
-       * Format: int32
-       * @description 각 페이지
-       * @default 1
-       * @example 1
-       */
-      page?: number;
-      /**
-       * Format: int32
-       * @description 가져올 데이터 개수
-       * @default 12
-       * @example 12
-       */
-      take?: number;
-      /**
-       * @description 목록 탭. ALL: 전체 회식, MY: 내 회식(개설했거나 참석 중인 회식)
-       * @default ALL
-       * @enum {string}
-       */
-      tab?: 'ALL' | 'MY';
-      /**
-       * @description 진행 상태. 생략하면 전체 상태
-       * @enum {string}
-       */
-      status?: 'IN_PROGRESS' | 'ENDED';
-      /**
-       * @description 파트. 생략하면 전체 파트이며, 전체 파트 회식은 모든 파트 필터에 포함된다
-       * @example SERVER
-       * @enum {string}
-       */
-      part?: 'PM' | 'DESIGN' | 'IOS' | 'ANDROID' | 'SERVER' | 'WEB';
-      /**
-       * @description 회식명 검색어
-       * @example 서버
-       */
-      query?: string;
-      myTab?: boolean;
-    };
     /** @description 회식 카드 */
     DiningV2DiningCardDto: {
       /**
@@ -3721,28 +3689,28 @@ export interface components {
        * @description 회식(모임) id
        * @example 1
        */
-      meetingId?: number;
+      meetingId: number;
       /**
        * @description 회식명
        * @example 서버 파트 회식
        */
-      title?: string;
+      title: string;
       /**
        * Format: date
        * @description 회식 일자
        * @example 2026-10-30
        */
-      diningDate?: string;
+      diningDate: string;
       /**
        * @description 대표 이미지
        * @example [url] 형식
        */
-      imageUrl?: string;
+      imageUrl: string;
       /**
        * @description 종료 여부. false 면 진행 중
        * @example false
        */
-      isEnded?: boolean;
+      isEnded: boolean;
       /**
        * @description 참여 파트
        * @example [
@@ -3750,24 +3718,24 @@ export interface components {
        *   "WEB"
        * ]
        */
-      joinableParts?: ('PM' | 'DESIGN' | 'IOS' | 'ANDROID' | 'SERVER' | 'WEB')[];
+      joinableParts: ('PM' | 'DESIGN' | 'IOS' | 'ANDROID' | 'SERVER' | 'WEB')[];
       /**
        * Format: int64
        * @description 전체 회차의 고유 참석자 수
        * @example 12
        */
-      attendeeCount?: number;
-      leader?: components['schemas']['DiningV2LeaderDto'];
+      attendeeCount: number;
+      leader: components['schemas']['DiningV2LeaderDto'];
       /**
        * @description 참석자 관리 버튼 노출 여부 (개설자 또는 승인된 공동 결제자)
        * @example true
        */
-      canManageAttendees?: boolean;
+      canManageAttendees: boolean;
     };
     /** @description 회식 메인 목록 응답 Dto */
     DiningV2GetDiningsResponseDto: {
-      dinings?: components['schemas']['DiningV2DiningCardDto'][];
-      meta?: components['schemas']['PageMetaDto'];
+      dinings: components['schemas']['DiningV2DiningCardDto'][];
+      meta: components['schemas']['PageMetaDto'];
     };
     /** @description 회식 개설자 */
     DiningV2LeaderDto: {
@@ -3776,12 +3744,12 @@ export interface components {
        * @description 개설자 크루 사용자 id
        * @example 1
        */
-      id?: number;
+      id: number;
       /**
        * @description 개설자 이름
        * @example 홍길동
        */
-      name?: string;
+      name: string;
       /**
        * @description 개설자 프로필 이미지
        * @example [url] 형식
@@ -3795,33 +3763,33 @@ export interface components {
        * @description 회식(모임) id
        * @example 1
        */
-      meetingId?: number;
+      meetingId: number;
       /**
        * @description 회식명
        * @example 서버 파트 회식
        */
-      title?: string;
+      title: string;
       /**
        * Format: date
        * @description 회식 일자
        * @example 2026-10-30
        */
-      diningDate?: string;
+      diningDate: string;
       /**
        * @description 회식 일자 (수정됨) 표시 여부
        * @example false
        */
-      isDateModified?: boolean;
+      isDateModified: boolean;
       /**
        * @description 대표 이미지
        * @example [url] 형식
        */
-      imageUrl?: string;
+      imageUrl: string;
       /**
        * @description 종료 여부. false 면 진행 중
        * @example false
        */
-      isEnded?: boolean;
+      isEnded: boolean;
       /**
        * @description 참여 파트
        * @example [
@@ -3829,20 +3797,20 @@ export interface components {
        *   "WEB"
        * ]
        */
-      joinableParts?: ('PM' | 'DESIGN' | 'IOS' | 'ANDROID' | 'SERVER' | 'WEB')[];
-      leader?: components['schemas']['DiningV2LeaderDto'];
+      joinableParts: ('PM' | 'DESIGN' | 'IOS' | 'ANDROID' | 'SERVER' | 'WEB')[];
+      leader: components['schemas']['DiningV2LeaderDto'];
       /**
        * @description 조회자가 개설자인지 여부
        * @example false
        */
-      isLeader?: boolean;
+      isLeader: boolean;
       /**
        * @description 조회자가 승인된 공동 결제자인지 여부
        * @example false
        */
-      isApprovedPayer?: boolean;
+      isApprovedPayer: boolean;
       /** @description 회차 목록 (1차부터 순서대로) */
-      rounds?: components['schemas']['DiningV2RoundDto'][];
+      rounds: components['schemas']['DiningV2RoundDto'][];
     };
     /** @description 회차 */
     DiningV2RoundDto: {
@@ -3851,13 +3819,13 @@ export interface components {
        * @description 회차 id
        * @example 3
        */
-      roundId?: number;
+      roundId: number;
       /**
        * Format: int32
        * @description 회차 번호 (1차 = 1)
        * @example 2
        */
-      roundNumber?: number;
+      roundNumber: number;
       /**
        * @description 장소. null 이면 장소 미정
        * @example 비틀비틀 비틀스 타코 서순라길 점
@@ -3882,39 +3850,39 @@ export interface components {
        * @description 마감(확정) 여부
        * @example false
        */
-      isClosed?: boolean;
+      isClosed: boolean;
       /**
        * @description 장소 (수정됨) 표시 여부
        * @example false
        */
-      isPlaceModified?: boolean;
+      isPlaceModified: boolean;
       /**
        * @description 장소 링크 (수정됨) 표시 여부
        * @example false
        */
-      isLinkModified?: boolean;
+      isLinkModified: boolean;
       /**
        * @description 시작 시간 (수정됨) 표시 여부
        * @example false
        */
-      isStartTimeModified?: boolean;
+      isStartTimeModified: boolean;
       /**
        * @description NEW 표시 여부 (1차를 제외한 최신 회차이고 생성 24시간 이내)
        * @example true
        */
-      isNew?: boolean;
+      isNew: boolean;
       /**
        * Format: int64
        * @description 현재 참석 인원
        * @example 8
        */
-      attendeeCount?: number;
+      attendeeCount: number;
       /**
        * @description 내 참석 상태. NOT_ATTENDING: 미참석, ATTENDING: 참석, ATTENDED: 참석 완료(마감된 회차)
        * @example ATTENDING
        * @enum {string}
        */
-      myAttendanceStatus?: 'NOT_ATTENDING' | 'ATTENDING' | 'ATTENDED';
+      myAttendanceStatus: 'NOT_ATTENDING' | 'ATTENDING' | 'ATTENDED';
       /**
        * @description 내 공동 결제자 요청 상태. null 이면 요청 없음
        * @example PENDING
@@ -3925,43 +3893,26 @@ export interface components {
        * @description 신규 회차 신청 안내 문구 노출 여부 (이전 회차에 참석했고 이 회차는 미신청)
        * @example false
        */
-      showNewRoundGuide?: boolean;
+      showNewRoundGuide: boolean;
     };
-    DiningV2GetAttendeesQueryDto: {
-      /**
-       * Format: int32
-       * @description 각 페이지
-       * @default 1
-       * @example 1
-       */
-      page?: number;
-      /**
-       * Format: int32
-       * @description 가져올 데이터 개수
-       * @default 10
-       * @enum {integer}
-       */
-      take?: 10 | 30 | 50;
-      /**
-       * @description 등록 시각 정렬 방향
-       * @default desc
-       * @enum {string}
-       */
-      date?: 'asc' | 'desc';
-      validTake?: boolean;
+    /** @description 관리자용 회차 참석자 목록 */
+    DiningV2GetAttendeeManagementResponseDto: {
+      attendees: components['schemas']['DiningV2ManagementAttendeeDto'][];
+      meta: components['schemas']['PageMetaDto'];
     };
-    Attendee: {
+    /** @description 관리자용 참석자 */
+    DiningV2ManagementAttendeeDto: {
       /**
        * Format: int32
        * @description 크루 사용자 ID
        */
-      id?: number;
+      id: number;
       /**
        * Format: int64
        * @description 현재 참석자의 등록 시각 기준 번호 (오래된 순서부터 1번)
        */
-      attendanceNumber?: number;
-      name?: string;
+      attendanceNumber: number;
+      name: string;
       profileImage?: string;
       /**
        * Format: int32
@@ -3970,41 +3921,49 @@ export interface components {
       recentGeneration?: number;
       phone?: string;
     };
-    /** @description 관리자용 회차 참석자 목록 */
-    DiningV2GetAttendeeManagementResponseDto: {
-      attendees?: components['schemas']['Attendee'][];
-      meta?: components['schemas']['PageMetaDto'];
+    /** @description 회차 전체 참석자 CSV 다운로드 URL */
+    DiningV2GetAttendeesCsvResponseDto: {
+      /** @description S3에 업로드된 CSV 파일 URL */
+      url: string;
     };
     /** @description 회차 참석 현황 */
     DiningV2GetAttendanceResponseDto: {
       /** Format: int64 */
-      attendeeCount?: number;
-      isAttending?: boolean;
+      attendeeCount: number;
+      isAttending: boolean;
       /**
        * @description 본인의 해당 회차 공동 결제자 상태. 미참석 또는 요청 없음이면 null
        * @enum {string}
        */
       payerStatus?: 'PENDING' | 'APPROVED';
     };
+    /** @description 참석 현황 모달 참석자 */
+    DiningV2AttendeeDto: {
+      /** Format: int32 */
+      id: number;
+      name: string;
+      profileImage?: string;
+    };
     /** @description 로그인 사용자용 회차 참석 현황 모달 목록 */
     DiningV2GetAttendeesResponseDto: {
-      attendees?: components['schemas']['Attendee'][];
+      attendees: components['schemas']['DiningV2AttendeeDto'][];
     };
     /** @description 개설자 전용 공동 결제자 대기 요청 목록. 요청 시각 오름차순 */
     DiningV2GetPayerRequestsResponseDto: {
-      requests?: components['schemas']['PayerRequest'][];
+      requests: components['schemas']['DiningV2PayerRequestDto'][];
     };
-    PayerRequest: {
+    /** @description 공동 결제자 대기 요청 */
+    DiningV2PayerRequestDto: {
       /** Format: int32 */
-      userId?: number;
-      name?: string;
+      userId: number;
+      name: string;
       profileImage?: string;
       /** Format: int32 */
-      roundId?: number;
+      roundId: number;
       /** Format: int32 */
-      roundNumber?: number;
+      roundNumber: number;
       /** Format: date-time */
-      requestedAt?: string;
+      requestedAt: string;
     };
     /** @description 댓글 객체 응답 Dto */
     CommentDto: {
@@ -5467,8 +5426,37 @@ export interface operations {
    */
   getDinings: {
     parameters: {
-      query: {
-        queryCommand: components['schemas']['DiningV2GetDiningsQueryDto'];
+      query?: {
+        /**
+         * @description 페이지, default = 1
+         * @example 1
+         */
+        page?: number;
+        /**
+         * @description 가져올 데이터 개수, default = 12
+         * @example 12
+         */
+        take?: number;
+        /**
+         * @description 목록 탭. ALL: 전체 회식, MY: 내 회식(개설했거나 참석 중인 회식), default = ALL
+         * @example ALL
+         */
+        tab?: 'ALL' | 'MY';
+        /**
+         * @description 진행 상태. 생략하면 전체 상태
+         * @example IN_PROGRESS
+         */
+        status?: 'IN_PROGRESS' | 'ENDED';
+        /**
+         * @description 파트. 생략하면 전체 파트이며, 전체 파트 회식은 모든 파트 필터에 포함된다
+         * @example SERVER
+         */
+        part?: 'PM' | 'DESIGN' | 'IOS' | 'ANDROID' | 'SERVER' | 'WEB';
+        /**
+         * @description 회식명 검색어 (최대 30자)
+         * @example 서버
+         */
+        query?: string;
       };
     };
     responses: {
@@ -5698,8 +5686,22 @@ export interface operations {
    */
   getAttendees: {
     parameters: {
-      query: {
-        queryCommand: components['schemas']['DiningV2GetAttendeesQueryDto'];
+      query?: {
+        /**
+         * @description 페이지, default = 1
+         * @example 1
+         */
+        page?: number;
+        /**
+         * @description 가져올 데이터 개수. 10, 30, 50 중 하나, default = 10
+         * @example 10
+         */
+        take?: number;
+        /**
+         * @description 등록 시각 정렬 (desc: 최신순, asc: 오래된순), default = desc
+         * @example desc
+         */
+        date?: 'desc' | 'asc';
       };
       path: {
         meetingId: number;
@@ -6720,6 +6722,38 @@ export interface operations {
         content: {
           'application/json': unknown;
         };
+      };
+    };
+  };
+  /**
+   * 회차 전체 참석자 CSV 다운로드
+   * @description 선택한 회차의 전체 참석자를 페이지네이션 없이 CSV로 생성하여 S3 파일 URL을 반환합니다. 개설자 또는 해당 회식의 어느 회차에서든 승인된 공동 결제자만 가능하며, 종료된 회식에서도 가능합니다. CSV 컬럼: 번호 / 이름 / 최근 기수 / 연락처. 등록 시각 오름차순, 동일 시각에는 참석 기록 ID 오름차순으로 정렬하고 번호는 1부터 부여합니다.
+   */
+  getAttendeesCsv: {
+    parameters: {
+      path: {
+        meetingId: number;
+        roundId: number;
+      };
+    };
+    responses: {
+      /** @description CSV 파일 URL 반환. 참석자가 없으면 헤더만 있는 CSV */
+      200: {
+        content: {
+          'application/json;charset=UTF-8': components['schemas']['DiningV2GetAttendeesCsvResponseDto'];
+        };
+      };
+      /** @description 권한이 없습니다. */
+      403: {
+        content: never;
+      };
+      /** @description 회식 또는 해당 회식의 회차를 찾을 수 없습니다. */
+      404: {
+        content: never;
+      };
+      /** @description CSV 생성 또는 S3 업로드 실패 */
+      500: {
+        content: never;
       };
     };
   };
