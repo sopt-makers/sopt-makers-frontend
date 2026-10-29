@@ -25,7 +25,7 @@ const mapLinkSchema = (hosts: readonly string[]) =>
 
 const roundFieldsSchema = z.object({
   place: z.string().trim().max(30, '30자까지 입력할 수 있어요.'),
-  naverMapLink: mapLinkSchema(['naver.me', 'map.naver.com', 'm.map.naver.com']),
+  naverMapLink: mapLinkSchema(['naver.me', 'map.naver.com']),
   kakaoMapLink: mapLinkSchema(['kko.to', 'map.kakao.com', 'place.map.kakao.com']),
   startTime: z.string().refine((value) => !value || /^([01]\d|2[0-3]):[0-5]\d$/.test(value), {
     message: '올바른 시간을 입력해주세요. (00:00~23:59)',
