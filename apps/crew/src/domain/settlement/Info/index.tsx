@@ -32,7 +32,7 @@ const Info = ({ settlement: { title, diningDate, imageUrl, isEnded, joinablePart
 
         <STitle>
           <SDate>[{dayjs(diningDate).format('YY.MM.DD')}]</SDate>
-          <span>{title}</span>
+          <STitleText>{title}</STitleText>
         </STitle>
 
         <SProfile>
@@ -96,7 +96,15 @@ const STitle = styled('h1', {
   },
 });
 
-const SDate = styled('span', { color: colors.fg.neutral.subtle });
+const SDate = styled('span', {
+  color: colors.fg.neutral.subtle,
+  flexShrink: 0,
+});
+
+const STitleText = styled('span', {
+  minWidth: 0,
+  overflowWrap: 'anywhere',
+});
 
 const SProfile = styled('div', {
   ...typography.title2,
