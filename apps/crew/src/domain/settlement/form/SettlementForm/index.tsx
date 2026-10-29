@@ -40,20 +40,19 @@ const SettlementForm = ({ mode, initialValues, onSubmit, onDelete }: SettlementF
   });
   const { field: title, fieldState: titleState } = useController({ control: methods.control, name: 'title' });
   const [isUploading, setIsUploading] = useState(false);
-  const isEdit = mode === 'edit';
   const isPending = methods.formState.isSubmitting || isUploading;
 
   return (
     <FormProvider {...methods}>
       <FormLayout
-        title={isEdit ? '회식 정보 수정' : '회식 정보 입력'}
+        title={mode === 'edit' ? '회식 정보 수정' : '회식 정보 입력'}
         description='회식 등록에 필요한 필수 항목이 모두 입력되었는지 꼼꼼하게 확인해주세요.'
         onSubmit={methods.handleSubmit((values) => onSubmit?.(values))}
         actions={
           <FormActions
-            submitLabel={isEdit ? '회식 수정하기' : '회식 등록하기'}
+            submitLabel={mode === 'edit' ? '회식 수정하기' : '회식 등록하기'}
             submitDisabled={!onSubmit || !methods.formState.isValid || isPending}
-            deleteLabel={isEdit ? '회식 삭제하기' : undefined}
+            deleteLabel={mode === 'edit' ? '회식 삭제하기' : undefined}
             deleteDisabled={isPending}
             onDelete={onDelete}
           />
