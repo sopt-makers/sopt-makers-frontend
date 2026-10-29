@@ -1,6 +1,6 @@
+import { useUploadImageMutation } from '@api/image/mutation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { TextField } from '@sopt-mds/ui';
-import { useState } from 'react';
 import { FormProvider, useController, useForm } from 'react-hook-form';
 
 import CoverImageField from '../fields/CoverImageField';
@@ -39,7 +39,7 @@ const SettlementForm = ({ mode, initialValues, onSubmit, onDelete }: SettlementF
     mode: 'onBlur',
   });
   const { field: title, fieldState: titleState } = useController({ control: methods.control, name: 'title' });
-  const [isUploading, setIsUploading] = useState(false);
+  const { mutateAsync: uploadImage, isPending: isUploading } = useUploadImageMutation();
   const isPending = methods.formState.isSubmitting || isUploading;
 
   return (
@@ -70,7 +70,7 @@ const SettlementForm = ({ mode, initialValues, onSubmit, onDelete }: SettlementF
         <DiningDateField />
         <StartTimeField />
         <JoinablePartsField />
-        <CoverImageField isUploading={isUploading} onUploadStateChange={setIsUploading} />
+        <CoverImageField isUploading={isUploading} onUpload={uploadImage} />
       </FormLayout>
     </FormProvider>
   );

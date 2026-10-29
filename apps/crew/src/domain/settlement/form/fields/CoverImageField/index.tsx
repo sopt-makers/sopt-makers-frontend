@@ -1,5 +1,3 @@
-import { getPresignedUrl, uploadImage } from '@api/image';
-import { imageS3Bucket } from '@constant/url';
 import { colors, radius, spacing } from '@sopt-mds/design-tokens';
 import { IconPlus } from '@sopt-mds/icons';
 import { ActionButton } from '@sopt-mds/ui';
@@ -14,10 +12,10 @@ import { SDescription, SError, SFieldHeader, SLabel } from '../style';
 
 interface CoverImageFieldProps {
   isUploading: boolean;
-  onUploadStateChange: (isUploading: boolean) => void;
+  onUpload: (file: File) => Promise<string>;
 }
 
-const CoverImageField = ({ isUploading, onUploadStateChange }: CoverImageFieldProps) => {
+const CoverImageField = ({ isUploading, onUpload }: CoverImageFieldProps) => {
   const {
     field,
     fieldState: { error },
@@ -40,16 +38,12 @@ const CoverImageField = ({ isUploading, onUploadStateChange }: CoverImageFieldPr
     }
 
     setUploadError('');
-    onUploadStateChange(true);
     try {
-      const { url, fields } = await getPresignedUrl({ contentType: file.type.split('/')[1] ?? '' });
-      await uploadImage(file, url, fields);
-      field.onChange([imageS3Bucket + fields.key]);
+      const uploadedImageUrl = await onUpload(file);
+      field.onChange([uploadedImageUrl]);
       field.onBlur();
     } catch {
       setUploadError('이미지를 업로드하지 못했어요. 다시 시도해주세요.');
-    } finally {
-      onUploadStateChange(false);
     }
   };
 
