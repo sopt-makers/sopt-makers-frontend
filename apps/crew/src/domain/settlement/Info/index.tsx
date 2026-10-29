@@ -107,8 +107,11 @@ const SProfile = styled('div', {
   'padding': `${spacing.s12} ${spacing.s16}`,
   '@mobile': {
     ...typography.label3,
+    width: 'fit-content',
     gap: spacing.s6,
     padding: `5px ${spacing.s8}`,
     marginTop: spacing.s16,
+    borderRadius: radius.r6,
+    backgroundColor: colors.base.gray900,
   },
 });
