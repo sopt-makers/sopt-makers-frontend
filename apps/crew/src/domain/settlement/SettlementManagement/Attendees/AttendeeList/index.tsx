@@ -56,7 +56,7 @@ const SSection = styled('section', {
   'gap': spacing.s24,
   'marginTop': spacing.s40,
   '@mobile': {
-    gap: spacing.s12,
+    gap: spacing.s10,
     marginTop: spacing.s24,
   },
 });
@@ -64,6 +64,9 @@ const SSection = styled('section', {
 const STitle = styled('h2', {
   ...typography.heading1,
   'color': colors.fg.neutral.bold,
+  '@desktop': {
+    ...typography.title2,
+  },
   '@mobile': {
     ...typography.heading4,
   },

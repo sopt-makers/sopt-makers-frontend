@@ -1,5 +1,5 @@
 import { SelectV2 } from '@sopt-makers/ui';
-import { spacing } from '@sopt-mds/design-tokens';
+import { spacing, typography } from '@sopt-mds/design-tokens';
 import { styled } from 'stitches.config';
 
 import { ATTENDEE_PAGE_SIZES } from '../constants';
@@ -90,7 +90,8 @@ const SFilters = styled('div', {
   'gap': spacing.s8,
   'marginBottom': spacing.s16,
   '@mobile': {
-    marginBottom: spacing.s0,
+    gap: spacing.s6,
+    marginBottom: spacing.s2,
   },
 });
 
@@ -107,5 +108,19 @@ const SFilter = styled('div', {
 const SFilterTrigger = styled(SelectV2.TriggerContent, {
   '&&': {
     minWidth: 0,
+  },
+  '@mobile': {
+    '&&': {
+      ...typography.label4,
+      height: '36px',
+      padding: `0 ${spacing.s14}`,
+      gap: spacing.s4,
+      whiteSpace: 'nowrap',
+    },
+    // SelectV2의 인라인 아이콘 크기를 덮어쓰기 위해 !important를 사용했어요.
+    '& svg': {
+      width: '16px !important',
+      height: '16px !important',
+    },
   },
 });
