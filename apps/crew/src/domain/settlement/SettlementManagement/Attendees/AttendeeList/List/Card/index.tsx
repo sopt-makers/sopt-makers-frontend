@@ -60,13 +60,13 @@ const SInfo = styled('div', {
   'minWidth': 0,
   '@mobile': {
     flex: '0 1 245px',
-    justifyContent: 'space-between',
   },
 });
 
 const SDetails = styled('div', {
   'display': 'flex',
   'alignItems': 'center',
+  'flexShrink': 0,
   'gap': '30px',
   '@mobile': {
     gap: spacing.s16,
@@ -98,6 +98,8 @@ const SProfile = styled('div', {
 const SName = styled('span', {
   ...typography.heading4,
   color: colors.fg.neutral.bold,
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
   whiteSpace: 'nowrap',
 });
 
@@ -112,7 +114,7 @@ const SPhone = styled('span', {
   'color': colors.fg.neutral.subtle,
   '@mobile': {
     ...typography.label3,
-    width: '120px',
+    width: 'auto',
     whiteSpace: 'nowrap',
   },
 });
