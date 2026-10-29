@@ -14,7 +14,7 @@ const SettlementList = () => {
       </SCount>
       <SGrid>
         {settlementFixtures.map((item) => (
-          <Link key={item.id} href={`/settlement/${item.id}`}>
+          <Link key={item.id} href={`/settlement/detail?id=${item.id}`}>
             <SettlementCard item={item} />
           </Link>
         ))}
