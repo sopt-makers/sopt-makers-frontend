@@ -38,7 +38,7 @@ const SettlementForm = ({ mode, initialValues, onSubmit, onDelete }: SettlementF
     resolver: zodResolver(settlementFormSchema),
     mode: 'onBlur',
   });
-  const { field: title, fieldState: titleState } = useController({ control: methods.control, name: 'title' });
+  const { field: titleField, fieldState: titleState } = useController({ control: methods.control, name: 'title' });
   const { mutateAsync: uploadImage, isPending: isUploading } = useUploadImageMutation();
   const isPending = methods.formState.isSubmitting || isUploading;
 
@@ -59,7 +59,7 @@ const SettlementForm = ({ mode, initialValues, onSubmit, onDelete }: SettlementF
         }
       >
         <TextField
-          {...title}
+          {...titleField}
           label='회식명'
           placeholder='회식명'
           maxLength={30}
