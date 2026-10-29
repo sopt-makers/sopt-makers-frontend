@@ -81,7 +81,7 @@ const SDescription = styled('p', {
 const SList = styled('div', {
   'display': 'flex',
   'flexDirection': 'column',
-  'gap': spacing.s12,
+  'gap': spacing.s16,
   'marginTop': spacing.s24,
   '@mobile': {
     marginTop: spacing.s10,
