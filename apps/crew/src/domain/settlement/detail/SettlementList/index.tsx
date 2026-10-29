@@ -1,0 +1,48 @@
+import { spacing } from '@sopt-mds/design-tokens';
+import { styled } from 'stitches.config';
+
+import type { RoundType } from '@/domain/settlement/types';
+
+import SettlementRound from '../SettlementRound';
+
+interface SettlementListProps {
+  rounds: RoundType[];
+  isLeader: boolean;
+  isEnded: boolean;
+}
+
+const SettlementList = ({ rounds, isLeader, isEnded }: SettlementListProps) => {
+  const hasClosedRound = rounds.some((round) => round.isClosed);
+
+  return (
+    <SList>
+      {rounds.map((round) => (
+        <SettlementRound
+          key={round.roundId}
+          round={round}
+          isLeader={isLeader}
+          isEnded={isEnded}
+          hasClosedRound={hasClosedRound}
+        />
+      ))}
+    </SList>
+  );
+};
+
+export default SettlementList;
+
+const SList = styled('section', {
+  'maxWidth': '1020px',
+  'margin': '60px auto 0',
+  'display': 'flex',
+  'flexDirection': 'column',
+  'gap': '120px',
+  '@desktop': { maxWidth: '708px' },
+  '@mobile': {
+    maxWidth: 'none',
+    width: 'calc(100% + 8px)',
+    marginLeft: '-4px',
+    marginTop: spacing.s40,
+    gap: spacing.s80,
+  },
+});
