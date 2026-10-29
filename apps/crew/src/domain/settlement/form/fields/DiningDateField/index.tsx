@@ -9,6 +9,8 @@ import { styled } from 'stitches.config';
 import type { SettlementFormValues } from '../../schema';
 import { SError, SLabel, SRequired } from '../style';
 
+const NON_DIGIT_REGEX = /\D/g;
+
 const DiningDateField = () => {
   const {
     field,
@@ -46,7 +48,7 @@ const DiningDateField = () => {
                 required
                 aria-invalid={Boolean(error)}
                 aria-describedby={error ? 'settlement-dining-date-error' : undefined}
-                onChange={(event) => field.onChange(formatDateInput(event.target.value.replace(/\D/g, '')))}
+                onChange={(event) => field.onChange(formatDateInput(event.target.value.replace(NON_DIGIT_REGEX, '')))}
               />
               <SInputIconButton type='button' aria-label='회식 일자 선택' aria-expanded={isOpen} aria-haspopup='dialog'>
                 <IconCalendarOutlined width={20} height={20} aria-hidden focusable='false' />
