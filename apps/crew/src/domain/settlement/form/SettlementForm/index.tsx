@@ -11,7 +11,7 @@ import StartTimeField from '../fields/StartTimeField';
 import FormActions from '../FormActions';
 import FormLayout from '../FormLayout';
 import type { SettlementFormValues } from '../schema';
-import { settlementFormSchema } from '../schema';
+import { createSettlementFormSchema } from '../schema';
 
 const DEFAULT_SETTLEMENT_FORM_VALUES: SettlementFormValues = {
   title: '',
@@ -35,7 +35,7 @@ interface SettlementFormProps {
 const SettlementForm = ({ mode, initialValues, onSubmit, onDelete }: SettlementFormProps) => {
   const methods = useForm<SettlementFormValues>({
     defaultValues: initialValues ?? DEFAULT_SETTLEMENT_FORM_VALUES,
-    resolver: zodResolver(settlementFormSchema),
+    resolver: zodResolver(createSettlementFormSchema(mode)),
     mode: 'onBlur',
   });
   const { field: titleField, fieldState: titleState } = useController({ control: methods.control, name: 'title' });
@@ -67,7 +67,7 @@ const SettlementForm = ({ mode, initialValues, onSubmit, onDelete }: SettlementF
           errorMessage={titleState.error?.message}
         />
         <LocationFields />
-        <DiningDateField />
+        <DiningDateField allowPast={mode === 'edit'} />
         <StartTimeField />
         <JoinablePartsField />
         <CoverImageField isUploading={isUploading} onUpload={uploadImage} />

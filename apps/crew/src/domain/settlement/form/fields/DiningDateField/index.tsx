@@ -9,9 +9,13 @@ import { styled } from 'stitches.config';
 import type { SettlementFormValues } from '../../schema';
 import { SError, SLabel, SRequired } from '../style';
 
+interface DiningDateFieldProps {
+  allowPast: boolean;
+}
+
 const NON_DIGIT_REGEX = /\D/g;
 
-const DiningDateField = () => {
+const DiningDateField = ({ allowPast }: DiningDateFieldProps) => {
   const {
     field,
     fieldState: { error },
@@ -36,6 +40,7 @@ const DiningDateField = () => {
           setSelectedDate={handleDateChange}
           selectedDateFieldName={field.name}
           dateType='singleSelect'
+          allowPast={allowPast}
           renderInput={({ openCalendar, isOpen }) => (
             <SInputContainer data-error={Boolean(error)} onClick={openCalendar}>
               <SInput

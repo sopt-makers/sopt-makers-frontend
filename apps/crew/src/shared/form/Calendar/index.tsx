@@ -29,6 +29,7 @@ interface Props {
   selectedDateFieldName: string;
   error?: string;
   dateType?: 'startDate' | 'endDate' | 'singleSelect';
+  allowPast?: boolean;
   renderInput?: (props: { openCalendar: () => void; isOpen: boolean }) => ReactNode;
 }
 
@@ -37,6 +38,7 @@ const CalendarInputForm = ({
   setSelectedDate,
   error,
   dateType,
+  allowPast = false,
   selectedDateFieldName,
   renderInput,
 }: Props) => {
@@ -161,7 +163,7 @@ const CalendarInputForm = ({
         showNeighboringMonth={false}
         next2Label={null}
         prev2Label={null}
-        minDate={new Date()}
+        minDate={allowPast ? undefined : new Date()}
         minDetail='month'
         maxDetail='month'
         calendarType='gregory'
