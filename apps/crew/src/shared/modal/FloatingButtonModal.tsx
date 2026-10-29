@@ -45,7 +45,6 @@ const FloatingButtonModal = ({ isActive, onClose }: FloatingButtonModalProps) =>
   };
 
   const handleSettlementRegisterButtonClick = () => {
-    onClose();
     router.push('/settlement/create');
   };
 
