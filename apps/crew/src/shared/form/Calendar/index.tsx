@@ -6,7 +6,7 @@ import { IconCalendar } from '@sopt-makers/icons';
 import { formatDateInput, MAX_DATE_INPUT_LENGTH, WEEKDAYS } from '@util/date';
 import { formatCalendarDate } from '@util/dayjs';
 import dayjs from 'dayjs';
-import type { Dispatch, SetStateAction } from 'react';
+import type { Dispatch, ReactNode, SetStateAction } from 'react';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Calendar from 'react-calendar';
 import { styled } from 'stitches.config';
@@ -29,9 +29,17 @@ interface Props {
   selectedDateFieldName: string;
   error?: string;
   dateType?: 'startDate' | 'endDate' | 'singleSelect';
+  renderInput?: (props: { openCalendar: () => void; isOpen: boolean }) => ReactNode;
 }
 
-const CalendarInputForm = ({ selectedDate, setSelectedDate, error, dateType, selectedDateFieldName }: Props) => {
+const CalendarInputForm = ({
+  selectedDate,
+  setSelectedDate,
+  error,
+  dateType,
+  selectedDateFieldName,
+  renderInput,
+}: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [inputValue, setInputValue] = useState(dateType === 'endDate' ? selectedDate?.[1] : selectedDate?.[0]);
   const startDate = selectedDate?.[0] ?? '';
@@ -175,7 +183,9 @@ const CalendarInputForm = ({ selectedDate, setSelectedDate, error, dateType, sel
     );
   };
 
-  const dateInput = (
+  const dateInput = renderInput ? (
+    renderInput({ openCalendar: () => setIsOpen(true), isOpen })
+  ) : (
     <SInputWrapper onClick={() => setIsOpen(true)}>
       <SInput
         type='text'
