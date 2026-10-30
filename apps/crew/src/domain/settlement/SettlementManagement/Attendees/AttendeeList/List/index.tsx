@@ -4,9 +4,9 @@ import { styled } from 'stitches.config';
 import type { Attendee } from '../types';
 import Card from './Card';
 
-type ListProps = {
+interface ListProps {
   attendees: Attendee[];
-};
+}
 
 const List = ({ attendees }: ListProps) => (
   <SList>

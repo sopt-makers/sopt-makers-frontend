@@ -39,12 +39,12 @@ const filters: {
   },
 ];
 
-type FiltersProps = {
+interface FiltersProps {
   roundId: number;
   take: string;
   date: 'asc' | 'desc';
   onChange: (key: AttendeeFilterKey, value: string) => void;
-};
+}
 
 const Filters = ({ roundId, take, date, onChange }: FiltersProps) => {
   const selectedValues = { roundId: String(roundId), take, date };

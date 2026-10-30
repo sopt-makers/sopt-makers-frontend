@@ -4,7 +4,7 @@ import { styled } from 'stitches.config';
 
 import type { Attendee } from '../../types';
 
-type CardProps = Attendee;
+interface CardProps extends Attendee {}
 
 const Card = ({ attendanceNumber, profileImage, name, recentGeneration, phone }: CardProps) => (
   <SCard>
