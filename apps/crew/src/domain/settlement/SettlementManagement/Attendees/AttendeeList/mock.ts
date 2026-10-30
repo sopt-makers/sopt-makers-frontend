@@ -2,8 +2,30 @@ import type { components } from '@/__generated__/schema';
 
 // TODO: 회식 상세 및 회차별 참석자 목록 API 연동
 export const rounds = [
-  { roundId: 1, roundNumber: 1, attendeeCount: 11 },
-  { roundId: 2, roundNumber: 2, attendeeCount: 4 },
+  {
+    roundId: 1,
+    roundNumber: 1,
+    attendeeCount: 11,
+    isClosed: false,
+    isPlaceModified: false,
+    isLinkModified: false,
+    isStartTimeModified: false,
+    isNew: false,
+    myAttendanceStatus: 'ATTENDING',
+    showNewRoundGuide: false,
+  },
+  {
+    roundId: 2,
+    roundNumber: 2,
+    attendeeCount: 4,
+    isClosed: false,
+    isPlaceModified: false,
+    isLinkModified: false,
+    isStartTimeModified: false,
+    isNew: false,
+    myAttendanceStatus: 'ATTENDING',
+    showNewRoundGuide: false,
+  },
 ] satisfies [components['schemas']['DiningV2RoundDto'], ...components['schemas']['DiningV2RoundDto'][]];
 
 export const attendeeResponsesByRound: Record<
@@ -11,6 +33,7 @@ export const attendeeResponsesByRound: Record<
   components['schemas']['DiningV2GetAttendeeManagementResponseDto']
 > = {
   1: {
+    meta: { page: 1, take: 50, itemCount: 11, pageCount: 1, hasPreviousPage: false, hasNextPage: false },
     attendees: [
       { id: 1, attendanceNumber: 1, name: '김지우', recentGeneration: 39, phone: '010-1234-1234' },
       { id: 2, attendanceNumber: 2, name: '이서준', recentGeneration: 39, phone: '010-1234-1234' },
@@ -26,6 +49,7 @@ export const attendeeResponsesByRound: Record<
     ],
   },
   2: {
+    meta: { page: 1, take: 50, itemCount: 4, pageCount: 1, hasPreviousPage: false, hasNextPage: false },
     attendees: [
       { id: 1, attendanceNumber: 1, name: '오하린', recentGeneration: 39, phone: '010-1234-1234' },
       { id: 2, attendanceNumber: 2, name: '서준호', recentGeneration: 39, phone: '010-1234-1234' },
