@@ -1,6 +1,7 @@
 import type { SettlementListTab } from '@api/settlement/type';
 import { SCardGrid } from '@shared/util/layout/CardGrid';
 import { colors, spacing, typography } from '@sopt-mds/design-tokens';
+import Link from 'next/link';
 import { styled } from 'stitches.config';
 
 import { mySettlementFixtures, settlementFixtures } from '../fixtures';
@@ -19,9 +20,11 @@ const SettlementList = ({ tab }: SettlementListProps) => {
       <SCount role='status' aria-live='polite'>
         {items.length}개의 회식
       </SCount>
-      <SGrid isMine={isMine}>
-        {items.map((item) => (
-          <SettlementCard key={item.meetingId} item={item} showManagementButton={isMine && item.canManageAttendees} />
+      <SGrid>
+        {settlementFixtures.map((item) => (
+          <Link key={item.meetingId} href={`/settlement/detail?id=${item.meetingId}`}>
+            <SettlementCard item={item} />
+          </Link>
         ))}
       </SGrid>
     </SResults>
