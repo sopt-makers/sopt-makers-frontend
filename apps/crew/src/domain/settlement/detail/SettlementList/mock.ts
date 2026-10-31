@@ -15,6 +15,11 @@ const firstRound: Round = {
   startTime: '19:45',
   attendeeCount: 8,
   isClosed: false,
+  isPlaceModified: false,
+  isLinkModified: false,
+  isStartTimeModified: false,
+  isNew: false,
+  showNewRoundGuide: false,
   myAttendanceStatus: 'NOT_ATTENDING',
 };
 
