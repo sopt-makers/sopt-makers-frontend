@@ -58,3 +58,34 @@ export const attendeeResponsesByRound: Record<
     ],
   },
 };
+
+// @TODO: API 연동 시 목 응답 생성 제거 (장정훈)
+export const getMockAttendees = ({
+  roundId,
+  page,
+  take,
+  date,
+}: {
+  roundId: number;
+  page: number;
+  take: number;
+  date: 'asc' | 'desc';
+}): components['schemas']['DiningV2GetAttendeeManagementResponseDto'] => {
+  const attendees = [...(attendeeResponsesByRound[roundId]?.attendees ?? [])].sort((a, b) =>
+    date === 'asc' ? a.attendanceNumber - b.attendanceNumber : b.attendanceNumber - a.attendanceNumber,
+  );
+  const pageCount = Math.ceil(attendees.length / take);
+  const pageAttendees = attendees.slice((page - 1) * take, page * take);
+
+  return {
+    attendees: pageAttendees,
+    meta: {
+      page,
+      take,
+      itemCount: pageAttendees.length,
+      pageCount,
+      hasPreviousPage: page > 1,
+      hasNextPage: page < pageCount,
+    },
+  };
+};
