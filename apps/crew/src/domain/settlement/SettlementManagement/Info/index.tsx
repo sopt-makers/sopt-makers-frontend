@@ -15,7 +15,7 @@ interface InfoProps {
 
 const Info = ({ id, settlement: { title, diningDate, imageUrl, joinableParts } }: InfoProps) => {
   return (
-    <SCard href={`/settlement/${id}`}>
+    <SCard href={`/settlement/detail?id=${id}`}>
       <SImage src={imageUrl || '/group/assets/images/settlement/thumbnail.svg'} alt='' />
       <SInfo>
         <SParts>
