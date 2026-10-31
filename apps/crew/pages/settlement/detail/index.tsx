@@ -14,7 +14,7 @@ const SettlementDetailPage = () => {
   return (
     <>
       <Info settlement={settlement} />
-      <SettlementList />
+      <SettlementList rounds={settlement.rounds} isLeader={settlement.isLeader} isEnded={settlement.isEnded} />
     </>
   );
 };
