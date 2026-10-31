@@ -37,12 +37,15 @@ const SList = styled('section', {
   'display': 'flex',
   'flexDirection': 'column',
   'gap': '120px',
-  '@desktop': { maxWidth: '708px' },
+  '@desktop': {
+    maxWidth: '708px',
+    marginTop: spacing.s40,
+  },
   '@mobile': {
     maxWidth: 'none',
     width: 'calc(100% + 8px)',
     marginLeft: '-4px',
-    marginTop: spacing.s40,
+    marginTop: '30px',
     gap: spacing.s80,
   },
 });

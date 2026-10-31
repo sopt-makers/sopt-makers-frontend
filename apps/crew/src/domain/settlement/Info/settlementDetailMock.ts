@@ -1,3 +1,4 @@
+import { settlementListMocks } from '../detail/SettlementList/mock';
 import type { SettlementDetail } from '../types';
 
 // TODO: API 연동 후 삭제
@@ -10,7 +11,11 @@ export const settlementDetailMock: SettlementDetail[] = Array.from({ length: 12 
   isEnded: index % 3 !== 1,
   joinableParts: ['PM', 'DESIGN'],
   leader: { id: 1, name: '홍길동', profileImage: '' },
-  isLeader: false,
+  isLeader: index === 0,
   isApprovedPayer: false,
-  rounds: [],
+  rounds: settlementListMocks.beforeJoining.rounds.map((round) => ({
+    ...round,
+    isClosed: index % 3 !== 1,
+    myAttendanceStatus: index === 0 ? 'ATTENDED' : round.myAttendanceStatus,
+  })),
 }));
