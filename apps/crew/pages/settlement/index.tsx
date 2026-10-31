@@ -1,28 +1,32 @@
-import { useSettlementListParams } from '@domain/settlement/hooks/useSettlementListParams';
 import SettlementListContent from '@domain/settlement/SettlementList';
 import SettlementToolbar from '@domain/settlement/SettlementToolbar';
 import { Tab } from '@headlessui/react';
+import { useQueryString } from '@hook/queryString';
 import { useDisplay } from '@hook/useDisplay';
 import CrewTab from '@shared/CrewTab';
 import FloatingButton from '@shared/FloatingButton';
 import { colors, spacing } from '@sopt-mds/design-tokens';
 import { ActionButton } from '@sopt-mds/ui';
 import type { NextPage } from 'next';
+import { useRouter } from 'next/router';
 import { styled } from 'stitches.config';
 
 const SettlementPage: NextPage = () => {
   const { isMobile } = useDisplay();
-  const { filters, params, isReady, updateFilters, setPage } = useSettlementListParams();
+  const router = useRouter();
+  const { value: tabValue, setValue: setTab } = useQueryString('tab', 'ALL', true);
+  const tab = tabValue === 'MY' ? 'MY' : 'ALL';
+
+  const handleTabChange = (index: number) => {
+    setTab(index === 0 ? 'ALL' : 'MY');
+  };
 
   return (
     <>
       <SLayout aria-label='회식'>
         <CrewTab />
 
-        <Tab.Group
-          selectedIndex={filters.tab === 'MY' ? 1 : 0}
-          onChange={(index) => updateFilters({ tab: index === 0 ? 'ALL' : 'MY' })}
-        >
+        <Tab.Group selectedIndex={tab === 'MY' ? 1 : 0} onChange={handleTabChange}>
           <SViewSelector aria-label='회식 목록 범위'>
             <Tab as={SViewButton} type='button' size={isMobile ? 'small' : 'large'} variant='secondary'>
               전체 회식
@@ -33,24 +37,14 @@ const SettlementPage: NextPage = () => {
           </SViewSelector>
 
           <SContent>
-            <SettlementToolbar showFilters={filters.tab === 'ALL'} filters={filters} onChange={updateFilters} />
+            <SettlementToolbar showFilters={tab === 'ALL'} />
 
             <Tab.Panels>
               <Tab.Panel>
-                <SettlementListContent
-                  tab='ALL'
-                  params={params}
-                  enabled={isReady && filters.tab === 'ALL'}
-                  onPageChange={setPage}
-                />
+                <SettlementListContent tab='ALL' enabled={router.isReady && tab === 'ALL'} />
               </Tab.Panel>
               <Tab.Panel>
-                <SettlementListContent
-                  tab='MY'
-                  params={params}
-                  enabled={isReady && filters.tab === 'MY'}
-                  onPageChange={setPage}
-                />
+                <SettlementListContent tab='MY' enabled={router.isReady && tab === 'MY'} />
               </Tab.Panel>
             </Tab.Panels>
           </SContent>

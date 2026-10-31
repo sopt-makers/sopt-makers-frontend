@@ -1,40 +1,60 @@
+import { useQueryString } from '@hook/queryString';
+import { useSearchParams } from '@hook/queryString/custom';
 import { SearchField, SelectV2 } from '@sopt-makers/ui';
 import { colors, radius, spacing } from '@sopt-mds/design-tokens';
 import { IconRefresh } from '@sopt-mds/icons';
 import { ActionButton } from '@sopt-mds/ui';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { styled } from 'stitches.config';
 
 import { SETTLEMENT_PART_OPTIONS, SETTLEMENT_SEARCH_MAX_LENGTH, SETTLEMENT_STATUS_OPTIONS } from '../constant';
-import type { SettlementListFilters } from '../hooks/useSettlementListParams';
 import { normalizeSettlementSearch } from '../util';
 
 interface SettlementToolbarProps {
   showFilters?: boolean;
-  filters: SettlementListFilters;
-  onChange: (updates: Partial<SettlementListFilters>) => void;
 }
 
-const SettlementToolbar = ({ showFilters = true, filters, onChange }: SettlementToolbarProps) => {
-  const [searchInput, setSearchInput] = useState(filters.search);
+const SettlementToolbar = ({ showFilters = true }: SettlementToolbarProps) => {
+  const router = useRouter();
+  const {
+    value: statusValue,
+    setValue: setStatus,
+    deleteKey: deleteStatus,
+  } = useQueryString('status', undefined, true);
+  const { value: partValue, setValue: setPart, deleteKey: deletePart } = useQueryString('part', undefined, true);
+  const { value: searchValue, setValue: setSearch, deleteKey: deleteSearch } = useSearchParams();
+  const selectedStatus = SETTLEMENT_STATUS_OPTIONS.find(({ value }) => value === statusValue)?.value;
+  const selectedPart = SETTLEMENT_PART_OPTIONS.find(({ value }) => value === partValue)?.value;
+  const searchQuery = normalizeSettlementSearch(searchValue ?? '');
+  const [searchInput, setSearchInput] = useState(searchQuery);
 
   useEffect(() => {
-    setSearchInput(filters.search);
-  }, [filters.search]);
+    setSearchInput(searchQuery);
+  }, [searchQuery]);
 
   const handleSearchSubmit = () => {
     const search = normalizeSettlementSearch(searchInput);
     setSearchInput(search);
-    onChange({ search });
+
+    if (search) {
+      setSearch(search);
+    } else {
+      deleteSearch();
+    }
   };
 
   const handleSearchReset = () => {
     setSearchInput('');
-    onChange({ search: '' });
+    deleteSearch();
   };
 
   const handleFilterReset = () => {
-    onChange({ status: undefined, part: undefined });
+    const nextQuery: typeof router.query = { ...router.query, page: '1' };
+    delete nextQuery.status;
+    delete nextQuery.part;
+
+    void router.push({ pathname: router.pathname, query: nextQuery }, undefined, { shallow: true, scroll: false });
   };
 
   return (
@@ -44,14 +64,14 @@ const SettlementToolbar = ({ showFilters = true, filters, onChange }: Settlement
           <SettlementFilter
             label='진행 상태'
             options={SETTLEMENT_STATUS_OPTIONS}
-            value={filters.status}
-            onChange={(status) => onChange({ status })}
+            value={selectedStatus}
+            onChange={(status) => (status ? setStatus(status) : deleteStatus())}
           />
           <SettlementFilter
             label='파트'
             options={SETTLEMENT_PART_OPTIONS}
-            value={filters.part}
-            onChange={(part) => onChange({ part })}
+            value={selectedPart}
+            onChange={(part) => (part ? setPart(part) : deletePart())}
           />
           <SResetButton
             type='button'

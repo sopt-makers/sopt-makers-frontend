@@ -1,6 +1,7 @@
-import { settlementListQueryOptions } from '@api/settlement/query';
-import type { SettlementListParams, SettlementListTab } from '@api/settlement/type';
+import { useSettlementListQueryOption } from '@api/settlement/query';
+import type { SettlementListTab } from '@api/settlement/type';
 import Pagination from '@domain/list/Pagination';
+import { usePageParams } from '@hook/queryString/custom';
 import { SCardGrid } from '@shared/util/layout/CardGrid';
 import { colors, spacing, typography } from '@sopt-mds/design-tokens';
 import { ErrorBoundary, Suspense } from '@suspensive/react';
@@ -11,27 +12,20 @@ import SettlementCard from '../SettlementCard';
 
 interface SettlementListContentProps {
   tab: SettlementListTab;
-  params: Omit<SettlementListParams, 'tab'>;
   enabled: boolean;
-  onPageChange: (page: number) => void;
 }
 
-const SettlementList = ({ tab, params, onPageChange }: Omit<SettlementListContentProps, 'enabled'>) => {
-  const queryParams: SettlementListParams = {
-    ...params,
-    tab,
-    status: tab === 'ALL' ? params.status : undefined,
-    part: tab === 'ALL' ? params.part : undefined,
-  };
-  const { data } = useSuspenseQuery(settlementListQueryOptions(queryParams));
-  const { page } = params;
+type SettlementListProps = ReturnType<typeof useSettlementListQueryOption>;
+
+const SettlementList = ({ params, options }: SettlementListProps) => {
+  const { setValue: setPage } = usePageParams();
+  const { data } = useSuspenseQuery(options);
+  const { tab, page } = params;
 
   const defaultEmptyMessage = tab === 'MY' ? '개설하거나 참여 중인 회식이 없어요.' : '아직 등록된 회식이 없어요.';
 
   const emptyMessage =
-    queryParams.query || queryParams.status || queryParams.part
-      ? '검색 조건에 맞는 회식이 없어요.'
-      : defaultEmptyMessage;
+    params.query || params.status || params.part ? '검색 조건에 맞는 회식이 없어요.' : defaultEmptyMessage;
 
   return (
     <>
@@ -54,16 +48,16 @@ const SettlementList = ({ tab, params, onPageChange }: Omit<SettlementListConten
         )}
       </SResults>
       <SPagination aria-label='회식 목록 페이지'>
-        <Pagination totalPagesLength={data.meta.pageCount} currentPageIndex={page} changeCurrentPage={onPageChange} />
+        <Pagination totalPagesLength={data.meta.pageCount} currentPageIndex={page} changeCurrentPage={setPage} />
       </SPagination>
     </>
   );
 };
 
-const SettlementListContent = ({ enabled, ...props }: SettlementListContentProps) => {
-  if (!enabled) return null;
+const SettlementListContent = ({ tab, enabled }: SettlementListContentProps) => {
+  const { params, options } = useSettlementListQueryOption(tab);
 
-  const { params } = props;
+  if (!enabled) return null;
 
   return (
     <ErrorBoundary
@@ -71,7 +65,7 @@ const SettlementListContent = ({ enabled, ...props }: SettlementListContentProps
       fallback={<SEmpty role='alert'>회식 목록을 불러오지 못했어요.</SEmpty>}
     >
       <Suspense fallback={<SEmpty role='status'>회식 목록을 불러오고 있어요.</SEmpty>}>
-        <SettlementList {...props} />
+        <SettlementList params={params} options={options} />
       </Suspense>
     </ErrorBoundary>
   );
