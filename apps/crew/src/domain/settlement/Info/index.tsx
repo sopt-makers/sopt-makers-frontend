@@ -5,7 +5,8 @@ import { Avatar, Tag } from '@sopt-mds/ui';
 import dayjs from 'dayjs';
 import { styled } from 'stitches.config';
 
-import { SETTLEMENT_STATUS_LABELS, type SettlementDetail } from '../types';
+import { SETTLEMENT_STATUS_LABELS } from '../constant';
+import type { SettlementDetail } from '../types';
 
 interface InfoProps {
   settlement: Pick<SettlementDetail, 'title' | 'diningDate' | 'imageUrl' | 'isEnded' | 'joinableParts' | 'leader'>;

@@ -44,6 +44,10 @@ const FloatingButtonModal = ({ isActive, onClose }: FloatingButtonModalProps) =>
     router.push('/make/flash');
   };
 
+  const handleSettlementRegisterButtonClick = () => {
+    router.push('/settlement/create');
+  };
+
   const handleMapRegisterButtonClick = () => {
     // TODO: 솝맵 등록 페이지 ampli 이벤트 추가
     // ampli.clickMapRegister({ location: router.pathname });
@@ -95,7 +99,7 @@ const FloatingButtonModal = ({ isActive, onClose }: FloatingButtonModalProps) =>
           <FeedIcon width={22} height={22} aria-hidden focusable='false' />
           피드 작성
         </Button>
-        <Button type='button'>
+        <Button type='button' onClick={handleSettlementRegisterButtonClick}>
           <SettlementIcon width={22} height={22} aria-hidden focusable='false' />
           회식 등록
         </Button>

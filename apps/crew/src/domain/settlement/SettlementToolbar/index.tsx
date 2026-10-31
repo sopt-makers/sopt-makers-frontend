@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import { styled } from 'stitches.config';
 
-import { SETTLEMENT_PART_OPTIONS, SETTLEMENT_STATUS_OPTIONS } from '../types';
+import { SETTLEMENT_PART_OPTIONS, SETTLEMENT_STATUS_OPTIONS } from '../constant';
 
 interface SettlementQuery {
   status?: string;
@@ -14,7 +14,11 @@ interface SettlementQuery {
   search?: string;
 }
 
-const SettlementToolbar = () => {
+interface SettlementToolbarProps {
+  showFilters?: boolean;
+}
+
+const SettlementToolbar = ({ showFilters = true }: SettlementToolbarProps) => {
   const router = useRouter();
   const searchQuery = (Array.isArray(router.query.search) ? router.query.search[0] : router.query.search) ?? '';
   const [searchInput, setSearchInput] = useState(searchQuery);
@@ -59,30 +63,32 @@ const SettlementToolbar = () => {
   };
 
   return (
-    <SToolbar>
-      <SFilters>
-        <SettlementFilter
-          label='진행 상태'
-          options={SETTLEMENT_STATUS_OPTIONS}
-          selectedValues={selectedStatuses}
-          onChange={(values) => updateQuery({ status: values.join(',') })}
-        />
-        <SettlementFilter
-          label='파트'
-          options={SETTLEMENT_PART_OPTIONS}
-          selectedValues={selectedParts}
-          onChange={(values) => updateQuery({ part: values.join(',') })}
-        />
-        <SResetButton
-          type='button'
-          size='medium'
-          variant='secondary'
-          onClick={handleFilterReset}
-          aria-label='필터 초기화'
-        >
-          <IconRefresh width={20} height={20} aria-hidden />
-        </SResetButton>
-      </SFilters>
+    <SToolbar showFilters={showFilters}>
+      {showFilters && (
+        <SFilters>
+          <SettlementFilter
+            label='진행 상태'
+            options={SETTLEMENT_STATUS_OPTIONS}
+            selectedValues={selectedStatuses}
+            onChange={(values) => updateQuery({ status: values.join(',') })}
+          />
+          <SettlementFilter
+            label='파트'
+            options={SETTLEMENT_PART_OPTIONS}
+            selectedValues={selectedParts}
+            onChange={(values) => updateQuery({ part: values.join(',') })}
+          />
+          <SResetButton
+            type='button'
+            size='medium'
+            variant='secondary'
+            onClick={handleFilterReset}
+            aria-label='필터 초기화'
+          >
+            <IconRefresh width={20} height={20} aria-hidden />
+          </SResetButton>
+        </SFilters>
+      )}
       <SSearchWrapper
         role='search'
         onSubmit={(event) => {
@@ -153,7 +159,7 @@ const SettlementFilter = ({ label, options, selectedValues, onChange }: Settleme
       <SelectV2.Root
         key={selectInstanceKey}
         type='text'
-        visibleOptions={6}
+        visibleOptions={options.length}
         defaultValue={options.filter((option) => selectedValues.includes(option.value))}
         onChange={handleChange}
         multiple
@@ -179,6 +185,11 @@ const SToolbar = styled('div', {
   '@mobile': {
     flexDirection: 'column',
     gap: spacing.s10,
+  },
+  'variants': {
+    showFilters: {
+      false: { justifyContent: 'flex-end' },
+    },
   },
 });
 
