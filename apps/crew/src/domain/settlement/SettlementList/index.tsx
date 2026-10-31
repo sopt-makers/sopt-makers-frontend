@@ -1,19 +1,30 @@
+import type { SettlementListTab } from '@api/settlement/type';
 import { SCardGrid } from '@shared/util/layout/CardGrid';
 import { colors, spacing, typography } from '@sopt-mds/design-tokens';
+import Link from 'next/link';
 import { styled } from 'stitches.config';
 
-import { settlementFixtures } from '../fixtures';
+import { mySettlementFixtures, settlementFixtures } from '../fixtures';
 import SettlementCard from '../SettlementCard';
 
-const SettlementList = () => {
+interface SettlementListProps {
+  tab: SettlementListTab;
+}
+
+const SettlementList = ({ tab }: SettlementListProps) => {
+  const isMine = tab === 'MY';
+  const items = isMine ? mySettlementFixtures : settlementFixtures;
+
   return (
     <SResults>
       <SCount role='status' aria-live='polite'>
-        {settlementFixtures.length}개의 회식
+        {items.length}개의 회식
       </SCount>
       <SGrid>
         {settlementFixtures.map((item) => (
-          <SettlementCard key={item.id} item={item} />
+          <Link key={item.meetingId} href={`/settlement/detail?id=${item.meetingId}`}>
+            <SettlementCard item={item} />
+          </Link>
         ))}
       </SGrid>
     </SResults>
@@ -39,4 +50,11 @@ const SCount = styled('p', {
 const SGrid = styled(SCardGrid, {
   'rowGap': 60,
   '@mobile': { rowGap: 0 },
+  'variants': {
+    isMine: {
+      true: {
+        '@mobile': { rowGap: spacing.s4 },
+      },
+    },
+  },
 });
