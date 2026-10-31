@@ -6,12 +6,13 @@ import type { RoundType } from '@/domain/settlement/types';
 import SettlementRound from '../SettlementRound';
 
 interface SettlementListProps {
+  meetingId: number;
   rounds: RoundType[];
   isLeader: boolean;
   isEnded: boolean;
 }
 
-const SettlementList = ({ rounds, isLeader, isEnded }: SettlementListProps) => {
+const SettlementList = ({ meetingId, rounds, isLeader, isEnded }: SettlementListProps) => {
   const hasClosedRound = rounds.some((round) => round.isClosed);
 
   return (
@@ -19,6 +20,7 @@ const SettlementList = ({ rounds, isLeader, isEnded }: SettlementListProps) => {
       {rounds.map((round) => (
         <SettlementRound
           key={round.roundId}
+          meetingId={meetingId}
           round={round}
           isLeader={isLeader}
           isEnded={isEnded}
@@ -37,12 +39,15 @@ const SList = styled('section', {
   'display': 'flex',
   'flexDirection': 'column',
   'gap': '120px',
-  '@desktop': { maxWidth: '708px' },
+  '@desktop': {
+    maxWidth: '708px',
+    marginTop: spacing.s40,
+  },
   '@mobile': {
     maxWidth: 'none',
     width: 'calc(100% + 8px)',
     marginLeft: '-4px',
-    marginTop: spacing.s40,
+    marginTop: '30px',
     gap: spacing.s80,
   },
 });
