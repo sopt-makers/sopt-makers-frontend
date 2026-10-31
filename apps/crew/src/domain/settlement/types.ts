@@ -1,5 +1,8 @@
+import type { MeetingData } from '@api/meeting/type';
+
 import type { components, paths } from '@/__generated__/schema';
 
+export type SettlementPart = MeetingData['joinableParts'][number];
 export type RoundType = components['schemas']['DiningV2RoundDto'];
 
 type SettlementDetailResponse =
