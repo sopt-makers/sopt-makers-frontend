@@ -1,4 +1,5 @@
-import SettlementList from '@domain/settlement/SettlementList';
+import { useSettlementListParams } from '@domain/settlement/hooks/useSettlementListParams';
+import SettlementListContent from '@domain/settlement/SettlementList';
 import SettlementToolbar from '@domain/settlement/SettlementToolbar';
 import { Tab } from '@headlessui/react';
 import { useDisplay } from '@hook/useDisplay';
@@ -11,38 +12,48 @@ import { styled } from 'stitches.config';
 
 const SettlementPage: NextPage = () => {
   const { isMobile } = useDisplay();
+  const { filters, params, isReady, updateFilters, setPage } = useSettlementListParams();
 
   return (
     <>
       <SLayout aria-label='회식'>
         <CrewTab />
 
-        <Tab.Group>
-          {({ selectedIndex }) => (
-            <>
-              <SViewSelector aria-label='회식 목록 범위'>
-                <Tab as={SViewButton} type='button' size={isMobile ? 'small' : 'large'} variant='secondary'>
-                  전체 회식
-                </Tab>
-                <Tab as={SViewButton} type='button' size={isMobile ? 'small' : 'large'} variant='secondary'>
-                  내 회식
-                </Tab>
-              </SViewSelector>
+        <Tab.Group
+          selectedIndex={filters.tab === 'MY' ? 1 : 0}
+          onChange={(index) => updateFilters({ tab: index === 0 ? 'ALL' : 'MY' })}
+        >
+          <SViewSelector aria-label='회식 목록 범위'>
+            <Tab as={SViewButton} type='button' size={isMobile ? 'small' : 'large'} variant='secondary'>
+              전체 회식
+            </Tab>
+            <Tab as={SViewButton} type='button' size={isMobile ? 'small' : 'large'} variant='secondary'>
+              내 회식
+            </Tab>
+          </SViewSelector>
 
-              <SContent>
-                <SettlementToolbar showFilters={selectedIndex === 0} />
+          <SContent>
+            <SettlementToolbar showFilters={filters.tab === 'ALL'} filters={filters} onChange={updateFilters} />
 
-                <Tab.Panels>
-                  <Tab.Panel>
-                    <SettlementList tab='ALL' />
-                  </Tab.Panel>
-                  <Tab.Panel>
-                    <SettlementList tab='MY' />
-                  </Tab.Panel>
-                </Tab.Panels>
-              </SContent>
-            </>
-          )}
+            <Tab.Panels>
+              <Tab.Panel>
+                <SettlementListContent
+                  tab='ALL'
+                  params={params}
+                  enabled={isReady && filters.tab === 'ALL'}
+                  onPageChange={setPage}
+                />
+              </Tab.Panel>
+              <Tab.Panel>
+                <SettlementListContent
+                  tab='MY'
+                  params={params}
+                  enabled={isReady && filters.tab === 'MY'}
+                  onPageChange={setPage}
+                />
+              </Tab.Panel>
+            </Tab.Panels>
+          </SContent>
         </Tab.Group>
       </SLayout>
       <FloatingButton />

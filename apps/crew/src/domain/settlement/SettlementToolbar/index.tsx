@@ -2,64 +2,39 @@ import { SearchField, SelectV2 } from '@sopt-makers/ui';
 import { colors, radius, spacing } from '@sopt-mds/design-tokens';
 import { IconRefresh } from '@sopt-mds/icons';
 import { ActionButton } from '@sopt-mds/ui';
-import { useRouter } from 'next/router';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { styled } from 'stitches.config';
 
-import { SETTLEMENT_PART_OPTIONS, SETTLEMENT_STATUS_OPTIONS } from '../constant';
-
-interface SettlementQuery {
-  status?: string;
-  part?: string;
-  search?: string;
-}
+import { SETTLEMENT_PART_OPTIONS, SETTLEMENT_SEARCH_MAX_LENGTH, SETTLEMENT_STATUS_OPTIONS } from '../constant';
+import type { SettlementListFilters } from '../hooks/useSettlementListParams';
+import { normalizeSettlementSearch } from '../util';
 
 interface SettlementToolbarProps {
   showFilters?: boolean;
+  filters: SettlementListFilters;
+  onChange: (updates: Partial<SettlementListFilters>) => void;
 }
 
-const SettlementToolbar = ({ showFilters = true }: SettlementToolbarProps) => {
-  const router = useRouter();
-  const searchQuery = (Array.isArray(router.query.search) ? router.query.search[0] : router.query.search) ?? '';
-  const [searchInput, setSearchInput] = useState(searchQuery);
-  const selectedStatuses = getSelectedValues(router.query.status, SETTLEMENT_STATUS_OPTIONS);
-  const selectedParts = getSelectedValues(router.query.part, SETTLEMENT_PART_OPTIONS);
+const SettlementToolbar = ({ showFilters = true, filters, onChange }: SettlementToolbarProps) => {
+  const [searchInput, setSearchInput] = useState(filters.search);
 
   useEffect(() => {
-    setSearchInput(searchQuery);
-  }, [searchQuery]);
-
-  const updateQuery = (updates: SettlementQuery) => {
-    const nextQuery = { ...router.query };
-
-    Object.entries(updates).forEach(([key, value]) => {
-      if (value) {
-        nextQuery[key] = value;
-      } else {
-        delete nextQuery[key];
-      }
-    });
-
-    if ('page' in nextQuery) {
-      nextQuery.page = '1';
-    }
-
-    void router.push({ pathname: router.pathname, query: nextQuery }, undefined, { shallow: true, scroll: false });
-  };
+    setSearchInput(filters.search);
+  }, [filters.search]);
 
   const handleSearchSubmit = () => {
-    const search = searchInput.trim();
+    const search = normalizeSettlementSearch(searchInput);
     setSearchInput(search);
-    updateQuery({ search });
+    onChange({ search });
   };
 
   const handleSearchReset = () => {
     setSearchInput('');
-    updateQuery({ search: undefined });
+    onChange({ search: '' });
   };
 
   const handleFilterReset = () => {
-    updateQuery({ status: undefined, part: undefined });
+    onChange({ status: undefined, part: undefined });
   };
 
   return (
@@ -69,14 +44,14 @@ const SettlementToolbar = ({ showFilters = true }: SettlementToolbarProps) => {
           <SettlementFilter
             label='진행 상태'
             options={SETTLEMENT_STATUS_OPTIONS}
-            selectedValues={selectedStatuses}
-            onChange={(values) => updateQuery({ status: values.join(',') })}
+            value={filters.status}
+            onChange={(status) => onChange({ status })}
           />
           <SettlementFilter
             label='파트'
             options={SETTLEMENT_PART_OPTIONS}
-            selectedValues={selectedParts}
-            onChange={(values) => updateQuery({ part: values.join(',') })}
+            value={filters.part}
+            onChange={(part) => onChange({ part })}
           />
           <SResetButton
             type='button'
@@ -106,9 +81,11 @@ const SettlementToolbar = ({ showFilters = true }: SettlementToolbarProps) => {
           }
         }}
       >
+        <button type='submit' hidden />
         <SSearchInput
           aria-label='회식명 검색'
           placeholder='회식명을 검색해보세요'
+          maxLength={SETTLEMENT_SEARCH_MAX_LENGTH}
           value={searchInput}
           onChange={(event) => setSearchInput(event.target.value)}
           onSubmit={() => undefined}
@@ -119,55 +96,37 @@ const SettlementToolbar = ({ showFilters = true }: SettlementToolbarProps) => {
   );
 };
 
-interface FilterOption {
-  value: string;
+interface FilterOption<T extends string> {
+  value: T;
   label: string;
 }
 
-interface SettlementFilterProps {
+interface SettlementFilterProps<T extends string> {
   label: string;
-  options: FilterOption[];
-  selectedValues: string[];
-  onChange: (values: string[]) => void;
+  options: FilterOption<T>[];
+  value?: T;
+  onChange: (value: T | undefined) => void;
 }
 
-const getSelectedValues = (query: string | string[] | undefined, options: FilterOption[]) => {
-  const values = (Array.isArray(query) ? query : [query ?? '']).flatMap((value) => value.split(','));
-  return options.filter((option) => values.includes(option.value)).map((option) => option.value);
-};
-
-const SettlementFilter = ({ label, options, selectedValues, onChange }: SettlementFilterProps) => {
-  const valueKey = selectedValues.join(',');
-  const lastSelectionKey = useRef(valueKey);
-  const [selectInstanceKey, setSelectInstanceKey] = useState(0);
-
-  useEffect(() => {
-    if (lastSelectionKey.current !== valueKey) {
-      lastSelectionKey.current = valueKey;
-      setSelectInstanceKey((key) => key + 1);
-    }
-  }, [valueKey]);
-
+const SettlementFilter = <T extends string>({ label, options, value, onChange }: SettlementFilterProps<T>) => {
   const handleChange = (selected: string | string[]) => {
-    const nextValues = getSelectedValues(selected, options);
-    lastSelectionKey.current = nextValues.join(',');
-    onChange(nextValues);
+    onChange(options.find((option) => option.value === selected)?.value);
   };
 
   return (
     <div role='group' aria-label={label}>
       <SelectV2.Root
-        key={selectInstanceKey}
+        key={value ?? 'all'}
         type='text'
-        visibleOptions={options.length}
-        defaultValue={options.filter((option) => selectedValues.includes(option.value))}
+        visibleOptions={options.length + 1}
+        defaultValue={options.find((option) => option.value === value) ?? null}
         onChange={handleChange}
-        multiple
       >
         <SelectV2.Trigger>
-          <SFilterTriggerContent placeholder={label} label={selectedValues.length > 1 ? label : undefined} />
+          <SFilterTriggerContent placeholder={label} />
         </SelectV2.Trigger>
         <SelectV2.Menu>
+          <SelectV2.MenuItem option={{ value: '', label: '전체' }} />
           {options.map((option) => (
             <SelectV2.MenuItem key={option.value} option={option} />
           ))}
