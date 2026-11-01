@@ -1,5 +1,6 @@
 import { colors, radius, spacing, typography } from '@sopt-mds/design-tokens';
 import { ActionButton, Avatar, Tag } from '@sopt-mds/ui';
+import { addHyphenToPhoneNumber } from '@util/addHypenToPhoneNumber';
 import { styled } from 'stitches.config';
 
 import type { Attendee } from '../../types';
@@ -37,7 +38,7 @@ const Card = ({
               {recentGeneration}기
             </Tag>
           </SGeneration>
-          <SPhone>{phone}</SPhone>
+          <SPhone>{phone ? addHyphenToPhoneNumber(phone) : '-'}</SPhone>
         </SDetails>
       </SInfo>
 
