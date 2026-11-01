@@ -6,3 +6,10 @@ export type SettlementRequest = components['schemas']['DiningV2CreateAndUpdateDi
 export type SettlementRoundRequest = components['schemas']['DiningV2CreateAndUpdateRoundBodyDto'];
 
 export type SettlementDetailResponse = components['schemas']['DiningV2GetDiningDetailResponseDto'];
+export type SettlementPayerRequestsResponse = components['schemas']['DiningV2GetPayerRequestsResponseDto'];
+
+type PayerRequestPath =
+  paths['/dining/v2/{meetingId}/rounds/{roundId}/payer-requests/{requesterUserId}/approve']['post']['parameters']['path'];
+export type SettlementPayerRequestAction = Pick<PayerRequestPath, 'roundId' | 'requesterUserId'> & {
+  action: 'approve' | 'reject';
+};

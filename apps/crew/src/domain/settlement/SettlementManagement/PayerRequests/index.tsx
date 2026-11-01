@@ -1,13 +1,32 @@
+import { useRespondToSettlementPayerRequestMutation } from '@api/settlement/mutation';
+import { useSettlementDetailQueryOption, useSettlementPayerRequestsQueryOption } from '@api/settlement/query';
 import { useDisplay } from '@hook/useDisplay';
 import { colors, radius, spacing, typography } from '@sopt-mds/design-tokens';
 import { ActionButton, Avatar } from '@sopt-mds/ui';
+import { useQuery } from '@tanstack/react-query';
 import { styled } from 'stitches.config';
 
-// TODO: 결제자 요청 조회 및 승인 API 연동
-const payerRequests = [{ userId: 1, name: '장정훈', profileImage: '', roundId: 2, roundNumber: 2 }];
-
-const PayerRequests = () => {
+const PayerRequests = ({ meetingId }: { meetingId: number }) => {
   const { isMobile } = useDisplay();
+  const { mutate, isPending } = useRespondToSettlementPayerRequestMutation(meetingId);
+  const { data: isLeader } = useQuery({
+    ...useSettlementDetailQueryOption(meetingId),
+    select: (settlement) => settlement.isLeader,
+  });
+  const { data: payerRequests } = useQuery({
+    ...useSettlementPayerRequestsQueryOption(meetingId),
+    enabled: isLeader === true,
+  });
+
+  const handleReject = (roundId: number, requesterUserId: number) => {
+    mutate({ roundId, requesterUserId, action: 'reject' });
+  };
+
+  const handleApprove = (roundId: number, requesterUserId: number) => {
+    mutate({ roundId, requesterUserId, action: 'approve' });
+  };
+
+  if (!isLeader) return null;
 
   return (
     <SContainer>
@@ -16,28 +35,27 @@ const PayerRequests = () => {
         <SDescription>승인 시, 참석자 관리 페이지가 승인자에게 공유됩니다.</SDescription>
       </SLabel>
       <SList>
-        {payerRequests.map(({ userId, name, profileImage, roundId, roundNumber }) => (
+        {payerRequests && payerRequests.requests.length === 0 && <SEmpty>아직 결제자 요청이 없어요.</SEmpty>}
+        {payerRequests?.requests.map(({ userId, name, profileImage, roundId, roundNumber }) => (
           <SRequest key={`${roundId}-${userId}`}>
             <Avatar size={32} src={profileImage || undefined} strokeColor='neutralGhost' aria-hidden />
             <SProfile>
               <SName>{name}</SName>
-              {roundNumber !== undefined && <SRound>{roundNumber}회차</SRound>}
+              <SRound>{roundNumber}회차</SRound>
             </SProfile>
             <SButtons>
               <ActionButton
                 size={isMobile ? 'small' : 'large'}
                 variant='secondary'
-                onClick={() => {
-                  // @TODO: 결제자 요청 거절 API 연동 (장정훈)
-                }}
+                disabled={isPending}
+                onClick={() => handleReject(roundId, userId)}
               >
                 거절
               </ActionButton>
               <ActionButton
                 size={isMobile ? 'small' : 'large'}
-                onClick={() => {
-                  // @TODO: 결제자 요청 승인 API 연동 (장정훈)
-                }}
+                disabled={isPending}
+                onClick={() => handleApprove(roundId, userId)}
               >
                 승인
               </ActionButton>
@@ -122,4 +140,19 @@ const SName = styled('p', {
 const SRound = styled('p', {
   ...typography.label3,
   color: colors.fg.neutral.subtle,
+});
+
+const SEmpty = styled('p', {
+  ...typography.label2,
+  'padding': `${spacing.s40} ${spacing.s36}`,
+  'borderRadius': radius.r20,
+  'backgroundColor': colors.bg.neutral.ghost,
+  'color': colors.fg.neutral.subtle,
+  '@mobile': {
+    ...typography.label3,
+    display: 'flex',
+    alignItems: 'center',
+    minHeight: '72px',
+    padding: `0 ${spacing.s16}`,
+  },
 });
