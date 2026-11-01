@@ -17,16 +17,18 @@ const SettlementList = ({ meetingId, rounds, isLeader, isEnded }: SettlementList
 
   return (
     <SList>
-      {rounds.map((round) => (
-        <SettlementRound
-          key={round.roundId}
-          meetingId={meetingId}
-          round={round}
-          isLeader={isLeader}
-          isEnded={isEnded}
-          hasClosedRound={hasClosedRound}
-        />
-      ))}
+      {[...rounds]
+        .sort((a, b) => b.roundNumber - a.roundNumber)
+        .map((round) => (
+          <SettlementRound
+            key={round.roundId}
+            meetingId={meetingId}
+            round={round}
+            isLeader={isLeader}
+            isEnded={isEnded}
+            hasClosedRound={hasClosedRound}
+          />
+        ))}
     </SList>
   );
 };
@@ -39,10 +41,11 @@ const SList = styled('section', {
   'paddingBottom': spacing.s120,
   'display': 'flex',
   'flexDirection': 'column',
-  'gap': '120px',
+  'gap': spacing.s80,
   '@desktop': {
     maxWidth: '708px',
     marginTop: spacing.s40,
+    gap: spacing.s120,
   },
   '@mobile': {
     maxWidth: 'none',
