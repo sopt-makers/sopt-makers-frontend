@@ -17,7 +17,7 @@ const SettlementManagementPage = () => {
   return (
     <>
       <CrewTab />
-      <Info id={String(query.id)} />
+      <Info meetingId={Number(query.id)} />
       <PayerRequests meetingId={Number(query.id)} />
       <Attendees meetingId={Number(query.id)} />
     </>

@@ -12,18 +12,18 @@ import Link from 'next/link';
 import { styled } from 'stitches.config';
 
 interface InfoProps {
-  id: string;
+  meetingId: number;
 }
 
-const Info = ({ id }: InfoProps) => {
+const Info = ({ meetingId }: InfoProps) => {
   // @TODO: 라우터 단 ErrorBoundary와 Suspense 적용하도록 리펙토링 하기 (장정훈)
-  const { data: settlement, error, isPending } = useQuery(useSettlementDetailQueryOption(Number(id)));
+  const { data: settlement, error, isPending } = useQuery(useSettlementDetailQueryOption(meetingId));
 
   if (isPending) return <Loader />;
   if (!settlement) return <ErrorPage statusCode={isAxiosError(error) && error.response?.status === 404 ? 404 : 500} />;
 
   return (
-    <SCard href={`/settlement/detail?id=${id}`}>
+    <SCard href={`/settlement/detail?id=${meetingId}`}>
       <SImage src={settlement.imageUrl || '/group/assets/images/settlement/thumbnail.svg'} alt='' />
       <SInfo>
         <SParts>
