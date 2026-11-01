@@ -1,11 +1,14 @@
 import { AttendeeActions, LeaderActions } from '@domain/settlement/detail/RoundActions';
 import { useDisplay } from '@hook/useDisplay';
+import useModal from '@hook/useModal';
 import { colors, radius, spacing, typography } from '@sopt-mds/design-tokens';
 import { IconChevronRight, IconLink } from '@sopt-mds/icons';
 import { Tag } from '@sopt-mds/ui';
 import { styled } from 'stitches.config';
 
 import type { RoundType } from '@/domain/settlement/types';
+
+import AttendanceModal from '../AttendanceModal';
 
 const ATTENDANCE_LABELS = {
   NOT_ATTENDING: '미참석',
@@ -14,14 +17,16 @@ const ATTENDANCE_LABELS = {
 } as const;
 
 interface SettlementRoundProps {
+  meetingId: number;
   round: RoundType;
   isLeader: boolean;
   isEnded: boolean;
   hasClosedRound: boolean;
 }
 
-const SettlementRound = ({ round, isLeader, isEnded, hasClosedRound }: SettlementRoundProps) => {
+const SettlementRound = ({ meetingId, round, isLeader, isEnded, hasClosedRound }: SettlementRoundProps) => {
   const { isMobile } = useDisplay();
+  const { isModalOpened, handleModalOpen, handleModalClose } = useModal();
   const isAttending = round.myAttendanceStatus === 'ATTENDING' || round.myAttendanceStatus === 'ATTENDED';
   const attendanceLabel = ATTENDANCE_LABELS[round.myAttendanceStatus ?? 'NOT_ATTENDING'];
   const hasMapLink = !!(round.naverMapLink || round.kakaoMapLink);
@@ -70,12 +75,7 @@ const SettlementRound = ({ round, isLeader, isEnded, hasClosedRound }: Settlemen
         </SInfo>
 
         <SActions attendee={!isLeader}>
-          <SAttendance
-            type='button'
-            onClick={() => {
-              // @TODO: 참석 현황 모달 연결 (장정훈)
-            }}
-          >
+          <SAttendance type='button' onClick={handleModalOpen}>
             <span>참석 현황</span>
             <strong>{round.attendeeCount ?? 0}명</strong>
             <IconChevronRight width={24} height={24} aria-hidden />
@@ -88,6 +88,14 @@ const SettlementRound = ({ round, isLeader, isEnded, hasClosedRound }: Settlemen
           )}
         </SActions>
       </SRound>
+
+      <AttendanceModal
+        isOpen={isModalOpened}
+        onClose={handleModalClose}
+        meetingId={meetingId}
+        roundNumber={round.roundNumber}
+        isLeader={isLeader}
+      />
     </div>
   );
 };

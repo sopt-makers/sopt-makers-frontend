@@ -1,9 +1,10 @@
 // TODO: API 연동 후 삭제
 import type { ComponentProps } from 'react';
 
+import { attendanceMocks } from '../AttendanceModal/mock';
 import type SettlementList from './index';
 
-type SettlementListMock = ComponentProps<typeof SettlementList>;
+type SettlementListMock = Omit<ComponentProps<typeof SettlementList>, 'meetingId'>;
 type Round = SettlementListMock['rounds'][number];
 
 const firstRound: Round = {
@@ -13,7 +14,7 @@ const firstRound: Round = {
   naverMapLink: 'https://map.naver.com/',
   kakaoMapLink: 'https://map.kakao.com/',
   startTime: '19:45',
-  attendeeCount: 8,
+  attendeeCount: attendanceMocks.attendees.length,
   isClosed: false,
   isPlaceModified: false,
   isLinkModified: false,
