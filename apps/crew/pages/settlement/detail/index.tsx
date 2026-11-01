@@ -34,6 +34,7 @@ const SettlementDetailPage = () => {
         meetingId={settlement.meetingId}
         rounds={settlement.rounds}
         isLeader={settlement.isLeader}
+        isApprovedPayer={settlement.isApprovedPayer}
         isEnded={settlement.isEnded}
       />
     </>

@@ -9,10 +9,11 @@ interface SettlementListProps {
   meetingId: number;
   rounds: RoundType[];
   isLeader: boolean;
+  isApprovedPayer: boolean;
   isEnded: boolean;
 }
 
-const SettlementList = ({ meetingId, rounds, isLeader, isEnded }: SettlementListProps) => {
+const SettlementList = ({ meetingId, rounds, isLeader, isApprovedPayer, isEnded }: SettlementListProps) => {
   const hasClosedRound = rounds.some((round) => round.isClosed);
 
   return (
@@ -25,6 +26,7 @@ const SettlementList = ({ meetingId, rounds, isLeader, isEnded }: SettlementList
             meetingId={meetingId}
             round={round}
             isLeader={isLeader}
+            isApprovedPayer={isApprovedPayer}
             isEnded={isEnded}
             hasClosedRound={hasClosedRound}
           />

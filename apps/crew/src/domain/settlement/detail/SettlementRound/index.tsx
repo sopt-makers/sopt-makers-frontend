@@ -20,11 +20,19 @@ interface SettlementRoundProps {
   meetingId: number;
   round: RoundType;
   isLeader: boolean;
+  isApprovedPayer: boolean;
   isEnded: boolean;
   hasClosedRound: boolean;
 }
 
-const SettlementRound = ({ meetingId, round, isLeader, isEnded, hasClosedRound }: SettlementRoundProps) => {
+const SettlementRound = ({
+  meetingId,
+  round,
+  isLeader,
+  isApprovedPayer,
+  isEnded,
+  hasClosedRound,
+}: SettlementRoundProps) => {
   const { isMobile } = useDisplay();
   const { isModalOpened, handleModalOpen, handleModalClose } = useModal();
   const isAttending = round.myAttendanceStatus === 'ATTENDING' || round.myAttendanceStatus === 'ATTENDED';
@@ -105,8 +113,9 @@ const SettlementRound = ({ meetingId, round, isLeader, isEnded, hasClosedRound }
         isOpen={isModalOpened}
         onClose={handleModalClose}
         meetingId={meetingId}
+        roundId={round.roundId}
         roundNumber={round.roundNumber}
-        isLeader={isLeader}
+        canManageAttendees={isLeader || isApprovedPayer}
       />
     </div>
   );
