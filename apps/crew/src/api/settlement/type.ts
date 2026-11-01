@@ -13,3 +13,7 @@ type PayerRequestPath =
 export type SettlementPayerRequestAction = Pick<PayerRequestPath, 'roundId' | 'requesterUserId'> & {
   action: 'approve' | 'reject';
 };
+
+export type SettlementAttendeesCsvRequest =
+  paths['/dining/v2/{meetingId}/rounds/{roundId}/attendees/csv']['get']['parameters']['path'];
+export type SettlementAttendeesCsvResponse = components['schemas']['DiningV2GetAttendeesCsvResponseDto'];

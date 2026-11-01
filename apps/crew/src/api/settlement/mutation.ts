@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { respondToSettlementPayerRequest } from '.';
+import { getSettlementAttendeesCsv, respondToSettlementPayerRequest } from '.';
 import SettlementQueryKey from './SettlementQueryKey';
 import type { SettlementPayerRequestAction } from './type';
 
@@ -17,3 +17,16 @@ export const useRespondToSettlementPayerRequestMutation = (meetingId: number) =>
     },
   });
 };
+
+export const useDownloadSettlementAttendeesCsvMutation = () =>
+  useMutation({
+    mutationFn: getSettlementAttendeesCsv,
+    onSuccess: ({ url }) => {
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'attendees.csv';
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    },
+  });

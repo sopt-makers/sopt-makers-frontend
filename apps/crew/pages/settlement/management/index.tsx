@@ -19,7 +19,7 @@ const SettlementManagementPage = () => {
       <CrewTab />
       <Info id={String(query.id)} />
       <PayerRequests meetingId={Number(query.id)} />
-      <Attendees />
+      <Attendees meetingId={Number(query.id)} />
     </>
   );
 };

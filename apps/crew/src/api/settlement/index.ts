@@ -1,6 +1,12 @@
 import { api } from '@api/index';
 
-import type { SettlementDetailResponse, SettlementPayerRequestAction, SettlementPayerRequestsResponse } from './type';
+import type {
+  SettlementAttendeesCsvRequest,
+  SettlementAttendeesCsvResponse,
+  SettlementDetailResponse,
+  SettlementPayerRequestAction,
+  SettlementPayerRequestsResponse,
+} from './type';
 
 export const getSettlementDetail = async (meetingId: number): Promise<SettlementDetailResponse> =>
   (await api.get<SettlementDetailResponse>(`/dining/v2/${meetingId}`)).data;
@@ -16,3 +22,9 @@ export const respondToSettlementPayerRequest = async ({
 }: SettlementPayerRequestAction & { meetingId: number }): Promise<void> => {
   await api.post(`/dining/v2/${meetingId}/rounds/${roundId}/payer-requests/${requesterUserId}/${action}`);
 };
+
+export const getSettlementAttendeesCsv = async ({
+  meetingId,
+  roundId,
+}: SettlementAttendeesCsvRequest): Promise<SettlementAttendeesCsvResponse> =>
+  (await api.get<SettlementAttendeesCsvResponse>(`/dining/v2/${meetingId}/rounds/${roundId}/attendees/csv`)).data;
