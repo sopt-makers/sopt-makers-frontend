@@ -36,6 +36,7 @@ export default SettlementList;
 const SList = styled('section', {
   'maxWidth': '1020px',
   'margin': '60px auto 0',
+  'paddingBottom': spacing.s120,
   'display': 'flex',
   'flexDirection': 'column',
   'gap': '120px',
