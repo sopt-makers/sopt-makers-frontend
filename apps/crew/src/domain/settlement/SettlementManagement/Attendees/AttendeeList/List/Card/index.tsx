@@ -4,9 +4,21 @@ import { styled } from 'stitches.config';
 
 import type { Attendee } from '../../types';
 
-interface CardProps extends Attendee {}
+interface CardProps extends Attendee {
+  onDelete: (attendeeUserId: number) => void;
+  isDeleting: boolean;
+}
 
-const Card = ({ attendanceNumber, profileImage, name, recentGeneration, phone }: CardProps) => {
+const Card = ({
+  id,
+  onDelete,
+  isDeleting,
+  attendanceNumber,
+  profileImage,
+  name,
+  recentGeneration,
+  phone,
+}: CardProps) => {
   const displayName = Array.from(name).length > 5 ? `${Array.from(name).slice(0, 5).join('')}…` : name;
 
   return (
@@ -29,13 +41,7 @@ const Card = ({ attendanceNumber, profileImage, name, recentGeneration, phone }:
         </SDetails>
       </SInfo>
 
-      <SDeleteButton
-        size='xsmall'
-        variant='secondary'
-        onClick={() => {
-          // @TODO: 참석자 삭제 API 연동 (장정훈)
-        }}
-      >
+      <SDeleteButton size='xsmall' variant='secondary' disabled={isDeleting} onClick={() => onDelete(id)}>
         삭제
       </SDeleteButton>
     </SCard>

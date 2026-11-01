@@ -1,8 +1,13 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { getSettlementAttendeesCsv, respondToSettlementPayerRequest } from '.';
+import {
+  addSettlementAttendee,
+  deleteSettlementAttendee,
+  getSettlementAttendeesCsv,
+  respondToSettlementPayerRequest,
+} from '.';
 import SettlementQueryKey from './SettlementQueryKey';
-import type { SettlementPayerRequestAction } from './type';
+import type { SettlementAddAttendee, SettlementDeleteAttendee, SettlementPayerRequestAction } from './type';
 
 export const useRespondToSettlementPayerRequestMutation = (meetingId: number) => {
   const queryClient = useQueryClient();
@@ -30,3 +35,29 @@ export const useDownloadSettlementAttendeesCsvMutation = () =>
       link.remove();
     },
   });
+
+export const useAddSettlementAttendeeMutation = (meetingId: number) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (request: SettlementAddAttendee) => addSettlementAttendee({ meetingId, ...request }),
+    onSuccess: async (_, { roundId }) =>
+      Promise.all([
+        queryClient.invalidateQueries({ queryKey: SettlementQueryKey.attendees(meetingId, roundId) }),
+        queryClient.invalidateQueries({ queryKey: SettlementQueryKey.detail(meetingId) }),
+      ]),
+  });
+};
+
+export const useDeleteSettlementAttendeeMutation = (meetingId: number) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (request: SettlementDeleteAttendee) => deleteSettlementAttendee({ meetingId, ...request }),
+    onSuccess: async (_, { roundId }) =>
+      Promise.all([
+        queryClient.invalidateQueries({ queryKey: SettlementQueryKey.attendees(meetingId, roundId) }),
+        queryClient.invalidateQueries({ queryKey: SettlementQueryKey.detail(meetingId) }),
+      ]),
+  });
+};

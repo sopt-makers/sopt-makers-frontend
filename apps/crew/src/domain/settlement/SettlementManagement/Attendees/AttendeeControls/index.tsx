@@ -1,40 +1,58 @@
-import type { GetUser } from '@api/user/type';
+import { useAddSettlementAttendeeMutation } from '@api/settlement/mutation';
+import { useUserQueryOption } from '@api/user/query';
+import type { RoundType } from '@domain/settlement/types';
 import { SearchField, SelectV2 } from '@sopt-makers/ui';
 import { colors, radius, spacing, typography } from '@sopt-mds/design-tokens';
 import { IconSearchOutlined } from '@sopt-mds/icons';
 import { ActionButton, Avatar } from '@sopt-mds/ui';
+import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import { styled } from 'stitches.config';
 
-// TODO: 회차 목록과 참석자 검색 API 연동
-const rounds = [
-  { roundId: 1, roundNumber: 1 },
-  { roundId: 2, roundNumber: 2 },
-  { roundId: 3, roundNumber: 3 },
-];
-const roundOptions = rounds.map(({ roundId, roundNumber }) => ({ value: roundId, label: `${roundNumber}회차` }));
-
-const members: GetUser = [
-  { userId: 1, orgId: 1, userName: '김길동', recentGeneration: 38, recentPart: '기획' },
-  { userId: 2, orgId: 2, userName: '김음메', recentGeneration: 39, recentPart: '디자인' },
-  { userId: 3, orgId: 3, userName: '김개똥', recentGeneration: 39, recentPart: 'iOS' },
-];
-
-const AttendeeControls = () => {
+const AttendeeControls = ({ meetingId, rounds }: { meetingId: number; rounds: RoundType[] }) => {
+  const { data: members = [] } = useQuery(useUserQueryOption());
+  const { mutate: addAttendee, isPending } = useAddSettlementAttendeeMutation(meetingId);
   const [search, setSearch] = useState('');
   const [selectedMember, setSelectedMember] = useState<number | null>(null);
+  const [selectedRoundId, setSelectedRoundId] = useState<number>();
+  const selectedRound = rounds.find((round) => round.roundId === selectedRoundId) ?? rounds[0];
+  const roundOptions = rounds.map(({ roundId, roundNumber }) => ({ value: roundId, label: `${roundNumber}회차` }));
   const matches =
-    search.trim() && !selectedMember ? members.filter((member) => member.userName.includes(search.trim())) : [];
+    search.trim() && selectedMember === null ? members.filter((member) => member.userName.includes(search.trim())) : [];
+
+  const handleSelectMember = (userId: number, userName: string) => {
+    setSearch(userName);
+    setSelectedMember(userId);
+  };
+
+  const handleSearchSubmit = () => {
+    const exactMatches = matches.filter((member) => member.userName === search.trim());
+    const [exactMatch] = exactMatches;
+    if (exactMatches.length === 1 && exactMatch) handleSelectMember(exactMatch.userId, exactMatch.userName);
+  };
+
+  const handleAddAttendee = () => {
+    if (!selectedRound || selectedMember === null) return;
+
+    addAttendee(
+      { roundId: selectedRound.roundId, userId: selectedMember },
+      {
+        onSuccess: () => {
+          setSearch('');
+          setSelectedMember(null);
+        },
+      },
+    );
+  };
 
   return (
     <SControls>
       <SRoundSelect>
         <SelectV2.Root
+          key={selectedRound?.roundId}
           type='text'
-          defaultValue={roundOptions[0]}
-          onChange={() => {
-            // @TODO: 선택한 회차를 참석자 추가 요청에 반영 (장정훈)
-          }}
+          defaultValue={roundOptions.find(({ value }) => value === selectedRound?.roundId)}
+          onChange={(value) => setSelectedRoundId(value as number)}
         >
           <SelectV2.Trigger>
             <SRoundTrigger aria-label='회차 선택' />
@@ -55,13 +73,10 @@ const AttendeeControls = () => {
           placeholder='참석자를 검색해보세요'
           value={search}
           onChange={(event) => {
-            // @TODO: API에서 조회한 사용자 목록으로 검색 (장정훈)
             setSearch(event.target.value);
             setSelectedMember(null);
           }}
-          onSubmit={() => {
-            // @TODO: API 연동 시 검색 제출 동작 확인 (장정훈)
-          }}
+          onSubmit={handleSearchSubmit}
           onReset={() => {
             setSearch('');
             setSelectedMember(null);
@@ -74,10 +89,7 @@ const AttendeeControls = () => {
                 key={member.userId}
                 type='button'
                 onMouseDown={(event) => event.preventDefault()}
-                onClick={() => {
-                  setSearch(member.userName);
-                  setSelectedMember(member.userId);
-                }}
+                onClick={() => handleSelectMember(member.userId, member.userName)}
               >
                 <Avatar size={32} src={member.profileImageUrl || undefined} strokeColor='neutralGhost' aria-hidden />
                 <span>
@@ -94,9 +106,8 @@ const AttendeeControls = () => {
 
       <ActionButton
         size='medium'
-        onClick={() => {
-          // @TODO: 참석자 추가 API 연동 (장정훈)
-        }}
+        disabled={!selectedRound || selectedMember === null || isPending}
+        onClick={handleAddAttendee}
       >
         추가하기
       </ActionButton>

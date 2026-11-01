@@ -6,11 +6,16 @@ import { styled } from 'stitches.config';
 
 import { ATTENDEE_PAGE_SIZES } from './constants';
 import Filters from './Filters';
-import { getMockAttendees, rounds as mockRounds } from './mock';
 import PaginatedList from './PaginatedList';
 import type { AttendeeFilterKey } from './types';
 
-const AttendeeList = ({ rounds, selectedRound }: { rounds: RoundType[]; selectedRound: RoundType }) => {
+interface AttendeeListProps {
+  meetingId: number;
+  rounds: RoundType[];
+  selectedRound: RoundType;
+}
+
+const AttendeeList = ({ meetingId, rounds, selectedRound }: AttendeeListProps) => {
   const router = useRouter();
   const roundId = selectedRound.roundId;
   const take = ATTENDEE_PAGE_SIZES.find((value) => value === router.query.take) ?? '10';
@@ -24,14 +29,6 @@ const AttendeeList = ({ rounds, selectedRound }: { rounds: RoundType[]; selected
     });
   };
 
-  // @TODO: 회차별 참석자 목록 API 연동 (장정훈)
-  const attendeeData = getMockAttendees({
-    roundId: mockRounds.find((round) => round.roundNumber === selectedRound.roundNumber)?.roundId ?? 0,
-    page: Number(page),
-    take: Number(take),
-    date,
-  });
-
   return (
     <SSection>
       <STitle>참석자</STitle>
@@ -43,7 +40,14 @@ const AttendeeList = ({ rounds, selectedRound }: { rounds: RoundType[]; selected
           <span>최근 기수</span>
           <span>연락처</span>
         </SListHeader>
-        <PaginatedList attendeeData={attendeeData} onPageChange={setPage} />
+        <PaginatedList
+          meetingId={meetingId}
+          roundId={roundId}
+          page={Number(page)}
+          take={Number(take)}
+          date={date}
+          onPageChange={setPage}
+        />
       </SListContent>
     </SSection>
   );

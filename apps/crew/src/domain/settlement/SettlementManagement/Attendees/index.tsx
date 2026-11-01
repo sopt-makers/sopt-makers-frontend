@@ -33,8 +33,8 @@ const Attendees = ({ meetingId }: { meetingId: number }) => {
           CSV 다운로드
         </SDownloadButton>
       </SHeader>
-      <AttendeeControls />
-      {selectedRound && <AttendeeList rounds={rounds} selectedRound={selectedRound} />}
+      <AttendeeControls meetingId={meetingId} rounds={rounds} />
+      {selectedRound && <AttendeeList meetingId={meetingId} rounds={rounds} selectedRound={selectedRound} />}
     </SContainer>
   );
 };

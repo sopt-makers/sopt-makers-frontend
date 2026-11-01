@@ -1,8 +1,12 @@
 import { api } from '@api/index';
 
 import type {
+  SettlementAddAttendeeRequest,
   SettlementAttendeesCsvRequest,
   SettlementAttendeesCsvResponse,
+  SettlementAttendeesRequest,
+  SettlementAttendeesResponse,
+  SettlementDeleteAttendeeRequest,
   SettlementDetailResponse,
   SettlementPayerRequestAction,
   SettlementPayerRequestsResponse,
@@ -28,3 +32,26 @@ export const getSettlementAttendeesCsv = async ({
   roundId,
 }: SettlementAttendeesCsvRequest): Promise<SettlementAttendeesCsvResponse> =>
   (await api.get<SettlementAttendeesCsvResponse>(`/dining/v2/${meetingId}/rounds/${roundId}/attendees/csv`)).data;
+
+export const getSettlementAttendees = async ({
+  meetingId,
+  roundId,
+  ...params
+}: SettlementAttendeesRequest): Promise<SettlementAttendeesResponse> =>
+  (await api.get<SettlementAttendeesResponse>(`/dining/v2/${meetingId}/rounds/${roundId}/attendees`, { params })).data;
+
+export const addSettlementAttendee = async ({
+  meetingId,
+  roundId,
+  userId,
+}: SettlementAddAttendeeRequest): Promise<void> => {
+  await api.post(`/dining/v2/${meetingId}/rounds/${roundId}/attendees`, { userId });
+};
+
+export const deleteSettlementAttendee = async ({
+  meetingId,
+  roundId,
+  attendeeUserId,
+}: SettlementDeleteAttendeeRequest): Promise<void> => {
+  await api.delete(`/dining/v2/${meetingId}/rounds/${roundId}/attendees/${attendeeUserId}`);
+};
