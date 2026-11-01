@@ -1,11 +1,12 @@
+import { usePageParams } from '@hook/queryString/custom';
 import { colors, spacing, typography } from '@sopt-mds/design-tokens';
 import { useRouter } from 'next/router';
 import { styled } from 'stitches.config';
 
 import { ATTENDEE_PAGE_SIZES } from './constants';
 import Filters from './Filters';
-import List from './List';
-import { attendeeResponsesByRound, rounds } from './mock';
+import { getMockAttendees, rounds } from './mock';
+import PaginatedList from './PaginatedList';
 import type { AttendeeFilterKey } from './types';
 
 const AttendeeList = () => {
@@ -14,22 +15,17 @@ const AttendeeList = () => {
   const roundId = selectedRound?.roundId ?? rounds[0].roundId;
   const take = ATTENDEE_PAGE_SIZES.find((value) => value === router.query.take) ?? '10';
   const date = router.query.date === 'asc' ? 'asc' : 'desc';
+  const { value: page, setValue: setPage } = usePageParams();
 
   const updateFilter = (key: AttendeeFilterKey, value: string) => {
-    void router.push({ pathname: router.pathname, query: { ...router.query, [key]: value } }, undefined, {
+    void router.push({ pathname: router.pathname, query: { ...router.query, [key]: value, page: '1' } }, undefined, {
       shallow: true,
       scroll: false,
     });
   };
 
-  const roundAttendees = attendeeResponsesByRound[roundId]?.attendees ?? [];
-  const attendees = [...roundAttendees]
-    .sort((a, b) =>
-      date === 'asc'
-        ? (a.attendanceNumber ?? 0) - (b.attendanceNumber ?? 0)
-        : (b.attendanceNumber ?? 0) - (a.attendanceNumber ?? 0),
-    )
-    .slice(0, Number(take));
+  // @TODO: 회차별 참석자 목록 API 연동 (장정훈)
+  const attendeeData = getMockAttendees({ roundId, page: Number(page), take: Number(take), date });
 
   return (
     <SSection>
@@ -42,7 +38,7 @@ const AttendeeList = () => {
           <span>최근 기수</span>
           <span>연락처</span>
         </SListHeader>
-        <List attendees={attendees} />
+        <PaginatedList attendeeData={attendeeData} onPageChange={setPage} />
       </SListContent>
     </SSection>
   );

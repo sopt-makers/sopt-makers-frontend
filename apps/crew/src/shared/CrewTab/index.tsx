@@ -20,16 +20,15 @@ const CrewTab = ({ children, className }: CrewTabProps) => {
     group: 'feedAll',
     list: 'groupAll',
     mine: 'mine',
-    management: 'mine',
     settlement: 'settlement',
     map: 'map',
   };
 
-  const lastSegment = (path.split('/').at(-1) || 'group') as keyof typeof tabText;
+  const firstSegment = (path.split('/')[1] || 'group') as keyof typeof tabText;
 
   return (
     <SContainer align='center' justify='between' className={className}>
-      <SScrollableTabList text={tabText[lastSegment]} size='big'>
+      <SScrollableTabList text={tabText[firstSegment]} size='big'>
         <SLink href='/' onClick={() => ampli.clickNavbarGroup({ menu: '피드' })}>
           <TabList.Item text='feedAll'>홈</TabList.Item>
         </SLink>
