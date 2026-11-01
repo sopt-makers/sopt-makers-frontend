@@ -79,7 +79,7 @@ const SListContent = styled('div', {
 
 const SListHeader = styled('div', {
   'display': 'grid',
-  'gridTemplateColumns': '60px 187px 164px 166px',
+  'gridTemplateColumns': '60px 164px 90px 130px',
   'padding': `${spacing.s16} ${spacing.s24}`,
   'border': `1px solid ${colors.stroke.neutral.ghost}`,
   'borderRadius': '15px',
