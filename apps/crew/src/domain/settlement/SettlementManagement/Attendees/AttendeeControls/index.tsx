@@ -66,7 +66,17 @@ const AttendeeControls = ({ meetingId, rounds }: { meetingId: number; rounds: Ro
         </SelectV2.Root>
       </SRoundSelect>
 
-      <SSearchContainer>
+      <SSearchContainer
+        onBlurCapture={(event) => {
+          const target = event.relatedTarget;
+          if (
+            !(target instanceof HTMLButtonElement && target.type === 'reset' && event.currentTarget.contains(target))
+          ) {
+            // SearchField는 포커스가 다른 요소로 이동할 때도 onReset을 호출해 검색 결과가 초기화돼요. 따라서 MDS2.0이 나오기 전까지 이렇게 구현해둘게요.
+            event.stopPropagation();
+          }
+        }}
+      >
         <SSearchIcon width={20} height={20} aria-hidden />
         <SSearch
           aria-label='참석자 검색'
