@@ -13,7 +13,7 @@ import AttendanceModal from '../AttendanceModal';
 const ATTENDANCE_LABELS = {
   NOT_ATTENDING: '미참석',
   ATTENDING: '참석',
-  ATTENDED: '참석',
+  ATTENDED: '참석 완료',
 } as const;
 
 interface SettlementRoundProps {
@@ -82,9 +82,21 @@ const SettlementRound = ({ meetingId, round, isLeader, isEnded, hasClosedRound }
           </SAttendance>
 
           {isLeader ? (
-            <LeaderActions round={round} isEnded={isEnded} isMobile={isMobile} hasClosedRound={hasClosedRound} />
+            <LeaderActions
+              meetingId={meetingId}
+              round={round}
+              isEnded={isEnded}
+              isMobile={isMobile}
+              hasClosedRound={hasClosedRound}
+            />
           ) : (
-            <AttendeeActions round={round} isEnded={isEnded} isMobile={isMobile} isAttending={isAttending} />
+            <AttendeeActions
+              meetingId={meetingId}
+              round={round}
+              isEnded={isEnded}
+              isMobile={isMobile}
+              isAttending={isAttending}
+            />
           )}
         </SActions>
       </SRound>
