@@ -159,8 +159,7 @@ const STitle = styled('h1', {
   'marginTop': spacing.s12,
   'color': colors.fg.neutral.bold,
   '@mobile': {
-    ...typography.title3,
-    lineHeight: '28px',
+    ...typography.label1,
     gap: spacing.s4,
     marginTop: spacing.s10,
   },
