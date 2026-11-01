@@ -1,7 +1,7 @@
 import { PART_NAME } from '@constant/option';
 import { useDisplay } from '@hook/useDisplay';
 import { colors, radius, spacing, typography } from '@sopt-mds/design-tokens';
-import { Avatar, Tag } from '@sopt-mds/ui';
+import { ActionButton, Avatar, Tag } from '@sopt-mds/ui';
 import dayjs from 'dayjs';
 import { styled } from 'stitches.config';
 
@@ -9,37 +9,70 @@ import { SETTLEMENT_STATUS_LABELS } from '../constant';
 import type { SettlementDetail } from '../types';
 
 interface InfoProps {
-  settlement: Pick<SettlementDetail, 'title' | 'diningDate' | 'imageUrl' | 'isEnded' | 'joinableParts' | 'leader'>;
+  settlement: Pick<
+    SettlementDetail,
+    'title' | 'diningDate' | 'imageUrl' | 'isEnded' | 'joinableParts' | 'leader' | 'isLeader'
+  >;
 }
 
-const Info = ({ settlement: { title, diningDate, imageUrl, isEnded, joinableParts, leader } }: InfoProps) => {
+const Info = ({ settlement: { title, diningDate, imageUrl, isEnded, joinableParts, leader, isLeader } }: InfoProps) => {
   const { isMobile } = useDisplay();
 
   return (
     <SInfo>
       <SImage src={imageUrl || '/group/assets/images/settlement/thumbnail.svg'} alt={imageUrl ? '' : '회식 이미지'} />
       <SContent>
-        <STags>
-          <Tag size={isMobile ? 'small' : 'medium'} shape='rect' variant={isEnded ? 'default' : 'primary'} type='solid'>
-            {SETTLEMENT_STATUS_LABELS[isEnded ? 'ended' : 'ongoing']}
-          </Tag>
-
-          {joinableParts?.map((part) => (
-            <Tag key={part} size={isMobile ? 'small' : 'medium'} shape='rect' variant='default' type='solid'>
-              {PART_NAME[part]}
+        <SDetails>
+          <STags>
+            <Tag
+              size={isMobile ? 'small' : 'medium'}
+              shape='rect'
+              variant={isEnded ? 'default' : 'primary'}
+              type='solid'
+            >
+              {SETTLEMENT_STATUS_LABELS[isEnded ? 'ended' : 'ongoing']}
             </Tag>
-          ))}
-        </STags>
 
-        <STitle>
-          <SDate>[{dayjs(diningDate).format('YY.MM.DD')}]</SDate>
-          <STitleText>{title}</STitleText>
-        </STitle>
+            {joinableParts?.map((part) => (
+              <Tag key={part} size={isMobile ? 'small' : 'medium'} shape='rect' variant='default' type='solid'>
+                {PART_NAME[part]}
+              </Tag>
+            ))}
+          </STags>
 
-        <SProfile>
-          <Avatar size={isMobile ? 24 : 48} src={leader.profileImage || undefined} />
-          <span>{leader.name}</span>
-        </SProfile>
+          <STitle>
+            <SDate>[{dayjs(diningDate).format('YY.MM.DD')}]</SDate>
+            <STitleText>{title}</STitleText>
+          </STitle>
+
+          <SProfile>
+            <Avatar size={isMobile ? 24 : 48} src={leader.profileImage || undefined} />
+            <span>{leader.name}</span>
+          </SProfile>
+        </SDetails>
+
+        {isLeader && (
+          <SActions>
+            <SActionButton
+              size={isMobile ? 'medium' : 'large'}
+              variant='primary'
+              onClick={() => {
+                // @TODO: 회식 종료 기능 연결 (장정훈)
+              }}
+            >
+              회식 종료하기
+            </SActionButton>
+            <SActionButton
+              size={isMobile ? 'medium' : 'large'}
+              variant='secondary'
+              onClick={() => {
+                // @TODO: 회차 추가 기능 연결 (장정훈)
+              }}
+            >
+              + 회차 추가하기
+            </SActionButton>
+          </SActions>
+        )}
       </SContent>
     </SInfo>
   );
@@ -72,9 +105,45 @@ const SImage = styled('img', {
 });
 
 const SContent = styled('div', {
+  'display': 'flex',
+  'alignItems': 'center',
+  'justifyContent': 'space-between',
+  'gap': spacing.s12,
   'paddingTop': spacing.s80,
   'paddingBottom': spacing.s40,
-  '@mobile': { padding: `${spacing.s24} ${spacing.s16} ${spacing.s40}` },
+  '@desktop': {
+    flexDirection: 'column',
+    alignItems: 'stretch',
+  },
+  '@mobile': {
+    padding: `${spacing.s24} ${spacing.s16} ${spacing.s40}`,
+  },
+});
+
+const SDetails = styled('div', {
+  minWidth: 0,
+});
+
+const SActions = styled('div', {
+  'display': 'flex',
+  'flexDirection': 'column',
+  'flexShrink': 0,
+  'gap': spacing.s12,
+  'width': '300px',
+  '@desktop': {
+    flexDirection: 'row',
+    width: '100%',
+  },
+  '@mobile': {
+    gap: spacing.s8,
+  },
+});
+
+const SActionButton = styled(ActionButton, {
+  '&&': {
+    flex: 1,
+    width: '100%',
+  },
 });
 
 const STags = styled('div', {
