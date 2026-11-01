@@ -1,8 +1,10 @@
+import { useEndSettlementMutation } from '@api/settlement/mutation';
 import { PART_NAME } from '@constant/option';
 import { useDisplay } from '@hook/useDisplay';
 import { colors, radius, spacing, typography } from '@sopt-mds/design-tokens';
 import { ActionButton, Avatar, Tag } from '@sopt-mds/ui';
 import dayjs from 'dayjs';
+import { useRouter } from 'next/router';
 import { styled } from 'stitches.config';
 
 import { SETTLEMENT_STATUS_LABELS } from '../constant';
@@ -11,12 +13,16 @@ import type { SettlementDetail } from '../types';
 interface InfoProps {
   settlement: Pick<
     SettlementDetail,
-    'title' | 'diningDate' | 'imageUrl' | 'isEnded' | 'joinableParts' | 'leader' | 'isLeader'
+    'meetingId' | 'title' | 'diningDate' | 'imageUrl' | 'isEnded' | 'joinableParts' | 'leader' | 'isLeader'
   >;
 }
 
-const Info = ({ settlement: { title, diningDate, imageUrl, isEnded, joinableParts, leader, isLeader } }: InfoProps) => {
+const Info = ({
+  settlement: { meetingId, title, diningDate, imageUrl, isEnded, joinableParts, leader, isLeader },
+}: InfoProps) => {
   const { isMobile } = useDisplay();
+  const router = useRouter();
+  const { mutate: endSettlement, isPending } = useEndSettlementMutation(meetingId);
 
   return (
     <SInfo>
@@ -56,8 +62,9 @@ const Info = ({ settlement: { title, diningDate, imageUrl, isEnded, joinablePart
             <SActionButton
               size={isMobile ? 'medium' : 'large'}
               variant='primary'
+              disabled={isEnded || isPending}
               onClick={() => {
-                // @TODO: 회식 종료 기능 연결 (장정훈)
+                endSettlement();
               }}
             >
               회식 종료하기
@@ -65,8 +72,9 @@ const Info = ({ settlement: { title, diningDate, imageUrl, isEnded, joinablePart
             <SActionButton
               size={isMobile ? 'medium' : 'large'}
               variant='secondary'
+              disabled={isEnded || isPending}
               onClick={() => {
-                // @TODO: 회차 추가 기능 연결 (장정훈)
+                router.push(`/settlement/round/create?id=${meetingId}`);
               }}
             >
               + 회차 추가하기
