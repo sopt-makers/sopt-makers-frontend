@@ -1,3 +1,4 @@
+import type { SettlementListPart, SettlementListStatus } from '@api/settlement/type';
 import { useQueryString } from '@hook/queryString';
 import { useSearchParams } from '@hook/queryString/custom';
 import { SelectV2 } from '@sopt-makers/ui';
@@ -99,19 +100,21 @@ const SettlementToolbar = ({ showFilters = true }: SettlementToolbarProps) => {
   );
 };
 
-interface FilterOption<T extends string> {
-  value: T;
+type FilterValue = SettlementListStatus | SettlementListPart;
+
+interface FilterOption {
+  value: FilterValue;
   label: string;
 }
 
-interface SettlementFilterProps<T extends string> {
+interface SettlementFilterProps {
   label: string;
-  options: FilterOption<T>[];
-  value?: T;
-  onChange: (value: T | undefined) => void;
+  options: FilterOption[];
+  value?: FilterValue;
+  onChange: (value: FilterValue | undefined) => void;
 }
 
-const SettlementFilter = <T extends string>({ label, options, value, onChange }: SettlementFilterProps<T>) => {
+const SettlementFilter = ({ label, options, value, onChange }: SettlementFilterProps) => {
   const handleChange = (selected: string | string[]) => {
     onChange(options.find((option) => option.value === selected)?.value);
   };
