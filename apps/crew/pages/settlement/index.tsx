@@ -1,4 +1,4 @@
-import SettlementListContent from '@domain/settlement/SettlementList';
+import SettlementList from '@domain/settlement/SettlementList';
 import SettlementToolbar from '@domain/settlement/SettlementToolbar';
 import { Tab } from '@headlessui/react';
 import { useQueryString } from '@hook/queryString';
@@ -47,7 +47,7 @@ const SettlementPage: NextPage = () => {
             <Tab.Panels>
               {TABS.map(({ value }) => (
                 <Tab.Panel key={value}>
-                  <SettlementListContent tab={value} enabled={router.isReady && tab === value} />
+                  <SettlementList tab={value} enabled={router.isReady && tab === value} />
                 </Tab.Panel>
               ))}
             </Tab.Panels>

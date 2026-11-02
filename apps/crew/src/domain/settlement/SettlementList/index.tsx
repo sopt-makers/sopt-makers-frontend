@@ -11,14 +11,14 @@ import { styled } from 'stitches.config';
 
 import SettlementCard from '../SettlementCard';
 
-interface SettlementListContentProps {
+interface SettlementListProps {
   tab: SettlementListTab;
   enabled: boolean;
 }
 
-type SettlementListProps = ReturnType<typeof useSettlementListQueryOption>;
+type SettlementListContentProps = ReturnType<typeof useSettlementListQueryOption>;
 
-const SettlementList = ({ params, options }: SettlementListProps) => {
+const SettlementListContent = ({ params, options }: SettlementListContentProps) => {
   const { setValue: setPage } = usePageParams();
   const { data } = useSuspenseQuery(options);
   const { tab, page } = params;
@@ -53,7 +53,7 @@ const SettlementList = ({ params, options }: SettlementListProps) => {
   );
 };
 
-const SettlementListContent = ({ tab, enabled }: SettlementListContentProps) => {
+const SettlementList = ({ tab, enabled }: SettlementListProps) => {
   const { params, options } = useSettlementListQueryOption(tab);
 
   if (!enabled) return null;
@@ -64,13 +64,13 @@ const SettlementListContent = ({ tab, enabled }: SettlementListContentProps) => 
       fallback={<SEmpty role='alert'>회식 목록을 불러오지 못했어요.</SEmpty>}
     >
       <Suspense fallback={<SEmpty role='status'>회식 목록을 불러오고 있어요.</SEmpty>}>
-        <SettlementList params={params} options={options} />
+        <SettlementListContent params={params} options={options} />
       </Suspense>
     </ErrorBoundary>
   );
 };
 
-export default SettlementListContent;
+export default SettlementList;
 
 const SListContainer = styled('div', {
   'display': 'flex',
