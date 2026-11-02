@@ -1,4 +1,4 @@
-import { useSettlementAttendeesQueryOption } from '@api/settlement/query';
+import { useRoundAttendanceQueryOption } from '@api/settlement/query';
 import SettlementQueryKey from '@api/settlement/SettlementQueryKey';
 import Loader from '@common/loader/Loader';
 import { Dialog } from '@headlessui/react';
@@ -31,12 +31,12 @@ const AttendanceModal = ({
 }: AttendanceModalProps) => {
   const { isMobile } = useDisplay();
   const queryClient = useQueryClient();
-  const { data } = useQuery({ ...useSettlementAttendeesQueryOption(meetingId, roundId), enabled: false });
+  const { data } = useQuery({ ...useRoundAttendanceQueryOption(meetingId, roundId), enabled: false });
 
   const handleClose = () => {
     onClose();
     void queryClient.resetQueries({
-      queryKey: SettlementQueryKey.attendees(meetingId, roundId),
+      queryKey: SettlementQueryKey.attendance(meetingId, roundId),
       type: 'inactive',
     });
   };
@@ -78,7 +78,7 @@ interface AttendanceListProps {
 }
 
 const AttendanceList = ({ meetingId, roundId, isMobile }: AttendanceListProps) => {
-  const { data } = useSuspenseQuery(useSettlementAttendeesQueryOption(meetingId, roundId));
+  const { data } = useSuspenseQuery(useRoundAttendanceQueryOption(meetingId, roundId));
   return (
     <SList>
       {data.attendees.map((attendee, index) => (

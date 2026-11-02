@@ -1,32 +1,41 @@
+import { useSettlementDetailQueryOption } from '@api/settlement/query';
+import Loader from '@common/loader/Loader';
 import { PART_NAME } from '@constant/option';
 import { colors, radius, spacing, typography } from '@sopt-mds/design-tokens';
 import { IconChevronRight } from '@sopt-mds/icons';
 import { Tag } from '@sopt-mds/ui';
+import { useQuery } from '@tanstack/react-query';
+import { isAxiosError } from 'axios';
 import dayjs from 'dayjs';
+import ErrorPage from 'next/error';
 import Link from 'next/link';
 import { styled } from 'stitches.config';
 
-import type { SettlementDetail } from '../../types';
-
 interface InfoProps {
-  id: string;
-  settlement: Pick<SettlementDetail, 'title' | 'diningDate' | 'imageUrl' | 'joinableParts'>;
+  meetingId: number;
 }
 
-const Info = ({ id, settlement: { title, diningDate, imageUrl, joinableParts } }: InfoProps) => {
+const Info = ({ meetingId }: InfoProps) => {
+  // @TODO: 라우터 단 ErrorBoundary와 Suspense 적용하도록 리펙토링 하기 (장정훈)
+  const { data: settlement, error, isPending } = useQuery(useSettlementDetailQueryOption(meetingId));
+
+  if (isPending) return <Loader />;
+  if (!settlement) return <ErrorPage statusCode={isAxiosError(error) && error.response?.status === 404 ? 404 : 500} />;
+
   return (
-    <SCard href={`/settlement/detail?id=${id}`}>
-      <SImage src={imageUrl || '/group/assets/images/settlement/thumbnail.svg'} alt='' />
+    <SCard href={`/settlement/detail?id=${meetingId}`}>
+      <SImage src={settlement.imageUrl || '/group/assets/images/settlement/thumbnail.svg'} alt='' />
       <SInfo>
         <SParts>
-          {joinableParts?.map((part) => (
+          {settlement.joinableParts?.map((part) => (
             <Tag key={part} size='small' shape='rect' variant='default' type='solid'>
               {PART_NAME[part]}
             </Tag>
           ))}
         </SParts>
         <STitle>
-          {diningDate && <SDate>[{dayjs(diningDate).format('YY.MM.DD')}]</SDate>} <span>{title}</span>
+          <SDate>[{dayjs(settlement.diningDate).format('YY.MM.DD')}]</SDate>
+          <span>{settlement.title}</span>
         </STitle>
       </SInfo>
       <IconChevronRight width={24} height={24} aria-hidden />

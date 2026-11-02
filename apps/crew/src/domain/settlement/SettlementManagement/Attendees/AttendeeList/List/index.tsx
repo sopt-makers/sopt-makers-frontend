@@ -6,12 +6,14 @@ import Card from './Card';
 
 interface ListProps {
   attendees: Attendee[];
+  onDelete: (attendeeUserId: number) => void;
+  isDeleting: boolean;
 }
 
-const List = ({ attendees }: ListProps) => (
+const List = ({ attendees, onDelete, isDeleting }: ListProps) => (
   <SList>
     {attendees.map((attendee) => (
-      <Card key={attendee.id} {...attendee} />
+      <Card key={attendee.id} {...attendee} onDelete={onDelete} isDeleting={isDeleting} />
     ))}
   </SList>
 );

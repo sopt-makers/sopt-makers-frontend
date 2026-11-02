@@ -1,30 +1,43 @@
+import { useDownloadSettlementAttendeesCsvMutation } from '@api/settlement/mutation';
+import { useSettlementDetailQueryOption } from '@api/settlement/query';
 import AttendeeControls from '@domain/settlement/SettlementManagement/Attendees/AttendeeControls';
 import AttendeeList from '@domain/settlement/SettlementManagement/Attendees/AttendeeList';
 import { colors, radius, spacing, typography } from '@sopt-mds/design-tokens';
 import { IconDownload } from '@sopt-mds/icons';
+import { useQuery } from '@tanstack/react-query';
+import { useRouter } from 'next/router';
 import { styled } from 'stitches.config';
 
-const Attendees = () => (
-  <SContainer>
-    <SHeader>
-      <SLabel>
-        <STitle>참석자 추가</STitle>
-        <SDescription>회차별 누락된 참석자를 추가해주세요.</SDescription>
-      </SLabel>
-      <SDownloadButton
-        type='button'
-        onClick={() => {
-          // @TODO: 회차 전체 참석자 CSV 다운로드 API 연동 (장정훈)
-        }}
-      >
-        <IconDownload width={20} height={20} aria-hidden />
-        CSV 다운로드
-      </SDownloadButton>
-    </SHeader>
-    <AttendeeControls />
-    <AttendeeList />
-  </SContainer>
-);
+const Attendees = ({ meetingId }: { meetingId: number }) => {
+  const { query } = useRouter();
+  const { data: settlement } = useQuery(useSettlementDetailQueryOption(meetingId));
+
+  const rounds = settlement?.rounds ?? [];
+  const selectedRound = rounds.find((round) => String(round.roundId) === query.roundId) ?? rounds[0];
+
+  const { mutate, isPending } = useDownloadSettlementAttendeesCsvMutation();
+
+  const handleDownloadCsv = () => {
+    if (selectedRound) mutate({ meetingId, roundId: selectedRound.roundId });
+  };
+
+  return (
+    <SContainer>
+      <SHeader>
+        <SLabel>
+          <STitle>참석자 추가</STitle>
+          <SDescription>회차별 누락된 참석자를 추가해주세요.</SDescription>
+        </SLabel>
+        <SDownloadButton type='button' onClick={handleDownloadCsv} disabled={!selectedRound || isPending}>
+          <IconDownload width={20} height={20} aria-hidden />
+          CSV 다운로드
+        </SDownloadButton>
+      </SHeader>
+      <AttendeeControls meetingId={meetingId} rounds={rounds} />
+      {selectedRound && <AttendeeList meetingId={meetingId} rounds={rounds} selectedRound={selectedRound} />}
+    </SContainer>
+  );
+};
 
 export default Attendees;
 
