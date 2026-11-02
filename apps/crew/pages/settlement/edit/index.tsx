@@ -4,6 +4,7 @@ import Loader from '@common/loader/Loader';
 import type { SettlementFormValues } from '@domain/settlement/form/schema';
 import SettlementForm from '@domain/settlement/form/SettlementForm';
 import { useQuery } from '@tanstack/react-query';
+import { isAxiosError } from 'axios';
 import dayjs from 'dayjs';
 import ErrorPage from 'next/error';
 import { useRouter } from 'next/router';
@@ -12,7 +13,13 @@ const EditSettlementPage = () => {
   const router = useRouter();
   const meetingId = Number(router.query.id);
   const isValidId = Number.isSafeInteger(meetingId) && meetingId > 0;
-  const { data: settlement, isPending } = useQuery({
+  const {
+    data: settlement,
+    error,
+    isError,
+    isPending,
+    isFetchedAfterMount,
+  } = useQuery({
     ...useSettlementDetailQueryOption(meetingId),
     enabled: router.isReady && isValidId,
     staleTime: 0,
@@ -31,11 +38,13 @@ const EditSettlementPage = () => {
 
   if (!router.isReady) return null;
   if (!isValidId) return <ErrorPage statusCode={404} />;
-  if (isPending) return <Loader />;
+  if (isPending || !isFetchedAfterMount) return <Loader />;
 
   const firstRound = settlement?.rounds.find(({ roundNumber }) => roundNumber === 1);
 
-  if (!settlement || !firstRound) return <ErrorPage statusCode={500} />;
+  if (isError || !settlement || !firstRound) {
+    return <ErrorPage statusCode={isAxiosError(error) && error.response?.status === 404 ? 404 : 500} />;
+  }
 
   const initialValues: SettlementFormValues = {
     title: settlement.title,
