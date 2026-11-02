@@ -11,6 +11,11 @@ import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { styled } from 'stitches.config';
 
+const TABS = [
+  { value: 'ALL', label: '전체 회식' },
+  { value: 'MY', label: '내 회식' },
+] as const;
+
 const SettlementPage: NextPage = () => {
   const { isMobile } = useDisplay();
   const router = useRouter();
@@ -18,7 +23,8 @@ const SettlementPage: NextPage = () => {
   const tab = tabValue === 'MY' ? 'MY' : 'ALL';
 
   const handleTabChange = (index: number) => {
-    setTab(index === 0 ? 'ALL' : 'MY');
+    const selectedTab = TABS[index];
+    if (selectedTab) setTab(selectedTab.value);
   };
 
   return (
@@ -26,26 +32,24 @@ const SettlementPage: NextPage = () => {
       <SLayout aria-label='회식'>
         <CrewTab />
 
-        <Tab.Group selectedIndex={tab === 'MY' ? 1 : 0} onChange={handleTabChange}>
+        <Tab.Group selectedIndex={TABS.findIndex(({ value }) => value === tab)} onChange={handleTabChange}>
           <SViewSelector aria-label='회식 목록 범위'>
-            <Tab as={SViewButton} type='button' size={isMobile ? 'small' : 'large'} variant='secondary'>
-              전체 회식
-            </Tab>
-            <Tab as={SViewButton} type='button' size={isMobile ? 'small' : 'large'} variant='secondary'>
-              내 회식
-            </Tab>
+            {TABS.map(({ value, label }) => (
+              <Tab key={value} as={SViewButton} type='button' size={isMobile ? 'small' : 'large'} variant='secondary'>
+                {label}
+              </Tab>
+            ))}
           </SViewSelector>
 
           <SContent>
             <SettlementToolbar showFilters={tab === 'ALL'} />
 
             <Tab.Panels>
-              <Tab.Panel>
-                <SettlementListContent tab='ALL' enabled={router.isReady && tab === 'ALL'} />
-              </Tab.Panel>
-              <Tab.Panel>
-                <SettlementListContent tab='MY' enabled={router.isReady && tab === 'MY'} />
-              </Tab.Panel>
+              {TABS.map(({ value }) => (
+                <Tab.Panel key={value}>
+                  <SettlementListContent tab={value} enabled={router.isReady && tab === value} />
+                </Tab.Panel>
+              ))}
             </Tab.Panels>
           </SContent>
         </Tab.Group>
