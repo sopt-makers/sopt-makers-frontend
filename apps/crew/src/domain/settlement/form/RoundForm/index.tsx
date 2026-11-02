@@ -37,7 +37,7 @@ const RoundForm = ({
     resolver: zodResolver(roundFormSchema),
     mode: 'onBlur',
   });
-  const { isSubmitting, isValid } = methods.formState;
+  const { isSubmitting, isValid, isDirty } = methods.formState;
   const isPending = isSubmitting || isDeleting;
 
   return (
@@ -49,7 +49,7 @@ const RoundForm = ({
         actions={
           <FormActions
             submitLabel={mode === 'edit' ? '회차 수정하기' : '회차 추가하기'}
-            submitDisabled={!isValid || isPending}
+            submitDisabled={!isValid || isPending || (mode === 'edit' && !isDirty)}
             deleteLabel={mode === 'edit' ? '회차 삭제하기' : undefined}
             deleteDisabled={deleteDisabled || isPending}
             onDelete={onDelete}

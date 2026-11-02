@@ -48,7 +48,8 @@ const SettlementForm = ({
   });
   const { field: titleField, fieldState: titleState } = useController({ control: methods.control, name: 'title' });
   const { mutateAsync: uploadImage, isPending: isUploading } = useUploadImageMutation();
-  const isPending = methods.formState.isSubmitting || isUploading || isDeleting;
+  const { isSubmitting, isValid, isDirty } = methods.formState;
+  const isPending = isSubmitting || isUploading || isDeleting;
 
   return (
     <FormProvider {...methods}>
@@ -59,7 +60,7 @@ const SettlementForm = ({
         actions={
           <FormActions
             submitLabel={mode === 'edit' ? '회식 수정하기' : '회식 등록하기'}
-            submitDisabled={!methods.formState.isValid || isPending}
+            submitDisabled={!isValid || isPending || (mode === 'edit' && !isDirty)}
             deleteLabel={mode === 'edit' ? '회식 삭제하기' : undefined}
             deleteDisabled={deleteDisabled || isPending}
             onDelete={onDelete}

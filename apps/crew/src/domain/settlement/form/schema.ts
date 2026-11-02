@@ -46,7 +46,7 @@ export const createSettlementFormSchema = (mode: 'create' | 'edit') =>
       } else if (mode === 'create' && date.isBefore(dayjs(), 'day')) {
         context.addIssue({
           code: z.ZodIssueCode.custom,
-          message: '오늘 이후의 날짜를 선택해주세요.',
+          message: '지난 날짜는 선택할 수 없어요.',
         });
       }
     }),
