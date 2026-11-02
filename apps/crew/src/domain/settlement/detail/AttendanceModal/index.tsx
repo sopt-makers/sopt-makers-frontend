@@ -1,48 +1,66 @@
+import { useSettlementAttendeesQueryOption } from '@api/settlement/query';
+import SettlementQueryKey from '@api/settlement/SettlementQueryKey';
+import Loader from '@common/loader/Loader';
 import { Dialog } from '@headlessui/react';
 import { useDisplay } from '@hook/useDisplay';
 import ModalContainer from '@shared/modal/ModalContainer';
 import { colors, radius, spacing, typography } from '@sopt-mds/design-tokens';
 import { IconChevronRight, IconXClose } from '@sopt-mds/icons';
 import { Avatar } from '@sopt-mds/ui';
+import { ErrorBoundary, Suspense } from '@suspensive/react';
+import { useQuery, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 import { styled } from 'stitches.config';
-
-import { attendanceMocks } from './mock';
 
 interface AttendanceModalProps {
   isOpen: boolean;
   onClose: () => void;
   meetingId: number;
+  roundId: number;
   roundNumber: number;
-  isLeader: boolean;
+  canManageAttendees: boolean;
 }
 
-const AttendanceModal = ({ isOpen, onClose, meetingId, roundNumber, isLeader }: AttendanceModalProps) => {
+const AttendanceModal = ({
+  isOpen,
+  onClose,
+  meetingId,
+  roundId,
+  roundNumber,
+  canManageAttendees,
+}: AttendanceModalProps) => {
   const { isMobile } = useDisplay();
+  const queryClient = useQueryClient();
+  const { data } = useQuery({ ...useSettlementAttendeesQueryOption(meetingId, roundId), enabled: false });
+
+  const handleClose = () => {
+    onClose();
+    void queryClient.resetQueries({
+      queryKey: SettlementQueryKey.attendees(meetingId, roundId),
+      type: 'inactive',
+    });
+  };
 
   return (
-    <ModalContainer isModalOpened={isOpen} handleModalClose={onClose}>
+    <ModalContainer isModalOpened={isOpen} handleModalClose={handleClose}>
       <SModal>
         <SHeader>
           <Dialog.Title>{roundNumber}차 참석 현황</Dialog.Title>
-          <SCloseButton type='button' onClick={onClose} aria-label='닫기'>
+          <SCloseButton type='button' onClick={handleClose} aria-label='닫기'>
             <IconXClose width={isMobile ? 16 : 24} height={isMobile ? 16 : 24} aria-hidden />
           </SCloseButton>
         </SHeader>
 
-        <SList>
-          {attendanceMocks.attendees.map((attendee, index) => (
-            <SItem key={attendee.id}>
-              <SNumber>{index + 1}</SNumber>
-              <Avatar size={isMobile ? 24 : 32} type='subtle' src={attendee.profileImage || undefined} aria-hidden />
-              <SName>{attendee.name}</SName>
-            </SItem>
-          ))}
-        </SList>
-
+        {isOpen && (
+          <ErrorBoundary fallback={<p role='alert'>참석자 정보를 불러오지 못했어요.</p>}>
+            <Suspense fallback={<Loader />}>
+              <AttendanceList meetingId={meetingId} roundId={roundId} isMobile={isMobile} />
+            </Suspense>
+          </ErrorBoundary>
+        )}
         <SFooter>
-          <span>총 {attendanceMocks.attendees.length}명 참석</span>
-          {isLeader && (
+          {data && <span>총 {data.attendees.length}명 참석</span>}
+          {canManageAttendees && (
             <SManagementLink href={`/settlement/management?id=${meetingId}`}>
               참석자 관리 <IconChevronRight width={16} height={16} aria-hidden />
             </SManagementLink>
@@ -50,6 +68,27 @@ const AttendanceModal = ({ isOpen, onClose, meetingId, roundNumber, isLeader }: 
         </SFooter>
       </SModal>
     </ModalContainer>
+  );
+};
+
+interface AttendanceListProps {
+  meetingId: number;
+  roundId: number;
+  isMobile: boolean;
+}
+
+const AttendanceList = ({ meetingId, roundId, isMobile }: AttendanceListProps) => {
+  const { data } = useSuspenseQuery(useSettlementAttendeesQueryOption(meetingId, roundId));
+  return (
+    <SList>
+      {data.attendees.map((attendee, index) => (
+        <SItem key={attendee.id}>
+          <SNumber>{index + 1}</SNumber>
+          <Avatar size={isMobile ? 24 : 32} type='subtle' src={attendee.profileImage || undefined} aria-hidden />
+          <SName>{attendee.name}</SName>
+        </SItem>
+      ))}
+    </SList>
   );
 };
 

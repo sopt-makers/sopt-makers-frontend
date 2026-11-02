@@ -6,6 +6,7 @@ export type SettlementRequest = components['schemas']['DiningV2CreateAndUpdateDi
 export type SettlementRoundRequest = components['schemas']['DiningV2CreateAndUpdateRoundBodyDto'];
 
 export type SettlementDetailResponse = components['schemas']['DiningV2GetDiningDetailResponseDto'];
+export type SettlementAttendeesResponse = components['schemas']['DiningV2GetAttendeesResponseDto'];
 
 export type PostSettlement = {
   request: SettlementRequest;
