@@ -73,6 +73,7 @@ const AttendeeControls = () => {
               <SResult
                 key={member.userId}
                 type='button'
+                onMouseDown={(event) => event.preventDefault()}
                 onClick={() => {
                   setSearch(member.userName);
                   setSelectedMember(member.userId);
@@ -130,6 +131,12 @@ const SRoundTrigger = styled(SelectV2.TriggerContent, {
   '&&': {
     width: '100%',
     minWidth: 0,
+    whiteSpace: 'nowrap',
+  },
+  '@mobile': {
+    '&&': {
+      paddingInline: spacing.s12,
+    },
   },
 });
 

@@ -14,3 +14,6 @@ export type SettlementListStatus = NonNullable<GetSettlementList['request']['sta
 export type SettlementListPart = NonNullable<GetSettlementList['request']['part']>;
 export type SettlementRequest = components['schemas']['DiningV2CreateAndUpdateDiningBodyDto'];
 export type SettlementRoundRequest = components['schemas']['DiningV2CreateAndUpdateRoundBodyDto'];
+
+export type SettlementDetailResponse = components['schemas']['DiningV2GetDiningDetailResponseDto'];
+export type SettlementAttendeesResponse = components['schemas']['DiningV2GetAttendeesResponseDto'];

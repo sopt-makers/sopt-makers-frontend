@@ -3,7 +3,7 @@ import type { ComponentProps } from 'react';
 
 import type SettlementList from './index';
 
-type SettlementListMock = ComponentProps<typeof SettlementList>;
+type SettlementListMock = Omit<ComponentProps<typeof SettlementList>, 'meetingId' | 'isApprovedPayer'>;
 type Round = SettlementListMock['rounds'][number];
 
 const firstRound: Round = {
@@ -13,7 +13,7 @@ const firstRound: Round = {
   naverMapLink: 'https://map.naver.com/',
   kakaoMapLink: 'https://map.kakao.com/',
   startTime: '19:45',
-  attendeeCount: 8,
+  attendeeCount: 5,
   isClosed: false,
   isPlaceModified: false,
   isLinkModified: false,

@@ -4,7 +4,7 @@ import { useQueryString } from '@hook/queryString';
 import { usePageParams, useSearchParams } from '@hook/queryString/custom';
 import { queryOptions } from '@tanstack/react-query';
 
-import { getSettlementList } from '.';
+import { getSettlementAttendees, getSettlementDetail, getSettlementList } from '.';
 import SettlementQueryKey from './SettlementQueryKey';
 import type { SettlementListParams, SettlementListTab } from './type';
 
@@ -32,3 +32,16 @@ export const useSettlementListQueryOption = (tab: SettlementListTab) => {
     }),
   };
 };
+
+export const useSettlementDetailQueryOption = (meetingId: number) =>
+  queryOptions({
+    queryKey: SettlementQueryKey.detail(meetingId),
+    queryFn: () => getSettlementDetail(meetingId),
+  });
+
+export const useSettlementAttendeesQueryOption = (meetingId: number, roundId: number) =>
+  queryOptions({
+    queryKey: SettlementQueryKey.attendees(meetingId, roundId),
+    queryFn: () => getSettlementAttendees(meetingId, roundId),
+    staleTime: 0,
+  });

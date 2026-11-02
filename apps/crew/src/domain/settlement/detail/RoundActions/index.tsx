@@ -1,93 +1,147 @@
+import {
+  useCloseSettlementRoundMutation,
+  useDeleteSettlementMutation,
+  useDeleteSettlementRoundMutation,
+  useRequestRoundPayerMutation,
+  useRoundAttendanceMutation,
+} from '@api/settlement/mutation';
+import useModal from '@hook/useModal';
 import { colors, spacing } from '@sopt-mds/design-tokens';
 import { IconCheck } from '@sopt-mds/icons';
-import { ActionButton } from '@sopt-mds/ui';
+import { ActionButton, Dialog } from '@sopt-mds/ui';
+import { useRouter } from 'next/router';
 import { styled } from 'stitches.config';
 
 import type { RoundType } from '@/domain/settlement/types';
 
 interface RoleActionsProps {
-  round: Pick<RoundType, 'roundNumber' | 'isClosed' | 'myPayerStatus'>;
+  meetingId: number;
+  round: Pick<RoundType, 'roundId' | 'roundNumber' | 'isClosed' | 'myPayerStatus'>;
   isEnded: boolean;
   isMobile: boolean;
 }
 
 export const LeaderActions = ({
-  round: { roundNumber, isClosed },
+  meetingId,
+  round: { roundId, roundNumber, isClosed },
   isEnded,
   isMobile,
   hasClosedRound,
-}: RoleActionsProps & { hasClosedRound: boolean }) => (
-  <>
-    <SButtonRow>
-      <SActionButton
-        size={isMobile ? 'medium' : 'large'}
-        variant='secondary'
-        disabled={isEnded || (roundNumber === 1 ? hasClosedRound : isClosed)}
-        onClick={() => {
-          // @TODO: 회식 또는 회차 삭제 연결 (장정훈)
-        }}
-      >
-        삭제
-      </SActionButton>
+}: RoleActionsProps & { hasClosedRound: boolean }) => {
+  const { isModalOpened, handleModalOpen, handleModalClose } = useModal();
+  const router = useRouter();
+  const { mutate: deleteSettlement, isPending: isDeletingSettlement } = useDeleteSettlementMutation(meetingId);
+  const { mutate: deleteRound, isPending: isDeletingRound } = useDeleteSettlementRoundMutation(meetingId, roundId);
+  const { mutate: closeRound, isPending: isClosing } = useCloseSettlementRoundMutation(meetingId, roundId);
+  const isPending = isDeletingSettlement || isDeletingRound || isClosing;
+
+  const handleDelete = () => {
+    if (roundNumber === 1) {
+      deleteSettlement(undefined, { onSuccess: () => router.push('/settlement') });
+      return;
+    }
+    deleteRound();
+  };
+
+  const handleEdit = () => {
+    if (roundNumber === 1) {
+      router.push(`/settlement/edit?id=${meetingId}`);
+      return;
+    }
+    router.push(`/settlement/round/edit?id=${meetingId}&roundId=${roundId}`);
+  };
+
+  return (
+    <>
+      <SButtonRow>
+        <SActionButton
+          size={isMobile ? 'medium' : 'large'}
+          variant='secondary'
+          disabled={isPending || isEnded || (roundNumber === 1 ? hasClosedRound : isClosed)}
+          onClick={handleDelete}
+        >
+          삭제
+        </SActionButton>
+        <SActionButton
+          size={isMobile ? 'medium' : 'large'}
+          variant='primary'
+          disabled={isEnded || isPending}
+          onClick={handleEdit}
+        >
+          수정
+        </SActionButton>
+      </SButtonRow>
       <SActionButton
         size={isMobile ? 'medium' : 'large'}
         variant='primary'
-        disabled={isEnded}
-        onClick={() => {
-          // @TODO: 회식 또는 회차 수정 연결 (장정훈)
-        }}
+        disabled={isClosed || isEnded || isPending}
+        onClick={handleModalOpen}
       >
-        수정
+        {isClosed ? '마감 완료' : '마감하기'}
       </SActionButton>
-    </SButtonRow>
-    <SActionButton
-      size={isMobile ? 'medium' : 'large'}
-      variant='primary'
-      disabled={isClosed || isEnded}
-      onClick={() => {
-        // @TODO: 회차 마감 연결 (장정훈)
-      }}
-    >
-      {isClosed ? '마감 완료' : '마감하기'}
-    </SActionButton>
-  </>
-);
+
+      <SCloseRoundDialog open={isModalOpened} onOpenChange={handleModalClose} device={isMobile ? 'mobile' : 'pc'}>
+        <Dialog.Title>회차를 마감할까요?</Dialog.Title>
+        <Dialog.Description>
+          회차 마감 후에는 더이상 신청자를 받을 수 없고,
+          <br />
+          마감 이후 회차 삭제가 불가능해요.
+        </Dialog.Description>
+        <Dialog.Actions>
+          <Dialog.Cancel>잠깐만요</Dialog.Cancel>
+          <Dialog.Action onClick={() => closeRound()}>마감하기</Dialog.Action>
+        </Dialog.Actions>
+      </SCloseRoundDialog>
+    </>
+  );
+};
 
 export const AttendeeActions = ({
-  round: { isClosed, myPayerStatus },
+  meetingId,
+  round: { roundId, isClosed, myPayerStatus },
   isEnded,
   isMobile,
   isAttending,
-}: RoleActionsProps & { isAttending: boolean }) => (
-  <>
-    <SActionButton
-      size={isMobile ? 'medium' : 'large'}
-      variant={isAttending ? 'secondary' : 'primary'}
-      disabled={isClosed || isEnded}
-      onClick={() => {
-        // @TODO: 회차 참석 및 취소 연결 (장정훈)
-      }}
-    >
-      {isClosed && '마감'}
-      {!isClosed && (isAttending ? '참석취소' : '참석하기')}
-    </SActionButton>
-    <SPayerButton
-      size={isMobile ? 'medium' : 'large'}
-      variant={myPayerStatus ? 'secondary' : 'primary'}
-      disabled={!isAttending || !!myPayerStatus}
-      hasPayerStatus={!!myPayerStatus}
-      leftAddon={myPayerStatus === 'APPROVED' ? <IconCheck aria-hidden /> : undefined}
-      onClick={() => {
-        // @TODO: 결제자 요청 연결 (장정훈)
-      }}
-    >
-      {myPayerStatus === 'APPROVED' && '결제자 승인 완료'}
-      {myPayerStatus === 'PENDING' && '결제자 승인 대기 중'}
-      {!myPayerStatus && '제가 결제했어요'}
-    </SPayerButton>
-  </>
-);
+}: RoleActionsProps & { isAttending: boolean }) => {
+  const { mutate: updateAttendance, isPending: isUpdatingAttendance } = useRoundAttendanceMutation(meetingId, roundId);
+  const { mutate: requestPayer, isPending: isRequestingPayer } = useRequestRoundPayerMutation(meetingId, roundId);
+  const isPending = isUpdatingAttendance || isRequestingPayer;
 
+  return (
+    <>
+      <SActionButton
+        size={isMobile ? 'medium' : 'large'}
+        variant={isAttending ? 'secondary' : 'primary'}
+        disabled={isClosed || isEnded || isPending}
+        onClick={() => updateAttendance(isAttending)}
+      >
+        {isClosed && '마감'}
+        {!isClosed && (isAttending ? '참석취소' : '참석하기')}
+      </SActionButton>
+      <SPayerButton
+        size={isMobile ? 'medium' : 'large'}
+        variant={myPayerStatus ? 'secondary' : 'primary'}
+        disabled={!isAttending || !!myPayerStatus || isPending}
+        hasPayerStatus={!!myPayerStatus}
+        leftAddon={myPayerStatus === 'APPROVED' ? <IconCheck aria-hidden /> : undefined}
+        onClick={() => requestPayer()}
+      >
+        {myPayerStatus === 'APPROVED' && '결제자 승인 완료'}
+        {myPayerStatus === 'PENDING' && '결제자 승인 대기 중'}
+        {!myPayerStatus && '제가 결제했어요'}
+      </SPayerButton>
+    </>
+  );
+};
+
+const SCloseRoundDialog = styled(Dialog, {
+  'top': spacing.s120,
+  'bottom': 'auto',
+  '@mobile': {
+    top: '0px',
+    bottom: '0px',
+  },
+});
 const SButtonRow = styled('div', {
   display: 'flex',
   gap: spacing.s8,
