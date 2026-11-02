@@ -32,7 +32,7 @@ const LocationFields = () => {
           <SLabel as='div' id='settlement-map-links-label'>
             장소 링크
           </SLabel>
-          <SDescription>장소 안내를 위해 네이버지도 또는 카카오맵 링크를 하나 이상 입력해 주세요.</SDescription>
+          <SDescription>장소 안내를 위해 네이버지도 또는 카카오맵 링크를 입력해 주세요.</SDescription>
         </SFieldHeader>
         <SMapLinks>
           <SMapRow>

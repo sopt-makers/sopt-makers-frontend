@@ -13,6 +13,7 @@ const mapLinkSchema = (hosts: readonly string[]) =>
   z
     .string()
     .trim()
+    .max(500, '500자까지 입력할 수 있어요.')
     .refine((value) => {
       if (!value) return true;
       try {
@@ -23,7 +24,7 @@ const mapLinkSchema = (hosts: readonly string[]) =>
       }
     }, '올바른 지도 링크를 입력해주세요.');
 
-const roundFieldsSchema = z.object({
+export const roundFormSchema = z.object({
   place: z.string().trim().max(30, '30자까지 입력할 수 있어요.'),
   naverMapLink: mapLinkSchema(['naver.me', 'map.naver.com']),
   kakaoMapLink: mapLinkSchema(['kko.to', 'map.kakao.com', 'place.map.kakao.com']),
@@ -33,7 +34,7 @@ const roundFieldsSchema = z.object({
 }) satisfies z.ZodType<RoundFieldValues>;
 
 export const createSettlementFormSchema = (mode: 'create' | 'edit') =>
-  roundFieldsSchema.extend({
+  roundFormSchema.extend({
     title: z.string().trim().min(1, '회식명을 입력해주세요.').max(30, '30자까지 입력할 수 있어요.'),
     diningDate: z.string().superRefine((value, context) => {
       const date = dayjs(value, 'YYYY.MM.DD', true);
@@ -45,7 +46,7 @@ export const createSettlementFormSchema = (mode: 'create' | 'edit') =>
       } else if (mode === 'create' && date.isBefore(dayjs(), 'day')) {
         context.addIssue({
           code: z.ZodIssueCode.custom,
-          message: '오늘 이후의 날짜를 선택해주세요.',
+          message: '지난 날짜는 선택할 수 없어요.',
         });
       }
     }),

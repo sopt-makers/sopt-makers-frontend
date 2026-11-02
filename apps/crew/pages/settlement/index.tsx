@@ -1,48 +1,57 @@
 import SettlementList from '@domain/settlement/SettlementList';
 import SettlementToolbar from '@domain/settlement/SettlementToolbar';
 import { Tab } from '@headlessui/react';
+import { useQueryString } from '@hook/queryString';
 import { useDisplay } from '@hook/useDisplay';
 import CrewTab from '@shared/CrewTab';
 import FloatingButton from '@shared/FloatingButton';
 import { colors, spacing } from '@sopt-mds/design-tokens';
 import { ActionButton } from '@sopt-mds/ui';
 import type { NextPage } from 'next';
+import { useRouter } from 'next/router';
 import { styled } from 'stitches.config';
+
+const TABS = [
+  { value: 'ALL', label: '전체 회식' },
+  { value: 'MY', label: '내 회식' },
+] as const;
 
 const SettlementPage: NextPage = () => {
   const { isMobile } = useDisplay();
+  const router = useRouter();
+  const { value: tabValue, setValue: setTab } = useQueryString('tab', 'ALL', true);
+  const tab = tabValue === 'MY' ? 'MY' : 'ALL';
+
+  const handleTabChange = (index: number) => {
+    const selectedTab = TABS[index];
+    if (selectedTab) setTab(selectedTab.value);
+  };
 
   return (
     <>
       <SLayout aria-label='회식'>
         <CrewTab />
 
-        <Tab.Group>
-          {({ selectedIndex }) => (
-            <>
-              <SViewSelector aria-label='회식 목록 범위'>
-                <Tab as={SViewButton} type='button' size={isMobile ? 'small' : 'large'} variant='secondary'>
-                  전체 회식
-                </Tab>
-                <Tab as={SViewButton} type='button' size={isMobile ? 'small' : 'large'} variant='secondary'>
-                  내 회식
-                </Tab>
-              </SViewSelector>
+        <Tab.Group selectedIndex={TABS.findIndex(({ value }) => value === tab)} onChange={handleTabChange}>
+          <SViewSelector aria-label='회식 목록 범위'>
+            {TABS.map(({ value, label }) => (
+              <Tab key={value} as={SViewButton} type='button' size={isMobile ? 'small' : 'large'} variant='secondary'>
+                {label}
+              </Tab>
+            ))}
+          </SViewSelector>
 
-              <SContent>
-                <SettlementToolbar showFilters={selectedIndex === 0} />
+          <SContent>
+            <SettlementToolbar showFilters={tab === 'ALL'} />
 
-                <Tab.Panels>
-                  <Tab.Panel>
-                    <SettlementList tab='ALL' />
-                  </Tab.Panel>
-                  <Tab.Panel>
-                    <SettlementList tab='MY' />
-                  </Tab.Panel>
-                </Tab.Panels>
-              </SContent>
-            </>
-          )}
+            <Tab.Panels>
+              {TABS.map(({ value }) => (
+                <Tab.Panel key={value}>
+                  <SettlementList tab={value} enabled={router.isReady && tab === value} />
+                </Tab.Panel>
+              ))}
+            </Tab.Panels>
+          </SContent>
         </Tab.Group>
       </SLayout>
       <FloatingButton />

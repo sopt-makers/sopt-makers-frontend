@@ -27,12 +27,20 @@ const DEFAULT_SETTLEMENT_FORM_VALUES: SettlementFormValues = {
 interface SettlementFormProps {
   mode: 'create' | 'edit';
   initialValues?: SettlementFormValues;
-  // TODO: API 연결 시 onSubmit을 필수로 변경하고, 옵셔널 호출과 버튼의 !onSubmit 조건을 제거
-  onSubmit?: (values: SettlementFormValues) => void | Promise<void>;
+  onSubmit: (values: SettlementFormValues) => void | Promise<void>;
   onDelete?: () => void;
+  deleteDisabled?: boolean;
+  isDeleting?: boolean;
 }
 
-const SettlementForm = ({ mode, initialValues, onSubmit, onDelete }: SettlementFormProps) => {
+const SettlementForm = ({
+  mode,
+  initialValues,
+  onSubmit,
+  onDelete,
+  deleteDisabled = false,
+  isDeleting = false,
+}: SettlementFormProps) => {
   const methods = useForm<SettlementFormValues>({
     defaultValues: initialValues ?? DEFAULT_SETTLEMENT_FORM_VALUES,
     resolver: zodResolver(createSettlementFormSchema(mode)),
@@ -40,20 +48,21 @@ const SettlementForm = ({ mode, initialValues, onSubmit, onDelete }: SettlementF
   });
   const { field: titleField, fieldState: titleState } = useController({ control: methods.control, name: 'title' });
   const { mutateAsync: uploadImage, isPending: isUploading } = useUploadImageMutation();
-  const isPending = methods.formState.isSubmitting || isUploading;
+  const { isSubmitting, isValid, isDirty } = methods.formState;
+  const isPending = isSubmitting || isUploading || isDeleting;
 
   return (
     <FormProvider {...methods}>
       <FormLayout
         title={mode === 'edit' ? '회식 정보 수정' : '회식 정보 입력'}
         description='회식 등록에 필요한 필수 항목이 모두 입력되었는지 꼼꼼하게 확인해주세요.'
-        onSubmit={methods.handleSubmit((values) => onSubmit?.(values))}
+        onSubmit={methods.handleSubmit(onSubmit)}
         actions={
           <FormActions
             submitLabel={mode === 'edit' ? '회식 수정하기' : '회식 등록하기'}
-            submitDisabled={!onSubmit || !methods.formState.isValid || isPending}
+            submitDisabled={!isValid || isPending || (mode === 'edit' && !isDirty)}
             deleteLabel={mode === 'edit' ? '회식 삭제하기' : undefined}
-            deleteDisabled={isPending}
+            deleteDisabled={deleteDisabled || isPending}
             onDelete={onDelete}
           />
         }

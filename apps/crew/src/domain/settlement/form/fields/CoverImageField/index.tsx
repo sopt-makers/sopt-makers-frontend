@@ -29,7 +29,7 @@ const CoverImageField = ({ isUploading, onUpload }: CoverImageFieldProps) => {
     event.target.value = '';
     if (!file) return;
     if (!ACCEPTED_IMAGE_TYPES.includes(file.type)) {
-      setUploadError('이미지 파일만 업로드할 수 있어요.');
+      setUploadError('이미지 파일(JPG/JPEG, PNG, WebP, GIF)만 업로드할 수 있어요.');
       return;
     }
     if (file.size > MAX_FILE_SIZE) {
@@ -137,7 +137,9 @@ const SPreview = styled('div', { position: 'relative', height: 178, borderRadius
 const SImage = styled('img', { display: 'block', width: '100%', height: '100%', objectFit: 'cover' });
 
 const SDeleteButton = styled(ActionButton, {
-  position: 'absolute',
-  right: spacing.s8,
-  bottom: spacing.s8,
+  '&&': {
+    position: 'absolute',
+    right: spacing.s8,
+    bottom: spacing.s8,
+  },
 });

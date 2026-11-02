@@ -1,7 +1,17 @@
 import type { components, paths } from '@/__generated__/schema';
 
+export type GetSettlementList = {
+  request: NonNullable<paths['/dining/v2']['get']['parameters']['query']>;
+  response: paths['/dining/v2']['get']['responses']['200']['content']['application/json;charset=UTF-8'];
+};
+
+export type SettlementListParams = GetSettlementList['request'] &
+  Required<Pick<GetSettlementList['request'], 'tab' | 'page' | 'take'>>;
+
 export type SettlementCardItem = components['schemas']['DiningV2DiningCardDto'];
-export type SettlementListTab = NonNullable<NonNullable<paths['/dining/v2']['get']['parameters']['query']>['tab']>;
+export type SettlementListTab = NonNullable<GetSettlementList['request']['tab']>;
+export type SettlementListStatus = NonNullable<GetSettlementList['request']['status']>;
+export type SettlementListPart = NonNullable<GetSettlementList['request']['part']>;
 export type SettlementRequest = components['schemas']['DiningV2CreateAndUpdateDiningBodyDto'];
 export type SettlementRoundRequest = components['schemas']['DiningV2CreateAndUpdateRoundBodyDto'];
 
@@ -34,3 +44,25 @@ export type SettlementDeleteAttendeeRequest =
 
 export type SettlementAddAttendee = Pick<SettlementAddAttendeeRequest, 'roundId' | 'userId'>;
 export type SettlementDeleteAttendee = Pick<SettlementDeleteAttendeeRequest, 'roundId' | 'attendeeUserId'>;
+
+export type RoundAttendanceResponse = components['schemas']['DiningV2GetAttendeesResponseDto'];
+
+export type PostSettlement = {
+  request: SettlementRequest;
+  response: paths['/dining/v2']['post']['responses']['201']['content']['application/json;charset=UTF-8'];
+};
+
+export type PutSettlement = {
+  request: SettlementRequest;
+  response: void;
+};
+
+export type PostSettlementRound = {
+  request: SettlementRoundRequest;
+  response: paths['/dining/v2/{meetingId}/rounds']['post']['responses']['201']['content']['application/json;charset=UTF-8'];
+};
+
+export type PutSettlementRound = {
+  request: SettlementRoundRequest;
+  response: void;
+};

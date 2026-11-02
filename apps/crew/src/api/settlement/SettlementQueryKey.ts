@@ -1,7 +1,11 @@
-import type { SettlementAttendeesRequest } from './type';
+import type { GetSettlementList, SettlementAttendeesRequest } from './type';
 
 const SettlementQueryKey = {
   all: () => ['settlement'] as const,
+  lists: () => [...SettlementQueryKey.all(), 'list'] as const,
+  list: (params: GetSettlementList['request']) => [...SettlementQueryKey.lists(), params] as const,
+  attendance: (meetingId: number, roundId: number) =>
+    [...SettlementQueryKey.all(), 'attendance', meetingId, roundId] as const,
   detail: (meetingId: number) => [...SettlementQueryKey.all(), 'detail', meetingId] as const,
   payerRequests: (meetingId: number) => [...SettlementQueryKey.all(), 'payerRequests', meetingId] as const,
   attendees: (meetingId: number, roundId: number) =>
