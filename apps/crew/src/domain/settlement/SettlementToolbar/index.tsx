@@ -1,9 +1,9 @@
 import { useQueryString } from '@hook/queryString';
 import { useSearchParams } from '@hook/queryString/custom';
-import { SearchField, SelectV2 } from '@sopt-makers/ui';
-import { colors, radius, spacing } from '@sopt-mds/design-tokens';
+import { SelectV2 } from '@sopt-makers/ui';
+import { colors, spacing } from '@sopt-mds/design-tokens';
 import { IconRefresh } from '@sopt-mds/icons';
-import { ActionButton } from '@sopt-mds/ui';
+import { ActionButton, SearchField } from '@sopt-mds/ui';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { styled } from 'stitches.config';
@@ -33,8 +33,8 @@ const SettlementToolbar = ({ showFilters = true }: SettlementToolbarProps) => {
     setSearchInput(searchQuery);
   }, [searchQuery]);
 
-  const handleSearchSubmit = () => {
-    const search = normalizeSettlementSearch(searchInput);
+  const handleSearchSubmit = (value: string) => {
+    const search = normalizeSettlementSearch(value);
     setSearchInput(search);
 
     if (search) {
@@ -84,32 +84,15 @@ const SettlementToolbar = ({ showFilters = true }: SettlementToolbarProps) => {
           </SResetButton>
         </SFilters>
       )}
-      <SSearchWrapper
-        role='search'
-        onSubmit={(event) => {
-          event.preventDefault();
-          handleSearchSubmit();
-        }}
-        onReset={(event) => {
-          event.preventDefault();
-          handleSearchReset();
-          event.currentTarget.querySelector('input')?.focus();
-        }}
-        onBlurCapture={(event) => {
-          if (event.currentTarget.contains(event.relatedTarget)) {
-            event.stopPropagation();
-          }
-        }}
-      >
-        <button type='submit' hidden />
-        <SSearchInput
+      <SSearchWrapper role='search'>
+        <SearchField
           aria-label='회식명 검색'
           placeholder='회식명을 검색해보세요'
           maxLength={SETTLEMENT_SEARCH_MAX_LENGTH}
           value={searchInput}
-          onChange={(event) => setSearchInput(event.target.value)}
-          onSubmit={() => undefined}
-          onReset={() => undefined}
+          onValueChange={setSearchInput}
+          onSearch={handleSearchSubmit}
+          onClear={handleSearchReset}
         />
       </SSearchWrapper>
     </SToolbar>
@@ -190,20 +173,7 @@ const SResetButton = styled(ActionButton, {
   },
 });
 
-const SSearchWrapper = styled('form', {
+const SSearchWrapper = styled('div', {
   'width': 335,
   '@mobile': { width: '100%', order: -1 },
-});
-
-const SSearchInput = styled(SearchField, {
-  'display': 'flex',
-  'padding': `11px ${spacing.s16}`,
-  'borderRadius': radius.r10,
-  'backgroundColor': colors.bg.neutral.ghost,
-  '& > button': { bottom: 0 },
-  '& > button:focus-visible': {
-    outline: `2px solid ${colors.stroke.neutral.defaultFocused}`,
-    outlineOffset: 2,
-    borderRadius: radius.r10,
-  },
 });
