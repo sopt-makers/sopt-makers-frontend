@@ -29,9 +29,18 @@ interface SettlementFormProps {
   initialValues?: SettlementFormValues;
   onSubmit: (values: SettlementFormValues) => void | Promise<void>;
   onDelete?: () => void;
+  deleteDisabled?: boolean;
+  isDeleting?: boolean;
 }
 
-const SettlementForm = ({ mode, initialValues, onSubmit, onDelete }: SettlementFormProps) => {
+const SettlementForm = ({
+  mode,
+  initialValues,
+  onSubmit,
+  onDelete,
+  deleteDisabled = false,
+  isDeleting = false,
+}: SettlementFormProps) => {
   const methods = useForm<SettlementFormValues>({
     defaultValues: initialValues ?? DEFAULT_SETTLEMENT_FORM_VALUES,
     resolver: zodResolver(createSettlementFormSchema(mode)),
@@ -39,7 +48,7 @@ const SettlementForm = ({ mode, initialValues, onSubmit, onDelete }: SettlementF
   });
   const { field: titleField, fieldState: titleState } = useController({ control: methods.control, name: 'title' });
   const { mutateAsync: uploadImage, isPending: isUploading } = useUploadImageMutation();
-  const isPending = methods.formState.isSubmitting || isUploading;
+  const isPending = methods.formState.isSubmitting || isUploading || isDeleting;
 
   return (
     <FormProvider {...methods}>
@@ -52,7 +61,7 @@ const SettlementForm = ({ mode, initialValues, onSubmit, onDelete }: SettlementF
             submitLabel={mode === 'edit' ? '회식 수정하기' : '회식 등록하기'}
             submitDisabled={!methods.formState.isValid || isPending}
             deleteLabel={mode === 'edit' ? '회식 삭제하기' : undefined}
-            deleteDisabled={isPending}
+            deleteDisabled={deleteDisabled || isPending}
             onDelete={onDelete}
           />
         }
