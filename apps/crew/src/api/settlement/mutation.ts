@@ -76,14 +76,33 @@ export const useEndSettlementMutation = (meetingId: number) => {
   });
 };
 
-export const useDeleteSettlementMutation = (meetingId: number) =>
-  useMutation({ mutationFn: () => deleteSettlement(meetingId) });
-
-export const useDeleteSettlementRoundMutation = (meetingId: number, roundId: number) => {
+export const useDeleteSettlementMutation = () => {
   const queryClient = useQueryClient();
+
   return useMutation({
-    mutationFn: () => deleteSettlementRound(meetingId, roundId),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: SettlementQueryKey.detail(meetingId) }),
+    mutationFn: deleteSettlement,
+    onSuccess: (_, meetingId) =>
+      Promise.all([
+        queryClient.invalidateQueries({ queryKey: SettlementQueryKey.lists() }),
+        queryClient.invalidateQueries({ queryKey: SettlementQueryKey.detail(meetingId), refetchType: 'none' }),
+      ]),
+  });
+};
+
+export const useDeleteSettlementRoundMutation = ({ refetchDetail = true }: { refetchDetail?: boolean } = {}) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ meetingId, roundId }: { meetingId: number; roundId: number }) =>
+      deleteSettlementRound(meetingId, roundId),
+    onSuccess: (_, { meetingId }) =>
+      Promise.all([
+        queryClient.invalidateQueries({ queryKey: SettlementQueryKey.lists() }),
+        queryClient.invalidateQueries({
+          queryKey: SettlementQueryKey.detail(meetingId),
+          refetchType: refetchDetail ? 'active' : 'none',
+        }),
+      ]),
   });
 };
 

@@ -5,6 +5,7 @@ import {
   useRequestRoundPayerMutation,
   useRoundAttendanceMutation,
 } from '@api/settlement/mutation';
+import DeleteDialog from '@domain/settlement/DeleteDialog';
 import useModal from '@hook/useModal';
 import { colors, spacing } from '@sopt-mds/design-tokens';
 import { IconCheck } from '@sopt-mds/icons';
@@ -28,19 +29,44 @@ export const LeaderActions = ({
   isMobile,
   hasClosedRound,
 }: RoleActionsProps & { hasClosedRound: boolean }) => {
-  const { isModalOpened, handleModalOpen, handleModalClose } = useModal();
+  const {
+    isModalOpened: isCloseModalOpened,
+    handleModalOpen: handleCloseModalOpen,
+    handleModalClose: handleCloseModalClose,
+  } = useModal();
+  const {
+    isModalOpened: isDeleteModalOpened,
+    handleModalOpen: handleDeleteModalOpen,
+    handleModalClose: handleDeleteModalClose,
+  } = useModal();
   const router = useRouter();
-  const { mutate: deleteSettlement, isPending: isDeletingSettlement } = useDeleteSettlementMutation(meetingId);
-  const { mutate: deleteRound, isPending: isDeletingRound } = useDeleteSettlementRoundMutation(meetingId, roundId);
+  const { mutateAsync: deleteSettlement, isPending: isDeletingSettlement } = useDeleteSettlementMutation();
+  const { mutateAsync: deleteRound, isPending: isDeletingRound } = useDeleteSettlementRoundMutation();
   const { mutate: closeRound, isPending: isClosing } = useCloseSettlementRoundMutation(meetingId, roundId);
   const isPending = isDeletingSettlement || isDeletingRound || isClosing;
 
-  const handleDelete = () => {
-    if (roundNumber === 1) {
-      deleteSettlement(undefined, { onSuccess: () => router.push('/settlement') });
+  const handleDelete = async () => {
+    try {
+      if (roundNumber === 1) {
+        await deleteSettlement(meetingId);
+      } else {
+        await deleteRound({ meetingId, roundId });
+      }
+    } catch {
+      // TODO: 디자인 확인 후 실패 안내 UX 수정
+      alert(
+        roundNumber === 1
+          ? '회식을 삭제하지 못했어요. 잠시 후 다시 시도해주세요.'
+          : '회차를 삭제하지 못했어요. 잠시 후 다시 시도해주세요.',
+      );
       return;
     }
-    deleteRound();
+
+    handleDeleteModalClose();
+
+    if (roundNumber === 1) {
+      await router.push('/settlement');
+    }
   };
 
   const handleEdit = () => {
@@ -58,7 +84,7 @@ export const LeaderActions = ({
           size={isMobile ? 'medium' : 'large'}
           variant='secondary'
           disabled={isPending || isEnded || (roundNumber === 1 ? hasClosedRound : isClosed)}
-          onClick={handleDelete}
+          onClick={handleDeleteModalOpen}
         >
           삭제
         </SActionButton>
@@ -75,12 +101,16 @@ export const LeaderActions = ({
         size={isMobile ? 'medium' : 'large'}
         variant='primary'
         disabled={isClosed || isEnded || isPending}
-        onClick={handleModalOpen}
+        onClick={handleCloseModalOpen}
       >
         {isClosed ? '마감 완료' : '마감하기'}
       </SActionButton>
 
-      <SCloseRoundDialog open={isModalOpened} onOpenChange={handleModalClose} device={isMobile ? 'mobile' : 'pc'}>
+      <SCloseRoundDialog
+        open={isCloseModalOpened}
+        onOpenChange={handleCloseModalClose}
+        device={isMobile ? 'mobile' : 'pc'}
+      >
         <Dialog.Title>회차를 마감할까요?</Dialog.Title>
         <Dialog.Description>
           회차 마감 후에는 더이상 신청자를 받을 수 없고,
@@ -92,6 +122,13 @@ export const LeaderActions = ({
           <Dialog.Action onClick={() => closeRound()}>마감하기</Dialog.Action>
         </Dialog.Actions>
       </SCloseRoundDialog>
+      <DeleteDialog
+        target={roundNumber === 1 ? 'settlement' : 'round'}
+        open={isDeleteModalOpened}
+        onOpenChange={handleDeleteModalClose}
+        onConfirm={handleDelete}
+        isPending={isDeletingSettlement || isDeletingRound}
+      />
     </>
   );
 };
