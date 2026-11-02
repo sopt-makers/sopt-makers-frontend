@@ -1,39 +1,78 @@
+import { useSettlementListQueryOption } from '@api/settlement/query';
 import type { SettlementListTab } from '@api/settlement/type';
+import Pagination from '@domain/list/Pagination';
+import { usePageParams } from '@hook/queryString/custom';
 import { SCardGrid } from '@shared/util/layout/CardGrid';
 import { colors, spacing, typography } from '@sopt-mds/design-tokens';
+import { ErrorBoundary, Suspense } from '@suspensive/react';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 import { styled } from 'stitches.config';
 
-import { mySettlementFixtures, settlementFixtures } from '../fixtures';
 import SettlementCard from '../SettlementCard';
 
 interface SettlementListProps {
   tab: SettlementListTab;
+  enabled: boolean;
 }
 
-const SettlementList = ({ tab }: SettlementListProps) => {
-  const isMine = tab === 'MY';
-  const items = isMine ? mySettlementFixtures : settlementFixtures;
+type SettlementListContentProps = ReturnType<typeof useSettlementListQueryOption>;
+
+const SettlementListContent = ({ params, options }: SettlementListContentProps) => {
+  const { setValue: setPage } = usePageParams();
+  const { data } = useSuspenseQuery(options);
+  const { tab, page } = params;
+
+  const defaultEmptyMessage = tab === 'MY' ? '개설하거나 참여 중인 회식이 없어요.' : '아직 등록된 회식이 없어요.';
+
+  const emptyMessage =
+    params.query || params.status || params.part ? '검색 조건에 맞는 회식이 없어요.' : defaultEmptyMessage;
 
   return (
-    <SResults>
-      <SCount role='status' aria-live='polite'>
-        {items.length}개의 회식
-      </SCount>
-      <SGrid>
-        {settlementFixtures.map((item) => (
-          <Link key={item.meetingId} href={`/settlement/detail?id=${item.meetingId}`}>
-            <SettlementCard item={item} />
-          </Link>
-        ))}
-      </SGrid>
-    </SResults>
+    <>
+      <SListContainer>
+        <SCount role='status' aria-live='polite'>
+          {data.meta.itemCount}개의 회식
+        </SCount>
+        {data.dinings.length > 0 ? (
+          <SGrid isMine={tab === 'MY'}>
+            {data.dinings.map((item) => (
+              <Link key={item.meetingId} href={`/settlement/detail?id=${item.meetingId}`}>
+                <SettlementCard item={item} showManagementButton={tab === 'MY' && item.canManageAttendees} />
+              </Link>
+            ))}
+          </SGrid>
+        ) : (
+          <SEmpty role='status'>{emptyMessage}</SEmpty>
+        )}
+      </SListContainer>
+      <SPagination aria-label='회식 목록 페이지'>
+        <Pagination totalPagesLength={data.meta.pageCount} currentPageIndex={page} changeCurrentPage={setPage} />
+      </SPagination>
+    </>
+  );
+};
+
+const SettlementList = ({ tab, enabled }: SettlementListProps) => {
+  const { params, options } = useSettlementListQueryOption(tab);
+
+  if (!enabled) return null;
+
+  return (
+    <ErrorBoundary
+      resetKeys={[params.page, params.status, params.part, params.query]}
+      fallback={<SEmpty role='alert'>회식 목록을 불러오지 못했어요.</SEmpty>}
+    >
+      <Suspense fallback={<SEmpty role='status'>회식 목록을 불러오고 있어요.</SEmpty>}>
+        <SettlementListContent params={params} options={options} />
+      </Suspense>
+    </ErrorBoundary>
   );
 };
 
 export default SettlementList;
 
-const SResults = styled('div', {
+const SListContainer = styled('div', {
   'display': 'flex',
   'flexDirection': 'column',
   'gap': spacing.s24,
@@ -47,6 +86,15 @@ const SCount = styled('p', {
   '@mobile': { ...typography.title5 },
 });
 
+const SEmpty = styled('p', {
+  ...typography.body2,
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  minHeight: 260,
+  color: colors.fg.neutral.subtle,
+});
+
 const SGrid = styled(SCardGrid, {
   'rowGap': 60,
   '@mobile': { rowGap: 0 },
@@ -57,4 +105,9 @@ const SGrid = styled(SCardGrid, {
       },
     },
   },
+});
+
+const SPagination = styled('nav', {
+  'marginTop': spacing.s80,
+  '@mobile': { marginTop: spacing.s32, marginBottom: spacing.s32 },
 });

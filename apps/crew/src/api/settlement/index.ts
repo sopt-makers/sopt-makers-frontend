@@ -1,6 +1,16 @@
 import { api } from '@api/index';
 
-import type { PostSettlement, PutSettlement, SettlementAttendeesResponse, SettlementDetailResponse } from './type';
+import type {
+  GetSettlementList,
+  PostSettlement,
+  PutSettlement,
+  SettlementAttendeesResponse,
+  SettlementDetailResponse,
+} from './type';
+
+export const getSettlementList = async (params: GetSettlementList['request'], signal?: AbortSignal) => {
+  return (await api.get<GetSettlementList['response']>('/dining/v2', { params, signal })).data;
+};
 
 export const getSettlementDetail = async (meetingId: number): Promise<SettlementDetailResponse> =>
   (await api.get<SettlementDetailResponse>(`/dining/v2/${meetingId}`)).data;
