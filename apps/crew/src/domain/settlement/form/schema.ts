@@ -13,6 +13,7 @@ const mapLinkSchema = (hosts: readonly string[]) =>
   z
     .string()
     .trim()
+    .max(500, '500자까지 입력할 수 있어요.')
     .refine((value) => {
       if (!value) return true;
       try {

@@ -27,8 +27,7 @@ const DEFAULT_SETTLEMENT_FORM_VALUES: SettlementFormValues = {
 interface SettlementFormProps {
   mode: 'create' | 'edit';
   initialValues?: SettlementFormValues;
-  // TODO: API 연결 시 onSubmit을 필수로 변경하고, 옵셔널 호출과 버튼의 !onSubmit 조건을 제거
-  onSubmit?: (values: SettlementFormValues) => void | Promise<void>;
+  onSubmit: (values: SettlementFormValues) => void | Promise<void>;
   onDelete?: () => void;
 }
 
@@ -47,11 +46,11 @@ const SettlementForm = ({ mode, initialValues, onSubmit, onDelete }: SettlementF
       <FormLayout
         title={mode === 'edit' ? '회식 정보 수정' : '회식 정보 입력'}
         description='회식 등록에 필요한 필수 항목이 모두 입력되었는지 꼼꼼하게 확인해주세요.'
-        onSubmit={methods.handleSubmit((values) => onSubmit?.(values))}
+        onSubmit={methods.handleSubmit(onSubmit)}
         actions={
           <FormActions
             submitLabel={mode === 'edit' ? '회식 수정하기' : '회식 등록하기'}
-            submitDisabled={!onSubmit || !methods.formState.isValid || isPending}
+            submitDisabled={!methods.formState.isValid || isPending}
             deleteLabel={mode === 'edit' ? '회식 삭제하기' : undefined}
             deleteDisabled={isPending}
             onDelete={onDelete}
