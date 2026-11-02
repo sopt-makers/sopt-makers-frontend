@@ -25,7 +25,8 @@ const SettlementDetailPage = () => {
   if (!isReady) return null;
   if (!isValidId) return <ErrorPage statusCode={404} />;
   if (isPending) return <Loader />;
-  if (!settlement) return <ErrorPage statusCode={isAxiosError(error) && error.response?.status === 404 ? 404 : 500} />;
+  if (isAxiosError(error) && error.response?.status === 404) return <ErrorPage statusCode={404} />;
+  if (!settlement) return <ErrorPage statusCode={500} />;
 
   return (
     <>

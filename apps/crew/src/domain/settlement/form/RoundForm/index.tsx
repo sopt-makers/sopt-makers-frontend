@@ -20,15 +20,25 @@ interface RoundFormProps {
   initialValues?: RoundFieldValues;
   onSubmit: (values: RoundFieldValues) => void | Promise<void>;
   onDelete?: () => void;
+  deleteDisabled?: boolean;
+  isDeleting?: boolean;
 }
 
-const RoundForm = ({ mode, initialValues, onSubmit, onDelete }: RoundFormProps) => {
+const RoundForm = ({
+  mode,
+  initialValues,
+  onSubmit,
+  onDelete,
+  deleteDisabled = false,
+  isDeleting = false,
+}: RoundFormProps) => {
   const methods = useForm<RoundFieldValues>({
     defaultValues: initialValues ?? DEFAULT_ROUND_FORM_VALUES,
     resolver: zodResolver(roundFormSchema),
     mode: 'onBlur',
   });
   const { isSubmitting, isValid } = methods.formState;
+  const isPending = isSubmitting || isDeleting;
 
   return (
     <FormProvider {...methods}>
@@ -39,9 +49,9 @@ const RoundForm = ({ mode, initialValues, onSubmit, onDelete }: RoundFormProps) 
         actions={
           <FormActions
             submitLabel={mode === 'edit' ? '회차 수정하기' : '회차 추가하기'}
-            submitDisabled={!isValid || isSubmitting}
+            submitDisabled={!isValid || isPending}
             deleteLabel={mode === 'edit' ? '회차 삭제하기' : undefined}
-            deleteDisabled={isSubmitting}
+            deleteDisabled={deleteDisabled || isPending}
             onDelete={onDelete}
           />
         }
