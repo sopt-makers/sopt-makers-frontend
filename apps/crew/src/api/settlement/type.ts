@@ -17,3 +17,13 @@ export type SettlementRoundRequest = components['schemas']['DiningV2CreateAndUpd
 
 export type SettlementDetailResponse = components['schemas']['DiningV2GetDiningDetailResponseDto'];
 export type SettlementAttendeesResponse = components['schemas']['DiningV2GetAttendeesResponseDto'];
+
+export type PostSettlement = {
+  request: SettlementRequest;
+  response: paths['/dining/v2']['post']['responses']['201']['content']['application/json;charset=UTF-8'];
+};
+
+export type PutSettlement = {
+  request: SettlementRequest;
+  response: void;
+};
