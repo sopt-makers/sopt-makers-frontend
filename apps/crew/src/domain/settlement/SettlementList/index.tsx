@@ -30,7 +30,7 @@ const SettlementList = ({ params, options }: SettlementListProps) => {
 
   return (
     <>
-      <SResults>
+      <SListContainer>
         <SCount role='status' aria-live='polite'>
           {data.meta.itemCount}개의 회식
         </SCount>
@@ -45,7 +45,7 @@ const SettlementList = ({ params, options }: SettlementListProps) => {
         ) : (
           <SEmpty role='status'>{emptyMessage}</SEmpty>
         )}
-      </SResults>
+      </SListContainer>
       <SPagination aria-label='회식 목록 페이지'>
         <Pagination totalPagesLength={data.meta.pageCount} currentPageIndex={page} changeCurrentPage={setPage} />
       </SPagination>
@@ -72,7 +72,7 @@ const SettlementListContent = ({ tab, enabled }: SettlementListContentProps) => 
 
 export default SettlementListContent;
 
-const SResults = styled('div', {
+const SListContainer = styled('div', {
   'display': 'flex',
   'flexDirection': 'column',
   'gap': spacing.s24,
