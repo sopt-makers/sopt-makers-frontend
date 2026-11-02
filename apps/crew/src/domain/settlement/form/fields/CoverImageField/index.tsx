@@ -137,7 +137,9 @@ const SPreview = styled('div', { position: 'relative', height: 178, borderRadius
 const SImage = styled('img', { display: 'block', width: '100%', height: '100%', objectFit: 'cover' });
 
 const SDeleteButton = styled(ActionButton, {
-  position: 'absolute',
-  right: spacing.s8,
-  bottom: spacing.s8,
+  '&&': {
+    position: 'absolute',
+    right: spacing.s8,
+    bottom: spacing.s8,
+  },
 });
