@@ -6,7 +6,6 @@ import { SCardGrid } from '@shared/util/layout/CardGrid';
 import { colors, spacing, typography } from '@sopt-mds/design-tokens';
 import { ErrorBoundary, Suspense } from '@suspensive/react';
 import { useSuspenseQuery } from '@tanstack/react-query';
-import Link from 'next/link';
 import { styled } from 'stitches.config';
 
 import SettlementCard from '../SettlementCard';
@@ -37,9 +36,11 @@ const SettlementListContent = ({ params, options }: SettlementListContentProps) 
         {data.dinings.length > 0 ? (
           <SGrid isMine={tab === 'MY'}>
             {data.dinings.map((item) => (
-              <Link key={item.meetingId} href={`/settlement/detail?id=${item.meetingId}`}>
-                <SettlementCard item={item} showManagementButton={tab === 'MY' && item.canManageAttendees} />
-              </Link>
+              <SettlementCard
+                key={item.meetingId}
+                item={item}
+                showManagementButton={tab === 'MY' && item.canManageAttendees}
+              />
             ))}
           </SGrid>
         ) : (

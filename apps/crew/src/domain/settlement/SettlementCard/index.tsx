@@ -5,6 +5,8 @@ import { colors, radius, spacing, typography } from '@sopt-mds/design-tokens';
 import { IconChevronRight, IconUsersFilled } from '@sopt-mds/icons';
 import { Avatar, ReactionButton, Tag } from '@sopt-mds/ui';
 import dayjs from '@util/dayjs';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { styled } from 'stitches.config';
 
 import { SETTLEMENT_STATUS_LABELS } from '../constant';
@@ -18,13 +20,14 @@ const DEFAULT_THUMBNAIL_SRC = '/group/assets/images/settlement/thumbnail.svg';
 
 const SettlementCard = ({ item, showManagementButton = false }: SettlementCardProps) => {
   const { isMobile } = useDisplay();
+  const router = useRouter();
   const dateLabel = dayjs(item.diningDate).format('YY.MM.DD');
   const { attendeeCount, leader } = item;
   const participantName = attendeeCount > 1 ? `${leader.name} 외 ${attendeeCount - 1}명` : `${leader.name}님`;
 
   return (
     <SCard>
-      <SThumbnail>
+      <SThumbnail href={`/settlement/detail?id=${item.meetingId}`} tabIndex={-1} aria-hidden>
         <SThumbnailImage
           src={item.imageUrl || DEFAULT_THUMBNAIL_SRC}
           alt={item.imageUrl ? '' : '회식 기본 이미지'}
@@ -52,25 +55,31 @@ const SettlementCard = ({ item, showManagementButton = false }: SettlementCardPr
         </SParticipantBadge>
       </SThumbnail>
       <SInfo hasManagementButton={showManagementButton}>
-        <SParts aria-label='참여 파트'>
-          {item.joinableParts.map((part) => (
-            <Tag key={part} size='small' shape='rect' variant='default' type='solid'>
-              {PART_NAME[part]}
-            </Tag>
-          ))}
-        </SParts>
-        <div>
-          <STitle hasManagementButton={showManagementButton}>
-            <SDateLabel>[{dateLabel}]</SDateLabel>
-            <STitleText title={item.title}>{item.title}</STitleText>
-          </STitle>
-          <SParticipants hasManagementButton={showManagementButton}>
-            <Avatar size={24} src={leader.profileImage || undefined} strokeColor='neutralGhost' aria-hidden />
-            <SParticipantLabel>{participantName}이 참여 중</SParticipantLabel>
-          </SParticipants>
-        </div>
+        <SDetailLink href={`/settlement/detail?id=${item.meetingId}`} hasManagementButton={showManagementButton}>
+          <SParts aria-label='참여 파트'>
+            {item.joinableParts.map((part) => (
+              <Tag key={part} size='small' shape='rect' variant='default' type='solid'>
+                {PART_NAME[part]}
+              </Tag>
+            ))}
+          </SParts>
+          <div>
+            <STitle hasManagementButton={showManagementButton}>
+              <SDateLabel>[{dateLabel}]</SDateLabel>
+              <STitleText title={item.title}>{item.title}</STitleText>
+            </STitle>
+            <SParticipants hasManagementButton={showManagementButton}>
+              <Avatar size={24} src={leader.profileImage || undefined} strokeColor='neutralGhost' aria-hidden />
+              <SParticipantLabel>{participantName}이 참여 중</SParticipantLabel>
+            </SParticipants>
+          </div>
+        </SDetailLink>
         {showManagementButton && (
-          <SManagementButton size={isMobile ? 'xsmall' : 'medium'} rightAddon={<IconChevronRight aria-hidden />}>
+          <SManagementButton
+            size={isMobile ? 'xsmall' : 'medium'}
+            rightAddon={<IconChevronRight aria-hidden />}
+            onClick={() => void router.push(`/settlement/management?id=${item.meetingId}`)}
+          >
             참석자 관리
           </SManagementButton>
         )}
@@ -95,7 +104,7 @@ const SCard = styled('article', {
   },
 });
 
-const SThumbnail = styled('div', {
+const SThumbnail = styled(Link, {
   'position': 'relative',
   'aspectRatio': '380 / 260',
   'overflow': 'hidden',
@@ -136,6 +145,25 @@ const SInfo = styled('div', {
     hasManagementButton: {
       true: {
         '@mobile': { gap: spacing.s8 },
+      },
+    },
+  },
+});
+
+const SDetailLink = styled(Link, {
+  'display': 'flex',
+  'flexDirection': 'column',
+  'gap': spacing.s16,
+  'minWidth': '0px',
+  '@mobile': {
+    gap: spacing.s12,
+  },
+  'variants': {
+    hasManagementButton: {
+      true: {
+        '@mobile': {
+          gap: spacing.s8,
+        },
       },
     },
   },
