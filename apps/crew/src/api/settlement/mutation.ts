@@ -8,11 +8,13 @@ import {
   deleteSettlementRound,
   endSettlement,
   postSettlement,
+  postSettlementRound,
   putSettlement,
+  putSettlementRound,
   requestRoundPayer,
 } from '.';
 import SettlementQueryKey from './SettlementQueryKey';
-import type { PutSettlement } from './type';
+import type { PostSettlementRound, PutSettlement, PutSettlementRound } from './type';
 
 export const usePostSettlementMutation = () => {
   const queryClient = useQueryClient();
@@ -35,6 +37,33 @@ export const usePutSettlementMutation = () => {
         queryClient.invalidateQueries({ queryKey: SettlementQueryKey.lists() }),
         queryClient.invalidateQueries({ queryKey: SettlementQueryKey.detail(meetingId) }),
       ]),
+  });
+};
+
+export const usePostSettlementRoundMutation = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ meetingId, data }: { meetingId: number; data: PostSettlementRound['request'] }) =>
+      postSettlementRound(meetingId, data),
+    onSuccess: (_, { meetingId }) => queryClient.invalidateQueries({ queryKey: SettlementQueryKey.detail(meetingId) }),
+  });
+};
+
+export const usePutSettlementRoundMutation = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({
+      meetingId,
+      roundId,
+      data,
+    }: {
+      meetingId: number;
+      roundId: number;
+      data: PutSettlementRound['request'];
+    }) => putSettlementRound(meetingId, roundId, data),
+    onSuccess: (_, { meetingId }) => queryClient.invalidateQueries({ queryKey: SettlementQueryKey.detail(meetingId) }),
   });
 };
 

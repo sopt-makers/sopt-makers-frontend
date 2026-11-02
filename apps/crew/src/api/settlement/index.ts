@@ -3,7 +3,9 @@ import { api } from '@api/index';
 import type {
   GetSettlementList,
   PostSettlement,
+  PostSettlementRound,
   PutSettlement,
+  PutSettlementRound,
   SettlementAttendeesResponse,
   SettlementDetailResponse,
 } from './type';
@@ -22,6 +24,22 @@ export const postSettlement = async (data: PostSettlement['request']) => {
 
 export const putSettlement = async (meetingId: number, data: PutSettlement['request']) => {
   await api.put<PutSettlement['response']>(`/dining/v2/${meetingId}`, {
+    ...data,
+    startTime: data.startTime || undefined,
+  });
+};
+
+export const postSettlementRound = async (meetingId: number, data: PostSettlementRound['request']) => {
+  return (
+    await api.post<PostSettlementRound['response']>(`/dining/v2/${meetingId}/rounds`, {
+      ...data,
+      startTime: data.startTime || undefined,
+    })
+  ).data;
+};
+
+export const putSettlementRound = async (meetingId: number, roundId: number, data: PutSettlementRound['request']) => {
+  await api.put<PutSettlementRound['response']>(`/dining/v2/${meetingId}/rounds/${roundId}`, {
     ...data,
     startTime: data.startTime || undefined,
   });

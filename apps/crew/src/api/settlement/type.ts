@@ -27,3 +27,13 @@ export type PutSettlement = {
   request: SettlementRequest;
   response: void;
 };
+
+export type PostSettlementRound = {
+  request: SettlementRoundRequest;
+  response: paths['/dining/v2/{meetingId}/rounds']['post']['responses']['201']['content']['application/json;charset=UTF-8'];
+};
+
+export type PutSettlementRound = {
+  request: SettlementRoundRequest;
+  response: void;
+};
