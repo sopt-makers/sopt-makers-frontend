@@ -25,6 +25,8 @@ export const useDeleteMeetingMutation = () => {
 export const usePostMeetingApplicationMutation = () => {
   return useMutation({
     mutationFn: postMeetingApplication,
+    retry: false,
+    networkMode: 'always',
   });
 };
 
@@ -79,6 +81,8 @@ export const useUpdateMeetingApplicationMutation = (meetingId: string) => {
 export const usePostEventApplicationMutation = () => {
   return useMutation({
     mutationFn: postEventApplication,
+    retry: false,
+    networkMode: 'always',
   });
 };
 
