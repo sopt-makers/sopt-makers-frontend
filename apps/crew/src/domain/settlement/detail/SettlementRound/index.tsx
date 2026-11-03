@@ -67,23 +67,26 @@ const SettlementRound = ({
               </>
             )}
           </SHeading>
-          <SPlace>📍 {round.place || '장소 미정'}</SPlace>
-          {(round.naverMapLink || round.kakaoMapLink) && (
-            <SMapLinks>
-              {round.naverMapLink && (
-                <SLink href={round.naverMapLink} target='_blank' rel='noopener noreferrer'>
-                  <IconLink width={isMobile ? 16 : 20} height={isMobile ? 16 : 20} aria-hidden />
-                  네이버 지도 바로가기
-                </SLink>
-              )}
-              {round.kakaoMapLink && (
-                <SLink href={round.kakaoMapLink} target='_blank' rel='noopener noreferrer'>
-                  <IconLink width={isMobile ? 16 : 20} height={isMobile ? 16 : 20} aria-hidden />
-                  카카오맵 바로가기
-                </SLink>
-              )}
-            </SMapLinks>
-          )}
+
+          <SLocation>
+            <SPlace>📍 {round.place || '장소 미정'}</SPlace>
+            {(round.naverMapLink || round.kakaoMapLink) && (
+              <SMapLinks>
+                {round.naverMapLink && (
+                  <SLink href={round.naverMapLink} target='_blank' rel='noopener noreferrer'>
+                    <IconLink width={isMobile ? 16 : 20} height={isMobile ? 16 : 20} aria-hidden />
+                    네이버 지도 바로가기
+                  </SLink>
+                )}
+                {round.kakaoMapLink && (
+                  <SLink href={round.kakaoMapLink} target='_blank' rel='noopener noreferrer'>
+                    <IconLink width={isMobile ? 16 : 20} height={isMobile ? 16 : 20} aria-hidden />
+                    카카오맵 바로가기
+                  </SLink>
+                )}
+              </SMapLinks>
+            )}
+          </SLocation>
         </SInfo>
 
         <SActions attendee={!isLeader}>
@@ -174,6 +177,16 @@ const STime = styled('span', {
   ...typography.title2,
   '@mobile': { ...typography.title5 },
 });
+const SLocation = styled('div', {
+  'display': 'flex',
+  'flexDirection': 'column',
+  'alignItems': 'flex-start',
+  'gap': spacing.s12,
+  'minWidth': '0px',
+  '@mobile': {
+    gap: spacing.s8,
+  },
+});
 const SPlace = styled('p', {
   ...typography.title2,
   'color': colors.fg.neutral.bold,
@@ -181,13 +194,10 @@ const SPlace = styled('p', {
   '@mobile': { ...typography.title5 },
 });
 const SMapLinks = styled('div', {
-  'display': 'flex',
-  'flexDirection': 'column',
-  'alignItems': 'flex-start',
-  'gap': spacing.s8,
-  '@mobile': {
-    marginTop: '-4px',
-  },
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'flex-start',
+  gap: spacing.s8,
 });
 const SLink = styled('a', {
   ...typography.title5,
