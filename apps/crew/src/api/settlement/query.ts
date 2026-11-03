@@ -12,7 +12,7 @@ import {
   getSettlementPayerRequests,
 } from '.';
 import SettlementQueryKey from './SettlementQueryKey';
-import type { SettlementAttendeesRequest, SettlementListParams, SettlementListTab } from './type';
+import type { GetSettlementAttendees, SettlementListParams, SettlementListTab } from './type';
 
 export const useSettlementListQueryOption = (tab: SettlementListTab) => {
   const { value: page } = usePageParams();
@@ -51,7 +51,11 @@ export const useSettlementPayerRequestsQueryOption = (meetingId: number) =>
     queryFn: () => getSettlementPayerRequests(meetingId),
   });
 
-export const useSettlementAttendeesQueryOption = ({ meetingId, roundId, ...params }: SettlementAttendeesRequest) =>
+export const useSettlementAttendeesQueryOption = ({
+  meetingId,
+  roundId,
+  ...params
+}: GetSettlementAttendees['request']) =>
   queryOptions({
     queryKey: SettlementQueryKey.attendeeList(meetingId, roundId, params),
     queryFn: () => getSettlementAttendees({ meetingId, roundId, ...params }),

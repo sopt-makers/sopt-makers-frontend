@@ -35,7 +35,7 @@ const AttendeeList = ({ meetingId, rounds, selectedRound }: AttendeeListProps) =
       <Filters rounds={rounds} roundId={roundId} take={take} date={date} onChange={updateFilter} />
       <SListContent>
         <SListHeader aria-hidden='true'>
-          <span>인원</span>
+          <span>번호</span>
           <span>프로필</span>
           <span>최근 기수</span>
           <span>연락처</span>

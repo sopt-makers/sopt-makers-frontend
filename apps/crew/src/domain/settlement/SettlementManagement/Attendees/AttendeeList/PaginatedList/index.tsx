@@ -1,6 +1,6 @@
 import { useDeleteSettlementAttendeeMutation } from '@api/settlement/mutation';
 import { useSettlementAttendeesQueryOption } from '@api/settlement/query';
-import type { SettlementAttendeesRequest } from '@api/settlement/type';
+import type { GetSettlementAttendees } from '@api/settlement/type';
 import Loader from '@common/loader/Loader';
 import Pagination from '@domain/list/Pagination';
 import { spacing } from '@sopt-mds/design-tokens';
@@ -10,9 +10,9 @@ import { styled } from 'stitches.config';
 
 import List from '../List';
 
-interface PaginatedListProps extends SettlementAttendeesRequest {
+type PaginatedListProps = GetSettlementAttendees['request'] & {
   onPageChange: (page: number) => void;
-}
+};
 
 const PaginatedList = ({ meetingId, roundId, page, take, date, onPageChange }: PaginatedListProps) => {
   const {
