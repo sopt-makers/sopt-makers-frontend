@@ -37,7 +37,6 @@ const SettlementRound = ({
   const { isModalOpened, handleModalOpen, handleModalClose } = useModal();
   const isAttending = round.myAttendanceStatus === 'ATTENDING' || round.myAttendanceStatus === 'ATTENDED';
   const attendanceLabel = ATTENDANCE_LABELS[round.myAttendanceStatus ?? 'NOT_ATTENDING'];
-  const hasMapLink = !!(round.naverMapLink || round.kakaoMapLink);
   const isRoundInfoModified = round.isPlaceModified || round.isLinkModified || round.isStartTimeModified;
 
   return (
@@ -69,16 +68,21 @@ const SettlementRound = ({
             )}
           </SHeading>
           <SPlace>📍 {round.place || '장소 미정'}</SPlace>
-          {hasMapLink && (
-            <SLink
-              type='button'
-              onClick={() => {
-                // @TODO: 지도 링크 선택 및 이동 연결 (장정훈)
-              }}
-            >
-              <IconLink width={isMobile ? 16 : 24} height={isMobile ? 16 : 24} aria-hidden />
-              위치 바로가기
-            </SLink>
+          {(round.naverMapLink || round.kakaoMapLink) && (
+            <SMapLinks>
+              {round.naverMapLink && (
+                <SLink href={round.naverMapLink} target='_blank' rel='noopener noreferrer'>
+                  <IconLink width={isMobile ? 16 : 20} height={isMobile ? 16 : 20} aria-hidden />
+                  네이버 지도 바로가기
+                </SLink>
+              )}
+              {round.kakaoMapLink && (
+                <SLink href={round.kakaoMapLink} target='_blank' rel='noopener noreferrer'>
+                  <IconLink width={isMobile ? 16 : 20} height={isMobile ? 16 : 20} aria-hidden />
+                  카카오맵 바로가기
+                </SLink>
+              )}
+            </SMapLinks>
           )}
         </SInfo>
 
@@ -176,20 +180,28 @@ const SPlace = styled('p', {
   'overflowWrap': 'anywhere',
   '@mobile': { ...typography.title5 },
 });
-const SLink = styled('button', {
-  ...typography.label1,
+const SMapLinks = styled('div', {
+  'display': 'flex',
+  'flexDirection': 'column',
+  'alignItems': 'flex-start',
+  'gap': spacing.s8,
+  '@mobile': {
+    marginTop: '-4px',
+  },
+});
+const SLink = styled('a', {
+  ...typography.title5,
   'display': 'inline-flex',
   'alignItems': 'center',
   'gap': spacing.s4,
-  'height': '56px',
-  'padding': `0 26px`,
+  'height': '42px',
+  'padding': `0 ${spacing.s20}`,
   'border': `1px solid ${colors.stroke.neutral.subtle}`,
   'borderRadius': radius.full,
   'color': colors.base.gray400,
   '@mobile': {
     ...typography.label3,
     height: '36px',
-    marginTop: '-4px',
     padding: `0 ${spacing.s14}`,
   },
 });
