@@ -1,56 +1,56 @@
 import { api } from '@api/index';
 
 import type {
+  DeleteSettlementAttendee,
+  GetRoundAttendance,
+  GetSettlementAttendees,
+  GetSettlementAttendeesCsv,
+  GetSettlementDetail,
   GetSettlementList,
+  GetSettlementPayerRequests,
   PostSettlement,
+  PostSettlementAttendee,
   PostSettlementRound,
   PutSettlement,
   PutSettlementRound,
-  RoundAttendanceResponse,
-  SettlementAddAttendeeRequest,
-  SettlementAttendeesCsvRequest,
-  SettlementAttendeesCsvResponse,
-  SettlementAttendeesRequest,
-  SettlementAttendeesResponse,
-  SettlementDeleteAttendeeRequest,
-  SettlementDetailResponse,
-  SettlementPayerRequestAction,
-  SettlementPayerRequestsResponse,
+  RespondToSettlementPayerRequest,
 } from './type';
 
-export const getSettlementDetail = async (meetingId: number): Promise<SettlementDetailResponse> =>
-  (await api.get<SettlementDetailResponse>(`/dining/v2/${meetingId}`)).data;
+export const getSettlementDetail = async (meetingId: number): Promise<GetSettlementDetail['response']> =>
+  (await api.get<GetSettlementDetail['response']>(`/dining/v2/${meetingId}`)).data;
 
-export const getSettlementPayerRequests = async (meetingId: number): Promise<SettlementPayerRequestsResponse> =>
-  (await api.get<SettlementPayerRequestsResponse>(`/dining/v2/${meetingId}/payer-requests`)).data;
+export const getSettlementPayerRequests = async (meetingId: number): Promise<GetSettlementPayerRequests['response']> =>
+  (await api.get<GetSettlementPayerRequests['response']>(`/dining/v2/${meetingId}/payer-requests`)).data;
 
 export const respondToSettlementPayerRequest = async ({
   meetingId,
   roundId,
   requesterUserId,
   action,
-}: SettlementPayerRequestAction & { meetingId: number }): Promise<void> => {
+}: RespondToSettlementPayerRequest['request']): Promise<void> => {
   await api.post(`/dining/v2/${meetingId}/rounds/${roundId}/payer-requests/${requesterUserId}/${action}`);
 };
 
 export const getSettlementAttendeesCsv = async ({
   meetingId,
   roundId,
-}: SettlementAttendeesCsvRequest): Promise<SettlementAttendeesCsvResponse> =>
-  (await api.get<SettlementAttendeesCsvResponse>(`/dining/v2/${meetingId}/rounds/${roundId}/attendees/csv`)).data;
+}: GetSettlementAttendeesCsv['request']): Promise<GetSettlementAttendeesCsv['response']> =>
+  (await api.get<GetSettlementAttendeesCsv['response']>(`/dining/v2/${meetingId}/rounds/${roundId}/attendees/csv`))
+    .data;
 
 export const getSettlementAttendees = async ({
   meetingId,
   roundId,
   ...params
-}: SettlementAttendeesRequest): Promise<SettlementAttendeesResponse> =>
-  (await api.get<SettlementAttendeesResponse>(`/dining/v2/${meetingId}/rounds/${roundId}/attendees`, { params })).data;
+}: GetSettlementAttendees['request']): Promise<GetSettlementAttendees['response']> =>
+  (await api.get<GetSettlementAttendees['response']>(`/dining/v2/${meetingId}/rounds/${roundId}/attendees`, { params }))
+    .data;
 
 export const addSettlementAttendee = async ({
   meetingId,
   roundId,
   userId,
-}: SettlementAddAttendeeRequest): Promise<void> => {
+}: PostSettlementAttendee['request']): Promise<void> => {
   await api.post(`/dining/v2/${meetingId}/rounds/${roundId}/attendees`, { userId });
 };
 
@@ -58,7 +58,7 @@ export const deleteSettlementAttendee = async ({
   meetingId,
   roundId,
   attendeeUserId,
-}: SettlementDeleteAttendeeRequest): Promise<void> => {
+}: DeleteSettlementAttendee['request']): Promise<void> => {
   await api.delete(`/dining/v2/${meetingId}/rounds/${roundId}/attendees/${attendeeUserId}`);
 };
 
@@ -94,8 +94,9 @@ export const putSettlementRound = async (meetingId: number, roundId: number, dat
   });
 };
 
-export const getRoundAttendance = async (meetingId: number, roundId: number): Promise<RoundAttendanceResponse> =>
-  (await api.get<RoundAttendanceResponse>(`/dining/v2/${meetingId}/rounds/${roundId}/attendance/attendees`)).data;
+export const getRoundAttendance = async (meetingId: number, roundId: number): Promise<GetRoundAttendance['response']> =>
+  (await api.get<GetRoundAttendance['response']>(`/dining/v2/${meetingId}/rounds/${roundId}/attendance/attendees`))
+    .data;
 
 export const endSettlement = async (meetingId: number) => {
   await api.post(`/dining/v2/${meetingId}/end`);

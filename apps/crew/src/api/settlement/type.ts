@@ -15,37 +15,53 @@ export type SettlementListPart = NonNullable<GetSettlementList['request']['part'
 export type SettlementRequest = components['schemas']['DiningV2CreateAndUpdateDiningBodyDto'];
 export type SettlementRoundRequest = components['schemas']['DiningV2CreateAndUpdateRoundBodyDto'];
 
-export type SettlementDetailResponse = components['schemas']['DiningV2GetDiningDetailResponseDto'];
-export type SettlementPayerRequestsResponse = components['schemas']['DiningV2GetPayerRequestsResponseDto'];
+export type GetSettlementDetail = {
+  request: paths['/dining/v2/{meetingId}']['get']['parameters']['path'];
+  response: components['schemas']['DiningV2GetDiningDetailResponseDto'];
+};
+
+export type GetSettlementPayerRequests = {
+  request: paths['/dining/v2/{meetingId}/payer-requests']['get']['parameters']['path'];
+  response: components['schemas']['DiningV2GetPayerRequestsResponseDto'];
+};
 
 type PayerRequestPath =
   paths['/dining/v2/{meetingId}/rounds/{roundId}/payer-requests/{requesterUserId}/approve']['post']['parameters']['path'];
-export type SettlementPayerRequestAction = Pick<PayerRequestPath, 'roundId' | 'requesterUserId'> & {
-  action: 'approve' | 'reject';
+export type RespondToSettlementPayerRequest = {
+  request: PayerRequestPath & { action: 'approve' | 'reject' };
+  response: void;
+};
+export type SettlementPayerRequestAction = Omit<RespondToSettlementPayerRequest['request'], 'meetingId'>;
+
+export type GetSettlementAttendeesCsv = {
+  request: paths['/dining/v2/{meetingId}/rounds/{roundId}/attendees/csv']['get']['parameters']['path'];
+  response: components['schemas']['DiningV2GetAttendeesCsvResponseDto'];
 };
 
-export type SettlementAttendeesCsvRequest =
-  paths['/dining/v2/{meetingId}/rounds/{roundId}/attendees/csv']['get']['parameters']['path'];
-export type SettlementAttendeesCsvResponse = components['schemas']['DiningV2GetAttendeesCsvResponseDto'];
+export type GetSettlementAttendees = {
+  request: paths['/dining/v2/{meetingId}/rounds/{roundId}/attendees']['get']['parameters']['path'] &
+    NonNullable<paths['/dining/v2/{meetingId}/rounds/{roundId}/attendees']['get']['parameters']['query']>;
+  response: components['schemas']['DiningV2GetAttendeeManagementResponseDto'];
+};
 
-type SettlementAttendeesPath = paths['/dining/v2/{meetingId}/rounds/{roundId}/attendees']['get']['parameters']['path'];
-type SettlementAttendeesQuery = NonNullable<
-  paths['/dining/v2/{meetingId}/rounds/{roundId}/attendees']['get']['parameters']['query']
->;
-export type SettlementAttendeesRequest = SettlementAttendeesPath & SettlementAttendeesQuery;
-export type SettlementAttendeesResponse = components['schemas']['DiningV2GetAttendeeManagementResponseDto'];
-
-export type SettlementAddAttendeeRequest =
-  paths['/dining/v2/{meetingId}/rounds/{roundId}/attendees']['post']['parameters']['path'] &
+export type PostSettlementAttendee = {
+  request: paths['/dining/v2/{meetingId}/rounds/{roundId}/attendees']['post']['parameters']['path'] &
     paths['/dining/v2/{meetingId}/rounds/{roundId}/attendees']['post']['requestBody']['content']['application/json;charset=UTF-8'];
+  response: void;
+};
 
-export type SettlementDeleteAttendeeRequest =
-  paths['/dining/v2/{meetingId}/rounds/{roundId}/attendees/{attendeeUserId}']['delete']['parameters']['path'];
+export type DeleteSettlementAttendee = {
+  request: paths['/dining/v2/{meetingId}/rounds/{roundId}/attendees/{attendeeUserId}']['delete']['parameters']['path'];
+  response: void;
+};
 
-export type SettlementAddAttendee = Pick<SettlementAddAttendeeRequest, 'roundId' | 'userId'>;
-export type SettlementDeleteAttendee = Pick<SettlementDeleteAttendeeRequest, 'roundId' | 'attendeeUserId'>;
+export type SettlementAddAttendee = Pick<PostSettlementAttendee['request'], 'roundId' | 'userId'>;
+export type SettlementDeleteAttendee = Pick<DeleteSettlementAttendee['request'], 'roundId' | 'attendeeUserId'>;
 
-export type RoundAttendanceResponse = components['schemas']['DiningV2GetAttendeesResponseDto'];
+export type GetRoundAttendance = {
+  request: paths['/dining/v2/{meetingId}/rounds/{roundId}/attendance/attendees']['get']['parameters']['path'];
+  response: components['schemas']['DiningV2GetAttendeesResponseDto'];
+};
 
 export type PostSettlement = {
   request: SettlementRequest;
