@@ -54,8 +54,8 @@ const SettlementCard = ({ item, showManagementButton = false }: SettlementCardPr
           {attendeeCount}명
         </SParticipantBadge>
       </SThumbnail>
-      <SInfo hasManagementButton={showManagementButton}>
-        <SDetailLink href={`/settlement/detail?id=${item.meetingId}`} hasManagementButton={showManagementButton}>
+      <SInfo>
+        <SDetailLink href={`/settlement/detail?id=${item.meetingId}`}>
           <SParts aria-label='참여 파트'>
             {item.joinableParts.map((part) => (
               <Tag key={part} size='small' shape='rect' variant='default' type='solid'>
@@ -64,11 +64,11 @@ const SettlementCard = ({ item, showManagementButton = false }: SettlementCardPr
             ))}
           </SParts>
           <div>
-            <STitle hasManagementButton={showManagementButton}>
+            <STitle>
               <SDateLabel>[{dateLabel}]</SDateLabel>
               <STitleText title={item.title}>{item.title}</STitleText>
             </STitle>
-            <SParticipants hasManagementButton={showManagementButton}>
+            <SParticipants>
               <Avatar size={24} src={leader.profileImage || undefined} strokeColor='neutralGhost' aria-hidden />
               <SParticipantLabel>{participantName}이 참여 중</SParticipantLabel>
             </SParticipants>
@@ -98,7 +98,7 @@ const SCard = styled('article', {
   '@mobile': {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 17,
+    gap: '17px',
     padding: `${spacing.s16} 0`,
     borderBottom: `1px solid ${colors.stroke.neutral.ghost}`,
   },
@@ -110,7 +110,11 @@ const SThumbnail = styled(Link, {
   'overflow': 'hidden',
   'borderRadius': radius.r12,
   'backgroundColor': colors.bg.neutral.ghost,
-  '@mobile': { width: 143, height: 98, flexShrink: 0 },
+  '@mobile': {
+    width: '143px',
+    height: '98px',
+    flexShrink: 0,
+  },
 });
 
 const SThumbnailImage = styled('img', {
@@ -140,13 +144,9 @@ const SInfo = styled('div', {
   'flexDirection': 'column',
   'gap': spacing.s16,
   'minWidth': 0,
-  '@mobile': { flex: 1, gap: spacing.s12 },
-  'variants': {
-    hasManagementButton: {
-      true: {
-        '@mobile': { gap: spacing.s8 },
-      },
-    },
+  '@mobile': {
+    flex: 1,
+    gap: spacing.s8,
   },
 });
 
@@ -156,16 +156,7 @@ const SDetailLink = styled(Link, {
   'gap': spacing.s16,
   'minWidth': '0px',
   '@mobile': {
-    gap: spacing.s12,
-  },
-  'variants': {
-    hasManagementButton: {
-      true: {
-        '@mobile': {
-          gap: spacing.s8,
-        },
-      },
-    },
+    gap: spacing.s8,
   },
 });
 
@@ -182,13 +173,9 @@ const STitle = styled('h2', {
   'alignItems': 'center',
   'gap': spacing.s8,
   'color': colors.fg.neutral.bold,
-  '@mobile': { ...typography.title4, gap: spacing.s4 },
-  'variants': {
-    hasManagementButton: {
-      true: {
-        '@mobile': { ...typography.title5 },
-      },
-    },
+  '@mobile': {
+    ...typography.title5,
+    gap: spacing.s4,
   },
 });
 
@@ -208,13 +195,9 @@ const SParticipants = styled('div', {
   'alignItems': 'center',
   'gap': spacing.s8,
   'marginTop': spacing.s8,
-  '@mobile': { marginTop: spacing.s4, gap: spacing.s4 },
-  'variants': {
-    hasManagementButton: {
-      true: {
-        '@mobile': { marginTop: spacing.s2 },
-      },
-    },
+  '@mobile': {
+    marginTop: spacing.s2,
+    gap: spacing.s4,
   },
 });
 
