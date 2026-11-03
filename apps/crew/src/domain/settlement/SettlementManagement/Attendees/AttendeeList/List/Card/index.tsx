@@ -27,7 +27,7 @@ const Card = ({
       <SInfo>
         <SNumber>{attendanceNumber}</SNumber>
         <SProfile>
-          <Avatar size={24} src={profileImage || undefined} strokeColor='neutralGhost' aria-hidden />
+          <Avatar size={24} type='subtle' src={profileImage || undefined} strokeColor='neutralSubtle' aria-hidden />
           <SName title={name} aria-label={name}>
             {displayName}
           </SName>
@@ -84,7 +84,7 @@ const SDetails = styled('div', {
 });
 
 const SNumber = styled('span', {
-  ...typography.label2,
+  ...typography.heading4,
   'width': '60px',
   'flexShrink': 0,
   'textAlign': 'center',
@@ -98,7 +98,7 @@ const SProfile = styled('div', {
   'display': 'flex',
   'alignItems': 'center',
   'gap': spacing.s10,
-  'width': '164px',
+  'width': '154px',
   'flexShrink': 0,
   'minWidth': 0,
   'marginLeft': '1px',
@@ -114,7 +114,7 @@ const SProfile = styled('div', {
 
 const SName = styled('span', {
   ...typography.title4,
-  'width': '5em',
+  'width': '80px',
   'boxSizing': 'content-box',
   'flexShrink': 0,
   'minWidth': 0,
