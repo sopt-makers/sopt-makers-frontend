@@ -5,11 +5,13 @@ import type {
   GetMeetingMemberList,
   GetMeetingPartMembers,
   GetRecommendMeetingList,
+  MeetingApplicationVariables,
   PatchMeeting,
   PostMeeting,
   PostMeetingApplication,
   UpdateMeetingApplication,
 } from '@api/meeting/type';
+import { TURNSTILE_TOKEN_HEADER } from '@common/Turnstile/constant';
 
 import { api } from '..';
 
@@ -69,16 +71,26 @@ export const getMeetingMemberCSV = async (meetingId: string) => {
   );
 };
 
-export const postMeetingApplication = async (
-  body: PostMeetingApplication['request'],
-): Promise<PostMeetingApplication['response']> => {
-  return (await api.post<PostMeetingApplication['response']>(`/meeting/v2/apply`, body)).data;
+export const postMeetingApplication = async ({
+  body,
+  turnstileToken,
+}: MeetingApplicationVariables): Promise<PostMeetingApplication['response']> => {
+  return (
+    await api.post<PostMeetingApplication['response']>(`/meeting/v2/apply`, body, {
+      headers: { [TURNSTILE_TOKEN_HEADER]: turnstileToken },
+    })
+  ).data;
 };
 
-export const postEventApplication = async (
-  body: PostMeetingApplication['request'],
-): Promise<PostMeetingApplication['response']> => {
-  return (await api.post<PostMeetingApplication['response']>(`/meeting/v2/apply/undefined`, body)).data;
+export const postEventApplication = async ({
+  body,
+  turnstileToken,
+}: MeetingApplicationVariables): Promise<PostMeetingApplication['response']> => {
+  return (
+    await api.post<PostMeetingApplication['response']>(`/meeting/v2/apply/undefined`, body, {
+      headers: { [TURNSTILE_TOKEN_HEADER]: turnstileToken },
+    })
+  ).data;
 };
 
 export const getMeetingPartMembers = async ({

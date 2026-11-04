@@ -36,6 +36,11 @@ export type PostMeetingApplication = {
   response: paths['/meeting/v2/apply']['post']['responses']['201']['content']['application/json;charset=UTF-8'];
 };
 
+export type MeetingApplicationVariables = {
+  body: PostMeetingApplication['request'];
+  turnstileToken: string;
+};
+
 export type UpdateMeetingApplication = {
   request: paths['/meeting/v2/{meetingId}/apply/status']['put']['requestBody']['content']['application/json;charset=UTF-8'];
   response: paths['/meeting/v2/{meetingId}/apply/status']['put']['responses']['200']['content']['application/json;charset=UTF-8'];

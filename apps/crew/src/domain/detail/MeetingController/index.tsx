@@ -1,5 +1,6 @@
 import FlashQueryKey from '@api/flash/FlashQueryKey';
 import type { GetFlash } from '@api/flash/type';
+import { getMeetingApplicationErrorMessage } from '@api/meeting/error';
 import MeetingQueryKey from '@api/meeting/MeetingQueryKey';
 import {
   useDeleteMeetingApplicationMutation,
@@ -12,11 +13,14 @@ import type { GetMeeting } from '@api/meeting/type';
 import { useUserProfileQueryOption } from '@api/user/query';
 import ArrowSmallRightIcon from '@assets/svg/arrow_small_right.svg';
 import ButtonLoader from '@common/loader/ButtonLoader';
+import Turnstile from '@common/Turnstile';
+import { useTurnstile } from '@common/Turnstile/useTurnstile';
 import { ERecruitmentStatus } from '@constant/option';
 import { CAPACITY } from '@domain/detail/MeetingController/constant';
 import FlashAbout from '@domain/detail/MeetingController/FlashAbout';
 import MeetingAbout from '@domain/detail/MeetingController/MeetingAbout';
 import { useDisplay } from '@hook/useDisplay';
+import useIsomorphicLayoutEffect from '@hook/useIsomorphicLayoutEffect';
 import useModal from '@hook/useModal';
 import DefaultModal from '@shared/modal/DefaultModal';
 import { playgroundLink } from '@sopt/constant';
@@ -28,7 +32,7 @@ import { AxiosError } from 'axios';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { ReactNode } from 'react';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { styled } from 'stitches.config';
 
 import { ampli } from '@/ampli';
@@ -57,9 +61,9 @@ interface TypeOptionsProp {
 
 const MeetingController = ({ detailData }: DetailHeaderProps) => {
   const { mutate: mutateMeetingDeletion } = useDeleteMeetingMutation();
-  const { mutate: mutateApplication } = usePostMeetingApplicationMutation();
+  const { mutateAsync: mutateApplication } = usePostMeetingApplicationMutation();
   const { mutate: mutateApplicationDeletion } = useDeleteMeetingApplicationMutation();
-  const { mutate: mutateEventApplication } = usePostEventApplicationMutation();
+  const { mutateAsync: mutateEventApplication } = usePostEventApplicationMutation();
 
   const isFlash = detailData.category === '번쩍';
   const { status, category, appliedInfo, approved, host: isHost, apply: isApplied, id: meetingId } = detailData;
@@ -74,6 +78,8 @@ const MeetingController = ({ detailData }: DetailHeaderProps) => {
   const queryClient = useQueryClient();
   const router = useRouter();
   const isRecruiting = status === ERecruitmentStatus.RECRUITING;
+  const canApply = !isHost && !isApplied && isRecruiting;
+  const { isReady: isTurnstileReady, consumeToken, reset: resetTurnstile, ...turnstile } = useTurnstile(canApply);
   const {
     isModalOpened: isProfileModalOpened,
     handleModalOpen: handleProfileModalOpen,
@@ -86,6 +92,14 @@ const MeetingController = ({ detailData }: DetailHeaderProps) => {
   } = useModal();
   const [modalTitle, setModalTitle] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const isMountedRef = useRef(false);
+
+  useIsomorphicLayoutEffect(() => {
+    isMountedRef.current = true;
+    return () => {
+      isMountedRef.current = false;
+    };
+  }, []);
 
   const handleRecruitmentStatusModal = () => {
     ampli.clickMemberStatus({ crew_status: approved || isHost });
@@ -140,6 +154,8 @@ const MeetingController = ({ detailData }: DetailHeaderProps) => {
   };
 
   const handleApplicationModal = () => {
+    if (isSubmitting || !isRecruiting || (!isApplied && !isTurnstileReady)) return;
+
     if (!isApplied) {
       if (category === '행사') {
         ampli.clickEventApply({
@@ -178,98 +194,42 @@ const MeetingController = ({ detailData }: DetailHeaderProps) => {
     dialogOpen(dialogOption);
   };
 
-  const handleApplicationButton = (textareaValue: string) => {
+  const handleApplicationButton = async (textareaValue: string) => {
+    if (!canApply || isSubmitting) return;
+
+    const turnstileToken = consumeToken();
+    if (!turnstileToken) return;
+
     setIsSubmitting(true);
-    if (category === '행사') {
-      mutateEventApplication(
-        { meetingId: Number(meetingId), content: textareaValue },
-        {
-          onSuccess: async () => {
-            await queryClient.refetchQueries({
-              queryKey: MeetingQueryKey.detail(meetingId),
-            });
-            dialogOpen({
-              title: '신청 완료 되었습니다',
-              description: '',
-              type: 'single',
-              typeOptions: {
-                approveButtonText: '확인',
-                buttonFunction: dialogClose,
-              },
-            });
+    let title = '신청 완료 되었습니다';
 
-            setIsSubmitting(false);
-            handleDefaultModalClose();
+    try {
+      const submit = category === '행사' ? mutateEventApplication : mutateApplication;
+      await submit({
+        body: { meetingId: Number(meetingId), content: textareaValue },
+        turnstileToken,
+      });
+    } catch (error) {
+      title = getMeetingApplicationErrorMessage(error);
+    } finally {
+      resetTurnstile();
+      await Promise.allSettled([
+        queryClient.refetchQueries({ queryKey: MeetingQueryKey.detail(meetingId) }),
+        ...(category === '행사' ? [] : [queryClient.refetchQueries({ queryKey: FlashQueryKey.detail(meetingId) })]),
+      ]);
+      if (isMountedRef.current) {
+        setIsSubmitting(false);
+        handleDefaultModalClose();
+        dialogOpen({
+          title,
+          description: '',
+          type: 'single',
+          typeOptions: {
+            approveButtonText: '확인',
+            buttonFunction: dialogClose,
           },
-          onError: async (error: unknown) => {
-            if (error instanceof AxiosError) {
-              await queryClient.refetchQueries({
-                queryKey: MeetingQueryKey.detail(meetingId),
-              });
-              const errorResponse = error.response as AxiosResponse;
-              dialogOpen({
-                title: errorResponse.data.errorCode,
-                description: '',
-                type: 'single',
-                typeOptions: {
-                  approveButtonText: '확인',
-                  buttonFunction: dialogClose,
-                },
-              });
-              setIsSubmitting(false);
-              handleDefaultModalClose();
-            }
-          },
-        },
-      );
-    } else {
-      mutateApplication(
-        { meetingId: Number(meetingId), content: textareaValue },
-        {
-          onSuccess: async () => {
-            await queryClient.refetchQueries({
-              queryKey: MeetingQueryKey.detail(meetingId),
-            });
-            await queryClient.refetchQueries({
-              queryKey: FlashQueryKey.detail(meetingId),
-            });
-            dialogOpen({
-              title: '신청 완료 되었습니다',
-              description: '',
-              type: 'single',
-              typeOptions: {
-                approveButtonText: '확인',
-                buttonFunction: dialogClose,
-              },
-            });
-
-            setIsSubmitting(false);
-            handleDefaultModalClose();
-          },
-          onError: async (error: unknown) => {
-            if (error instanceof AxiosError) {
-              await queryClient.refetchQueries({
-                queryKey: MeetingQueryKey.detail(meetingId),
-              });
-              await queryClient.refetchQueries({
-                queryKey: FlashQueryKey.detail(meetingId),
-              });
-              const errorResponse = error.response as AxiosResponse;
-              dialogOpen({
-                title: errorResponse.data.errorCode,
-                description: '',
-                type: 'single',
-                typeOptions: {
-                  approveButtonText: '확인',
-                  buttonFunction: dialogClose,
-                },
-              });
-            }
-            setIsSubmitting(false);
-            handleDefaultModalClose();
-          },
-        },
-      );
+        });
+      }
     }
   };
 
@@ -337,9 +297,10 @@ const MeetingController = ({ detailData }: DetailHeaderProps) => {
               <ArrowSmallRightIcon />
             </SStatusButton>
           </SStatusButtonWrapper>
+          {canApply && <Turnstile {...turnstile} />}
           {!isHost && (
             <SGuestButton
-              disabled={!isRecruiting || isSubmitting}
+              disabled={!isRecruiting || isSubmitting || (!isApplied && !isTurnstileReady)}
               isApplied={isApplied}
               onClick={handleApplicationModal}
             >

@@ -1,3 +1,4 @@
+import { TURNSTILE_TOKEN_HEADER } from '@common/Turnstile/constant';
 import { ACCESS_TOKEN_KEY, getAuthToken, redirectToLoginPage } from '@shared/util/auth';
 import type { AxiosError, AxiosInstance, InternalAxiosRequestConfig } from 'axios';
 
@@ -72,6 +73,11 @@ export const refreshToken = async (error: AxiosError<unknown>, instance: AxiosIn
 
     const newToken = await refreshPromise;
     originRequest.headers.Authorization = `Bearer ${newToken}`;
+
+    if (originRequest.headers.has(TURNSTILE_TOKEN_HEADER)) {
+      throw error;
+    }
+
     return instance(originRequest);
   }
 

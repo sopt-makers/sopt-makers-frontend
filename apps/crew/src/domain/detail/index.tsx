@@ -38,7 +38,7 @@ const CommonDetail = ({ detailData }: CommonDetailProps) => {
     <>
       <SDetailPage>
         <Carousel imageList={detailData?.imageURL} />
-        <MeetingController detailData={detailData} />
+        <MeetingController key={detailData.id} detailData={detailData} />
         <Tab.Group selectedIndex={selectedIndex} onChange={(index) => setSelectedIndex(index)}>
           <STabList>
             <Tab as={Fragment}>
