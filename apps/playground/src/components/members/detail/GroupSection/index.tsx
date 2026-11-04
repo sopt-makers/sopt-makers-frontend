@@ -50,7 +50,7 @@ const GroupSection = ({ profile, meId, memberId }: GroupSectionProps) => {
   });
 
   if (axios.isAxiosError(crewError) && crewError.response?.status === 400) {
-    return <EmptyProfile />;
+    return profile.isMine ? <EmptyProfile /> : null;
   }
 
   if (isPending || !profile || !meetingData)

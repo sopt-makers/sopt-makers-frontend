@@ -25,8 +25,6 @@ setLayout(MemberPage, 'headerFooter');
 export default MemberPage;
 
 const StyledOnBoardingBanner = styled(OnBoardingBanner)`
-  margin-bottom: 90px;
-
   @media ${MOBILE_MEDIA_QUERY} {
     margin: 45px 0;
   }
