@@ -1,11 +1,10 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
+import { usePutMemberProfileMutation } from '@/api/endpoint/members/putMemberProfile';
 import { useGetMemberProfileOfMe } from '@/api/endpoint_LEGACY/hooks';
-import { postMemberProfile } from '@/api/endpoint_LEGACY/members';
 import type { ProfileRequest } from '@/api/endpoint_LEGACY/members/type';
 import AuthRequired from '@/components/auth/AuthRequired';
 import useLastUnauthorized from '@/components/auth/util/useLastUnauthorized';
@@ -28,8 +27,8 @@ export default function MemberUploadPage() {
     resolver: yupResolver(memberFormSchema),
   });
   const router = useRouter();
-  const queryClient = useQueryClient();
   const { data: myProfile } = useGetMemberProfileOfMe();
+  const { mutate: updateMemberProfile } = usePutMemberProfileMutation();
   const lastUnauthorized = useLastUnauthorized();
 
   const {
@@ -113,23 +112,12 @@ export default function MemberUploadPage() {
       isPhoneBlind,
     };
 
-    const response = await postMemberProfile(requestBody);
-
-    queryClient.invalidateQueries({
-      queryKey: ['getMemberProfileOfMe'],
+    updateMemberProfile(requestBody, {
+      onSuccess: () => {
+        // router.replace(lastUnauthorized.popPath() ?? '/');
+        router.replace('/members/complete'); // 프로필 등록 완료 페이지로 이동
+      },
     });
-    queryClient.invalidateQueries({
-      queryKey: ['getMemberProfileById', response.id],
-    });
-    queryClient.invalidateQueries({
-      queryKey: ['getMemberProfile'],
-    });
-    queryClient.invalidateQueries({
-      queryKey: ['getMembersCoffeeChat'],
-    });
-
-    // router.replace(lastUnauthorized.popPath() ?? '/');
-    router.replace('/members/complete'); // 프로필 등록 완료 페이지로 이동
   };
 
   useEffect(() => {
