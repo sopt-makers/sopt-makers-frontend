@@ -1,4 +1,4 @@
-import { TURNSTILE_TOKEN_HEADER } from '@constant/turnstile';
+import { TURNSTILE_TOKEN_HEADER } from '@common/Turnstile/constant';
 import { ACCESS_TOKEN_KEY, getAuthToken, redirectToLoginPage } from '@shared/util/auth';
 import type { AxiosError, AxiosInstance, InternalAxiosRequestConfig } from 'axios';
 

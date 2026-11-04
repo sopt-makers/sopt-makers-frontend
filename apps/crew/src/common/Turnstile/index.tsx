@@ -1,7 +1,8 @@
-import { TURNSTILE_ACTION, TURNSTILE_SCRIPT_URL } from '@constant/turnstile';
-import type { useTurnstile } from '@hook/useTurnstile';
 import Script from 'next/script';
 import { styled } from 'stitches.config';
+
+import { TURNSTILE_ACTION, TURNSTILE_SCRIPT_URL } from './constant';
+import type { useTurnstile } from './useTurnstile';
 
 type TurnstileProps = Pick<
   ReturnType<typeof useTurnstile>,

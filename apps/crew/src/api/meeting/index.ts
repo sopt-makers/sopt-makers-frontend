@@ -11,7 +11,7 @@ import type {
   PostMeetingApplication,
   UpdateMeetingApplication,
 } from '@api/meeting/type';
-import { TURNSTILE_TOKEN_HEADER } from '@constant/turnstile';
+import { TURNSTILE_TOKEN_HEADER } from '@common/Turnstile/constant';
 
 import { api } from '..';
 

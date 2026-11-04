@@ -1,4 +1,4 @@
-import { isProduction } from './environment';
+import { isProduction } from '@constant/environment';
 
 export const TURNSTILE_SCRIPT_URL = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
 export const TURNSTILE_TOKEN_HEADER = 'X-Turnstile-Token';

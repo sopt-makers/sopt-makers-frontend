@@ -1,6 +1,7 @@
-import { getTurnstileSiteKey, TURNSTILE_ACTION } from '@constant/turnstile';
-import type { TurnstileStatus } from '@type/turnstile';
 import { useCallback, useEffect, useRef, useState } from 'react';
+
+import { getTurnstileSiteKey, TURNSTILE_ACTION } from './constant';
+import type { TurnstileStatus } from './type';
 
 export const useTurnstile = (enabled: boolean) => {
   const containerRef = useRef<HTMLDivElement>(null);
