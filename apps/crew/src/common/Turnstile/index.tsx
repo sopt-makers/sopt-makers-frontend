@@ -1,7 +1,7 @@
 import Script from 'next/script';
 import { styled } from 'stitches.config';
 
-import { TURNSTILE_ACTION, TURNSTILE_SCRIPT_URL } from './constant';
+import { TURNSTILE_ACTION, TURNSTILE_SCRIPT_ID, TURNSTILE_SCRIPT_URL } from './constant';
 import type { useTurnstile } from './useTurnstile';
 
 type TurnstileProps = Pick<
@@ -13,7 +13,7 @@ const Turnstile = ({ containerRef, status, handleScriptReady, handleError, retry
   return (
     <SContainer role='group' aria-label='신청 보안 확인'>
       <Script
-        id='crew-turnstile'
+        id={TURNSTILE_SCRIPT_ID}
         src={TURNSTILE_SCRIPT_URL}
         strategy='afterInteractive'
         onLoad={handleScriptReady}

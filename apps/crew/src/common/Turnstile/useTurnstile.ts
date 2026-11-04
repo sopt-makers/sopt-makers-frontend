@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-import { getTurnstileSiteKey, TURNSTILE_ACTION } from './constant';
+import { getTurnstileSiteKey, TURNSTILE_ACTION, TURNSTILE_SCRIPT_ID } from './constant';
 import type { TurnstileStatus } from './type';
 
 export const useTurnstile = (enabled: boolean) => {
@@ -89,14 +89,25 @@ export const useTurnstile = (enabled: boolean) => {
     };
   }, [enabled, handleError, isScriptReady, reset, updateToken]);
 
+  const handleScriptReady = useCallback(() => {
+    if (window.turnstile) setIsScriptReady(true);
+  }, []);
+
   useEffect(() => {
     if (!enabled || isScriptReady) return;
 
-    const timeout = window.setTimeout(handleError, 15_000);
-    return () => window.clearTimeout(timeout);
-  }, [enabled, handleError, isScriptReady]);
+    const script = document.getElementById(TURNSTILE_SCRIPT_ID);
+    script?.addEventListener('load', handleScriptReady);
+    script?.addEventListener('error', handleError);
+    handleScriptReady();
 
-  const handleScriptReady = useCallback(() => setIsScriptReady(true), []);
+    const timeout = window.setTimeout(handleError, 15_000);
+    return () => {
+      script?.removeEventListener('load', handleScriptReady);
+      script?.removeEventListener('error', handleError);
+      window.clearTimeout(timeout);
+    };
+  }, [enabled, handleError, handleScriptReady, isScriptReady]);
 
   const consumeToken = useCallback(() => {
     const widgetId = widgetIdRef.current;
