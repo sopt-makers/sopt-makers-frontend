@@ -135,6 +135,9 @@ const SRequestList = styled('div', {
   'flexDirection': 'column',
   'gap': spacing.s16,
   'marginTop': spacing.s24,
+  '&:empty': {
+    display: 'none',
+  },
   '@mobile': {
     marginTop: spacing.s10,
   },
