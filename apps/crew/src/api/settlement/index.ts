@@ -8,12 +8,14 @@ import type {
   GetSettlementDetail,
   GetSettlementList,
   GetSettlementPayerRequests,
+  GetSettlementPayers,
   PostSettlement,
   PostSettlementAttendee,
   PostSettlementRound,
   PutSettlement,
   PutSettlementRound,
   RespondToSettlementPayerRequest,
+  RevokeSettlementPayer,
 } from './type';
 
 export const getSettlementDetail = async (meetingId: number): Promise<GetSettlementDetail['response']> =>
@@ -21,6 +23,17 @@ export const getSettlementDetail = async (meetingId: number): Promise<GetSettlem
 
 export const getSettlementPayerRequests = async (meetingId: number): Promise<GetSettlementPayerRequests['response']> =>
   (await api.get<GetSettlementPayerRequests['response']>(`/dining/v2/${meetingId}/payer-requests`)).data;
+
+export const getSettlementPayers = async (meetingId: number): Promise<GetSettlementPayers['response']> =>
+  (await api.get<GetSettlementPayers['response']>(`/dining/v2/${meetingId}/payers`)).data;
+
+export const revokeSettlementPayer = async ({
+  meetingId,
+  roundId,
+  requesterUserId,
+}: RevokeSettlementPayer['request']): Promise<RevokeSettlementPayer['response']> => {
+  await api.post(`/dining/v2/${meetingId}/rounds/${roundId}/payer-requests/${requesterUserId}/revoke`);
+};
 
 export const respondToSettlementPayerRequest = async ({
   meetingId,

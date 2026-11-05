@@ -8,6 +8,7 @@ const SettlementQueryKey = {
     [...SettlementQueryKey.all(), 'attendance', meetingId, roundId] as const,
   detail: (meetingId: number) => [...SettlementQueryKey.all(), 'detail', meetingId] as const,
   payerRequests: (meetingId: number) => [...SettlementQueryKey.all(), 'payerRequests', meetingId] as const,
+  payers: (meetingId: number) => [...SettlementQueryKey.all(), 'payers', meetingId] as const,
   attendees: (meetingId: number, roundId: number) =>
     [...SettlementQueryKey.all(), 'attendees', meetingId, roundId] as const,
   attendeeList: (

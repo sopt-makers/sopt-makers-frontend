@@ -10,6 +10,7 @@ import {
   getSettlementDetail,
   getSettlementList,
   getSettlementPayerRequests,
+  getSettlementPayers,
 } from '.';
 import SettlementQueryKey from './SettlementQueryKey';
 import type { GetSettlementAttendees, SettlementListParams, SettlementListTab } from './type';
@@ -49,6 +50,12 @@ export const useSettlementPayerRequestsQueryOption = (meetingId: number) =>
   queryOptions({
     queryKey: SettlementQueryKey.payerRequests(meetingId),
     queryFn: () => getSettlementPayerRequests(meetingId),
+  });
+
+export const useSettlementPayersQueryOption = (meetingId: number) =>
+  queryOptions({
+    queryKey: SettlementQueryKey.payers(meetingId),
+    queryFn: () => getSettlementPayers(meetingId),
   });
 
 export const useSettlementAttendeesQueryOption = ({

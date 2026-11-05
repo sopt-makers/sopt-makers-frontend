@@ -25,6 +25,17 @@ export type GetSettlementPayerRequests = {
   response: components['schemas']['DiningV2GetPayerRequestsResponseDto'];
 };
 
+export type GetSettlementPayers = {
+  request: paths['/dining/v2/{meetingId}/payers']['get']['parameters']['path'];
+  response: components['schemas']['DiningV2GetApprovedPayersResponseDto'];
+};
+
+export type RevokeSettlementPayer = {
+  request: paths['/dining/v2/{meetingId}/rounds/{roundId}/payer-requests/{requesterUserId}/revoke']['post']['parameters']['path'];
+  response: void;
+};
+export type SettlementPayerRevoke = Omit<RevokeSettlementPayer['request'], 'meetingId'>;
+
 type PayerRequestPath =
   paths['/dining/v2/{meetingId}/rounds/{roundId}/payer-requests/{requesterUserId}/approve']['post']['parameters']['path'];
 export type RespondToSettlementPayerRequest = {
