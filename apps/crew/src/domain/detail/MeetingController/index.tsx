@@ -80,6 +80,7 @@ const MeetingController = ({ detailData }: DetailHeaderProps) => {
   const isRecruiting = status === ERecruitmentStatus.RECRUITING;
   const canApply = !isHost && !isApplied && isRecruiting;
   const { isReady: isTurnstileReady, consumeToken, reset: resetTurnstile, ...turnstile } = useTurnstile(canApply);
+  const isTurnstileLoading = canApply && turnstile.status === 'loading';
   const {
     isModalOpened: isProfileModalOpened,
     handleModalOpen: handleProfileModalOpen,
@@ -301,10 +302,18 @@ const MeetingController = ({ detailData }: DetailHeaderProps) => {
           {!isHost && (
             <SGuestButton
               disabled={!isRecruiting || isSubmitting || (!isApplied && !isTurnstileReady)}
+              aria-busy={isSubmitting || isTurnstileLoading}
+              aria-label={isSubmitting ? '로딩 중' : undefined}
               isApplied={isApplied}
               onClick={handleApplicationModal}
             >
-              {isSubmitting ? <ButtonLoader /> : `신청${isApplied ? '취소' : '하기'}`}
+              {isSubmitting ? (
+                <ButtonLoader />
+              ) : isTurnstileLoading ? (
+                '보안 확인 중'
+              ) : (
+                `신청${isApplied ? '취소' : '하기'}`
+              )}
             </SGuestButton>
           )}
           {isHost && (
