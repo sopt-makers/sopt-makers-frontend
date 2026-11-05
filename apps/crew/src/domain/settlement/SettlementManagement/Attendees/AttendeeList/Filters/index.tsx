@@ -26,7 +26,7 @@ const Filters = ({ rounds, roundId, take, date, onChange }: FiltersProps) => {
       label: '회차 선택',
       options: rounds.map(({ roundId, roundNumber, attendeeCount }) => ({
         value: String(roundId),
-        label: `${roundNumber}회차 (${attendeeCount})`,
+        label: `${roundNumber}회차 (${attendeeCount}명)`,
       })),
     },
     {
