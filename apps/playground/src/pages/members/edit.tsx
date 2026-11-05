@@ -48,7 +48,7 @@ export default function MemberEditPage() {
   });
   const router = useRouter();
   const { data: myProfile, isLoading: isLoadingMyProfile } = useGetMemberProfileOfMe();
-  const { data: me, isLoading: isLoadingMe } = useGetMemberOfMe();
+  const { data: me, isLoading: isLoadingMe, refetch: refetchMe } = useGetMemberOfMe();
   const { mutate: updateMemberProfile } = usePutMemberProfileMutation();
   const toast = useToast();
 
@@ -64,6 +64,12 @@ export default function MemberEditPage() {
   const onSubmit = async (formData: MemberUploadForm) => {
     if (isLoadingMe || isLoadingMyProfile) {
       toast.show({ message: '다시 시도해주세요.' });
+      return;
+    }
+
+    if (!me) {
+      refetchMe();
+      toast.show({ message: '사용자 정보를 불러오지 못했어요. 잠시 후 다시 시도해주세요.' });
       return;
     }
 
