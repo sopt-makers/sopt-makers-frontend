@@ -4,6 +4,8 @@ import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { z } from 'zod';
 
+import { normalizeStartTime, START_TIME_PATTERN } from './time';
+
 dayjs.extend(customParseFormat);
 
 export type RoundFieldValues = Required<SettlementRoundRequest>;
@@ -28,9 +30,12 @@ export const roundFormSchema = z.object({
   place: z.string().trim().max(30, '30자까지 입력할 수 있어요.'),
   naverMapLink: mapLinkSchema(['naver.me', 'map.naver.com']),
   kakaoMapLink: mapLinkSchema(['kko.to', 'map.kakao.com', 'place.map.kakao.com']),
-  startTime: z.string().refine((value) => !value || /^([01]\d|2[0-3]):[0-5]\d$/.test(value), {
-    message: '올바른 시간을 입력해주세요. (00:00~23:59)',
-  }),
+  startTime: z
+    .string()
+    .transform(normalizeStartTime)
+    .refine((value) => !value || START_TIME_PATTERN.test(value), {
+      message: '올바른 시간을 입력해주세요. (00:00~24:00)',
+    }),
 }) satisfies z.ZodType<RoundFieldValues>;
 
 export const createSettlementFormSchema = (mode: 'create' | 'edit') =>

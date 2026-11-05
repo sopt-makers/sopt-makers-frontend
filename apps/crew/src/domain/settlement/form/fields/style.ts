@@ -11,6 +11,7 @@ export const SLabel = styled('label', {
   display: 'flex',
   alignItems: 'center',
   gap: spacing.s4,
+  paddingInline: spacing.s2,
   color: colors.fg.neutral.bold,
   ...typography.title5,
 });
@@ -18,6 +19,7 @@ export const SLabel = styled('label', {
 export const SRequired = styled('span', { ...typography.title4, color: colors.fg.brand.default });
 
 export const SDescription = styled('p', {
+  paddingInline: spacing.s2,
   color: colors.fg.neutral.default,
   ...typography.body2,
 });

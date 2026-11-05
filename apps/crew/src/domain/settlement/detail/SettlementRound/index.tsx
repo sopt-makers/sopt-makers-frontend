@@ -1,4 +1,5 @@
 import { AttendeeActions, LeaderActions } from '@domain/settlement/detail/RoundActions';
+import { getStartTimeDisplay } from '@domain/settlement/form/time';
 import { useDisplay } from '@hook/useDisplay';
 import useModal from '@hook/useModal';
 import { colors, radius, spacing, typography } from '@sopt-mds/design-tokens';
@@ -38,6 +39,7 @@ const SettlementRound = ({
   const isAttending = round.myAttendanceStatus === 'ATTENDING' || round.myAttendanceStatus === 'ATTENDED';
   const attendanceLabel = ATTENDANCE_LABELS[round.myAttendanceStatus ?? 'NOT_ATTENDING'];
   const isRoundInfoModified = round.isPlaceModified || round.isLinkModified || round.isStartTimeModified;
+  const startTimeDisplay = round.startTime ? getStartTimeDisplay(round.startTime) : null;
 
   return (
     <div>
@@ -60,10 +62,12 @@ const SettlementRound = ({
               {attendanceLabel}
             </Tag>
             <span>{round.roundNumber}차</span>
-            {round.startTime && (
+            {startTimeDisplay && (
               <>
                 <SDivider>|</SDivider>
-                <STime>{round.startTime}~</STime>
+                <STime>
+                  {startTimeDisplay.period === 'AM' ? '오전' : '오후'} {startTimeDisplay.time}~
+                </STime>
               </>
             )}
           </SHeading>
