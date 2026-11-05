@@ -20,8 +20,6 @@ const Card = ({
   recentGeneration,
   phone,
 }: CardProps) => {
-  const displayName = Array.from(name).length > 5 ? `${Array.from(name).slice(0, 5).join('')}…` : name;
-
   return (
     <SCard>
       <SInfo>
@@ -29,7 +27,7 @@ const Card = ({
         <SProfile>
           <Avatar size={24} type='subtle' src={profileImage || undefined} strokeColor='neutralSubtle' aria-hidden />
           <SName title={name} aria-label={name}>
-            {displayName}
+            {name}
           </SName>
         </SProfile>
         <SDetails>
@@ -74,19 +72,22 @@ const SInfo = styled('div', {
 });
 
 const SDetails = styled('div', {
-  'display': 'flex',
+  'display': 'grid',
   'alignItems': 'center',
   'flexShrink': 0,
-  'gap': '30px',
+  'gridTemplateColumns': '90px 130px',
   '@mobile': {
+    display: 'flex',
     gap: spacing.s0,
   },
 });
 
 const SNumber = styled('span', {
   ...typography.heading4,
-  'width': '60px',
+  'width': '30px',
+  'boxSizing': 'content-box',
   'flexShrink': 0,
+  'paddingInline': spacing.s12,
   'textAlign': 'center',
   'color': colors.fg.neutral.bold,
   '@mobile': {
@@ -97,12 +98,11 @@ const SNumber = styled('span', {
 const SProfile = styled('div', {
   'display': 'flex',
   'alignItems': 'center',
-  'gap': spacing.s10,
-  'width': '154px',
+  'gap': spacing.s8,
+  'width': '166px',
   'flexShrink': 0,
   'minWidth': 0,
-  'marginLeft': '1px',
-  'marginRight': '30px',
+  'marginLeft': spacing.s4,
   '@mobile': {
     gap: 'clamp(0px, calc(20vw - 64px), 8px)',
     width: 'auto',
@@ -114,18 +114,19 @@ const SProfile = styled('div', {
 
 const SName = styled('span', {
   ...typography.title4,
-  'width': '80px',
-  'boxSizing': 'content-box',
-  'flexShrink': 0,
+  'flex': 1,
   'minWidth': 0,
-  'paddingInline': spacing.s20,
+  'paddingInline': `${spacing.s8} ${spacing.s16}`,
   'color': colors.fg.neutral.bold,
   'overflow': 'hidden',
   'textOverflow': 'ellipsis',
   'whiteSpace': 'nowrap',
   '@mobile': {
     ...typography.heading4,
+    flex: 'none',
     width: '5em',
+    boxSizing: 'content-box',
+    flexShrink: 0,
     paddingInline: spacing.s0,
   },
 });
@@ -146,12 +147,12 @@ const SGeneration = styled('div', {
 
 const SPhone = styled('span', {
   ...typography.title4,
-  'width': '136px',
+  'flex': 1,
   'textAlign': 'center',
   'color': colors.fg.neutral.subtle,
   '@mobile': {
     ...typography.label3,
-    width: 'auto',
+    flex: 'none',
     paddingLeft: 'clamp(0px, calc(25vw - 80px), 10px)',
     paddingRight: 'clamp(0px, calc(30vw - 96px), 14px)',
     whiteSpace: 'nowrap',
