@@ -114,6 +114,7 @@ const SRequest = styled('div', {
   'borderRadius': radius.r20,
   'backgroundColor': colors.bg.neutral.ghost,
   '@mobile': {
+    width: '320px',
     gap: spacing.s8,
     padding: spacing.s16,
   },
