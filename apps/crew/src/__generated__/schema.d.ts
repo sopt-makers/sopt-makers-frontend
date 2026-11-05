@@ -523,6 +523,13 @@ export interface paths {
      */
     get: operations['getAttendanceAttendees'];
   };
+  '/dining/v2/{meetingId}/payers': {
+    /**
+     * 승인된 공동 결제자 목록
+     * @description 개설자만 회식 전체의 APPROVED 공동 결제자를 요청 시각 오름차순으로 조회합니다. 동일 사용자도 승인된 회차별로 반환하며, 회차 번호는 현재 기준입니다. roundId와 userId로 기존 승인 해제 API를 호출할 수 있습니다.
+     */
+    get: operations['getApprovedPayers'];
+  };
   '/dining/v2/{meetingId}/payer-requests': {
     /**
      * 공동 결제자 대기 요청 목록
@@ -3948,6 +3955,21 @@ export interface components {
     DiningV2GetAttendeesResponseDto: {
       attendees: components['schemas']['DiningV2AttendeeDto'][];
     };
+    /** @description 회차별 승인된 공동 결제자 */
+    DiningV2ApprovedPayerDto: {
+      /** Format: int32 */
+      userId: number;
+      name: string;
+      profileImage?: string;
+      /** Format: int32 */
+      roundId: number;
+      /** Format: int32 */
+      roundNumber: number;
+    };
+    /** @description 개설자 전용 승인된 공동 결제자 목록. 회차별로 반환하며 요청 시각 오름차순 */
+    DiningV2GetApprovedPayersResponseDto: {
+      payers: components['schemas']['DiningV2ApprovedPayerDto'][];
+    };
     /** @description 개설자 전용 공동 결제자 대기 요청 목록. 요청 시각 오름차순 */
     DiningV2GetPayerRequestsResponseDto: {
       requests: components['schemas']['DiningV2PayerRequestDto'][];
@@ -5102,6 +5124,12 @@ export interface operations {
   };
   /** 일반 모임 지원 */
   applyGeneralMeeting: {
+    parameters: {
+      header?: {
+        /** @description Cloudflare Turnstile 위젯 토큰 (action=apply) */
+        'X-Turnstile-Token'?: string;
+      };
+    };
     requestBody: {
       content: {
         'application/json;charset=UTF-8': components['schemas']['MeetingV2ApplyMeetingDto'];
@@ -5116,6 +5144,14 @@ export interface operations {
       };
       /** @description "모임이 없습니다" or "기수/파트를 설정해주세요" or "정원이 꽉찼습니다" or "활동 기수가 아닙니다" or "지원 가능한 파트가 아닙니다" or "지원 가능한 기간이 아닙니다" */
       400: {
+        content: never;
+      };
+      /** @description "보안 확인에 실패했습니다." (Turnstile 검증 실패) */
+      403: {
+        content: never;
+      };
+      /** @description "요청이 너무 많습니다." (사용자별 rate limit) */
+      429: {
         content: never;
       };
     };
@@ -6776,6 +6812,33 @@ export interface operations {
         };
       };
       /** @description 회식 또는 회차를 찾을 수 없습니다. */
+      404: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * 승인된 공동 결제자 목록
+   * @description 개설자만 회식 전체의 APPROVED 공동 결제자를 요청 시각 오름차순으로 조회합니다. 동일 사용자도 승인된 회차별로 반환하며, 회차 번호는 현재 기준입니다. roundId와 userId로 기존 승인 해제 API를 호출할 수 있습니다.
+   */
+  getApprovedPayers: {
+    parameters: {
+      path: {
+        meetingId: number;
+      };
+    };
+    responses: {
+      /** @description 승인된 공동 결제자 목록 조회 성공. 공동 결제자가 없으면 빈 리스트 */
+      200: {
+        content: {
+          'application/json;charset=UTF-8': components['schemas']['DiningV2GetApprovedPayersResponseDto'];
+        };
+      };
+      /** @description 권한이 없습니다. */
+      403: {
+        content: never;
+      };
+      /** @description 존재하지 않는 회식입니다. */
       404: {
         content: never;
       };

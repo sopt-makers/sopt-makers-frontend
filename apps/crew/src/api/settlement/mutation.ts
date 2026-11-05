@@ -16,6 +16,7 @@ import {
   putSettlementRound,
   requestRoundPayer,
   respondToSettlementPayerRequest,
+  revokeSettlementPayer,
 } from '.';
 import SettlementQueryKey from './SettlementQueryKey';
 import type {
@@ -25,6 +26,7 @@ import type {
   SettlementAddAttendee,
   SettlementDeleteAttendee,
   SettlementPayerRequestAction,
+  SettlementPayerRevoke,
 } from './type';
 
 export const useRespondToSettlementPayerRequestMutation = (meetingId: number) => {
@@ -35,9 +37,24 @@ export const useRespondToSettlementPayerRequestMutation = (meetingId: number) =>
     onSuccess: async () => {
       await Promise.all([
         queryClient.invalidateQueries({ queryKey: SettlementQueryKey.payerRequests(meetingId) }),
+        queryClient.invalidateQueries({ queryKey: SettlementQueryKey.payers(meetingId) }),
         queryClient.invalidateQueries({ queryKey: SettlementQueryKey.detail(meetingId) }),
       ]);
     },
+  });
+};
+
+export const useRevokeSettlementPayerMutation = (meetingId: number) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (request: SettlementPayerRevoke) => revokeSettlementPayer({ meetingId, ...request }),
+    onSuccess: () =>
+      Promise.all([
+        queryClient.invalidateQueries({ queryKey: SettlementQueryKey.payers(meetingId) }),
+        queryClient.invalidateQueries({ queryKey: SettlementQueryKey.payerRequests(meetingId) }),
+        queryClient.invalidateQueries({ queryKey: SettlementQueryKey.detail(meetingId) }),
+      ]),
   });
 };
 

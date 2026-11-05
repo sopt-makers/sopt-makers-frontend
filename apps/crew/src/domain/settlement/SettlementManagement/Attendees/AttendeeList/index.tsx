@@ -90,10 +90,10 @@ const SListHeader = styled('div', {
   'display': 'grid',
   'gridTemplateColumns': '60px 164px 90px 130px',
   'padding': `${spacing.s16} ${spacing.s24}`,
-  'border': `1px solid ${colors.stroke.neutral.ghost}`,
+  'border': `1px solid ${colors.stroke.neutral.defaultFocused}`,
   'borderRadius': '15px',
-  'color': colors.fg.neutral.subtle,
-  'opacity': 0.5,
+  'color': colors.fg.neutral.default,
+  'opacity': 0.24,
   'textAlign': 'center',
   ...typography.heading4,
   '@mobile': {

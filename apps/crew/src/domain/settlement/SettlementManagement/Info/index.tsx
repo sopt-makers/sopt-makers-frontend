@@ -91,6 +91,7 @@ const SInfo = styled('div', {
 
 const SParts = styled('div', {
   display: 'flex',
+  flexWrap: 'wrap',
   gap: spacing.s6,
 });
 
