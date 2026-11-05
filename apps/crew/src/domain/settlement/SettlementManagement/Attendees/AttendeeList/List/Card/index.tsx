@@ -150,12 +150,12 @@ const SPhone = styled('span', {
   'flex': 1,
   'textAlign': 'center',
   'color': colors.fg.neutral.subtle,
+  'whiteSpace': 'nowrap',
   '@mobile': {
     ...typography.label3,
     flex: 'none',
     paddingLeft: 'clamp(0px, calc(25vw - 80px), 10px)',
     paddingRight: 'clamp(0px, calc(30vw - 96px), 14px)',
-    whiteSpace: 'nowrap',
   },
 });
 
