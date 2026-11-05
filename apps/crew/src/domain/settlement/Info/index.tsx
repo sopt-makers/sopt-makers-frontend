@@ -1,8 +1,9 @@
 import { useEndSettlementMutation } from '@api/settlement/mutation';
 import { PART_NAME } from '@constant/option';
 import { useDisplay } from '@hook/useDisplay';
+import useModal from '@hook/useModal';
 import { colors, radius, spacing, typography } from '@sopt-mds/design-tokens';
-import { ActionButton, Avatar, Tag } from '@sopt-mds/ui';
+import { ActionButton, Avatar, Dialog, Tag } from '@sopt-mds/ui';
 import dayjs from 'dayjs';
 import { useRouter } from 'next/router';
 import { styled } from 'stitches.config';
@@ -23,6 +24,7 @@ const Info = ({
   const { isMobile } = useDisplay();
   const router = useRouter();
   const { mutate: endSettlement, isPending } = useEndSettlementMutation(meetingId);
+  const { isModalOpened, handleModalOpen, handleModalClose } = useModal();
 
   return (
     <SInfo>
@@ -63,9 +65,7 @@ const Info = ({
               size={isMobile ? 'medium' : 'large'}
               variant='primary'
               disabled={isEnded || isPending}
-              onClick={() => {
-                endSettlement();
-              }}
+              onClick={handleModalOpen}
             >
               회식 종료하기
             </SActionButton>
@@ -82,6 +82,17 @@ const Info = ({
           </SActions>
         )}
       </SContent>
+
+      <SEndSettlementDialog open={isModalOpened} onOpenChange={handleModalClose} device={isMobile ? 'mobile' : 'pc'}>
+        <Dialog.Title>회식을 종료할까요?</Dialog.Title>
+        <Dialog.Description>
+          회식 종료 시 모든 회차가 마감되며 신청자를 받을 수 없어요. 종료된 회식은 삭제가 불가능해요.
+        </Dialog.Description>
+        <Dialog.Actions>
+          <Dialog.Cancel>잠깐만요</Dialog.Cancel>
+          <Dialog.Action onClick={() => endSettlement()}>종료하기</Dialog.Action>
+        </Dialog.Actions>
+      </SEndSettlementDialog>
     </SInfo>
   );
 };
@@ -198,5 +209,14 @@ const SProfile = styled('div', {
     marginTop: spacing.s16,
     borderRadius: radius.r6,
     backgroundColor: colors.base.gray900,
+  },
+});
+
+const SEndSettlementDialog = styled(Dialog, {
+  'top': spacing.s120,
+  'bottom': 'auto',
+  '@mobile': {
+    top: '0px',
+    bottom: '0px',
   },
 });
