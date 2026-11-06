@@ -38,8 +38,15 @@ const SettlementPage: NextPage = () => {
   );
 
   const handleTabChange = (index: number) => {
-    const selectedTab = TABS[index];
-    if (selectedTab) setTab(selectedTab.value);
+    const selectedTab = index === 0 ? TABS[0] : TABS[1];
+
+    if (selectedTab.value !== tab) {
+      ampli.clickSettlementListTab({
+        settlement_list_tab: selectedTab.value === 'ALL' ? 'all' : 'mine',
+        user_id: user?.orgId,
+      });
+    }
+    setTab(selectedTab.value);
   };
 
   return (
