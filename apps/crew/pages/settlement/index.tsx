@@ -1,3 +1,4 @@
+import { useUserProfileQueryOption } from '@api/user/query';
 import SettlementList from '@domain/settlement/SettlementList';
 import SettlementToolbar from '@domain/settlement/SettlementToolbar';
 import { Tab } from '@headlessui/react';
@@ -7,9 +8,13 @@ import CrewTab from '@shared/CrewTab';
 import FloatingButton from '@shared/FloatingButton';
 import { colors, spacing } from '@sopt-mds/design-tokens';
 import { ActionButton } from '@sopt-mds/ui';
+import { useQuery } from '@tanstack/react-query';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 import { styled } from 'stitches.config';
+
+import { ampli } from '@/ampli';
 
 const TABS = [
   { value: 'ALL', label: '전체 회식' },
@@ -19,8 +24,18 @@ const TABS = [
 const SettlementPage: NextPage = () => {
   const { isMobile } = useDisplay();
   const router = useRouter();
+  const { data: user } = useQuery(useUserProfileQueryOption());
   const { value: tabValue, setValue: setTab } = useQueryString('tab', 'ALL', true);
   const tab = tabValue === 'MY' ? 'MY' : 'ALL';
+
+  useEffect(
+    function trackSettlementListView() {
+      if (!router.isReady || user?.orgId === undefined) return;
+
+      ampli.viewSettlementList({ user_id: user?.orgId });
+    },
+    [router.isReady, user?.orgId],
+  );
 
   const handleTabChange = (index: number) => {
     const selectedTab = TABS[index];
