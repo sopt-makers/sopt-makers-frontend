@@ -4,6 +4,7 @@ import Loader from '@common/loader/Loader';
 import { SETTLEMENT_STATUS_LABELS } from '@domain/settlement/constant';
 import SettlementList from '@domain/settlement/detail/SettlementList';
 import Info from '@domain/settlement/Info';
+import { getSettlementRole } from '@domain/settlement/util';
 import { useQuery } from '@tanstack/react-query';
 import { isAxiosError } from 'axios';
 import ErrorPage from 'next/error';
@@ -34,18 +35,9 @@ const SettlementDetailPage = () => {
       if (!settlement || user?.orgId === undefined) return;
       if (trackedMeetingId.current === settlement.meetingId) return;
 
-      let role = 'none';
-      if (settlement.isLeader) {
-        role = 'owner';
-      } else if (settlement.isApprovedPayer) {
-        role = 'co_payer';
-      } else if (settlement.rounds.some((round) => round.myAttendanceStatus !== 'NOT_ATTENDING')) {
-        role = 'attendee';
-      }
-
       ampli.viewSettlementDetail({
         group_id: settlement.meetingId,
-        settlement_role: role,
+        settlement_role: getSettlementRole(settlement),
         settlement_status: settlement.isEnded ? SETTLEMENT_STATUS_LABELS.ended : SETTLEMENT_STATUS_LABELS.ongoing,
         user_id: user.orgId,
       });
