@@ -1,11 +1,12 @@
 import { useSettlementListQueryOption } from '@api/settlement/query';
 import type { SettlementListTab } from '@api/settlement/type';
+import { useUserProfileQueryOption } from '@api/user/query';
 import Pagination from '@domain/list/Pagination';
 import { usePageParams } from '@hook/queryString/custom';
 import { SCardGrid } from '@shared/util/layout/CardGrid';
 import { colors, spacing, typography } from '@sopt-mds/design-tokens';
 import { ErrorBoundary, Suspense } from '@suspensive/react';
-import { useSuspenseQuery } from '@tanstack/react-query';
+import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
 import { styled } from 'stitches.config';
 
 import SettlementCard from '../SettlementCard';
@@ -20,6 +21,7 @@ type SettlementListContentProps = ReturnType<typeof useSettlementListQueryOption
 const SettlementListContent = ({ params, options }: SettlementListContentProps) => {
   const { setValue: setPage } = usePageParams();
   const { data } = useSuspenseQuery(options);
+  const { data: user } = useQuery(useUserProfileQueryOption());
   const { tab, page } = params;
 
   const defaultEmptyMessage = tab === 'MY' ? '개설하거나 참여 중인 회식이 없어요.' : '아직 등록된 회식이 없어요.';
@@ -39,6 +41,8 @@ const SettlementListContent = ({ params, options }: SettlementListContentProps) 
               <SettlementCard
                 key={item.meetingId}
                 item={item}
+                tab={tab}
+                userId={user?.orgId}
                 showManagementButton={tab === 'MY' && item.canManageAttendees}
               />
             ))}

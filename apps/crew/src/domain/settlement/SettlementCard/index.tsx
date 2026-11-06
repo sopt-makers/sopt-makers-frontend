@@ -1,4 +1,4 @@
-import type { SettlementCardItem } from '@api/settlement/type';
+import type { SettlementCardItem, SettlementListTab } from '@api/settlement/type';
 import { PART_NAME } from '@constant/option';
 import { useDisplay } from '@hook/useDisplay';
 import { colors, radius, spacing, typography } from '@sopt-mds/design-tokens';
@@ -9,25 +9,38 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { styled } from 'stitches.config';
 
+import { ampli } from '@/ampli';
+
 import { SETTLEMENT_STATUS_LABELS } from '../constant';
 
 interface SettlementCardProps {
   item: SettlementCardItem;
+  tab: SettlementListTab;
+  userId?: number;
   showManagementButton?: boolean;
 }
 
 const DEFAULT_THUMBNAIL_SRC = '/group/assets/images/settlement/thumbnail.svg';
 
-const SettlementCard = ({ item, showManagementButton = false }: SettlementCardProps) => {
+const SettlementCard = ({ item, tab, userId, showManagementButton = false }: SettlementCardProps) => {
   const { isMobile } = useDisplay();
   const router = useRouter();
   const dateLabel = dayjs(item.diningDate).format('YY.MM.DD');
   const { attendeeCount, leader } = item;
   const participantName = attendeeCount > 1 ? `${leader.name} 외 ${attendeeCount - 1}명` : `${leader.name}님`;
 
+  const handleCardClick = () => {
+    ampli.clickSettlementCard({
+      group_id: item.meetingId,
+      settlement_list_tab: tab === 'ALL' ? 'all' : 'mine',
+      settlement_status: item.isEnded ? SETTLEMENT_STATUS_LABELS.ended : SETTLEMENT_STATUS_LABELS.ongoing,
+      user_id: userId,
+    });
+  };
+
   return (
     <SCard>
-      <SThumbnail href={`/settlement/detail?id=${item.meetingId}`} tabIndex={-1} aria-hidden>
+      <SThumbnail href={`/settlement/detail?id=${item.meetingId}`} tabIndex={-1} aria-hidden onClick={handleCardClick}>
         <SThumbnailImage
           src={item.imageUrl || DEFAULT_THUMBNAIL_SRC}
           alt={item.imageUrl ? '' : '회식 기본 이미지'}
@@ -55,7 +68,7 @@ const SettlementCard = ({ item, showManagementButton = false }: SettlementCardPr
         </SParticipantBadge>
       </SThumbnail>
       <SInfo>
-        <SDetailLink href={`/settlement/detail?id=${item.meetingId}`}>
+        <SDetailLink href={`/settlement/detail?id=${item.meetingId}`} onClick={handleCardClick}>
           <SParts aria-label='참여 파트'>
             {item.joinableParts.map((part) => (
               <Tag key={part} size='small' shape='rect' variant='default' type='solid'>
