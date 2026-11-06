@@ -126,6 +126,8 @@ const SettlementRound = ({
               isEnded={isEnded}
               isMobile={isMobile}
               isAttending={isAttending}
+              settlementRole={settlementRole}
+              userId={userId}
             />
           )}
         </SActions>
