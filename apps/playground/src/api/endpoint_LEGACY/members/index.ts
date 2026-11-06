@@ -49,15 +49,6 @@ export const getMemberProfileOfMe = async () => {
   return data;
 };
 
-export const postMemberProfile = async (body: ProfileRequest): Promise<Profile> => {
-  const { data } = await axiosInstance.request({
-    method: 'POST',
-    url: 'api/v1/members/profile',
-    data: body,
-  });
-  return data;
-};
-
 export const putMemberProfile = async (body: ProfileRequest): Promise<Profile> => {
   const { data } = await axiosInstance.request({
     method: 'PUT',

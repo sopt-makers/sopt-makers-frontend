@@ -32,9 +32,12 @@ import SoptActivityFormSection from '@/components/members/upload/FormSection/Sop
 import TmiFormSection from '@/components/members/upload/FormSection/Tmi';
 import { memberFormSchema } from '@/components/members/upload/schema';
 import type { MemberUploadForm, SoptActivity } from '@/components/members/upload/types';
+import useWebView from '@/hooks/useWebView';
 import { setLayout } from '@/utils/layout';
 
 import { useGetMemberOfMe } from '../../api/endpoint/members/getMemberOfMe';
+
+const PROFILE_COMPLETE_APP_SCHEME = 'sopt://profile/complete';
 
 export default function MemberEditPage() {
   const { logSubmitEvent } = useEventLogger();
@@ -45,11 +48,12 @@ export default function MemberEditPage() {
   });
   const router = useRouter();
   const { data: myProfile, isLoading: isLoadingMyProfile } = useGetMemberProfileOfMe();
-  const { data: me, isLoading: isLoadingMe } = useGetMemberOfMe();
-  const { mutate } = usePutMemberProfileMutation();
+  const { data: me, isLoading: isLoadingMe, refetch: refetchMe } = useGetMemberOfMe();
+  const { mutate: updateMemberProfile } = usePutMemberProfileMutation();
   const toast = useToast();
 
   const lastUnauthorized = useLastUnauthorized();
+  const { isWebView } = useWebView();
 
   const {
     handleSubmit,
@@ -63,7 +67,16 @@ export default function MemberEditPage() {
       return;
     }
 
-    if (!isDirty) {
+    if (!me) {
+      refetchMe();
+      toast.show({ message: '사용자 정보를 불러오지 못했어요. 잠시 후 다시 시도해주세요.' });
+      return;
+    }
+
+    // 프로필 최초 등록은 값을 변경하지 않아도 저장해야 hasProfile이 true로 변경됨
+    const isFirstRegistration = me?.hasProfile === false;
+
+    if (!isDirty && !isFirstRegistration) {
       if (me) {
         router.push(playgroundLink.memberDetail(me.id.toString()));
       }
@@ -143,8 +156,14 @@ export default function MemberEditPage() {
       isPhoneBlind,
     };
 
-    mutate(requestBody, {
-      onSuccess: ({ id }) => router.replace(lastUnauthorized.popPath() ?? playgroundLink.memberDetail(id)),
+    updateMemberProfile(requestBody, {
+      onSuccess: ({ id }) => {
+        if (isWebView && isFirstRegistration) {
+          window.location.href = PROFILE_COMPLETE_APP_SCHEME;
+          return;
+        }
+        router.replace(lastUnauthorized.popPath() ?? playgroundLink.memberDetail(id));
+      },
     });
 
     logSubmitEvent('editProfile');

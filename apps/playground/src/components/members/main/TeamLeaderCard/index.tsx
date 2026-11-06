@@ -10,6 +10,7 @@ import useEventLogger from '@/components/eventLogger/hooks/useEventLogger';
 import { useVisibleBadges } from '@/components/members/main/hooks/useVisibleBadges';
 import MemberProfileImage from '@/components/members/main/MemberCard/MemberProfileImage';
 import { LATEST_GENERATION } from '@/constants/generation';
+import useWebView from '@/hooks/useWebView';
 import { MOBILE_MEDIA_QUERY } from '@/styles/mediaQuery';
 // TODO: API 연동 후 optional 제거
 interface TeamLeaderCardProps {
@@ -57,37 +58,14 @@ const TeamLeaderCard = ({
     BADGE_GAP,
   );
 
-  function detectWebView() {
-    const userAgent = navigator.userAgent;
-
-    // 1. SOPT-iOS 웹뷰 감지
-    const isIOSWebView = /SOPT-iOS/.test(navigator.userAgent);
-
-    // SOPT-Android 웹뷰 감지 방법:
-    // 2. User-Agent에 "wv"가 있으면 웹뷰 (기존 방법)
-    // 3. User-Agent가 정확히 "Chrome/56.0.0.0 Mobile"이면 앱에서 설정한 값이므로 웹뷰
-    const hasWvInUserAgent = /wv/.test(userAgent);
-    /**
-     * 해당 Chrome 버전은 안드로이드 정책상 버전이 지속적으로 변경되는 부분으로, 추후 삭제 필요
-     * @see https://github.com/sopt-makers/sopt-android/pull/1438/files
-     */
-    const isChrome56Mobile = /Chrome\/56\.0\.0\.0 Mobile/.test(userAgent);
-    const isAndroidWebView = hasWvInUserAgent || isChrome56Mobile;
-
-    return {
-      isWebView: isIOSWebView || isAndroidWebView,
-      isIOSWebView,
-      isAndroidWebView,
-    };
-  }
+  const { isWebView } = useWebView();
 
   const openNotionUrl = (url: string) => {
     const notionDeepLinkUrl = url.replace('https://', 'notion://');
     const originalUrl = url;
-    const webViewInfo = detectWebView();
 
     //TODO: 웹뷰 환경일 때 Deep Link 처리 앱팀 쪽 협력 요청필요
-    if (webViewInfo.isWebView) {
+    if (isWebView) {
       window.location.href = originalUrl;
       return;
     }
@@ -108,7 +86,7 @@ const TeamLeaderCard = ({
           window.open(originalUrl, '_blank');
         }
       }, 1000);
-    } catch (error) {
+    } catch (_error) {
       // 에러 발생 시 원래 URL로 fallback
       window.open(originalUrl, '_blank');
     }
