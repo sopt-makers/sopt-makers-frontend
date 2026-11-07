@@ -50,7 +50,7 @@ const Info = ({
 
           <STitle>
             <SDate>[{dayjs(diningDate).format('YY.MM.DD')}]</SDate>
-            <STitleText>{title}</STitleText>
+            {title}
           </STitle>
 
           <SProfile>
@@ -173,25 +173,22 @@ const STags = styled('div', {
 
 const STitle = styled('h1', {
   ...typography.heading1,
-  'display': 'flex',
-  'gap': spacing.s8,
   'marginTop': spacing.s12,
   'color': colors.fg.neutral.bold,
+  'overflowWrap': 'anywhere',
   '@mobile': {
     ...typography.label1,
-    gap: spacing.s4,
     marginTop: spacing.s10,
   },
 });
 
 const SDate = styled('span', {
-  color: colors.fg.neutral.subtle,
-  flexShrink: 0,
-});
-
-const STitleText = styled('span', {
-  minWidth: 0,
-  overflowWrap: 'anywhere',
+  'color': colors.fg.neutral.subtle,
+  'marginRight': spacing.s8,
+  'whiteSpace': 'nowrap',
+  '@mobile': {
+    marginRight: spacing.s4,
+  },
 });
 
 const SProfile = styled('div', {
