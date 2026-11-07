@@ -5,14 +5,19 @@ import {
   useRequestRoundPayerMutation,
   useRoundAttendanceMutation,
 } from '@api/settlement/mutation';
+import SettlementQueryKey from '@api/settlement/SettlementQueryKey';
+import type { GetSettlementDetail } from '@api/settlement/type';
 import DeleteDialog from '@domain/settlement/DeleteDialog';
+import { getSettlementRole } from '@domain/settlement/util';
 import useModal from '@hook/useModal';
 import { colors, spacing } from '@sopt-mds/design-tokens';
 import { IconCheck } from '@sopt-mds/icons';
 import { ActionButton, Dialog } from '@sopt-mds/ui';
+import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { styled } from 'stitches.config';
 
+import { ampli } from '@/ampli';
 import type { RoundType } from '@/domain/settlement/types';
 
 interface RoleActionsProps {
@@ -135,14 +140,45 @@ export const LeaderActions = ({
 
 export const AttendeeActions = ({
   meetingId,
-  round: { roundId, isClosed, myPayerStatus },
+  round: { roundId, roundNumber, isClosed, myPayerStatus },
   isEnded,
   isMobile,
   isAttending,
-}: RoleActionsProps & { isAttending: boolean }) => {
+  settlementRole,
+  userId,
+}: RoleActionsProps & { isAttending: boolean; settlementRole: string; userId?: number }) => {
+  const queryClient = useQueryClient();
   const { mutate: updateAttendance, isPending: isUpdatingAttendance } = useRoundAttendanceMutation(meetingId, roundId);
   const { mutate: requestPayer, isPending: isRequestingPayer } = useRequestRoundPayerMutation(meetingId, roundId);
   const isPending = isUpdatingAttendance || isRequestingPayer;
+
+  const handleAttendanceClick = () => {
+    updateAttendance(isAttending, {
+      onSuccess: (_, wasAttending) => {
+        if (wasAttending) {
+          const settlement = queryClient.getQueryData<GetSettlementDetail['response']>(
+            SettlementQueryKey.detail(meetingId),
+          );
+          ampli.completeCancelSettlementRound({
+            group_id: meetingId,
+            settlement_role: settlement ? getSettlementRole(settlement) : undefined,
+            settlement_round_id: roundId,
+            settlement_round_no: roundNumber,
+            user_id: userId,
+          });
+          return;
+        }
+
+        ampli.completeRegisterSettlementRound({
+          group_id: meetingId,
+          settlement_role: settlementRole === 'co_payer' ? 'co_payer' : 'attendee',
+          settlement_round_id: roundId,
+          settlement_round_no: roundNumber,
+          user_id: userId,
+        });
+      },
+    });
+  };
 
   return (
     <>
@@ -150,7 +186,7 @@ export const AttendeeActions = ({
         size={isMobile ? 'medium' : 'large'}
         variant={isAttending ? 'secondary' : 'primary'}
         disabled={isClosed || isEnded || isPending}
-        onClick={() => updateAttendance(isAttending)}
+        onClick={handleAttendanceClick}
       >
         {isClosed && '마감'}
         {!isClosed && (isAttending ? '참석취소' : '참석하기')}

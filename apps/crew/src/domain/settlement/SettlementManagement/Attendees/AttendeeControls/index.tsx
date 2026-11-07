@@ -1,6 +1,8 @@
 import { useAddSettlementAttendeeMutation } from '@api/settlement/mutation';
-import { useUserQueryOption } from '@api/user/query';
+import { useSettlementDetailQueryOption } from '@api/settlement/query';
+import { useUserProfileQueryOption, useUserQueryOption } from '@api/user/query';
 import type { RoundType } from '@domain/settlement/types';
+import { getSettlementRole } from '@domain/settlement/util';
 import { SearchField, SelectV2 } from '@sopt-makers/ui';
 import { colors, radius, spacing, typography } from '@sopt-mds/design-tokens';
 import { IconSearchOutlined } from '@sopt-mds/icons';
@@ -9,8 +11,12 @@ import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import { styled } from 'stitches.config';
 
+import { ampli } from '@/ampli';
+
 const AttendeeControls = ({ meetingId, rounds }: { meetingId: number; rounds: RoundType[] }) => {
   const { data: members = [] } = useQuery(useUserQueryOption());
+  const { data: user } = useQuery(useUserProfileQueryOption());
+  const { data: settlement } = useQuery(useSettlementDetailQueryOption(meetingId));
   const { mutate: addAttendee, isPending } = useAddSettlementAttendeeMutation(meetingId);
   const [search, setSearch] = useState('');
   const [selectedMember, setSelectedMember] = useState<number | null>(null);
@@ -38,6 +44,13 @@ const AttendeeControls = ({ meetingId, rounds }: { meetingId: number; rounds: Ro
       { roundId: selectedRound.roundId, userId: selectedMember },
       {
         onSuccess: () => {
+          ampli.completeAddSettlementAttendee({
+            group_id: meetingId,
+            settlement_role: settlement ? getSettlementRole(settlement) : undefined,
+            settlement_round_id: selectedRound.roundId,
+            settlement_round_no: selectedRound.roundNumber,
+            user_id: user?.orgId,
+          });
           setSearch('');
           setSelectedMember(null);
         },

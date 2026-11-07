@@ -548,6 +548,46 @@ export interface ClickRegisterGroupProperties {
   user_id?: number;
 }
 
+export interface ClickSettlementCardProperties {
+  /**
+   * | Rule | Value |
+   * |---|---|
+   * | Type | integer |
+   */
+  group_id?: number;
+  /**
+   * 회식 목록의 탭 구분을 의미합니다.
+   */
+  settlement_list_tab?: string;
+  /**
+   * 회식의 진행 상태를 의미합니다.
+   */
+  settlement_status?: string;
+  /**
+   * 유저 아이디값
+   *
+   * | Rule | Value |
+   * |---|---|
+   * | Type | integer |
+   */
+  user_id?: number;
+}
+
+export interface ClickSettlementListTabProperties {
+  /**
+   * 회식 목록의 탭 구분을 의미합니다.
+   */
+  settlement_list_tab?: string;
+  /**
+   * 유저 아이디값
+   *
+   * | Rule | Value |
+   * |---|---|
+   * | Type | integer |
+   */
+  user_id?: number;
+}
+
 export interface ClickSoptmapPromotionCheckGiftProperties {
   /**
    * 솝맵 장소 목록의 고유 ID 값을 의미
@@ -639,6 +679,205 @@ export interface ClickViewMemberModalProperties {
   group_id?: number;
   location?: string;
   platform_type?: string;
+  /**
+   * 유저 아이디값
+   *
+   * | Rule | Value |
+   * |---|---|
+   * | Type | integer |
+   */
+  user_id?: number;
+}
+
+export interface ClickViewSettlementAttendeeModalProperties {
+  /**
+   * | Rule | Value |
+   * |---|---|
+   * | Type | integer |
+   */
+  group_id?: number;
+  /**
+   * 접속자의 회식 내 역할을 의미합니다.
+   */
+  settlement_role?: string;
+  /**
+   * 이벤트 시점의 회차 번호(N차)를 의미합니다.
+   *
+   * | Rule | Value |
+   * |---|---|
+   * | Type | integer |
+   */
+  settlement_round_no?: number;
+  /**
+   * 유저 아이디값
+   *
+   * | Rule | Value |
+   * |---|---|
+   * | Type | integer |
+   */
+  user_id?: number;
+}
+
+export interface CompleteAddSettlementAttendeeProperties {
+  /**
+   * | Rule | Value |
+   * |---|---|
+   * | Type | integer |
+   */
+  group_id?: number;
+  /**
+   * 접속자의 회식 내 역할을 의미합니다.
+   */
+  settlement_role?: string;
+  /**
+   * 회차의 고유 ID 값을 의미합니다. 회차 삭제 시 번호가 당겨지므로 번호와 별도로 수집합니다.
+   *
+   * | Rule | Value |
+   * |---|---|
+   * | Type | integer |
+   */
+  settlement_round_id?: number;
+  /**
+   * 이벤트 시점의 회차 번호(N차)를 의미합니다.
+   *
+   * | Rule | Value |
+   * |---|---|
+   * | Type | integer |
+   */
+  settlement_round_no?: number;
+  /**
+   * 유저 아이디값
+   *
+   * | Rule | Value |
+   * |---|---|
+   * | Type | integer |
+   */
+  user_id?: number;
+}
+
+export interface CompleteAddSettlementRoundProperties {
+  /**
+   * | Rule | Value |
+   * |---|---|
+   * | Type | integer |
+   */
+  group_id?: number;
+  /**
+   * 접속자의 회식 내 역할을 의미합니다.
+   */
+  settlement_role?: string;
+  /**
+   * 회차의 고유 ID 값을 의미합니다. 회차 삭제 시 번호가 당겨지므로 번호와 별도로 수집합니다.
+   *
+   * | Rule | Value |
+   * |---|---|
+   * | Type | integer |
+   */
+  settlement_round_id?: number;
+  /**
+   * 이벤트 시점의 회차 번호(N차)를 의미합니다.
+   *
+   * | Rule | Value |
+   * |---|---|
+   * | Type | integer |
+   */
+  settlement_round_no?: number;
+  /**
+   * 유저 아이디값
+   *
+   * | Rule | Value |
+   * |---|---|
+   * | Type | integer |
+   */
+  user_id?: number;
+}
+
+export interface CompleteCancelSettlementRoundProperties {
+  /**
+   * | Rule | Value |
+   * |---|---|
+   * | Type | integer |
+   */
+  group_id?: number;
+  /**
+   * 접속자의 회식 내 역할을 의미합니다.
+   */
+  settlement_role?: string;
+  /**
+   * 회차의 고유 ID 값을 의미합니다. 회차 삭제 시 번호가 당겨지므로 번호와 별도로 수집합니다.
+   *
+   * | Rule | Value |
+   * |---|---|
+   * | Type | integer |
+   */
+  settlement_round_id?: number;
+  /**
+   * 이벤트 시점의 회차 번호(N차)를 의미합니다.
+   *
+   * | Rule | Value |
+   * |---|---|
+   * | Type | integer |
+   */
+  settlement_round_no?: number;
+  /**
+   * 유저 아이디값
+   *
+   * | Rule | Value |
+   * |---|---|
+   * | Type | integer |
+   */
+  user_id?: number;
+}
+
+export interface CompleteMakeSettlementProperties {
+  /**
+   * | Rule | Value |
+   * |---|---|
+   * | Type | integer |
+   */
+  group_id?: number;
+  settlement_date?: any;
+  /**
+   * 회식 참여 파트(명시용)를 의미합니다.
+   */
+  settlement_part?: string;
+  /**
+   * 유저 아이디값
+   *
+   * | Rule | Value |
+   * |---|---|
+   * | Type | integer |
+   */
+  user_id?: number;
+}
+
+export interface CompleteRegisterSettlementRoundProperties {
+  /**
+   * | Rule | Value |
+   * |---|---|
+   * | Type | integer |
+   */
+  group_id?: number;
+  /**
+   * 접속자의 회식 내 역할을 의미합니다.
+   */
+  settlement_role?: string;
+  /**
+   * 회차의 고유 ID 값을 의미합니다. 회차 삭제 시 번호가 당겨지므로 번호와 별도로 수집합니다.
+   *
+   * | Rule | Value |
+   * |---|---|
+   * | Type | integer |
+   */
+  settlement_round_id?: number;
+  /**
+   * 이벤트 시점의 회차 번호(N차)를 의미합니다.
+   *
+   * | Rule | Value |
+   * |---|---|
+   * | Type | integer |
+   */
+  settlement_round_no?: number;
   /**
    * 유저 아이디값
    *
@@ -809,6 +1048,75 @@ export interface StartGroupProperties {
    * | Type | number |
    */
   screen_width: number;
+}
+
+export interface ViewSettlementDetailProperties {
+  /**
+   * 사용자가 네트워킹 행사 CTA를 통해 진입했는지 확인하기 위한 유입소스를 의미합니다.
+   */
+  entry_source?: string;
+  /**
+   * | Rule | Value |
+   * |---|---|
+   * | Type | integer |
+   */
+  group_id?: number;
+  /**
+   * 접속자의 회식 내 역할을 의미합니다.
+   */
+  settlement_role?: string;
+  /**
+   * 회식의 진행 상태를 의미합니다.
+   */
+  settlement_status?: string;
+  /**
+   * 유저 아이디값
+   *
+   * | Rule | Value |
+   * |---|---|
+   * | Type | integer |
+   */
+  user_id?: number;
+}
+
+export interface ViewSettlementListProperties {
+  /**
+   * 사용자가 네트워킹 행사 CTA를 통해 진입했는지 확인하기 위한 유입소스를 의미합니다.
+   */
+  entry_source?: string;
+  /**
+   * 유저 아이디값
+   *
+   * | Rule | Value |
+   * |---|---|
+   * | Type | integer |
+   */
+  user_id?: number;
+}
+
+export interface ViewSettlementManagementProperties {
+  /**
+   * 사용자가 네트워킹 행사 CTA를 통해 진입했는지 확인하기 위한 유입소스를 의미합니다.
+   */
+  entry_source?: string;
+  /**
+   * | Rule | Value |
+   * |---|---|
+   * | Type | integer |
+   */
+  group_id?: number;
+  /**
+   * 접속자의 회식 내 역할을 의미합니다.
+   */
+  settlement_role?: string;
+  /**
+   * 유저 아이디값
+   *
+   * | Rule | Value |
+   * |---|---|
+   * | Type | integer |
+   */
+  user_id?: number;
 }
 
 export interface ViewSoptmapFirstRegisterPromotionProperties {
@@ -1161,6 +1469,22 @@ export class ClickRegisterGroup implements BaseEvent {
   }
 }
 
+export class ClickSettlementCard implements BaseEvent {
+  event_type = 'Click-settlementCard';
+
+  constructor(public event_properties?: ClickSettlementCardProperties) {
+    this.event_properties = event_properties;
+  }
+}
+
+export class ClickSettlementListTab implements BaseEvent {
+  event_type = 'Click-settlementListTab';
+
+  constructor(public event_properties?: ClickSettlementListTabProperties) {
+    this.event_properties = event_properties;
+  }
+}
+
 export class ClickSoptmapPromotionCheckGift implements BaseEvent {
   event_type = 'Click-soptmapPromotionCheckGift';
 
@@ -1197,6 +1521,54 @@ export class ClickViewMemberModal implements BaseEvent {
   event_type = 'Click-viewMemberModal';
 
   constructor(public event_properties?: ClickViewMemberModalProperties) {
+    this.event_properties = event_properties;
+  }
+}
+
+export class ClickViewSettlementAttendeeModal implements BaseEvent {
+  event_type = 'Click-viewSettlementAttendeeModal';
+
+  constructor(public event_properties?: ClickViewSettlementAttendeeModalProperties) {
+    this.event_properties = event_properties;
+  }
+}
+
+export class CompleteAddSettlementAttendee implements BaseEvent {
+  event_type = 'Complete-addSettlementAttendee';
+
+  constructor(public event_properties?: CompleteAddSettlementAttendeeProperties) {
+    this.event_properties = event_properties;
+  }
+}
+
+export class CompleteAddSettlementRound implements BaseEvent {
+  event_type = 'Complete-addSettlementRound';
+
+  constructor(public event_properties?: CompleteAddSettlementRoundProperties) {
+    this.event_properties = event_properties;
+  }
+}
+
+export class CompleteCancelSettlementRound implements BaseEvent {
+  event_type = 'Complete-cancelSettlementRound';
+
+  constructor(public event_properties?: CompleteCancelSettlementRoundProperties) {
+    this.event_properties = event_properties;
+  }
+}
+
+export class CompleteMakeSettlement implements BaseEvent {
+  event_type = 'Complete-makeSettlement';
+
+  constructor(public event_properties?: CompleteMakeSettlementProperties) {
+    this.event_properties = event_properties;
+  }
+}
+
+export class CompleteRegisterSettlementRound implements BaseEvent {
+  event_type = 'Complete-registerSettlementRound';
+
+  constructor(public event_properties?: CompleteRegisterSettlementRoundProperties) {
     this.event_properties = event_properties;
   }
 }
@@ -1289,6 +1661,30 @@ export class StartGroup implements BaseEvent {
   event_type = 'Start-group';
 
   constructor(public event_properties: StartGroupProperties) {
+    this.event_properties = event_properties;
+  }
+}
+
+export class ViewSettlementDetail implements BaseEvent {
+  event_type = 'View-settlementDetail';
+
+  constructor(public event_properties?: ViewSettlementDetailProperties) {
+    this.event_properties = event_properties;
+  }
+}
+
+export class ViewSettlementList implements BaseEvent {
+  event_type = 'View-settlementList';
+
+  constructor(public event_properties?: ViewSettlementListProperties) {
+    this.event_properties = event_properties;
+  }
+}
+
+export class ViewSettlementManagement implements BaseEvent {
+  event_type = 'View-settlementManagement';
+
+  constructor(public event_properties?: ViewSettlementManagementProperties) {
     this.event_properties = event_properties;
   }
 }
@@ -2164,6 +2560,40 @@ export class Ampli {
   }
 
   /**
+   * Click-settlementCard
+   *
+   * [View in Tracking Plan](https://data.amplitude.com/sopt-makers/sopt-makers-crew-prd/events/main/latest/Click-settlementCard)
+   *
+   * 회식 목록의 회식 카드를 클릭할 때 발생하는 이벤트
+   *
+   * @param properties The event's properties (e.g. group_id)
+   * @param options Amplitude event options.
+   */
+  clickSettlementCard(
+    properties?: ClickSettlementCardProperties,
+    options?: EventOptions,
+  ) {
+    return this.track(new ClickSettlementCard(properties), options);
+  }
+
+  /**
+   * Click-settlementListTab
+   *
+   * [View in Tracking Plan](https://data.amplitude.com/sopt-makers/sopt-makers-crew-prd/events/main/latest/Click-settlementListTab)
+   *
+   * 전체 회식 ↔ 내 회식 탭을 전환할 때 발생하는 이벤트
+   *
+   * @param properties The event's properties (e.g. settlement_list_tab)
+   * @param options Amplitude event options.
+   */
+  clickSettlementListTab(
+    properties?: ClickSettlementListTabProperties,
+    options?: EventOptions,
+  ) {
+    return this.track(new ClickSettlementListTab(properties), options);
+  }
+
+  /**
    * Click-soptmapPromotionCheckGift
    *
    * [View in Tracking Plan](https://data.amplitude.com/sopt-makers/sopt-makers-crew-prd/events/main/latest/Click-soptmapPromotionCheckGift)
@@ -2246,6 +2676,108 @@ export class Ampli {
     options?: EventOptions,
   ) {
     return this.track(new ClickViewMemberModal(properties), options);
+  }
+
+  /**
+   * Click-viewSettlementAttendeeModal
+   *
+   * [View in Tracking Plan](https://data.amplitude.com/sopt-makers/sopt-makers-crew-prd/events/main/latest/Click-viewSettlementAttendeeModal)
+   *
+   * 회식 상세에서 참석 현황 모달을 열 때 발생하는 이벤트
+   *
+   * @param properties The event's properties (e.g. group_id)
+   * @param options Amplitude event options.
+   */
+  clickViewSettlementAttendeeModal(
+    properties?: ClickViewSettlementAttendeeModalProperties,
+    options?: EventOptions,
+  ) {
+    return this.track(new ClickViewSettlementAttendeeModal(properties), options);
+  }
+
+  /**
+   * Complete-addSettlementAttendee
+   *
+   * [View in Tracking Plan](https://data.amplitude.com/sopt-makers/sopt-makers-crew-prd/events/main/latest/Complete-addSettlementAttendee)
+   *
+   * 개설자·공동 결제자가 참석자를 직접 추가했을 때 발생하는 이벤트
+   *
+   * @param properties The event's properties (e.g. group_id)
+   * @param options Amplitude event options.
+   */
+  completeAddSettlementAttendee(
+    properties?: CompleteAddSettlementAttendeeProperties,
+    options?: EventOptions,
+  ) {
+    return this.track(new CompleteAddSettlementAttendee(properties), options);
+  }
+
+  /**
+   * Complete-addSettlementRound
+   *
+   * [View in Tracking Plan](https://data.amplitude.com/sopt-makers/sopt-makers-crew-prd/events/main/latest/Complete-addSettlementRound)
+   *
+   * 회차 추가가 성공했을 때 발생하는 이벤트
+   *
+   * @param properties The event's properties (e.g. group_id)
+   * @param options Amplitude event options.
+   */
+  completeAddSettlementRound(
+    properties?: CompleteAddSettlementRoundProperties,
+    options?: EventOptions,
+  ) {
+    return this.track(new CompleteAddSettlementRound(properties), options);
+  }
+
+  /**
+   * Complete-cancelSettlementRound
+   *
+   * [View in Tracking Plan](https://data.amplitude.com/sopt-makers/sopt-makers-crew-prd/events/main/latest/Complete-cancelSettlementRound)
+   *
+   * 본인의 회차 참석 취소가 성공했을 때 발생하는 이벤트
+   *
+   * @param properties The event's properties (e.g. group_id)
+   * @param options Amplitude event options.
+   */
+  completeCancelSettlementRound(
+    properties?: CompleteCancelSettlementRoundProperties,
+    options?: EventOptions,
+  ) {
+    return this.track(new CompleteCancelSettlementRound(properties), options);
+  }
+
+  /**
+   * Complete-makeSettlement
+   *
+   * [View in Tracking Plan](https://data.amplitude.com/sopt-makers/sopt-makers-crew-prd/events/main/latest/Complete-makeSettlement)
+   *
+   * 회식 등록이 성공했을 때 발생하는 이벤트
+   *
+   * @param properties The event's properties (e.g. group_id)
+   * @param options Amplitude event options.
+   */
+  completeMakeSettlement(
+    properties?: CompleteMakeSettlementProperties,
+    options?: EventOptions,
+  ) {
+    return this.track(new CompleteMakeSettlement(properties), options);
+  }
+
+  /**
+   * Complete-registerSettlementRound
+   *
+   * [View in Tracking Plan](https://data.amplitude.com/sopt-makers/sopt-makers-crew-prd/events/main/latest/Complete-registerSettlementRound)
+   *
+   * 본인의 회차 참석 신청이 성공했을 때 발생하는 이벤트
+   *
+   * @param properties The event's properties (e.g. group_id)
+   * @param options Amplitude event options.
+   */
+  completeRegisterSettlementRound(
+    properties?: CompleteRegisterSettlementRoundProperties,
+    options?: EventOptions,
+  ) {
+    return this.track(new CompleteRegisterSettlementRound(properties), options);
   }
 
   /**
@@ -2448,6 +2980,57 @@ export class Ampli {
     options?: EventOptions,
   ) {
     return this.track(new StartGroup(properties), options);
+  }
+
+  /**
+   * View-settlementDetail
+   *
+   * [View in Tracking Plan](https://data.amplitude.com/sopt-makers/sopt-makers-crew-prd/events/main/latest/View-settlementDetail)
+   *
+   * 회식 상세에 진입할 때 발생하는 이벤트
+   *
+   * @param properties The event's properties (e.g. entry_source)
+   * @param options Amplitude event options.
+   */
+  viewSettlementDetail(
+    properties?: ViewSettlementDetailProperties,
+    options?: EventOptions,
+  ) {
+    return this.track(new ViewSettlementDetail(properties), options);
+  }
+
+  /**
+   * View-settlementList
+   *
+   * [View in Tracking Plan](https://data.amplitude.com/sopt-makers/sopt-makers-crew-prd/events/main/latest/View-settlementList)
+   *
+   * 회식 탭(목록)에 진입할 때 발생하는 이벤트
+   *
+   * @param properties The event's properties (e.g. entry_source)
+   * @param options Amplitude event options.
+   */
+  viewSettlementList(
+    properties?: ViewSettlementListProperties,
+    options?: EventOptions,
+  ) {
+    return this.track(new ViewSettlementList(properties), options);
+  }
+
+  /**
+   * View-settlementManagement
+   *
+   * [View in Tracking Plan](https://data.amplitude.com/sopt-makers/sopt-makers-crew-prd/events/main/latest/View-settlementManagement)
+   *
+   * 참석자 관리에 진입할 때 발생하는 이벤트
+   *
+   * @param properties The event's properties (e.g. entry_source)
+   * @param options Amplitude event options.
+   */
+  viewSettlementManagement(
+    properties?: ViewSettlementManagementProperties,
+    options?: EventOptions,
+  ) {
+    return this.track(new ViewSettlementManagement(properties), options);
   }
 
   /**

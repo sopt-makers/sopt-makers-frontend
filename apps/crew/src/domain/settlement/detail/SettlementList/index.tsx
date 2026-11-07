@@ -1,4 +1,7 @@
+import { useUserProfileQueryOption } from '@api/user/query';
+import { getSettlementRole } from '@domain/settlement/util';
 import { spacing } from '@sopt-mds/design-tokens';
+import { useQuery } from '@tanstack/react-query';
 import { styled } from 'stitches.config';
 
 import type { RoundType } from '@/domain/settlement/types';
@@ -14,6 +17,8 @@ interface SettlementListProps {
 }
 
 const SettlementList = ({ meetingId, rounds, isLeader, isApprovedPayer, isEnded }: SettlementListProps) => {
+  const { data: user } = useQuery(useUserProfileQueryOption());
+  const settlementRole = getSettlementRole({ isLeader, isApprovedPayer, rounds });
   const hasClosedRound = rounds.some((round) => round.isClosed);
 
   return (
@@ -28,6 +33,8 @@ const SettlementList = ({ meetingId, rounds, isLeader, isApprovedPayer, isEnded 
             isLeader={isLeader}
             isApprovedPayer={isApprovedPayer}
             isEnded={isEnded}
+            settlementRole={settlementRole}
+            userId={user?.orgId}
             hasClosedRound={hasClosedRound}
           />
         ))}

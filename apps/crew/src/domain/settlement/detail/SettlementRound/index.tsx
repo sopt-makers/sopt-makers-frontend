@@ -7,6 +7,7 @@ import { IconChevronRight, IconLink } from '@sopt-mds/icons';
 import { Tag } from '@sopt-mds/ui';
 import { styled } from 'stitches.config';
 
+import { ampli } from '@/ampli';
 import type { RoundType } from '@/domain/settlement/types';
 
 import AttendanceModal from '../AttendanceModal';
@@ -24,6 +25,8 @@ interface SettlementRoundProps {
   isApprovedPayer: boolean;
   isEnded: boolean;
   hasClosedRound: boolean;
+  settlementRole: string;
+  userId?: number;
 }
 
 const SettlementRound = ({
@@ -33,6 +36,8 @@ const SettlementRound = ({
   isApprovedPayer,
   isEnded,
   hasClosedRound,
+  settlementRole,
+  userId,
 }: SettlementRoundProps) => {
   const { isMobile } = useDisplay();
   const { isModalOpened, handleModalOpen, handleModalClose } = useModal();
@@ -40,6 +45,16 @@ const SettlementRound = ({
   const attendanceLabel = ATTENDANCE_LABELS[round.myAttendanceStatus ?? 'NOT_ATTENDING'];
   const isRoundInfoModified = round.isPlaceModified || round.isLinkModified || round.isStartTimeModified;
   const startTimeDisplay = round.startTime ? getStartTimeDisplay(round.startTime) : null;
+
+  const handleAttendanceClick = () => {
+    ampli.clickViewSettlementAttendeeModal({
+      group_id: meetingId,
+      settlement_role: settlementRole,
+      settlement_round_no: round.roundNumber,
+      user_id: userId,
+    });
+    handleModalOpen();
+  };
 
   return (
     <div>
@@ -94,7 +109,7 @@ const SettlementRound = ({
         </SInfo>
 
         <SActions attendee={!isLeader}>
-          <SAttendance type='button' onClick={handleModalOpen}>
+          <SAttendance type='button' onClick={handleAttendanceClick}>
             <span>참석 현황</span>
             <strong>{round.attendeeCount ?? 0}명</strong>
             <IconChevronRight width={24} height={24} aria-hidden />
@@ -115,6 +130,8 @@ const SettlementRound = ({
               isEnded={isEnded}
               isMobile={isMobile}
               isAttending={isAttending}
+              settlementRole={settlementRole}
+              userId={userId}
             />
           )}
         </SActions>
