@@ -61,6 +61,7 @@ const SettlementDetailPage = () => {
         isLeader={settlement.isLeader}
         isApprovedPayer={settlement.isApprovedPayer}
         isEnded={settlement.isEnded}
+        isSettlementInfoModified={settlement.isDateModified || settlement.isJoinablePartsModified}
       />
     </>
   );
