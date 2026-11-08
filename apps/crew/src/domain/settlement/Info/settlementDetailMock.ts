@@ -15,6 +15,7 @@ export const settlementDetailMock: SettlementDetail[] = Array.from({ length: 12 
     imageUrl: '',
     isEnded,
     joinableParts: ['PM', 'DESIGN'],
+    isJoinablePartsModified: false,
     leader: { id: 1, name: '홍길동', profileImage: '' },
     isLeader,
     isApprovedPayer: false,

@@ -429,7 +429,7 @@ export interface paths {
   '/meeting/v2/presigned-url': {
     /**
      * Meeting 썸네일 업로드용 Pre-Signed URL 발급
-     * @description Meeting 썸네일 업로드용 Pre-Signed URL 발급합니다.
+     * @description Meeting 썸네일 업로드용 Pre-Signed URL 발급합니다. </br> 허용 형식: jpg, jpeg, png, webp, gif (image/jpeg 처럼 MIME Type 으로 보내도 됩니다). 그 외 형식은 400 을 반환합니다.
      */
     get: operations['createPreSignedUrl'];
   };
@@ -3805,6 +3805,11 @@ export interface components {
        * ]
        */
       joinableParts: ('PM' | 'DESIGN' | 'IOS' | 'ANDROID' | 'SERVER' | 'WEB')[];
+      /**
+       * @description 참여 파트 (수정됨) 표시 여부. 참여 파트 구성이 실제로 바뀐 경우에만 true
+       * @example false
+       */
+      isJoinablePartsModified: boolean;
       leader: components['schemas']['DiningV2LeaderDto'];
       /**
        * @description 조회자가 개설자인지 여부
@@ -5150,6 +5155,10 @@ export interface operations {
       403: {
         content: never;
       };
+      /** @description "현재 요청이 처리 중입니다." (같은 사용자의 같은 모임 신청이 처리 중일 때 즉시 거절) */
+      423: {
+        content: never;
+      };
       /** @description "요청이 너무 많습니다." (사용자별 rate limit) */
       429: {
         content: never;
@@ -6432,7 +6441,7 @@ export interface operations {
   };
   /**
    * Meeting 썸네일 업로드용 Pre-Signed URL 발급
-   * @description Meeting 썸네일 업로드용 Pre-Signed URL 발급합니다.
+   * @description Meeting 썸네일 업로드용 Pre-Signed URL 발급합니다. </br> 허용 형식: jpg, jpeg, png, webp, gif (image/jpeg 처럼 MIME Type 으로 보내도 됩니다). 그 외 형식은 400 을 반환합니다.
    */
   createPreSignedUrl: {
     parameters: {
