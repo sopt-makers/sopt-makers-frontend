@@ -61,7 +61,7 @@ const AttendanceModal = ({
         <SFooter>
           {data && <span>총 {data.attendees.length}명 참석</span>}
           {canManageAttendees && (
-            <SManagementLink href={`/settlement/management?id=${meetingId}`}>
+            <SManagementLink href={`/settlement/management?id=${meetingId}&roundId=${roundId}`}>
               참석자 관리 <IconChevronRight width={16} height={16} aria-hidden />
             </SManagementLink>
           )}

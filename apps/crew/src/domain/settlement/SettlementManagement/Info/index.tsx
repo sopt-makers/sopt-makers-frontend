@@ -35,7 +35,7 @@ const Info = ({ meetingId }: InfoProps) => {
         </SParts>
         <STitle>
           <SDate>[{dayjs(settlement.diningDate).format('YY.MM.DD')}]</SDate>
-          <span>{settlement.title}</span>
+          {settlement.title}
         </STitle>
       </SInfo>
       <IconChevronRight width={24} height={24} aria-hidden />
@@ -97,16 +97,19 @@ const SParts = styled('div', {
 
 const STitle = styled('h1', {
   ...typography.title1,
-  'display': 'flex',
-  'gap': spacing.s10,
   'color': colors.fg.neutral.bold,
+  'overflowWrap': 'anywhere',
   '@mobile': {
     ...typography.title5,
-    flexDirection: 'column',
-    gap: spacing.s0,
   },
 });
 
 const SDate = styled('span', {
-  color: colors.fg.neutral.default,
+  'color': colors.fg.neutral.default,
+  'marginRight': spacing.s10,
+  'whiteSpace': 'nowrap',
+  '@mobile': {
+    display: 'block',
+    marginRight: spacing.s0,
+  },
 });

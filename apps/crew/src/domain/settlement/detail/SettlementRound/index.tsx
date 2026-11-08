@@ -15,7 +15,7 @@ import AttendanceModal from '../AttendanceModal';
 const ATTENDANCE_LABELS = {
   NOT_ATTENDING: '미참석',
   ATTENDING: '참석',
-  ATTENDED: '참석 완료',
+  ATTENDED: '참석',
 } as const;
 
 interface SettlementRoundProps {
