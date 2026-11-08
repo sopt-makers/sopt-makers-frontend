@@ -24,6 +24,7 @@ interface SettlementRoundProps {
   isLeader: boolean;
   isApprovedPayer: boolean;
   isEnded: boolean;
+  isSettlementInfoModified: boolean;
   hasClosedRound: boolean;
   settlementRole: string;
   userId?: number;
@@ -35,6 +36,7 @@ const SettlementRound = ({
   isLeader,
   isApprovedPayer,
   isEnded,
+  isSettlementInfoModified,
   hasClosedRound,
   settlementRole,
   userId,
@@ -43,7 +45,11 @@ const SettlementRound = ({
   const { isModalOpened, handleModalOpen, handleModalClose } = useModal();
   const isAttending = round.myAttendanceStatus === 'ATTENDING' || round.myAttendanceStatus === 'ATTENDED';
   const attendanceLabel = ATTENDANCE_LABELS[round.myAttendanceStatus ?? 'NOT_ATTENDING'];
-  const isRoundInfoModified = round.isPlaceModified || round.isLinkModified || round.isStartTimeModified;
+  const isRoundInfoModified =
+    round.isPlaceModified ||
+    round.isLinkModified ||
+    round.isStartTimeModified ||
+    (round.roundNumber === 1 && isSettlementInfoModified);
   const startTimeDisplay = round.startTime ? getStartTimeDisplay(round.startTime) : null;
 
   const handleAttendanceClick = () => {

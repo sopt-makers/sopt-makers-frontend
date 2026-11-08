@@ -14,9 +14,17 @@ interface SettlementListProps {
   isLeader: boolean;
   isApprovedPayer: boolean;
   isEnded: boolean;
+  isSettlementInfoModified?: boolean;
 }
 
-const SettlementList = ({ meetingId, rounds, isLeader, isApprovedPayer, isEnded }: SettlementListProps) => {
+const SettlementList = ({
+  meetingId,
+  rounds,
+  isLeader,
+  isApprovedPayer,
+  isEnded,
+  isSettlementInfoModified = false,
+}: SettlementListProps) => {
   const { data: user } = useQuery(useUserProfileQueryOption());
   const settlementRole = getSettlementRole({ isLeader, isApprovedPayer, rounds });
   const hasClosedRound = rounds.some((round) => round.isClosed);
@@ -33,6 +41,7 @@ const SettlementList = ({ meetingId, rounds, isLeader, isApprovedPayer, isEnded 
             isLeader={isLeader}
             isApprovedPayer={isApprovedPayer}
             isEnded={isEnded}
+            isSettlementInfoModified={isSettlementInfoModified}
             settlementRole={settlementRole}
             userId={user?.orgId}
             hasClosedRound={hasClosedRound}
