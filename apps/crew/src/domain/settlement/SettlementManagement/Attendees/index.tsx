@@ -12,7 +12,7 @@ const Attendees = ({ meetingId }: { meetingId: number }) => {
   const { query } = useRouter();
   const { data: settlement } = useQuery(useSettlementDetailQueryOption(meetingId));
 
-  const rounds = settlement?.rounds ?? [];
+  const rounds = settlement?.rounds.filter((round) => settlement.isLeader || round.myPayerStatus === 'APPROVED') ?? [];
   const selectedRound = rounds.find((round) => String(round.roundId) === query.roundId) ?? rounds[0];
 
   const { mutate, isPending } = useDownloadSettlementAttendeesCsvMutation();
