@@ -39,7 +39,6 @@ const SettlementList = ({
             meetingId={meetingId}
             round={round}
             isLeader={isLeader}
-            isApprovedPayer={isApprovedPayer}
             isEnded={isEnded}
             isSettlementInfoModified={isSettlementInfoModified}
             settlementRole={settlementRole}

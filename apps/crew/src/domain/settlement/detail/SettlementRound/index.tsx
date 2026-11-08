@@ -22,7 +22,6 @@ interface SettlementRoundProps {
   meetingId: number;
   round: RoundType;
   isLeader: boolean;
-  isApprovedPayer: boolean;
   isEnded: boolean;
   isSettlementInfoModified: boolean;
   hasClosedRound: boolean;
@@ -34,7 +33,6 @@ const SettlementRound = ({
   meetingId,
   round,
   isLeader,
-  isApprovedPayer,
   isEnded,
   isSettlementInfoModified,
   hasClosedRound,
@@ -149,7 +147,7 @@ const SettlementRound = ({
         meetingId={meetingId}
         roundId={round.roundId}
         roundNumber={round.roundNumber}
-        canManageAttendees={isLeader || isApprovedPayer}
+        canManageAttendees={isLeader || round.myPayerStatus === 'APPROVED'}
       />
     </div>
   );

@@ -274,12 +274,12 @@ export interface paths {
   '/dining/v2/{meetingId}/rounds/{roundId}/attendees': {
     /**
      * 회차 참석자 목록 조회
-     * @description 개설자 또는 승인된 공동 결제자가 상세 정보를 조회합니다. 등록 시각 최신순이 기본이며 10/30/50명씩 조회합니다.
+     * @description 개설자 또는 해당 회차에서 승인된 공동 결제자가 상세 정보를 조회합니다. 등록 시각 최신순이 기본이며 10/30/50명씩 조회합니다.
      */
     get: operations['getAttendees'];
     /**
      * 회차 참석자 직접 추가
-     * @description 개설자 또는 승인된 공동 결제자가 추가합니다. 종료 후에도 가능합니다.
+     * @description 개설자 또는 해당 회차에서 승인된 공동 결제자가 추가합니다. 종료 후에도 가능합니다.
      */
     post: operations['addAttendee'];
   };
@@ -512,7 +512,7 @@ export interface paths {
   '/dining/v2/{meetingId}/rounds/{roundId}/attendees/csv': {
     /**
      * 회차 전체 참석자 CSV 다운로드
-     * @description 선택한 회차의 전체 참석자를 페이지네이션 없이 CSV로 생성하여 S3 파일 URL을 반환합니다. 개설자 또는 해당 회식의 어느 회차에서든 승인된 공동 결제자만 가능하며, 종료된 회식에서도 가능합니다. CSV 컬럼: 번호 / 이름 / 최근 기수 / 연락처. 등록 시각 오름차순, 동일 시각에는 참석 기록 ID 오름차순으로 정렬하고 번호는 1부터 부여합니다.
+     * @description 선택한 회차의 전체 참석자를 페이지네이션 없이 CSV로 생성하여 S3 파일 URL을 반환합니다. 개설자 또는 해당 회차에서 승인된 공동 결제자만 가능하며, 종료된 회식에서도 가능합니다. CSV 컬럼: 번호 / 이름 / 최근 기수 / 연락처. 등록 시각 오름차순, 동일 시각에는 참석 기록 ID 오름차순으로 정렬하고 번호는 1부터 부여합니다.
      */
     get: operations['getAttendeesCsv'];
   };
@@ -570,7 +570,7 @@ export interface paths {
   '/dining/v2/{meetingId}/rounds/{roundId}/attendees/{attendeeUserId}': {
     /**
      * 회차 참석자 삭제
-     * @description 개설자 또는 승인된 공동 결제자가 삭제합니다. 개설자 삭제 및 종료 후 삭제도 가능합니다.
+     * @description 개설자 또는 해당 회차에서 승인된 공동 결제자가 삭제합니다. 개설자 삭제 및 종료 후 삭제도 가능합니다.
      */
     delete: operations['deleteAttendee'];
   };
@@ -3817,7 +3817,7 @@ export interface components {
        */
       isLeader: boolean;
       /**
-       * @description 조회자가 승인된 공동 결제자인지 여부
+       * @description 조회자가 회식 내 하나 이상의 회차에서 승인된 공동 결제자인지 여부. 회차 관리 권한은 isLeader 또는 해당 회차의 myPayerStatus가 APPROVED인지로 판단
        * @example false
        */
       isApprovedPayer: boolean;
@@ -5727,7 +5727,7 @@ export interface operations {
   };
   /**
    * 회차 참석자 목록 조회
-   * @description 개설자 또는 승인된 공동 결제자가 상세 정보를 조회합니다. 등록 시각 최신순이 기본이며 10/30/50명씩 조회합니다.
+   * @description 개설자 또는 해당 회차에서 승인된 공동 결제자가 상세 정보를 조회합니다. 등록 시각 최신순이 기본이며 10/30/50명씩 조회합니다.
    */
   getAttendees: {
     parameters: {
@@ -5776,7 +5776,7 @@ export interface operations {
   };
   /**
    * 회차 참석자 직접 추가
-   * @description 개설자 또는 승인된 공동 결제자가 추가합니다. 종료 후에도 가능합니다.
+   * @description 개설자 또는 해당 회차에서 승인된 공동 결제자가 추가합니다. 종료 후에도 가능합니다.
    */
   addAttendee: {
     parameters: {
@@ -6772,7 +6772,7 @@ export interface operations {
   };
   /**
    * 회차 전체 참석자 CSV 다운로드
-   * @description 선택한 회차의 전체 참석자를 페이지네이션 없이 CSV로 생성하여 S3 파일 URL을 반환합니다. 개설자 또는 해당 회식의 어느 회차에서든 승인된 공동 결제자만 가능하며, 종료된 회식에서도 가능합니다. CSV 컬럼: 번호 / 이름 / 최근 기수 / 연락처. 등록 시각 오름차순, 동일 시각에는 참석 기록 ID 오름차순으로 정렬하고 번호는 1부터 부여합니다.
+   * @description 선택한 회차의 전체 참석자를 페이지네이션 없이 CSV로 생성하여 S3 파일 URL을 반환합니다. 개설자 또는 해당 회차에서 승인된 공동 결제자만 가능하며, 종료된 회식에서도 가능합니다. CSV 컬럼: 번호 / 이름 / 최근 기수 / 연락처. 등록 시각 오름차순, 동일 시각에는 참석 기록 ID 오름차순으로 정렬하고 번호는 1부터 부여합니다.
    */
   getAttendeesCsv: {
     parameters: {
@@ -6998,7 +6998,7 @@ export interface operations {
   };
   /**
    * 회차 참석자 삭제
-   * @description 개설자 또는 승인된 공동 결제자가 삭제합니다. 개설자 삭제 및 종료 후 삭제도 가능합니다.
+   * @description 개설자 또는 해당 회차에서 승인된 공동 결제자가 삭제합니다. 개설자 삭제 및 종료 후 삭제도 가능합니다.
    */
   deleteAttendee: {
     parameters: {
