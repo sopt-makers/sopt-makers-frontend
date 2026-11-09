@@ -256,7 +256,7 @@ const SActions = styled('div', {
       true: {
         '@mobile': {
           display: 'grid',
-          gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
+          gridTemplateColumns: 'repeat(2, minmax(min-content, 1fr))',
           columnGap: spacing.s8,
         },
       },
@@ -285,6 +285,8 @@ const SAttendance = styled('button', {
   '@mobile': {
     ...typography.label2,
     height: '46px',
+    gap: spacing.s6,
+    whiteSpace: 'nowrap',
     borderRadius: radius.r8,
   },
 });

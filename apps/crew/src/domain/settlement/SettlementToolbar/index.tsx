@@ -59,32 +59,30 @@ const SettlementToolbar = ({ showFilters = true }: SettlementToolbarProps) => {
   };
 
   return (
-    <SToolbar showFilters={showFilters}>
-      {showFilters && (
-        <SFilters>
-          <SettlementFilter
-            label='진행 상태'
-            options={SETTLEMENT_STATUS_OPTIONS}
-            value={selectedStatus}
-            onChange={(status) => (status ? setStatus(status) : deleteStatus())}
-          />
-          <SettlementFilter
-            label='파트'
-            options={SETTLEMENT_PART_OPTIONS}
-            value={selectedPart}
-            onChange={(part) => (part ? setPart(part) : deletePart())}
-          />
-          <SResetButton
-            type='button'
-            size='medium'
-            variant='secondary'
-            onClick={handleFilterReset}
-            aria-label='필터 초기화'
-          >
-            <IconRefresh width={20} height={20} aria-hidden />
-          </SResetButton>
-        </SFilters>
-      )}
+    <SToolbar>
+      <SFilters key={String(showFilters)} visible={showFilters}>
+        <SettlementFilter
+          label='진행 상태'
+          options={SETTLEMENT_STATUS_OPTIONS}
+          value={selectedStatus}
+          onChange={(status) => (status ? setStatus(status) : deleteStatus())}
+        />
+        <SettlementFilter
+          label='파트'
+          options={SETTLEMENT_PART_OPTIONS}
+          value={selectedPart}
+          onChange={(part) => (part ? setPart(part) : deletePart())}
+        />
+        <SResetButton
+          type='button'
+          size='medium'
+          variant='secondary'
+          onClick={handleFilterReset}
+          aria-label='필터 초기화'
+        >
+          <IconRefresh width={20} height={20} aria-hidden />
+        </SResetButton>
+      </SFilters>
       <SSearchWrapper role='search'>
         <SearchField
           aria-label='회식명 검색'
@@ -151,11 +149,6 @@ const SToolbar = styled('div', {
     flexDirection: 'column',
     gap: spacing.s10,
   },
-  'variants': {
-    showFilters: {
-      false: { justifyContent: 'flex-end' },
-    },
-  },
 });
 
 const SFilters = styled('div', {
@@ -163,6 +156,11 @@ const SFilters = styled('div', {
   flexWrap: 'wrap',
   alignItems: 'center',
   gap: spacing.s10,
+  variants: {
+    visible: {
+      false: { visibility: 'hidden' },
+    },
+  },
 });
 
 const SFilterTriggerContent = styled(SelectV2.TriggerContent, {
