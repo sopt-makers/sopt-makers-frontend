@@ -51,9 +51,8 @@ const SettlementPage: NextPage = () => {
 
   return (
     <>
-      <SLayout aria-label='회식'>
-        <CrewTab />
-
+      <SCrewTab />
+      <SSettlementLayout aria-label='회식'>
         <Tab.Group selectedIndex={TABS.findIndex(({ value }) => value === tab)} onChange={handleTabChange}>
           <SViewSelector aria-label='회식 목록 범위'>
             {TABS.map(({ value, label }) => (
@@ -75,7 +74,7 @@ const SettlementPage: NextPage = () => {
             </Tab.Panels>
           </SContent>
         </Tab.Group>
-      </SLayout>
+      </SSettlementLayout>
       <FloatingButton />
     </>
   );
@@ -83,7 +82,13 @@ const SettlementPage: NextPage = () => {
 
 export default SettlementPage;
 
-const SLayout = styled('section', {
+const SCrewTab = styled(CrewTab, {
+  'width': '100%',
+  '@tablet': { width: '734px', mx: '$auto' },
+  '@mobile': { width: '100%' },
+});
+
+const SSettlementLayout = styled('section', {
   'display': 'flex',
   'flexDirection': 'column',
   'paddingBottom': spacing.s120,
