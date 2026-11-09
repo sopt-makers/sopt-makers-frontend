@@ -1,6 +1,7 @@
 import type { SettlementCardItem, SettlementListTab } from '@api/settlement/type';
 import { PART_NAME } from '@constant/option';
 import { useDisplay } from '@hook/useDisplay';
+import { Divider } from '@shared/util/Divider';
 import { colors, radius, spacing, typography } from '@sopt-mds/design-tokens';
 import { IconChevronRight, IconUsersFilled } from '@sopt-mds/icons';
 import { Avatar, ReactionButton, Tag } from '@sopt-mds/ui';
@@ -27,7 +28,6 @@ const SettlementCard = ({ item, tab, userId, showManagementButton = false }: Set
   const router = useRouter();
   const dateLabel = dayjs(item.diningDate).format('YY.MM.DD');
   const { attendeeCount, leader } = item;
-  const participantName = attendeeCount > 1 ? `${leader.name} 외 ${attendeeCount - 1}명` : `${leader.name}님`;
 
   const handleCardClick = () => {
     ampli.clickSettlementCard({
@@ -81,10 +81,16 @@ const SettlementCard = ({ item, tab, userId, showManagementButton = false }: Set
               <SDateLabel>[{dateLabel}]</SDateLabel>
               <STitleText title={item.title}>{item.title}</STitleText>
             </STitle>
-            <SParticipants>
+            <SOrganizer>
               <Avatar size={24} src={leader.profileImage || undefined} strokeColor='neutralGhost' aria-hidden />
-              <SParticipantLabel>{participantName}이 참여 중</SParticipantLabel>
-            </SParticipants>
+              <SOrganizerName>{leader.name}</SOrganizerName>
+              {isMobile && (
+                <>
+                  <SAttendeeDivider />
+                  <SAttendeeCount>{attendeeCount}명이 참여 중</SAttendeeCount>
+                </>
+              )}
+            </SOrganizer>
           </div>
         </SDetailLink>
         {showManagementButton && (
@@ -203,30 +209,43 @@ const STitleText = styled('span', {
   whiteSpace: 'nowrap',
 });
 
-const SParticipants = styled('div', {
+const SOrganizer = styled('div', {
+  ...typography.label3,
   'display': 'flex',
   'alignItems': 'center',
   'gap': spacing.s8,
   'marginTop': spacing.s8,
+  'color': colors.fg.neutral.default,
   '@mobile': {
+    ...typography.label4,
     marginTop: spacing.s2,
     gap: spacing.s4,
+    color: colors.fg.neutral.subtle,
   },
 });
 
-const SParticipantLabel = styled('p', {
-  ...typography.label3,
-  'minWidth': 0,
-  'color': colors.fg.neutral.default,
+const SOrganizerName = styled('span', {
   'overflowWrap': 'anywhere',
   '@mobile': {
-    ...typography.label4,
-    flex: 1,
-    color: colors.fg.neutral.subtle,
+    flex: '1 1 0',
+    minWidth: '2em',
+    maxWidth: 'max-content',
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },
+});
+
+const SAttendeeDivider = styled(Divider, {
+  width: 1,
+  height: spacing.s10,
+  flexShrink: 0,
+  backgroundColor: colors.fg.neutral.ghostDisabled,
+});
+
+const SAttendeeCount = styled('span', {
+  wordBreak: 'keep-all',
+  overflowWrap: 'anywhere',
 });
 
 const SManagementButton = styled(ReactionButton, {
