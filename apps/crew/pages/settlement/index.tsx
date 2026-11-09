@@ -83,9 +83,18 @@ const SettlementPage: NextPage = () => {
 export default SettlementPage;
 
 const SCrewTab = styled(CrewTab, {
-  'width': '100%',
-  '@tablet': { width: '734px', mx: '$auto' },
-  '@mobile': { width: '100%' },
+  '@tablet': {
+    position: 'relative',
+    left: '50%',
+    transform: 'translateX(-50%)',
+    width: '734px',
+  },
+  '@mobile': {
+    position: 'static',
+    left: 'auto',
+    transform: 'none',
+    width: '100%',
+  },
 });
 
 const SSettlementLayout = styled('section', {

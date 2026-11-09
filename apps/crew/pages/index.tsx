@@ -32,7 +32,17 @@ export default Home;
 const SCrewTab = styled(CrewTab, {
   'pb': '$45',
 
+  '@tablet': {
+    position: 'relative',
+    left: '50%',
+    transform: 'translateX(-50%)',
+    width: '734px',
+  },
   '@mobile': {
+    position: 'static',
+    left: 'auto',
+    transform: 'none',
+    width: '100%',
     pb: '$28',
   },
 });
