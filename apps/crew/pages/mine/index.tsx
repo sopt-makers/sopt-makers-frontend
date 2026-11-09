@@ -25,49 +25,66 @@ const MinePage: NextPage = () => {
   );
 
   return (
-    <SMineLayout>
-      <CrewTab />
-      <Tab.Group selectedIndex={Number(selectedMeetingType)} onChange={setSelectedMeetingType}>
-        <STabList>
-          <Tab
-            as={SViewButton}
-            type='button'
-            size={isMobile ? 'small' : 'large'}
-            variant='secondary'
-            onClick={() => ampli.clickRegisteredGroup()}
-          >
-            내가 신청한 모임
-          </Tab>
-          <Tab
-            as={SViewButton}
-            type='button'
-            size={isMobile ? 'small' : 'large'}
-            variant='secondary'
-            onClick={() => ampli.clickMakebymeGroup()}
-          >
-            내가 만든 모임
-          </Tab>
-        </STabList>
+    <>
+      <SCrewTab />
+      <SMineLayout>
+        <Tab.Group selectedIndex={Number(selectedMeetingType)} onChange={setSelectedMeetingType}>
+          <STabList>
+            <Tab
+              as={SViewButton}
+              type='button'
+              size={isMobile ? 'small' : 'large'}
+              variant='secondary'
+              onClick={() => ampli.clickRegisteredGroup()}
+            >
+              내가 신청한 모임
+            </Tab>
+            <Tab
+              as={SViewButton}
+              type='button'
+              size={isMobile ? 'small' : 'large'}
+              variant='secondary'
+              onClick={() => ampli.clickMakebymeGroup()}
+            >
+              내가 만든 모임
+            </Tab>
+          </STabList>
 
-        <Tab.Panels>
-          <Tab.Panel>
-            <MeetingListOfApplied />
-          </Tab.Panel>
+          <Tab.Panels>
+            <Tab.Panel>
+              <MeetingListOfApplied />
+            </Tab.Panel>
 
-          <Tab.Panel>
-            <MeetingListOfMine />
-          </Tab.Panel>
-        </Tab.Panels>
-      </Tab.Group>
+            <Tab.Panel>
+              <MeetingListOfMine />
+            </Tab.Panel>
+          </Tab.Panels>
+        </Tab.Group>
 
-      <div style={{ position: 'fixed', bottom: '2%', right: '5%' }}>
-        <KakaoFloatingButton />
-      </div>
-    </SMineLayout>
+        <div style={{ position: 'fixed', bottom: '2%', right: '5%' }}>
+          <KakaoFloatingButton />
+        </div>
+      </SMineLayout>
+    </>
   );
 };
 
 export default MinePage;
+
+const SCrewTab = styled(CrewTab, {
+  '@tablet': {
+    position: 'relative',
+    left: '50%',
+    transform: 'translateX(-50%)',
+    width: '734px',
+  },
+  '@mobile': {
+    position: 'static',
+    left: 'auto',
+    transform: 'none',
+    width: '100%',
+  },
+});
 
 const SMineLayout = styled('div', {
   'width': '100%',
