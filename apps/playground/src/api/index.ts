@@ -67,7 +67,9 @@ const requestTokenRefresh = async (previousToken: string | null): Promise<string
     lastRefresh = { previousToken, accessToken };
     return accessToken;
   } catch (error) {
-    console.error(error);
+    if (axios.isAxiosError(error) && error.response) {
+      console.error(error.response.status);
+    }
     // 갱신 중 다른 토큰이 저장되면 이전 요청의 실패로 세션을 지우지 않습니다.
     if (tokenStorage.get() === previousToken) {
       tokenStorage.remove();
