@@ -1,4 +1,4 @@
-import type { AxiosError } from 'axios';
+import type { AxiosError, AxiosInstance, InternalAxiosRequestConfig } from 'axios';
 import axios, { AxiosHeaders } from 'axios';
 
 import { tokenStorage } from '@/components/auth/util/accessToken';
@@ -48,91 +48,95 @@ export const axiosOperationInstance = axios.create({
   },
 });
 
-axiosInstance.interceptors.request.use(
-  (config) => {
-    const token = tokenStorage.get();
-    if (token && config.headers && config.headers.Authorization === undefined) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
-  },
-  (error) => Promise.reject(error),
-);
+export type TokenRefreshRequestConfig = InternalAxiosRequestConfig & {
+  _retriedAfterTokenRefresh?: boolean;
+};
 
-axiosInstance.interceptors.response.use(
-  (res) => res,
-  async (err) => handleTokenError(err),
-);
+let pendingRefresh: { token: string | null; promise: Promise<string | null> } | undefined;
+let lastRefresh: { previousToken: string | null; accessToken: string } | undefined;
 
-axiosCrewInstance.interceptors.request.use(
-  (config) => {
-    const token = tokenStorage.get();
-    if (token && config.headers && config.headers.Authorization === undefined) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
-  },
-  (error) => Promise.reject(error),
-);
+const requestTokenRefresh = async (previousToken: string | null): Promise<string | null> => {
+  try {
+    const { data } = await axiosAuthInstance.post<{ data: { accessToken: string } }>('/api/v1/auth/refresh/web', null, {
+      headers: { Authorization: `Bearer ${previousToken}` },
+    });
+    if (tokenStorage.get() !== previousToken) return null;
 
-axiosCrewInstance.interceptors.response.use(
-  (res) => res,
-  async (err) => handleTokenError(err),
-);
-
-export const handleTokenError = async (error: AxiosError<unknown>) => {
-  const originRequest = error.config;
-
-  if (!error.response || !originRequest) throw new Error('에러가 발생했습니다.');
-
-  const { status } = error.response;
-
-  if (status === 401) {
-    if (window.location.pathname === '/makers') {
-      // 메이커스 페이지는 로그인 필요 없음
-      return Promise.reject(error);
-    }
-    if (window.location.pathname === '/policy/person') {
-      // 개인정보 처리방침 페이지는 로그인 필요 없음, 구글 정책상 오픈
-      return Promise.reject(error);
-    }
-    // 앱 딥링크를 위한 .well-known 경로는 인증 체크 제외
-    if (window.location.pathname.startsWith('/.well-known')) {
-      return Promise.reject(error);
-    }
-    /** 토큰이 없으면 refresh 시도하지 않고 바로 intro로 이동 */
-    const currentToken = tokenStorage.get();
-    if (currentToken === null && window.location.pathname !== '/intro') {
-      window.location.replace('/intro');
-      throw new Error('토큰이 없습니다.');
-    }
-
-    try {
-      const { data } = await axiosAuthInstance.post<{
-        data: { accessToken: string };
-      }>(`/api/v1/auth/refresh/web`, null, {
-        headers: {
-          Authorization: `Bearer ${tokenStorage.get()}`,
-        },
-      });
-      if (!originRequest.headers) {
-        originRequest.headers = new AxiosHeaders();
-      }
-      originRequest.headers.Authorization = `Bearer ${data.data.accessToken}`;
-      tokenStorage.set(data.data.accessToken);
-
-      return axiosInstance(originRequest);
-    } catch (error) {
-      console.error(error);
+    const { accessToken } = data.data;
+    tokenStorage.set(accessToken);
+    lastRefresh = { previousToken, accessToken };
+    return accessToken;
+  } catch (error) {
+    console.error(error);
+    // 갱신 중 다른 토큰이 저장되면 이전 요청의 실패로 세션을 지우지 않습니다.
+    if (tokenStorage.get() === previousToken) {
       tokenStorage.remove();
-
-      /** intro 페이지에서 토큰 무효 시 무한 재로드를 막기 위함 */
-      if (window.location.pathname !== '/intro') {
-        window.location.replace('/intro');
-      }
-      throw new Error('토큰 갱신에 실패하였습니다.');
+      if (window.location.pathname !== '/intro') window.location.replace('/intro');
     }
+    throw new Error('토큰 갱신에 실패하였습니다.');
+  }
+};
+
+const getOrStartTokenRefresh = (token: string | null): Promise<string | null> => {
+  if (pendingRefresh?.token === token) return pendingRefresh.promise;
+
+  const promise = requestTokenRefresh(token).finally(() => {
+    if (pendingRefresh?.promise === promise) pendingRefresh = undefined;
+  });
+  pendingRefresh = { token, promise };
+  return promise;
+};
+
+const handleAuthResponseError = async (error: AxiosError<unknown>, instance: AxiosInstance) => {
+  const request: TokenRefreshRequestConfig | undefined = error.config;
+
+  if (!error.response || !request) throw new Error('에러가 발생했습니다.');
+  if (error.response.status !== 401 || request._retriedAfterTokenRefresh) throw error;
+
+  const { pathname } = window.location;
+  const skipsTokenRefresh =
+    pathname === '/makers' || pathname === '/policy/person' || pathname.startsWith('/.well-known');
+  if (skipsTokenRefresh) throw error;
+
+  const currentToken = tokenStorage.get();
+  if (currentToken === null && pathname !== '/intro') {
+    window.location.replace('/intro');
+    throw new Error('토큰이 없습니다.');
   }
 
-  return Promise.reject(error);
+  const headers = AxiosHeaders.from(request.headers);
+  const requestAuthorization = headers.get('Authorization');
+  // 이전 토큰의 401이 늦게 도착했다면 이미 발급된 토큰을 재사용합니다.
+  const canReuseRefreshedToken =
+    lastRefresh?.accessToken === currentToken && requestAuthorization === `Bearer ${lastRefresh.previousToken}`;
+  const canRefreshCurrentToken = !requestAuthorization || requestAuthorization === `Bearer ${currentToken}`;
+  if (!canReuseRefreshedToken && !canRefreshCurrentToken) throw error;
+
+  const retryToken = canReuseRefreshedToken ? currentToken : await getOrStartTokenRefresh(currentToken);
+  if (!retryToken || tokenStorage.get() !== retryToken) throw error;
+
+  request._retriedAfterTokenRefresh = true;
+  request.headers = headers.set('Authorization', `Bearer ${retryToken}`);
+  return instance(request);
 };
+
+const registerAuthInterceptors = (instance: AxiosInstance) => {
+  instance.interceptors.request.use(
+    (config) => {
+      const token = tokenStorage.get();
+      if (token && config.headers && config.headers.Authorization === undefined) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+      return config;
+    },
+    (error) => Promise.reject(error),
+  );
+
+  instance.interceptors.response.use(
+    (response) => response,
+    (error: AxiosError<unknown>) => handleAuthResponseError(error, instance),
+  );
+};
+
+registerAuthInterceptors(axiosInstance);
+registerAuthInterceptors(axiosCrewInstance);
