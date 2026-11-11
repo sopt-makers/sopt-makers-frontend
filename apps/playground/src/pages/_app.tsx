@@ -17,6 +17,7 @@ import { useEffect } from 'react';
 import { RecoilRoot } from 'recoil';
 import { QueryParamProvider } from 'use-query-params';
 
+import { shouldRetryQuery } from '@/api/queryRetry';
 import KakaoScript from '@/components/common/KakaoScript';
 import ResponsiveProvider from '@/components/common/Responsive/ResponsiveProvider';
 import SlidUpProvider from '@/components/common/SlideUp/providers/SlideUpProvider';
@@ -39,7 +40,7 @@ const queryClient = new QueryClient({
       gcTime: 300000,
       refetchOnWindowFocus: false,
       staleTime: 300000,
-      retry: 1,
+      retry: shouldRetryQuery,
     },
   },
 });

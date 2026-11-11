@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { isAxiosError } from 'axios';
 import z from 'zod';
 
+import { shouldRetryQuery } from '@/api/queryRetry';
 import { createEndpoint } from '@/api/typedAxios';
 
 const sopmodamAnswerSchema = z.object({
@@ -37,13 +38,11 @@ const getSopmodamAnswersEndpoint = createEndpoint({
   serverResponseScheme: sopmodamAnswersResponseSchema,
 });
 
-const MAX_RETRY_COUNT = 1;
-
 export const useGetSopmodamAnswers = (roundId: number) => {
   return useQuery({
     queryKey: getSopmodamAnswersEndpoint.cacheKey(roundId),
     queryFn: () => getSopmodamAnswersEndpoint.request(roundId),
-    retry: (failureCount, error) => !isSopmodamAnswersUnavailableError(error) && failureCount < MAX_RETRY_COUNT,
+    retry: (failureCount, error) => !isSopmodamAnswersUnavailableError(error) && shouldRetryQuery(failureCount, error),
   });
 };
 
