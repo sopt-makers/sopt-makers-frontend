@@ -3,9 +3,9 @@ import { produce } from 'immer';
 import type { Params } from 'next/dist/shared/lib/router/utils/route-matcher';
 import { z } from 'zod';
 
+import { createEndpoint } from '@/api/createEndpoint';
 import type { PostType } from '@/api/endpoint/feed/getPost';
 import type { PostsType } from '@/api/endpoint/feed/getPosts';
-import { createEndpoint } from '@/api/typedAxios';
 
 export const postLike = createEndpoint({
   request: (postId: number) => ({

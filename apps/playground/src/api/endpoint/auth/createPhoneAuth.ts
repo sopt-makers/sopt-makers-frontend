@@ -1,14 +1,14 @@
 import { useMutation } from '@tanstack/react-query';
 import { z } from 'zod';
 
-import { axiosAuthInstance } from '@/api';
-import { createEndpoint } from '@/api/typedAxios';
+import { authHttpClient } from '@/api';
+import { createEndpoint } from '@/api/createEndpoint';
 
 const createPhoneAuth = createEndpoint({
   request: (data: { userId: number; phone: string }) => ({
     method: 'POST',
     url: '/api/v1/auth/phone',
-    data: {
+    json: {
       userId: data.userId,
       phone: data.phone,
       type: 'CHANGE_PHONE_NUMBER',
@@ -19,7 +19,7 @@ const createPhoneAuth = createEndpoint({
     message: z.string().nullable(),
     data: z.null(),
   }),
-  externalInstance: axiosAuthInstance,
+  client: authHttpClient,
 });
 
 export const useCreatePhoneAuth = () => {
