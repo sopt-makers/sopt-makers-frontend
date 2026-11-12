@@ -3,6 +3,7 @@ name: Crew - Build App
 on:
   pull_request:
     paths:
+      - '.nvmrc'
       - 'apps/crew/**'
       - 'packages/**'
       - '.github/workflows/crew-build.yml'
@@ -22,7 +23,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version-file: '.nvmrc'
 
       - name: Enable Corepack
         run: |
@@ -46,9 +47,9 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ${{ github.workspace }}/apps/crew/.next/cache
-          key: ${{ runner.os }}-crew-nextjs-${{ hashFiles('yarn.lock') }}-${{ hashFiles('apps/crew/**/*.[jt]s', 'apps/crew/**/*.[jt]sx', 'apps/crew/next.config.js', 'apps/crew/package.json', 'packages/**/*.[jt]s', 'packages/**/*.[jt]sx', 'packages/**/package.json') }}
+          key: ${{ runner.os }}-crew-nextjs-${{ hashFiles('.nvmrc') }}-${{ hashFiles('yarn.lock') }}-${{ hashFiles('apps/crew/**/*.[jt]s', 'apps/crew/**/*.[jt]sx', 'apps/crew/next.config.js', 'apps/crew/package.json', 'packages/**/*.[jt]s', 'packages/**/*.[jt]sx', 'packages/**/package.json') }}
           restore-keys: |
-            ${{ runner.os }}-crew-nextjs-${{ hashFiles('yarn.lock') }}-
+            ${{ runner.os }}-crew-nextjs-${{ hashFiles('.nvmrc') }}-${{ hashFiles('yarn.lock') }}-
 
       - name: Build
         run: yarn build:crew
