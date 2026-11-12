@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
 import { spacing } from '@sopt-mds/design-tokens';
-import { isAxiosError } from 'axios';
 import ErrorPage from 'next/error';
 import { useState } from 'react';
 
+import { ApiError } from '@/api/apiError';
 import { useGetSopmodamQuestionsSuspenseQuery } from '@/api/endpoint/sopmodam/getSopmodamQuestions';
 import useEventLogger from '@/components/eventLogger/hooks/useEventLogger';
 import SopmodamLayout from '@/components/sopmodam/common/SopmodamLayout';
@@ -94,7 +94,7 @@ const SopmodamVoteContent = ({ roundId }: SopmodamVoteContentProps) => {
 
 export default SopmodamVoteContent;
 
-const getErrorStatus = (error: unknown) => (isAxiosError(error) ? error.response?.status : undefined);
+const getErrorStatus = (error: unknown) => (error instanceof ApiError ? error.status : undefined);
 
 const Content = styled.main`
   display: flex;

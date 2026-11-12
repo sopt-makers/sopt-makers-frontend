@@ -76,13 +76,13 @@ export default function WordchainChatting({ className }: WordchainChattingProps)
       });
     },
     onError: (error) => {
-      if (typeof error.response?.data !== 'string') {
+      if (typeof error.data !== 'string') {
         return;
       }
       queryClient.invalidateQueries({
         queryKey: [wordChainQueryKey.getRecentWordchain],
       });
-      const split = error.response.data.split(' : ');
+      const split = error.data.split(' : ');
       if (split.length !== 2) {
         return;
       }
