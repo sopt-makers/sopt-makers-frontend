@@ -1,13 +1,9 @@
-import { isAxiosError } from 'axios';
+import { ApiError } from '@/api/apiError';
 
-import type { TokenRefreshRequestConfig } from '@/api';
+export const shouldRetryQuery = (failureCount: number, error: unknown) => {
+  if (failureCount >= 1) return false;
+  if (!(error instanceof ApiError)) return true;
 
-const isUnauthorizedAfterTokenRefresh = (error: unknown) => {
-  if (!isAxiosError(error) || error.response?.status !== 401) return false;
-
-  const request: TokenRefreshRequestConfig | undefined = error.config;
-  return request?._retriedAfterTokenRefresh === true;
+  const isUnauthorizedAfterRefresh = error.status === 401 && error.authRetryAttempted;
+  return error.kind !== 'cancelled' && !isUnauthorizedAfterRefresh;
 };
-
-export const shouldRetryQuery = (failureCount: number, error: unknown) =>
-  failureCount < 1 && !isUnauthorizedAfterTokenRefresh(error);
