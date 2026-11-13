@@ -1,11 +1,11 @@
 import styled from '@emotion/styled';
 import { playgroundLink } from '@sopt/constant';
 import { useMutation } from '@tanstack/react-query';
-import axios from 'axios';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { z } from 'zod';
 
+import { ApiError } from '@/api/apiError';
 import { useGetMemberOfMe } from '@/api/endpoint/members/getMemberOfMe';
 import type { RequestBody } from '@/api/endpoint/review/postReview';
 import { postReview } from '@/api/endpoint/review/postReview';
@@ -36,12 +36,12 @@ const BlogPage: FC = () => {
   });
 
   const errorMessage = (() => {
-    if (axios.isAxiosError(error)) {
-      if (typeof error.response?.data === 'string') {
-        return error.response?.data.replace('스크래핑에 실패했습니다', '확인할 수 없는 링크입니다');
+    if (error instanceof ApiError) {
+      if (typeof error.data === 'string') {
+        return error.data.replace('스크래핑에 실패했습니다', '확인할 수 없는 링크입니다');
       }
 
-      const parsed = z.object({ code: z.string() }).safeParse(error.response?.data);
+      const parsed = z.object({ code: z.string() }).safeParse(error.data);
       if (parsed.success) {
         return parsed.data.code;
       }

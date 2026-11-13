@@ -2,8 +2,8 @@ import type { QueryKey, UseInfiniteQueryOptions, UseQueryOptions, UseQueryResult
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { z } from 'zod';
 
-import type { GetResponseType } from '@/api/typedAxios';
-import { createEndpoint } from '@/api/typedAxios';
+import type { GetResponseType } from '@/api/createEndpoint';
+import { createEndpoint } from '@/api/createEndpoint';
 import type { ActiveWordchain, FinishedWordchain } from '@/components/wordchain/WordchainChatting/types';
 import type { EntryWordchain } from '@/components/wordchain/WordchainEntry/types';
 

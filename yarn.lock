@@ -16686,6 +16686,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"ky@npm:^2.2.0":
+  version: 2.2.0
+  resolution: "ky@npm:2.2.0"
+  checksum: 10c0/084eebe1d6cc715ac675cf6c2395827447a780ddf610cec32ae5381abc35b48aba75f7f3ad081673905e17355a45d6c0e011f777699becd86377a03bad65fc83
+  languageName: node
+  linkType: hard
+
 "language-subtag-registry@npm:^0.3.20":
   version: 0.3.23
   resolution: "language-subtag-registry@npm:0.3.23"
@@ -19398,6 +19405,7 @@ __metadata:
     jest: "npm:^29.6.4"
     jest-environment-jsdom: "npm:^29.4.3"
     jscodeshift: "npm:^0.15.1"
+    ky: "npm:^2.2.0"
     lodash-es: "npm:^4.17.21"
     lottie-react: "npm:^2.4.0"
     msw: "npm:^2.3.1"

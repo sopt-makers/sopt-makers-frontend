@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
-import { isAxiosError } from 'axios';
 import z from 'zod';
 
+import { ApiError } from '@/api/apiError';
+import { createEndpoint } from '@/api/createEndpoint';
 import { shouldRetryQuery } from '@/api/queryRetry';
-import { createEndpoint } from '@/api/typedAxios';
 
 const sopmodamAnswerSchema = z.object({
   answerId: z.number(),
@@ -53,7 +53,7 @@ const UNAVAILABLE_STATUSES = [
 
 // 재시도해도 결과가 같으므로 재시도하지 않고, 화면에서는 에러 페이지로 처리
 export const isSopmodamAnswersUnavailableError = (error: unknown) =>
-  isAxiosError(error) && UNAVAILABLE_STATUSES.includes(error.response?.status ?? 0);
+  error instanceof ApiError && UNAVAILABLE_STATUSES.includes(error.status ?? 0);
 
 export type SopmodamAnswer = z.infer<typeof sopmodamAnswerSchema>;
 export type SopmodamAnswersResponse = z.infer<typeof sopmodamAnswersResponseSchema>;

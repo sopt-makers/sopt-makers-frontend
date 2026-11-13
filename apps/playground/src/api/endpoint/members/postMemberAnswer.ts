@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { z } from 'zod';
 
-import { createEndpoint } from '@/api/typedAxios';
+import { createEndpoint } from '@/api/createEndpoint';
 
 const postMemberQuestionAnswerResponseScheme = z.object({
   answerId: z.number(),
@@ -16,7 +16,7 @@ export const postMemberQuestionAnswer = createEndpoint({
   request: ({ questionId, content }: PostMemberQuestionAnswerRequest) => ({
     method: 'POST',
     url: `/api/v1/members/questions/${questionId}/answer`,
-    data: { content },
+    json: { content },
   }),
   serverResponseScheme: postMemberQuestionAnswerResponseScheme,
 });

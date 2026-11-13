@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { z } from 'zod';
 
-import { createEndpoint } from '@/api/typedAxios';
+import { createEndpoint } from '@/api/createEndpoint';
 
 const putMemberAnswerResponseScheme = z.object({
   success: z.boolean(),
@@ -16,7 +16,7 @@ export const putMemberAnswer = createEndpoint({
   request: ({ answerId, content }: PutMemberAnswerRequest) => ({
     method: 'PUT',
     url: `api/v1/members/answers/${answerId}`,
-    data: {
+    json: {
       content,
     },
   }),

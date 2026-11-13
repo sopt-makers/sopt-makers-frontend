@@ -1,6 +1,6 @@
-import { isAxiosError } from 'axios';
 import { useRef } from 'react';
 
+import { ApiError } from '@/api/apiError';
 import type { SopmodamQuestionsResponse } from '@/api/endpoint/sopmodam/getSopmodamQuestions';
 import { usePostSopmodamVoteMutation } from '@/api/endpoint/sopmodam/postSopmodamVote';
 
@@ -40,8 +40,8 @@ export const useSubmitSopmodamVote = ({ roundId, data }: UseSubmitSopmodamVoteOp
     data !== null &&
     !isSubmitting &&
     variables?.roundId === roundId &&
-    isAxiosError(error) &&
-    error.response?.status === 409 &&
+    error instanceof ApiError &&
+    error.status === 409 &&
     !data.hasVoted;
 
   return { submitVote, isSubmitting, isVoteConflictUnresolved };
