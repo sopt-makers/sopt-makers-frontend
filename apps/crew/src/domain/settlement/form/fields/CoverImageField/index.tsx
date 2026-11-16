@@ -2,6 +2,7 @@ import { colors, radius, spacing } from '@sopt-mds/design-tokens';
 import { IconPlus } from '@sopt-mds/icons';
 import { ActionButton } from '@sopt-mds/ui';
 import { ACCEPTED_IMAGE_TYPES, MAX_FILE_SIZE } from '@type/form';
+import { getImageFormatError } from '@util/getImageFormatError';
 import type { ChangeEvent } from 'react';
 import { useRef, useState } from 'react';
 import { useController } from 'react-hook-form';
@@ -28,8 +29,9 @@ const CoverImageField = ({ isUploading, onUpload }: CoverImageFieldProps) => {
     const file = event.target.files?.[0];
     event.target.value = '';
     if (!file) return;
-    if (!ACCEPTED_IMAGE_TYPES.includes(file.type)) {
-      setUploadError('이미지 파일(JPG/JPEG, PNG, WebP, GIF)만 업로드할 수 있어요.');
+    const validationError = getImageFormatError(file);
+    if (validationError) {
+      setUploadError(validationError);
       return;
     }
     if (file.size > MAX_FILE_SIZE) {
