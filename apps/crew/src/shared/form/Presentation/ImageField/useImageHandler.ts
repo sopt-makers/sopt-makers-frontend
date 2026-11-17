@@ -30,9 +30,9 @@ const useImageHandler = ({ onChangeImage, onDeleteImage }: useImageHandlerProps)
     e.target.value = '';
     if (!file) return;
 
-    const validationError = getImageFormatError(file);
-    if (validationError) {
-      alert(validationError);
+    const imageFormatErrorMessage = getImageFormatError(file);
+    if (imageFormatErrorMessage) {
+      alert(imageFormatErrorMessage);
       return;
     }
 
@@ -55,9 +55,9 @@ const useImageHandler = ({ onChangeImage, onDeleteImage }: useImageHandlerProps)
       e.target.value = '';
       if (newFiles.length === 0) return;
 
-      const validationError = newFiles.map(getImageFormatError).find(Boolean);
-      if (validationError) {
-        alert(validationError);
+      const imageFormatErrorMessage = newFiles.map(getImageFormatError).find(Boolean);
+      if (imageFormatErrorMessage) {
+        alert(imageFormatErrorMessage);
         return;
       }
       if (newFiles.some((file) => file.size > MAX_FILE_SIZE)) {
