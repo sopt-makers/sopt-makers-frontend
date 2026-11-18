@@ -1,6 +1,6 @@
 import { getPresignedUrl, uploadImage } from '@api/image';
 import { imageS3Bucket } from '@constant/url';
-import { MAX_FILE_SIZE } from '@type/form';
+import { MAX_FILE_SIZE, MAX_FILE_SIZE_MB } from '@type/form';
 import { getImageFormatError } from '@util/getImageFormatError';
 import type { ChangeEvent } from 'react';
 
@@ -35,6 +35,10 @@ const useImageHandler = ({ onChangeImage, onDeleteImage }: useImageHandlerProps)
       alert(imageFormatErrorMessage);
       return;
     }
+    if (file.size > MAX_FILE_SIZE) {
+      alert(`${MAX_FILE_SIZE_MB}MB 이하의 이미지만 업로드할 수 있어요.`);
+      return;
+    }
 
     try {
       const url = await uploadFile(file);
@@ -61,7 +65,7 @@ const useImageHandler = ({ onChangeImage, onDeleteImage }: useImageHandlerProps)
         return;
       }
       if (newFiles.some((file) => file.size > MAX_FILE_SIZE)) {
-        alert('5MB 이하의 사진만 업로드할 수 있습니다.');
+        alert(`${MAX_FILE_SIZE_MB}MB 이하의 이미지만 업로드할 수 있어요.`);
         return;
       }
       const filesCount = imageUrls.length + newFiles.length;

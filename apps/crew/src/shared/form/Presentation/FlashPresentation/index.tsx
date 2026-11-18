@@ -5,7 +5,7 @@ import { flashPlace, flashTime } from '@data/options';
 import WelcomeMessageField from '@shared/form/Presentation/WelcomeMessageField';
 import { CheckBox, Chip, useDialog } from '@sopt-makers/ui';
 import type { FlashFormType } from '@type/form';
-import { MAX_FILE_SIZE } from '@type/form';
+import { MAX_FILE_SIZE, MAX_FILE_SIZE_MB } from '@type/form';
 import { useRouter } from 'next/router';
 import type { ChangeEvent, ReactNode } from 'react';
 import React, { useRef, useState } from 'react';
@@ -72,11 +72,15 @@ function FlashPresentation({
   const formRef = useRef<HTMLFormElement>(null);
 
   const onChangeFile = (index: number) => async (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files) {
+    const file = e.target.files?.[0];
+    e.target.value = '';
+    if (!file) return;
+
+    if (file.size > MAX_FILE_SIZE) {
+      alert(`${MAX_FILE_SIZE_MB}MB 이하의 이미지만 업로드할 수 있어요.`);
       return;
     }
-    const [file] = [...e.target.files];
-    const url = await uploadFile(file ?? new File([], 'default.txt'));
+    const url = await uploadFile(file);
     handleChangeImage(index, url);
   };
 
@@ -87,12 +91,12 @@ function FlashPresentation({
   const handleAddFiles =
     ({ imageUrls, onChange }: FileChangeHandler) =>
     async (e: ChangeEvent<HTMLInputElement>) => {
-      if (!e.target.files) {
-        return;
-      }
-      const newFiles = Array.from(e.target.files);
+      const newFiles = Array.from(e.target.files ?? []);
+      e.target.value = '';
+      if (newFiles.length === 0) return;
+
       if (newFiles.some((file) => file.size > MAX_FILE_SIZE)) {
-        alert('5MB 이하의 사진만 업로드할 수 있습니다.');
+        alert(`${MAX_FILE_SIZE_MB}MB 이하의 이미지만 업로드할 수 있어요.`);
         return;
       }
       const filesCount = imageUrls.length + newFiles.length;
@@ -412,7 +416,7 @@ function FlashPresentation({
           <div>
             <Label>소개 이미지</Label>
             <HelpMessage>
-              1장만 첨부 가능하며 5MB 이내로 <br />
+              1장만 첨부 가능하며 {MAX_FILE_SIZE_MB}MB 이하로 업로드해주세요. <br />
               가로는 716px, 세로는453px 사이즈를 권장해요
             </HelpMessage>
             <SFileInputWrapper>
