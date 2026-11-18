@@ -9,7 +9,7 @@ import { useToast } from '@sopt-makers/ui';
 import { colors, spacing, typography } from '@sopt-mds/design-tokens';
 import { IconImagePlusFilled } from '@sopt-mds/icons';
 import { ActionButton } from '@sopt-mds/ui';
-import { ACCEPTED_IMAGE_TYPES, MAX_FILE_SIZE } from '@type/form';
+import { ACCEPTED_IMAGE_TYPES, MAX_FILE_SIZE, MAX_FILE_SIZE_MB } from '@type/form';
 import { getResizedImage } from '@util/image';
 import type { ChangeEvent } from 'react';
 import { useRef, useState } from 'react';
@@ -73,12 +73,12 @@ const FeedFormPresentation = ({
   const handleAddFiles =
     ({ imageUrls, onChange }: FileChangeHandler) =>
     async (e: ChangeEvent<HTMLInputElement>) => {
-      if (!e.target.files) {
-        return;
-      }
-      const newFiles = Array.from(e.target.files);
+      const newFiles = Array.from(e.target.files ?? []);
+      e.target.value = '';
+      if (newFiles.length === 0) return;
+
       if (newFiles.some((file) => file.size > MAX_FILE_SIZE)) {
-        alert('5MB 이하의 사진만 업로드할 수 있습니다.');
+        alert(`${MAX_FILE_SIZE_MB}MB 이하의 이미지만 업로드할 수 있어요.`);
         return;
       }
       const filesCount = imageUrls.length + newFiles.length;

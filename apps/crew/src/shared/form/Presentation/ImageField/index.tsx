@@ -4,6 +4,7 @@ import HelpMessage from '@shared/form/HelpMessage';
 import Label from '@shared/form/Label';
 import ImagePreview from '@shared/form/Presentation/ImageField/ImagePreview';
 import type { FileChangeHandler } from '@shared/form/Presentation/ImageField/useImageHandler';
+import { MAX_FILE_SIZE_MB } from '@type/form';
 import type { ChangeEvent } from 'react';
 import { styled } from 'stitches.config';
 
@@ -17,7 +18,10 @@ const ImageField = ({ onChangeFile, onDeleteFile, onAddFiles }: ImageFieldProps)
   return (
     <SImageField>
       <Label required={true}>소개 이미지</Label>
-      <HelpMessage>6개까지 첨부 가능해요. 파일은 5MB 이내로 가로 760px, 세로 520px 사이즈를 권장해요.</HelpMessage>
+      <HelpMessage>
+        6개까지 첨부 가능해요. 파일당 {MAX_FILE_SIZE_MB}MB 이하로 업로드해주세요. 가로 760px, 세로 520px 사이즈를
+        권장해요.
+      </HelpMessage>
       <SFileInputWrapper>
         <FormController
           name='files'

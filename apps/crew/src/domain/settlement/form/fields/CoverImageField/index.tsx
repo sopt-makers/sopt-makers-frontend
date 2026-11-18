@@ -1,7 +1,8 @@
 import { colors, radius, spacing } from '@sopt-mds/design-tokens';
 import { IconPlus } from '@sopt-mds/icons';
 import { ActionButton } from '@sopt-mds/ui';
-import { ACCEPTED_IMAGE_TYPES, MAX_FILE_SIZE } from '@type/form';
+import { ACCEPTED_IMAGE_TYPES, MAX_FILE_SIZE, MAX_FILE_SIZE_MB } from '@type/form';
+import { getImageFormatError } from '@util/getImageFormatError';
 import type { ChangeEvent } from 'react';
 import { useRef, useState } from 'react';
 import { useController } from 'react-hook-form';
@@ -28,12 +29,13 @@ const CoverImageField = ({ isUploading, onUpload }: CoverImageFieldProps) => {
     const file = event.target.files?.[0];
     event.target.value = '';
     if (!file) return;
-    if (!ACCEPTED_IMAGE_TYPES.includes(file.type)) {
-      setUploadError('이미지 파일(JPG/JPEG, PNG, WebP, GIF)만 업로드할 수 있어요.');
+    const imageFormatErrorMessage = getImageFormatError(file);
+    if (imageFormatErrorMessage) {
+      setUploadError(imageFormatErrorMessage);
       return;
     }
     if (file.size > MAX_FILE_SIZE) {
-      setUploadError(`${MAX_FILE_SIZE / 1024 ** 2}MB 이하의 이미지를 선택해주세요.`);
+      setUploadError(`${MAX_FILE_SIZE_MB}MB 이하의 이미지만 업로드할 수 있어요.`);
       return;
     }
 

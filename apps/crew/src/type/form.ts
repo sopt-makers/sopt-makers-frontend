@@ -119,7 +119,8 @@ export const newMeetingEditSchema = createSchema;
 
 export type FormType = z.infer<typeof legacyMeetingEditSchema>;
 
-export const MAX_FILE_SIZE = 20 * 1024 ** 2; // 5MB
+export const MAX_FILE_SIZE = 10_000_000; // 10MB (S3 업로드 용량 제한)
+export const MAX_FILE_SIZE_MB = MAX_FILE_SIZE / 1_000_000; // 안내 문구용 MB 값 (1MB = 1,000,000바이트)
 
 export const ACCEPTED_IMAGE_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/gif'];
 
