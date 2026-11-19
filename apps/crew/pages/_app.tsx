@@ -90,17 +90,6 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, []);
 
   useEffect(() => {
-    try {
-      if (window.Kakao) {
-        window?.Kakao?.init(process.env.NEXT_PUBLIC_KAKAO_TALK_PLUGIN_KEY);
-      }
-      // eslint-disable-next-line no-empty
-    } catch (e) {
-      console.debug(e);
-    }
-  }, []);
-
-  useEffect(() => {
     setAccessTokens();
   }, []);
 
@@ -110,6 +99,21 @@ function MyApp({ Component, pageProps }: AppProps) {
         <QueryClientProvider client={queryClient}>
           <SEO />
           <ReactQueryDevtools initialIsOpen={false} />
+          <Script
+            id='kakao-sdk'
+            strategy='afterInteractive'
+            src='https://developers.kakao.com/sdk/js/kakao.min.js'
+            onReady={() => {
+              try {
+                const kakao = window.Kakao;
+                const appKey = process.env.NEXT_PUBLIC_KAKAO_TALK_PLUGIN_KEY;
+                if (!appKey || !kakao || typeof kakao.isInitialized !== 'function' || kakao.isInitialized()) return;
+                if (typeof kakao.init === 'function') kakao.init(appKey);
+              } catch {
+                // SDK 초기화 실패는 허용하고, 문의 클릭 시 대체 URL로 연결합니다.
+              }
+            }}
+          />
           <Script
             id='gtag-base'
             strategy='afterInteractive'
