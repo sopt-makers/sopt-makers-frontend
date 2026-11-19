@@ -6,6 +6,7 @@ import MapIcon from '@assets/svg/floating_button_map_icon.svg';
 import SettlementIcon from '@assets/svg/floating_button_settlement_icon.svg';
 import KakaoLogoIcon from '@assets/svg/logo_kakao.svg';
 import { useDisplay } from '@hook/useDisplay';
+import { openKakaoChat } from '@shared/util/openKakaoChat';
 import { colors, radius, spacing, typography } from '@sopt-mds/design-tokens';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
@@ -74,13 +75,7 @@ const FloatingButtonModal = ({ isActive, onClose }: FloatingButtonModalProps) =>
   return (
     <Wrapper isActive={isActive}>
       {isActive && (
-        <KakaoQuestionButton
-          onClick={() => {
-            window.Kakao?.Channel.chat({
-              channelPublicId: '_sxaIWG',
-            });
-          }}
-        >
+        <KakaoQuestionButton onClick={openKakaoChat}>
           <KakaoLogoIcon width={22} height={22} aria-hidden focusable='false' />
           카카오톡 문의
         </KakaoQuestionButton>

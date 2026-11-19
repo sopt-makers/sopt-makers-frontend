@@ -1,6 +1,7 @@
 import KakaoLogoIcon28 from '@assets/svg/logo_kakao_28.svg';
 import KakaoLogoIcon32 from '@assets/svg/logo_kakao_32.svg';
 import { useDisplay } from '@hook/useDisplay';
+import { openKakaoChat } from '@shared/util/openKakaoChat';
 import { colors, radius, spacing } from '@sopt-mds/design-tokens';
 import { styled } from 'stitches.config';
 
@@ -8,15 +9,7 @@ const KakaoFloatingButton = () => {
   const { isMobile } = useDisplay();
 
   return (
-    <MiniKakaoButton
-      onClick={() => {
-        window.Kakao?.Channel.chat({
-          channelPublicId: '_sxaIWG',
-        });
-      }}
-    >
-      {isMobile ? <KakaoLogoIcon28 /> : <KakaoLogoIcon32 />}
-    </MiniKakaoButton>
+    <MiniKakaoButton onClick={openKakaoChat}>{isMobile ? <KakaoLogoIcon28 /> : <KakaoLogoIcon32 />}</MiniKakaoButton>
   );
 };
 
