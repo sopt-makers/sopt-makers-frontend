@@ -1,8 +1,8 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { isAxiosError } from 'axios';
 import { z } from 'zod';
 
-import { createEndpoint } from '@/api/typedAxios';
+import { ApiError } from '@/api/apiError';
+import { createEndpoint } from '@/api/createEndpoint';
 
 const MAX_REFETCH_INTERVAL = 2_147_483_647;
 const VOTE_STATUS_RECHECK_INTERVAL = 30_000;
@@ -56,7 +56,7 @@ export const useGetSopmodamQuestionsSuspenseQuery = (roundId: number) => {
         }
         return { type: 'success', data: response };
       } catch (error) {
-        const statusCode = isAxiosError(error) ? error.response?.status : undefined;
+        const statusCode = error instanceof ApiError ? error.status : undefined;
         if (statusCode === 400 || statusCode === 403 || statusCode === 404) {
           return { type: 'error', statusCode };
         }
@@ -73,7 +73,7 @@ export const useGetSopmodamQuestionsSuspenseQuery = (roundId: number) => {
       }
       const response = result.data;
 
-      const errorStatus = isAxiosError(query.state.error) ? query.state.error.response?.status : undefined;
+      const errorStatus = query.state.error instanceof ApiError ? query.state.error.status : undefined;
       if (errorStatus !== undefined && errorStatus >= 400 && errorStatus < 500) {
         return false;
       }

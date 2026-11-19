@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { z } from 'zod';
 
-import { createEndpoint } from '@/api/typedAxios';
+import { createEndpoint } from '@/api/createEndpoint';
 
 const anonymousProfileScheme = z.object({
   nickname: z.string(),
@@ -59,7 +59,7 @@ export const getMemberQuestions = createEndpoint({
   request: ({ memberId, query }: { memberId: string; query: { tab: QuestionTab; page?: number; size?: number } }) => ({
     method: 'GET',
     url: `api/v1/members/${memberId}/questions`,
-    params: query,
+    searchParams: query,
   }),
   serverResponseScheme: getMemberQuestionsResponseScheme,
 });

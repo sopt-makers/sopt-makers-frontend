@@ -1,13 +1,13 @@
-import axios from 'axios';
 import { z } from 'zod';
 
-import { createEndpoint } from '@/api/typedAxios';
+import { createEndpoint } from '@/api/createEndpoint';
+import { createHttpClient } from '@/api/httpClient';
 
 export const getPresignedUrl = createEndpoint({
   request: ({ filename, type }: { filename: string; type?: string }) => ({
     method: 'GET',
     url: 'api/v1/presigned-url',
-    params: {
+    searchParams: {
       filename,
       type,
     },
@@ -19,10 +19,11 @@ export const getPresignedUrl = createEndpoint({
 });
 
 export const putPresignedUrl = async ({ file, signedUrl }: { file: File; signedUrl: string }) => {
-  await axios.request({
+  const url = decodeURIComponent(signedUrl);
+  const uploadClient = createHttpClient({ baseUrl: new URL(url).origin, credentials: 'omit' });
+  await uploadClient.request<void>(url, {
     method: 'PUT',
-    baseURL: decodeURIComponent(signedUrl),
     headers: { 'Content-Type': file.type },
-    data: file,
+    body: file,
   });
 };

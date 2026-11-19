@@ -1,12 +1,15 @@
-import { axiosInstance } from '@/api';
+import { httpClient } from '@/api';
 
 // 토큰으로 자기 자신 확인
 export const postRegistrationInfo = async (registerToken: string) => {
-  const { data } = await axiosInstance.post<{
+  const data = await httpClient.request<{
     name: string;
     generation: number;
   }>('api/v1/registration/info', {
-    registerToken,
+    method: 'POST',
+    json: {
+      registerToken,
+    },
   });
 
   return data;
@@ -14,12 +17,15 @@ export const postRegistrationInfo = async (registerToken: string) => {
 
 // email 발송
 export const postRegistrationEmail = async (email: string) => {
-  const { data } = await axiosInstance.post<{
+  const data = await httpClient.request<{
     success: boolean;
     code: string;
     message: string;
   }>('api/v1/registration/email', {
-    email,
+    method: 'POST',
+    json: {
+      email,
+    },
   });
 
   return data;
@@ -27,9 +33,12 @@ export const postRegistrationEmail = async (email: string) => {
 
 // facebook register
 export const postFacebookRegistration = async ({ code, registerToken }: { code: string; registerToken: string }) => {
-  const { data } = await axiosInstance.post<{ accessToken: string }>(`api/v1/idp/facebook/register`, {
-    code,
-    registerToken,
+  const data = await httpClient.request<{ accessToken: string }>(`api/v1/idp/facebook/register`, {
+    method: 'POST',
+    json: {
+      code,
+      registerToken,
+    },
   });
 
   return data;
@@ -37,50 +46,68 @@ export const postFacebookRegistration = async ({ code, registerToken }: { code: 
 
 // facebook auth
 export const postFacebookAuth = async ({ code }: { code: string }) => {
-  const { data } = await axiosInstance.post<{ accessToken: string }>(`api/v1/idp/facebook/auth`, {
-    code,
+  const data = await httpClient.request<{ accessToken: string }>(`api/v1/idp/facebook/auth`, {
+    method: 'POST',
+    json: {
+      code,
+    },
   });
 
   return data;
 };
 
 export const postGoogleRegistration = async ({ code, registerToken }: { code: string; registerToken: string }) => {
-  const { data } = await axiosInstance.post<{ accessToken: string }>(`api/v1/idp/google/register`, {
-    code,
-    registerToken,
+  const data = await httpClient.request<{ accessToken: string }>(`api/v1/idp/google/register`, {
+    method: 'POST',
+    json: {
+      code,
+      registerToken,
+    },
   });
 
   return data;
 };
 
 export const postGoogleAuth = async ({ code }: { code: string }) => {
-  const { data } = await axiosInstance.post<{ accessToken: string }>(`api/v1/idp/google/auth`, {
-    code,
+  const data = await httpClient.request<{ accessToken: string }>(`api/v1/idp/google/auth`, {
+    method: 'POST',
+    json: {
+      code,
+    },
   });
 
   return data;
 };
 
 export const postAppleRegistration = async ({ code, registerToken }: { code: string; registerToken: string }) => {
-  const { data } = await axiosInstance.post<{ accessToken: string }>(`api/v1/idp/apple/register`, {
-    code,
-    registerToken,
+  const data = await httpClient.request<{ accessToken: string }>(`api/v1/idp/apple/register`, {
+    method: 'POST',
+    json: {
+      code,
+      registerToken,
+    },
   });
 
   return data;
 };
 
 export const postAppleAuth = async ({ code }: { code: string }) => {
-  const { data } = await axiosInstance.post<{ accessToken: string }>(`api/v1/idp/apple/auth`, {
-    code,
+  const data = await httpClient.request<{ accessToken: string }>(`api/v1/idp/apple/auth`, {
+    method: 'POST',
+    json: {
+      code,
+    },
   });
 
   return data;
 };
 
 export const postSSOCode = async ({ accessToken }: { accessToken: string }) => {
-  const { data } = await axiosInstance.post<{ code: string }>(`api/v1/idp/sso/code`, {
-    accessToken,
+  const data = await httpClient.request<{ code: string }>(`api/v1/idp/sso/code`, {
+    method: 'POST',
+    json: {
+      accessToken,
+    },
   });
 
   return {
@@ -93,13 +120,16 @@ export const postSMSCode = async ({
 }: {
   phone: string;
 }): Promise<{ isSkipped: false } | { isSkipped: true; registerToken: string }> => {
-  const { data } = await axiosInstance.post<{
+  const data = await httpClient.request<{
     success: boolean;
     message: string;
     isSkipped: boolean;
     registerToken: string;
   }>('/api/v1/registration/sms/code', {
-    phone,
+    method: 'POST',
+    json: {
+      phone,
+    },
   });
 
   if (data.isSkipped) {
@@ -115,8 +145,11 @@ export const postSMSCode = async ({
 };
 
 export const postSMSToken = async ({ code }: { code: string }) => {
-  const { data } = await axiosInstance.post<{ registerToken: string }>('/api/v1/registration/sms/token', {
-    sixNumberCode: code,
+  const data = await httpClient.request<{ registerToken: string }>('/api/v1/registration/sms/token', {
+    method: 'POST',
+    json: {
+      sixNumberCode: code,
+    },
   });
 
   return {

@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { z } from 'zod';
 
-import { createEndpoint } from '@/api/typedAxios';
+import { createEndpoint } from '@/api/createEndpoint';
 
 interface RequestBody {
   reportMemberId: number;
@@ -11,7 +11,7 @@ export const postReportMember = createEndpoint({
   request: (requestBody: RequestBody) => ({
     method: 'POST',
     url: `api/v1/members/report`,
-    data: requestBody,
+    json: requestBody,
   }),
   serverResponseScheme: z.unknown(),
 });

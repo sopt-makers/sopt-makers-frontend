@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { z } from 'zod';
 
-import { createEndpoint } from '@/api/typedAxios';
+import { createEndpoint } from '@/api/createEndpoint';
 import type { CoffeeChatFilters } from '@/components/coffeechat/CoffeeChatCategory/coffeeChatFilters.types';
 import { COFFEE_CHAT_FILTER_OPTIONS } from '@/components/coffeechat/constants';
 
@@ -9,7 +9,7 @@ export const getMembersCoffeeChat = createEndpoint({
   request: ({ query }: { query?: { [key: string]: string } }) => ({
     method: 'GET',
     url: 'api/v1/members/coffeechat',
-    params: query, // 쿼리 파라미터 추가
+    searchParams: query, // 쿼리 파라미터 추가
   }),
   serverResponseScheme: z.object({
     coffeeChatList: z.array(

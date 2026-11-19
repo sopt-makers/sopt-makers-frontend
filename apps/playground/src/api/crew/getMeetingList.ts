@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import { z } from 'zod';
 
-import { axiosCrewInstance } from '@/api';
-import { createEndpoint } from '@/api/typedAxios';
+import { crewHttpClient } from '@/api';
+import { createEndpoint } from '@/api/createEndpoint';
 
 export const MeetingAllResponseSchema = z.object({
   id: z.number(),
@@ -20,7 +20,7 @@ export const getMeetingList = createEndpoint({
     url: 'user/v2/meeting/all',
   }),
   serverResponseScheme: MeetingListResponseSchema,
-  externalInstance: axiosCrewInstance,
+  client: crewHttpClient,
 });
 
 export const useMeetingList = () => {
@@ -50,7 +50,7 @@ export const getMemberMeetingList = createEndpoint({
     url: `internal/meetings/${id}`,
   }),
   serverResponseScheme: MemberMeetingListResponseSchema,
-  externalInstance: axiosCrewInstance,
+  client: crewHttpClient,
 });
 
 export const useMemberMeetingList = (id: string) => {

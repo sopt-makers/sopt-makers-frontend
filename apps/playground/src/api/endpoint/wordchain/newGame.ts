@@ -1,8 +1,8 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { z } from 'zod';
 
+import { createEndpoint } from '@/api/createEndpoint';
 import { wordChainQueryKey } from '@/api/endpoint/wordchain/getWordchain';
-import { createEndpoint } from '@/api/typedAxios';
 
 export const newGame = createEndpoint({
   request: () => ({

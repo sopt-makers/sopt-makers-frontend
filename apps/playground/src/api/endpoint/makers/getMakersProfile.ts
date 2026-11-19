@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { createEndpoint } from '@/api/typedAxios';
+import { createEndpoint } from '@/api/createEndpoint';
 
 export const getMakersProfile = createEndpoint({
   request: {

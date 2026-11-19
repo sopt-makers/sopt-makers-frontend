@@ -2,15 +2,17 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { produce } from 'immer';
 import type { Params } from 'next/dist/shared/lib/router/utils/route-matcher';
 
-import { axiosCrewInstance } from '@/api';
+import { crewHttpClient } from '@/api';
 import type { PostsType } from '@/api/endpoint/feed/getPosts';
 
 const postCrewPostLike = async (orgId: number, postId: number) => {
-  const response = await axiosCrewInstance.post('/internal/meeting/stats/likes', {
-    orgId,
-    postId,
+  return crewHttpClient.request('/internal/meeting/stats/likes', {
+    method: 'POST',
+    json: {
+      orgId,
+      postId,
+    },
   });
-  return response.data;
 };
 
 interface ToggleCrewPostLikeParams {

@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
-import { axiosAdminInstance } from '@/api';
-import { createEndpoint } from '@/api/typedAxios';
+import { adminHttpClient } from '@/api';
+import { createEndpoint } from '@/api/createEndpoint';
 
 export interface RequestBody {
   generation: number;
@@ -18,8 +18,8 @@ export const postReview = createEndpoint({
   request: (requestBody: RequestBody) => ({
     method: 'POST',
     url: `reviews`,
-    data: requestBody,
+    json: requestBody,
   }),
   serverResponseScheme: z.unknown(),
-  externalInstance: axiosAdminInstance,
+  client: adminHttpClient,
 });

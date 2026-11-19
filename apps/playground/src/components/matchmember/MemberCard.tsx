@@ -3,11 +3,11 @@ import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 import { Skeleton, useToast } from '@sopt-makers/ui';
-import axios from 'axios';
 import { useRouter } from 'next/router';
 import ProfileIcon from 'public/icons/icon-profile.svg';
 import { useEffect, useState } from 'react';
 
+import { ApiError } from '@/api/apiError';
 import { useGetRecommendations } from '@/api/endpoint/members/getRecommendations';
 import ResizedImage from '@/components/common/ResizedImage';
 import Text from '@/components/common/Text';
@@ -46,10 +46,7 @@ export const MemberCard = () => {
 
   useEffect(() => {
     if (isError) {
-      const status =
-        axios.isAxiosError(error) && !!error.response && typeof error.response.status === 'number'
-          ? error.response.status
-          : null;
+      const status = error instanceof ApiError && typeof error.status === 'number' ? error.status : null;
 
       const errorMessage =
         status === 400 ? `밸런스게임을 먼저 진행해주세요` : `데이터를 불러오는 중 오류가 발생했습니다.`;

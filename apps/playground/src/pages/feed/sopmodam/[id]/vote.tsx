@@ -2,10 +2,10 @@ import styled from '@emotion/styled';
 import { parseRoundId } from '@shared/parseRoundId';
 import { useQueryClient } from '@tanstack/react-query';
 import { ErrorBoundary } from '@toss/error-boundary';
-import { isAxiosError } from 'axios';
 import ErrorPage from 'next/error';
 import { Suspense, useEffect, useRef } from 'react';
 
+import { ApiError } from '@/api/apiError';
 import type { SopmodamQuestionsQueryResult } from '@/api/endpoint/sopmodam/getSopmodamQuestions';
 import { getSopmodamQuestions } from '@/api/endpoint/sopmodam/getSopmodamQuestions';
 import Loading from '@/components/common/Loading';
@@ -64,7 +64,7 @@ const SopmodamVotePage = () => {
       }}
       renderFallback={({ error }) => (
         <SopmodamLayout>
-          <ErrorPage statusCode={isAxiosError(error) ? (error.response?.status ?? 500) : 500} />
+          <ErrorPage statusCode={error instanceof ApiError ? (error.status ?? 500) : 500} />
         </SopmodamLayout>
       )}
     >

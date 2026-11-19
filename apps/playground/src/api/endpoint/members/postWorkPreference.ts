@@ -1,14 +1,14 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { z } from 'zod';
 
-import { createEndpoint } from '@/api/typedAxios';
+import { createEndpoint } from '@/api/createEndpoint';
 import type { WorkPreferenceType } from '@/components/matchmember/constant';
 
 export const postWorkPreference = createEndpoint({
   request: (requestBody: WorkPreferenceType) => ({
     method: 'PATCH',
     url: `api/v1/members/work-preference`,
-    data: requestBody,
+    json: requestBody,
   }),
   serverResponseScheme: z.unknown(),
 });

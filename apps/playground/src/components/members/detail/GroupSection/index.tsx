@@ -3,10 +3,10 @@ import { playgroundLink } from '@sopt/constant';
 import { colors } from '@sopt-makers/colors';
 import { fonts } from '@sopt-makers/fonts';
 import { useVirtualizer } from '@tanstack/react-virtual';
-import axios from 'axios';
 import Link from 'next/link';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
+import { ApiError } from '@/api/apiError';
 import { useMemberMeetingList } from '@/api/crew/getMeetingList';
 import type { ProfileDetail } from '@/api/endpoint_LEGACY/members/type';
 import Loading from '@/components/common/Loading';
@@ -49,7 +49,7 @@ const GroupSection = ({ profile, meId, memberId }: GroupSectionProps) => {
     estimateSize: useCallback(() => 136, []),
   });
 
-  if (axios.isAxiosError(crewError) && crewError.response?.status === 400) {
+  if (crewError instanceof ApiError && crewError.status === 400) {
     return profile.isMine ? <EmptyProfile /> : null;
   }
 

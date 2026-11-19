@@ -1,8 +1,8 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { z } from 'zod';
 
+import { createEndpoint } from '@/api/createEndpoint';
 import type { ProfileRequest } from '@/api/endpoint_LEGACY/members/type';
-import { createEndpoint } from '@/api/typedAxios';
 
 /**
  * @desc 멤버 프로필 수정
@@ -11,7 +11,7 @@ export const putMemberProfile = createEndpoint({
   request: (body: ProfileRequest) => ({
     method: 'PUT',
     url: 'api/v1/members/profile',
-    data: body,
+    json: body,
   }),
   serverResponseScheme: z.object({
     id: z.number(),

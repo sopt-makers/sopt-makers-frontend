@@ -1,14 +1,14 @@
 import { useMutation } from '@tanstack/react-query';
 import { z } from 'zod';
 
-import { createEndpoint } from '@/api/typedAxios';
+import { createEndpoint } from '@/api/createEndpoint';
 import type { EditFeedDataType } from '@/components/feed/upload/types';
 
 export const putFeed = createEndpoint({
   request: (requestBody: EditFeedDataType) => ({
     method: 'PUT',
     url: 'api/v1/community/posts',
-    data: requestBody,
+    json: requestBody,
   }),
   serverResponseScheme: z.unknown(),
 });

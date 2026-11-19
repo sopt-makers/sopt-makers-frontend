@@ -1,12 +1,12 @@
 import { z } from 'zod';
 
-import { createEndpoint } from '@/api/typedAxios';
+import { createEndpoint } from '@/api/createEndpoint';
 
 export const changeSMSCode = createEndpoint({
   request: (data: { phone: string }) => ({
     method: 'POST',
     url: '/api/v1/change/sms/code',
-    data,
+    json: data,
   }),
   serverResponseScheme: z.object({
     success: z.boolean(),

@@ -1,9 +1,9 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { z } from 'zod';
 
+import { createEndpoint } from '@/api/createEndpoint';
 import { useGetPostsInfiniteQuery } from '@/api/endpoint/feed/getPosts';
 import { getRecentPosts } from '@/api/endpoint/feed/getRecentPosts';
-import { createEndpoint } from '@/api/typedAxios';
 
 interface RequestBody {
   content: string;
@@ -26,7 +26,7 @@ export const postComment = createEndpoint({
   request: (postId: string, reqeustBody: RequestBody) => ({
     method: 'POST',
     url: `api/v1/community/${postId}/comment`,
-    data: reqeustBody,
+    json: reqeustBody,
   }),
   serverResponseScheme: z.unknown(),
 });

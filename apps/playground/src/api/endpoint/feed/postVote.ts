@@ -2,10 +2,10 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { produce } from 'immer';
 import { z } from 'zod';
 
+import { createEndpoint } from '@/api/createEndpoint';
 import type { PostType } from '@/api/endpoint/feed/getPost';
 import { getPost } from '@/api/endpoint/feed/getPost';
 import { getRecentPosts } from '@/api/endpoint/feed/getRecentPosts';
-import { createEndpoint } from '@/api/typedAxios';
 
 const OptionSchema = z.object({
   selectedOptions: z.array(z.number().int()).min(1).max(5),
@@ -31,7 +31,7 @@ export const postVote = createEndpoint({
   request: (postId: number, requestBody: z.infer<typeof OptionSchema>) => ({
     method: 'POST',
     url: `api/v1/community/posts/${postId}/vote`,
-    data: requestBody,
+    json: requestBody,
   }),
   serverResponseScheme: VoteResponseSchema,
 });
