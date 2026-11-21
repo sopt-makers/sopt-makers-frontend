@@ -89,6 +89,7 @@ export const HomePopup = ({ pcImageUrl, mobileImageUrl, linkUrl, openInNewTab }:
     onOpenResolutionModal();
   };
 
+  // 어드민에서 등록한 링크로 이동
   const handleClickPopup = () => {
     if (!linkUrl) return;
 
@@ -113,14 +114,14 @@ export const HomePopup = ({ pcImageUrl, mobileImageUrl, linkUrl, openInNewTab }:
             <StPopupModal>
               <Responsive only='desktop'>
                 <LoggingClick eventKey='adPopupBody'>
-                  <StButton onClick={handleOpenModal}>
+                  <StButton onClick={handleClickPopup}>
                     <StImage src={pcImageUrl} />
                   </StButton>
                 </LoggingClick>
               </Responsive>
               <Responsive only='mobile'>
                 <LoggingClick eventKey='adPopupBody'>
-                  <StButton onClick={handleOpenModal}>
+                  <StButton onClick={handleClickPopup}>
                     <StImage src={mobileImageUrl} />
                   </StButton>
                 </LoggingClick>

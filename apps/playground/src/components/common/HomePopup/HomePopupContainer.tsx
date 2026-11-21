@@ -26,7 +26,7 @@ const HomePopupContainer = () => {
   }
 
   //최신 기수만 보기 옵션이 활성화인 경우
-  if (!isLastGeneration) {
+  if (homePopupData.showOnlyToRecentGeneration && !isLastGeneration) {
     return null;
   }
 
