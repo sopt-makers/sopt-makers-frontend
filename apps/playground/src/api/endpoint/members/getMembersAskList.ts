@@ -1,13 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
 import { z } from 'zod';
 
-import { createEndpoint } from '@/api/typedAxios';
+import { createEndpoint } from '@/api/createEndpoint';
 
 export const getMembersAskList = createEndpoint({
   request: (part: string) => ({
     method: 'GET',
     url: 'api/v1/members/ask/list',
-    params: { part },
+    searchParams: { part },
   }),
   serverResponseScheme: z.object({
     members: z.array(

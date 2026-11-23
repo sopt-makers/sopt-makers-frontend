@@ -4,19 +4,19 @@ import type { ReactNode } from 'react';
 import { QueryParamProvider } from 'use-query-params';
 import { WindowHistoryAdapter } from 'use-query-params/adapters/window';
 
-import { axiosInstance } from '@/api';
+import { httpClient } from '@/api';
 import { useCoffeeChatFilters } from '@/components/coffeechat/CoffeeChatCategory/useCoffeeChatFilters';
 
 import { useGetMembersCoffeeChat } from './getMembersCoffeeChat';
 
-jest.mock('@/api', () => ({ axiosInstance: { request: jest.fn() } }));
+jest.mock('@/api', () => ({ httpClient: { request: jest.fn() } }));
 jest.mock('@/constants/env', () => ({ DEBUG: true }));
 
 let mockIsReady = false;
 jest.mock('next/router', () => ({ useRouter: () => ({ isReady: mockIsReady }) }));
 
 let queryClient: QueryClient;
-const request = jest.mocked(axiosInstance.request);
+const request = jest.mocked(httpClient.request);
 const Wrapper = ({ children }: { children: ReactNode }) => (
   <QueryClientProvider client={queryClient}>
     <QueryParamProvider adapter={WindowHistoryAdapter}>{children}</QueryParamProvider>
@@ -33,7 +33,7 @@ describe('커피솝 필터 조회', () => {
     mockIsReady = false;
     queryClient = new QueryClient({ defaultOptions: { queries: { retry: false } } });
     request.mockReset();
-    request.mockResolvedValue({ data: { coffeeChatList: [] } });
+    request.mockResolvedValue({ coffeeChatList: [] });
     window.history.replaceState(null, '', '/coffeechat');
   });
 
@@ -54,7 +54,10 @@ describe('커피솝 필터 조회', () => {
     await waitFor(() => expect(result.current.isSuccess).toBe(true));
     const params = { section: '프론트', career: '인턴 경험만 있어요', topicType: '커리어', part: '웹', search: '토스' };
     expect(request).toHaveBeenCalledTimes(1);
-    expect(request).toHaveBeenCalledWith(expect.objectContaining({ params }));
+    expect(request).toHaveBeenCalledWith(
+      'api/v1/members/coffeechat',
+      expect.objectContaining({ searchParams: params }),
+    );
     expect(queryClient.getQueryData(['getMembersCoffeeChat', params])).toEqual({ coffeeChatList: [] });
   });
 
@@ -62,7 +65,7 @@ describe('커피솝 필터 조회', () => {
     mockIsReady = true;
     const { result } = renderHook(useFilteredQuery, { wrapper: Wrapper });
     await waitFor(() => expect(result.current.isSuccess).toBe(true));
-    expect(request).toHaveBeenCalledWith(expect.objectContaining({ params: {} }));
+    expect(request).toHaveBeenCalledWith('api/v1/members/coffeechat', expect.objectContaining({ searchParams: {} }));
   });
 
   it('잘못된 URL 필터는 제외하고 경력 변환과 검색어 전체를 보존한다', async () => {
@@ -71,7 +74,8 @@ describe('커피솝 필터 조회', () => {
     const { result } = renderHook(useFilteredQuery, { wrapper: Wrapper });
     await waitFor(() => expect(result.current.isSuccess).toBe(true));
     expect(request).toHaveBeenCalledWith(
-      expect.objectContaining({ params: { career: '아직 없어요', search: '전체' } }),
+      'api/v1/members/coffeechat',
+      expect.objectContaining({ searchParams: { career: '아직 없어요', search: '전체' } }),
     );
   });
 });

@@ -1,12 +1,12 @@
 import { z } from 'zod';
 
-import { createEndpoint } from '@/api/typedAxios';
+import { createEndpoint } from '@/api/createEndpoint';
 
 export const appleChangeEndpoint = createEndpoint({
   request: (data: { code: string; registerToken: string }) => ({
     method: 'POST',
     url: '/api/v1/idp/apple/change',
-    data,
+    json: data,
   }),
   serverResponseScheme: z.object({
     accessToken: z.string(),

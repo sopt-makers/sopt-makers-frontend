@@ -2,7 +2,7 @@ import { useMutation } from '@tanstack/react-query';
 import { useQueryClient } from '@tanstack/react-query';
 import z from 'zod';
 
-import { createEndpoint } from '@/api/typedAxios';
+import { createEndpoint } from '@/api/createEndpoint';
 import type { TimecapsopTag } from '@/components/resolution/constants';
 
 export interface ResolutionRequestBody {
@@ -14,7 +14,7 @@ export const postResolution = createEndpoint({
   request: (requestBody: ResolutionRequestBody) => ({
     method: 'POST',
     url: `api/v1/resolution`,
-    data: requestBody,
+    json: requestBody,
   }),
   serverResponseScheme: z.unknown(),
 });

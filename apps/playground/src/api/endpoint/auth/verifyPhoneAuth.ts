@@ -1,14 +1,14 @@
 import { useMutation } from '@tanstack/react-query';
 import { z } from 'zod';
 
-import { axiosAuthInstance } from '@/api';
-import { createEndpoint } from '@/api/typedAxios';
+import { authHttpClient } from '@/api';
+import { createEndpoint } from '@/api/createEndpoint';
 
 const verifyPhoneAuth = createEndpoint({
   request: (data: { name: string; phone: string; code: string }) => ({
     method: 'POST',
     url: '/api/v1/auth/verify/phone',
-    data: {
+    json: {
       name: data.name,
       phone: data.phone,
       code: data.code,
@@ -19,7 +19,7 @@ const verifyPhoneAuth = createEndpoint({
     success: z.boolean(),
     message: z.string().nullable(),
   }),
-  externalInstance: axiosAuthInstance,
+  client: authHttpClient,
 });
 
 export const useVerifyPhoneAuth = () => {

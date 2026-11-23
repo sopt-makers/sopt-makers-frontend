@@ -1,18 +1,11 @@
 import { to } from 'await-to-js';
-import type { AxiosError } from 'axios';
-import axios from 'axios';
 import { useRef, useState } from 'react';
 
+import { ApiError } from '@/api/apiError';
 import { changeSMSCode } from '@/api/endpoint/auth/changeSMSCode';
 import { changeSMSToken } from '@/api/endpoint/auth/changeSMSToken';
 import { PHONE_REGEX, PHONE_REGEX_SHORT } from '@/components/auth/register/verify/regex';
 import type { ByPhoneStates } from '@/components/auth/register/verify/view/ByPhoneView';
-
-interface ErrorResponse {
-  success: boolean;
-  code: string;
-  message: string;
-}
 
 const phoneErrorMap: Record<string, string> = {
   emptySoptUser:
@@ -54,10 +47,9 @@ const useResetLogin = ({
     const [err, _] = await to(changeSMSCode.request({ phone: phone.replace(/-/g, '') }));
 
     if (err) {
-      if (axios.isAxiosError(err)) {
+      if (err instanceof ApiError) {
         const message = (() => {
-          const e = err as AxiosError<ErrorResponse>;
-          const code = e.response?.data.code;
+          const code = err.code;
 
           if (code && code in phoneErrorMap) {
             return phoneErrorMap[code];
@@ -106,10 +98,9 @@ const useResetLogin = ({
     const [err, result] = await to(changeSMSToken.request({ code }));
 
     if (err) {
-      if (axios.isAxiosError(err)) {
+      if (err instanceof ApiError) {
         const message = (() => {
-          const e = err as AxiosError<ErrorResponse>;
-          const code = e.response?.data.code;
+          const code = err.code;
 
           if (code && code in codeErrorMap) {
             return codeErrorMap[code];

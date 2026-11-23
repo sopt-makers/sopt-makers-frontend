@@ -1,6 +1,6 @@
-import { isAxiosError } from 'axios';
 import { useRef } from 'react';
 
+import { ApiError } from '@/api/apiError';
 import type { SopmodamMyAnswerResponse } from '@/api/endpoint/sopmodam/answerSchemas';
 import { SopmodamAnswerContentSchema } from '@/api/endpoint/sopmodam/answerSchemas';
 import { useSaveSopmodamAnswerMutation } from '@/api/endpoint/sopmodam/useSaveSopmodamAnswerMutation';
@@ -42,7 +42,7 @@ export const useSubmitSopmodamAnswer = ({ roundId, data, isQueryError }: UseSubm
     }
   };
 
-  const saveErrorStatus = variables?.roundId === roundId && isAxiosError(error) ? error.response?.status : undefined;
+  const saveErrorStatus = variables?.roundId === roundId && error instanceof ApiError ? error.status : undefined;
 
   return { submitAnswer, isSubmitting, saveErrorStatus };
 };

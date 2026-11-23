@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { z } from 'zod';
 
-import { createEndpoint } from '@/api/typedAxios';
+import { createEndpoint } from '@/api/createEndpoint';
 
 /**
  * @desc 자신의 토큰으로 조회

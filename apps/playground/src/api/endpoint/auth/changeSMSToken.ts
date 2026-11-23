@@ -1,12 +1,12 @@
 import { z } from 'zod';
 
-import { createEndpoint } from '@/api/typedAxios';
+import { createEndpoint } from '@/api/createEndpoint';
 
 export const changeSMSToken = createEndpoint({
   request: (data: { code: string }) => ({
     method: 'POST',
     url: '/api/v1/change/sms/token',
-    data: {
+    json: {
       sixNumberCode: data.code,
     },
   }),

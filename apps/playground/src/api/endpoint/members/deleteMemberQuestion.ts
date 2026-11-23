@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { z } from 'zod';
 
-import { createEndpoint } from '@/api/typedAxios';
+import { createEndpoint } from '@/api/createEndpoint';
 
 /**
  * @desc 질문 삭제 (본인 질문 삭제 / 답변 작성 후에는 답변자만 삭제 가능)

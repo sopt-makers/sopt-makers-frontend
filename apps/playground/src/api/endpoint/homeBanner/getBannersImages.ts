@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import { z } from 'zod';
 
-import { axiosOperationInstance } from '@/api';
-import { createEndpoint } from '@/api/typedAxios';
+import { operationHttpClient } from '@/api';
+import { createEndpoint } from '@/api/createEndpoint';
 
 const BannerImageSchema = z.object({
   pc_url: z.string(),
@@ -22,12 +22,12 @@ export const getBannersImages = createEndpoint({
   request: ({ location }: { location: string }) => ({
     method: 'GET',
     url: 'api/v1/banners/images',
-    params: {
+    searchParams: {
       location,
     },
   }),
   serverResponseScheme: BannersResponseSchema,
-  externalInstance: axiosOperationInstance,
+  client: operationHttpClient,
 });
 
 export const useBannersImages = () =>

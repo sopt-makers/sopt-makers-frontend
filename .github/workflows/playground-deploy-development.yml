@@ -4,12 +4,14 @@ on:
   push:
     branches: [develop]
     paths:
+      - '.nvmrc'
       - 'apps/playground/**'
       - 'packages/**'
       - 'package.json'
       - 'yarn.lock'
   pull_request:
     paths:
+      - '.nvmrc'
       - 'apps/playground/**'
       - 'packages/**'
       - 'package.json'
@@ -40,7 +42,7 @@ jobs:
 
       - uses: actions/setup-node@v3
         with:
-          node-version: 20
+          node-version-file: '.nvmrc'
 
       - name: Enable Corepack
         run: |

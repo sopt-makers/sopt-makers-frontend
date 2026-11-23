@@ -1,5 +1,4 @@
-import axios from 'axios';
-
+import { ApiError } from '@/api/apiError';
 import { postFacebookAuth, postFacebookRegistration } from '@/api/endpoint_LEGACY/auth';
 import useStateParam from '@/components/auth/util/useStateParam';
 import { FACEBOOK_APP_ID, ORIGIN } from '@/constants/env';
@@ -51,8 +50,8 @@ const useFacebookAuth = (): FacebookAuth => {
           accessToken,
         };
       } catch (err) {
-        if (axios.isAxiosError(err)) {
-          if (err.response?.status === 403) {
+        if (err instanceof ApiError) {
+          if (err.status === 403) {
             return {
               success: false,
               error: 'notMember',

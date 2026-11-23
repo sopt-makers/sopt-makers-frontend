@@ -1,8 +1,8 @@
 import { useMutation } from '@tanstack/react-query';
 import { z } from 'zod';
 
-import { axiosCrewInstance } from '@/api';
-import { createEndpoint } from '@/api/typedAxios';
+import { crewHttpClient } from '@/api';
+import { createEndpoint } from '@/api/createEndpoint';
 
 export interface GroupFeedParams {
   contents: string;
@@ -23,10 +23,10 @@ export const postGroupFeed = createEndpoint({
   request: (orgId: number, requestBody: GroupFeedParams) => ({
     method: 'POST',
     url: `internal/post/${orgId}`,
-    data: requestBody,
+    json: requestBody,
   }),
   serverResponseScheme: PostGroupFeedResponseSchema,
-  externalInstance: axiosCrewInstance,
+  client: crewHttpClient,
 });
 
 export const usePostGroupFeed = (orgId: number) => {

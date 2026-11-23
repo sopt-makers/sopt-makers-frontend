@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { z } from 'zod';
 
-import { createEndpoint } from '@/api/typedAxios';
+import { createEndpoint } from '@/api/createEndpoint';
 
 interface RequestBody {
   blockedMemberId: number;
@@ -11,7 +11,7 @@ export const postBlockMember = createEndpoint({
   request: (requestBody: RequestBody) => ({
     method: 'PATCH',
     url: `api/v1/members/block/activate`,
-    data: requestBody,
+    json: requestBody,
   }),
   serverResponseScheme: z.unknown(),
 });

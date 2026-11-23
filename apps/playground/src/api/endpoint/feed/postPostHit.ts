@@ -1,12 +1,12 @@
 import { z } from 'zod';
 
-import { createEndpoint } from '@/api/typedAxios';
+import { createEndpoint } from '@/api/createEndpoint';
 
 export const postPostHit = createEndpoint({
   request: (postIdList: string[]) => ({
     method: 'POST',
     url: `api/v1/community/posts/hit`,
-    data: {
+    json: {
       postIdList: postIdList.map((id) => Number(id)).filter((value) => !Number.isNaN(value)),
     },
   }),

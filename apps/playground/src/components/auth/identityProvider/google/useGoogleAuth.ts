@@ -1,5 +1,4 @@
-import axios from 'axios';
-
+import { ApiError } from '@/api/apiError';
 import { googleChangeEndpoint } from '@/api/endpoint/auth/googleChange';
 import { postGoogleAuth, postGoogleRegistration } from '@/api/endpoint_LEGACY/auth';
 import useStateParam from '@/components/auth/util/useStateParam';
@@ -63,8 +62,8 @@ const useGoogleAuth = (): GoogleAuth => {
           accessToken,
         };
       } catch (err) {
-        if (axios.isAxiosError(err)) {
-          if (err.response?.status === 403) {
+        if (err instanceof ApiError) {
+          if (err.status === 403) {
             return {
               success: false,
               error: 'notMember',

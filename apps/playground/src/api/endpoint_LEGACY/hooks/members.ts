@@ -1,7 +1,7 @@
 import type { UseQueryOptions } from '@tanstack/react-query';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import type { AxiosError } from 'axios';
 
+import type { ApiError } from '@/api/apiError';
 import { getMembersSearchByName } from '@/api/endpoint/members/getMembersSearchByName';
 import { getMemberProfileById, getMemberProfileOfMe, postMemberMessage } from '@/api/endpoint_LEGACY/members';
 import type { PostMemberMessageVariables, ProfileDetail } from '@/api/endpoint_LEGACY/members/type';
@@ -10,7 +10,7 @@ import type { PostMemberMessageVariables, ProfileDetail } from '@/api/endpoint_L
 export const useGetMemberProfileById = (
   id: number | undefined,
   options?: Omit<
-    UseQueryOptions<unknown, AxiosError, ProfileDetail, (string | number | undefined)[]>,
+    UseQueryOptions<unknown, ApiError, ProfileDetail, (string | number | undefined)[]>,
     'queryKey' | 'queryFn'
   >,
 ) => {

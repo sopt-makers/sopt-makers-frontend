@@ -1,16 +1,20 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 
-import { axiosCrewInstance } from '@/api';
+import { crewHttpClient } from '@/api';
 import CrewQueryKey from '@/api/crew/CrewQueryKey';
 
+type CrewPostsResponse = {
+  pageMeta?: { hasNextPage: boolean; page: number };
+};
+
 const getCrewPost = async (orgId: number, page: number, take: number) => {
-  const response = await axiosCrewInstance.get(`/internal/post/${orgId}`, {
-    params: {
+  return crewHttpClient.request<CrewPostsResponse>(`/internal/post/${orgId}`, {
+    method: 'GET',
+    searchParams: {
       page,
       take,
     },
   });
-  return response.data;
 };
 
 export const useGetCrewPostInfiniteQuery = (orgId: number) => {

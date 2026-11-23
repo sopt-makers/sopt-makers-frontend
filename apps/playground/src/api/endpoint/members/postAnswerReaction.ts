@@ -2,8 +2,8 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { produce } from 'immer';
 import { z } from 'zod';
 
+import { createEndpoint } from '@/api/createEndpoint';
 import type { GetMemberQuestionsResponse } from '@/api/endpoint/members/getMemberQuestions';
-import { createEndpoint } from '@/api/typedAxios';
 
 /**
  * @desc 답변에 반응(도움돼요) 추가/취소

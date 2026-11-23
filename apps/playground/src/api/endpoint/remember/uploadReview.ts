@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { z } from 'zod';
 
-import { createEndpoint } from '@/api/typedAxios';
+import { createEndpoint } from '@/api/createEndpoint';
 
 interface RequestBody {
   content: string;
@@ -11,7 +11,7 @@ export const uploadReview = createEndpoint({
   request: (reqeustBody: RequestBody) => ({
     method: 'POST',
     url: `api/v1/review`,
-    data: reqeustBody,
+    json: reqeustBody,
   }),
   serverResponseScheme: z.unknown(),
 });

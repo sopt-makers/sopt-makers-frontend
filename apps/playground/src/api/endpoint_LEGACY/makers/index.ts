@@ -1,11 +1,8 @@
-import { axiosInstance } from '@/api';
+import { httpClient } from '@/api';
 import type { Maker } from '@/api/endpoint_LEGACY/makers/types';
 
 export const getMakersProfile = async () => {
-  const { data } = await axiosInstance.request<Maker[]>({
-    method: 'GET',
-    url: `makers/profile`,
-  });
+  const data = await httpClient.request<Maker[]>(`makers/profile`, { method: 'GET' });
 
   return data;
 };

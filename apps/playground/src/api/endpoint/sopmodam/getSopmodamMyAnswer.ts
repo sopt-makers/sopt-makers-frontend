@@ -1,9 +1,9 @@
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query';
-import { isAxiosError } from 'axios';
 
+import { ApiError } from '@/api/apiError';
+import { createEndpoint } from '@/api/createEndpoint';
 import type { SopmodamMyAnswerResponse } from '@/api/endpoint/sopmodam/answerSchemas';
 import { getSopmodamAnswerEndTime, SopmodamMyAnswerSchema } from '@/api/endpoint/sopmodam/answerSchemas';
-import { createEndpoint } from '@/api/typedAxios';
 
 const MAX_REFETCH_INTERVAL = 2_147_483_647;
 const ANSWER_STATUS_RECHECK_INTERVAL = 30_000;
@@ -32,7 +32,7 @@ export const getSopmodamMyAnswerQueryOptions = (roundId: number) =>
         }
         return { type: 'success', data: response };
       } catch (error) {
-        const statusCode = isAxiosError(error) ? error.response?.status : undefined;
+        const statusCode = error instanceof ApiError ? error.status : undefined;
         if (statusCode === 400 || statusCode === 403 || statusCode === 404) {
           return { type: 'error', statusCode };
         }
@@ -47,7 +47,7 @@ export const getSopmodamMyAnswerQueryOptions = (roundId: number) =>
       if (!result || result.type === 'error' || !result.data.canEdit) {
         return false;
       }
-      const errorStatus = isAxiosError(query.state.error) ? query.state.error.response?.status : undefined;
+      const errorStatus = query.state.error instanceof ApiError ? query.state.error.status : undefined;
       if (errorStatus !== undefined && errorStatus >= 400 && errorStatus < 500) {
         return false;
       }

@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { z } from 'zod';
 
-import { createEndpoint } from '@/api/typedAxios';
+import { createEndpoint } from '@/api/createEndpoint';
 
 const postMemberQuestionResponseScheme = z.object({
   questionId: z.number(),
@@ -18,7 +18,7 @@ export const postMemberAsk = createEndpoint({
   request: ({ receiverId, content, isAnonymous, latestSoptActivity }: PostMemberAskRequest) => ({
     method: 'POST',
     url: `api/v1/members/questions/${receiverId}`,
-    data: {
+    json: {
       content,
       isAnonymous,
       latestSoptActivity,

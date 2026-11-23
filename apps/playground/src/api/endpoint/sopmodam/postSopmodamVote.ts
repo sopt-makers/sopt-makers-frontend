@@ -2,9 +2,9 @@ import type { QueryClient } from '@tanstack/react-query';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { z } from 'zod';
 
+import { createEndpoint } from '@/api/createEndpoint';
 import type { SopmodamQuestionsQueryResult } from '@/api/endpoint/sopmodam/getSopmodamQuestions';
 import { getSopmodamQuestions } from '@/api/endpoint/sopmodam/getSopmodamQuestions';
-import { createEndpoint } from '@/api/typedAxios';
 
 interface SopmodamVoteRequest {
   roundId: number;
@@ -20,7 +20,7 @@ export const postSopmodamVote = createEndpoint({
   request: ({ roundId, questionId }: SopmodamVoteRequest) => ({
     method: 'POST',
     url: `api/v1/sopmodam/rounds/${roundId}/votes`,
-    data: { questionId },
+    json: { questionId },
   }),
   serverResponseScheme: VoteResponseSchema,
 });

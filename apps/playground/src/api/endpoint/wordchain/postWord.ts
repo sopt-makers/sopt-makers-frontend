@@ -1,16 +1,16 @@
 import type { UseMutationOptions } from '@tanstack/react-query';
 import { useMutation } from '@tanstack/react-query';
-import type { AxiosError } from 'axios';
 import { z } from 'zod';
 
-import type { GetResponseType } from '@/api/typedAxios';
-import { createEndpoint } from '@/api/typedAxios';
+import type { ApiError } from '@/api/apiError';
+import type { GetResponseType } from '@/api/createEndpoint';
+import { createEndpoint } from '@/api/createEndpoint';
 
 export const postWord = createEndpoint({
   request: (wordchainId: number, word: string) => ({
     method: 'POST',
     url: 'api/v1/chainWordGame/wordGame',
-    data: { roomId: wordchainId, word },
+    json: { roomId: wordchainId, word },
   }),
   serverResponseScheme: z.object({
     roomId: z.number(),
@@ -28,7 +28,7 @@ export const postWord = createEndpoint({
 
 export const usePostWord = (
   options?: Omit<
-    UseMutationOptions<GetResponseType<typeof postWord>, AxiosError, { wordchainId: number; word: string }, unknown>,
+    UseMutationOptions<GetResponseType<typeof postWord>, ApiError, { wordchainId: number; word: string }, unknown>,
     'mutationKey' | 'mutationFn'
   >,
 ) => {

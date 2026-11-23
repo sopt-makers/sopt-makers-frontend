@@ -4,9 +4,11 @@ on:
   push:
     branches: [develop]
     paths:
+      - '.nvmrc'
       - "apps/playground/**"
   pull_request:
     paths:
+      - '.nvmrc'
       - "apps/playground/**"
   workflow_dispatch:
 
@@ -21,7 +23,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version-file: '.nvmrc'
 
       - name: Enable Corepack
         run: |

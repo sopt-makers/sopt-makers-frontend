@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { z } from 'zod';
 
-import { createEndpoint } from '@/api/typedAxios';
+import { createEndpoint } from '@/api/createEndpoint';
 
 export const postReportPost = createEndpoint({
   request: (postId: string) => ({

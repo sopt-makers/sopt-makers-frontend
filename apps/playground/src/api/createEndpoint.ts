@@ -1,7 +1,7 @@
-import type { AxiosRequestConfig } from 'axios';
 import type { z } from 'zod';
 
-import { axiosInstance } from '@/api';
+import { httpClient } from '@/api';
+import type { HttpClient, HttpRequestOptions } from '@/api/httpClient';
 import { DEBUG } from '@/constants/env';
 
 interface Endpoint<ServerResponse, Params extends unknown[]> {
@@ -9,15 +9,17 @@ interface Endpoint<ServerResponse, Params extends unknown[]> {
   cacheKey(...params: Params): [...keys: string[], ...params: Params];
 }
 
+type EndpointRequest = HttpRequestOptions & { url: string };
+
 export function createEndpoint<
   Validator extends z.ZodType,
   Param extends unknown[] = [],
   Transformed = z.infer<Validator>,
 >(config: {
-  request: AxiosRequestConfig | ((...params: Param) => AxiosRequestConfig);
+  request: EndpointRequest | ((...params: Param) => EndpointRequest);
   serverResponseScheme: Validator;
   transformer?: (original: z.infer<Validator>) => Transformed;
-  externalInstance?: typeof axiosInstance;
+  client?: HttpClient;
 }): Endpoint<Transformed, Param> {
   const getConfig = (params: Param) => {
     if (typeof config.request === 'function') {
@@ -28,16 +30,16 @@ export function createEndpoint<
 
   return {
     async request(...params) {
-      const axiosConfig = getConfig(params);
-      const instance = config.externalInstance ?? axiosInstance; // 외부 api 사용할 때는 외부 instance 사용
+      const { url, ...options } = getConfig(params);
+      const client = config.client ?? httpClient;
 
-      const { data } = await instance.request<unknown>(axiosConfig);
+      const data = await client.request<unknown>(url, options);
 
       const res = config.serverResponseScheme.safeParse(data);
 
       if (!res.success) {
         const zodError = String(res.error).slice(0, 1000) + '\n...';
-        const message = `서버 타입 검증에 실패했습니다. (${axiosConfig.method} ${axiosConfig.url})\n${zodError}`;
+        const message = `서버 타입 검증에 실패했습니다. (${options.method} ${url})\n${zodError}`;
         console.error(message, zodError);
 
         if (DEBUG) {
@@ -50,9 +52,9 @@ export function createEndpoint<
       return res.data;
     },
     cacheKey(...params) {
-      const axiosConfig = getConfig(params);
+      const { method, url } = getConfig(params);
 
-      return [axiosConfig.method ?? 'GET', axiosConfig.url ?? '', ...params];
+      return [method ?? 'GET', url, ...params];
     },
   };
 }

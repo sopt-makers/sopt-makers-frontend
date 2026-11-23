@@ -1,12 +1,12 @@
 import { z } from 'zod';
 
-import { createEndpoint } from '@/api/typedAxios';
+import { createEndpoint } from '@/api/createEndpoint';
 
 export const changeIsBlindCoffeechat = createEndpoint({
   request: (open: boolean) => ({
     method: 'PATCH',
     url: 'api/v1/members/coffeechat/open',
-    data: { open: open },
+    json: { open: open },
   }),
   serverResponseScheme: z.unknown(),
 });

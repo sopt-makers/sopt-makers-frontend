@@ -2,7 +2,7 @@ import { keepPreviousData, useInfiniteQuery } from '@tanstack/react-query';
 import { QS } from '@toss/utils';
 import { z } from 'zod';
 
-import { createEndpoint } from '@/api/typedAxios';
+import { createEndpoint } from '@/api/createEndpoint';
 
 export interface ProjectsRequestParams {
   limit?: number;
